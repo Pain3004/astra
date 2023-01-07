@@ -75,6 +75,10 @@ Route::get('admin/get_office_address', [UserController::class, 'get_office_addre
 Route::post('admin/add_company_details', [UserController::class, 'add_company_details']);
 Route::get('admin/get_company_details', [UserController::class, 'get_company_details']);
 
+//Privilege
+Route::get('admin/editPrivilege', [UserPrivillegeController::class, 'getPrivilegeTable']);
+Route::get('admin/getEditPrivilegeUser', [UserPrivillegeController::class, 'getEditPrivilegeUserList']);
+
 // Login
 Route::get('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
@@ -102,7 +106,7 @@ Route::post('admin/deleteDriverOwnerOperator', [DriverController::class, 'delete
 Route::post('admin/restoreDriverOwnerOperator', [DriverController::class, 'restoreDriverOwnerOperator']);
 Route::post('admin/deleteViewDriverApp', [DriverController::class, 'deleteViewDriverApp']);
 
-Route::get('admin/editPrivilege', [UserPrivillegeController::class, 'getPrivilegeTable']);
+
 
 //customer
 Route::get('admin/customer', [CustomerController::class, 'getCustomerData']);
@@ -164,12 +168,29 @@ Route::post('admin/restoreFuelVendor', [FuelVendorController::class, 'restoreFue
 
 //fuel card
 Route::get('admin/getFuelCard', [FuelCardController::class, 'getFuelCard']);
+Route::post('admin/createFuelCard', [FuelCardController::class, 'createFuelCard']);
+Route::get('admin/editFuelCard', [FuelCardController::class, 'editFuelCard']);
+Route::post('admin/updateFuelCard', [FuelCardController::class, 'updateFuelCard']);
+Route::post('admin/deleteFuelCard', [FuelCardController::class, 'deleteFuelCard']);
+Route::post('admin/restoreFuelCard', [FuelCardController::class, 'restoreFuelCard']);
 
 //Fuel Receipt
 Route::get('admin/getFuelReceipt', [FuelReceiptController::class, 'getFuelReceipt']);
+Route::get('admin/createFuelReceipt', [FuelReceiptController::class, 'createFuelReceipt']);
+Route::post('admin/saveFuelReceipt', [FuelReceiptController::class, 'saveFuelReceipt']);
+Route::get('admin/editFuelReceipt', [FuelReceiptController::class, 'editFuelReceipt']);
+Route::post('admin/updateFuelReceipt', [FuelReceiptController::class, 'updateFuelReceipt']);
+Route::post('admin/deleteFuelReceipt', [FuelReceiptController::class, 'deleteFuelReceipt']);
+Route::post('admin/restoreFuelReceipt', [FuelReceiptController::class, 'restoreFuelReceipt']);
+Route::get('admin/getInvoicedNumber', [FuelReceiptController::class, 'getInvoicedNumber']);
 
 //Ifta Toll
 Route::get('admin/getIftaToll', [IftaTollController::class, 'getIftaToll']);
+Route::post('admin/createIftaToll', [IftaTollController::class, 'createIftaToll']);
+Route::get('admin/editIftaToll', [IftaTollController::class, 'editIftaToll']);
+Route::post('admin/updateIftaToll', [IftaTollController::class, 'updateIftaToll']);
+Route::post('admin/deleteIftaToll', [IftaTollController::class, 'deleteIftaToll']);
+Route::post('admin/restoreIftaToll', [IftaTollController::class, 'restoreIftaToll']);
 
 //Bank
 Route::get('admin/getBankData', [BankController::class, 'getBankData']);

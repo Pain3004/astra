@@ -177,7 +177,7 @@ $(document).ready(function() {
             data:{fuelCard:fuelCard, compID:compID},
             //dataType:JSON,
             success: function(text) {
-                alert(text.companyID);
+                // alert(text.companyID);
                 $('.updateFuel_Card_Type').val(text.fuelCardType);
                 $('.fuel_id').val(text._id);
                 $('.comp_id').val(text.companyID);
@@ -199,7 +199,7 @@ $(document).ready(function() {
         var currentBalance=$("#update_currentBalance").val();
         if(fuelCardType=='')
         {
-            swal.fire( "'Enter Enter Fuel Card Type");
+            swal.fire( "'Enter Fuel Card Type");
             $('#updateFuel_Card_Type').focus();
             return false;            
         } 
@@ -349,11 +349,7 @@ $(document).ready(function() {
                             "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
                             "<td data-field='openingDate' >" +openingDate  + "</td>" +
                             "<td data-field='openingBalance' >" + openingBalance + "</td>" +
-                            "<td data-field='currentBalance' >" + currentBalance + "</td>" +
-                            "<td style='text-align:center'>"+
-                                "<a class='mt-2 button-29 fs-14 text-white edit_modal_fuel_vendor'  title='Edit1' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                "<a class='mt-2 button-29 fs-14 text-white delete_modal_fuel_vendor'  title='delete' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-trash'></i></a>&nbsp"+
-                            "</td></tr>";
+                            "<td data-field='currentBalance' >" + currentBalance + "</td></tr>";
 
                         $("#restoreFuelVendorTable").append(fuelVendorStr);
                         no++;
