@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Fuel Receipts</h4>
+                    <h4 class="modal-title">Payment Registration</h4>
                     <button type="button" class="button-24 paymentReceiptRegisClose" >&times;</button>
                 </div>
 
