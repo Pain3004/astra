@@ -32,19 +32,19 @@ class AuthController extends Controller
         $user = User::where(['userEmail'=>$email, 'userPass'=>sha1($password)])->first();
         // dd( $user);
         if($user){
-            $id=(int)1;
-            // dd($user->_id);
-            LoggedUsers::create([
-                'id' =>1,
-                'userId'=>$user->_id,
-                'userEmail' => $user->userEmail,
-                'userFirstName'=> $user->userFirstName,
-                'userLastName'=>$user->userLastName,
-                'counter' => 1,
-                'created_time' => date('d-m-y h:i:s'),
-                'edit_time' =>time(),
-                'deleteStatus' =>"NO",
-            ]);
+            // $id=(int)1;
+            // // dd($user->_id);
+            // LoggedUsers::create([
+            //     'id' =>1,
+            //     'userId'=>$user->_id,
+            //     'userEmail' => $user->userEmail,
+            //     'userFirstName'=> $user->userFirstName,
+            //     'userLastName'=>$user->userLastName,
+            //     'counter' => 1,
+            //     'created_time' => date('d-m-y h:i:s'),
+            //     'edit_time' =>time(),
+            //     'deleteStatus' =>"NO",
+            // ]);
             Auth::login($user);
 
             return redirect('admin/dashboard')->withSuccess('You have Successfully loggedin');
@@ -56,23 +56,47 @@ class AuthController extends Controller
     public function dashboard()
     {        
         if(Auth::check()){
-
-            //  --  
-
             $driverData=\App\Models\Driver::all();
 
+            $count_data=LoggedUsers::all();
+            $count=count($count_data);
+            $emailArr=array();
+            // dd(Auth::user()->userEmail);
+            foreach($count_data as $row)
+            {
+                $emailArr[]=$row->userEmail;
+            }
+            // dd($emailArr);
+            if(!in_array(Auth::user()->userEmail, $emailArr))
+            {
+                LoggedUsers::create([
+                    'id' =>$count+1,
+                    'userId'=>Auth::user()->_id,
+                    'userEmail' => Auth::user()->userEmail,
+                    'userFirstName'=> Auth::user()->userFirstName,
+                    'userLastName'=>Auth::user()->userLastName,
+                    'counter' =>$count+1,
+                    'created_time' => date('d-m-y h:i:s'),
+                    'edit_time' =>time(),
+                    'deleteStatus' =>"NO",
+                ]);
+            }
             return view('dashboard',['driverData' => $driverData]);
+             
         }
         
-        
         return redirect("login")->withSuccess('Opps! You do not have access');
+
+        
     }
 
     public function logout() {
         $email=Auth::user()->userEmail;
-        // dd($email);
         $user=LoggedUsers::where('userEmail',$email)->first();
-        $user->delete();
+        if($user !=null)
+        {
+            $user->delete();
+        }       
         Session::flush();
         Auth::logout();
   
