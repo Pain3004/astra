@@ -365,6 +365,16 @@ $(document).ready(function() {
     // ===================== end user create =============================
     //===================== start office create ==========================
     $(".add_office_model_form_btn").click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/get_office_address",
+            async: false,
+            //dataType:JSON,
+            success: function(data) {                   
+                createOfficeAddressList(data);
+                officeAddressData = data;
+            }
+        });
         $("#add_office_modal_form").modal("show");
     });
     $(".close_office_modal_form").click(function(){
@@ -412,16 +422,16 @@ $(document).ready(function() {
             }
         })
     });
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/get_office_address",
-        async: false,
-        //dataType:JSON,
-        success: function(data) {                   
-            createOfficeAddressList(data);
-            officeAddressData = data;
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: base_path+"/admin/get_office_address",
+    //     async: false,
+    //     //dataType:JSON,
+    //     success: function(data) {                   
+    //         createOfficeAddressList(data);
+    //         officeAddressData = data;
+    //     }
+    // });
 
     function createOfficeAddressList(officeAddressData)
     {
@@ -453,6 +463,16 @@ $(document).ready(function() {
 
     // =========== start create add_Company_Name_modal_form ====================
     $(".add_Company_Name_modal_form_btn").click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/get_company_details",
+            async: false,
+            //dataType:JSON,
+            success: function(data) {                   
+                createCompanyListData(data);
+                companyDetails = data;
+            }
+        });
         $("#addCompanyModal").modal("show");
     });
     $(".close_Company_Name_modal_form").click(function(){
@@ -462,16 +482,16 @@ $(document).ready(function() {
     //     alert("dgfgf");
     // });
 
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/get_company_details",
-        async: false,
-        //dataType:JSON,
-        success: function(data) {                   
-            createCompanyListData(data);
-            companyDetails = data;
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: base_path+"/admin/get_company_details",
+    //     async: false,
+    //     //dataType:JSON,
+    //     success: function(data) {                   
+    //         createCompanyListData(data);
+    //         companyDetails = data;
+    //     }
+    // });
 
     function createCompanyListData(companyDetails)
     {
@@ -2317,24 +2337,3 @@ $(document).ready(function() {
         document.getElementById("up_ownerPercentage").stepUp(-1);
     }
     
-
-
-
-    //============= start  show all logged user in navbar ==============================
-    $(document).ready(function(){
-        // $("img.userNameOnHover").mouseover(function(){
-        //     var name=$(this).attr("data-name");
-        //     alert(name);
-        //     $(this).prevAll(".user_name_on_hover").text("dfdfgfgfgfg");
-        // });
-        // $( "img.user_Name_OnHover" )  
-        //     .mouseover(function() {  
-        //         // $( this ).find( "span" ).text( "mouse over " );
-        //         $(this).prevAll(".user_name_on_hover").text("dfdfgfgfgfg");  
-        //     })  
-        //     .mouseout(function() {  
-        //         // $( this ).find( "span" ).text( "mouse out " ); 
-        //         $(this).prevAll(".user_name_on_hover").text("132123131"); 
-        //     });  
-    });
-    //================== end show all logged user in navbar ============================

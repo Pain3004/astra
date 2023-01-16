@@ -61,7 +61,7 @@ Route::get('/table', function () {
 Auth::routes();
 
 // UserController
-Route::get('admin/dashboard', [AuthController::class, 'dashboard']);
+Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);
 Route::get('admin/user-privilege', [UserController::class, 'user']);
 Route::post('admin/add-user', [UserController::class, 'addUsers']);
@@ -193,6 +193,10 @@ Route::get('admin/editIftaTrip', [IftaTripController::class, 'editIftaTrip']);
 
 //Bank
 Route::get('admin/getBankData', [BankController::class, 'getBankData']);
+Route::post('admin/createBankData', [BankController::class, 'createBankData']);
+Route::get('admin/editBankData', [BankController::class, 'editBankData']);
+Route::post('admin/updateBankData', [BankController::class, 'updateBankData']);
+Route::post('admin/deleteBankData', [BankController::class, 'deleteBankData']);
 
 //credit Card
 Route::get('admin/getcreditCard', [CreditCardController::class, 'getcreditCard']);

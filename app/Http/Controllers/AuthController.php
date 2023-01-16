@@ -32,22 +32,9 @@ class AuthController extends Controller
         $user = User::where(['userEmail'=>$email, 'userPass'=>sha1($password)])->first();
         // dd( $user);
         if($user){
-            // $id=(int)1;
-            // // dd($user->_id);
-            // LoggedUsers::create([
-            //     'id' =>1,
-            //     'userId'=>$user->_id,
-            //     'userEmail' => $user->userEmail,
-            //     'userFirstName'=> $user->userFirstName,
-            //     'userLastName'=>$user->userLastName,
-            //     'counter' => 1,
-            //     'created_time' => date('d-m-y h:i:s'),
-            //     'edit_time' =>time(),
-            //     'deleteStatus' =>"NO",
-            // ]);
             Auth::login($user);
 
-            return redirect('admin/dashboard')->withSuccess('You have Successfully loggedin');
+            return redirect('/')->withSuccess('You have Successfully loggedin');
         }
   
         return redirect("login")->with('message','Opps! You have entered invalid credentials');

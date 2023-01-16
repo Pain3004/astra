@@ -2,6 +2,20 @@ var base_path = $("#url").val();
 $(document).ready(function() {
     // ============== strart list data trailer =================
     $("#trailer_nav").on('click',function(){
+
+        $('.trailerTypeSet').val('');
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/trailer_getTrailertype",
+            async: false,
+            //dataType:JSON,
+            success: function(data) {                   
+                createTrailerTypeList(data);
+                trailerTypeResponse = data;
+            }
+        });
+
+
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getTrailer",
@@ -119,14 +133,6 @@ $(document).ready(function() {
                     {
                         internalNotes="----";
                     }
-                    // var deactivationDate =TrailerResult.trailer_type.trailer[i].deactivationDate;
-                    // if(deactivationDate== false){
-                    //     deactivationDate='';
-                    // }
-                    // var dotexpiryDate =TrailerResult.trailer_type.trailer[i].dotexpiryDate;
-                    // if(dotexpiryDate== false){
-                    //     dotexpiryDate='';
-                    // }
                     if(TrailerResult.trailer_type.trailer[i].deleteStatus == "NO")
                     {
                         if(TrailerResult.trailer_type.trailer[i].plateExpiry !="" && TrailerResult.trailer_type.trailer[i].plateExpiry != null)
@@ -376,17 +382,17 @@ $(document).ready(function() {
 
     //===================== start save trailer type model ====================
     // $('.trailerTypeSet').focus(function(){
-        $('.trailerTypeSet').val('');
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/trailer_getTrailertype",
-            async: false,
-            //dataType:JSON,
-            success: function(data) {                   
-                createTrailerTypeList(data);
-                trailerTypeResponse = data;
-            }
-        });
+        // $('.trailerTypeSet').val('');
+        // $.ajax({
+        //     type: "GET",
+        //     url: base_path+"/admin/trailer_getTrailertype",
+        //     async: false,
+        //     //dataType:JSON,
+        //     success: function(data) {                   
+        //         createTrailerTypeList(data);
+        //         trailerTypeResponse = data;
+        //     }
+        // });
     // });
     function createTrailerTypeList(trailerTypeResponse) 
     {           

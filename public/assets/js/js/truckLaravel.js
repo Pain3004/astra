@@ -37,6 +37,18 @@ $(document).ready(function() {
 // <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
    
     $('#truck_navbar').click(function(){
+        $('.truckTypeSet').val('');
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/truck_getTrucktype",
+            async: false,
+            success: function(data) {                  
+                createTruckTypeList(data);
+                truckTypeResponse = data;
+            }
+        });
+
+
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getTruck",
@@ -57,19 +69,19 @@ $(document).ready(function() {
 // <!-- -------------------------------------------------------------------------get truck type ------------------------------------------------------------------------- -->  
    // $('.list select').selectpicker();   
 //    $('.truckTypeSet').focus(function(){
-    $('.truckTypeSet').val('');
-        //alert(); 
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/truck_getTrucktype",
-            async: false,
-            //dataType:JSON,
-            success: function(data) {
-                //console.log(data)                    
-                createTruckTypeList(data);
-                truckTypeResponse = data;
-            }
-        });
+    // $('.truckTypeSet').val('');
+    //     //alert(); 
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path+"/admin/truck_getTrucktype",
+    //         async: false,
+    //         //dataType:JSON,
+    //         success: function(data) {
+    //             //console.log(data)                    
+    //             createTruckTypeList(data);
+    //             truckTypeResponse = data;
+    //         }
+    //     });
     // });
 
 

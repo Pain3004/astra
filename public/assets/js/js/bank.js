@@ -38,7 +38,7 @@ $(document).ready(function() {
             if (bankResult != null) {
                 $("#bankTable").html('');
                 banklen = bankResult.length;
-alert(banklen);
+                // alert(banklen);
                 if (banklen > 0) {
                     for (var i = banklen-1; i >= 0; i--) { 
                         
@@ -150,5 +150,99 @@ alert(banklen);
 
    
 
-// <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // ==================== ====store bank data ==============================================
+    $(".createBankModalStore").click(function(){
+        $('#BankModalStoreData').modal("show");
+    });
+    $(".closeAddBankData").click(function(){
+        $('#BankModalStoreData').modal("hide");
+    });
+    $(".bankDataSavebutton").click(function(){
+        var bankName=$('.addbankName').val();
+        var bankAddresss=$('.addbankAddresss').val();
+        var accountHolder=$('.addaccountHolder').val();
+        var accountNo=$('.addaccountNo').val();
+        var routingNo=$('.addroutingNo').val();
+        var openingBalDate=$('.addopeningBalDate').val();
+        var openingBalance=$('.addopeningBalance').val();
+        var currentcheqNo=$('.addcurrentcheqNo').val();
+        if(bankName=="")
+        {
+            swal.fire( "'Enter bank Name");
+            return false;
+        }
+        if(bankAddresss=="")
+        {
+            swal.fire( "'Enter bank Addresss");
+            return false;
+        }
+        if(accountHolder=="")
+        {
+            swal.fire( "'Enter account Holder");
+            return false;
+        }
+        if(accountNo=="")
+        {
+            swal.fire( "'Enteraccount No");
+            return false;
+        }
+        if(routingNo=="")
+        {
+            swal.fire( "'Enter routing No");
+            return false;
+        }
+        if(openingBalDate=="")
+        {
+            swal.fire( "'Enter opening Bal Date");
+            return false;
+        }
+        
+        if(openingBalance=="")
+        {
+            swal.fire( "'Enter opening Balance");
+            return false;
+        }
+        var formData = new FormData();
+        formData.append('_token',$("#_tokenAdd_add_bank_data").val());
+        formData.append('bankName',bankName);
+        formData.append('bankAddresss',bankAddresss);
+        formData.append('accountHolder',accountHolder);
+        formData.append('accountNo',accountNo);
+        formData.append('routingNo',routingNo);
+        formData.append('openingBalDate',openingBalDate);
+        formData.append('openingBalance',openingBalance);
+        formData.append('currentcheqNo',currentcheqNo);
+        $.ajax({
+            type: "POST",
+            url: base_path+"/admin/createBankData",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            success: function(data) {                  
+                swal.fire("Done!", "Bank Stored successfully", "success");
+                $('#BankModalStoreData').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getBankData",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        createBankRows(text);
+                        bankResult = text;
+                     }
+                });
+            }
+        });
+    });
+    //====================================  end store bank data =============================
+   
+    //==================================== update bank details ==============================
+    //[============================ end update bank details ================================
+    
+    //============================== delete bank details ==============================
+    //================================== end details =================================
+
 });
