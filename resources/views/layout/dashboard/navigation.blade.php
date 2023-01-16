@@ -11,6 +11,9 @@
 	$reportsArray=$userdata->reports;
 	$settlementsArray=$userdata->settlements;
 	//dd($adminArray['addCustomer']);
+	$user=App\Models\LoggedUsers::get();
+	// dd($user);
+	$loggedUser=count($user);
  ?>
 <div class="app-header header sticky" style="padding: 0; background-color:#FBFBFB">
                 <div class="container-fluid main-container">
@@ -43,7 +46,7 @@
 										</li>
 										
 										<li class="slide">
-											<a class="side-menu__item has-link" data-bs-target="#LaodBoard" data-bs-toggle="modal">
+											<a href="{{URL::to('/')}}/admin/Loadboard" class="side-menu__item has-link" >
 											<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M19.9794922,7.9521484l-6-5.2666016c-1.1339111-0.9902344-2.8250732-0.9902344-3.9589844,0l-6,5.2666016C3.3717041,8.5219116,2.9998169,9.3435669,3,10.2069702V19c0.0018311,1.6561279,1.3438721,2.9981689,3,3h2.5h7c0.0001831,0,0.0003662,0,0.0006104,0H18c1.6561279-0.0018311,2.9981689-1.3438721,3-3v-8.7930298C21.0001831,9.3435669,20.6282959,8.5219116,19.9794922,7.9521484z M15,21H9v-6c0.0014038-1.1040039,0.8959961-1.9985962,2-2h2c1.1040039,0.0014038,1.9985962,0.8959961,2,2V21z M20,19c-0.0014038,1.1040039-0.8959961,1.9985962-2,2h-2v-6c-0.0018311-1.6561279-1.3438721-2.9981689-3-3h-2c-1.6561279,0.0018311-2.9981689,1.3438721-3,3v6H6c-1.1040039-0.0014038-1.9985962-0.8959961-2-2v-8.7930298C3.9997559,9.6313477,4.2478027,9.0836182,4.6806641,8.7041016l6-5.2666016C11.0455933,3.1174927,11.5146484,2.9414673,12,2.9423828c0.4853516-0.0009155,0.9544067,0.1751099,1.3193359,0.4951172l6,5.2665405C19.7521973,9.0835571,20.0002441,9.6313477,20,10.2069702V19z"/></svg>
 												<span class="side-menu__label">LoadBoard</span>
 											</a>
@@ -100,11 +103,13 @@
 														
 														@if(isset($adminArray['users']))
 															@if($adminArray['users']==1)
-															<li><a href="#userModal" class="slide-item" data-toggle="modal" data-target="#userModal">User</a></li>
+															<!-- <li><a href="#userModal" class="slide-item" data-toggle="modal" data-target="#userModal">User</a></li> -->
+															<li><a href="#" id="User_navbar" class="slide-item" >User</a></li>
 															@endif 
 														@elseif(isset($adminArray['user']))
 															@if($adminArray['user']==1)
-															<li><a href="#userModal" class="slide-item" data-toggle="modal" data-target="#userModal">User</a></li>
+															<!-- <li><a href="#userModal" class="slide-item" data-toggle="modal" data-target="#userModal">User</a></li> -->
+															<li><a href="#" id="User_navbar" class="slide-item" >User</a></li>
 															@endif 
 														@endif
 														
@@ -325,7 +330,7 @@
 															<li><a href="https://laravel8.spruko.com/noa/form-elements" class="slide-item">Driver Pay Settlements</a></li>
 															@endif	
 														@elseif(isset($settlementsArray['driverPaySettlements']))
-															@if($settlementsArray['driverReport']==1)
+															@if($settlementsArray['driverPaySettlements']==1)
 															<li><a href="https://laravel8.spruko.com/noa/form-elements" class="slide-item">Driver Pay Settlements</a></li>
 															@endif 
 														@endif
@@ -456,8 +461,23 @@
 										<div class="dropdown d-md-flex profile-1">
 												<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex animate">
 													<span>
-														<img src="https://eu.ui-avatars.com/api/?background=random&name={{auth()->user()->userFirstName}}+{{auth()->user()->userLastName}}" alt="profile-user"
+														@if($loggedUser < 5)
+															@foreach($user as $data)
+																<img src="https://eu.ui-avatars.com/api/?background=random&name={{$data->userFirstName}}+{{$data->userLastName}}" alt="profile-user"
+																class="avatar  profile-user brround cover-image user_Name_OnHover" data-name="{{$data->userFirstName}}+{{$data->userLastName}}">
+																<div class="user_name_on_hover">
+																{{$data->userFirstName}} {{$data->userLastName}}
+																</div>
+															@endforeach
+														@else
+															<img src="https://eu.ui-avatars.com/api/?background=random&name={{auth()->user()->userFirstName}}+{{auth()->user()->userLastName}}" alt="profile-user"
 															class="avatar  profile-user brround cover-image">
+															<div class>
+															{{auth()->user()->userFirstName}}{{auth()->user()->userLastName}}
+															</div>
+															+{{--$loggedUser}}
+															
+														@endif
 													</span>
 													<div class="text-center p-1 d-flex d-lg-none-max">
 														<h6 class="mb-0" id="profile-heading">{{Auth::user()->userFirstName}}<i class="user-angle ms-1 fa fa-angle-down "></i></h6>

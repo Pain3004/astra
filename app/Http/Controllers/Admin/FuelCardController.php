@@ -35,10 +35,12 @@ class FuelCardController extends Controller
         $totalFuelCardArray=0;
         $getFuelCard = FuelCard::where('companyID',$companyId)->first();
         $FuelCardArray= $getFuelCard->ifta_card;
+        $ids=array();
         foreach( $FuelCardArray as $key=> $getFuelCard_data)
         {
-            $ids=$getFuelCard_data['_id'];
+            $ids[]=$getFuelCard_data['_id'];
         }
+        $ids=max($ids);
         $totalFuelCardArray=$ids+1;
         // dd($totalFuelCardArray);
         $FuelCardData[]=array(    
@@ -61,7 +63,7 @@ class FuelCardController extends Controller
             if($getFuelCard){
                 FuelCard::where(['companyID' =>$companyId])->update([
                     'counter'=> $totalFuelCardArray,
-                    'ifta_card' =>array_merge($FuelCardData,$FuelCardArray) ,
+                    'ifta_card' =>array_merge($FuelCardArray,$FuelCardData) ,
                     
                 ]);
 
@@ -204,7 +206,6 @@ class FuelCardController extends Controller
             }
         }
     }
-
    
 
     

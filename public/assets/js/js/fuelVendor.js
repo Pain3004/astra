@@ -46,7 +46,16 @@ $(document).ready(function() {
                         var CompID =FuelVendorResult.companyID;
                         var fuelVendorId =FuelVendorResult.fuelCard[i]._id;
                         var fuelCardType =FuelVendorResult.fuelCard[i].fuelCardType;
-                        var openingDate =FuelVendorResult.fuelCard[i].openingDate;
+                        var openingDate =new Date(FuelVendorResult.fuelCard[i].openingDate);
+                        if(FuelVendorResult.fuelCard[i].openingDate != null)
+                        {
+                            openingDate= ((openingDate.getMonth() > 8) ? (openingDate.getMonth() + 1) : ('0' + (openingDate.getMonth() + 1))) + '/' + ((openingDate.getDate() > 9) ? openingDate.getDate() : ('0' + openingDate.getDate())) + '/' + openingDate.getFullYear();
+                        }
+                        else
+                        {
+                            openingDate="----";
+                        }
+                        // var openingDate =FuelVendorResult.fuelCard[i].openingDate;
                         var openingBalance =FuelVendorResult.fuelCard[i].openingBalance;
                         var currentBalance =FuelVendorResult.fuelCard[i].currentBalance;
                         var deleteStatus =FuelVendorResult.fuelCard[i].deleteStatus;

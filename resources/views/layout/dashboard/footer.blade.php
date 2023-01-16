@@ -119,6 +119,7 @@
 <script src="{{URL::to('/')}}/assets/js/js/Terms&Conditions.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/TruckTrailerMake.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/load.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/loadboard.js"></script>
 
 </body>
 

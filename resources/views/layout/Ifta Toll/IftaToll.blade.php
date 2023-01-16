@@ -27,6 +27,9 @@
                 
                 @if($deleteUser== 1)    
                     <a href="#" class="button-57_alt restoreIftaTollData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    <input type="hidden" name="checked_id" id="delete_checked_ifta_toll_ids" value="">
+                    <input type="hidden" name="company_id" id="delete_checked_iftaToll_company_ids" value="">
+                    <button id="delete_IftaTollData_btn"  class="button-57_alt delete_IftaTollData_btn" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete fuel vendor</span></button>
 
                 @endif
                     <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
@@ -49,9 +52,7 @@
                                         <thead class="thead_th">
                                         <tr class="tr">
                                            
-                                            <th scope="col" col width="50"> <input type="checkbox" id="checkall" class="checkall" onclick="checkall()"></th>
-                                            <!-- <th scope="col" col width="50"> <input type="checkbox" disabled></th>     -->
-
+                                            <th scope="col" col width="50"> <input type="checkbox" name="all_ids[]" class="delete_all_checked_ids"></th>
                                             <th >No</th>
                                             <th>Transaction Date</th>
                                             <th>Transaction Type</th>

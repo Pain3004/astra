@@ -996,7 +996,7 @@ class DriverController extends Controller
 
        //$destroy = destroy($driverAppArray[$v]);
     //    $result->driver = $driverArray;
-dd($destroy);
+//dd($destroy);
        if ($result->save()) {
             $success = true;
             $message = "Driver deleted successfully";

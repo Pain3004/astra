@@ -44,7 +44,7 @@ use App\Http\Controllers\Admin\UserPrivillegeController;
 //     return view('welcome');
 // });
 
-Route::get('/table', function () {
+    Route::get('/table', function () {
         return view('table');
     });
 
@@ -53,6 +53,9 @@ Route::get('/table', function () {
     });
     Route::get('/admin/driverApplication', function () {
         return view('driver_application_form');
+    });
+    Route::get('/admin/Loadboard', function () {
+        return view('layout.Loadboard.Loadboard');
     });
     // Route::get('profile', function () {
     //     return view('profile');
@@ -75,9 +78,10 @@ Route::get('admin/get_office_address', [UserController::class, 'get_office_addre
 Route::post('admin/add_company_details', [UserController::class, 'add_company_details']);
 Route::get('admin/get_company_details', [UserController::class, 'get_company_details']);
 
-//Privilege
-Route::get('admin/editPrivilege', [UserPrivillegeController::class, 'getPrivilegeTable']);
-Route::get('admin/getEditPrivilegeUser', [UserPrivillegeController::class, 'getEditPrivilegeUserList']);
+//Privileges
+Route::get('admin/editPrivilegeUser', [UserPrivillegeController::class, 'getPrivilegeTable']);
+Route::get('admin/getEditPrivilegeUserList', [UserPrivillegeController::class, 'getEditPrivilegeUserList']);
+Route::post('admin/updateUSerPrivi', [UserPrivillegeController::class, 'updateUSerPrivi']);
 
 // Login
 Route::get('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
@@ -182,6 +186,7 @@ Route::get('admin/editFuelReceipt', [FuelReceiptController::class, 'editFuelRece
 Route::post('admin/updateFuelReceipt', [FuelReceiptController::class, 'updateFuelReceipt']);
 Route::post('admin/deleteFuelReceipt', [FuelReceiptController::class, 'deleteFuelReceipt']);
 Route::post('admin/restoreFuelReceipt', [FuelReceiptController::class, 'restoreFuelReceipt']);
+Route::post('admin/deleteMulFuelReceipt', [FuelReceiptController::class, 'deleteMulFuelReceipt']);
 Route::get('admin/getInvoicedNumber', [FuelReceiptController::class, 'getInvoicedNumber']);
 
 //Ifta Toll
@@ -191,6 +196,7 @@ Route::get('admin/editIftaToll', [IftaTollController::class, 'editIftaToll']);
 Route::post('admin/updateIftaToll', [IftaTollController::class, 'updateIftaToll']);
 Route::post('admin/deleteIftaToll', [IftaTollController::class, 'deleteIftaToll']);
 Route::post('admin/restoreIftaToll', [IftaTollController::class, 'restoreIftaToll']);
+Route::post('admin/deleteMultiIftaToll', [IftaTollController::class, 'deleteMultiIftaToll']);
 
 //Bank
 Route::get('admin/getBankData', [BankController::class, 'getBankData']);

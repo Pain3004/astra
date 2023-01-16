@@ -419,7 +419,7 @@ $(document).ready(function() {
             // var no=1;
             //$(".customerCurrencySet").html('');
             $(".trailerTypeSet").html('');
-            for (var i = 0; i <= trailerTypelength; i++) 
+            for (var i=0; i<trailerTypelength; i++) 
             {  
                 var trailerType =trailerTypeResponse.trailer[i].trailerType;
                 var trailerTypeId =trailerTypeResponse.trailer[i]._id;

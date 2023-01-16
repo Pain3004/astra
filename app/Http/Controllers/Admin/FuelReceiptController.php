@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -34,6 +33,7 @@ class FuelReceiptController extends Controller
     }
     public function saveFuelReceipt(Request $request)
     {
+        // dd($request->driverName);
         
         request()->validate([
        
@@ -48,9 +48,18 @@ class FuelReceiptController extends Controller
         if($getFuelReceipt){
             $FuelReceiptArray=$getFuelReceipt->fuel_receipt;
             $totalFuelReceiptArray=count($FuelReceiptArray)+ 1;
+            $ids_trip=array();
+            foreach( $FuelReceiptArray as $ids)
+            {
+                // dd($ids);
+                $ids_trip[]=$ids['_id'];
+            }
+            // dd($ids_trip);
+            $ids_trip=max($ids_trip);
+            // dd($ids_trip);
         }
         $FuelReceiptData[]=array(    
-                        '_id' => $totalFuelReceiptArray ,
+                        '_id' => $ids_trip+1 ,
                         // 'counter' => 0,
                         'driverName' => $request->driverName,
                         'driverNumber' => $request->driverNo,
@@ -84,7 +93,7 @@ class FuelReceiptController extends Controller
             if($getFuelReceipt){
                 FuelReceipt::where(['companyID' =>$companyId])->update([
                     'counter'=> $totalFuelReceiptArray,
-                    'fuel_receipt' =>array_merge($FuelReceiptData,$FuelReceiptArray) ,
+                    'fuel_receipt' =>array_merge($FuelReceiptArray,$FuelReceiptData) ,
                     
                 ]);
 
@@ -122,7 +131,7 @@ class FuelReceiptController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        // DD($companyID);
+        // DD($request->invoiceNo);
         $fuelReceipt=FuelReceipt::where('companyID',$companyID)->first();
         $fuelReceiptArray=$fuelReceipt->fuel_receipt;
         $arrayLength=count($fuelReceiptArray);
@@ -245,11 +254,56 @@ class FuelReceiptController extends Controller
    public function getInvoicedNumber(Request $request)
    {
         $companyId=1;
-        $Invoiced = Invoiced::where('companyID',$companyId)->first();
+        // $Invoiced = Invoiced::where('companyID',$companyId)->first();
+        $Invoiced=null;
         return response()->json($Invoiced, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
    }
-
-   
+   public function deleteMulFuelReceipt(Request $request)
+   {
+    $fuelReceIds=$request->all_ids;
+    $custID=(array)$request->custID;
+    foreach($custID as $fuel_re_id)
+    {
+        $fuel_re_id=str_replace( array( '\'', '"',
+        ',' , ' " " ', '[', ']' ), ' ', $fuel_re_id);
+        $fuel_re_id=(int)$fuel_re_id;
+        $FuelReceipt = FuelReceipt::where('companyID',$fuel_re_id )->first();
+        $fuelReceiptArray=$FuelReceipt->fuel_receipt;
+        $arrayLength=count($fuelReceiptArray);            
+        $i=0;
+        $v=0;
+        $data=array();
+        for ($i=0; $i<$arrayLength; $i++){
+            $ids=$FuelReceipt->fuel_receipt[$i]['_id'];
+            $ids=(array)$ids;
+            foreach ($ids as $value){
+                $fuelReceIds= str_replace( array('[', ']'), ' ', $fuelReceIds);
+                if(is_string($fuelReceIds))
+                {
+                    $fuelReceIds=explode(",",$fuelReceIds);
+                }
+                foreach($fuelReceIds as $fuelReId)
+                {
+                    $fuelReId= str_replace( array('"', ']' ), ' ', $fuelReId);
+                    if($value==$fuelReId)
+                    {                        
+                        $data[]=$i; 
+                    }
+                }
+            }
+        }
+        foreach($data as $row)
+        {
+            $fuelReceiptArray[$row]['deleteStatus'] = "YES";
+            $FuelReceipt->fuel_receipt= $fuelReceiptArray;
+            $save=$FuelReceipt->save();
+        }
+        if ($save) {
+            $arr = array('status' => 'success', 'message' => 'Fuel Receipt Deleted successfully.','statusCode' => 200); 
+            return json_encode($arr);
+        }
+    }
+   }
 
     
 }

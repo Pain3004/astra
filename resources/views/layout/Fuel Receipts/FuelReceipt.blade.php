@@ -27,6 +27,8 @@
                     
                     @if($deleteUser== 1)    
                         <a href="#" class="button-57_alt restoreFuelReceiptData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                        <input type="hidden" name="company_id" id="checked_fuelRecepit_company_ids_delete" value="">
+                        <button id="delete_Fuel_ReceiptData"  class="button-57_alt delete_Fuel_ReceiptData" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete </span></button>
 
                     @endif
                     <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
@@ -55,7 +57,7 @@
                                         <thead class="thead_th">
                                         <tr >
                                            
-                                            <th scope="col" col width="50"> <input type="checkbox" id="checkall" class="checkall" onclick="checkall()"></th>
+                                            <th scope="col" col width="50"> <input type="checkbox" name="fuel_ids[]" class="fuel_recepit_ids_delete"></th>
                                             <!-- <th scope="col" col width="50"> <input type="checkbox" disabled></th>     -->
 
                                             <th >No</th>
@@ -157,6 +159,7 @@
                                                     <label>Driver Name
                                                     </label>
                                                     <div>
+                                                        <input type="hidden" class="form-control driver_name_fuelReceipt" name="driverName"> 
                                                        <select class="form-control addFuelReceiptDriver_name cardHolderName" name="driverName"> 
                                                          <option>select one </option>
                                                        </select>
@@ -318,6 +321,7 @@
                                                     <label>Payment Type
                                                     </label>
                                                     <div>
+                                                        <input type="hidden" class="form-control driver_name_fuelReceipt_edit" name="driverName"> 
                                                        <select class="form-control paymentType updateapayment_type_fuel_re" name="payment_type"> 
                                                          <option>select one </option>
                                                          <option value="Receipt">Receipt </option>
@@ -380,9 +384,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2 ">
                                                     <label >Location State <span style="color:#ff0000">*</span></label>
-                                                    <select class="form-control updateFuelReceiptLocationState registered_state" name="locationState" list="registered_state"  required autocomplete="off" > 
-                                                        <option> select one</option>
-                                                    </select>
+                                                    <input class="form-control updateFuelReceiptLocationState registered_state" name="locationState" list="registered_state"  required autocomplete="off" > 
                                                 </div>
                                                
                                                 <div class="form-group col-md-2">

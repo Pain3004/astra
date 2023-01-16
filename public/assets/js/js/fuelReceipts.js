@@ -47,7 +47,7 @@ $(document).ready(function() {
                         var custID=FuelReceiptResult.companyID;
                         var fuelReceiptId =FuelReceiptResult.fuel_receipt[i]._id;
                         var driverName =FuelReceiptResult.fuel_receipt[i].driverName;
-                        var transactionDate =FuelReceiptResult.fuel_receipt[i].transactionDate;
+                        var transactionDate =new Date(FuelReceiptResult.fuel_receipt[i].transactionDate);
                         var cardNo =FuelReceiptResult.fuel_receipt[i].cardNo;
                         var truckNumber =FuelReceiptResult.fuel_receipt[i].truckNumber;
                         var driverNumber =FuelReceiptResult.fuel_receipt[i].driverNumber;
@@ -66,12 +66,19 @@ $(document).ready(function() {
                         var invoiceNo =FuelReceiptResult.fuel_receipt[i].invoiceNo;
                         var deleteStatus =FuelReceiptResult.fuel_receipt[i].deleteStatus;
               //alert(fuelCardId);
-             
+                        if(FuelReceiptResult.fuel_receipt[i].transactionDate != null)
+                        {
+                            transactionDate= ((transactionDate.getMonth() > 8) ? (transactionDate.getMonth() + 1) : ('0' + (transactionDate.getMonth() + 1))) + '/' + ((transactionDate.getDate() > 9) ? transactionDate.getDate() : ('0' + transactionDate.getDate())) + '/' + transactionDate.getFullYear();
+                        }
+                        else
+                        {
+                            transactionDate="----";
+                        }
 
                         if(deleteStatus == "NO"){
                             //alert("ff");
                             var fuelReceStr = "<tr  data-id=" + (i + 1) + ">" +
-                            "<td data-field=''><input type='checkbox' id='checkall' class='checkall'></td>" +
+                            "<td data-field=''><input type='checkbox' class='check_fuelRecept_one_delete' name='all_fuel_recepit_ids_delete[]' data-id=" + fuelReceiptId+ " date-cusId="+custID+"  value="+fuelReceiptId+"></td>" +
                             "<td data-field='no'>" + no + "</td>" +
                             "<td data-field='driverName' >" + driverName + "</td>" +
                             "<td data-field='transactionDate' >" + transactionDate + "</td>" +
@@ -222,7 +229,8 @@ $(".closeFuelReceiptsModal").click(function(){
     $("#Create_FuelReceiptsModal").modal("hide");
 });
 $(".saveFuelReceiptsModal").click(function(){
-    var driverName = $('option:selected', this).attr('data-name'); 
+    var driverName=$('.driver_name_fuelReceipt').val();
+    // var driverName = $('option:selected', this).attr('data-name'); 
     var driverNo = $('.add_fuelReceiptDriverNumber').val();
     var cardNumber = $('.addFuelReceiptCardNumber').val();
     var fuelVendor = $('.addFuelReceiptFuelVendor').val();
@@ -335,7 +343,6 @@ $(".saveFuelReceiptsModal").click(function(){
     })
 });
 //======================================= end create fuel receipts ========================
-
 //============================ update fuel receipts data ===================
 $('body').on('click','.edit_fuel_receipts_form', function(){
     var id=$(this).attr('data-fuelReId');
@@ -348,7 +355,12 @@ $('body').on('click','.edit_fuel_receipts_form', function(){
         success: function(res) {
                 $('.comp_id_furl_re_edit').val(res.companyID);
                 $('.fuel_recepit_id_edit').val(res.fuel_receipt._id);
-                $('.updateFuelReceipt_Driver_name').val(res.fuel_receipt.driverName);
+                $('.driver_name_fuelReceipt_edit').val(res.fuel_receipt.driverName);
+                $('.updateFuelReceipt_Driver_name').val(res.fuel_receipt.driverNumber);
+                if(typeof(res.fuel_receipt.paymentType) != "undefined" && res.fuel_receipt.paymentType !== null)
+                {
+                     $('.updateapayment_type_fuel_re').val(res.fuel_receipt.paymentType);
+                }                   
                 $('.update_fuelReceiptDriverNumber').val(res.fuel_receipt.driverNumber);
                 $('.updateFuelReceiptCardNumber').val(res.fuel_receipt.cardNo);
                 $('.updateFuelReceiptFuelVendor').val(res.fuel_receipt.category);
@@ -376,8 +388,8 @@ $('.closeUpdateFuelReceiptsModal').click(function(){
 $('.UpdateFuelReceiptsModal').click(function(){
     var id=$(".fuel_recepit_id_edit").val();
     var comId=$(".comp_id_furl_re_edit").val();
-    var driverName = $(this).attr('data-name');
-    var paymentType=$('.updateFuelReceiptCardNumber').val();
+    var driverName = $(".driver_name_fuelReceipt_edit").val();
+    var paymentType=$('.updateapayment_type_fuel_re').val();
     var driverNo = $('.update_fuelReceiptDriverNumber').val();
     var cardNumber = $('.updateFuelReceiptCardNumber').val();
     var fuelVendor = $('.updateFuelReceiptFuelVendor').val();
@@ -394,7 +406,15 @@ $('.UpdateFuelReceiptsModal').click(function(){
     var transactionDiscount = $('.updateFuelReceipttransactionDiscount').val();
     var transactionFee = $('.updateFuelReceipttransactionFee').val();
     var transactionGross = $('.updateFuelReceipttransactionGross').val();
-    var invoiceNo = $('.updateFuelReceiptinvoiceNo').val();
+    var invoiceNo = $('#UpdateFuelReceiptinvoiceNo').val();
+    // alert(invoiceNo);
+    // alert(r);
+    if(paymentType=="")
+    {
+        swal.fire( "'select PaymentType");
+        $('.updateapayment_type_fuel_re').focus();
+        return false;    
+    }
     if(driverName=='')
     {
         swal.fire( "'select one");
@@ -700,4 +720,89 @@ $('body').on('click','.restore_Fuel_ReceiptData',function(){
     });
 });
 // ===========================end restore fuel recepit data ====================
+
+  //=============================== start multipal delete ========================
+  $(document).on("change", ".fuel_recepit_ids_delete", function() 
+  {
+      if(this.checked) {
+          $('.check_fuelRecept_one_delete:checkbox').each(function() 
+          {
+              this.checked = true;
+              fuelRecepitCheckboxDelete();
+          });
+      } 
+      else 
+      {
+          $('.check_fuelRecept_one_delete:checkbox').each(function() {
+              this.checked = false;
+          });
+      }
+  });
+  $('body').on('click','.check_fuelRecept_one_delete',function(){
+      fuelRecepitCheckboxDelete();
+  });
+  function fuelRecepitCheckboxDelete()
+  {
+      var fuelRecepitIds = [];
+      var companyIds=[]
+          $.each($("input[name='all_fuel_recepit_ids_delete[]']:checked"), function(){
+              fuelRecepitIds.push($(this).val());
+              companyIds.push($(this).attr("date-cusId"));
+          });
+          // console.log(fuelRecepitIds);
+          var fuelRecepitCheckedIds =JSON.stringify(fuelRecepitIds);
+          $('#checked_fuelRecepit_delete').val(fuelRecepitCheckedIds);
+         
+          var companyCheckedIds =JSON.stringify(companyIds);
+          $('#checked_fuelRecepit_company_ids_delete').val(companyCheckedIds);
+
+
+          if(fuelRecepitIds.length > 0)
+          {
+              $('#delete_Fuel_ReceiptData').removeAttr('disabled');
+          }
+          else
+          {
+              $('#delete_Fuel_ReceiptData').attr('disabled',true);
+          }
+  }
+  $('body').on('click','.delete_Fuel_ReceiptData',function(){
+      var all_ids=$('#checked_fuelRecepit_delete').val();
+      var custID=$("#checked_fuelRecepit_company_ids_delete").val();
+      swal.fire({
+          title: "Delete?",
+          text: "Please ensure and then confirm!",
+          type: "warning",
+          showCancelButton: !0,
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel!",
+          reverseButtons: !0
+      }).then(function (e) {
+          if (e.value === true) 
+          {
+              $.ajax({
+                  type:"post",
+                  data:{_token:$("#_token_updateFuelReceipts").val(),all_ids:all_ids,custID:custID},
+                  url: base_path+"/admin/deleteMulFuelReceipt",
+                  success: function(response) {               
+                      swal.fire("Done!", "Fuel Recepit Deleted successfully", "success");
+                      $("#restore_fuelReceiptModal").modal("hide");
+                      $.ajax({
+                          type: "GET",
+                          url: base_path+"/admin/getFuelReceipt",
+                          async: false,
+                          //dataType:JSON,
+                          success: function(text) {
+                              //alert();
+                              console.log(text);
+                              createFuelReceiptRows(text);
+                              FuelReceiptResult = text;
+                          }
+                      });
+                  }
+              });           
+          }
+      });
+  });
+  //================================= end multipal delete ========================
 });

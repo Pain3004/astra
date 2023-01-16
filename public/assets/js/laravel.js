@@ -13,6 +13,18 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 var base_path = $("#url").val();
 
+$('#addUser').click(function(){
+    $('#addUserModal').modal('show');
+});
+
+$('.userModalClose').click(function(){
+    $('#userModal').modal('hide');
+});
+
+$('.addUserModalClose').click(function(){
+    $('#addUserModal').modal('hide');
+});
+
 $('.closeAddOwnerModal').click(function(){
     $('#addDriverOwnerModal').modal('hide');
 });
@@ -20,19 +32,19 @@ $('.closeAddOwnerModal').click(function(){
 
 $(document).ready(function() {
  
-    
-    var response = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/user",
-        async: false,
-        success: function(text) {
-            createRows(text);
-            response = text;
-        }
+    $('#User_navbar').click(function(){
+        var response = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/user",
+            async: false,
+            success: function(text) {
+                createRows(text);
+                response = text;
+            }
+        });
+        $('#userModal').modal('show')
     });
-
-    
 });
 
 
@@ -490,7 +502,7 @@ $(document).ready(function() {
                 // var no=1;
                 //$(".customerCurrencySet").html('');
                 $(".office_name_set").html('');
-                for (var i = 0; i <= officeTypelength; i++) 
+                for (var i=0; i<officeTypelength; i++) 
                 {  
                     var officeName =officeAddressData.office[i].officeName;
                     var officeId =officeAddressData.office[i]._id;
@@ -540,7 +552,7 @@ $(document).ready(function() {
                 // var no=1;
                 //$(".customerCurrencySet").html('');
                 $(".set_company_name").html('');
-                for (var i = 0; i <= companyDetailLength; i++) 
+                for (var i=0; i<companyDetailLength; i++) 
                 {  
                     var companyName =companyDetails.company[i].companyName;
                     var companyId =companyDetails.company[i]._id;
@@ -649,7 +661,7 @@ $(document).ready(function() {
 // <!-- -------------------------------------------------------------------------Get driver ajax ------------------------------------------------------------------------- -->    
 $.ajax({
     type: "GET",
-    url: base_path+"/admin/driver",
+    url: base_path+"/",
     async: false,
     success: function(text) {
         createDriverRows(text);
