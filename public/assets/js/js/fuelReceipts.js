@@ -275,7 +275,7 @@ $(document).ready(function() {
         }
         if(driverName=='')
         {
-            swal.fire( "'select one");
+            swal.fire( "'select driver");
             $('.addFuelReceiptDriver_name').focus();
             return false;            
         }

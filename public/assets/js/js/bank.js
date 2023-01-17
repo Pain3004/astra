@@ -10,7 +10,18 @@ $(document).ready(function() {
 // <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
    
     $('#bank_navbar').click(function(){
-        //alert();
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getCompanyHolder",
+            async: false,
+            success: function(text) {
+                console.log(text);
+                ShowCompanyName(text);
+                comapnyRes = text;
+             }
+        });
+
+
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getBankData",
@@ -50,7 +61,7 @@ $(document).ready(function() {
                             for (var j = bankAdminlen-1; j >= 0; j--) {
                                 
                                 
-
+                                var CompID=bankResult[i].companyID;
                                 var admin_bank_Id =bankResult[i].admin_bank[j]._id;
                                 var bankName =bankResult[i].admin_bank[j].bankName;
                                 var bankAddresss =bankResult[i].admin_bank[j].bankAddresss;
@@ -79,8 +90,12 @@ $(document).ready(function() {
                                         "<td data-field='currentBalance' >$ " + currentBalance + "</td>" +
                                        
                                         "<td style='text-align:center'>"+
-                                            "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+Id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                        "</td></tr>";
+                                        "<a class='mt-2 button-29 fs-14 text-white Edit_bank_details_m'  title='Edit1' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+
+                                        "<a class='mt-2 button-29 fs-14 text-white delete_bank_details'  title='delete' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-trash'></i></a>&nbsp"+
+
+                                        // "<a class='mt-2 button-29 fs-14 text-white upload_bank_details'  title='delete' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-upload'></i></a>&nbsp"+
+                                        // "</td></tr>";
             
                                     $("#bankTable").append(bankStr);
                                     no++;
@@ -184,7 +199,7 @@ $(document).ready(function() {
         }
         if(accountNo=="")
         {
-            swal.fire( "'Enteraccount No");
+            swal.fire( "'Enter account No");
             return false;
         }
         if(routingNo=="")
@@ -238,11 +253,253 @@ $(document).ready(function() {
         });
     });
     //====================================  end store bank data =============================
+
+    //======================================create company modal and show======================
+    function ShowCompanyName(comapnyRes)
+    {
+        var companyLength=comapnyRes.company.length;
+        var companyL=comapnyRes.company;  
+        $(".listCompanyNames").html(); 
+        for(var j=0; j<companyLength;j++)
+        {
+            var id=companyL[j]._id;
+            var name=companyL[j].companyName;
+            var html="<option value='"+id+"'>"+name+"</option>";
+            // $(".addbankCompany").val(id);
+            $(".listCompanyNames").append(html);
+        }   
+    }
+    $(".CreateCompanyHolderName").click(function(){
+        $("#CompanyCreateModal").modal("show");
+    });
+    $(".closeCompanyCreateModal").click(function(){
+        $("#CompanyCreateModal").modal("hide");
+    });
+    $(".CompanyCreateModalSaveButton").click(function(){
+        var companyName=$('.addcompanyName').val();
+        var shippingAddress=$('.addshippingAddress').val();
+        var telephoneNo=$('.addtelephoneNo').val();
+        var faxNo=$('.addBankfaxNo').val();
+        var mcNo=$('.addBankmcNo').val();
+        var usDotNo=$('.addBankusDotNo').val();
+        var mailingAddress=$('.addBankmailingAddress').val();
+        var factoringCompany=$('.create_factoringCompany').val();
+        var website=$('.addBankwebsite').val();
+        if(companyName=="")
+        {
+            swal.fire( "'Enter company Name");
+            return false;
+        }
+        if(telephoneNo=="")
+        {
+            swal.fire( "'Enter telephone No");
+            return false;
+        }
+        if(mailingAddress=="")
+        {
+            swal.fire( "'Enter mailing Address");
+            return false;
+        }
+      
+        var formData = new FormData();
+        $.each($(".addBankComapanyFiles")[0].files, function(i, file) {            
+            formData.append('file[]', file);
+        });
+        formData.append('_token',$("#_tokenAdd_add_bank_data").val());
+        formData.append('companyName',companyName);
+        formData.append('shippingAddress',shippingAddress);
+        formData.append('telephoneNo',telephoneNo);
+        formData.append('faxNo',faxNo);
+        formData.append('mcNo',mcNo);
+        formData.append('usDotNo',usDotNo);
+        formData.append('mailingAddress',mailingAddress);
+        formData.append('factoringCompany',factoringCompany);
+        formData.append('website',website);
+        $.ajax({
+            type: "POST",
+            url: base_path+"/admin/CreateCompany",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            success: function(data) {                  
+                swal.fire("Done!", "Bank Holder Stored successfully", "success");
+                $('#CompanyCreateModal').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getCompanyHolder",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        ShowCompanyName(text);
+                        comapnyRes = text;
+                     }
+                });
+            }
+        });
+    });
+    //================================ end company modal name -================================
    
     //==================================== update bank details ==============================
+    $(".closeUpdateBankData").click(function(){
+        $("#UpdateBankModalStoreData").modal("hide");
+     });
+     $("body").on('click','.Edit_bank_details_m', function(){
+        var bankId=$(this).attr("data-bankID");
+        var compID=$(this).attr("data-compID");
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/editBankData",
+            async: false,
+            data:{bankId:bankId, compID:compID},
+            success: function(text) {
+                    $('.bankCompID').val(text.companyID);
+                    $('.BankDetailsAdminId').val(text._id);
+                    $('.updatebankName').val(text.bankName);
+                    $('.updatebankAddresss').val(text.bankAddresss);
+                    $('.updateaccountHolder').val(text.accountHolder);
+                    $('.updateaccountNo').val(text.accountNo);
+                    $('.updateroutingNo').val(text.routingNo);
+                    $('.updateopeningBalDate').val(text.openingBalDate);
+                    $('.updateopeningBalance').val(text.openingBalance);
+                    $('.updatecurrentcheqNo').val(text.currentcheqNo);
+             }
+        });
+
+        $("#UpdateBankModalStoreData").modal("show");
+     });
+     $(".bankDataUpdatebutton").click(function(){        
+       var compID= $('.bankCompID').val();
+        var id=$('.BankDetailsAdminId').val();
+        var bankName=$('.updatebankName').val();
+        var bankAddresss=$('.updatebankAddresss').val();
+        var accountHolder=$('.updateaccountHolder').val();
+        var accountNo=$('.updateaccountNo').val();
+        var routingNo=$('.updateroutingNo').val();
+        var openingBalDate=$('.updateopeningBalDate').val();
+        var openingBalance=$('.updateopeningBalance').val();
+        var currentcheqNo=$('.updatecurrentcheqNo').val();
+        if(bankName=="")
+        {
+            swal.fire( "'Enter bank Name");
+            return false;
+        }
+        if(bankAddresss=="")
+        {
+            swal.fire( "'Enter bank Addresss");
+            return false;
+        }
+        if(accountHolder=="")
+        {
+            swal.fire( "'Enter account Holder");
+            return false;
+        }
+        if(accountNo=="")
+        {
+            swal.fire( "'Enter account No");
+            return false;
+        }
+        if(routingNo=="")
+        {
+            swal.fire( "'Enter routing No");
+            return false;
+        }
+        if(openingBalDate=="")
+        {
+            swal.fire( "'Enter opening Bal Date");
+            return false;
+        }
+        
+        if(openingBalance=="")
+        {
+            swal.fire( "'Enter opening Balance");
+            return false;
+        }
+        var formData = new FormData();
+        formData.append('_token',$("#_tokenAdd_update_bank_data").val());
+        formData.append('id',id);
+        formData.append('compID',compID);
+        formData.append('bankName',bankName);
+        formData.append('bankAddresss',bankAddresss);
+        formData.append('accountHolder',accountHolder);
+        formData.append('accountNo',accountNo);
+        formData.append('routingNo',routingNo);
+        formData.append('openingBalDate',openingBalDate);
+        formData.append('openingBalance',openingBalance);
+        formData.append('currentcheqNo',currentcheqNo);
+        $.ajax({
+            type: "POST",
+            url: base_path+"/admin/updateBankData",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            success: function(data) {                  
+                swal.fire("Done!", "Bank Updated successfully", "success");
+                $('#UpdateBankModalStoreData').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getBankData",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        createBankRows(text);
+                        bankResult = text;
+                     }
+                });
+            }
+        });
+     });
     //[============================ end update bank details ================================
     
     //============================== delete bank details ==============================
+    $('body').on('click','.delete_bank_details',function(){
+        var id=$(this).attr("data-bankID");
+        var compID=$(this).attr("data-compID");
+        swal.fire({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+
+            if (e.value === true) 
+            {
+                $.ajax({
+                    type: 'post',
+                    url: base_path+"/admin/deleteBankData",
+                    data: { _token: $("#_tokenAdd_update_bank_data").val(), id: id,compID:compID},
+                    success: function(resp){
+                        swal.fire("Done!", "Bank Deleted successfully", "success");
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/getBankData",
+                            async: false,
+                            success: function(text) {
+                                console.log(text);
+                                createBankRows(text);
+                                bankResult = text;
+                             }
+                        });
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+            else 
+            {
+                e.dismiss;
+            }
+        }, function (dismiss) {
+            return false;
+        })
+    });
     //================================== end details =================================
 
 });

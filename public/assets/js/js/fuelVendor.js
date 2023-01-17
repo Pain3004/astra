@@ -104,6 +104,7 @@ $(document).ready(function() {
         $("#AddFuelVendor").modal("show");
         $("#AddFuelCard").modal("hide");
         $('#FuelCardModal').modal('hide');
+        $('#UpdateFuelCard').modal('hide');
     });
     $(".FuelVendorSavebutton").click(function(){
         // alert("DGfdgfg");

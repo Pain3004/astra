@@ -111,9 +111,10 @@
                         <div>
                             <input type= "text" class="form-control addbankAddresss"  name="bankAddresss" required />
                         </div>
-                        <label>Account Holder Name<span style="color:#ff0000">*</span>  <span class="glyphicon glyphicon-plus-sign  add_Company_Name_modal_form_btn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
+                        <label>Account Holder Name <span class="glyphicon glyphicon-plus-sign  CreateCompanyHolderName "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
-                            <input  class="form-control accountHolder" type="text"  name="accountHolder" required />
+                            <!-- <input  class="form-control accountHolder" type="text"  name="accountHolder" required /> -->
+                            <select class="form-control listCompanyNames addaccountHolder"  name="accountHolder" required ></select>
                         </div>
                         <label>Bank Account<span style="color:#ff0000">*</span></label>
                         <div>
@@ -146,9 +147,75 @@
     </div>
 </div>
 <!--================================ end create bank modal =========================== -->
+   <!--============================ add company modal =================== ===============-->
+   <div class="modal fade" id="CompanyCreateModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >Create Company</h5>
+                <button type="button" class="close closeCompanyCreateModal" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    @csrf
+                    <div class="form-group col-md-12">
+                        <label>Company Name:<span style="color:#ff0000">*</span></label>
+                        <div>
+                            <!-- <input type= "hidden" class="form-control addbankCompany" placeholder="Name of Company" name="bankCompany" required > -->
+                            <input type= "text" class="form-control addcompanyName" placeholder="Name of Company" name="companyName" required >
+                        </div>
+                        <label>Shipping Address</label>
+                        <div>
+                            <input type= "text" class="form-control addshippingAddress"  name="shippingAddress" placeholder="Shipping Address" />
+                        </div>
+                        <label>Telephone No<span style="color:#ff0000">*</span></label>
+                        <div>
+                            <input  class="form-control addtelephoneNo " type="number"  name="telephoneNo" placeholder="(999) 999-9999" required />
+                        </div>
+                        <label>Fax No</label>
+                        <div>
+                            <input  class="form-control addBankfaxNo " type="text"  name="faxNo" Placeholder="Fax No" />
+                        </div>
+                        <label>M.C. No</label>
+                        <div>
+                            <input  class="form-control addBankmcNo " type="Text"  name="mcNo" placeholder="M.C. No" />
+                        </div>
+                        <label>US DOT No</label>
+                        <div>
+                            <input  class="form-control addBankusDotNo " type="Text"  name="usDotNo" placeholder="US DOT No" />
+                        </div>
+                        <label>Email Address<span style="color:#ff0000">*</span></label>
+                        <div>
+                            <input  class="form-control addBankmailingAddress " type="email"  name="mailingAddress" required />
+                        </div>
+                        <label>Factoring Company<span class="glyphicon glyphicon-plus-sign  add_Company_Name_modal_form_btn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
+                        <div>
+                            <input  class="form-control create_factoringCompany" type="text"  name="factoringCompany"  />
+                        </div>
+                        <label>Website</label>
+                        <div>
+                            <input  class="form-control addBankwebsite " type="text"  name="website" placeholder="url//: Website" />
+                        </div>
+                        <label>Upload Files</label>
+                        <div>
+                            <input  class="form-control addBankComapanyFiles " type="file"  name="files[]"  />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="button-29 closeCompanyCreateModal" data-dismiss="modal">Close</button>
+                <button type="button" class="button-29 CompanyCreateModalSaveButton " >Save </button>
+            </div>
+        </div>
+    </div>
+</div>
+   <!--====================== end add company modal ======================================== -->
 
 <!--================================ update bank details ============================= -->
-<div class="modal fade" id="AddBankModalStoreData"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="UpdateBankModalStoreData"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -161,6 +228,9 @@
                 <form>
                     @csrf
                     <input type="hidden" name="_token" id="_tokenAdd_update_bank_data" value="{{ csrf_token() }}" />
+                    <input type="hidden" class="bankCompID" >
+                    <input type="hidden" class="BankDetailsAdminId" >
+
                     <div class="form-group col-md-12">
                         <label>Name of Bank:<span style="color:#ff0000">*</span></label>
                         <div>
@@ -170,9 +240,10 @@
                         <div>
                             <input type= "text" class="form-control updatebankAddresss"  name="bankAddresss" required />
                         </div>
-                        <label>Account Holder Name<span style="color:#ff0000">*</span>  <span class="glyphicon glyphicon-plus-sign  update_Company_Name_modal_form_btn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
+                        <label>Account Holder Name<span style="color:#ff0000">*</span>  <span class="glyphicon glyphicon-plus-sign  CreateCompanyHolderName "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
-                            <input  class="form-control accountHolder" type="text"  name="accountHolder" required />
+                            <!-- <input  class="form-control accountHolder" type="text"  name="accountHolder" required /> -->
+                            <select class="form-control listCompanyNames updateaccountHolder"  name="accountHolder" required ></select>
                         </div>
                         <label>Bank Account<span style="color:#ff0000">*</span></label>
                         <div>

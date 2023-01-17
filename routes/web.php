@@ -197,6 +197,8 @@ Route::post('admin/createBankData', [BankController::class, 'createBankData']);
 Route::get('admin/editBankData', [BankController::class, 'editBankData']);
 Route::post('admin/updateBankData', [BankController::class, 'updateBankData']);
 Route::post('admin/deleteBankData', [BankController::class, 'deleteBankData']);
+Route::get('admin/getCompanyHolder', [BankController::class, 'getCompanyHolder']);
+Route::post('admin/CreateCompany', [BankController::class, 'CreateCompany']);
 
 //credit Card
 Route::get('admin/getcreditCard', [CreditCardController::class, 'getcreditCard']);

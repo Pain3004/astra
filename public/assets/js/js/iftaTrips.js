@@ -79,8 +79,8 @@ $(document).ready(function() {
                             "<td>"+consigneeLocation+" </td>"+
                             "<td>"+end_location+" </td>"+
                             "<td>"+convdataTime+" </td>"+
-                            "<td>"+empty_miles+" </td>"+
-                            "<td >" + total_miles + "</td>" +
+                            "<td>"+empty_miles+"ml </td>"+
+                            "<td >" + total_miles + "ml</td>" +
                        
                             "<td style='text-align:center'>"+
                                 
