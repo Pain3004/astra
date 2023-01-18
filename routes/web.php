@@ -190,6 +190,8 @@ Route::post('admin/deleteMultiIftaToll', [IftaTollController::class, 'deleteMult
 //IftaTripController
 Route::get('admin/getIftaTrip', [IftaTripController::class, 'getIftaTrip']);
 Route::get('admin/editIftaTrip', [IftaTripController::class, 'editIftaTrip']);
+Route::post('admin/updateIftaTrip', [IftaTripController::class, 'updateIftaTrip']);
+Route::post('admin/searchIftaTrip', [IftaTripController::class, 'searchIftaTrip']);
 
 //Bank
 Route::get('admin/getBankData', [BankController::class, 'getBankData']);

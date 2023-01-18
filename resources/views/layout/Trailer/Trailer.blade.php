@@ -22,7 +22,7 @@
                         <i class="fa fa-sliders" aria-hidden="true"></i>
                         </span><span>Button 2</span>
                     </a> -->
-                    <!-- <a href="#contractCategoryModal" class="button-57_alt" data-toggle="modal"
+                    <!-- <a href="#contractCategoryModal" class="contract_categoryModal button-57_alt" data-toggle="modal"
                         data-target="#contractCategoryModal">
                         <i class="fa fa-id-card" aria-hidden="true"></i>
                         </span><span>Button 3</span>

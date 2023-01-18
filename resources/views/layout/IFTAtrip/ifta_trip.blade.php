@@ -11,14 +11,50 @@
                 <div style="margin-top: 15px; margin-left: 15px;">                    
                     <button class="button-29 VerifyTrip" >Verify Trip</button>
                     <button class="button-29 notVerifyTrip" >Not Verify Trip</button>
-
                 </div>
+                
                 <div class="modal-body" style="overflow-y: auto !important;">
                     <div class="row">
+                        <div class="form-group col-md-2">
+                            <label>Year</label>
+                            <select class="form-control yearIftaTripFilter"  style="width: 175px;">
+                                <option>-- select Year --</option>
+                                <?php $year = 2020;
+                                $curryear = date("Y"); 
+                                for ($i = 0; $i <= 15; $i++) { ?>
+                                    <option value="<?php echo $year; ?>"
+                                        <?php if($curryear == $year){ echo "selected";}?>>
+                                        <?php echo $year++; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>quarter</label>
+                            <select class="form-control quarterIftaTripFilter" id="" style="width: 175px;">
+                                <?php $month = date("n");
+                                $yearQuarter = ceil($month / 3);
+                                for ($i = 1; $i <= 4; $i++) { ?>
+                                    <option value="<?php echo $i; ?>" <?php if($yearQuarter == $i){echo "selected";}?>>
+                                        <?php 
+                                            if($i == 1){echo $i." (1 Jan - 31 Mar)";}
+                                            else if($i == 2){echo $i." (1 Apr - 30 Jun)";}
+                                            else if($i == 3){echo $i." (1 Jul - 30 Sept)";}
+                                            else {echo $i." (1 Oct - 31 Dec)";}
+                                                
+                                        ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <button id="verifyIftaTripButton" class="button-29" style="margin-top: 27px;"><i
+                                    class="fas fa-paper-plane"></i>&nbsp;Submit
+                            </button>
+                        </div>
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100">
+                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 editable-file-datatable">
                                         <thead class="thead_th">
                                             <tr  class="tr">
                                                 <th >#</th>
@@ -35,7 +71,7 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody id="iftaTripTable">
+                                        <tbody id="iftaTripTableVeri">
                                         </tbody>
                                         <tfoot class="thead_th">
                                             <tr class="tr">
@@ -80,12 +116,49 @@
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
-                <button class="button-29 VerifyTrip" > Verify Trip</button>
-                 <button class="button-29 notVerifyTrip" >Not Verify Trip</button>
+                    <button class="button-29 VerifyTrip" > Verify Trip</button>
+                    <button class="button-29 notVerifyTrip" >Not Verify Trip</button>
 
                 </div>
+                
                 <div class="modal-body" style="overflow-y: auto !important;">
                     <div class="row">
+                        <div class="form-group col-md-2">
+                            <label>Year</label>
+                            <select class="form-control yearIftaTripFilter"  style="width: 175px;">
+                                <option>-- select Year --</option>
+                                <?php $year = 2020;
+                                $curryear = date("Y"); 
+                                for ($i = 0; $i <= 15; $i++) { ?>
+                                    <option value="<?php echo $year; ?>"
+                                        <?php if($curryear == $year){ echo "selected";}?>>
+                                        <?php echo $year++; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>quarter</label>
+                            <select class="form-control quarterIftaTripFilter" id="" style="width: 175px;">
+                                <?php $month = date("n");
+                                $yearQuarter = ceil($month / 3);
+                                for ($i = 1; $i <= 4; $i++) { ?>
+                                    <option value="<?php echo $i; ?>" <?php if($yearQuarter == $i){echo "selected";}?>>
+                                        <?php 
+                                            if($i == 1){echo $i." (1 Jan - 31 Mar)";}
+                                            else if($i == 2){echo $i." (1 Apr - 30 Jun)";}
+                                            else if($i == 3){echo $i." (1 Jul - 30 Sept)";}
+                                            else {echo $i." (1 Oct - 31 Dec)";}
+                                                
+                                        ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <button id="verifyIftaTripButton" class="button-29" style="margin-top: 27px;"><i
+                                    class="fas fa-paper-plane"></i>&nbsp;Submit
+                            </button>
+                        </div>
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="table-responsive export-table">

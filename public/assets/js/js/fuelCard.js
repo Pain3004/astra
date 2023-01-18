@@ -10,6 +10,27 @@ $(document).ready(function () {
     // <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
 
     $('#fuelCard_navbar').click(function () {
+        $.ajax({
+            type: "GET",
+            url: base_path + "/admin/getFuelVendor",
+            async: false,
+            success: function (text) {
+
+                var fuelVendorlen = 0;
+                if (text != null) {
+                    fuelVendorlen = text.fuelCard.length;
+                    $(".card_vendor_type").html();
+                    if (fuelVendorlen > 0) {
+                        for (var i = fuelVendorlen - 1; i >= 0; i--) {
+                            var fuelVendorId = text.fuelCard[i]._id;
+                            var fuelCardType = text.fuelCard[i].fuelCardType;
+                            var html = "<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>";
+                            $(".card_vendor_type").append(html);
+                        }
+                    }
+                }
+            }
+        });
         //alert();
         $.ajax({
             type: "GET",
@@ -124,27 +145,27 @@ $(document).ready(function () {
     
     
     
-    $.ajax({
-            type: "GET",
-            url: base_path + "/admin/getFuelVendor",
-            async: false,
-            success: function (text) {
+    // $.ajax({
+    //         type: "GET",
+    //         url: base_path + "/admin/getFuelVendor",
+    //         async: false,
+    //         success: function (text) {
 
-                var fuelVendorlen = 0;
-                if (text != null) {
-                    fuelVendorlen = text.fuelCard.length;
-                    $(".card_vendor_type").html();
-                    if (fuelVendorlen > 0) {
-                        for (var i = fuelVendorlen - 1; i >= 0; i--) {
-                            var fuelVendorId = text.fuelCard[i]._id;
-                            var fuelCardType = text.fuelCard[i].fuelCardType;
-                            var html = "<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>";
-                            $(".card_vendor_type").append(html);
-                        }
-                    }
-                }
-            }
-        });
+    //             var fuelVendorlen = 0;
+    //             if (text != null) {
+    //                 fuelVendorlen = text.fuelCard.length;
+    //                 $(".card_vendor_type").html();
+    //                 if (fuelVendorlen > 0) {
+    //                     for (var i = fuelVendorlen - 1; i >= 0; i--) {
+    //                         var fuelVendorId = text.fuelCard[i]._id;
+    //                         var fuelCardType = text.fuelCard[i].fuelCardType;
+    //                         var html = "<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>";
+    //                         $(".card_vendor_type").append(html);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     });
         $.ajax({
             type: "GET",
             url: base_path + "/admin/driver",

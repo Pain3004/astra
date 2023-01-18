@@ -1304,18 +1304,20 @@ $.ajax({
 });
 
 $(document).ready(function() {
-    var response = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getContract",
-        data: {
-            companyID: 4,
-        },
-        async: false,
-        success: function(text) {
-            driverContract(text);
-            response = text;
-        }
+    $(".contract_categoryModal").click(function(){
+        var response = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getContract",
+            data: {
+                companyID: 4,
+            },
+            async: false,
+            success: function(text) {
+                driverContract(text);
+                response = text;
+            }
+        });
     });
 
 });

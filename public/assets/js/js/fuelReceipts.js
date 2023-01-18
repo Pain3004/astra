@@ -181,22 +181,25 @@ $(document).ready(function() {
 
 
     });
-    $.ajax({
-        type: "GET",
-        url: base_path + "/admin/getInvoicedNumber",
-        async: false,
-        success: function (text) {
-            $(".fuel_recepit_invoice_no_list").html();
-            var len2 = text.load.length;
-            $('.fuel_recepit_invoice_no_list').html();
-            var html = "";
-            for (var j = 0; j < len2; j++) {
-                var driverId = text.load[j]._id;
-                var html = "<option value='" + driverId + "'>" + driverId + " </option>";
-                $(".fuel_recepit_invoice_no_list").append(html);
+    $(".fetchInvoicenumberbyNamv").click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path + "/admin/getInvoicedNumber",
+            async: false,
+            success: function (text) {
+                $(".fuel_recepit_invoice_no_list").html();
+                var len2 = text.load.length;
+                $('.fuel_recepit_invoice_no_list').html();
+                var html = "";
+                for (var j = 0; j < len2; j++) {
+                    var driverId = text.load[j]._id;
+                    var html = "<option value='" + driverId + "'>" + driverId + " </option>";
+                    $(".fuel_recepit_invoice_no_list").append(html);
+                }
             }
-        }
+        });
     });
+    
 
     $(".total_cards_fuel_re").on("change",function(){
         var data = $('option:selected', this).attr('data_att_vendor_id');   

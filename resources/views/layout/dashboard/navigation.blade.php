@@ -99,11 +99,11 @@
 
 																<li><a href="#" id="fuelCard_navbar" class="slide-item">Fuel Card</a></li>
 
-																<li><a href="#" id="fuelReceipt_navbar" class="slide-item">Fuel Reciepts & Cash Advance</a></li>
+																<li><a href="#" id="fuelReceipt_navbar" class="slide-item fetchInvoicenumberbyNamv">Fuel Reciepts & Cash Advance</a></li>
 													
 																
 														
-																<li><a href="#" id="iftaToll_navbar" class="slide-item">Tolls</a></li>
+																<li><a href="#" id="iftaToll_navbar " class="slide-item fetchInvoicenumberbyNamv">Tolls</a></li>
 													
 																<li><a href="#" class="slide-item" id="iftaTrip_navbar">IFTA Trips</a></li>
 															
