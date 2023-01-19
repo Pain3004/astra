@@ -201,12 +201,23 @@ Route::post('admin/updateBankData', [BankController::class, 'updateBankData']);
 Route::post('admin/deleteBankData', [BankController::class, 'deleteBankData']);
 Route::get('admin/getCompanyHolder', [BankController::class, 'getCompanyHolder']);
 Route::post('admin/CreateCompany', [BankController::class, 'CreateCompany']);
+Route::post('admin/restoreBankData', [BankController::class, 'restoreBankData']);
 
 //credit Card
 Route::get('admin/getcreditCard', [CreditCardController::class, 'getcreditCard']);
+Route::post('admin/storecreditCard', [CreditCardController::class, 'storecreditCard']);
+Route::get('admin/editcreditCard', [CreditCardController::class, 'editcreditCard']);
+Route::post('admin/updatecreditCard', [CreditCardController::class, 'updatecreditCard']);
+Route::post('admin/deletecreditCard', [CreditCardController::class, 'deletecreditCard']);
+Route::post('admin/restorecreditCard', [CreditCardController::class, 'restorecreditCard']);
 
 //sub Credit Card
 Route::get('admin/getsubCreditCard', [SubCreditCardController::class, 'getsubCreditCard']);
+Route::post('admin/storesubCreditCard', [SubCreditCardController::class, 'storesubCreditCard']);
+Route::get('admin/editsubCreditCard', [SubCreditCardController::class, 'editsubCreditCard']);
+Route::post('admin/updatesubCreditCard', [SubCreditCardController::class, 'updatesubCreditCard']);
+Route::post('admin/deletesubCreditCard', [SubCreditCardController::class, 'deletesubCreditCard']);
+Route::post('admin/restoresubCreditCard', [SubCreditCardController::class, 'restoresubCreditCard']);
 
 //Accounting Manager
 Route::get('admin/getAccountDeliverdValue', [AccountManagerController::class, 'getAccountDeliverdValue']);

@@ -187,7 +187,7 @@
                                     <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                             <tr class="tr">
-                                                <th scope="col" col width="40"><input type="checkbox" nam="all_ids[]" class="fuel_card_all_ids"></th>
+                                                <th scope="col" col width="40"><input type="checkbox" name="all_ids[]" class="fuel_card_all_ids"></th>
                                                 <th scope="col" col width="100">Card Holder Name</th>
                                                 <th scope="col" col width="100">IFTA Card No</th>
                                                 <th scope="col" col width="100">CardType</th>

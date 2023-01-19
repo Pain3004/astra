@@ -26,6 +26,26 @@ class SubCreditCardController extends Controller
        //dd($bankData);
        return response()->json(['SubCreditCard'=>$SubCreditCard, 'CreditCard'=>$CreditCard], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
+    public function storesubCreditCard(Request $request)
+    {
+
+    }
+    public function editsubCreditCard(Request $request)
+    {
+        
+    }
+    public function updatesubCreditCard(Request $request)
+    {
+        
+    }
+    public function deletesubCreditCard(Request $request)
+    {
+        
+    }
+    public function restoresubCreditCard(Request $request)
+    {
+        
+    }
 
    
 

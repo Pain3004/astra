@@ -314,6 +314,55 @@ class BankController extends Controller
             return $error->getMessage();
         }
     }
+    public function restoreBankData(Request $request)
+    {
+        // echo "gfgfgfdg"; exit;
+        $bankIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        // dd($bankIds);
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Bank = Bank::where('companyID',$company_id )->first();
+            $BankArray=$Bank->admin_bank;
+            $arrayLength=count($BankArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Bank->admin_bank[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $bankIds= str_replace( array('[', ']'), ' ', $bankIds);
+                    if(is_string($bankIds))
+                    {
+                        $bankIds=explode(",",$bankIds);
+                    }
+                    foreach($bankIds as $bank_d_ids)
+                    {
+                        $bank_d_ids= str_replace( array('"', ']' ), ' ', $bank_d_ids);
+                        if($value==$bank_d_ids)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            // dd($data);
+            foreach($data as $row)
+            {
+                $BankArray[$row]['deleteStatus'] = "NO";
+                $Bank->admin_bank= $BankArray;
+                $save=$Bank->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Bank Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
 
    
 
