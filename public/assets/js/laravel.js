@@ -17,6 +17,14 @@ $('#addUser').click(function(){
     $('#addUserModal').modal('show');
 });
 
+$('#addCompany').click(function(){
+    $('#addCompanyModal').modal('show');
+});
+
+$('.closeDriverModal').click(function(){
+    $('#driverModal').modal('hide');
+});
+
 $('.userModalClose').click(function(){
     $('#userModal').modal('hide');
 });
@@ -29,6 +37,13 @@ $('.closeAddOwnerModal').click(function(){
     $('#addDriverOwnerModal').modal('hide');
 });
 
+$('.closoAddCompanyModal').click(function(){
+    $('#addCompanyModal').modal('hide');
+});
+
+$('.closoCompanyModal').click(function(){
+    $('#companyModal').modal('hide');
+});
 
 $(document).ready(function() {
  
@@ -656,19 +671,22 @@ $(document).ready(function(){
 // <!-- ------------------------------------------------------------------------- driver ------------------------------------------------------------------------- -->
 
 $(document).ready(function() {
-    var driverResponse = '';
+    
 
 // <!-- -------------------------------------------------------------------------Get driver ajax ------------------------------------------------------------------------- -->    
-$.ajax({
-    type: "GET",
-    url: base_path+"/",
-    async: false,
-    success: function(text) {
-        createDriverRows(text);
-        driverResponse = text;
-    }
+$('#Driver_navbar').click(function(){ 
+    var driverResponse = '';
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/driver",
+        async: false,
+        success: function(text) {
+            createDriverRows(text);
+            driverResponse = text;
+        }
+    });
+    $("#driverModal").modal("show");
 });
-
     function createDriverRows(driverResponse) {
 //Privilege 
     // var edit=$('#updateUser').val();
@@ -1313,7 +1331,7 @@ $('body').on('click',function() {
             success: function(resp){
                 if(resp.success == true){
                     swal.fire("Done!", resp.message, "success");
-                    // $("#driverTable").append(tr_str4);
+                    
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/driver",
@@ -1324,6 +1342,7 @@ $('body').on('click',function() {
                         }
                     });
                     $("#addDriverModal form").trigger("reset");
+                    $("#addDriverModal").modal('hide');
                 } 
               },
               error: function(data){
@@ -1369,18 +1388,20 @@ $.ajax({
 });
 
 $(document).ready(function() {
-    var response = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getContract",
-        data: {
-            companyID: 4,
-        },
-        async: false,
-        success: function(text) {
-            driverContract(text);
-            response = text;
-        }
+    $(".contract_categoryModal").click(function(){
+        var response = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getContract",
+            data: {
+                companyID: 4,
+            },
+            async: false,
+            success: function(text) {
+                driverContract(text);
+                response = text;
+            }
+        });
     });
 
 });
@@ -1850,6 +1871,7 @@ $(document).ready(function() {
 
 
 // <!-- -------------------------------------------------------------------------Get Company ajax ------------------------------------------------------------------------- -->    
+$('#Company_navbar').click(function(){  
     $.ajax({
         type: "GET",
         url: base_path+"/admin/company",
@@ -1859,7 +1881,8 @@ $(document).ready(function() {
             companyResponse = text;
         }
     });
-
+    $('#companyModal').modal("show");
+});
     function createCompanyRows(companyResponse) {
         var len1 = 0;
         

@@ -12,18 +12,22 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Company</h5>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-
-                    </button>
+                    <button type="button" class="close closoCompanyModal">×</button>
                 </div>
-                <button href="#addCompanyModal" data-toggle="modal" data-target="#addCompanyModal"
-                    class="login_btn btn1 add1button" style="vertical-align:middle"><span>Add </span></button>
+
+                <div style="margin-top: 15px; margin-left: 15px;">
+
+                        @if($insertUser== 1)
+                            <a href="#" class="button-57_alt" id="addCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Company</span></a>
+                        @endif 
+                </div>
+                
                 <div class="modal-body" style="overflow-y: auto !important;">
 
                     <table id="editable-file-datatable1"
                         class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-                        <thead>
-                            <tr>
+                        <thead class="thead_th">
+                            <tr class="tr">
                                 <th>#</th>
                                 <th>No</th>
                                 <th>Company Name</th>
@@ -48,6 +52,7 @@
                     <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank"> -->
                     @csrf
                     <button class="btn btn-primary" style="vertical-align:middle"><span>Export</span></button>
+                    <button type="button" class="button-29 closoCompanyModal">Close</button>
                     </form>
                     <!-- <button class="btn btnclose" style="background-color:red;" data-bs-dismiss="modal">Close</button> -->
                 </div>
@@ -65,7 +70,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add Company</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close closoAddCompanyModal">&times;</button>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
@@ -153,6 +158,7 @@
                                                 </div>
                                                 <br>
                                                 <a type="submit" class="btn btn-primary" data-dismiss="modal" id="companyDataSubmit">Submit</a>
+                                                <button type="button" class="button-29 closoAddCompanyModal">Close</button>
                                                 <br>
                                             </form>
                                             <br>

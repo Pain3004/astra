@@ -46,7 +46,9 @@
 										</li>
 										
 										<li class="slide">
-											<a href="{{URL::to('/')}}/admin/Loadboard" class="side-menu__item has-link" >
+											<!-- <a href="{{URL::to('/')}}/admin/Loadboard" class="side-menu__item has-link" > -->
+											<a href="{{route('admin_loadboard')}}"  id="LoadBoard_navbar" class="side-menu__item has-link" >
+
 											<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M19.9794922,7.9521484l-6-5.2666016c-1.1339111-0.9902344-2.8250732-0.9902344-3.9589844,0l-6,5.2666016C3.3717041,8.5219116,2.9998169,9.3435669,3,10.2069702V19c0.0018311,1.6561279,1.3438721,2.9981689,3,3h2.5h7c0.0001831,0,0.0003662,0,0.0006104,0H18c1.6561279-0.0018311,2.9981689-1.3438721,3-3v-8.7930298C21.0001831,9.3435669,20.6282959,8.5219116,19.9794922,7.9521484z M15,21H9v-6c0.0014038-1.1040039,0.8959961-1.9985962,2-2h2c1.1040039,0.0014038,1.9985962,0.8959961,2,2V21z M20,19c-0.0014038,1.1040039-0.8959961,1.9985962-2,2h-2v-6c-0.0018311-1.6561279-1.3438721-2.9981689-3-3h-2c-1.6561279,0.0018311-2.9981689,1.3438721-3,3v6H6c-1.1040039-0.0014038-1.9985962-0.8959961-2-2v-8.7930298C3.9997559,9.6313477,4.2478027,9.0836182,4.6806641,8.7041016l6-5.2666016C11.0455933,3.1174927,11.5146484,2.9414673,12,2.9423828c0.4853516-0.0009155,0.9544067,0.1751099,1.3193359,0.4951172l6,5.2665405C19.7521973,9.0835571,20.0002441,9.6313477,20,10.2069702V19z"/></svg>
 												<span class="side-menu__label">LoadBoard</span>
 											</a>
@@ -64,10 +66,12 @@
 														@if(isset($adminArray['addCustomer']))
 															@if($adminArray['addCustomer']==1)
 															<li><a href="#customerModal" class="slide-item" data-toggle="modal" data-target="#customerModal">Customer</a></li>
+															<!-- <li><a href="#" class="slide-item" id="customer_navbar">Customer</a></li> -->
 															@endif 
 														@elseif(isset($adminArray['customer']))
 															@if($adminArray['customer']==1)
 															<li><a href="#customerModal" class="slide-item" data-toggle="modal" data-target="#customerModal">Customer</a></li>
+															<!-- <li><a href="#" class="slide-item" id="customer_navbar">Customer</a></li> -->
 															@endif 
 														@endif
 
@@ -93,11 +97,15 @@
 
 														@if(isset($adminArray['addDriver']))
 															@if($adminArray['addDriver']==1)
-															<li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li>
+															<!-- <li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li> -->
+															<li><a href="#" class="slide-item" id="Driver_navbar">Driver & Owner Operator</a></li>
+
 															@endif 
 														@elseif(isset($adminArray['driver_owner_operator']))
 															@if($adminArray['driver_owner_operator']==1)
-															<li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li>
+															<!-- <li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li> -->
+															<li><a href="#" class="slide-item" id="Driver_navbar">Driver & Owner Operator</a></li>
+
 															@endif 
 														@endif
 														
@@ -176,17 +184,17 @@
 
 														@if(isset($iftaArray['fuelReceipt']))
 															@if($iftaArray['fuelReceipt']==1)
-																<li><a href="#" id="fuelReceipt_navbar" class="slide-item">Fuel Reciepts & Cash Advance</a></li>
+																<li><a href="#" id="fuelReceipt_navbar" class="slide-item fetchInvoicenumberbyNamv">Fuel Reciepts & Cash Advance</a></li>
 															@endif 
 														@elseif(isset($iftaArray['Fuel_reciepts_cash_advance']))
 															@if($iftaArray['Fuel_reciepts_cash_advance']==1)
-																<li><a href="#" id="fuelReceipt_navbar" class="slide-item">Fuel Reciepts & Cash Advance</a></li>
+																<li><a href="#" id="fuelReceipt_navbar" class="slide-item fetchInvoicenumberbyNamv">Fuel Reciepts & Cash Advance</a></li>
 															@endif 
 														@endif
 
 														@if(isset($iftaArray['addToll']))
 															@if($iftaArray['addToll']==1)
-																<li><a href="#" id="iftaToll_navbar" class="slide-item">Tolls</a></li>
+																<li><a href="#" id="iftaToll_navbar" class="slide-item fetchInvoicenumberbyNamv">Tolls</a></li>
 															@endif 
 														@elseif(isset($iftaArray['tolls']))
 															@if($iftaArray['tolls']==1)
@@ -492,7 +500,7 @@
 
 														@if(isset($masterArray['addCompany']))
 															@if($masterArray['addCompany']==1)
-																<li><a class="dropdown-item" href="#customerModal" class="slide-item" data-toggle="modal" data-target="#companyModal">
+																<li><a class="dropdown-item" id="Company_navbar">
 																<svg xmlns="" class="w-inner-icn" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M19.5,7H18V6c-0.0018311-1.6561279-1.3438721-2.9981689-3-3H4.5C3.119812,3.0012817,2.0012817,4.119812,2,5.5V18c0.0018311,1.6561279,1.3438721,2.9981689,3,3h14.5c1.380188-0.0012817,2.4987183-1.119812,2.5-2.5v-9C21.9987183,8.119812,20.880188,7.0012817,19.5,7z M4.5,4H15c1.1040039,0.0014038,1.9985962,0.8959961,2,2v1H4.5C3.6715698,7,3,6.3284302,3,5.5S3.6715698,4,4.5,4z M21,16h-2c-1.1045532,0-2-0.8954468-2-2s0.8954468-2,2-2h2V16z M21,11h-2c-1.6568604,0-3,1.3431396-3,3s1.3431396,3,3,3h2v1.5c-0.0009155,0.828064-0.671936,1.4990845-1.5,1.5H5c-1.1040039-0.0014038-1.9985962-0.8959961-2-2V7.4990234C3.4321899,7.8247681,3.9588013,8.0006714,4.5,8h15c0.828064,0.0009155,1.4990845,0.671936,1.5,1.5V11z"/></svg>
 																Company Profile
 																</a></li>															

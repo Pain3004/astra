@@ -7,6 +7,7 @@ use Auth;
 use Session;
 use App\Models\User;
 use App\Models\PasswordReset;
+use App\Models\LoggedUsers;
 use Mail; 
 use Hash;
 use Illuminate\Support\Str;
@@ -31,7 +32,7 @@ class AuthController extends Controller
         $user = User::where(['userEmail'=>$email, 'userPass'=>sha1($password)])->first();
         if($user){
             Auth::login($user);
-            return redirect('admin/dashboard')->withSuccess('You have Successfully loggedin');
+            return redirect('/')->withSuccess('You have Successfully loggedin');
         }
   
         return redirect("login")->with('message','Opps! You have entered invalid credentials');
@@ -42,6 +43,29 @@ class AuthController extends Controller
         if(Auth::check()){
 
             //  --  
+            $count_data=LoggedUsers::all();
+            $count=count($count_data);
+            $emailArr=array();
+            // dd(Auth::user()->userEmail);
+            foreach($count_data as $row)
+            {
+                $emailArr[]=$row->userEmail;
+            }
+            // dd($emailArr);
+            if(!in_array(Auth::user()->userEmail, $emailArr))
+            {
+                LoggedUsers::create([
+                    'id' =>$count+1,
+                    'userId'=>Auth::user()->_id,
+                    'userEmail' => Auth::user()->userEmail,
+                    'userFirstName'=> Auth::user()->userFirstName,
+                    'userLastName'=>Auth::user()->userLastName,
+                    'counter' =>$count+1,
+                    'created_time' => date('d-m-y h:i:s'),
+                    'edit_time' =>time(),
+                    'deleteStatus' =>"NO",
+                ]);
+            }
 
             $driverData=\App\Models\Driver::all();
 
@@ -53,6 +77,12 @@ class AuthController extends Controller
     }
 
     public function logout() {
+        $email=Auth::user()->userEmail;
+        $user=LoggedUsers::where('userEmail',$email)->first();
+        if($user !=null)
+        {
+            $user->delete();
+        }  
         Session::flush();
         Auth::logout();
   

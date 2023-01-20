@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\TermsConditionsController;
 use App\Http\Controllers\Admin\TruckTrailerMakeController;
 use App\Http\Controllers\Admin\LoadController;
 use App\Http\Controllers\Admin\UserPrivillegeController;
+use App\Http\Controllers\Admin\LoadBoardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,15 +57,16 @@ use App\Http\Controllers\Admin\UserPrivillegeController;
     });
     Route::get('/admin/Loadboard', function () {
         return view('layout.Loadboard.Loadboard');
-    });
+    })->name('admin_loadboard');
     // Route::get('profile', function () {
     //     return view('profile');
     // });
 
 Auth::routes();
-
+//Loadboard
+Route::get('admin/getLoadboardData', [LoadBoardController::class, 'getLoadboardData']);
 // User
-Route::get('admin/dashboard', [AuthController::class, 'dashboard']);
+Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);
 Route::get('admin/user-privilege', [UserController::class, 'user']);
 Route::post('admin/add-user', [UserController::class, 'addUsers']);
@@ -200,6 +202,12 @@ Route::post('admin/deleteMultiIftaToll', [IftaTollController::class, 'deleteMult
 
 //Bank
 Route::get('admin/getBankData', [BankController::class, 'getBankData']);
+Route::post('admin/createBankData', [BankController::class, 'createBankData']);
+Route::get('admin/editBankData', [BankController::class, 'editBankData']);
+Route::post('admin/updateBankData', [BankController::class, 'updateBankData']);
+Route::post('admin/deleteBankData', [BankController::class, 'deleteBankData']);
+Route::get('admin/getCompanyHolder', [BankController::class, 'getCompanyHolder']);
+Route::post('admin/CreateCompany', [BankController::class, 'CreateCompany']);
 
 //credit Card
 Route::get('admin/getcreditCard', [CreditCardController::class, 'getcreditCard']);

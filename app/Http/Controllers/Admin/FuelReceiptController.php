@@ -254,13 +254,14 @@ class FuelReceiptController extends Controller
    public function getInvoicedNumber(Request $request)
    {
         $companyId=1;
-        // $Invoiced = Invoiced::where('companyID',$companyId)->first();
-        $Invoiced=null;
+        $Invoiced = Invoiced::where('companyID',$companyId)->first();
+       //$Invoiced=null;
         return response()->json($Invoiced, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
    }
    public function deleteMulFuelReceipt(Request $request)
    {
     $fuelReceIds=$request->all_ids;
+    // dd($fuelReceIds);
     $custID=(array)$request->custID;
     foreach($custID as $fuel_re_id)
     {
@@ -268,6 +269,7 @@ class FuelReceiptController extends Controller
         ',' , ' " " ', '[', ']' ), ' ', $fuel_re_id);
         $fuel_re_id=(int)$fuel_re_id;
         $FuelReceipt = FuelReceipt::where('companyID',$fuel_re_id )->first();
+        // dd($FuelReceipt);
         $fuelReceiptArray=$FuelReceipt->fuel_receipt;
         $arrayLength=count($fuelReceiptArray);            
         $i=0;
@@ -292,6 +294,7 @@ class FuelReceiptController extends Controller
                 }
             }
         }
+        // dd($data);
         foreach($data as $row)
         {
             $fuelReceiptArray[$row]['deleteStatus'] = "YES";

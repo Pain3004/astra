@@ -85,7 +85,7 @@ $(document).ready(function() {
                             "<td data-field='iftaCardNo' >" +iftaCardNo  + "</td>" +
                             "<td data-field='cardType' >" + cardType + "</td>" +
                             "<td style='text-align:center'>"+
-                                "<a class='"+editPrivilege+" button-23 editCurrency edit_fuel_card_form'  title='Edit1'  data-fuelCard='" + fuelCardId + "' data-com_Id='" + custID + "'  ><i class='fe fe-edit'></i></a>&nbsp"+
+                                "<a class='"+editPrivilege+" button-23  edit_fuel_card_form'  title='Edit1'  data-fuelCard='" + fuelCardId + "' data-com_Id='" + custID + "'  ><i class='fe fe-edit'></i></a>&nbsp"+
                                 "</a> <a class=' button-23 "+delPrivilege+" delete_fuel_card_form'  data-fuelCard='" + fuelCardId + "' data-com_Id='" + custID + "'  title='Delete'><i class='fe fe-delete'></i></a>"+
                             "</td></tr>";
 
@@ -153,7 +153,7 @@ $(document).ready(function() {
                 for (var j = 0; j < len2; j++) {
                     var driverId = text.driver[j]._id;
                     var name = text.driver[j].driverName;
-                    var html = "<option value='" + driverId + "'  data-name='"+name+"'>" + name + " </option>";
+                    var html = "<option value='" + driverId + "'  data_driver_name_for_recepits='"+name+"'>" + name + " </option>";
                     $(".cardHolderName").append(html);
                 }
             }
