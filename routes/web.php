@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\TruckTrailerMakeController;
 use App\Http\Controllers\Admin\LoadController;
 use App\Http\Controllers\Admin\IftaTripController;
 use App\Http\Controllers\Admin\PaymentReceiptController;
+use App\Http\Controllers\Admin\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -258,3 +259,6 @@ Route::post('admin/addLoadType', [LoadController::class, 'addLoadType']);
 
 //PaymentReceiptController
 Route::get('admin/getPaymentReceipt', [PaymentReceiptController::class, 'getPaymentReceipt']);
+
+//ReportController
+Route::get('admin/createAgingReport', [ReportController::class, 'createAgingReport']);

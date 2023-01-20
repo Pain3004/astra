@@ -177,7 +177,7 @@ $(document).ready(function() {
             data: formData,
             success: function (data) {
                 // console.log(data)
-                swal.fire("Done!", "Fuel Credit Card  added successfully", "success");
+                swal.fire("Done!", " Credit Card  added successfully", "success");
                 $('#AddCreditCardModal').modal('hide');
                 $.ajax({
                     type: "GET",
@@ -288,7 +288,7 @@ $(document).ready(function() {
             data: formData,
             success: function (data) {
                 // console.log(data)
-                swal.fire("Done!", "Fuel Credit Card  Updated successfully", "success");
+                swal.fire("Done!", " Credit Card  Updated successfully", "success");
                 $('#UpdateCreditCardModal').modal('hide');
                 $.ajax({
                     type: "GET",

@@ -142,12 +142,12 @@
 														<li class="side-menu-label1"><a href="javascript:void(0)">Reports</a></li>
 
 														
-																<li><a href="https://laravel8.spruko.com/noa/form-elements" class="slide-item">Aging Report</a></li> 
+																<li><a href="#" class="slide-item" id="AgingReportBtn">Aging Report</a></li> 
 														
-																<li><a href="https://laravel8.spruko.com/noa/form-layouts" class="slide-item">Revenue Report</a></li>
-																<li><a href="https://laravel8.spruko.com/noa/form-layouts" class="slide-item">Expense Report</a></li>
+																<li><a href="#" class="slide-item">Revenue Report</a></li>
+																<li><a href="#" class="slide-item">Expense Report</a></li>
 															
-																<li><a href="https://laravel8.spruko.com/noa/form-validation" class="slide-item">1099 Report</a></li>
+																<li><a href="#" class="slide-item">1099 Report</a></li>
 														
 													</ul>
 												</li>
@@ -457,3 +457,4 @@
 			@include('layout.Load.Load')
 			@include('layout.IFTAtrip.ifta_trip')
 			@include('layout.PaymentReceiptRegi.paymentReceiptRegi')
+			@include('layout.Reports.agingReport')
