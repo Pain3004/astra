@@ -32,6 +32,7 @@
                        
 
 						<!-- ROW-4 -->
+						
 						<div class="row">
 							<div class="col-12 col-sm-12">
 								<div class="card product-sales-main">
@@ -43,7 +44,8 @@
                                             <div class="content">
                                                 <div class="row">
                                                     <div class="col-2">
-                                                       
+													<input type="hidden" name="_token" id="tokenLoadboard" value="{{ csrf_token() }}" />
+
                                                     </div>
                                                     <div class="col-10">
                                                         <div class="btn-group submitter-group float-right">

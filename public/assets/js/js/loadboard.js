@@ -85,7 +85,8 @@ $(document).ready(function() {
                   if (sub_len > 0) {
                     
                       for (var j = sub_len-1; j >= 0; j--) { 
-                          var _id =Result[i].load[j]._id;
+                        
+                          var com_id =Result[i].companyID;
                           
                           var invoice =Result[i].load[j]._id;
                           var orderId =Result[i].load[j].cnno;
@@ -112,24 +113,28 @@ $(document).ready(function() {
                           if(trailer==""){trailer="-"}
                           if(loadPay=="" || loadPay==null){loadPay="0.00" }else{ loadPay=parseFloat(loadPay).toFixed(2);}
                           if(carrierPay_driverPay=="" || carrierPay_driverPay==null){carrierPay_driverPay="0.00" }else{ carrierPay_driverPay=parseFloat(carrierPay_driverPay).toFixed(2); }
+
                           $('#loadStatus option:selected').eq(status).prop('selected', true);
-                          
+                          //var option = $("#loadStatus option[value='" + status + "']").prop('selected', true);
+                         // $("#loadStatus").val("Loaded").trigger("change");
+                          // $("#loadStatus option[value='"+status+"']").prop("selected", true);
+
                                   var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                   "<td data-field='no'>" + no + "</td>" +
-                                  "<td data-field='invoice' class='invoiceLB'>" + invoice + "</td>" +
+                                  "<td data-field='invoice'>" + invoice + "</td>" +
                                   "<td data-field='orderId'>" + orderId + "</td>" +
                                   "<td data-field='status' style='color:black;'>" + 
                                 
-                                      "<select class='form-control' id='loadStatus'  style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
-                                    //  "<option value='" + status +"'  selected='' >" + status +"</option>" +
-                                      "<option value='Open'  > Open</option>" +
-                                      "<option value='Dispatched'> Dispatched</option>" +
-                                      "<option value='Arrived Shipper'> Arrived Shipper</option>" +
-                                      "<option value='Loaded'> Loaded</option>" +
-                                      "<option value='On Route'> On Route</option>" +
-                                      "<option value='Arrived Consignee'> Arrived Consignee</option>" +
-                                      "<option value='Delivered'> Delivered</option>" +
-                                      "<option value='Break Down'> Break Down</option>" +
+                                      "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
+                                      "<option value='" + status +"'  selected='' >" + status +"</option>" +
+                                      "<option value='Open'>Open</option>" +
+                                      "<option value='Dispatched'>Dispatched</option>" +
+                                      "<option value='Arrived Shipper'>Arrived Shipper</option>" +
+                                      "<option value='Loaded'>Loaded</option>" +
+                                      "<option value='On Route'>On Route</option>" +
+                                      "<option value='Arrived Consignee'>Arrived Consignee</option>" +
+                                      "<option value='Delivered'>Delivered</option>" +
+                                      "<option value='Break Down'>Break Down</option>" +
                                   "</select>" +
                                   "</td>" +
                                   "<td data-field='shipDate'>" + shipDate + "</td>" +
@@ -149,11 +154,11 @@ $(document).ready(function() {
                                   "</tr>";
       
                               $("#LoadBoardTable").append(Str);
+                              $("#loadStatus option[value='"+status+"']").prop("selected", false);
                               no++;
                           
 
                       }
-                      console.log($('._id').val());
                   }
                   
               }
@@ -173,11 +178,52 @@ $(document).ready(function() {
       }
   }
 
-  var max = 0;
-
-
-  var aa=$('.invoiceLB').val();
-  console.log(aa);
 // <!-- -------------------------------------------------------------------------over function   ------------------------------------------------------------------------- -->  
+// <!-- -------------------------------------------------------------------------change status   ------------------------------------------------------------------------- -->  
+$('.loadStatus').click(function() {
+  var oldSelectedValue = this.value;
+  //alert(oldSelectedValue  );
+  $('.loadStatus').on('change', function (e) {
+    var valueSelected = this.value;
+    var com_id = $(this).attr('data-com_id');
+    var id = $(this).attr('data-invoiceId');
+    // alert(com_id);
+    // alert(id);
+    // alert(valueSelected);
+    swal.fire({
+      title: "Change Status?",
+      text: "Are you sure you want to change the status?",
+      type: "warning",
+      showCancelButton: !0,
+      confirmButtonText: "Yes, Change it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: !0
+    }).then(function (e) { 
+      $.ajax({
+        type: "post",
+        headers: {
+          'x-csrf-token': 'my_token_value'
+        },
+        url: base_path+"/admin/changeStatus",
+        async: false,
+        //dataType:JSON,
+        data:{
+          _token: $("#tokenLoadboard").val(),
+          com_id:com_id, 
+          id:id, 
+          oldSelectedValue:oldSelectedValue,
+          valueSelected:valueSelected
+        },
+        success: function(text) {
+          //console.log(text);
+            //createLoadBoardRows(text);
+        }
+      });
+    });
+   });
+ }); 
+
+
+// <!-- -------------------------------------------------------------------------over change status   ------------------------------------------------------------------------- -->  
 
 });

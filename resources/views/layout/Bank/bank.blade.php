@@ -25,7 +25,7 @@
                 @endif 
                 
                 @if($deleteUser== 1)    
-                    <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    <a href="#" class="button-57_alt restoreBankBtn" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
                 @endif
                     <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
                     <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
@@ -291,3 +291,86 @@
     </div>
 </div>
 <!--================================= end update details ============================ -->
+
+
+ <!--=========================== start restore ============================================ -->
+ <div class="container">
+    <!-- The Modal -->
+    <div class="modal fade" data-backdrop="static" id="restorebankModal">
+        <div class="modal-dialog modal-dialog-scrollable custom_modal">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Restore Bank</h4>
+                    <button type="button" class="button-24 restorebankClose" >&times;</button>
+                </div>
+
+                <div style="margin-top: 15px; margin-left: 15px;">
+                <input type="hidden" name="checked_id" id="checked_BankDetails_ids" value="">
+                    <input type="hidden" name="company_id" id="checked_BankDetails_company_ids" value="">
+                    <button id="restore_BankDetails_data"  class="button-57_alt restore_BankDetails_data" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore Credit Card</span></button>
+                    <div class="searchbar" style="float: right; margin-right: 15px;">
+                        <input type="text" placeholder="search" />
+                        <!-- <div class="symbol">
+                            
+                            <svg class="lens">
+                            <use xlink:href="#lens" />
+                            </svg>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+
+                                <div class="table-responsive export-table">
+                                    <table  class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                        <tr class="tr">
+
+                                            <th ><input type="checkbox" name="all_ids[]" class="bankDetails_all_ids"></th>
+                                            <th >Name of Bank</th>
+                                            <th >Address / Branch</th>
+                                            <th >Account Holder Name</th>
+                                            <th >Bank Account</th>
+                                            <th >Bank Routing</th>
+                                            <th >Opening Bal Dt </th>
+                                            <th > Opening Balance</th>
+                                            <th > Current Balance</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody id="restorebankTable">
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                           
+                                            <th >No</th>
+                                            <th >Name of Bank</th>
+                                            <th >Address / Branch</th>
+                                            <th >Account Holder Name</th>
+                                            <th >Bank Account</th>
+                                            <th >Bank Routing</th>
+                                            <th >Opening Bal Dt </th>
+                                            <th > Opening Balance</th>
+                                            <th > Current Balance</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button-29 restorebankClose">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!--================================= end restore ======================================== -->

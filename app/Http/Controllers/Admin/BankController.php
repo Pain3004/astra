@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Collection;
 class BankController extends Controller
 {
     public function getBankData(Request $request){
-        //$companyId=1;
+        $companyId=(int)1;
         //$bankData = Bank::where('deleteStatus','NO')->get();
-        $bankData = Bank::get();
+        $bankData = Bank::where('companyID',$companyId)->get();
        //dd($bankData);
        return response()->json($bankData, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
@@ -312,6 +312,55 @@ class BankController extends Controller
         } 
         catch(\Exception $error){
             return $error->getMessage();
+        }
+    }
+    public function restoreBankData(Request $request)
+    {
+        // echo "gfgfgfdg"; exit;
+        $bankIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        // dd($bankIds);
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Bank = Bank::where('companyID',$company_id )->first();
+            $BankArray=$Bank->admin_bank;
+            $arrayLength=count($BankArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Bank->admin_bank[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $bankIds= str_replace( array('[', ']'), ' ', $bankIds);
+                    if(is_string($bankIds))
+                    {
+                        $bankIds=explode(",",$bankIds);
+                    }
+                    foreach($bankIds as $bank_d_ids)
+                    {
+                        $bank_d_ids= str_replace( array('"', ']' ), ' ', $bank_d_ids);
+                        if($value==$bank_d_ids)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            // dd($data);
+            foreach($data as $row)
+            {
+                $BankArray[$row]['deleteStatus'] = "NO";
+                $Bank->admin_bank= $BankArray;
+                $save=$Bank->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Bank Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
         }
     }
    

@@ -10,6 +10,17 @@ $(document).ready(function() {
 // <!-- -------------------------------------------------------------------------Get   ------------------------------------------------------------------------- -->  
    
     $('#bank_navbar').click(function(){
+
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getCompanyHolder",
+            async: false,
+            success: function(text) {
+                console.log(text);
+                ShowCompanyName(text);
+                comapnyRes = text;
+             }
+        });
         //alert();
         $.ajax({
             type: "GET",
@@ -192,89 +203,89 @@ $(".bankDataSavebutton").click(function(){
 
 //======================================create company modal and show======================
 function ShowCompanyName(comapnyRes)
-{
-    var companyLength=comapnyRes.company.length;
-    var companyL=comapnyRes.company;  
-    $(".listCompanyNames").html(); 
-    for(var j=0; j<companyLength;j++)
     {
-        var id=companyL[j]._id;
-        var name=companyL[j].companyName;
-        var html="<option value='"+id+"'>"+name+"</option>";
-        // $(".addbankCompany").val(id);
-        $(".listCompanyNames").append(html);
-    }   
-}
-$(".CreateCompanyHolderName").click(function(){
-    $("#CompanyCreateModal").modal("show");
-});
-$(".closeCompanyCreateModal").click(function(){
-    $("#CompanyCreateModal").modal("hide");
-});
-$(".CompanyCreateModalSaveButton").click(function(){
-    var companyName=$('.addcompanyName').val();
-    var shippingAddress=$('.addshippingAddress').val();
-    var telephoneNo=$('.addtelephoneNo').val();
-    var faxNo=$('.addBankfaxNo').val();
-    var mcNo=$('.addBankmcNo').val();
-    var usDotNo=$('.addBankusDotNo').val();
-    var mailingAddress=$('.addBankmailingAddress').val();
-    var factoringCompany=$('.create_factoringCompany').val();
-    var website=$('.addBankwebsite').val();
-    if(companyName=="")
-    {
-        swal.fire( "'Enter company Name");
-        return false;
+        var companyLength=comapnyRes.company.length;
+        var companyL=comapnyRes.company;  
+        $(".listCompanyNames").html(); 
+        for(var j=0; j<companyLength;j++)
+        {
+            var id=companyL[j]._id;
+            var name=companyL[j].companyName;
+            var html="<option value='"+id+"'>"+name+"</option>";
+            // $(".addbankCompany").val(id);
+            $(".listCompanyNames").append(html);
+        }   
     }
-    if(telephoneNo=="")
-    {
-        swal.fire( "'Enter telephone No");
-        return false;
-    }
-    if(mailingAddress=="")
-    {
-        swal.fire( "'Enter mailing Address");
-        return false;
-    }
-  
-    var formData = new FormData();
-    $.each($(".addBankComapanyFiles")[0].files, function(i, file) {            
-        formData.append('file[]', file);
+    $(".CreateCompanyHolderName").click(function(){
+        $("#CompanyCreateModal").modal("show");
     });
-    formData.append('_token',$("#_tokenAdd_add_bank_data").val());
-    formData.append('companyName',companyName);
-    formData.append('shippingAddress',shippingAddress);
-    formData.append('telephoneNo',telephoneNo);
-    formData.append('faxNo',faxNo);
-    formData.append('mcNo',mcNo);
-    formData.append('usDotNo',usDotNo);
-    formData.append('mailingAddress',mailingAddress);
-    formData.append('factoringCompany',factoringCompany);
-    formData.append('website',website);
-    $.ajax({
-        type: "POST",
-        url: base_path+"/admin/CreateCompany",
-        async: false,
-        cache: false,
-        contentType: false,
-        processData: false,
-        data:formData,
-        success: function(data) {                  
-            swal.fire("Done!", "Bank Holder Stored successfully", "success");
-            $('#CompanyCreateModal').modal('hide');
-            $.ajax({
-                type: "GET",
-                url: base_path+"/admin/getCompanyHolder",
-                async: false,
-                success: function(text) {
-                    console.log(text);
-                    ShowCompanyName(text);
-                    comapnyRes = text;
-                 }
-            });
+    $(".closeCompanyCreateModal").click(function(){
+        $("#CompanyCreateModal").modal("hide");
+    });
+    $(".CompanyCreateModalSaveButton").click(function(){
+        var companyName=$('.addcompanyName').val();
+        var shippingAddress=$('.addshippingAddress').val();
+        var telephoneNo=$('.addtelephoneNo').val();
+        var faxNo=$('.addBankfaxNo').val();
+        var mcNo=$('.addBankmcNo').val();
+        var usDotNo=$('.addBankusDotNo').val();
+        var mailingAddress=$('.addBankmailingAddress').val();
+        var factoringCompany=$('.create_factoringCompany').val();
+        var website=$('.addBankwebsite').val();
+        if(companyName=="")
+        {
+            swal.fire( "'Enter company Name");
+            return false;
         }
+        if(telephoneNo=="")
+        {
+            swal.fire( "'Enter telephone No");
+            return false;
+        }
+        if(mailingAddress=="")
+        {
+            swal.fire( "'Enter mailing Address");
+            return false;
+        }
+      
+        var formData = new FormData();
+        $.each($(".addBankComapanyFiles")[0].files, function(i, file) {            
+            formData.append('file[]', file);
+        });
+        formData.append('_token',$("#_tokenAdd_add_bank_data").val());
+        formData.append('companyName',companyName);
+        formData.append('shippingAddress',shippingAddress);
+        formData.append('telephoneNo',telephoneNo);
+        formData.append('faxNo',faxNo);
+        formData.append('mcNo',mcNo);
+        formData.append('usDotNo',usDotNo);
+        formData.append('mailingAddress',mailingAddress);
+        formData.append('factoringCompany',factoringCompany);
+        formData.append('website',website);
+        $.ajax({
+            type: "POST",
+            url: base_path+"/admin/CreateCompany",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            success: function(data) {                  
+                swal.fire("Done!", "Bank Holder Stored successfully", "success");
+                $('#CompanyCreateModal').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getCompanyHolder",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        ShowCompanyName(text);
+                        comapnyRes = text;
+                     }
+                });
+            }
+        });
     });
-});
 //================================ end company modal name -================================
 
 //==================================== update bank details ==============================
@@ -437,4 +448,163 @@ $('body').on('click','.delete_bank_details',function(){
     })
 });
 //================================== end details =================================
+
+
+ //===============================start restore bank ================================
+ $(".restoreBankBtn").click(function(){
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/getCompanyHolder",
+        async: false,
+        success: function(text) {
+            console.log(text);
+            RestoreCompanyName(text);
+            comapnyRes = text;
+         }
+    });
+    $("#restorebankModal").modal("show");
+});
+$(".restorebankClose").click(function(){
+    $("#restorebankModal").modal("hide");
+});
+function RestoreCompanyName(creditCardResult) {
+    var banklen = 0;
+    if (bankResult != null) 
+    {
+        $("#restorebankTable").html('');
+        banklen = bankResult.length;
+        if (banklen > 0) 
+        {
+            for (var i = banklen-1; i >= 0; i--) 
+            { 
+                bankAdminlen = bankResult[i].admin_bank.length;
+                var Id =bankResult[i]._id;
+                var com_Id =bankResult[i].companyID;
+                //alert(bankAdminlen);
+                if (bankAdminlen > 0) 
+                {
+                    for (var j = bankAdminlen-1; j >= 0; j--) 
+                    {    
+                        var CompID=bankResult[i].companyID;
+                        var admin_bank_Id =bankResult[i].admin_bank[j]._id;
+                        var bankName =bankResult[i].admin_bank[j].bankName;
+                        var bankAddresss =bankResult[i].admin_bank[j].bankAddresss;
+                        var accountHolder =bankResult[i].admin_bank[j].accountHolder;
+                        var accountNo =bankResult[i].admin_bank[j].accountNo;
+                        var routingNo =bankResult[i].admin_bank[j].routingNo;
+                        var openingBalDate =bankResult[i].admin_bank[j].openingBalDate;
+                        var openingBalance =bankResult[i].admin_bank[j].openingBalance;
+                        var openingBalance=parseFloat(openingBalance).toFixed(2);
+                        var currentBalance =bankResult[i].admin_bank[j].currentBalance;
+                        var currentBalance=parseFloat(currentBalance).toFixed(2);
+                        var deleteStatus =bankResult[i].admin_bank[j].deleteStatus;
+
+                        if(deleteStatus == "YES")
+                        {
+                            var bankStr = "<tr data-id=" + (i + 1) + ">" +
+                            "<td data-field='no'><input type='checkbox' class='check_BankDetails_one' name='all_BankDetails_id[]' data-BankDetails=" + admin_bank_Id+ " date-compID="+CompID+"  value="+admin_bank_Id+"></td>" +
+                            "<td data-field='bankName' >" + bankName + "</td>" +
+                            "<td data-field='bankAddresss' >" + bankAddresss + "</td>" +
+                            "<td data-field='accountHolder' >" + accountHolder + "</td>" +
+                            "<td data-field='accountNo' >" + accountNo + "</td>" +
+                            "<td data-field='routingNo' >" + routingNo + "</td>" +
+                            "<td data-field='openingBalDate' >" + openingBalDate + "</td>" +
+                            "<td data-field='openingBalance' >$ " + openingBalance + "</td>"+
+                            "<td data-field='openingBalance' >$ " + currentBalance + "</td></tr>" 
+                            $("#restorebankTable").append(bankStr);
+                        }
+                    }
+                }
+            }
+            
+        }
+        else 
+        {
+            var bankStr = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+        
+                $("#restorebankTable").append(bankStr);
+        }
+    
+    }
+    else 
+    {
+        var bankStr = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
+
+        $("#restorebankTable").append(bankStr);
+    }
+}
+$(document).on("change", ".bankDetails_all_ids", function() 
+{
+    if(this.checked) {
+        $('.check_BankDetails_one:checkbox').each(function() 
+        {
+            this.checked = true;
+            BankDetailsCheckboxRestore();
+        });
+    } 
+    else 
+    {
+        $('.check_BankDetails_one:checkbox').each(function() {
+            this.checked = false;
+        });
+    }
+});
+$('body').on('click','.check_BankDetails_one',function(){
+    BankDetailsCheckboxRestore();
+});
+function BankDetailsCheckboxRestore()
+{
+    var BankDetailsIds = [];
+    var companyIds=[]
+        $.each($("input[name='all_BankDetails_id[]']:checked"), function(){
+            BankDetailsIds.push($(this).val());
+            companyIds.push($(this).attr("date-compID"));
+        });
+        console.log(BankDetailsIds);
+        var CreditCardAllCheckedIds =JSON.stringify(BankDetailsIds);
+        $('#checked_BankDetails_ids').val(CreditCardAllCheckedIds);
+       
+        var companyCheckedIds =JSON.stringify(companyIds);
+        $('#checked_BankDetails_company_ids').val(companyCheckedIds);
+
+
+        if(BankDetailsIds.length > 0)
+        {
+            $('#restore_BankDetails_data').removeAttr('disabled');
+        }
+        else
+        {
+            $('#restore_BankDetails_data').attr('disabled',true);
+        }
+}
+$('body').on('click','.restore_BankDetails_data',function(){
+    var all_ids=$('#checked_BankDetails_ids').val();
+    var custID=$("#checked_BankDetails_company_ids").val();
+    // alert(all_ids + " " + custID);
+    $.ajax({
+        type:"post",
+        data:{_token:$("#_tokenAdd_update_bank_data").val(),all_ids:all_ids,custID:custID},
+        url: base_path+"/admin/restoreBankData",
+        success: function(response) 
+        {               
+            swal.fire("Done!", "Restored Bank successfully", "success");
+            $("#restorebankModal").modal("hide");
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getBankData",
+                async: false,
+                success: function(text) {
+                    console.log(text);
+                    createBankRows(text);
+                    bankResult = text;
+                 }
+            });
+        }
+    });
+});
+//-=========================  end restore bank =====================================
 });
