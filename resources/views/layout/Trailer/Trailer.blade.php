@@ -88,7 +88,7 @@
 </div>
 
 
- <!-- ============ start addTrailerModal================ -->
+ <!-- ============ start addTrailerModal ========================================= -->
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="addTrailerModal" role="dialog">
         <div class="modal-dialog custom_modal" role="document">

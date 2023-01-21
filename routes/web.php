@@ -259,6 +259,7 @@ Route::post('admin/addLoadType', [LoadController::class, 'addLoadType']);
 
 //PaymentReceiptController
 Route::get('admin/getPaymentReceipt', [PaymentReceiptController::class, 'getPaymentReceipt']);
+Route::post('admin/StorePaymentReceipt', [PaymentReceiptController::class, 'StorePaymentReceipt']);
 
 //ReportController
 Route::get('admin/createAgingReport', [ReportController::class, 'createAgingReport']);
