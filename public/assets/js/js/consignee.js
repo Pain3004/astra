@@ -1,34 +1,17 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
 
-// <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
  
 
-$('.closeShipperModal').click(function(){
+    $('.closeShipperModal').click(function(){
          $('#Shipper_and_ConsigneeModal').modal('hide');
-    //     $('#addTruckModal').modal('hide');
-     });
+    });
 
-    // $('.closeAddTruckModal').click(function(){
-    //     $('#addTruckModal').modal('hide');
-    //     //$('#truckModal').modal('show');
-    // });
-
-    // $('.addtruckModal').click(function(){
-    //     //$('#truckModal').modal('hide');
-    //     $('#addTruckModal').modal('show');
-    // });
-
-
-//driver as owner operator modal
-   
-    // $('#up_driverAddTruck').click(function(){
-    //     $('#addTruckModal').modal('show');
-    // });
-// <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
    
     $('.consignee_tab').click(function(){
-        //alert();
+        $(".addressType").val("consignee");
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getConsignee",
@@ -44,11 +27,12 @@ $('.closeShipperModal').click(function(){
     });
 
 
-// <!-- -------------------------------------------------------------------------over Get truck  ------------------------------------------------------------------------- --> 
-// <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------over Get truck  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
     
-// get truck
-    function createGetConsigneeRows(ConsigneeResult) {
+    // get truck
+    function createGetConsigneeRows(ConsigneeResult) 
+    {
         var consigneelen = 0;
             if (ConsigneeResult != null) {
                 consigneelen = ConsigneeResult.consignee.length;
@@ -82,7 +66,7 @@ $('.closeShipperModal').click(function(){
 
                         var consigneeStr = "<tr data-id=" + (i + 1) + ">" +
                         //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                            "<td data-field='no'>" + no+"-"+ deleteStatus + "</td>" +
+                            "<td data-field='no'>" + no + "</td>" +
                             "<td data-field='consigneeName' >" + consigneeName + "</td>" +
                             "<td data-field='consigneeAddress' >" +consigneeAddress  + "</td>" +
                             "<td data-field='consigneeLocation' >" +consigneeLocation  + "</td>" +
@@ -123,8 +107,8 @@ $('.closeShipperModal').click(function(){
             $("#consigneeTable").append(consigneeStr);
         }
     }
-// <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
 
 
-// <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 });

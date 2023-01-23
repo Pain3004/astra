@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Shipper;
+use App\Models\Consignee;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
@@ -17,152 +18,191 @@ use Illuminate\Database\Eloquent\Collection;
 class ShipperController extends Controller
 {
     public function getShipper(){
-        $companyId=65;
+        // $companyId=65;
+        $companyId=(int)1;
+        // dd($companyId);
         $shipper = Shipper::where('companyID',$companyId)->first();
         //dd($shipper);
        return response()->json($shipper, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
-
-//     public function truck_getTrucktype(Request $request){
-//         $companyId=1;
-       
-//         $truck_type = Truck_type::where('companyID',$companyId)->first();
-    
-//        return response()->json($truck_type, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-//         //return response()->json($truck, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-//     }
-    
-//     public function addTruckData(Request $request){
-//         request()->validate([
-//             //'truckNumber' => 'required',
-//             // 'truckType' => 'required',
-//             // 'licensePlate' => 'required',
-//             // 'plateExpiry' => 'required',
-//             // 'ownership' => 'required',
-//             // 'vin' => 'required',
-//         ]);
-  
-// //file upload
-//       $path = public_path().'/TruckFile';
-//       if(!File::exists($path)) {
-//         File::makeDirectory($path, $mode = 0777, true, true);
-//         }
-//         $privilege=Auth::user()->privilege;
-//         try{
-//             if ($files = $request->file('file')) {
-//                 foreach ($request->file('file') as $file) {
-                    
-//                     $name =  time().rand(0,1000).$file->getClientOriginalName();
-//                     $filePath=$file->move(public_path() . '/TruckFile/', $name);
-//                     $data[] = $name;
-//                     $size = File::size($filePath);
-                    
-//                     $truckfile[]=array(
-//                         '_id' => 0,
-//                         'mainid' =>'' ,
-//                         'status' => 'truckadd',
-//                         'filename' =>$name ,
-//                         'originalname' => $file->getClientOriginalName(),
-//                         'filesize' =>$size ,
-//                         'targetfilepath' => "TruckFile/".$name,
-//                         'index' =>0,
-//                         'companyId' => 1,
-//                         'privilege' => $privilege,
-//                     );
-//                 }
-//             }
-//         }
-//         catch(\Exception $error){
-//             return $error->getMessage();
-//         }
-
-// // add data in truck        
-//         try{
-//             $Truck=Truckadd::all();
-//             $companyID=(int)1;
-
-//             $getTruck = Truckadd::where('companyID',$companyID)->first();
-//                 if($getTruck){
-//                     $totalTruckArray=count($getTruck->truck);
-//                 }else{
-//                     $totalTruckArray=0; 
-//                 }
-//                 if(isset($truckfile)){
-//                     $truckDoc=array($truckfile);
-//                 }else{
-//                     $truckDoc=array();
-//                 }
-            
-//             $truckData[]=array(    
-//                     '_id' => $totalTruckArray,
-//                     //'_id' => new ObjectId(),
-//                     'counter' => 0,
-//                     'truckNumber' => $request->truck_number,
-//                     'truckType' => $request->trucktypeId,
-//                     'licensePlate' => $request->license_plate,
-//                     'plateExpiry' => $request->plate_expiry,
-//                     'inspectionExpiry' => $request->inspection,
-//                     'status' => $request->truck_status,
-//                     'ownership' => $request->ownership,
-//                     'mileage' => $request->mileage,
-//                     'axies' => $request->axies,
-//                     'year' => $request->year,
-//                     'fuelType' => $request->fuel_type,
-//                     'startDate' => $request->start_date,
-//                     'deactivationDate' => $request->deactivation,
-//                     'ifta' => $request->ifta,
-//                     'registeredState' => $request->RegisteredState,
-//                     'insurancePolicy' => $request->Insurance_Policy,
-//                     'grossWeight' => $request->gross,
-//                     'vin' => $request->vin,
-//                     'dotexpiryDate' => $request->dot,
-//                     'transponder' => $request->transponder,
-//                     'internalNotes' => $request->internal_note,
-//                     'trucDoc' => $truckDoc,
-//                     'insertedTime' => time(),
-//                     'insertedUserId' =>Auth::user()->_id,
-//                     'edit_by' =>Auth::user()->userName,
-//                     'edit_time' =>'',
-//                     'deleteStatus' => "NO",
-//                     'deleteUser' => "",
-//                     'deleteTime' => "",
-                        
-//                 );
-// // dd($driverData[]);
-//                 if($getTruck){
-//                     $truckArray=$getTruck->truck;
-//                     Truckadd::where(['companyID' =>$companyID ])->update([
-//                         'counter'=> $totalTruckArray+1,
-//                         'truck' =>array_merge($truckArray,$truckData) ,
-//                     ]);
-
-//                     $data = [
-//                         'success' => true,
-//                         'message'=> 'Truck added successfully'
-//                     ] ;
-                    
-//                     return response()->json($data);
-//                 }else{
-//                     if(Truckadd::create([
-//                         '_id' => new ObjectId(),
-//                         'companyID' => $companyID,
-//                         'counter' => $totalTruckArray+1,
-//                         'truck' => $truckData,
-//                     ])) {
-//                         $data = [
-//                             'success' => true,
-//                             'message'=> 'Truck added successfully'
-//                             ] ;
-//                             return response()->json($data);
-//                     }
-//                 }
-//         } 
-//         catch(\Exception $error){
-//             return $error->getMessage();
-//         }
-    
-       
-//     }
+    public function storeShipper(Request $request)
+    {
+        $companyID=(int)1;
+        // $companyID=(int)65;
+        // dd($request->addressType);
+        // if($request->addressType=="shipper")
+        // {
+            $Shipper = Shipper::where('companyID',$companyID)->get();
+            foreach( $Shipper as  $Shipper_data)
+            {
+                if($Shipper_data)
+                {
+                    $ShipperArray=$Shipper_data->shipper;
+                    $ids=array();
+                    foreach( $ShipperArray as $key=> $getFuelCard_data)
+                    {
+                        $ids[]=$getFuelCard_data['_id'];
+                    }
+                    $ids=max($ids);
+                    $totalShipperArray=$ids+1;
+                }
+                else
+                {
+                    $totalShipperArray=0; 
+                }
+                $ShipperData[]=array(    
+                    '_id' => $totalShipperArray,
+                    'shipperName' => $request->shipperName,
+                    'shipperAddress' => $request->shipperAddress,
+                    'shipperLocation' => $request->shipperLocation,
+                    'shipperPostal' => $request->shipperPostal,
+                    'shipperContact' => $request->shipperContact,
+                    'shipperEmail' => $request->shipperEmail,
+                    'shipperTelephone' => $request->shipperTelephone,
+                    'shipperExt' => $request->shipperExt,
+                    'shipperTollFree' => $request->shipperTollFree,
+                    'shipperFax' => $request->shipperFax,
+                    'shipperShippingHours' => $request->shipperShippingHours,
+                    'shipperAppointments' => $request->shipperAppointments,
+                    'shipperIntersaction' => $request->shipperIntersaction,
+                    'shipperstatus' => $request->shipperstatus,
+                    'shippingNotes' => $request->shippingNotes,
+                    'internal_note' => $request->internal_note,
+                    'counter' =>0,
+                    'created_by' => Auth::user()->userFirstName,
+                    'created_time' => date('d-m-y h:i:s'),
+                    'edit_by' =>Auth::user()->userName,
+                    'edit_time' =>time(),
+                    'deleteStatus' =>"NO",                    
+                ); 
+                if($Shipper_data)
+                {                
+                    Shipper::where(['companyID' =>$companyID])->update([
+                    'counter'=> $totalShipperArray+1,
+                    'shipper' =>array_merge($ShipperArray,$ShipperData) ,
+                    ]);
+                    $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
+                    return json_encode($arrShipper);
+                }
+                else
+                {
+                    try
+                    {
+                        if(Shipper::create([
+                            '_id' => 1,
+                            'companyID' => $companyID,
+                            'counter' => 1,
+                            'shipper' => $currencyData,
+                        ])) 
+                        {
+                            $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
+                            return json_encode($arrShipper);
+                        }
+                    }
+                    catch(\Exception $error)
+                    {
+                        return $error->getMessage();
+                    }
+                }
+            } 
+        
+            // dd($request->shipperASconsignee);
+            if($request->shipperASconsignee==1)
+            {
+                $Consignee = Consignee::where('companyID',$companyID)->get();
+                foreach( $Consignee as  $Consignee_data)
+                {
+                    if($Consignee_data)
+                    {
+                        $ConsigneeArray=$Consignee_data->consignee;
+                        $ids=array();
+                        foreach( $ConsigneeArray as $key=> $getFuelCard_data)
+                        {
+                            $ids[]=$getFuelCard_data['_id'];
+                        }
+                        $ids=max($ids);
+                        $totalConsigneeArray=$ids+1;
+                    }
+                    else
+                    {
+                        $totalConsigneeArray=0; 
+                    }
+                    $ConsigneeData[]=array(    
+                        '_id' => $totalShipperArray,
+                        'consigneeName' => $request->shipperName,
+                        'consigneeAddress' => $request->shipperAddress,
+                        'consigneeLocation' => $request->shipperLocation,
+                        'consigneePostal' => $request->shipperPostal,
+                        'consigneeContact' => $request->shipperContact,
+                        'consigneeEmail' => $request->shipperEmail,
+                        'consigneeReceiving'=>'',
+                        'consigneeRecivingNote'=>'',
+                        'consigneeTelephone' => $request->shipperTelephone,
+                        'consigneeExt' => $request->shipperExt,
+                        'consigneeTollFree' => $request->shipperTollFree,
+                        'consigneeFax' => $request->shipperFax,
+                        'consigneeShippingHours' => $request->shipperShippingHours,
+                        'consigneeAppointments' => $request->shipperAppointments,
+                        'consigneeIntersaction' => $request->shipperIntersaction,
+                        'consigneeStatus' => $request->shipperstatus,
+                        'consigneeInternalNote' => $request->shippingNotes,
+                        'internal_note' => $request->internal_note,
+                        'counter' =>0,
+                        'created_by' => Auth::user()->userFirstName,
+                        'created_time' => date('d-m-y h:i:s'),
+                        'edit_by' =>Auth::user()->userName,
+                        'edit_time' =>time(),
+                        'deleteStatus' =>"NO",                        
+                    ); 
+                    if($Consignee_data)
+                    {                
+                        Consignee::where(['companyID' =>$companyID])->update([
+                        'counter'=> $totalConsigneeArray+1,
+                        'consignee' =>array_merge($ConsigneeArray,$ConsigneeData) ,
+                        ]);
+                        $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
+                        return json_encode($arrConsignee);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if(Consignee::create([
+                                '_id' => 1,
+                                'companyID' => $companyID,
+                                'counter' => 1,
+                                'consignee' => $currencyData,
+                            ])) 
+                            {
+                                $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
+                                return json_encode($arrConsignee);
+                            }
+                        }
+                        catch(\Exception $error)
+                        {
+                            return $error->getMessage();
+                        }
+                    }
+                }  
+            }  
+        // } 
+    }
+    public function editShipper(Request $request)
+    {
+        
+    }
+    public function updateShipper(Request $request)
+    {
+        
+    }
+    public function deleteShipper(Request $request)
+    {
+        
+    }
+    public function restoreShipper(Request $request)
+    {
+        
+    }
 
 }

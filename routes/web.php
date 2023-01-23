@@ -148,6 +148,11 @@ Route::post('admin/create_truckType', [TruckController::class, 'create_truckType
 
 //Shipper
 Route::get('admin/getShipper', [ShipperController::class, 'getShipper']);
+Route::post('admin/storeShipper', [ShipperController::class, 'storeShipper']);
+Route::get('admin/editShipper', [ShipperController::class, 'editShipper']);
+Route::post('admin/updateShipper', [ShipperController::class, 'updateShipper']);
+Route::post('admin/deleteShipper', [ShipperController::class, 'deleteShipper']);
+Route::post('admin/restoreShipper', [ShipperController::class, 'restoreShipper']);
 
 //consignee
 Route::get('admin/getConsignee', [ConsigneeController::class, 'getConsignee']);

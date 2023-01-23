@@ -1,40 +1,21 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
 
-// <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
  
 
-$('.closeShipperModal').click(function(){
+    $('.closeShipperModal').click(function(){
          $('#Shipper_and_ConsigneeModal').modal('hide');
-    //     $('#addTruckModal').modal('hide');
      });
-
-    // $('.closeAddTruckModal').click(function(){
-    //     $('#addTruckModal').modal('hide');
-    //     //$('#truckModal').modal('show');
-    // });
-
-    // $('.addtruckModal').click(function(){
-    //     //$('#truckModal').modal('hide');
-    //     $('#addTruckModal').modal('show');
-    // });
-
-
-//driver as owner operator modal
-   
-    // $('#up_driverAddTruck').click(function(){
-    //     $('#addTruckModal').modal('show');
-    // });
-// <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
-   
+  
+    // <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->     
     $('#shipperConsignee_navbar').click(function(){
+        $(".addressType").val("shipper");
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getShipper",
             async: false,
-            //dataType:JSON,
             success: function(text) {
-                //alert();
                 console.log(text);
                 createGetShipperRows(text);
                 shipperResult = text;
@@ -44,6 +25,7 @@ $('.closeShipperModal').click(function(){
     });
 
     $('.shipper_tab').click(function(){
+        $(".addressType").val("shipper");
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getShipper",
@@ -57,16 +39,15 @@ $('.closeShipperModal').click(function(){
              }
         });
     });
-
     
-// <!-- -------------------------------------------------------------------------over Get truck  ------------------------------------------------------------------------- --> 
-// <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
-    
-// get truck
-    function createGetShipperRows(shipperResult) {
+    // <!-- -------------------------------------------------------------------------over Get truck  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
+        
+    // get truck
+    function createGetShipperRows(shipperResult) 
+    {
         var shipperlen = 0;
             if (shipperResult != null) {
-                //shipperlen = shipperResult.shipper.length;
                 shipperlen = shipperResult.shipper.length;
                 $("#shipperTable").html('');
 
@@ -96,8 +77,7 @@ $('.closeShipperModal').click(function(){
 
 
                         var shipperStr = "<tr data-id=" + (i + 1) + ">" +
-                        //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                            "<td data-field='no'>" + no+"-"+ deleteStatus + "</td>" +
+                            "<td data-field='no'>" + no+ "</td>" +
                             "<td data-field='shipperName' >" + shipperName + "</td>" +
                             "<td data-field='shipperAddress' >" +shipperAddress  + "</td>" +
                             "<td data-field='shipperLocation' >" +shipperLocation  + "</td>" +
@@ -122,7 +102,6 @@ $('.closeShipperModal').click(function(){
                         $("#shipperTable").append(shipperStr);
                         no++;
                         } 
-                        // {{shipperResult>links()}}
                     }
                 } else {
                     var shipperStr = "<tr data-id=" + i + ">" +
@@ -139,8 +118,111 @@ $('.closeShipperModal').click(function(){
             $("#shipperTable").append(shipperStr);
         }
     }
-// <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
 
 
-// <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+
+    //===============================start store shpper =======================================
+    $(".createShipperModalBtn").click(function(){
+        $("#AddShipper_and_ConsigneeModal").modal("show");
+    });
+    $(".closeCreateShipperAndConsigneeModal").click(function(){
+        $("#AddShipper_and_ConsigneeModal").modal("hide");
+    });
+    $(".SaveCreateShipperAndConsigneeModal").click(function(){
+        var addressType=$(".addressType").val();
+        var shipperName=$(".addshipperName").val();
+        var shipperAddress=$(".addshipperAddress").val();
+        var shipperLocation=$(".addshipperLocation").val();
+        var shipperPostal=$(".addshipperPostal").val();
+        var shipperContact=$(".addshipperContact").val();
+        var shipperEmail=$(".addshipperEmail").val();
+        var shipperTelephone=$(".addshipperTelephone").val();
+        var shipperExt=$(".addshipperExt").val();
+        var shipperTollFree=$(".addshipperTollFree").val();
+        var shipperFax=$(".addshipperFax").val();
+        var shipperShippingHours=$(".addshipperShippingHours").val();
+        var shipperAppointments=$(".addshipperAppointments").val();
+        var shipperIntersaction=$(".addshipperIntersaction").val();
+        var shipperASconsignee=$(".addshipperASconsignee").val();
+        var shipperstatus=$(".addshipperstatus").val();
+        var shippingNotes=$(".addshippingNotes").val();
+        var internal_note=$(".addinternal_note").val();
+        $(".addshipperASconsignee").change(function(){
+            if ($(this).is(':checked'))
+            {
+                shipperASconsignee= $(".addshipperASconsignee").val("1");
+            }
+            else
+            {
+               shipperASconsignee= $(".addshipperASconsignee").val("0");
+            }
+          });
+          if(shipperName=='')
+          {
+              swal.fire( "Enter Shipper Name");
+              return false;
+              
+          } 
+          if(shipperAddress=='')
+          {
+            swal.fire( "Enter Shipper Address");
+            return false;
+          }
+          if(shipperLocation=='')
+          {
+            swal.fire( "Enter Shipper location");
+            return false;
+          }
+          if(shipperPostal=='')
+          {
+            swal.fire( "Enter Shipper zip");
+            return false;
+          }
+          var formData=new FormData();
+          formData.append('_token',$("#_token_AddShipperAndConsignee").val());
+          formData.append("addressType",addressType);
+          formData.append('shipperName',shipperName);
+          formData.append('shipperAddress',shipperAddress);
+          formData.append('shipperLocation',shipperLocation);
+          formData.append('shipperPostal',shipperPostal);
+          formData.append('shipperContact',shipperContact);
+          formData.append('shipperEmail',shipperEmail);
+          formData.append('shipperTelephone',shipperTelephone);
+          formData.append('shipperExt',shipperExt);
+          formData.append('shipperTollFree',shipperTollFree);
+          formData.append('shipperFax',shipperFax);
+          formData.append('shipperShippingHours',shipperShippingHours);
+          formData.append('shipperAppointments',shipperAppointments);
+          formData.append('shipperIntersaction',shipperIntersaction);
+          formData.append('shipperstatus',shipperstatus);
+          formData.append('shippingNotes',shippingNotes);
+          formData.append('internal_note',internal_note);
+          formData.append('shipperASconsignee',shipperASconsignee);
+          $.ajax({
+            type:'post',
+            url:base_path+"/admin/storeShipper",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
+            success:function(response){
+                swal.fire("Done!", "Data Stored successfully", "success");
+                $('#AddShipper_and_ConsigneeModal').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getShipper",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        createGetShipperRows(text);
+                        shipperResult = text;
+                     }
+                });
+            }
+        });
+    });
+    //================================ end store shipper ======================================
 });

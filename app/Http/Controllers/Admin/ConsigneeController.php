@@ -17,9 +17,11 @@ use Illuminate\Database\Eloquent\Collection;
 class ConsigneeController extends Controller
 {
     public function getConsignee(){
-        $companyId=59;
+        // $companyId=59;
+        $companyId=(int)1;
+        // dd($companyId);
         $consignee = Consignee::where('companyID',$companyId)->first();
-        //dd($shipper);
+        // dd($consignee);
        return response()->json($consignee, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
