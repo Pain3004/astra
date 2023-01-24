@@ -156,6 +156,11 @@ Route::post('admin/restoreShipper', [ShipperController::class, 'restoreShipper']
 
 //consignee
 Route::get('admin/getConsignee', [ConsigneeController::class, 'getConsignee']);
+Route::post('admin/storeConsignee', [ConsigneeController::class, 'storeConsignee']);
+Route::get('admin/editConsignee', [ConsigneeController::class, 'editConsignee']);
+Route::post('admin/updateConsignee', [ConsigneeController::class, 'updateConsignee']);
+Route::post('admin/deleteConsignee', [ConsigneeController::class, 'deleteConsignee']);
+Route::post('admin/restoreConsignee', [ConsigneeController::class, 'restoreConsignee']);
 
 //FuelVendorController
 Route::get('admin/getFuelVendor', [FuelVendorController::class, 'getFuelVendor']);

@@ -114,7 +114,7 @@
                         </div>
                         <label>Card Type<span style="color:#ff0000">*</span></label>
                         <div>
-                            <select  class="form-control addCreditCardcardType " type="text" id="" name="cardType" >
+                            <select  class="form-control addCreditCardcardType " type="text" name="cardType" >
                                 <option>---select card type---</option>
                                 <option value="master">master</option>
                                 <option value="visa">visa</option>
@@ -180,7 +180,7 @@
                         </div>
                         <label>Card Type<span style="color:#ff0000">*</span></label>
                         <div>
-                            <select  class="form-control updateCreditCardcardType " type="text" id="" name="cardType" >
+                            <select  class="form-control updateCreditCardcardType " type="text" name="cardType" >
                                 <option>---select card type---</option>
                                 <option value="master">master</option>
                                 <option value="visa">visa</option>

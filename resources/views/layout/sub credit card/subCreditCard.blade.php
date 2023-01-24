@@ -93,7 +93,7 @@
                         </div>
                         <label>Main Card<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign createCreaditCardBtn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
-                            <select  class="form-control addSubCreditCardmainCard  creditCardTypeAll" type="text" id="" name="mainCard" >
+                            <select  class="form-control addSubCreditCardmainCard  creditCardTypeAll" type="text"  name="mainCard" >
                                 <option>---select card type---</option>
                             </select>
                         </div>
@@ -142,7 +142,7 @@
                         </div>
                         <label>Main Card<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign createCreaditCardBtn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
-                            <select  class="form-control updateSubCreditCardmainCard  creditCardTypeAll" type="text" id="" name="mainCard" >
+                            <select  class="form-control updateSubCreditCardmainCard  creditCardTypeAll" type="text"  name="mainCard" >
                                 <option>---select card type---</option>
                             </select>
                         </div>
