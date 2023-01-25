@@ -112397,4 +112397,146 @@ textarea.form-control {
   ul.ks-cboxtags li input[type="checkbox"]:focus + label {
   border: 2px solid #e9a1ff;
   }
+/* loadboard css */
+.extra {
+    vertical-align: top;
+    float: right;
+    position: relative;
+    background-color: #FC5454;
+    color: #fff;
+    font-size: 10px;
+    height: 15px;
+    line-height: 14px;
+    width: 15px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-top: -3%;
+    z-index: 1;
+}
+
+.extra1 {
+    vertical-align: top;
+    float: right;
+    position: relative;
+    background-color: #02C58D;
+    color: #fff;
+    font-size: 10px;
+    height: 15px;
+    line-height: 12px;
+    width: auto;
+    display: inline-block;
+    border-radius: 10%;
+    padding: 2px;
+    margin-top: -2%;
+    margin-right: 14px;
+    z-index: 1;
+}
+
+.extra2 {
+    vertical-align: top;
+    float: right;
+    position: relative;
+    background-color: #890FC2;
+    color: #fff;
+    font-size: 10px;
+    height: 15px;
+    line-height: 12px;
+    width: auto;
+    display: inline-block;
+    border-radius: 10%;
+    padding: 2px;
+    margin-top: -2%;
+    margin-right: 14px;
+    z-index: 1;
+}
+
+.extra3 {
+    vertical-align: top;
+    float: right;
+    position: relative;
+    background-color: #59C6FB;
+    color: #fff;
+    font-size: 10px;
+    height: 15px;
+    line-height: 12px;
+    width: auto;
+    display: inline-block;
+    border-radius: 10%;
+    padding: 2px;
+    margin-top: -2%;
+    margin-right: 14px;
+    z-index: 1;
+}
+
+  .extra4 {
+    vertical-align: top;
+    float: right;
+    position: relative;
+    background-color: #2A6911;
+    color: #fff;
+    font-size: 10px;
+    height: 15px;
+    line-height: 12px;
+    width: auto;
+    display: inline-block;
+    border-radius: 10%;
+    padding: 2px;
+    margin-top: -2%;
+    z-index: 1;
+}
+.extra5 {
+    vertical-align: top;
+    position: relative;
+    /* background-color: #FB0E06; */
+    color: #FB0E06;
+    font-size: 10px;
+    height: 15px;
+    line-height: 15px;
+    width: 15px;
+    /* display: inline-block; */
+    border-radius: 50%;
+    margin-top: -3%;
+    margin-right: 7%;
+    z-index: 1;
+    padding-right: 5px;
+}
+
+.extra6 {
+    vertical-align: top;
+    position: relative;
+    color: #f5c922;
+    font-size: 20px;
+    height: 12px;
+    line-height: 15px;
+    width: 15px;
+    /* display: inline-block; */
+    border-radius: 50%;
+    margin-top: -3%;
+    margin-right: 6%;
+    z-index: 1;
+    padding-right: 5px;
+}
+
+.extra7 {
+    vertical-align: top;
+    position: relative;
+    color: #070707;
+    font-size: 20px;
+    height: 12px;
+    line-height: 15px;
+    width: 15px;
+    /* display: inline-block; */
+    border-radius: 50%;
+    margin-top: -3%;
+    margin-right: 0%;
+    z-index: 1;
+    padding-right: 5px;
+}
+.mdi-restore-clock:before {
+    content: "\F6A7";
+  }
+
+.invoice_dropdown{
+   display: none;
+}
 /* ----------------------------------------------------------------------------- */

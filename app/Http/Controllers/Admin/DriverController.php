@@ -332,134 +332,131 @@ class DriverController extends Controller
         ]);
         try{
 
-        $driver=Driver::all();
-        $companyID=(int)1;
+            $driver=Driver::all();
+            $companyID=(int)1;
 
-        $getCompany = Driver::where('companyID',$companyID)->first();
-       //dd($getCompany);
-        if($getCompany){
-        $totalDriverArray=count($getCompany->driver);
-        }else{
-            $totalDriverArray=0; 
-        }
-       // dd($totalDriverArray);
-
-        $password = sha1($request->password);
-        $driverData[]=array(    
-                        '_id' => $totalDriverArray,
-                        'counter' => 3,
-                        'ownerID' => '',
-                        'driverName' => $request->name,
-                        'driverUsername' => $request->username,
-                        'driverAddress' => $request->address,
-                        'driverTelephone' => $request->telephone,
-                        'driverAlt' => $request->altTelephone,
-                        'driverEmail' => $request->email,
-                        'driverPassword' => $password,
-                        'driverLocation' => $request->location,
-                        'driverZip' => $request->zip,
-                        'driverStatus' => $request->status,
-                        'driverSocial' => $request->socialSecurityNo,
-                        'dateOfbirth' => $request->dateOfBirth,
-                        'dateOfHire' => $request->dateOfHire,
-                        'driverLicenseNo' => $request->licenseNo,
-                        'driverLicenseIssue' => $request->licenseIssueState,
-                        'driverLicenseExp' => $request->licenseExpDate,
-                        'driverLastMedical' => $request->lastMedical,
-                        'driverNextMedical' => $request->nextMedical,
-                        'driverLastDrugTest' => $request->lastDrugTest,
-                        'driverNextDrugTest' => $request->nextDrugTest,
-                        'passportExpiry' => $request->passportExpiry,
-                        'fastCardExpiry' => $request->fastCardExpiry,
-                        'hazmatExpiry' => $request->hazmatExpiry,
-                        'rate' => $request->rate,
-                        'currency' => $request->currency,
-                        'driverLoadedMile' => (int)$request->driverLoadedMile,
-                        'driverEmptyMile' => (int)$request->driverEmptyMile,
-                        'pickupRate' => (int)$request->pickupRate,
-                        'pickupAfter' => (int)$request->pickupAfter,
-                        'dropRate' => (int)$request->dropRate,
-                        'dropAfter' => (int)$request->dropAfter,
-                        'tarp' => (int)$request->tarp,
-                        'percentage' => (int)$request->percentage,
-                        'driverBalance' => $request->driverBalance,
-                        'terminationDate' => $request->terminationDate,
-                        'internalNote' => $request->internalNotes,
-                        'deleteStatus' => "NO",
-                        
-                        // 'recurrencePlus' => $request->recurrencePlus,
-                        // 'recurrenceAdd' => (Array)array(
-
-                            //     )
-                            // 'driverDoc' => (Array)array(
-
-                            //     )
-                            // 'recurrenceMin' => $request->recurrenceMin,
-                            // 'recurrenceSubtract' => (Array)array(
-                            //     '_id'
-                            //     'installmentCategoryStore' => $request->  ,
-                            //     'installmentTypeStore' => $request->  ,
-                            //     'amountStore' => $request->  ,
-                            //     'installmentStore' => $request->  ,
-                            //     'startNoStore' => $request->  ,
-                            //     'currentNoStore' => $request->  ,
-                            //     'startDateStore' => $request->  ,
-                            //     'currentDateStore' => $request->  ,
-                            //     'internalNoteStore' => $request->  ,
-                            //     )
-                            
-                            // 'userLocation' => $request->userLocation,
-                            // 'userTelephone' => $request->userTelephone,
-                            // 'insertedTime' => $request->  ,
-                            // 'insertedUserId' => $request->  ,
-                            // 'deleteStatus' => $request->  ,
-                            // 'deleteUser' => $request->  ,
-                            // 'deleteTime' => $request->  ,
-                            // 'LastUpdateId' => $request->  ,
-                            'ownerOperatorStatus' => 'NO' ,
-                            'ownerOperatorDeleteStatus' => "NO",
-            );
-// dd($driverData[]);
+            $getCompany = Driver::where('companyID',$companyID)->first();
             if($getCompany){
-                $driverArray=$getCompany->driver;
-                Driver::where(['companyID' =>$companyID ])->update([
-                    'counter'=> $totalDriverArray+1,
-                    'driver' =>array_merge($driverArray,$driverData) ,
-                    // 'user_type' => "user",
-                    // 'deleteStatus' => 0,
-                    // 'mode' => 'day',
-                    // 'otp' => '',
-                    // 'emailVerificationStatus' => 1,
-                ]);
-
-                $data = [
-                    'success' => true,
-                    'message'=> 'Driver added successfully'
-                ] ;
-                
-                return response()->json($data);
+                $totalDriverArray=count($getCompany->driver);
             }else{
-                if(Driver::create([
-                    
-                    // 'companyID' => (int)$_SESSION['companyId'],
-                    '_id' => '',
-                    'companyID' => $companyID,
-                    'counter' => $totalDriverArray+1,
-                    'driver' => $driverData,
-                    // 'user_type' => "user",
-                    'deleteStatus' => 0,
-                    // 'mode' => 'day',
-                    // 'otp' => '',
-                    // 'emailVerificationStatus' => 1,
-                    
-                ])) {
+                $totalDriverArray=0; 
+            }
+
+            $password = sha1($request->password);
+            $driverData[]=array(    
+                            '_id' => $totalDriverArray,
+                            'counter' => 3,
+                            'ownerID' => '',
+                            'driverName' => $request->name,
+                            'driverUsername' => $request->username,
+                            'driverAddress' => $request->address,
+                            'driverTelephone' => $request->telephone,
+                            'driverAlt' => $request->altTelephone,
+                            'driverEmail' => $request->email,
+                            'driverPassword' => $password,
+                            'driverLocation' => $request->location,
+                            'driverZip' => $request->zip,
+                            'driverStatus' => $request->status,
+                            'driverSocial' => $request->socialSecurityNo,
+                            'dateOfbirth' => $request->dateOfBirth,
+                            'dateOfHire' => $request->dateOfHire,
+                            'driverLicenseNo' => $request->licenseNo,
+                            'driverLicenseIssue' => $request->licenseIssueState,
+                            'driverLicenseExp' => $request->licenseExpDate,
+                            'driverLastMedical' => $request->lastMedical,
+                            'driverNextMedical' => $request->nextMedical,
+                            'driverLastDrugTest' => $request->lastDrugTest,
+                            'driverNextDrugTest' => $request->nextDrugTest,
+                            'passportExpiry' => $request->passportExpiry,
+                            'fastCardExpiry' => $request->fastCardExpiry,
+                            'hazmatExpiry' => $request->hazmatExpiry,
+                            'rate' => $request->rate,
+                            'currency' => $request->currency,
+                            'driverLoadedMile' => (int)$request->driverLoadedMile,
+                            'driverEmptyMile' => (int)$request->driverEmptyMile,
+                            'pickupRate' => (int)$request->pickupRate,
+                            'pickupAfter' => (int)$request->pickupAfter,
+                            'dropRate' => (int)$request->dropRate,
+                            'dropAfter' => (int)$request->dropAfter,
+                            'tarp' => (int)$request->tarp,
+                            'percentage' => (int)$request->percentage,
+                            'driverBalance' => $request->driverBalance,
+                            'terminationDate' => $request->terminationDate,
+                            'internalNote' => $request->internalNotes,
+                            'deleteStatus' => "NO",
+                            
+                            // 'recurrencePlus' => $request->recurrencePlus,
+                            // 'recurrenceAdd' => (Array)array(
+
+                                //     )
+                                // 'driverDoc' => (Array)array(
+
+                                //     )
+                                // 'recurrenceMin' => $request->recurrenceMin,
+                                // 'recurrenceSubtract' => (Array)array(
+                                //     '_id'
+                                //     'installmentCategoryStore' => $request->  ,
+                                //     'installmentTypeStore' => $request->  ,
+                                //     'amountStore' => $request->  ,
+                                //     'installmentStore' => $request->  ,
+                                //     'startNoStore' => $request->  ,
+                                //     'currentNoStore' => $request->  ,
+                                //     'startDateStore' => $request->  ,
+                                //     'currentDateStore' => $request->  ,
+                                //     'internalNoteStore' => $request->  ,
+                                //     )
+                                
+                                // 'userLocation' => $request->userLocation,
+                                // 'userTelephone' => $request->userTelephone,
+                                // 'insertedTime' => $request->  ,
+                                // 'insertedUserId' => $request->  ,
+                                // 'deleteStatus' => $request->  ,
+                                // 'deleteUser' => $request->  ,
+                                // 'deleteTime' => $request->  ,
+                                // 'LastUpdateId' => $request->  ,
+                                'ownerOperatorStatus' => 'NO' ,
+                                'ownerOperatorDeleteStatus' => "NO",
+                );
+                if($getCompany){
+                    $driverArray=$getCompany->driver;
+                    Driver::where(['companyID' =>$companyID ])->update([
+                        'counter'=> $totalDriverArray+1,
+                        'driver' =>array_merge($driverArray,$driverData) ,
+                        // 'user_type' => "user",
+                        // 'deleteStatus' => 0,
+                        // 'mode' => 'day',
+                        // 'otp' => '',
+                        // 'emailVerificationStatus' => 1,
+                    ]);
+
                     $data = [
                         'success' => true,
                         'message'=> 'Driver added successfully'
-                        ] ;
-                        return response()->json($data);
+                    ] ;
+                    
+                    return response()->json($data);
+                }else{
+                    if(Driver::create([
+                        
+                        // 'companyID' => (int)$_SESSION['companyId'],
+                        '_id' => '',
+                        'companyID' => $companyID,
+                        'counter' => $totalDriverArray+1,
+                        'driver' => $driverData,
+                        // 'user_type' => "user",
+                        'deleteStatus' => 0,
+                        // 'mode' => 'day',
+                        // 'otp' => '',
+                        // 'emailVerificationStatus' => 1,
+                        
+                    ])) {
+                        $data = [
+                            'success' => true,
+                            'message'=> 'Driver added successfully'
+                            ] ;
+                            return response()->json($data);
+                    }
                 }
-            }
         } 
         catch(\Exception $error){
             return $error->getMessage();
