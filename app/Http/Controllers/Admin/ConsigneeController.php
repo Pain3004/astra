@@ -28,8 +28,10 @@ class ConsigneeController extends Controller
     public function storeConsignee(Request $request)
     {
         $companyID=(int)1;
+        // dd($request);
         if($request->addressType=="consignee")
         {
+            // dd($request);
             $Consignee = Consignee::where('companyID',$companyID)->get();
             foreach( $Consignee as  $Consignee_data)
             {
@@ -50,22 +52,22 @@ class ConsigneeController extends Controller
                 }
                 $ConsigneeData[]=array(    
                     '_id' => $totalConsigneeArray,
-                    'consigneeName' => $request->consigneeName,
-                    'consigneeAddress' => $request->consigneeAddress,
-                    'consigneeLocation' => $request->consigneeLocation,
-                    'consigneePostal' => $request->consigneePostal,
-                    'consigneeContact' => $request->consigneeContact,
-                    'consigneeEmail' => $request->consigneeEmail,
-                    'consigneeTelephone' => $request->consigneeTelephone,
-                    'consigneeExt' => $request->consigneeExt,
-                    'consigneeTollFree' => $request->consigneeTollFree,
-                    'consigneeFax' => $request->consigneeFax,
-                    'consigneeShippingHours' => $request->consigneeShippingHours,
-                    'consigneeAppointments' => $request->consigneeAppointments,
-                    'consigneeIntersaction' => $request->consigneeIntersaction,
-                    'consigneestatus' => $request->consigneestatus,
-                    'shippingNotes' => $request->shippingNotes,
-                    'internal_note' => $request->internal_note,
+                    'consigneeName' => $request->shipperName,
+                    'consigneeAddress' => $request->shipperAddress,
+                    'consigneeLocation' => $request->shipperLocation,
+                    'consigneePostal' => $request->shipperPostal,
+                    'consigneeContact' => $request->shipperContact,
+                    'consigneeEmail' => $request->shipperEmail,
+                    'consigneeTelephone' => $request->shipperTelephone,
+                    'consigneeExt' => $request->shipperExt,
+                    'consigneeTollFree' => $request->shipperTollFree,
+                    'consigneeFax' => $request->shipperFax,
+                    'consigneeReceiving' => $request->shipperShippingHours,
+                    'consigneeAppointments' => $request->shipperAppointments,
+                    'consigneeIntersaction' => $request->shipperIntersaction,
+                    'consigneeStatus' => $request->shipperstatus,
+                    'consigneeRecivingNote' => $request->shippingNotes,
+                    'consigneeInternalNote' => $request->internal_note,
                     'counter' =>0,
                     'created_by' => Auth::user()->userFirstName,
                     'created_time' => date('d-m-y h:i:s'),
@@ -81,75 +83,73 @@ class ConsigneeController extends Controller
                     'counter'=> $totalConsigneeArray+1,
                     'consignee' =>array_merge($ConsigneeArray,$ConsigneeData) ,
                     ]);
-                    if($request->consigneeASconsignee==1)
+                    if($request->shipperASconsignee==1)
                     {
-                        $Consignee = Consignee::where('companyID',$companyID)->get();
-                        foreach( $Consignee as  $Consignee_data)
+                        $Shipper = Shipper::where('companyID',$companyID)->get();
+                        foreach( $Shipper as  $Shipper_data)
                         {
-                            if($Consignee_data)
+                            if($Shipper_data)
                             {
-                                $ConsigneeArray=$Consignee_data->consignee;
+                                $ShipperArray=$Shipper_data->shipper;
                                 $ids=array();
-                                foreach( $ConsigneeArray as $key=> $getFuelCard_data)
+                                foreach( $ShipperArray as $key=> $getFuelCard_data)
                                 {
                                     $ids[]=$getFuelCard_data['_id'];
                                 }
                                 $ids=max($ids);
-                                $totalConsigneeArray=$ids+1;
+                                $totalShipperArray=$ids+1;
                             }
                             else
                             {
-                                $totalConsigneeArray=0; 
+                                $totalShipperArray=0; 
                             }
-                            $ConsigneeData[]=array(    
-                                '_id' => $totalConsigneeArray,
-                                'shipperconsigneeName' => $request->consigneeName,
-                                'shipperAddress' => $request->consigneeAddress,
-                                'shipperLocation' => $request->consigneeLocation,
-                                'shipperPostal' => $request->consigneePostal,
-                                'shipperContact' => $request->consigneeContact,
-                                'shipperEmail' => $request->consigneeEmail,
-                                'shipperReceiving'=>'',
-                                'shipperRecivingNote'=>'',
-                                'shipperTelephone' => $request->consigneeTelephone,
-                                'shipperExt' => $request->consigneeExt,
-                                'shipperTollFree' => $request->consigneeTollFree,
-                                'shipperFax' => $request->consigneeFax,
-                                'shipperShippingHours' => $request->consigneeShippingHours,
-                                'shipperAppointments' => $request->consigneeAppointments,
-                                'Intersaction' => $request->consigneeIntersaction,
-                                'Status' => $request->consigneestatus,
-                                'InternalNote' => $request->shippingNotes,
-                                'inte' => $request->internal_note,
+                            $ShipperData[]=array(    
+                                '_id' => $totalShipperArray,
+                                'shipperName' => $request->shipperName,
+                                'shipperAddress' => $request->shipperAddress,
+                                'shipperLocation' => $request->shipperLocation,
+                                'shipperPostal' => $request->shipperPostal,
+                                'shipperContact' => $request->shipperContact,
+                                'shipperEmail' => $request->shipperEmail,
+                                'shipperTelephone' => $request->shipperTelephone,
+                                'shipperExt' => $request->shipperExt,
+                                'shipperTollFree' => $request->shipperTollFree,
+                                'shipperFax' => $request->shipperFax,
+                                'shipperShippingHours' => $request->shipperShippingHours,
+                                'shipperAppointments' => $request->shipperAppointments,
+                                'shipperIntersaction' => $request->shipperIntersaction,
+                                'shipperStatus' => $request->shipperstatus,
+                                'shippingNotes' => $request->shippingNotes,
+                                'internalNotes' => $request->internal_note,
                                 'counter' =>0,
                                 'created_by' => Auth::user()->userFirstName,
                                 'created_time' => date('d-m-y h:i:s'),
                                 'edit_by' =>Auth::user()->userName,
                                 'edit_time' =>time(),
-                                'deleteStatus' =>"NO",                        
+                                'deleteStatus' =>"NO",                    
                             ); 
-                            if($Consignee_data)
+                            if($Shipper_data)
                             {                
-                                Consignee::where(['companyID' =>$companyID])->update([
-                                'counter'=> $totalConsigneeArray+1,
-                                'consignee' =>array_merge($ConsigneeArray,$ConsigneeData) ,
+                                Shipper::where(['companyID' =>$companyID])->update([
+                                'counter'=> $totalShipperArray+1,
+                                'shipper' =>array_merge($ShipperArray,$ShipperData) ,
                                 ]);
-                                $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
-                                return json_encode($arrConsignee);
+                                $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
+                                return json_encode($arrShipper);
                             }
                             else
                             {
                                 try
                                 {
-                                    if(Consignee::create([
+                                    if(Shipper::create([
                                         '_id' => 1,
                                         'companyID' => $companyID,
                                         'counter' => 1,
-                                        'consignee' => $currencyData,
+                                        'shipper' => $currencyData,
                                     ])) 
                                     {
-                                        $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
-                                        return json_encode($arrConsignee);
+                                        $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
+                                        return json_encode($arrShipper);
                                     }
                                 }
                                 catch(\Exception $error)
@@ -157,7 +157,8 @@ class ConsigneeController extends Controller
                                     return $error->getMessage();
                                 }
                             }
-                        }  
+                            
+                        } 
                     }  
 
 
@@ -224,13 +225,13 @@ class ConsigneeController extends Controller
         // dd($id);
         $companyID=(int)1;
         $Consignee = Consignee::where('companyID',$companyID)->first();
-        $ConsigneeArray=$Consignee->fuelCard;
+        $ConsigneeArray=$Consignee->consignee;
         $fuelLength=count($ConsigneeArray);
         $i=0;
         $v=0;
         for($i=0; $i<$fuelLength; $i++)
         {
-            $ids=$Consignee->fuelCard[$i];
+            $ids=$Consignee->consignee[$i];
             foreach($ids as $value)
             {
                 if($value==$id)
@@ -249,13 +250,14 @@ class ConsigneeController extends Controller
          $ConsigneeArray[$v]['consigneeExt'] = $request->consigneeExt;
          $ConsigneeArray[$v]['consigneeTollFree'] = $request->consigneeTollFree;
          $ConsigneeArray[$v]['consigneeFax'] = $request->consigneeFax;
-         $ConsigneeArray[$v]['consigneeShippingHours'] = $request->consigneeShippingHours;
+         $ConsigneeArray[$v]['consigneeReceiving'] = $request->consigneeShippingHours;
          $ConsigneeArray[$v]['consigneeAppointments'] = $request->consigneeAppointments;
          $ConsigneeArray[$v]['consigneeIntersaction'] = $request->consigneeIntersaction;
          $ConsigneeArray[$v]['consigneeStatus'] = $request->consigneestatus;
-         $ConsigneeArray[$v]['shippingNotes'] = $request->shippingNotes;
+         $ConsigneeArray[$v]['consigneeRecivingNote'] = $request->shippingNotes;
+         $ConsigneeArray[$v]['consigneeInternalNote'] = $request->internal_note;
      
-        $Consignee->fuelCard=$ConsigneeArray;
+        $Consignee->consignee=$ConsigneeArray;
         if($Consignee->save())
         {
          $arr = array('status' => 'success', 'message' => 'Consignee updated successfully.','statusCode' => 200); 
@@ -293,7 +295,7 @@ class ConsigneeController extends Controller
     public function restoreConsignee(Request $request)
     {
         $consiId=$request->id;
-        // dd($consiId);
+        dd($consiId);
         $custID=(array)1;
         foreach($custID as $company_id)
         {
@@ -301,13 +303,13 @@ class ConsigneeController extends Controller
             ',' , ' " " ', '[', ']' ), ' ', $company_id);
             $company_id=(int)$company_id;
             $Consignee = Consignee::where('companyID',$company_id )->first();
-            $ConsigneeArray=$Consignee->fuelCard;
+            $ConsigneeArray=$Consignee->consignee;
             $arrayLength=count($ConsigneeArray);         
             $i=0;
             $v=0;
             $data=array();
             for ($i=0; $i<$arrayLength; $i++){
-                $ids=$Consignee->fuelCard[$i]['_id'];
+                $ids=$Consignee->consignee[$i]['_id'];
                 $ids=(array)$ids;
                 foreach ($ids as $value){
                     // dd( $consiId);
@@ -332,7 +334,7 @@ class ConsigneeController extends Controller
             foreach($data as $row)
             {
                 $ConsigneeArray[$row]['deleteStatus'] = "NO";
-                $Consignee->fuelCard= $ConsigneeArray;
+                $Consignee->consignee= $ConsigneeArray;
                 $save=$Consignee->save();
             }
             if (isset($save)) {

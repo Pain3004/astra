@@ -22,8 +22,10 @@ class ShipperController extends Controller
         $companyId=(int)1;
         // dd($companyId);
         $shipper = Shipper::where('companyID',$companyId)->first();
+        $consignee = Consignee::where('companyID',$companyId)->first();
+
         //dd($shipper);
-       return response()->json($shipper, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+       return response()->json(['shipper'=>$shipper,'consignee'=>$consignee], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
     public function storeShipper(Request $request)
@@ -66,9 +68,9 @@ class ShipperController extends Controller
                     'shipperShippingHours' => $request->shipperShippingHours,
                     'shipperAppointments' => $request->shipperAppointments,
                     'shipperIntersaction' => $request->shipperIntersaction,
-                    'shipperstatus' => $request->shipperstatus,
+                    'shipperStatus' => $request->shipperstatus,
                     'shippingNotes' => $request->shippingNotes,
-                    'internal_note' => $request->internal_note,
+                    'internalNotes' => $request->internal_note,
                     'counter' =>0,
                     'created_by' => Auth::user()->userFirstName,
                     'created_time' => date('d-m-y h:i:s'),
@@ -118,7 +120,7 @@ class ShipperController extends Controller
                                 'consigneeExt' => $request->shipperExt,
                                 'consigneeTollFree' => $request->shipperTollFree,
                                 'consigneeFax' => $request->shipperFax,
-                                'consigneeShippingHours' => $request->shipperShippingHours,
+                                'consigneeReceiving' => $request->shipperShippingHours,
                                 'consigneeAppointments' => $request->shipperAppointments,
                                 'consigneeIntersaction' => $request->shipperIntersaction,
                                 'consigneeStatus' => $request->shipperstatus,
@@ -226,7 +228,6 @@ class ShipperController extends Controller
     public function updateShipper(Request $request)
     {
         $id=$request->id;
-        // dd($id);
         $companyID=(int)1;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
@@ -260,7 +261,7 @@ class ShipperController extends Controller
          $ShipperArray[$v]['shipperIntersaction'] = $request->shipperIntersaction;  
          $ShipperArray[$v]['shipperStatus'] = $request->shipperstatus;  
          $ShipperArray[$v]['shippingNotes'] = $request->shippingNotes;  
-         $ShipperArray[$v]['internal_note'] = $request->internal_note;   
+         $ShipperArray[$v]['internalNotes'] = $request->internal_note;   
         $Shipper->shipper=$ShipperArray;
         if($Shipper->save())
         {
@@ -298,7 +299,54 @@ class ShipperController extends Controller
     }
     public function restoreShipper(Request $request)
     {
-        
+        $shipIds=$request->all_ids;
+        dd($shipIds);
+        $custID=(array)1;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Shipper = Shipper::where('companyID',$company_id )->first();
+            $ShipperArray=$Shipper->shipper;
+            $arrayLength=count($ShipperArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Shipper->shipper[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    // dd( $shipIds);
+                    $shipIds= str_replace( array('[', ']'), ' ', $shipIds);
+                    // dd($shipIds);
+                    if(is_string($shipIds))
+                    {
+                        $shipIds=explode(",",$shipIds);
+                    }
+                    foreach($shipIds as $ship_id)
+                    {
+                        $ship_id= str_replace( array('"', ']' ), ' ', $ship_id);
+                        if($value==$ship_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $ShipperArray[$row]['deleteStatus'] = "NO";
+                $Shipper->shipper= $ShipperArray;
+                $save=$Shipper->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Shipper Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
     }
 
 }

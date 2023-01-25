@@ -47,76 +47,146 @@ $(document).ready(function() {
     function createGetShipperRows(shipperResult) 
     {
         var shipperlen = 0;
-            if (shipperResult != null) {
-                shipperlen = shipperResult.shipper.length;
-                $("#shipperTable").html('');
+        if (shipperResult != null) {
+            shipperlen = shipperResult.shipper.shipper.length;
+            $("#shipperTable").html('');
 
-                if (shipperlen > 0) {
-                    var no=1;
-                    for (var i = shipperlen-1; i > 0; i--) {  
-                        var id =shipperResult.shipper[i]._id;
-                        var shipperName =shipperResult.shipper[i].shipperName;
-                        var shipperAddress =shipperResult.shipper[i].shipperAddress;
-                        var shipperLocation =shipperResult.shipper[i].shipperLocation;
-                        var  shipperPostal=shipperResult.shipper[i].shipperPostal;
-                        var  shipperContact=shipperResult.shipper[i].shipperContact;
-                        var  shipperEmail=shipperResult.shipper[i].shipperEmail;
-                        var  shipperTelephone=shipperResult.shipper[i].shipperTelephone;
-                        var  shipperExt=shipperResult.shipper[i].shipperExt;
-                        var  shipperTollFree=shipperResult.shipper[i].shipperTollFree;
-                        var  shipperFax=shipperResult.shipper[i].shipperFax;
-                        var  shipperShippingHours=shipperResult.shipper[i].shipperShippingHours;
-                        var  shipperAppointments=shipperResult.shipper[i].shipperAppointments;
-                        var  shipperIntersaction=shipperResult.shipper[i].shipperIntersaction;
-                        var  shipperStatus=shipperResult.shipper[i].shipperStatus;
-                        var  shippingNotes=shipperResult.shipper[i].shippingNotes;
-                        var  internalNotes=shipperResult.shipper[i].internalNotes;
-                        var  deleteStatus=shipperResult.shipper[i].deleteStatus;
+            if (shipperlen > 0) {
+                var no=1;
+                for (var i = shipperlen-1; i > 0; i--) {  
+                    var id =shipperResult.shipper.shipper[i]._id;
+                    var shipperName =shipperResult.shipper.shipper[i].shipperName;
+                    var shipperAddress =shipperResult.shipper.shipper[i].shipperAddress;
+                    var shipperLocation =shipperResult.shipper.shipper[i].shipperLocation;
+                    var  shipperPostal=shipperResult.shipper.shipper[i].shipperPostal;
+                    var  shipperContact=shipperResult.shipper.shipper[i].shipperContact;
+                    var  shipperEmail=shipperResult.shipper.shipper[i].shipperEmail;
+                    var  shipperTelephone=shipperResult.shipper.shipper[i].shipperTelephone;
+                    var  shipperExt=shipperResult.shipper.shipper[i].shipperExt;
+                    var  shipperTollFree=shipperResult.shipper.shipper[i].shipperTollFree;
+                    var  shipperFax=shipperResult.shipper.shipper[i].shipperFax;
+                    var  shipperShippingHours=shipperResult.shipper.shipper[i].shipperShippingHours;
+                    var  shipperAppointments=shipperResult.shipper.shipper[i].shipperAppointments;
+                    var  shipperIntersaction=shipperResult.shipper.shipper[i].shipperIntersaction;
+                    var  shipperStatus=shipperResult.shipper.shipper[i].shipperStatus;
+                    var  shippingNotes=shipperResult.shipper.shipper[i].shippingNotes;
+                    var  internalNotes=shipperResult.shipper.shipper[i].internalNotes;
+                    var  deleteStatus=shipperResult.shipper.shipper[i].deleteStatus;
 
-                        if(deleteStatus == 'NO'){
+                    if(deleteStatus == 'NO'){
 
 
-                        var shipperStr = "<tr data-id=" + (i + 1) + ">" +
-                            "<td data-field='no'>" + no+ "</td>" +
-                            "<td data-field='shipperName' >" + shipperName + "</td>" +
-                            "<td data-field='shipperAddress' >" +shipperAddress  + "</td>" +
-                            "<td data-field='shipperLocation' >" +shipperLocation  + "</td>" +
-                            "<td data-field='shipperPostal' >" + shipperPostal + "</td>" +
-                            "<td data-field='shipperContact' >" + shipperContact + "</td>" +
-                            "<td data-field='shipperEmail' >" + shipperEmail + "</td>" +
-                            "<td data-field='shipperTelephone' >" + shipperTelephone + "</td>" +
-                            "<td data-field='shipperExt' >" + shipperExt + "</td>" +
-                            "<td data-field='shipperTollFree' >" + shipperTollFree + "</td>" +
-                            "<td data-field='shipperFax' >" + shipperFax + "</td>" +
-                            "<td data-field='shipperShippingHours' >" + shipperShippingHours + "</td>" +
-                            "<td data-field='shipperAppointments' >" + shipperAppointments + "</td>" +
-                            "<td data-field='shipperIntersaction' >" + shipperIntersaction + "</td>" +
-                            "<td data-field='shipperStatus' >" + shipperStatus + "</td>" +
-                            "<td data-field='shippingNotes' >" + shippingNotes + "</td>" +
-                            "<td data-field='internalNotes' >" + internalNotes + "</td>" +
-                            
-                            "<td style='text-align:center'>"+
-                                "<a class='button-29 editShipperAndCongneeBtn'  title='Edit1' data-shipAndConsig='"+id+"'><i class='fe fe-edit'></i></a>&nbsp"+
+                    var shipperStr = "<tr data-id=" + (i + 1) + ">" +
+                        "<td data-field='no'>" + no+ "</td>" +
+                        "<td data-field='shipperName' >" + shipperName + "</td>" +
+                        "<td data-field='shipperName' >Shipper</td>" +
+                        "<td data-field='shipperAddress' >" +shipperAddress  + "</td>" +
+                        "<td data-field='shipperLocation' >" +shipperLocation  + "</td>" +
+                        "<td data-field='shipperPostal' >" + shipperPostal + "</td>" +
+                        "<td data-field='shipperContact' >" + shipperContact + "</td>" +
+                        "<td data-field='shipperEmail' >" + shipperEmail + "</td>" +
+                        "<td data-field='shipperTelephone' >" + shipperTelephone + "</td>" +
+                        "<td data-field='shipperExt' >" + shipperExt + "</td>" +
+                        "<td data-field='shipperTollFree' >" + shipperTollFree + "</td>" +
+                        "<td data-field='shipperFax' >" + shipperFax + "</td>" +
+                        "<td data-field='shipperShippingHours' >" + shipperShippingHours + "</td>" +
+                        "<td data-field='shipperAppointments' >" + shipperAppointments + "</td>" +
+                        "<td data-field='shipperIntersaction' >" + shipperIntersaction + "</td>" +
+                        "<td data-field='shipperStatus' >" + shipperStatus + "</td>" +
+                        "<td data-field='shippingNotes' >" + shippingNotes + "</td>" +
+                        "<td data-field='internalNotes' >" + internalNotes + "</td>" +
+                        
+                        "<td style='text-align:center'>"+
+                            "<a class='button-29 editShipperAndCongneeBtn'  title='Edit1' data-shipAndConsig='"+id+"'><i class='fe fe-edit'></i></a>&nbsp"+
 
-                                "<a class='button-29 deleteShipperAndCongneeBtn'  title='Edit1' data-shipAndConsig='"+id+"'><i class='fe fe-trush'></i></a>&nbsp"+
-                            "</td></tr>";
+                            "<a class='button-29 deleteShipperAndCongneeBtn'  title='Edit1' data-shipAndConsig='"+id+"'><i class='fe fe-trash'></i></a>&nbsp"+
+                        "</td></tr>";
 
-                        $("#shipperTable").append(shipperStr);
-                        no++;
-                        } 
-                    }
-                } else {
-                    var shipperStr = "<tr data-id=" + i + ">" +
-                        "<td align='center' colspan='4'>No record found.</td>" +
-                        "</tr>";
-        
                     $("#shipperTable").append(shipperStr);
+                    no++;
+                    } 
                 }
-            }else {
-            var tr_str1 = "<tr data-id=" + i + ">" +
+            } else {
+                var shipperStr = "<tr data-id=" + i + ">" +
+                    "<td align='center' colspan='4'>No record found.</td>" +
+                    "</tr>";
+    
+                $("#shipperTable").append(shipperStr);
+            }
+
+
+
+            consigneelen = shipperResult.consignee.consignee.length;
+            if (consigneelen > 0) {
+                var no=1;
+                for (var i = consigneelen-1; i > 0; i--) {  
+                    var id =shipperResult.consignee.consignee[i]._id;
+                    var consigneeName =shipperResult.consignee.consignee[i].consigneeName;
+                    var consigneeAddress =shipperResult.consignee.consignee[i].consigneeAddress;
+                    var consigneeLocation =shipperResult.consignee.consignee[i].consigneeLocation;
+                    var  consigneePostal=shipperResult.consignee.consignee[i].consigneePostal;
+                    var  consigneeContact=shipperResult.consignee.consignee[i].consigneeContact;
+                    var  consigneeEmail=shipperResult.consignee.consignee[i].consigneeEmail;
+                    var  consigneeTelephone=shipperResult.consignee.consignee[i].consigneeTelephone;
+                    var  consigneeExt=shipperResult.consignee.consignee[i].consigneeExt;
+                    var  consigneeTollFree=shipperResult.consignee.consignee[i].consigneeTollFree;
+                    var  consigneeFax=shipperResult.consignee.consignee[i].consigneeFax;
+                    var  consigneeReceiving=shipperResult.consignee.consignee[i].consigneeReceiving;
+                    var  consigneeAppointments=shipperResult.consignee.consignee[i].consigneeAppointments;
+                    var  consigneeIntersaction=shipperResult.consignee.consignee[i].consigneeIntersaction;
+                    var  consigneeStatus=shipperResult.consignee.consignee[i].consigneeStatus;
+                    var  consigneeRecivingNote=shipperResult.consignee.consignee[i].consigneeRecivingNote;
+                    var  consigneeInternalNote=shipperResult.consignee.consignee[i].consigneeInternalNote;
+                    var  deleteStatus=shipperResult.consignee.consignee[i].deleteStatus;
+
+                    if(deleteStatus == 'NO'){
+                        var consigneeStr = "<tr data-id=" + (i + 1) + ">" +
+                            //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                        "<td data-field='no'>" + no + "</td>" +
+                        "<td data-field='consigneeName' >" + consigneeName + "</td>" +
+                        "<td data-field='consigneeName' >Consignee</td>" +
+                        "<td data-field='consigneeAddress' >" +consigneeAddress  + "</td>" +
+                        "<td data-field='consigneeLocation' >" +consigneeLocation  + "</td>" +
+                        "<td data-field='consigneePostal' >" + consigneePostal + "</td>" +
+                        "<td data-field='consigneeContact' >" + consigneeContact + "</td>" +
+                        "<td data-field='consigneeEmail' >" + consigneeEmail + "</td>" +
+                        "<td data-field='consigneeTelephone' >" + consigneeTelephone + "</td>" +
+                        "<td data-field='consigneeExt' >" + consigneeExt + "</td>" +
+                        "<td data-field='consigneeTollFree' >" + consigneeTollFree + "</td>" +
+                        "<td data-field='consigneeFax' >" + consigneeFax + "</td>" +
+                        "<td data-field='consigneeReceiving' >" + consigneeReceiving + "</td>" +
+                        "<td data-field='consigneeAppointments' >" + consigneeAppointments + "</td>" +
+                        "<td data-field='consigneeIntersaction' >" + consigneeIntersaction + "</td>" +
+                        "<td data-field='consigneeStatus' >" + consigneeStatus + "</td>" +
+                        "<td data-field='consigneeRecivingNote' >" + consigneeRecivingNote + "</td>" +
+                        "<td data-field='consigneeInternalNote' >" + consigneeInternalNote + "</td>" +
+                        
+                        "<td style='text-align:center'>"+
+                            "<a class='editConsigShipperAndCongneeBtn button-29'  title='Edit1' data-consigneeAndConsig='"+id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+
+                            "<a class='button-29 deleteConsiShipperAndCongneeBtn'  title='Edit1' data-consigneeAndConsig='"+id+"'><i class='fe fe-trash'></i></a>&nbsp"+
+                        "</td></tr>";
+                        $("#shipperTable").append(consigneeStr);
+                        no++;
+                    } 
+                }
+            } 
+            else 
+            {
+                var consigneeStr = "<tr data-id=" + i + ">" +
                 "<td align='center' colspan='4'>No record found.</td>" +
                 "</tr>";
 
+                $("#shipperTable").append(consigneeStr);
+            }
+
+
+        }
+        else
+        {
+            var tr_str1 = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
             $("#shipperTable").append(shipperStr);
         }
     }
@@ -126,20 +196,26 @@ $(document).ready(function() {
     // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 
     //===============================start store shpper =======================================
+    $(".infoasConsignee").hide();$(".infoasShipper").show();
+    $(".shipperConsiType").on('change',function(){
+        if ($('.shipperConsiType').val()=="shipper")
+        {
+           $(".infoasConsignee").hide();$(".infoasShipper").show();
+        }
+        else
+        {
+            $(".infoasConsignee").show();$(".infoasShipper").hide();
+        }
+    });
     $(".createShipperModalBtn").click(function(){
+       
         $("#AddShipper_and_ConsigneeModal").modal("show");
     });
     $(".closeCreateShipperAndConsigneeModal").click(function(){
         $("#AddShipper_and_ConsigneeModal").modal("hide");
     });
-    $(".getValueShipper").click(function(){
-        $(".addressType").val("shipper");
-    })
-    $(".getValueConsignee").click(function(){
-        $(".addressType").val("consignee");
-    })
     $(".SaveCreateShipperAndConsigneeModal").click(function(){
-        var addressType=$(".addressType").val();
+        var addressType=$(".addshipperConsiType").val();
         if(addressType=="shipper")
         {
             var shipperName=$(".addshipperName").val();
@@ -169,6 +245,7 @@ $(document).ready(function() {
                 shipperASconsignee= $(".addshipperASconsignee").val("0");
                 }
             });
+            
             if(shipperName=='')
             {
                 swal.fire( "Enter Shipper Name");
@@ -237,50 +314,51 @@ $(document).ready(function() {
         // alert(addressType);
         else
         {
-            var consigneeName=$(".addconsigneeName").val();
-            var consigneeAddress=$(".addconsigneeAddress").val();
-            var consigneeLocation=$(".addconsigneeLocation").val();
-            var consigneePostal=$(".addconsigneePostal").val();
-            var consigneeContact=$(".addconsigneeContact").val();
-            var consigneeEmail=$(".addconsigneeEmail").val();
-            var consigneeTelephone=$(".addconsigneeTelephone").val();
-            var consigneeExt=$(".addconsigneeExt").val();
-            var consigneeTollFree=$(".addconsigneeTollFree").val();
-            var consigneeFax=$(".addconsigneeFax").val();
-            var consigneeShippingHours=$(".addconsigneeShippingHours").val();
-            var consigneeAppointments=$(".addconsigneeAppointments").val();
-            var consigneeIntersaction=$(".addconsigneeIntersaction").val();
-            var consigneeASconsignee=$(".addconsigneeASconsignee").val();
-            var consigneestatus=$(".addconsigneestatus").val();
+            var shipperName=$(".addshipperName").val();
+            var shipperAddress=$(".addshipperAddress").val();
+            var shipperLocation=$(".addshipperLocation").val();
+            var shipperPostal=$(".addshipperPostal").val();
+            var shipperContact=$(".addshipperContact").val();
+            var shipperEmail=$(".addshipperEmail").val();
+            var shipperTelephone=$(".addshipperTelephone").val();
+            var shipperExt=$(".addshipperExt").val();
+            var shipperTollFree=$(".addshipperTollFree").val();
+            var shipperFax=$(".addshipperFax").val();
+            var shipperShippingHours=$(".addshipperShippingHours").val();
+            var shipperAppointments=$(".addshipperAppointments").val();
+            var shipperIntersaction=$(".addshipperIntersaction").val();
+            var shipperASconsignee=$(".addshipperASconsignee").val();
+            var shipperstatus=$(".addshipperstatus").val();
             var shippingNotes=$(".addshippingNotes").val();
             var internal_note=$(".addinternal_note").val();
-            $(".addconsigneeASconsignee").change(function(){
+            $(".addshipperASconsignee").change(function(){
                 if ($(this).is(':checked'))
                 {
-                    consigneeASconsignee= $(".addconsigneeASconsignee").val("1");
+                    shipperASconsignee= $(".addshipperASconsignee").val("1");
                 }
                 else
                 {
-                consigneeASconsignee= $(".addconsigneeASconsignee").val("0");
+                shipperASconsignee= $(".addshipperASconsignee").val("0");
                 }
             });
-            if(consigneeName=='')
+            
+            if(shipperName=='')
             {
                 swal.fire( "Enter Consignee Name");
                 return false;
                 
             } 
-            if(consigneeAddress=='')
+            if(shipperAddress=='')
             {
                 swal.fire( "Enter Consignee Address");
                 return false;
             }
-            if(consigneeLocation=='')
+            if(shipperLocation=='')
             {
                 swal.fire( "Enter Consignee location");
                 return false;
             }
-            if(consigneePostal=='')
+            if(shipperPostal=='')
             {
                 swal.fire( "Enter Consignee zip");
                 return false;
@@ -288,23 +366,23 @@ $(document).ready(function() {
             var formData=new FormData();
             formData.append('_token',$("#_token_AddShipperAndConsignee").val());
             formData.append("addressType",addressType);
-            formData.append('consigneeName',consigneeName);
-            formData.append('consigneeAddress',consigneeAddress);
-            formData.append('consigneeLocation',consigneeLocation);
-            formData.append('consigneePostal',consigneePostal);
-            formData.append('consigneeContact',consigneeContact);
-            formData.append('consigneeEmail',consigneeEmail);
-            formData.append('consigneeTelephone',consigneeTelephone);
-            formData.append('consigneeExt',consigneeExt);
-            formData.append('consigneeTollFree',consigneeTollFree);
-            formData.append('consigneeFax',consigneeFax);
-            formData.append('consigneeShippingHours',consigneeShippingHours);
-            formData.append('consigneeAppointments',consigneeAppointments);
-            formData.append('consigneeIntersaction',consigneeIntersaction);
-            formData.append('consigneestatus',consigneestatus);
+            formData.append('shipperName',shipperName);
+            formData.append('shipperAddress',shipperAddress);
+            formData.append('shipperLocation',shipperLocation);
+            formData.append('shipperPostal',shipperPostal);
+            formData.append('shipperContact',shipperContact);
+            formData.append('shipperEmail',shipperEmail);
+            formData.append('shipperTelephone',shipperTelephone);
+            formData.append('shipperExt',shipperExt);
+            formData.append('shipperTollFree',shipperTollFree);
+            formData.append('shipperFax',shipperFax);
+            formData.append('shipperShippingHours',shipperShippingHours);
+            formData.append('shipperAppointments',shipperAppointments);
+            formData.append('shipperIntersaction',shipperIntersaction);
+            formData.append('shipperstatus',shipperstatus);
             formData.append('shippingNotes',shippingNotes);
             formData.append('internal_note',internal_note);
-            formData.append('consigneeASconsignee',consigneeASconsignee);
+            formData.append('shipperASconsignee',shipperASconsignee);
             $.ajax({
                 type:'post',
                 url:base_path+"/admin/storeConsignee",
@@ -340,6 +418,7 @@ $(document).ready(function() {
         $("#UpdateShipper_and_ConsigneeModal").modal("hide");
     })
     $('body').on('click','.editShipperAndCongneeBtn', function(){
+        $(".shipperYaConsignee").val("shipper");
         var id=$(this).attr("data-shipAndConsig");
             $.ajax({
                 type: "GET",
@@ -356,13 +435,14 @@ $(document).ready(function() {
                     $('.updateshipperEmail').val(text.shipperEmail);
                     $('.updateshipperExt').val(text.shipperExt);
                     $('.updateshipperTollFree').val(text.shipperTollFree);
+                    $('.updateshipperTelephone').val(text.shipperTelephone);
                     $('.updateshipperFax').val(text.shipperFax);
                     $('.updateshipperShippingHours').val(text.shipperShippingHours);
                     $('.updateshipperAppointments').val(text.shipperAppointments);
                     $('.updateshipperIntersaction').val(text.shipperIntersaction);
-                    $('.updateshipperstatus').val(text.shipperstatus);
+                    $('.updateshipperstatus').val(text.shipperStatus);
                     $('.updateshippingNotes').val(text.shippingNotes);
-                    $('.updateinternal_note').val(text.internal_note);
+                    $('.updateinternal_note').val(text.internalNotes);
                  }
             });
 
@@ -370,7 +450,10 @@ $(document).ready(function() {
     });
 
     $(".UpdateCreateShipperAndConsigneeModal").click(function(){
-            var id=$(".ship_con_id").val();
+        var data=$(".shipperYaConsignee").val();
+        if(data=="shipper")
+        {
+             var id=$(".ship_con_id").val();
             var shipperName=$(".updateshipperName").val();
             var shipperAddress=$(".updateshipperAddress").val();
             var shipperLocation=$(".updateshipperLocation").val();
@@ -450,7 +533,127 @@ $(document).ready(function() {
                     });
                 }
             });
-    })
+        }
+        else
+        {
+            var id=$('.ship_con_id').val();
+            var consigneeName=$(".updateshipperName").val();
+            var consigneeAddress=$(".updateshipperAddress").val();
+            var consigneeLocation=$(".updateshipperLocation").val();
+            var consigneePostal=$(".updateshipperPostal").val();
+            var consigneeContact=$(".updateshipperContact").val();
+            var consigneeEmail=$(".updateshipperEmail").val();
+            var consigneeTelephone=$(".updateshipperTelephone").val();
+            var consigneeExt=$(".updateshipperExt").val();
+            var consigneeTollFree=$(".updateshipperTollFree").val();
+            var consigneeFax=$(".updateshipperFax").val();
+            var consigneeShippingHours=$(".updateshipperShippingHours").val();
+            var consigneeAppointments=$(".updateshipperAppointments").val();
+            var consigneeIntersaction=$(".updateshipperIntersaction").val();
+            var consigneestatus=$(".updateshipperstatus").val();
+            var shippingNotes=$(".updateshippingNotes").val();
+            var internal_note=$(".updateinternal_note").val();
+            if(consigneeName=='')
+            {
+                swal.fire( "Enter Consignee Name");
+                return false;
+                
+            } 
+            if(consigneeAddress=='')
+            {
+                swal.fire( "Enter Consignee Address");
+                return false;
+            }
+            if(consigneeLocation=='')
+            {
+                swal.fire( "Enter Consignee location");
+                return false;
+            }
+            if(consigneePostal=='')
+            {
+                swal.fire( "Enter Consignee zip");
+                return false;
+            }
+            var formData=new FormData();
+            formData.append('_token',$("#_token_AddShipperAndConsignee").val());
+            formData.append("id",id);
+            formData.append('consigneeName',consigneeName);
+            formData.append('consigneeAddress',consigneeAddress);
+            formData.append('consigneeLocation',consigneeLocation);
+            formData.append('consigneePostal',consigneePostal);
+            formData.append('consigneeContact',consigneeContact);
+            formData.append('consigneeEmail',consigneeEmail);
+            formData.append('consigneeTelephone',consigneeTelephone);
+            formData.append('consigneeExt',consigneeExt);
+            formData.append('consigneeTollFree',consigneeTollFree);
+            formData.append('consigneeFax',consigneeFax);
+            formData.append('consigneeShippingHours',consigneeShippingHours);
+            formData.append('consigneeAppointments',consigneeAppointments);
+            formData.append('consigneeIntersaction',consigneeIntersaction);
+            formData.append('consigneestatus',consigneestatus);
+            formData.append('shippingNotes',shippingNotes);
+            formData.append('internal_note',internal_note);
+            $.ajax({
+                type:'post',
+                url:base_path+"/admin/updateConsignee",
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:formData,
+                success:function(response){
+                    swal.fire("Done!", "Data updated successfully", "success");
+                    $('#UpdateShipper_and_ConsigneeModal').modal('hide');
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getShipper",
+                        async: false,
+                        success: function(text) {
+                            console.log(text);
+                            createGetShipperRows(text);
+                            shipperResult = text;
+                        }
+                    });
+                }
+            });
+        }
+           
+    });
+
+
+
+
+    $("body").on('click','.editConsigShipperAndCongneeBtn',function(){
+        $(".shipperYaConsignee").val("consignee");
+        var id=$(this).attr("data-consigneeAndConsig");
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/editConsignee",
+            async: false,
+            data:{id:id},
+            success: function(text) {
+                $('.ship_con_id').val(text._id);
+                $('.updateshipperName').val(text.consigneeName);
+                $('.updateshipperAddress').val(text.consigneeAddress);
+                $('.updateshipperLocation').val(text.consigneeLocation);
+                $('.updateshipperPostal').val(text.consigneePostal);
+                $('.updateshipperContact').val(text.consigneeContact);
+                $('.updateshipperEmail').val(text.consigneeEmail);
+                $('.updateshipperExt').val(text.consigneeExt);
+                $('.updateshipperTollFree').val(text.consigneeTollFree);
+                $('.updateshipperTelephone').val(text.consigneeTelephone);
+                $('.updateshipperFax').val(text.consigneeFax);
+                $('.updateshipperShippingHours').val(text.consigneeReceiving);
+                $('.updateshipperAppointments').val(text.consigneeAppointments);
+                $('.updateshipperIntersaction').val(text.consigneeIntersaction);
+                $('.updateshipperstatus').val(text.consigneeStatus);
+                $('.updateshippingNotes').val(text.consigneeRecivingNote);
+                $('.updateinternal_note').val(text.consigneeInternalNote);
+            }
+        });
+        $("#UpdateShipper_and_ConsigneeModal").modal("show");
+    });
+
     //=================== end update shipper =================================================
 
     //============================== start delete ==========================================
@@ -497,5 +700,310 @@ $(document).ready(function() {
         });
 
     });
+
+
+
+    $('body').on('click','.deleteConsiShipperAndCongneeBtn', function(){
+        var id=$(this).attr("data-consigneeAndConsig");
+        swal.fire({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+            if (e.value === true) 
+            {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    url: base_path+"/admin/deleteConsignee",
+                    data: { _token: $("#_token_AddShipperAndConsignee").val(), id: id},
+                    success: function(resp){
+                        swal.fire("Done!", "Fuel Vendorconsignee Deleted successfully", "success");
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/getShipper",
+                            async: false,
+                            success: function(text) {
+                                console.log(text);
+                                createGetShipperRows(text);
+                                shipperResult = text;
+                            }
+                        });
+                        $('#Shipper_and_ConsigneeModal').modal('show');
+
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+        });
+    });
     //=============================== end delete ===========================================
+
+    // =========================== start restore -=======================================
+    $(".restoreshipperAndConsigneeBtn").click(function(){
+        $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getShipper",
+                async: false,
+                success: function(text) {
+                    console.log(text);
+                    RestorecreateGetShipperRows(text);
+                    shipperResult = text;
+                }
+            });
+        $("#RestoreShipper_and_ConsigneeModal").modal("show");
+    });
+    $(".closeRestoreShipperModal").click(function(){
+        $("#RestoreShipper_and_ConsigneeModal").modal("hide");
+    });
+    function RestorecreateGetShipperRows(shipperResult) {
+        var shipperlen = 0;
+        if (shipperResult != null) {
+            shipperlen = shipperResult.shipper.shipper.length;
+            $("#RestoreshipperTable").html('');
+
+            if (shipperlen > 0) {
+                var no=1;
+                for (var i = shipperlen-1; i > 0; i--) {  
+                    var comId=shipperResult.shipper.companyID;
+                    var id =shipperResult.shipper.shipper[i]._id;
+                    var shipperName =shipperResult.shipper.shipper[i].shipperName;
+                    var shipperAddress =shipperResult.shipper.shipper[i].shipperAddress;
+                    var shipperLocation =shipperResult.shipper.shipper[i].shipperLocation;
+                    var  shipperPostal=shipperResult.shipper.shipper[i].shipperPostal;
+                    var  shipperContact=shipperResult.shipper.shipper[i].shipperContact;
+                    var  shipperEmail=shipperResult.shipper.shipper[i].shipperEmail;
+                    var  shipperTelephone=shipperResult.shipper.shipper[i].shipperTelephone;
+                    var  shipperExt=shipperResult.shipper.shipper[i].shipperExt;
+                    var  shipperTollFree=shipperResult.shipper.shipper[i].shipperTollFree;
+                    var  shipperFax=shipperResult.shipper.shipper[i].shipperFax;
+                    var  shipperShippingHours=shipperResult.shipper.shipper[i].shipperShippingHours;
+                    var  shipperAppointments=shipperResult.shipper.shipper[i].shipperAppointments;
+                    var  shipperIntersaction=shipperResult.shipper.shipper[i].shipperIntersaction;
+                    var  shipperStatus=shipperResult.shipper.shipper[i].shipperStatus;
+                    var  shippingNotes=shipperResult.shipper.shipper[i].shippingNotes;
+                    var  internalNotes=shipperResult.shipper.shipper[i].internalNotes;
+                    var  deleteStatus=shipperResult.shipper.shipper[i].deleteStatus;
+
+                    if(deleteStatus == 'YES'){
+
+
+                    var shipperStr = "<tr data-id=" + (i + 1) + ">" +
+                        "<td data-field='no'><input type='checkbox' class='check_ShipperAndConsignee_one' name='allShipConIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='shipper' value="+id+"></td>" +
+                        "<td data-field='shipperName' >" + shipperName + "</td>" +
+                        "<td data-field='shipperName' >Shipper</td>" +
+                        "<td data-field='shipperAddress' >" +shipperAddress  + "</td>" +
+                        "<td data-field='shipperLocation' >" +shipperLocation  + "</td>" +
+                        "<td data-field='shipperPostal' >" + shipperPostal + "</td>" +
+                        "<td data-field='shipperContact' >" + shipperContact + "</td>" +
+                        "<td data-field='shipperEmail' >" + shipperEmail + "</td>" +
+                        "<td data-field='shipperTelephone' >" + shipperTelephone + "</td>" +
+                        "<td data-field='shipperExt' >" + shipperExt + "</td>" +
+                        "<td data-field='shipperTollFree' >" + shipperTollFree + "</td>" +
+                        "<td data-field='shipperFax' >" + shipperFax + "</td>" +
+                        "<td data-field='shipperShippingHours' >" + shipperShippingHours + "</td>" +
+                        "<td data-field='shipperAppointments' >" + shipperAppointments + "</td>" +
+                        "<td data-field='shipperIntersaction' >" + shipperIntersaction + "</td>" +
+                        "<td data-field='shipperStatus' >" + shipperStatus + "</td>" +
+                        "<td data-field='shippingNotes' >" + shippingNotes + "</td>" +
+                        "<td data-field='internalNotes' >" + internalNotes + "</td>" +
+                        "</tr>";
+
+                    $("#RestoreshipperTable").append(shipperStr);
+                    no++;
+                    } 
+                }
+            } else {
+                var shipperStr = "<tr data-id=" + i + ">" +
+                    "<td align='center' colspan='4'>No record found.</td>" +
+                    "</tr>";
+    
+                $("#RestoreshipperTable").append(shipperStr);
+            }
+
+
+
+            consigneelen = shipperResult.consignee.consignee.length;
+            if (consigneelen > 0) {
+                var no=1;
+                for (var i = consigneelen-1; i > 0; i--) {  
+                    var comId=shipperResult.consignee.companyID;
+                    var id =shipperResult.consignee.consignee[i]._id;
+                    var consigneeName =shipperResult.consignee.consignee[i].consigneeName;
+                    var consigneeAddress =shipperResult.consignee.consignee[i].consigneeAddress;
+                    var consigneeLocation =shipperResult.consignee.consignee[i].consigneeLocation;
+                    var  consigneePostal=shipperResult.consignee.consignee[i].consigneePostal;
+                    var  consigneeContact=shipperResult.consignee.consignee[i].consigneeContact;
+                    var  consigneeEmail=shipperResult.consignee.consignee[i].consigneeEmail;
+                    var  consigneeTelephone=shipperResult.consignee.consignee[i].consigneeTelephone;
+                    var  consigneeExt=shipperResult.consignee.consignee[i].consigneeExt;
+                    var  consigneeTollFree=shipperResult.consignee.consignee[i].consigneeTollFree;
+                    var  consigneeFax=shipperResult.consignee.consignee[i].consigneeFax;
+                    var  consigneeReceiving=shipperResult.consignee.consignee[i].consigneeReceiving;
+                    var  consigneeAppointments=shipperResult.consignee.consignee[i].consigneeAppointments;
+                    var  consigneeIntersaction=shipperResult.consignee.consignee[i].consigneeIntersaction;
+                    var  consigneeStatus=shipperResult.consignee.consignee[i].consigneeStatus;
+                    var  consigneeRecivingNote=shipperResult.consignee.consignee[i].consigneeRecivingNote;
+                    var  consigneeInternalNote=shipperResult.consignee.consignee[i].consigneeInternalNote;
+                    var  deleteStatus=shipperResult.consignee.consignee[i].deleteStatus;
+
+                    if(deleteStatus == 'YES'){
+                        var consigneeStr = "<tr data-id=" + (i + 1) + ">" +
+                            //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                        "<td data-field='no'><input type='checkbox' class='check_ShipperAndConsignee_one' name='allShipConIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='consignee' value="+id+"></td>" +
+                        "<td data-field='consigneeName' >" + consigneeName + "</td>" +
+                        "<td data-field='consigneeName' >Consignee</td>" +
+                        "<td data-field='consigneeAddress' >" +consigneeAddress  + "</td>" +
+                        "<td data-field='consigneeLocation' >" +consigneeLocation  + "</td>" +
+                        "<td data-field='consigneePostal' >" + consigneePostal + "</td>" +
+                        "<td data-field='consigneeContact' >" + consigneeContact + "</td>" +
+                        "<td data-field='consigneeEmail' >" + consigneeEmail + "</td>" +
+                        "<td data-field='consigneeTelephone' >" + consigneeTelephone + "</td>" +
+                        "<td data-field='consigneeExt' >" + consigneeExt + "</td>" +
+                        "<td data-field='consigneeTollFree' >" + consigneeTollFree + "</td>" +
+                        "<td data-field='consigneeFax' >" + consigneeFax + "</td>" +
+                        "<td data-field='consigneeReceiving' >" + consigneeReceiving + "</td>" +
+                        "<td data-field='consigneeAppointments' >" + consigneeAppointments + "</td>" +
+                        "<td data-field='consigneeIntersaction' >" + consigneeIntersaction + "</td>" +
+                        "<td data-field='consigneeStatus' >" + consigneeStatus + "</td>" +
+                        "<td data-field='consigneeRecivingNote' >" + consigneeRecivingNote + "</td>" +
+                        "<td data-field='consigneeInternalNote' >" + consigneeInternalNote + "</td></tr>";
+                        $("#RestoreshipperTable").append(consigneeStr);
+                        no++;
+                    } 
+                }
+            } 
+            else 
+            {
+                var consigneeStr = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+
+                $("#RestoreshipperTable").append(consigneeStr);
+            }
+
+
+        }
+        else
+        {
+            var tr_str1 = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
+            $("#RestoreshipperTable").append(shipperStr);
+        }
+    }
+    $(document).on("change", ".shipperAndConsigneeChecked", function() 
+    {
+        if(this.checked) {
+            $('.check_ShipperAndConsignee_one:checkbox').each(function() 
+            {
+                this.checked = true;
+                ShipperAndConsigneeCheckboxRestore();
+            });
+        } 
+        else 
+        {
+            $('.check_ShipperAndConsignee_one:checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+    $('body').on('click','.check_ShipperAndConsignee_one',function(){
+        ShipperAndConsigneeCheckboxRestore();
+    });
+    function ShipperAndConsigneeCheckboxRestore()
+    {
+        var shipperAndConsiIds = [];
+        var companyIds=[];
+        var DataType=[];
+			$.each($("input[name='allShipConIdCheck[]']:checked"), function(){
+				shipperAndConsiIds.push($(this).val());
+                companyIds.push($(this).attr("date-compID"));
+                DataType.push($(this).attr("data-typeOf"));
+			});
+            console.log(DataType);
+			console.log(shipperAndConsiIds);
+			var shipperConsidAllCheckedIds =JSON.stringify(shipperAndConsiIds);
+			$('#checked_RestoreShipperModal_ids').val(shipperConsidAllCheckedIds);
+           
+			var companyCheckedIds =JSON.stringify(companyIds);
+			$('#checked_RestoreShipperModal_company_ids').val(companyCheckedIds);
+            
+			var DataTypeNames =JSON.stringify(DataType);
+			$('#checked_RestoreShipperModal_type').val(DataTypeNames);
+
+
+			if(shipperAndConsiIds.length > 0)
+			{
+				$('#restore_RestoreShipperModal_data').removeAttr('disabled');
+			}
+			else
+			{
+				$('#restore_RestoreShipperModal_data').attr('disabled',true);
+			}
+    }
+    $('body').on('click','.restore_RestoreShipperModal_data',function(){
+        var all_ids=$('#checked_RestoreShipperModal_ids').val();
+        var custID=$("#checked_RestoreShipperModal_company_ids").val();
+        var dataType=$("#checked_RestoreShipperModal_type").val();
+        var dataTypeArray = $.parseJSON(dataType)
+        // alert(all_ids);
+        alert(typeof(dataTypeArray));
+        if ($.inArray('shipper', dataType) > -1)
+        {
+            $.ajax({
+                type:"post",
+                data:{_token:$("#_tokenUpdateSub_creditCard").val(),all_ids:all_ids,custID:custID},
+                url: base_path+"/admin/restoreShipper",
+                success: function(response) {               
+                    swal.fire("Done!", "Shipper & Consignee Restored successfully", "success");
+                    $("#restoreSubcreditCardModal").modal("hide");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getShipper",
+                        async: false,
+                        success: function(text) {
+                            console.log(text);
+                            createGetShipperRows(text);
+                            shipperResult = text;
+                        }
+                    });
+                }
+            });
+    
+        }
+        else
+        {
+            $.ajax({
+                type:"post",
+                data:{_token:$("#_tokenUpdateSub_creditCard").val(),all_ids:all_ids,custID:custID},
+                url: base_path+"/admin/restoreConsignee",
+                success: function(response) {               
+                    swal.fire("Done!", "Shipper & Consignee Restored successfully", "success");
+                    $("#restoreSubcreditCardModal").modal("hide");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getShipper",
+                        async: false,
+                        success: function(text) {
+                            console.log(text);
+                            createGetShipperRows(text);
+                            shipperResult = text;
+                        }
+                    });
+                }
+            });
+        }
+
+      
+    });
+    //========================== end restore ============================================
 });

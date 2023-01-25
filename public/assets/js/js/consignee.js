@@ -87,7 +87,7 @@ $(document).ready(function() {
                             "<td style='text-align:center'>"+
                                 "<a class='editConsigShipperAndCongneeBtn button-29'  title='Edit1' data-consigneeAndConsig='"+id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
 
-                                "<a class='button-29 deleteConsiShipperAndCongneeBtn'  title='Edit1' data-consigneeAndConsig='"+id+"'><i class='fe fe-trush'></i></a>&nbsp"+
+                                "<a class='button-29 deleteConsiShipperAndCongneeBtn'  title='Edit1' data-consigneeAndConsig='"+id+"'><i class='fe fe-trash'></i></a>&nbsp"+
                             "</td></tr>";
 
                         $("#consigneeTable").append(consigneeStr);
@@ -115,123 +115,8 @@ $(document).ready(function() {
     // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 
     //======================== start update ==========================================
-    $(".closeUpdateConsigneeCreateShipperAndConsigneeModal").click(function(){
-        $("#UpdateConsiShipper_and_ConsigneeModal").modal("hide");
-    });
-    $("body").on('click','.editConsigShipperAndCongneeBtn',function(){
-        var id=$(this).attr("data-consigneeAndConsig");
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/editConsignee",
-            async: false,
-            data:{id:id},
-            success: function(text) {
-                $('.updateConsignId').val(text._id);
-                $('.updateconsigneeName').val(text.consigneeName);
-                $('.updateconsigneeAddress').val(text.consigneeAddress);
-                $('.updateconsigneeLocation').val(text.consigneeLocation);
-                $('.updateconsigneePostal').val(text.consigneePostal);
-                $('.updateconsigneeContact').val(text.consigneeContact);
-                $('.updateconsigneeEmail').val(text.consigneeEmail);
-                $('.updateconsigneeExt').val(text.consigneeExt);
-                $('.updateconsigneeTollFree').val(text.consigneeTollFree);
-                $('.updateconsigneeFax').val(text.consigneeFax);
-                $('.updateconsigneeShippingHours').val(text.consigneeShippingHours);
-                $('.updateconsigneeAppointments').val(text.consigneeAppointments);
-                $('.updateconsigneeIntersaction').val(text.consigneeIntersaction);
-                $('.updateconsigneestatus').val(text.consigneestatus);
-                $('.updateconsigneeNotes').val(text.ConsigneeNotes);
-                $('.updateConsigneInterNot').val(text.internal_note);
-             }
-        });
-        $("#UpdateConsiShipper_and_ConsigneeModal").modal("show");
-    });
-
-    $(".UpdateConsigneeCreateShipperAndConsigneeModal").click(function(){
-        // alert("Dfdf");
-        var id=$('.updateConsignId').val();
-         var consigneeName=$(".updateconsigneeName").val();
-            var consigneeAddress=$(".updateconsigneeAddress").val();
-            var consigneeLocation=$(".updateconsigneeLocation").val();
-            var consigneePostal=$(".updateconsigneePostal").val();
-            var consigneeContact=$(".updateconsigneeContact").val();
-            var consigneeEmail=$(".updateconsigneeEmail").val();
-            var consigneeTelephone=$(".updateconsigneeTelephone").val();
-            var consigneeExt=$(".updateconsigneeExt").val();
-            var consigneeTollFree=$(".updateconsigneeTollFree").val();
-            var consigneeFax=$(".updateconsigneeFax").val();
-            var consigneeShippingHours=$(".updateconsigneeShippingHours").val();
-            var consigneeAppointments=$(".updateconsigneeAppointments").val();
-            var consigneeIntersaction=$(".updateconsigneeIntersaction").val();
-            var consigneestatus=$(".updateconsigneestatus").val();
-            var shippingNotes=$(".updateshippingNotes").val();
-            var internal_note=$(".updateinternal_note").val();
-            if(consigneeName=='')
-            {
-                swal.fire( "Enter Consignee Name");
-                return false;
-                
-            } 
-            if(consigneeAddress=='')
-            {
-                swal.fire( "Enter Consignee Address");
-                return false;
-            }
-            if(consigneeLocation=='')
-            {
-                swal.fire( "Enter Consignee location");
-                return false;
-            }
-            if(consigneePostal=='')
-            {
-                swal.fire( "Enter Consignee zip");
-                return false;
-            }
-            var formData=new FormData();
-            formData.append('_token',$("#_token_AddShipperAndConsignee").val());
-            formData.append("id",id);
-            formData.append('consigneeName',consigneeName);
-            formData.append('consigneeAddress',consigneeAddress);
-            formData.append('consigneeLocation',consigneeLocation);
-            formData.append('consigneePostal',consigneePostal);
-            formData.append('consigneeContact',consigneeContact);
-            formData.append('consigneeEmail',consigneeEmail);
-            formData.append('consigneeTelephone',consigneeTelephone);
-            formData.append('consigneeExt',consigneeExt);
-            formData.append('consigneeTollFree',consigneeTollFree);
-            formData.append('consigneeFax',consigneeFax);
-            formData.append('consigneeShippingHours',consigneeShippingHours);
-            formData.append('consigneeAppointments',consigneeAppointments);
-            formData.append('consigneeIntersaction',consigneeIntersaction);
-            formData.append('consigneestatus',consigneestatus);
-            formData.append('shippingNotes',shippingNotes);
-            formData.append('internal_note',internal_note);
-            $.ajax({
-                type:'post',
-                url:base_path+"/admin/updateConsignee",
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                data:formData,
-                success:function(response){
-                    swal.fire("Done!", "Data updated successfully", "success");
-                    $('#UpdateConsiShipper_and_ConsigneeModal').modal('hide');
-                    $.ajax({
-                        type: "GET",
-                        url: base_path+"/admin/getConsignee",
-                        async: false,
-                        //dataType:JSON,
-                        success: function(text) {
-                            //alert();
-                            console.log(text);
-                            createGetConsigneeRows(text);
-                            ConsigneeResult = text;
-                         }
-                    });
-                }
-            });
-    });
+    
+  
     //============================== end update =============================================
 
 
