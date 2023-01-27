@@ -299,54 +299,126 @@ class ShipperController extends Controller
     }
     public function restoreShipper(Request $request)
     {
+        $consiId=$request->id;
         $shipIds=$request->all_ids;
-        dd($shipIds);
-        $custID=(array)1;
-        foreach($custID as $company_id)
+        $dataType=str_replace( array('[', ']'), ' ',$request->dataType);
+        $dataType_add=explode(",",$dataType);
+        $custID=(array)$request->custID;
+        $address="shipper";
+        foreach($dataType_add as $key=>$shipAndConTy)
         {
-            $company_id=str_replace( array( '\'', '"',
-            ',' , ' " " ', '[', ']' ), ' ', $company_id);
-            $company_id=(int)$company_id;
-            $Shipper = Shipper::where('companyID',$company_id )->first();
-            $ShipperArray=$Shipper->shipper;
-            $arrayLength=count($ShipperArray);         
-            $i=0;
-            $v=0;
-            $data=array();
-            for ($i=0; $i<$arrayLength; $i++){
-                $ids=$Shipper->shipper[$i]['_id'];
-                $ids=(array)$ids;
-                foreach ($ids as $value){
-                    // dd( $shipIds);
-                    $shipIds= str_replace( array('[', ']'), ' ', $shipIds);
-                    // dd($shipIds);
-                    if(is_string($shipIds))
-                    {
-                        $shipIds=explode(",",$shipIds);
-                    }
-                    foreach($shipIds as $ship_id)
-                    {
-                        $ship_id= str_replace( array('"', ']' ), ' ', $ship_id);
-                        if($value==$ship_id)
-                        {                        
-                            $data[]=$i; 
+            $shipAndConTy=str_replace( array('"' ,']'), ' ',$shipAndConTy);
+            $shipAndConTy = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $shipAndConTy)));
+            // $shipAndConTy="shipper";
+        //    dd($shipAndConTy);
+            if($shipAndConTy=='shipper')
+            {
+                // print_r($shipAndConTy);
+                foreach($custID as $company_id)
+                {
+                    $company_id=str_replace( array( '\'', '"',
+                    ',' , ' " " ', '[', ']' ), ' ', $company_id);
+                    $company_id=(int)$company_id;
+                    $Shipper = Shipper::where('companyID',$company_id )->first();
+                    $ShipperArray=$Shipper->shipper;
+                    $arrayLength=count($ShipperArray);         
+                    $i=0;
+                    $v=0;
+                    $data=array();
+                    for ($i=0; $i<$arrayLength; $i++){
+                        $ids=$Shipper->shipper[$i]['_id'];
+                        $ids=(array)$ids;
+                        foreach ($ids as $value){
+                            // dd( $shipIds);
+                            $shipIds= str_replace( array('[', ']'), ' ', $shipIds);
+                            // dd($shipIds);
+                            if(is_string($shipIds))
+                            {
+                                $shipIds=explode(",",$shipIds);
+                            }
+                            foreach($shipIds as $ship_id)
+                            {
+                                $ship_id= str_replace( array('"', ']' ), ' ', $ship_id);
+                                if($value==$ship_id)
+                                {                        
+                                    $data[]=$i; 
+                                }
+                            }
                         }
                     }
+                    //
+                    // dd($data);
+                    foreach($data as $row)
+                    {
+                        $ShipperArray[$row]['deleteStatus'] = "NO";
+                        $Shipper->shipper= $ShipperArray;
+                        $save=$Shipper->save();
+                    }
+                    if (isset($save)) {
+                        $arr = array('status' => 'success', 'message' => 'Shipper Restored successfully.','statusCode' => 200); 
+                    return json_encode($arr);
+                    }
                 }
+                
             }
-            //
-            // dd($data);
-            foreach($data as $row)
+            if($shipAndConTy=="consignee")
             {
-                $ShipperArray[$row]['deleteStatus'] = "NO";
-                $Shipper->shipper= $ShipperArray;
-                $save=$Shipper->save();
+                // echo "<br> </br>";
+                // print_r($shipAndConTy);
+                // dd($shipAndConTy);
+                foreach($custID as $company_id)
+                {
+                    // echo "consignee";
+                    $company_id=str_replace( array( '\'', '"',
+                    ',' , ' " " ', '[', ']' ), ' ', $company_id);
+                    $company_id=(int)$company_id;
+                
+                    $Consignee = Consignee::where('companyID',$company_id )->first();
+                    $ConsigneeArray=$Consignee->consignee;
+                    $arrayLength=count($ConsigneeArray);         
+                    $i=0;
+                    $v=0;
+                    $data=array();
+                    for ($i=0; $i<$arrayLength; $i++){
+                        $ids=$Consignee->consignee[$i]['_id'];
+                        $ids=(array)$ids;
+                        foreach ($ids as $value){
+                            // dd( $consiId);
+                            $consiId= str_replace( array('[', ']'), ' ', $consiId);
+                            // dd($consiId);
+                            if(is_string($consiId))
+                            {
+                                $consiId=explode(",",$consiId);
+                            }
+                            foreach($consiId as $fue_v_id)
+                            {
+                                $fue_v_id= str_replace( array('"', ']' ), ' ', $fue_v_id);
+                                if($value==$fue_v_id)
+                                {                        
+                                    $data[]=$i; 
+                                }
+                            }
+                        }
+                    }
+                    //
+                    // dd($data);
+                    foreach($data as $row)
+                    {
+                        $ConsigneeArray[$row]['deleteStatus'] = "NO";
+                        $Consignee->consignee= $ConsigneeArray;
+                        $save=$Consignee->save();
+                    }
+                    if (isset($save)) {
+                        $arr = array('status' => 'success', 'message' => 'Consignee Restored successfully.','statusCode' => 200); 
+                    return json_encode($arr);
+                    }
+                } 
             }
-            if (isset($save)) {
-                $arr = array('status' => 'success', 'message' => 'Shipper Restored successfully.','statusCode' => 200); 
-            return json_encode($arr);
-            }
+           
         }
+           
+        // dd($request->custID);
+       
     }
 
 }

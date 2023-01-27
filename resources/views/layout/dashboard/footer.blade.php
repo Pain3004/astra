@@ -122,6 +122,7 @@
 <script src="{{URL::to('/')}}/assets/js/js/load.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/PaymentReceiptRegi.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/Reports.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 <script sr="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 </body>

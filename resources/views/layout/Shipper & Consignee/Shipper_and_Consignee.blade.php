@@ -452,15 +452,13 @@
                                                                         <input class="form-control updateshipperName" placeholder="Shipper Name " type="text"  name="shipperName" required />
                                                                     </div>
                                                                 </div>
-                                                                <!-- <div class="form-group col-md-2">
+                                                                <div class="form-group col-md-2">
                                                                     <label>Type<span style="color:#ff0000">*</span></label>
                                                                     <div>
-                                                                        <select class="form-control shipperConsiType updateshipperConsiType" placeholder="Shipper Name " type="text" required >
-                                                                            <option value="shipper">Shipper</option>
-                                                                            <option value="consignee">Consignee</option>
-                                                                        </select>
+                                                                        <input type="text" value="Shipper"class="shipper_type_ed" readonly>
+                                                                        <input type="text" value="Consignee"class="consignee_type_ed" readonly>
                                                                     </div>
-                                                                </div> -->
+                                                                </div>
                                                                 <div class="form-group col-md-2">
                                                                     <label>Address <span style="color:#ff0000">*</span>&nbsp; 
                                                                     </label>

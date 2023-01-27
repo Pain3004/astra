@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\LoadController;
 use App\Http\Controllers\Admin\IftaTripController;
 use App\Http\Controllers\Admin\PaymentReceiptController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ExternalCarrierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -273,3 +274,11 @@ Route::post('admin/StorePaymentReceipt', [PaymentReceiptController::class, 'Stor
 
 //ReportController
 Route::get('admin/createAgingReport', [ReportController::class, 'createAgingReport']);
+
+//ExternalCarrierController
+Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);
+Route::post('admin/storeExternalCarrier', [ExternalCarrierController::class, 'storeExternalCarrier']);
+Route::get('admin/editExternalCarrier', [ExternalCarrierController::class, 'editExternalCarrier']);
+Route::post('admin/updateExternalCarrier', [ExternalCarrierController::class, 'updateExternalCarrier']);
+Route::post('admin/deleteExternalCarrier', [ExternalCarrierController::class, 'deleteExternalCarrier']);
+Route::post('admin/restoreExternalCarrier', [ExternalCarrierController::class, 'restoreExternalCarrier']);

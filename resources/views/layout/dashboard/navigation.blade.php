@@ -65,7 +65,7 @@
 																 
 																<li><a href="#" id="shipperConsignee_navbar" class="slide-item">Shipper & Consignee</a></li>
 														
-															<li><a href="#ExternalCarrierModal" class="slide-item" data-toggle="modal" data-target="#ExternalCarrierModal">External Carrier</a></li>
+															<li><a href="#"  class="slide-item ExternalCarrierModalBtn" >External Carrier</a></li>
 															
 															
 															<li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li>

@@ -58,7 +58,7 @@ $(document).ready(function() {
                         {
                             openingDate="----";
                         }
-              //alert(fuelVendorId);
+                        //alert(fuelVendorId);
                         if(deleteStatus == "NO"){
                             //alert("ff");
                             var fuelVendorStr = "<tr data-id=" + (i + 1) + ">" +

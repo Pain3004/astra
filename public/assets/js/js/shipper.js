@@ -418,6 +418,8 @@ $(document).ready(function() {
         $("#UpdateShipper_and_ConsigneeModal").modal("hide");
     })
     $('body').on('click','.editShipperAndCongneeBtn', function(){
+        $(".shipper_type_ed").show();
+        $(".consignee_type_ed").hide();
         $(".shipperYaConsignee").val("shipper");
         var id=$(this).attr("data-shipAndConsig");
             $.ajax({
@@ -624,6 +626,8 @@ $(document).ready(function() {
 
 
     $("body").on('click','.editConsigShipperAndCongneeBtn',function(){
+        $(".shipper_type_ed").hide();
+        $(".consignee_type_ed").show();
         $(".shipperYaConsignee").val("consignee");
         var id=$(this).attr("data-consigneeAndConsig");
         $.ajax({
@@ -954,54 +958,26 @@ $(document).ready(function() {
         var all_ids=$('#checked_RestoreShipperModal_ids').val();
         var custID=$("#checked_RestoreShipperModal_company_ids").val();
         var dataType=$("#checked_RestoreShipperModal_type").val();
-        var dataTypeArray = $.parseJSON(dataType)
-        // alert(all_ids);
-        alert(typeof(dataTypeArray));
-        if ($.inArray('shipper', dataType) > -1)
-        {
-            $.ajax({
-                type:"post",
-                data:{_token:$("#_tokenUpdateSub_creditCard").val(),all_ids:all_ids,custID:custID},
-                url: base_path+"/admin/restoreShipper",
-                success: function(response) {               
-                    swal.fire("Done!", "Shipper & Consignee Restored successfully", "success");
-                    $("#restoreSubcreditCardModal").modal("hide");
-                    $.ajax({
-                        type: "GET",
-                        url: base_path+"/admin/getShipper",
-                        async: false,
-                        success: function(text) {
-                            console.log(text);
-                            createGetShipperRows(text);
-                            shipperResult = text;
-                        }
-                    });
-                }
-            });
+        $.ajax({
+            type:"post",
+            data:{_token:$("#_tokenUpdateSub_creditCard").val(),all_ids:all_ids,custID:custID,dataType:dataType},
+            url: base_path+"/admin/restoreShipper",
+            success: function(response) {               
+                swal.fire("Done!", "Shipper & Consignee Restored successfully", "success");
+                $("#RestoreShipper_and_ConsigneeModal").modal("hide");
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getShipper",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        createGetShipperRows(text);
+                        shipperResult = text;
+                    }
+                });
+            }
+        });
     
-        }
-        else
-        {
-            $.ajax({
-                type:"post",
-                data:{_token:$("#_tokenUpdateSub_creditCard").val(),all_ids:all_ids,custID:custID},
-                url: base_path+"/admin/restoreConsignee",
-                success: function(response) {               
-                    swal.fire("Done!", "Shipper & Consignee Restored successfully", "success");
-                    $("#restoreSubcreditCardModal").modal("hide");
-                    $.ajax({
-                        type: "GET",
-                        url: base_path+"/admin/getShipper",
-                        async: false,
-                        success: function(text) {
-                            console.log(text);
-                            createGetShipperRows(text);
-                            shipperResult = text;
-                        }
-                    });
-                }
-            });
-        }
 
       
     });
