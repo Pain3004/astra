@@ -472,10 +472,10 @@
 														@if($loggedUser < 5)
 															@foreach($user as $data)
 																<img src="https://eu.ui-avatars.com/api/?background=random&name={{$data->userFirstName}}+{{$data->userLastName}}" alt="profile-user"
-																class="avatar  profile-user brround cover-image user_Name_OnHover" data-name="{{$data->userFirstName}}+{{$data->userLastName}}">
-																<div class="user_name_on_hover">
+																class="avatar  profile-user brround cover-image user_Name_OnHover" data-name="{{$data->userFirstName}}+{{$data->userLastName}}" title="{{$data->userFirstName}} {{$data->userLastName}}">
+																<!-- <div class="user_name_on_hover">
 																{{$data->userFirstName}} {{$data->userLastName}}
-																</div>
+																</div> -->
 															@endforeach
 														@else
 															<img src="https://eu.ui-avatars.com/api/?background=random&name={{auth()->user()->userFirstName}}+{{auth()->user()->userLastName}}" alt="profile-user"

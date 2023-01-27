@@ -142,4 +142,36 @@ class BranchOfficeController extends Controller
         }
     }
     
+    public function deleteBranchOffice(Request $request)
+    {
+        $id=$request->id;
+        //dd($id);
+        $companyID=(int)$request->comId;
+
+        $result = Office::where('companyID',$companyID)->first();
+        $Array=$result->office;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['deleteStatus']="Yes";  
+        $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['deleteTime']=date('d-m-y h:i:s');       
+        
+        $result->office=$Array;
+        // dd($FuelVendor->fuelCard);
+        if($result->save())
+        {
+         $arr = array('status' => 'success', 'message' => 'Branch office updated successfully.','statusCode' => 200); 
+         return json_encode($arr);
+        }
+    }
 }

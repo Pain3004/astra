@@ -6,11 +6,11 @@
     $importUser=$userdata->privilege['importUser'];
     $exportUser=$userdata->privilege['exportUser'];
  ?> 
-<!------------------------------------------------------------------- driver modal ------------------------------------------------------------------->
+<!-------------------------------------------------------------------  modal ------------------------------------------------------------------->
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="PaymentTermsModal2" >
-        <div class="modal-dialog modal-dialog-scrollable custom_modal">
+        <div class="modal-dialog custom_modal_small_4 modal-dialog-scrollable">
             <div class="modal-content">
 
                 <!-- Modal Header -->

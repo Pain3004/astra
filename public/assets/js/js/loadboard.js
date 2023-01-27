@@ -87,8 +87,8 @@ $(document).ready(function() {
                           var invoice =Result1[i].load[j]._id;
                           var orderId =Result1[i].load[j].cnno;
                           var status =Result1[i].load[j].status;
-                          var shipDate = new Date(Result1[i].load[j].shipper_pickup);
-                          var delDate = new Date(Result1[i].load[j].consignee_pickup);
+                          var shipDate1 = new Date(Result1[i].load[j].shipper_pickup);
+                          var delDate1 = new Date(Result1[i].load[j].consignee_pickup);
                           var customer =Result1[i].load[j].loaddata.customername;
                           var carrier_driver_ownerOperator =Result1[i].load[j].loaddata.loadername;
                           var origin =Result1[i].load[j].shipper[0].shipper_location;
@@ -99,16 +99,39 @@ $(document).ready(function() {
                           var carrierPay_driverPay=Result1[i].load[j].carrier_total;
                           var isBroker=Result1[i].load[j].isBroker;
                           var typeofloader=Result1[i].load[j].typeofloader;
-                          //convert date
-                          var created_at = new Date(Result1[i].load[j].created_at);
-                          if(created_at !="" && created_at != null){ created_at= ((created_at.getMonth() > 8) ? (created_at.getMonth() + 1) : ('0' + (created_at.getMonth() + 1))) + '/' + ((created_at.getDate() > 9) ? created_at.getDate() : ('0' + created_at.getDate())) + '/' + created_at.getFullYear(); }else{ created_at="-"; }
+                          var shippername =Result1[i].load[j].loaddata.shippername;
+                          var consigneename =Result1[i].load[j].loaddata.consigneename;
                           var created_user=Result1[i].load[j].created_user;
+                          var company=Result1[i].load[j].company;
+                        //convert date
+                          var created_at1 = Result1[i].load[j].created_at;
+                          var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                          var date = new Date(created_at1*1000);
+                          var year = date.getFullYear();
+                          var month = months_arr[date.getMonth()];
+                          var day = date.getDate();
+                          var created_at = month+'/'+day+'/'+year;
+                          
+                          var shipDate1 = Result1[i].load[j].created_at;
+                          var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                          var date = new Date(shipDate1*1000);
+                          var year = date.getFullYear();
+                          var month = months_arr[date.getMonth()];
+                          var day = date.getDate();
+                          var shipDate = month+'/'+day+'/'+year;
+
+                          var delDate1 = Result1[i].load[j].created_at;
+                          var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                          var date = new Date(delDate1*1000);
+                          var year = date.getFullYear();
+                          var month = months_arr[date.getMonth()];
+                          var day = date.getDate();
+                          var delDate = month+'/'+day+'/'+year;
+///
                           var edit_by=Result1[i].load[j].edit_by;
                           var dispatcher=parseInt(Result1[i].load[j].dispatcher);
 
                           if(orderId==""){orderId="-";}
-                          if(shipDate !="" && shipDate != null){ shipDate= ((shipDate.getMonth() > 8) ? (shipDate.getMonth() + 1) : ('0' + (shipDate.getMonth() + 1))) + '/' + ((shipDate.getDate() > 9) ? shipDate.getDate() : ('0' + shipDate.getDate())) + '/' + shipDate.getFullYear(); }else{ shipDate="-"; }
-                          if(delDate !="" && delDate != null){ delDate= ((delDate.getMonth() > 8) ? (delDate.getMonth() + 1) : ('0' + (delDate.getMonth() + 1))) + '/' + ((delDate.getDate() > 9) ? delDate.getDate() : ('0' + delDate.getDate())) + '/' + delDate.getFullYear(); }else{ delDate="-"; }
                           if(customer==""){customer="-";}
                           if(carrier_driver_ownerOperator==""){carrier_driver_ownerOperator="-"}
                           if(origin==""){origin="-"}
@@ -190,45 +213,71 @@ $(document).ready(function() {
                           var info='\n Tarp: '+Result1[i].load[j].isBroker 
                           +'\n Empty Miles: '+Result1[i].load[j].empty_miles_value
                           +'\n Loaded Miles: '+Result1[i].load[j].loaded_miles_value
-                          +'\n Shipper Name: '+Result1[i].load[j].loaddata.shippername
-                          +'\n Consignee Name: '+Result1[i].load[j].loaddata.consigneename
+                          +'\n Shipper Name: '+shippername
+                          +'\n Consignee Name: '+consigneename
                           +'\n Created by: '+created_user
                           +'\n Created on: '+created_at
                           +'\n Edited by: '+edit_by
                           +'\n Status edit: '+status_change_user
                           +'\n Dispatcher: '+dispatcher;//
                           
-                          //set dropdown in invoice
-                          var isQuickLoad=null;
-                          var hasFile=null;
-                          var load_notes=null;
-                          if (isQuickLoad != null) {
-                            $(".icontruck").css({
-                              "display": "inline",
-                            });
-                          }
-                          if (hasFile != null) {
-                            $(".iconFile").css({
-                              "display": "inline",
-                            });
-                          }
-                          if (load_notes != null) {
-                            $(".iconNote").css({
-                              "display": "inline",
-                            });
-                          }
+                        //set dropdown in invoice
                           
+                          //truck icon
+                          var isCompany = company != "" ? false : true;
+                          var isShipper = shippername != "" ? false : true;
+                          var isConsignee = consigneename != "" ? false : true;
+
+                          if (isCompany == true || isShipper == true || isConsignee == true) { isQuickLoad = true; }
+                          else{ var isQuickLoad=false;}
+
+                          if (isQuickLoad == true) { var truckIcon="<span class='mdi mdi-truck-fast extra7'></span>";
+                          }else{ var truckIcon=''; }
+
+                          //folder icon        
+                          var load_notes=false;
+
+                          var File=Result1[i].load[j].file;
+                          var fileLen=File.length;
+                         
+                          if (File) {
+                              hasFile = File.length > 0 ? true : false;
+                          }else{
+                            var hasFile = false;
+                          }
+
+                          if (hasFile == true) { var folderIcon="<span class='mdi mdi-folder extra6' ></span>";
+                          }else{ var folderIcon=''; }
+
+                        //chat icon        
+                        var notes=false;
+                        var load_notes=Result1[i].load[j].load_notes;
+                        if (load_notes) { var notes = load_notes != "" ? true : false; }
+                        if (notes == true) { var chatIcon="<span class='mdi mdi-comment-processing extra5'></span> "; }else{ var chatIcon=''; }
+                          
+                        
 
                           $('#loadStatus option:selected').eq(status).prop('selected', true);
                           
                           var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                           "<td data-field='no' data-toggle='tooltip' data-placement='top' title='"+info+"'><i class='mdi mdi-restore-clock' style='font-size:24px'></i><br>" + no + "</td>" +
-                          "<td data-field='invoice'><span class='mdi mdi-comment-processing extra5 iconNote' style='display:none;'></span>  <span class='mdi mdi-folder extra6 iconFile' style='display:none;'></span><span class='mdi mdi-truck-fast extra7 icontruck' style='display:none;'></span><br>"+
-                           invoice +
-                          "</td>" +
+                          "<td data-field='invoice' class='modal-trigger'>"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+"</td>" +
+                          // "<td data-field='orderId'>"+
+                          //   "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' >" +
+                          //     "<option value='" + status +"'  selected='' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+"</option>" +
+                          //     "<option value='Open'>Open</option>" +
+                          //     "<option value='Dispatched'>Dispatched</option>" +
+                          //     "<option value='Arrived Shipper'>Arrived Shipper</option>" +
+                          //     "<option value='Loaded'>Loaded</option>" +
+                          //     "<option value='On Route'>On Route</option>" +
+                          //     "<option value='Arrived Consignee'>Arrived Consignee</option>" +
+                          //     "<option value='Delivered'>Delivered</option>" +
+                          //     "<option value='Break Down'>Break Down</option>" +
+                          //   "</select>" +
+                          // "</td>" +
                           "<td data-field='orderId'>" + orderId + "</td>" +
                           "<td data-field='status' style='color:black;'>" + 
-                              "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
+                            "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
                               "<option value='" + status +"'  selected='' >" + status +"</option>" +
                               "<option value='Open'>Open</option>" +
                               "<option value='Dispatched'>Dispatched</option>" +
@@ -238,7 +287,7 @@ $(document).ready(function() {
                               "<option value='Arrived Consignee'>Arrived Consignee</option>" +
                               "<option value='Delivered'>Delivered</option>" +
                               "<option value='Break Down'>Break Down</option>" +
-                          "</select>" +
+                            "</select>" +
                           "</td>" +
                           "<td data-field='shipDate'>" + shipDate + "</td>" +
                           "<td data-field='delDate'>" + delDate + "</td>" +
@@ -275,12 +324,24 @@ $(document).ready(function() {
       }
   }
 
-// descending order
-  // $("#LoadBoardTable tr").sort(sort_td).appendTo("#LoadBoardTable");
-  // function sort_td(a, b) {
-  //   return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
-  // }
+// $('.btn_menu').click(function(){
+//   $('.btn_menu').html();
+//   $(this).append($('.gen_menu').html());
+// });
 
+// $('.modal-trigger').click(function(){
+  
+  // $(document).on("click", ".modal-trigger", function(event) {
+  // var x = event.pageX;
+  // var y = event.pageY;
+
+  // $("#lb_dropdown_list").css({
+  //   top: y + "px",
+  //   left: x + "px"
+  // });
+  //   $('#lb_dropdown_list').modal('show');
+    
+  // });
 
 // <!-- -------------------------------------------------------------------------over function   ------------------------------------------------------------------------- -->  
 // <!-- -------------------------------------------------------------------------change status   ------------------------------------------------------------------------- -->  

@@ -112324,9 +112324,9 @@ textarea.form-control {
     padding: 30px 0;
   }*/
   
-  .filter-checkbox{
-    margin-left: 30px
-  }
+  /* .filter-checkbox{
+    margin-left: 5px
+  } */
   .filter-checkbox:first-child{
     margin-left:0
   }

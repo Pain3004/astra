@@ -1911,8 +1911,11 @@ $('#Company_navbar').click(function(){
                         var bankCompany = companyResponse[i].company[j].bankCompany;
                         if (companyResponse[i].company[j].file != '') {
                             for (var k = 0; k < companyResponse[i].company[j].file.length; k++) {
-                                var filepath = base_path+'/'+companyResponse[i].company[j].file[k].filepath;
+                                var filepath = companyResponse[i].company[j].file[k].filepath;
                                 var file_name = companyResponse[i].company[j].file[k].Originalname;
+
+                                var com_logo_img ="<img src='/"+filepath+"'width='100px'>";
+
                             }
                         }
                         else {
@@ -1935,7 +1938,7 @@ $('#Company_navbar').click(function(){
                             "<td data-field='mailingAddress'>" + mailingAddress + "</td>" +
                             "<td data-field='factoringCompany'>" + factoringCompany + "</td>" +
                             "<td data-field='bankCompany'>" + bankCompany + "</td>" +
-                            "<td data-field='filepath'><a href='"+ filepath +"' target='_blank'>"+ file_name +"</a></td>" +
+                            "<td data-field='filepath'><a href='"+ filepath +"' target='_blank'>"+ com_logo_img +"</a></td>" +
                             "<td><a class='editCompany mt-2 btn btn-primary fs-14 text-white edit3'  title='Edit' data-id=" + comid+ "&"+mailingAddress + "><i class='fe fe-edit'></i></a>&nbsp<a class='deleteCompany mt-2 btn btn-danger fs-14 text-white delete-icn' data-id=" + comid+ "&"+mailingAddress + " title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
                         $("#companyTable").append(tr_str1);
                         no++;

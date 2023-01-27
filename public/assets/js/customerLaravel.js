@@ -473,6 +473,15 @@ $(document).ready(function() {
                     }else{
                         alert("Payment Terms not added successfully.");
                     }
+                    // $.ajax({
+                    //     type: "GET",
+                    //     url: base_path+"/admin/getPaymentTerms",
+                    //     async: false,
+                    //     success: function(text) {
+                    //         console.log(text);
+                    //         createPaymentTermsRows(text);
+                    //       }
+                    // });
                 }
             });
         });

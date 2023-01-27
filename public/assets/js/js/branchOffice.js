@@ -80,7 +80,8 @@ $(document).ready(function() {
                                        
                                         "<td style='text-align:center'>"+
                                             "<a class='button-23 "+editPrivilege+" editBranchOffice'  title='Edit1' data-Id='"+Office_Id+"' data-comID='"+Office_com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                        "</td></tr>";
+                                            "</a> <a class='deleteBranchOffice button-23 "+delPrivilege+"' title='Delete' data-Id='"+Office_Id+"' data-comID='"+Office_com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                            "</td></tr>";
             
                                     $("#officeTable").append(branchOfficeStr);
                                     no++;
@@ -107,7 +108,7 @@ $(document).ready(function() {
         $('#branchOfficeModal').modal('show');
     }
 // <!-- -------------------------------------------------------------------------over function   ------------------------------------------------------------------------- -->  
-// <!-- -------------------------------------------------------------------------add Equipment Type   ------------------------------------------------------------------------- -->  
+// <!-- -------------------------------------------------------------------------add     ------------------------------------------------------------------------- -->  
    
 $("#saveBranchOffice").click(function(){
     var name=$('#BranchOffice_name').val();
@@ -162,7 +163,7 @@ $("#saveBranchOffice").click(function(){
 });
 
 
-// <!-- -------------------------------------------------------------------------over add Equipment Type   ------------------------------------------------------------------------- -->    
+// <!-- -------------------------------------------------------------------------over add ------------------------------------------------------------------------- -->    
 //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
 
  $("body").on('click','.editBranchOffice', function(){
@@ -214,7 +215,7 @@ $("#saveBranchOffice").click(function(){
         datatype:"JSON",
   
         data:{
-            _token: $("#_tokenEditCurrency").val(),
+            _token: $("#_tokenbranchOffice").val(),
             name:name,
             location:location,
             compID:compID,
@@ -240,6 +241,55 @@ $("#saveBranchOffice").click(function(){
         }
     });
  });
-// -========================== end update  fuel vendor============================
+//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+
+$('body').on('click', '.deleteBranchOffice', function(){
+    var  id=$(this).attr("data-Id");
+    var comId=$(this).attr('data-comID');
+
+    swal.fire({
+        title: "Delete?",
+        text: "Please ensure and then confirm!",
+        type: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: !0
+    }).then(function (e) {
+        if (e.value === true) 
+        {
+            $.ajax({
+                type: 'post',
+                url: base_path+"/admin/deleteBranchOffice",
+                data: { 
+                    _token: $("#_tokenbranchOffice").val(), 
+                    id: id,
+                    comId:comId
+                },
+                success: function(resp){
+                    swal.fire("Done!", "Branch Office Deleted successfully", "success");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getBranchOffice",
+                        async: false,
+                        //dataType:JSON,
+                        success: function(text) {
+                            //alert();
+                            console.log(text);
+                            createBranchOfficeRows(text);
+                          }
+                    });
+                    $('#branchOfficeModal').modal('show');
+                },
+                error: function (resp) {
+                    swal.fire("Error!", 'Something went wrong.', "error");
+                }
+            });
+        } 
+    });
+});
+//-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
+
 // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 });

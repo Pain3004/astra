@@ -237,6 +237,7 @@ Route::get('admin/getBranchOffice', [BranchOfficeController::class, 'getBranchOf
 Route::post('admin/addBranchOffice', [BranchOfficeController::class, 'addBranchOffice']);
 Route::get('admin/editBranchOffice', [BranchOfficeController::class, 'editBranchOffice']);
 Route::post('admin/updateBranchOffice', [BranchOfficeController::class, 'updateBranchOffice']);
+Route::post('admin/deleteBranchOffice', [BranchOfficeController::class, 'deleteBranchOffice']);
 
 //Trailer
 Route::get('admin/getTrailer', [TrailerAdminAddController::class, 'getTrailer']);

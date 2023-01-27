@@ -826,6 +826,12 @@ ul.multicolumn {
     background-image: radial-gradient(circle, rgba(0,212,255,1) 0%, rgba(0,50,89,1) 100%);
     
   }
+  .thead_lb {
+    background-image: radial-gradient(circle, rgb(243, 247, 248) 0%, rgb(222, 226, 230) 100%);
+  }
+  .thead_th_lb {
+    background-image: radial-gradient(circle, rgba(0,212,255,1) 0%, rgba(0,50,89,1) 100%);
+  }
   
   .thead th:nth-child(1),
 .thead th:nth-child(1) {

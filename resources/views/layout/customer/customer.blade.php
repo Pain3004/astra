@@ -317,7 +317,7 @@
 <div class="container" >
   <!-- The Modal -->
   <div class="modal fade" id="PaymentTermsModal" data-backdrop="static" style="z-index:10000000000;"> >
-    <div class="modal-dialog custom_modal_small2 modal-dialog-scrollable">
+    <div class="modal-dialog custom_modal_small_5 modal-dialog-scrollable">
       <div class="modal-content">
       
         <!-- Modal Header -->
@@ -340,12 +340,12 @@
                     <div class="form-group col-md-12">
                         <label for="NetDays">Net Days <span style="color:#ff0000">*</span></label>
                         <!-- <input type="text" class="form-control" id="NetDays" placeholder=" Enter Net Days" > -->
-                         <input class="form-control" list="NetDays" name="NetDay" id="NetDay" >
-                        <datalist id="NetDays" >
+                         <!-- <input class="form-control" list="NetDays" name="NetDay" id="NetDay" > -->
+                        <select class="form-control" id="NetDays" >
                             @for ($i = 0; $i <= 180; $i++)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
-                        </datalist>    
+                        </select>    
                     </div>
                 </div>
             </form>
