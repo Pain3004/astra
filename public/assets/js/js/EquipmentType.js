@@ -48,7 +48,7 @@ $(document).ready(function() {
                         
                         len2 = Result.EquipmentType[i].equipment.length;
                         var main_Id =Result.EquipmentType[i].equipment._id;
-                        var com_Id =Result.EquipmentType[i].equipment.companyID;
+                        var com_Id =Result.EquipmentType[i].companyID;
 
                         if (len2 > 0) {
                             for (var j = len2-1; j >= 0; j--) {
@@ -65,8 +65,8 @@ $(document).ready(function() {
                                        
                                         "<td style='text-align:center'>"+
                                             "<a class='button-23  "+editPrivilege+"'  title='Edit1' data-Id='"+id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                            "</a> <a class='delete1 button-23 "+delPrivilege+"' data-id="+ email +" title='Delete'><i class='fe fe-delete'></i></a>"+
-                                        "</td></tr>";
+                                            "</a> <a class='deleteEquipmentType button-23 "+delPrivilege+"' data-Id  ="+ id +" data-comID='"+com_Id+"' title='Delete'><i class='fe fe-delete'></i></a>"+
+                                            "</td></tr>";
             
                                     $("#EquipmentTypeTable").append(Str);
                                     no++;
@@ -139,6 +139,51 @@ $(document).ready(function() {
 
 
 // <!-- -------------------------------------------------------------------------over add Equipment Type   ------------------------------------------------------------------------- --> 
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+$('body').on('click', '.deleteEquipmentType', function(){
+    var  id=$(this).attr("data-Id");
+    var comId=$(this).attr('data-comID');
+
+    swal.fire({
+        title: "Delete?",
+        text: "Please ensure and then confirm!",
+        type: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: !0
+    }).then(function (e) {
+        if (e.value === true) 
+        {
+            $.ajax({
+                type: 'post',
+                url: base_path+"/admin/deleteEquipmentType",
+                data: { 
+                    _token: $("#_tokenbranchOffice").val(), 
+                    id: id,
+                    comId:comId
+                },
+                success: function(resp){
+                    swal.fire("Done!", "Equipment Type Deleted successfully", "success");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getEquipmentType",
+                        async: false,
+                        success: function(text) {
+                            console.log(text);
+                            createEquipmentTypeRows(text);
+                          }
+                    });
+                    $('#EquipmentTypeModal').modal('show');
+                },
+                error: function (resp) {
+                    swal.fire("Error!", 'Something went wrong.', "error");
+                }
+            });
+        } 
+    });
+});
+//-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
 
 
 // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  

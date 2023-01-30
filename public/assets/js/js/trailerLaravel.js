@@ -69,26 +69,26 @@ $(document).ready(function() {
                         // console.log(trailerTypeid);
                         if(trailerTypeid == trailer_Type_id)
                         {
-                            trailerType=TrailerResult.trailer.trailer[j].trailerType;
+                          var   trailerType=TrailerResult.trailer.trailer[j].trailerType;
                             // trailerType="";
                             break;
                         }
                         else
                         {
-                            trailerType="----";
+                           var trailerType="----";
                         }
                     }
 
                     var licensePlate =TrailerResult.trailer_type.trailer[i].licenseType;
-                    var plateExpiry = new Date(TrailerResult.trailer_type.trailer[i].plateExpiry);
-                    var inspectionExpiry = new Date(TrailerResult.trailer_type.trailer[i].inspectionExpiration);
+                    // var plateExpiry = new Date(TrailerResult.trailer_type.trailer[i].plateExpiry);
+                    // var inspectionExpiry = new Date(TrailerResult.trailer_type.trailer[i].inspectionExpiration);
                     var registeredState=TrailerResult.trailer_type.trailer[i].registeredState;
                     var status =TrailerResult.trailer_type.trailer[i].status;
                     var model =TrailerResult.trailer_type.trailer[i].model;
-                    var activationDate = new Date(TrailerResult.trailer_type.trailer[i].activationDate);
+                    // var activationDate = new Date(TrailerResult.trailer_type.trailer[i].activationDate);
                     var axies =TrailerResult.trailer_type.trailer[i].axies;
                     var vin =TrailerResult.trailer_type.trailer[i].vin;
-                    var dot = new Date(TrailerResult.trailer_type.trailer[i].dot);
+                    // var dot = new Date(TrailerResult.trailer_type.trailer[i].dot);
                     var year =TrailerResult.trailer_type.trailer[i].year;
                     var internalNotes =TrailerResult.trailer_type.trailer[i].internalNotes;
                     // var startDate =new Date(TrailerResult.trailer_type.trailer[i].startDate);
@@ -152,40 +152,56 @@ $(document).ready(function() {
                     // }
                     if(TrailerResult.trailer_type.trailer[i].deleteStatus == "NO")
                     {
-                        if(TrailerResult.trailer_type.trailer[i].plateExpiry !="" && TrailerResult.trailer_type.trailer[i].plateExpiry != null)
+                        if(platExpiry != '')
                         {
-                            plateExpiry= ((plateExpiry.getMonth() > 8) ? (plateExpiry.getMonth() + 1) : ('0' + (plateExpiry.getMonth() + 1))) + '/' + ((plateExpiry.getDate() > 9) ? plateExpiry.getDate() : ('0' + plateExpiry.getDate())) + '/' + plateExpiry.getFullYear();
+                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_platExpiry = new Date(platExpiry*1000);
+                            var year_platExpiry = date_platExpiry.getFullYear();
+                            var month_platExpiry = months_arr[date_platExpiry.getMonth()];
+                            var day = date_platExpiry.getDate();
+                            var plateExpiry = month_platExpiry+'/'+day+'/'+year_platExpiry;
                         }
                         else
                         {
-                            plateExpiry="----";
+                          var  platExpiry="-----";
                         }
-                        
-                        if(TrailerResult.trailer_type.trailer[i].inspectionExpiration !="" && TrailerResult.trailer_type.trailer[i].inspectionExpiration !=null)
+                        if(inspectionExpiry !='' && inspectionExpiry != null)
                         {
-                             inspectionExpiry= ((inspectionExpiry.getMonth() > 8) ? (inspectionExpiry.getMonth() + 1) : ('0' + (inspectionExpiry.getMonth() + 1))) + '/' + ((inspectionExpiry.getDate() > 9) ? inspectionExpiry.getDate() : ('0' + inspectionExpiry.getDate())) + '/' + inspectionExpiry.getFullYear();
+                            
+                            var date_inspectionExpiry = new Date(inspectionExpiry*1000);
+                            var year_inspectionExpiry = date_inspectionExpiry.getFullYear();
+                            var month_inspectionExpiry = months_arr[date_inspectionExpiry.getMonth()];
+                            var day = date_inspectionExpiry.getDate();
+                            var inspectionExpiry = month_inspectionExpiry+'/'+day+'/'+year_inspectionExpiry;
                         }
                         else
                         {
-                            inspectionExpiry="----";
+                          var  inspectionExpiry="-----";
                         }
-                       
-                        if(TrailerResult.trailer_type.trailer[i].dot != "" && TrailerResult.trailer_type.trailer[i].dot != null)
+                        if(activationDate !="" && activationDate !=null)
                         {
-                            dot= ((dot.getMonth() > 8) ? (dot.getMonth() + 1) : ('0' + (dot.getMonth() + 1))) + '/' + ((dot.getDate() > 9) ? dot.getDate() : ('0' + dot.getDate())) + '/' + dot.getFullYear();
 
+                            var date_activationDate = new Date(activationDate*1000);
+                            var year_activationDate = date_activationDate.getFullYear();
+                            var month_activationDate = months_arr[date_activationDate.getMonth()];
+                            var day = date_activationDate.getDate();
+                            var activationDate = month_activationDate+'/'+day+'/'+year_activationDate;
                         }
                         else
                         {
-                            dot='----';
+                           var activationDate="-----";
                         }
-                        if(TrailerResult.trailer_type.trailer[i].activationDate !="" && TrailerResult.trailer_type.trailer[i].activationDate != null)
+                        if(dot !="" && dot !=null)
                         {
-                            activationDate= ((activationDate.getMonth() > 8) ? (activationDate.getMonth() + 1) : ('0' + (activationDate.getMonth() + 1))) + '/' + ((activationDate.getDate() > 9) ? activationDate.getDate() : ('0' + activationDate.getDate())) + '/' + activationDate.getFullYear();
+                            var date_dot = new Date(dot*1000);
+                            var year_dot = date_dot.getFullYear();
+                            var month_dot = months_arr[date_dot.getMonth()];
+                            var day = date_dot.getDate();
+                            var dot = month_dot+'/'+day+'/'+year_dot;
                         }
                         else
                         {
-                            activationDate="----";
+                           var dot="-----";
                         }
                     
                         var trailerStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
@@ -478,18 +494,75 @@ $(document).ready(function() {
                 }
              }
              
+             var plate_expiry=text.plateExpiry;
+             var inspectionExpiration= response.inspectionExpiration;
+             var activationDate= response.activationDate;
+             var dot= response.dot;
+              var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+              var date_plate_expiry = new Date(plate_expiry*1000);
+              var year_plate_expiry = date_plate_expiry.getFullYear();
+              var month_plate_expiry = months_arr[date_plate_expiry.getMonth()];
+              var day_plate_expiry = date_plate_expiry.getDate();
+              if(day <=9 )
+              {
+                  var plate_expiry = year_plate_expiry+'-0'+day_plate_expiry+'-'+month_plate_expiry;
+              }
+              else
+              {
+                  var plate_expiry = year_plate_expiry+'-'+month_plate_expiry+'-'+day_plate_expiry;
+              }
+ 
+              var date_inspectionExpiration = new Date(inspectionExpiration*1000);
+              var year_inspectionExpiration = date_inspectionExpiration.getFullYear();
+              var month_inspectionExpiration = months_arr[date_inspectionExpiration.getMonth()];
+              var day_inspectionExpiration = date_inspectionExpiration.getDate();
+              if(day <=9 )
+              {
+                  var inspectionExpiration = year_inspectionExpiration+'-0'+day_inspectionExpiration+'-'+month_inspectionExpiration;
+              }
+              else
+              {
+                  var inspectionExpiration = year_inspectionExpiration+'-'+month_inspectionExpiration+'-'+day_inspectionExpiration;
+              }
+ 
+              var date_activationDate = new Date(activationDate*1000);
+              var year_activationDate = date_activationDate.getFullYear();
+              var month_activationDate = months_arr[date_activationDate.getMonth()];
+              var day_activationDate = date_activationDate.getDate();
+              if(day <=9 )
+              {
+                  var activationDate = year_activationDate+'-0'+day_activationDate+'-'+month_activationDate;
+              }
+              else
+              {
+                  var activationDate = year_activationDate+'-'+month_activationDate+'-'+day_activationDate;
+              }
+              
+ 
+              var date_dot = new Date(dot*1000);
+              var year_dot = date_dot.getFullYear();
+              var month_dot = months_arr[date_dot.getMonth()];
+              var day_dot = date_dot.getDate();
+              if(day <=9 )
+              {
+                  var dot = year_dot+'-0'+day_dot+'-'+month_dot;
+              }
+              else
+              {
+                  var dot = year_dot+'-'+month_dot+'-'+day_dot;
+              }
                $("#edit_Trailer_Type").val(response.trailerType); 
                $("#edit_Trailerlicense_plate").val(response.licenseType); 
-               $("#edit_Trailerplate_expiry").val(response.plateExpiry); 
-               $("#edit_Trailer_inspection").val(response.inspectionExpiration); 
+               $("#edit_Trailerplate_expiry").val(plate_expiry); 
+               $("#edit_Trailer_inspection").val(inspectionExpiration); 
                $("#edit_Trailer_status").val(response.status); 
                $("#edit_Trailer_Model").val(response.model); 
                $("#edit_Traileryear").val(response.year); 
                $("#Edit_trailerAxies").val(response.axies); 
                $("#editTrailer_Registered_State").val(response.registeredState); 
                $("#edit_Trailer_vin").val(response.vin); 
-               $("#edit_trailer_Activation").val(response.activationDate); 
-               $("#editTrailerdot").val(response.dot); 
+               $("#edit_trailer_Activation").val(activationDate); 
+               $("#editTrailerdot").val(dot); 
                $("#editTrailerinternal_note").val(response.internalNotes); 
             //    $("#edit_trailer_files").val(response.trailerNumber); 
             }

@@ -90,7 +90,6 @@ $(document).ready(function() {
  // -- -------------------------------------------------------------------------   over Get   ------------------------------------------------------------------------- --
 
  // -- -------------------------------------------------------------------------    add    ------------------------------------------------------------------------- -- 
-   
     $("#saveLoadType").click(function(){
         var loadName=$('#loadType_name').val();
         var loadType=$('#loadUnit').val();
@@ -141,9 +140,52 @@ $(document).ready(function() {
             }
         });
     });
-
-
 // - -------------------------------------------------------------------------over add    ------------------------------------------------------------------------- -- 
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+// $('body').on('click', '.deleteEquipmentType', function(){
+//     var  id=$(this).attr("data-Id");
+//     var comId=$(this).attr('data-comID');
+
+//     swal.fire({
+//         title: "Delete?",
+//         text: "Please ensure and then confirm!",
+//         type: "warning",
+//         showCancelButton: !0,
+//         confirmButtonText: "Yes, delete it!",
+//         cancelButtonText: "No, cancel!",
+//         reverseButtons: !0
+//     }).then(function (e) {
+//         if (e.value === true) 
+//         {
+//             $.ajax({
+//                 type: 'post',
+//                 url: base_path+"/admin/deleteEquipmentType",
+//                 data: { 
+//                     _token: $("#_tokenbranchOffice").val(), 
+//                     id: id,
+//                     comId:comId
+//                 },
+//                 success: function(resp){
+//                     swal.fire("Done!", "Equipment Type Deleted successfully", "success");
+//                     $.ajax({
+//                         type: "GET",
+//                         url: base_path+"/admin/getEquipmentType",
+//                         async: false,
+//                         success: function(text) {
+//                             console.log(text);
+//                             createEquipmentTypeRows(text);
+//                           }
+//                     });
+//                     $('#EquipmentTypeModal').modal('show');
+//                 },
+//                 error: function (resp) {
+//                     swal.fire("Error!", 'Something went wrong.', "error");
+//                 }
+//             });
+//         } 
+//     });
+// });
+//-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
 
 
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 

@@ -126,11 +126,14 @@
 			<!-- CONTAINER END -->
 		</div>
 
-<!-- <div class="gen_menu">
-<ul>
-	<li>1</li>
-	<li>2</li>
-</ul>
+<!-- <div class="invoice_menu">
+    <div class="invoice_menu_inner">
+        <ul>
+            <li><a href="#">Menu 1</a></li>
+            <li><a href="#">Menu 2</a></li>
+            <li><a href="#">Menu 3</a></li>            
+        </ul>
+    </div>
 </div>		 -->
 
 <!------------------------------------------------------------------- Add   modal ------------------------------------------------------------------->

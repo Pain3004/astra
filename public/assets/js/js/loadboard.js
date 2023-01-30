@@ -259,9 +259,9 @@ $(document).ready(function() {
 
                           $('#loadStatus option:selected').eq(status).prop('selected', true);
                           
-                          var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                          var Str = "<tr style='z-index: 5;position: relative;' class='tr' data-id=" + (i + 1) + ">" +
                           "<td data-field='no' data-toggle='tooltip' data-placement='top' title='"+info+"'><i class='mdi mdi-restore-clock' style='font-size:24px'></i><br>" + no + "</td>" +
-                          "<td data-field='invoice' class='modal-trigger'>"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+"</td>" +
+                          "<td data-field='invoice' class='modal-trigger invoice_btn' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+" <div class='rrrrr' style='position: absolute;z-index: 22222;height: 64px; display:none;'><ul><li><a href='#'>Menu 1</a></li><li><a href='#'>Menu 2</a></li><li><a href='#'>Menu 3</a></li></ul></div></td>" +
                           // "<td data-field='orderId'>"+
                           //   "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' >" +
                           //     "<option value='" + status +"'  selected='' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+"</option>" +
@@ -329,19 +329,12 @@ $(document).ready(function() {
 //   $(this).append($('.gen_menu').html());
 // });
 
-// $('.modal-trigger').click(function(){
-  
-  // $(document).on("click", ".modal-trigger", function(event) {
-  // var x = event.pageX;
-  // var y = event.pageY;
+// $('.invoice_btn').click(function(){
 
-  // $("#lb_dropdown_list").css({
-  //   top: y + "px",
-  //   left: x + "px"
-  // });
-  //   $('#lb_dropdown_list').modal('show');
+//       $('.invoice_btn').find('.invoice_menu_inner').remove();
+//       $(this).append($(".invoice_menu").html());
     
-  // });
+//    });
 
 // <!-- -------------------------------------------------------------------------over function   ------------------------------------------------------------------------- -->  
 // <!-- -------------------------------------------------------------------------change status   ------------------------------------------------------------------------- -->  

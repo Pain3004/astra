@@ -10,6 +10,22 @@ $(document).ready(function() {
 // <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
    
     $('#fuelReceipt_navbar').click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path + "/admin/getInvoicedNumber",
+            async: false,
+            success: function (text) {
+                $(".fuel_recepit_invoice_no_list").html();
+                var len2 = text.load.length;
+                $('.fuel_recepit_invoice_no_list').html();
+                var html = "";
+                for (var j = 0; j < len2; j++) {
+                    var driverId = text.load[j]._id;
+                    var html = "<option value='" + driverId + "'>" + driverId + " </option>";
+                    $(".fuel_recepit_invoice_no_list").append(html);
+                }
+            }
+        });
         //alert();
         $.ajax({
             type: "GET",
@@ -47,7 +63,7 @@ $(document).ready(function() {
                         var custID=FuelReceiptResult.companyID;
                         var fuelReceiptId =FuelReceiptResult.fuel_receipt[i]._id;
                         var driverName =FuelReceiptResult.fuel_receipt[i].driverName;
-                        var transactionDate =new Date(FuelReceiptResult.fuel_receipt[i].transactionDate);
+                        // var transactionDate =new Date(FuelReceiptResult.fuel_receipt[i].transactionDate);
                         var cardNo =FuelReceiptResult.fuel_receipt[i].cardNo;
                         var truckNumber =FuelReceiptResult.fuel_receipt[i].truckNumber;
                         var driverNumber =FuelReceiptResult.fuel_receipt[i].driverNumber;
@@ -74,9 +90,16 @@ $(document).ready(function() {
                             paymentType="----";
                         }
               //alert(fuelCardId);
-                        if(FuelReceiptResult.fuel_receipt[i].transactionDate != null)
+                        var transactDate=FuelReceiptResult.fuel_receipt[i].transactionDate
+                        if(transactDate != null)
                         {
-                            transactionDate= ((transactionDate.getMonth() > 8) ? (transactionDate.getMonth() + 1) : ('0' + (transactionDate.getMonth() + 1))) + '/' + ((transactionDate.getDate() > 9) ? transactionDate.getDate() : ('0' + transactionDate.getDate())) + '/' + transactionDate.getFullYear();
+                            // transactDate=FuelReceiptResult.fuel_receipt[i].transactionDate
+                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date = new Date(transactDate*1000);
+                            var year = date.getFullYear();
+                            var month = months_arr[date.getMonth()];
+                            var day = date.getDate();
+                            var transactionDate = month+'/'+day+'/'+year;
                         }
                         else
                         {
@@ -179,24 +202,24 @@ $(".cardHolderName").on('change',function(){
 
 
 });
-$(".fetchInvoicenumberbyNamv").click(function(){
-    $.ajax({
-        type: "GET",
-        url: base_path + "/admin/getInvoicedNumber",
-        async: false,
-        success: function (text) {
-            $(".fuel_recepit_invoice_no_list").html();
-            var len2 = text.load.length;
-            $('.fuel_recepit_invoice_no_list').html();
-            var html = "";
-            for (var j = 0; j < len2; j++) {
-                var driverId = text.load[j]._id;
-                var html = "<option value='" + driverId + "'>" + driverId + " </option>";
-                $(".fuel_recepit_invoice_no_list").append(html);
-            }
-        }
-    });
-});
+// $(".fetchInvoicenumberbyNamv").click(function(){
+//     $.ajax({
+//         type: "GET",
+//         url: base_path + "/admin/getInvoicedNumber",
+//         async: false,
+//         success: function (text) {
+//             $(".fuel_recepit_invoice_no_list").html();
+//             var len2 = text.load.length;
+//             $('.fuel_recepit_invoice_no_list').html();
+//             var html = "";
+//             for (var j = 0; j < len2; j++) {
+//                 var driverId = text.load[j]._id;
+//                 var html = "<option value='" + driverId + "'>" + driverId + " </option>";
+//                 $(".fuel_recepit_invoice_no_list").append(html);
+//             }
+//         }
+//     });
+// });
 
 $(".total_cards_fuel_re").on("change",function(){
     var data = $('option:selected', this).attr('data_att_vendor_id');   

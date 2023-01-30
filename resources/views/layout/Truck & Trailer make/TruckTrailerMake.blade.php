@@ -10,7 +10,7 @@
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="TruckTrailerMakeModal" role="dialog">
-        <div class="modal-dialog custom_modal_small3 modal-dialog-scrollable" role="document">
+        <div class="modal-dialog custom_modal_small4 modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Truck & Trailer Make</h5>
@@ -43,6 +43,7 @@
                                                 <thead class="thead_th">
                                                     <tr class="tr">
                                                         <th>NO</th>
+                                                        <th style="display:none;">CD</th>
                                                         <th>Name</th>
                                                         <th>Type</th>
                                                         <th>Action</th>
@@ -110,6 +111,7 @@
                                                         <label for="name">Type <span style="color:#ff0000">*</span></label>
                                                             <select class="form-control select2" id="type" tabindex="-1" aria-hidden="true">
                                                                 <option>Truck</option>
+                                                                <option>Time</option>
                                                                 <option>Trailer</option>
                                                             </select>
                                                     </div>

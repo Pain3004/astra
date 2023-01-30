@@ -12,6 +12,7 @@ use Image;
 use MongoDB\BSON\ObjectId;
 use Auth;
 use PDF;
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Collection;
 
@@ -26,8 +27,8 @@ class TruckTrailerMakeController extends Controller
        return response()->json(['trailer_type'=>$trailer_type,'Truck_type'=>$Truck_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
-    public function addTruckTrailer(Request $request){
-
+    public function addTruckTrailer(Request $request)
+    {
         $companyID=1;
         $total_Truck_Array=0;
         $getCompany_Truck = Truck_type::where('companyID',$companyID)->first();
@@ -45,7 +46,8 @@ class TruckTrailerMakeController extends Controller
                            '_id' => count($Truck_Array),
                            'truckType' => $request->tt_name,
                            'counter' => 0,
-                           'created_by' => Auth::user()->userFirstName,
+                           'created_by' => Auth::user()->userFirstName.' '.Auth::user()->userLastName, 
+                           'created_at' =>Carbon::now()->timestamp,
                            'deleteStatus' => 'NO',
                            'deleteUser' => '',
                            'deleteTime' => '',
@@ -89,12 +91,14 @@ class TruckTrailerMakeController extends Controller
                            '_id' => count($Trailer_Array),
                            'trailerType' => $request->tt_name,
                            'counter' => 0,
-                           'created_by' => Auth::user()->userFirstName,
+                           'created_by' => Auth::user()->userFirstName.' '.Auth::user()->userLastName, 
+                           'created_at' =>Carbon::now()->timestamp,
                            'deleteStatus' => 'NO',
                            'deleteUser' => '',
                            'deleteTime' => '',
                            );
     
+                    
             if($getCompany_Trailer){
                 traileradd::where(['companyID' => $companyID])->update([
                     'counter'=> $total_Trailer_Array,
@@ -121,11 +125,69 @@ class TruckTrailerMakeController extends Controller
                 }
             }
         }
-        
-       
-
-      
    }
 
+   public function deleteTruckTrailer(Request $request)
+   {
+       $type=$request->type;
+       $id=$request->id;
+       $companyID=(int)$request->comId;
+
+       if($type=="Truck"){
+        //dd("truck");
+        $result = Truck_type::where('companyID',$companyID)->first();
+        $Array=$result->truck;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+ 
+        $Array[$v]['deleteStatus']="Yes";  
+        $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['deleteTime']=Carbon::now()->timestamp;       
+        $result->truck=$Array;
+        if($result->save())
+        {
+            $arr = array('status' => 'success', 'message' => 'Truck Trailer Deleted successfully.','statusCode' => 200); 
+            return json_encode($arr);
+        }
+       }
+       else if($type=="Trailer"){
+        // dd("Trailer");
+        $result = traileradd::where('companyID',$companyID)->first();
+        $Array=$result->trailer;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+ 
+        $Array[$v]['deleteStatus']="Yes";  
+        $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['deleteTime']=Carbon::now()->timestamp;       
+        $result->trailer=$Array;
+        if($result->save())
+        {
+            $arr = array('status' => 'success', 'message' => 'Truck Trailer Deleted successfully.','statusCode' => 200); 
+            return json_encode($arr);
+        }
+       }
+       
+       // dd($FuelVendor->fuelCard);
+       
+   }
     
 }

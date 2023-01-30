@@ -87,11 +87,11 @@
 
 														@if(isset($adminArray['addExternalCarrier']))
 															@if($adminArray['addExternalCarrier']==1)
-															<li><a href="#ExternalCarrierModal" class="slide-item" data-toggle="modal" data-target="#ExternalCarrierModal">External Carrier</a></li>
+															<li><a href="#" class="slide-item ExternalCarrierModalBtn" >External Carrier</a></li>
 															@endif 
 														@elseif(isset($adminArray['external_carrier']))
 															@if($adminArray['external_carrier']==1)
-															<li><a href="#ExternalCarrierModal" class="slide-item" data-toggle="modal" data-target="#ExternalCarrierModal">External Carrier</a></li>
+															<li><a href="#" class="slide-item ExternalCarrierModalBtn" >External Carrier</a></li>
 															@endif 
 														@endif
 
@@ -194,7 +194,7 @@
 
 														@if(isset($iftaArray['addToll']))
 															@if($iftaArray['addToll']==1)
-																<li><a href="#" id="iftaToll_navbar" class="slide-item fetchInvoicenumberbyNamv">Tolls</a></li>
+																<li><a href="#" id="iftaToll_navbar" class="slide-item ">Tolls</a></li>
 															@endif 
 														@elseif(isset($iftaArray['tolls']))
 															@if($iftaArray['tolls']==1)

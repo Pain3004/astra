@@ -10,7 +10,7 @@
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="LoadModal" role="dialog">
-        <div class="modal-dialog custom_modal_small3 modal-dialog-scrollable" role="document">
+        <div class="modal-dialog custom_modal_small4 modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Load Type</h5>

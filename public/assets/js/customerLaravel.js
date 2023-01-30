@@ -290,7 +290,18 @@ $(document).ready(function() {
                     console.log(dataCustomerResult);
                     if(dataCustomerResult){
                         alert("Customer added successfully.");
-                        // $('#driverModal').modal('show');
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/customer",
+                            async: false,
+                            //dataType:JSON,
+                            success: function(customerResult) {
+                                //console.log(customerResult);
+                                createcustomerRows(customerResult);
+                                customerResponse = customerResult;
+                            }
+                        });
+                        $("#customerModal").modal("show");
                     }else{
                         alert("Customer not added successfully.");
                     }
@@ -448,6 +459,7 @@ $(document).ready(function() {
         });
 
         $("#closePaymentTermsModal").click(function(){
+            $('#PaymentTermsModal2').modal('show');
             $("#PaymentTermsModal").modal("hide");
         });
 

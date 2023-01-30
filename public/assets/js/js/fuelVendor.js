@@ -46,10 +46,16 @@ $(document).ready(function() {
                         var CompID =FuelVendorResult.companyID;
                         var fuelVendorId =FuelVendorResult.fuelCard[i]._id;
                         var fuelCardType =FuelVendorResult.fuelCard[i].fuelCardType;
-                        var openingDate =new Date(FuelVendorResult.fuelCard[i].openingDate);
+                        // var openingDate =new Date(FuelVendorResult.fuelCard[i].openingDate);
                         if(FuelVendorResult.fuelCard[i].openingDate != null)
                         {
-                            openingDate= ((openingDate.getMonth() > 8) ? (openingDate.getMonth() + 1) : ('0' + (openingDate.getMonth() + 1))) + '/' + ((openingDate.getDate() > 9) ? openingDate.getDate() : ('0' + openingDate.getDate())) + '/' + openingDate.getFullYear();
+                            var openingBale=FuelVendorResult.fuelCard[i].openingDate;
+                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date = new Date(openingBale*1000);
+                            var year = date.getFullYear();
+                            var month = months_arr[date.getMonth()];
+                            var day = date.getDate();
+                            var openingDate = month+'/'+day+'/'+year;
                         }
                         else
                         {
@@ -187,10 +193,25 @@ $(document).ready(function() {
             //dataType:JSON,
             success: function(text) {
                 // alert(text.companyID);
+                var openiDate=text.openingDate;
+                var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                var date = new Date(openiDate*1000);
+                var year = date.getFullYear();
+                var month = months_arr[date.getMonth()];
+                var day = date.getDate();
+                if(day <=9 )
+                {
+                    var openingDate = year+'-0'+day+'-'+month;
+                }
+                else
+                {
+                    var openingDate = year+'-'+month+'-'+day;
+                }
+
                 $('.updateFuel_Card_Type').val(text.fuelCardType);
                 $('.fuel_id').val(text._id);
                 $('.comp_id').val(text.companyID);
-                $('#update_OpeningDate').val(text.openingDate);
+                $('#update_OpeningDate').val(openingDate);
                 $('#update_Opening_Amount').val(text.openingBalance);
                 $("#update_currentBalance").val(text.currentBalance);
              }

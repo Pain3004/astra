@@ -170,7 +170,7 @@ class BranchOfficeController extends Controller
         // dd($FuelVendor->fuelCard);
         if($result->save())
         {
-         $arr = array('status' => 'success', 'message' => 'Branch office updated successfully.','statusCode' => 200); 
+         $arr = array('status' => 'success', 'message' => 'Branch office Deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
         }
     }

@@ -6,10 +6,13 @@ $(document).ready(function() {
         $('#PaymentTermsModal2').modal('hide');
     });
     $('#AddPaymentTerms').click(function(){
+        $('#PaymentTermsModal2').modal('hide');
         $('#PaymentTermsModal').modal('show');
     });
     $('.PaymentTermsModalCloseButton').click(function(){
+        $('#PaymentTermsModal2').modal('show');
         $('#PaymentTermsModal').modal('hide');
+        
     });
 // <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
    
@@ -40,8 +43,8 @@ $(document).ready(function() {
                     for (var i = len1-1; i >= 0; i--) { 
                         
                         len2 = Result.PaymentTterms[i].payment.length;
-                        var Id =Result.PaymentTterms[i].payment._id;
-                        var Office_com_Id =Result.PaymentTterms[i].payment.companyID;
+                        var Id =Result.PaymentTterms[i]._id;
+                        var com_Id =Result.PaymentTterms[i].companyID;
 
                         if (len2 > 0) {
                             for (var j = len2-1; j >= 0; j--) {
@@ -60,9 +63,9 @@ $(document).ready(function() {
                                         "<td data-field='paymentTerm'>" + paymentTerm + "</td>" +
                                         "<td data-field='paymentDays'>" + paymentDays + "</td>" +
                                         "<td style='text-align:center'>"+
-                                            "<a class='button-23  "+editPrivilege+"'  title='Edit1' data-Id='"+payment_id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                            "</a> <a class='delete1 button-23 "+delPrivilege+"' data-id="+ email +" title='Delete'><i class='fe fe-delete'></i></a>"+
-                                            "</td></tr>";
+                                            "<a class='button-23 "+editPrivilege+" editPayTerms'  title='Edit1' data-Id='"+payment_id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "</a> <a class='deletePayTerms button-23 "+delPrivilege+"' title='Delete' data-Id='"+payment_id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                        "</td></tr>";
             
                                     $("#PaymentTermsTable").append(PaymentTermsStr);
                                     no++;
@@ -87,8 +90,53 @@ $(document).ready(function() {
             $("#PaymentTermsTable").append(PaymentTermsStr);
         }
     }
-
+// <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
    
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
 
+$('body').on('click', '.deletePayTerms', function(){
+    var  id=$(this).attr("data-Id");
+    var comId=$(this).attr('data-comID');
+
+    swal.fire({
+        title: "Delete?",
+        text: "Please ensure and then confirm!",
+        type: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: !0
+    }).then(function (e) {
+        if (e.value === true) 
+        {
+            $.ajax({
+                type: 'post',
+                url: base_path+"/admin/deletePayTerms",
+                data: { 
+                    _token: $("#_tokenbranchOffice").val(), 
+                    id: id,
+                    comId:comId
+                },
+                success: function(resp){
+                    swal.fire("Done!", "Payment Terms Deleted successfully", "success");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getPaymentTerms",
+                        async: false,
+                        success: function(text) {
+                            console.log(text);
+                            createPaymentTermsRows(text);
+                          }
+                    });
+                    $('#PaymentTermsModal2').modal('show');
+                },
+                error: function (resp) {
+                    swal.fire("Error!", 'Something went wrong.', "error");
+                }
+            });
+        } 
+    });
+});
+//-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
 // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 });

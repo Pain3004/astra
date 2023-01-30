@@ -47,6 +47,8 @@ class BankController extends Controller
             {
                 $totalbankDataArray=0; 
             }
+            $openingBalDate=$request->openingBalDate;
+            $openingBalDate = strtotime($openingBalDate);
             $bankDataData[]=array(    
                 '_id' => $totalbankDataArray,
                 'bankName' => $request->bankName,
@@ -54,7 +56,7 @@ class BankController extends Controller
                 'accountHolder' => $request->accountHolder,
                 'accountNo' => $request->accountNo,
                 'routingNo'=>$request->routingNo,
-                'openingBalDate'=>$request->openingBalDate,
+                'openingBalDate'=>$openingBalDate,
                 'openingBalance'=>$request->openingBalance,
                 'currentcheqNo'=>$request->currentcheqNo,
                 'currentBalance'=>$request->currentcheqNo,
@@ -148,12 +150,14 @@ class BankController extends Controller
                 }
             }
         }  
+        $openingBalDate=$request->openingBalDate;
+        $openingBalDate = strtotime($openingBalDate);
         $BankArray[$v][ 'bankName' ]= $request->bankName;
         $BankArray[$v][ 'bankAddresss' ]= $request->bankAddresss;
         $BankArray[$v][ 'accountHolder' ]= $request->accountHolder;
         $BankArray[$v][ 'accountNo' ]= $request->accountNo;
         $BankArray[$v][ 'routingNo']=$request->routingNo;
-        $BankArray[$v][ 'openingBalDate']=$request->openingBalDate;
+        $BankArray[$v][ 'openingBalDate']=$openingBalDate;
         $BankArray[$v][ 'openingBalance']=$request->openingBalance;
         $BankArray[$v][ 'currentcheqNo']=$request->currentcheqNo;
         $BankArray[$v][ 'currentBalance']=$request->currentcheqNo;

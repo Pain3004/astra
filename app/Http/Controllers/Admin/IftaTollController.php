@@ -44,9 +44,11 @@ class IftaTollController extends Controller
             {
                 $totaliftaTollArray=0; 
             }
+            $tollDate=$request->tollDate;
+            $tollDate = strtotime($tollDate);
             $iftaTollData[]=array(    
                 '_id' => $totaliftaTollArray,
-                'tollDate' => $request->tollDate,
+                'tollDate' => $tollDate,
                 'transType' => $request->transType,
                 'location' => $request->location,
                 'transponder' => $request->transponder,
@@ -138,7 +140,9 @@ class IftaTollController extends Controller
                 }
             }
         }  
-       $iftaTollArray[$v]['tollDate' ]= $request->tollDate;
+        $tollDate=$request->tollDate;
+        $tollDate = strtotime($tollDate);
+       $iftaTollArray[$v]['tollDate' ]= $tollDate;
        $iftaTollArray[$v]['transType' ]= $request->transType;
        $iftaTollArray[$v]['location' ]= $request->location;
        $iftaTollArray[$v]['transponder' ]= $request->transponder;

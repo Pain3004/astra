@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\TruckTrailerMakeController;
 use App\Http\Controllers\Admin\LoadController;
 use App\Http\Controllers\Admin\UserPrivillegeController;
 use App\Http\Controllers\Admin\LoadBoardController;
+use App\Http\Controllers\Admin\ExternalCarrierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,6 +134,7 @@ Route::post('admin/updateCurrency', [CurrencyController::class, 'updateCurrency'
 Route::get('admin/getCustomerPaymentTerms', [CustomerController::class, 'getCustomerPaymentTerms']);
 Route::post('admin/PaymentTerms', [CustomerController::class, 'addCustomerPaymentTerms']);
 Route::get('admin/getPaymentTerms', [PaymentTermsController::class, 'getPaymentTerms']);
+Route::post('admin/deletePayTerms', [PaymentTermsController::class, 'deletePayTerms']);
 
 //factoringCompany
 Route::get('admin/getCustomerBFactoringCompany', [CustomerController::class, 'getCustomerBFactoringCompany']);
@@ -160,9 +162,18 @@ Route::post('admin/create_truckType', [TruckController::class, 'create_truckType
 
 //Shipper
 Route::get('admin/getShipper', [ShipperController::class, 'getShipper']);
+Route::post('admin/storeShipper', [ShipperController::class, 'storeShipper']);
+Route::get('admin/editShipper', [ShipperController::class, 'editShipper']);
+Route::post('admin/updateShipper', [ShipperController::class, 'updateShipper']);
+Route::post('admin/deleteShipper', [ShipperController::class, 'deleteShipper']);
+Route::post('admin/restoreShipper', [ShipperController::class, 'restoreShipper']);
 
 //consignee
 Route::get('admin/getConsignee', [ConsigneeController::class, 'getConsignee']);
+Route::post('admin/storeConsignee', [ConsigneeController::class, 'storeConsignee']);
+Route::get('admin/editConsignee', [ConsigneeController::class, 'editConsignee']);
+Route::post('admin/updateConsignee', [ConsigneeController::class, 'updateConsignee']);
+Route::post('admin/deleteConsignee', [ConsigneeController::class, 'deleteConsignee']);
 
 //fuel vendor
 Route::get('admin/getFuelVendor', [FuelVendorController::class, 'getFuelVendor']);
@@ -251,6 +262,7 @@ Route::post('admin/deleteTrailer', [TrailerAdminAddController::class, 'deleteTra
 //Equipment Type
 Route::get('admin/getEquipmentType', [EquipmentTypeController::class, 'getEquipmentType']);
 Route::post('admin/addEquipmentType', [EquipmentTypeController::class, 'addEquipmentType']);
+Route::post('admin/deleteEquipmentType', [EquipmentTypeController::class, 'deleteEquipmentType']);
 
 //Recurrence Category
 Route::get('admin/getRecurrenceCategory', [RecurrenceCategoryController::class, 'getRecurrenceCategory']);
@@ -263,7 +275,16 @@ Route::post('admin/addTermsConditions', [TermsConditionsController::class, 'addT
 //Truck & Trailer Make
 Route::get('admin/getTruckTrailerMake', [TruckTrailerMakeController::class, 'getTruckTrailerMake']);
 Route::post('admin/addTruckTrailer', [TruckTrailerMakeController::class, 'addTruckTrailer']);
+Route::post('admin/deleteTruckTrailer', [TruckTrailerMakeController::class, 'deleteTruckTrailer']);
 
 //Load Type
 Route::get('admin/getLoaType', [LoadController::class, 'getLoaType']);
 Route::post('admin/addLoadType', [LoadController::class, 'addLoadType']);
+
+//ExternalCarrierController
+Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);
+Route::post('admin/storeExternalCarrier', [ExternalCarrierController::class, 'storeExternalCarrier']);
+Route::get('admin/editExternalCarrier', [ExternalCarrierController::class, 'editExternalCarrier']);
+Route::post('admin/updateExternalCarrier', [ExternalCarrierController::class, 'updateExternalCarrier']);
+Route::post('admin/deleteExternalCarrier', [ExternalCarrierController::class, 'deleteExternalCarrier']);
+Route::post('admin/restoreExternalCarrier', [ExternalCarrierController::class, 'restoreExternalCarrier']);

@@ -59,6 +59,14 @@ $(document).ready(function() {
                         //alert(bankAdminlen);
                         if (bankAdminlen > 0) {
                             for (var j = bankAdminlen-1; j >= 0; j--) {
+                                var openingBale=bankResult[i].admin_bank[j].openingBalDate;
+                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date = new Date(openingBale*1000);
+                                var year = date.getFullYear();
+                                var month = months_arr[date.getMonth()];
+                                var day = date.getDate();
+                                var openingBalDate = month+'/'+day+'/'+year;
+
                                 var CompID=bankResult[i].companyID;
                                 var admin_bank_Id =bankResult[i].admin_bank[j]._id;
                                 var bankName =bankResult[i].admin_bank[j].bankName;
@@ -66,7 +74,7 @@ $(document).ready(function() {
                                 var accountHolder =bankResult[i].admin_bank[j].accountHolder;
                                 var accountNo =bankResult[i].admin_bank[j].accountNo;
                                 var routingNo =bankResult[i].admin_bank[j].routingNo;
-                                var openingBalDate =bankResult[i].admin_bank[j].openingBalDate;
+                                // var openingBalDate =bankResult[i].admin_bank[j].openingBalDate;
                                 var openingBalance =bankResult[i].admin_bank[j].openingBalance;
                                 var openingBalance=parseFloat(openingBalance).toFixed(2);
                                 var currentBalance =bankResult[i].admin_bank[j].currentBalance;
@@ -301,6 +309,21 @@ $(".closeUpdateBankData").click(function(){
         async: false,
         data:{bankId:bankId, compID:compID},
         success: function(text) {
+            var openingBale=text.openingBalDate;
+            var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+            var date = new Date(openingBale*1000);
+            var year = date.getFullYear();
+            var month = months_arr[date.getMonth()];
+            var day = date.getDate();
+            if(day <=9 )
+            {
+                var openingBalDate = year+'-0'+day+'-'+month;
+            }
+            else
+            {
+                var openingBalDate = year+'-'+month+'-'+day;
+            }
+
                 $('.bankCompID').val(text.companyID);
                 $('.BankDetailsAdminId').val(text._id);
                 $('.updatebankName').val(text.bankName);
@@ -308,7 +331,7 @@ $(".closeUpdateBankData").click(function(){
                 $('.updateaccountHolder').val(text.accountHolder);
                 $('.updateaccountNo').val(text.accountNo);
                 $('.updateroutingNo').val(text.routingNo);
-                $('.updateopeningBalDate').val(text.openingBalDate);
+                $('.updateopeningBalDate').val(openingBalDate);
                 $('.updateopeningBalance').val(text.openingBalance);
                 $('.updatecurrentcheqNo').val(text.currentcheqNo);
          }
