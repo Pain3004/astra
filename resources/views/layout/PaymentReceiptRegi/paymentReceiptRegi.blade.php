@@ -78,7 +78,7 @@
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_AddRegistrionPayment" value="{{ csrf_token() }}" />
                                             <div class="form-row">
-                                                <div class="form-group col-md-2">
+                                                <!-- <div class="form-group col-md-2">
                                                     <label>Payment From<span class="mandatory">*</span></label>
                                                     <select class="form-control paymentFromOnChange" name="status">
                                                         <option value="1">Bank </option>
@@ -86,9 +86,9 @@
                                                         <option value="3">Fuel Card</option>
                                                         <option value="4">Bank Transfer</option>
                                                     </select>
-                                                </div>
+                                                </div> -->
                                                 <!-- bank details ===== -->
-                                                <div class="bank_1FillDetails">
+                                                <!-- <div class="bank_1FillDetails">
                                                     <div class="from-group col-md-2">
                                                         <label>Company<span class="mandatory">*</span></label>
                                                         <select class="form-control listCompanyNames "  name="accountHolder" required ></select>
@@ -113,14 +113,14 @@
                                                             <option value="10">Loan</option>
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
 
 
 
                                                 
                                                 <!--============= credit card ============ -->
-                                                <div class="creditCard2FillData"> 
+                                                <!-- <div class="creditCard2FillData"> 
                                                     <div class="form-group col-md-2 ">
                                                         <label>Select card <span class="mandatory">*</span></label>
                                                         <select class="form-control" id="select_card">
@@ -149,11 +149,11 @@
                                                             <option value="9">Other</option>\
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
 
                                                 <!--============= fuel card ================= -->
-                                                <div class="fuelCardFillDetails">
+                                                <!-- <div class="fuelCardFillDetails">
                                                     <div class="from-group col-md-4">
                                                         <label>Fuel List<span class="mandatory">*</span></label>
                                                         <select class="form-control cardHolderName "  name="accountHolder" required ></select>
@@ -169,10 +169,10 @@
                                                             <option value="9">Other</option>
                                                         </select>
                                                     </div> 
-                                                </div>
+                                                </div> -->
 
                                                 <!--====== Bank Transfer ============== -->
-                                                <div class="BankTransfer4FillDetails">
+                                                <!-- <div class="BankTransfer4FillDetails">
                                                     <div class="from-group col-md-4">
                                                         <label>Company<span class="mandatory">*</span></label>
                                                         <select class="form-control listCompanyNames "  name="accountHolder" required ></select>
@@ -189,9 +189,9 @@
                                                         <label>To Bank Name<span class="mandatory">*</span></label>
                                                         <select class="form-control listCompanyNames "  name="accountHolder" required ></select>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
-                                                <div class="otherDetailsFill">
+                                                <!-- <div class="otherDetailsFill">
                                                     <div class="from-group col-md-4">
                                                         <label>Bill No#</label>
                                                         <input type="text" placehpolder ="Bill No#" class="form-control"  name="accountHolder"  >
@@ -296,7 +296,43 @@
                                                         <input type="file" class="form-control"  name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" >
                                                         
                                                     </div>
-                                                </div>         
+                                                </div>          -->
+
+
+
+
+
+
+
+
+
+
+                    <div class="card card-default">
+                        <div class="card-header">
+                           Laravel 8- Razorpay Payment Gateway Integration
+                        </div>
+                        <div class="card-body text-center">
+                           <form >
+                              @csrf
+                              <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                 data-key="{{ env('MIX_PUSHER_APP_KEY') }}"
+                                 data-amount="10001" 
+                                 data-currency="INR"
+                                 data-buttontext="Pay 100 INR"
+                                 data-name="realprogrammer.in"
+                                 data-description="Rozerpay"
+                                 data-image="https://realprogrammer.in/wp-content/uploads/2020/10/logo.jpg"
+                                 data-prefill.name="name"
+                                 data-prefill.email="email"
+                                 data-theme.color="#F37254"></script>
+                           </form>
+                        </div>
+                     </div>
+
+
+
+
+
                                             </div> 
                                         </form>
                                     </div>
@@ -306,7 +342,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" style="vertical-align:middle" class="button-29" id="" >Save</button>
+                    <button type="button" style="vertical-align:middle" class="button-29 saveAddPaymentRegistrion" id="" >Save</button>
                     <button type="button"style="vertical-align:middle" class=" closeAddPaymentRegistrion button-29" >Close</button>
                 </div>          
             </div>

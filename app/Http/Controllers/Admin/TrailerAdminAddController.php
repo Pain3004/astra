@@ -93,7 +93,12 @@ class TrailerAdminAddController extends Controller
                     $trailerDoc=array();
                 }
                 // dd($request->plate_expiry);
-            
+                $inspection=$request->inspection;
+                $inspection = strtotime($inspection);
+                $dot=$request->dot;
+                $dot = strtotime($dot);
+                $activation=$request->activation;
+                $activation = strtotime($activation);
             $trailerData[]=array(    
                     '_id' => $totalTrailerArray,
                     //'_id' => new ObjectId(),
@@ -102,15 +107,15 @@ class TrailerAdminAddController extends Controller
                     'trailerType' => $request->trailerType,
                     'licenseType' => $request->license_plate,
                     'plateExpiry' => $request->plate_expiry,
-                    'inspectionExpiration' => $request->inspection,
+                    'inspectionExpiration' => $inspection,
                     'status' => $request->status,
                     'model' => $request->model,
                     'year' => $request->year,
                     'axies' => $request->axies,
                     'registeredState' => $request->RegisteredState,
                     'vin' => $request->vin,
-                    'dot' => $request->dot,
-                    'activationDate' => $request->activation,
+                    'dot' => $dot,
+                    'activationDate' => $activation,
                     'internalNotes' => $request->internal_note,
                     'trailerDoc' => $trailerDoc,                   
                     'insertedTime' => time(),
@@ -312,19 +317,27 @@ class TrailerAdminAddController extends Controller
        }
     //    $trailerDoc=$trailerfile;
     //    dd($request->axies);
+        $inspection=$request->inspection;
+        $inspection = strtotime($inspection);
+        $dot=$request->dot;
+        $dot = strtotime($dot);
+        $activation=$request->activation;
+        $activation = strtotime($activation);
+        $plate_expiry=$request->plate_expiry;
+        $plate_expiry = strtotime($plate_expiry);
        $trailerArray[$v]['trailerNumber'] = $request->trailer_number;
        $trailerArray[$v]['trailerType'] = $request->trailertypeId;
        $trailerArray[$v]['licenseType'] = $request->license_plate;
-       $trailerArray[$v]['plateExpiry'] = $request->plate_expiry;
-       $trailerArray[$v]['inspectionExpiration'] = $request->inspection;
+       $trailerArray[$v]['plateExpiry'] = $plate_expiry;
+       $trailerArray[$v]['inspectionExpiration'] = $inspection;
        $trailerArray[$v]['status'] = $request->status;
        $trailerArray[$v]['model'] = $request->model;
        $trailerArray[$v]['year'] = $request->year;
        $trailerArray[$v]['axies'] = $request->axies;
        $trailerArray[$v]['registeredState'] = $request->RegisteredState;
        $trailerArray[$v]['vin'] = $request->vin;
-       $trailerArray[$v]['dot'] = $request->dot;
-       $trailerArray[$v]['activationDate'] = $request->activation;
+       $trailerArray[$v]['dot'] = $dot;
+       $trailerArray[$v]['activationDate'] = $activation;
        $trailerArray[$v]['internalNotes'] = $request->internal_note;
        $trailerArray[$v]['trailerDoc'] = $trailerDoc;                   
        $trailerArray[$v]['insertedTime'] = time();

@@ -23,7 +23,7 @@ class User extends Model implements
     protected $connection = 'mongodb';
     protected $collection = 'user';
     protected $dates = ['deleted_at'];
-
+    protected $keyType = 'integer';
     // protected $fillable = [
     //     'userEmail', 'userPass',
     // ];
@@ -42,4 +42,5 @@ class User extends Model implements
     {
         return $this->userPassword;
     }
+    
 }

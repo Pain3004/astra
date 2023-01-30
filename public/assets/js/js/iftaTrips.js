@@ -126,10 +126,12 @@ $(document).ready(function() {
     //========================== start not verify trip ===============================
     $("#NotVerifyIftaTripModalList").modal("hide");
     $(".VerifyTrip").click(function(){
+        $(".check_data_type_very").val(1);
         $("#NotVerifyIftaTripModalList").modal("hide");
         $('#IftaTripModalList').modal('show');
     });
     $(".notVerifyTrip").click(function(){
+        $(".check_data_type_very").val(2);
         $("#NotVerifyIftaTripModalList").modal("show");
         $('#IftaTripModalList').modal('hide');           
     });
@@ -137,31 +139,22 @@ $(document).ready(function() {
     function notVerifyTrip(IftaTripResult)
     {
         $("#notVerifyIftaTripTable").html('');
-        if (IftaTripResult == 'null') 
-        {  
+        if (IftaTripResult !== null) 
+        { 
             
             IftaTriplen = IftaTripResult.Shipper.load.length;
             if (IftaTriplen > 0) 
-            { 
-                // load_notes                  
+            {                   
                 var no=1;
                 for (var i = IftaTriplen-1; i >= 0; i--) 
                 {  
-                   
-                    if(typeof(IftaTripResult.Shipper.load[i].receivedate) != "undefined" && IftaTripResult.Shipper.load[i].receivedate !== null)
-                    {
-                        var shipDate=IftaTripResult.Shipper.load[i].receivedate;
-                        var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-                        var date = new Date(shipDate*1000);
-                        var year = date.getFullYear();
-                        var month = months_arr[date.getMonth()];
-                        var day = date.getDate();
-                        var convdataTime = month+'/'+day+'/'+year;
-                    }
-                    else
-                    {
-                        var convdataTime="----";
-                    }
+                    var shipDate=IftaTripResult.Shipper.load[i].receivedate;
+                    var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                    var date = new Date(shipDate*1000);
+                    var year = date.getFullYear();
+                    var month = months_arr[date.getMonth()];
+                    var day = date.getDate();
+                    var convdataTime = month+'/'+day+'/'+year;
                     var comId =IftaTripResult.companyID;
                     var IftaTripId =IftaTripResult.Shipper.load[i]._id;  
                     var varifyCondi=IftaTripResult.Shipper.load[i].isIftaVerified;
@@ -184,7 +177,7 @@ $(document).ready(function() {
                         var shipperLocation=shipper_location[j].shipper_location;
                     }          
                     var deleteStatus =IftaTripResult.Shipper.load[i].deleteStatus;
-                    if(varifyCondi == "no")
+                    if(varifyCondi == "yes")
                     {
                         if(shipDate !="")
                         {
@@ -228,8 +221,9 @@ $(document).ready(function() {
         
                     $("#notVerifyIftaTripTable").append(Iftaloadtr);
             }
-
             
+
+           
         }
         else 
         {
@@ -266,7 +260,7 @@ $(document).ready(function() {
     //=============================== end update ifta trip ==================================
 
     //=================================== filter ifta trip start ===============================
-    $("#verifyIftaTripButton").click(function(){
+    $(".verifyIftaTripButton").click(function(){
         var year = $('.yearIftaTripFilter').val();
         var quarter = $('.quarterIftaTripFilter').val();
         $.ajax({
@@ -281,7 +275,14 @@ $(document).ready(function() {
                 IftaTripResult = text;
              }
         });
-        $('#IftaTripModalList').modal('show');
+        if( $(".check_data_type_very").val()==2)
+        {
+            $('#NotVerifyIftaTripModalList').modal('show');
+        }
+        else
+        {
+            $('#IftaTripModalList').modal('show');
+        }
     });
     //================================ end filter ifta trip -==================================
 });

@@ -144,6 +144,21 @@ $(document).ready(function(){
     $(".closeAddPaymentRegistrion").click(function(){
         $("#addPaymentRegistrionModal").modal("hide");
     });
+    $(".saveAddPaymentRegistrion").click(function(){
+        $.ajax({
+            type: "POST",
+            url: base_path+"/admin/payment",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            // data:formData,
+            success: function(data) {
+                // console.log(data)                    
+                swal.fire("Done!", "success", "success");
+            }
+        });
+    })
     //======================= end payment registrion store ==============================
 
 });

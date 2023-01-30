@@ -58,6 +58,8 @@ class FuelReceiptController extends Controller
             $ids_trip=max($ids_trip);
             // dd($ids_trip);
         }
+        $date=$request->date;
+        $date = strtotime($date);
         $FuelReceiptData[]=array(    
                         '_id' => $ids_trip+1 ,
                         // 'counter' => 0,
@@ -68,7 +70,7 @@ class FuelReceiptController extends Controller
                         'category' => $request->fuelVendor,
                         'fuelType' => $request->fuelType,
                         'truckNumber' => $request->truckNumber,
-                        'transactionDate'=>$request->date,
+                        'transactionDate'=>$date,
                         'transactionTime' => $request->transactionTime,
                         'locationName' => $request->locationName,
                         'locationCity' => $request->locationCity,
@@ -146,6 +148,9 @@ class FuelReceiptController extends Controller
                 }
             }
         }
+        
+        $date=$request->date;
+        $date = strtotime($date);
         $fuelReceiptArray[$v]['driverName' ]= $request->driverName;
         $fuelReceiptArray[$v]['paymentType']=$request->paymentType;
         $fuelReceiptArray[$v]['driverNumber' ]= $request->driverNo;
@@ -153,7 +158,7 @@ class FuelReceiptController extends Controller
         $fuelReceiptArray[$v]['category' ]= $request->fuelVendor;
         $fuelReceiptArray[$v]['fuelType' ]= $request->fuelType;
         $fuelReceiptArray[$v]['truckNumber' ]= $request->truckNumber;
-        $fuelReceiptArray[$v]['transactionDate']=$request->date;
+        $fuelReceiptArray[$v]['transactionDate']=$date;
         $fuelReceiptArray[$v]['transactionTime' ]= $request->transactionTime;
         $fuelReceiptArray[$v]['locationName' ]= $request->locationName;
         $fuelReceiptArray[$v]['locationCity' ]= $request->locationCity;

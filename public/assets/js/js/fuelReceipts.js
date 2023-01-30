@@ -56,7 +56,7 @@ $(document).ready(function() {
                         // var paymentType=FuelReceiptResult.fuel_receipt[i].driverName;
                         var fuelReceiptId =FuelReceiptResult.fuel_receipt[i]._id;
                         var driverName =FuelReceiptResult.fuel_receipt[i].driverName;
-                        var transactionDate =new Date(FuelReceiptResult.fuel_receipt[i].transactionDate);
+                        // var transactionDate =new Date(FuelReceiptResult.fuel_receipt[i].transactionDate);
                         var cardNo =FuelReceiptResult.fuel_receipt[i].cardNo;
                         var truckNumber =FuelReceiptResult.fuel_receipt[i].truckNumber;
                         var driverNumber =FuelReceiptResult.fuel_receipt[i].driverNumber;
@@ -75,14 +75,14 @@ $(document).ready(function() {
                         var invoiceNo =FuelReceiptResult.fuel_receipt[i].invoiceNo;
                         var deleteStatus =FuelReceiptResult.fuel_receipt[i].deleteStatus;
                         //alert(fuelCardId);
-                        if(FuelReceiptResult.fuel_receipt[i].transactionDate != null)
-                        {
-                            transactionDate= ((transactionDate.getMonth() > 8) ? (transactionDate.getMonth() + 1) : ('0' + (transactionDate.getMonth() + 1))) + '/' + ((transactionDate.getDate() > 9) ? transactionDate.getDate() : ('0' + transactionDate.getDate())) + '/' + transactionDate.getFullYear();
-                        }
-                        else
-                        {
-                            transactionDate="----";
-                        }
+                        var transactDate=FuelReceiptResult.fuel_receipt[i].transactionDate
+                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date = new Date(transactDate*1000);
+                                var year = date.getFullYear();
+                                var month = months_arr[date.getMonth()];
+                                var day = date.getDate();
+                                var transactionDate = month+'/'+day+'/'+year;
+
 
                         if(deleteStatus == "NO"){
                             //alert("ff");
@@ -381,6 +381,22 @@ $(document).ready(function() {
             data:{id:id,companyID:companyID},
             async: false,
             success: function(res) {
+                var traDate=res.fuel_receipt.transactionDate;
+                var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                var date = new Date(traDate*1000);
+                var year = date.getFullYear();
+                var month = months_arr[date.getMonth()];
+                var day = date.getDate();
+                if(day <=9 )
+                {
+                    var date = year+'-0'+day+'-'+month;
+                }
+                else
+                {
+                    var date = year+'-'+month+'-'+day;
+                }
+
+
                     $('.comp_id_furl_re_edit').val(res.companyID);
                     $('.fuel_recepit_id_edit').val(res.fuel_receipt._id);
                     $('.driver_name_fuelReceipt_edit').val(res.fuel_receipt.driverName);
@@ -394,7 +410,7 @@ $(document).ready(function() {
                     $('.updateFuelReceiptFuelVendor').val(res.fuel_receipt.category);
                     $('.updateFuelReFuelType').val(res.fuel_receipt.fuelType);
                     $('.updateFuelReceiptTruckNumber').val(res.fuel_receipt.truckNumber);
-                    $('.updateFuelReceiptDate').val(res.fuel_receipt.transactionDate);
+                    $('.updateFuelReceiptDate').val(date);
                     $('.updateFuelReceiptTransactionTime').val(res.fuel_receipt.transactionTime);
                     $('.updateFuelReceiptLocationName').val(res.fuel_receipt.locationName);
                     $('.updateFuelReceiptLocationCity').val(res.fuel_receipt.locationCity);

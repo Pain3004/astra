@@ -40,7 +40,7 @@ class AuthController extends Controller
         return redirect("login")->with('message','Opps! You have entered invalid credentials');
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {        
         if(Auth::check()){
             $driverData=\App\Models\Driver::all();
@@ -54,10 +54,12 @@ class AuthController extends Controller
                 $emailArr[]=$row->userEmail;
             }
             // dd($emailArr);
+                   $count=$count+1;
             if(!in_array(Auth::user()->userEmail, $emailArr))
             {
+                // dd(intval($count));
                 LoggedUsers::create([
-                    'id' =>$count+1,
+                    '_id' =>intval($count),
                     'userId'=>Auth::user()->_id,
                     'userEmail' => Auth::user()->userEmail,
                     'userFirstName'=> Auth::user()->userFirstName,

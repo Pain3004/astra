@@ -8,8 +8,24 @@ $(document).ready(function() {
 
     // <!-- -------------------------------------Get fuelReceipt  ------------------------- -->  
    
-    $('#iftaToll_navbar').click(function(){
-        //alert();
+    $(".iftaToll_navbar").click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path + "/admin/getInvoicedNumber",
+            async: false,
+            success: function (text) {
+                $(".fuel_recepit_invoice_no_list").html();
+                var len2 = text.load.length;
+                $('.fuel_recepit_invoice_no_list').html();
+                var html = "";
+                for (var j = 0; j < len2; j++) {
+                    var driverId = text.load[j]._id;
+                    var html = "<option value='" + driverId + "'>" + driverId + " </option>";
+                    $(".fuel_recepit_invoice_no_list").append(html);
+                }
+            }
+        });
+        // alert();
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getIftaToll",
@@ -46,7 +62,7 @@ $(document).ready(function() {
                         // var comId=1;
                         var comId =IftaTollResult.companyID;
                         var IftaTollId =IftaTollResult.tolls[i]._id;
-                        var transectionDate =new Date(IftaTollResult.tolls[i].tollDate);
+                        // var transectionDate =new Date(IftaTollResult.tolls[i].tollDate);
                         var transType =IftaTollResult.tolls[i].transType;
                         var location =IftaTollResult.tolls[i].location;
                         var transponder =IftaTollResult.tolls[i].transponder;
@@ -59,7 +75,13 @@ $(document).ready(function() {
               //alert(fuelCardId);
                            if(IftaTollResult.tolls[i].tollDate != null)
                             {
-                                transectionDate= ((transectionDate.getMonth() > 8) ? (transectionDate.getMonth() + 1) : ('0' + (transectionDate.getMonth() + 1))) + '/' + ((transectionDate.getDate() > 9) ? transectionDate.getDate() : ('0' + transectionDate.getDate())) + '/' + transectionDate.getFullYear();
+                                var tollDate=IftaTollResult.tolls[i].tollDate;
+                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date = new Date(tollDate*1000);
+                                var year = date.getFullYear();
+                                var month = months_arr[date.getMonth()];
+                                var day = date.getDate();
+                                var transectionDate = month+'/'+day+'/'+year;
                             }
                             else
                             {
@@ -210,10 +232,24 @@ $(document).ready(function() {
             data: { id: id, comId: comId },
             async: false,
             success: function (res) {
+                var tollDate=res.tolls.tollDate;
+                var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                var date = new Date(tollDate*1000);
+                var year = date.getFullYear();
+                var month = months_arr[date.getMonth()];
+                var day = date.getDate();
+                if(day <=9 )
+                {
+                    var tollDate = year+'-0'+day+'-'+month;
+                }
+                else
+                {
+                    var tollDate = year+'-'+month+'-'+day;
+                }
                 $(".updateIftaComId").val(res.companyID);
                 $(".updateiftaTollId").val(res.tolls._id);
                 $('.updateIftaTollNo').val(res.tolls.invoiceNumber);
-                $('.updateIftaTollDate').val(res.tolls.tollDate);
+                $('.updateIftaTollDate').val(tollDate);
                 if(typeof(res.tolls.transactionTime) != "undefined" && res.tolls.transactionTime !== null){
                     $('.updateIftaTollTime').val(res.tolls.transactionTime);
                 }                

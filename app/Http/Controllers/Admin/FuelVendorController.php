@@ -44,10 +44,12 @@ class FuelVendorController extends Controller
             {
                 $totalFuelVendorArray=0; 
             }
+            $openingDate=$request->openingDate;
+            $openingDate = strtotime($openingDate);
             $FuelVendorData[]=array(    
                 '_id' => $totalFuelVendorArray,
                 'fuelCardType' => $request->fuelCardType,
-                'openingDate' => $request->openingDate,
+                'openingDate' => $openingDate,
                 'openingBalance' => $request->openingBalance,
                 'currentBalance' => $request->currentBalance,
                 'counter' =>0,
@@ -139,9 +141,11 @@ class FuelVendorController extends Controller
             }
         }  
         // dd($request->fuelCardType);
+        $openingDate=$request->openingDate;
+        $openingDate = strtotime($openingDate);
         $FuelVendorArray[$v]['fuelCardType']=$request->fuelCardType;        
         $FuelVendorArray[$v]['currentBalance']=$request->currentBalance;
-        $FuelVendorArray[$v]['openingDate']=$request->openingDate;
+        $FuelVendorArray[$v]['openingDate']=$openingDate;
         $FuelVendorArray[$v]['openingBalance']=$request->openingBalance;
         $FuelVendor->fuelCard=$FuelVendorArray;
         // dd($FuelVendor->fuelCard);

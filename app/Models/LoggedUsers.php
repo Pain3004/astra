@@ -22,6 +22,7 @@ class LoggedUsers extends Model
 
     protected $connection = 'mongodb';
     protected $collection = 'logged_users';
+    protected $keyType = 'integer';
 
   
 
@@ -31,5 +32,6 @@ class LoggedUsers extends Model
      *
      * @var array
      */
+
    
 }

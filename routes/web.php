@@ -204,6 +204,7 @@ Route::get('admin/getIftaTrip', [IftaTripController::class, 'getIftaTrip']);
 Route::get('admin/editIftaTrip', [IftaTripController::class, 'editIftaTrip']);
 Route::post('admin/updateIftaTrip', [IftaTripController::class, 'updateIftaTrip']);
 Route::post('admin/searchIftaTrip', [IftaTripController::class, 'searchIftaTrip']);
+Route::get('admin/getgspAPI', [IftaTripController::class, 'getgspAPI']);
 
 //Bank
 Route::get('admin/getBankData', [BankController::class, 'getBankData']);
@@ -271,6 +272,8 @@ Route::post('admin/addLoadType', [LoadController::class, 'addLoadType']);
 //PaymentReceiptController
 Route::get('admin/getPaymentReceipt', [PaymentReceiptController::class, 'getPaymentReceipt']);
 Route::post('admin/StorePaymentReceipt', [PaymentReceiptController::class, 'StorePaymentReceipt']);
+Route::get('admin/razorpay', [PaymentReceiptController::class, 'razorpay'])->name('razorpay');
+Route::post('admin/razorpaypayment', [PaymentReceiptController::class, 'payment'])->name('payment');
 
 //ReportController
 Route::get('admin/createAgingReport', [ReportController::class, 'createAgingReport']);

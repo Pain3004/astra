@@ -323,7 +323,7 @@
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input type="checkbox" class="custom-control-input" id="customCheck9"
                                                                         data-parsley-multiple="groups" data-parsley-mincheck="2"
-                                                                        onclick="setMobileInsurer(this.value)">
+                                                                     >
                                                                     <label class="custom-control-label" for="customCheck9">Same
                                                                         as Liability Company</label>
                                                                 </div>
@@ -402,7 +402,7 @@
                                                                 <div class="custom-control custom-checkbox">
                                                                     <input type="checkbox" class="custom-control-input" id="customCheck10"
                                                                         data-parsley-multiple="groups" data-parsley-mincheck="2"
-                                                                        onclick="setCargoInsurer()">
+                                                                      >
                                                                     <label class="custom-control-label" for="customCheck10">Same
                                                                         as Liability Company</label>
                                                                 </div>

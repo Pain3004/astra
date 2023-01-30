@@ -68,7 +68,7 @@ class IftaTripController extends Controller
         $Invoiced = Invoiced::where('companyID',$companyId)
                             ->select('Invoiced.load.rate')
                             ->first();
-                            dd($Invoiced);
+                            // dd($Invoiced);
         // echo $tripId . " " .$companyId; 
     }
     public function updateIftaTrip(Request $request)
@@ -78,6 +78,10 @@ class IftaTripController extends Controller
     public function searchIftaTrip(Request $request)
     {
 
+    }
+    public function getgspAPI(Request $request)
+    {
+        
     }
   
    

@@ -426,63 +426,39 @@ $(document).ready(function () {
         var blacklisted
         =$('#carrierBlacklisted').val();
         var corporation =$('#carrierCorporation').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
-        var name =$('#carrierName').val();
+        var autoInsuranceCompany =$('#liabilityCompany').val();
+        var autoInsPolicyNo =$('#liabilityPolicy').val();
+        var autoInsExpiryDate =$('#liabilityExpDate').val();
+        var autoInsTelephone =$('#liabilityTelephone').val();
+        var autoInsExt =$('#liabilityEXT').val();
+        var liabilityContact =$('#liabilityContact').val();
+        var autoInsLiabilityAmount =$('#liabilityAmount').val();
+        var autoInsuranceNotes =$('#liabilityNotes').val();        
+        var insuranceLiabilityCompany =$('#insuranceCompany').val();
+        var insurancePolicyNo =$('#insurancePolicy').val();
+        var insuranceExpDate =$('#insuranceExpDate').val();
+        var insuranceTelephone =$('#insuranceTelephone').val();
+        var insuranceExt =$('#insuranceExt').val();
+        var insuranceContactName =$('#insuranceContactName').val();
+        var insuranceLiabilityAmount =$('#insuranceAmt').val();
+        var insuranceNotes =$('#insuranceNotes').val();
+        var cargoCompany =$('#cargoName').val();
+        var cargoPolicyNo =$('#cargoPolicy').val();
+        var cargoExpiryDate =$('#cargoExpDate').val();
+        var cargoTelephone =$('#cargoTelephone').val();
+        var cargoExt =$('#cargoExt').val();
+        var cargoContactName =$('#cargoContactName').val();
+        var cargoInsuranceAmt =$('#cargoInsuranceAmount').val();
+        var cargoNotes =$('#cargoNotes').val();
+        var WSIBNo =$('#wsib').val();
+        var primaryTelephone =$('#primaryTelephone').val();
+        var primaryEmail =$('#primaryEmail').val();
+        var secondaryName =$('#secondaryName').val();
+        var secondaryTelephone =$('#secondaryTelephone').val();
+        var secondaryEmail =$('#secondaryEmail').val();
+        var primaryNotes =$('#primaryNotes').val();
+        var sizeOfFleet =$('#sizeOfFleet').val();
+   
         if(fuelCardType=='')
         {
             swal.fire( "'Enter Enter Fuel Card Type");
@@ -492,7 +468,35 @@ $(document).ready(function () {
         } 
         var formData = new FormData();
         formData.append('_token',$("#_token_AddExternalCarrier").val());
-        formData.append('fuelCardType',fuelCardType);
+        formData.append('name',name);
+        formData.append('address',address);
+        formData.append('location',location);
+        formData.append('zip',zip);
+        formData.append('contactName',contactName);
+        formData.append('email',email);
+        formData.append('telephone',telephone);
+        formData.append('ext',ext);
+        formData.append('tollfree',tollfree);
+        formData.append('fax',fax);
+        formData.append('paymentTerms',paymentTerms);
+        formData.append('taxID',taxID);
+        formData.append('mc',mc);
+        formData.append('dot',dot);
+        formData.append('factoringParent',factoringParent);
+        formData.append('factoringCompany',factoringCompany);
+        formData.append('carrierNotes',carrierNotes);
+        formData.append('blacklisted',blacklisted);
+        formData.append('corporation',corporation);
+        formData.append('autoInsuranceCompany',autoInsuranceCompany);
+        formData.append('autoInsPolicyNo',autoInsPolicyNo);
+        formData.append('autoInsExpiryDate',autoInsExpiryDate);
+        formData.append('autoInsTelephone',autoInsTelephone);
+        formData.append('autoInsExt',autoInsExt);
+        formData.append('insuranceContactName',insuranceContactName);
+        formData.append('name',name);
+        formData.append('name',name);
+        formData.append('name',name);
+        formData.append('name',name);
         $.ajax({
             type: "POST",
             url: base_path+"/admin/storeExternalCarrier",
@@ -502,7 +506,7 @@ $(document).ready(function () {
             processData: false,
             data:formData,
             success: function(data) {
-                console.log(data)                    
+                // console.log(data)                    
                 swal.fire("Done!", "External Carrier added successfully", "success");
                 $('#AddExternalCarrier').modal('hide');
                 $.ajax({
