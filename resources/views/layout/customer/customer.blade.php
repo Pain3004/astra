@@ -6,7 +6,7 @@
         <div class="modal-dialog custom_modal modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Customer</h5>
+                    <h5 class="modal-title">Customer 6464646</h5>
                     <button type="button" class="button-24" data-dismiss="modal">×</button>
                 </div>
 

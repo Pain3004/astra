@@ -31,6 +31,7 @@ $(document).ready(function () {
                     for(var i=extCariLeng-1;i >= 0; i--)
                     {
                         var id=ExternalCarrierResult[g].carrier[i]._id;
+                        // alert(id);
                         var com_Id=ExternalCarrierResult[g].companyID;
                         var name =ExternalCarrierResult[g].carrier[i].name;
                         var address =ExternalCarrierResult[g].carrier[i].address;
@@ -89,323 +90,158 @@ $(document).ready(function () {
     }
     //============ end view external carrier ==================================================
     //=================================== form set -============================================
-    function toggleCarrier(val) {
+   
 
-        var name = document.getElementById('carrierName').value;
-        var address = document.getElementById('carrierAddress').value;
-        var location = document.getElementById('carrierLocation').value;
-        var zip = document.getElementById('carrierZip').value;
-        var email = document.getElementById('carrierEmail').value;
-        var telephone = document.getElementById('carrierTelephone').value;
-        var carrierTollFree = document.getElementById('carrierTollFree').value;
-        var carrierFax = document.getElementById('carrierFax').value;
-        var carrierPayTerms = document.getElementById('carrierPayTerms').value;
-        var taxID = document.getElementById('carrierTaxID').value;
-        var mc = document.getElementById('carrierMC').value;
-        var dot = document.getElementById('carrierDOT').value;
-        var carrierFactoring1 = document.getElementById('carrierFactoring').value;
-    
-        if (val == 'first') {
-            if (val_carrName(name)) {
-                if (val_carrAddress(address)) {
-                    if (val_carrLocation(location)) {
-                        if (val_carrZip(zip)) {
-                            if (val_carrEmail(email)) {
-                                if (val_carrTelephone(telephone)) {
-                                    if (val_carrTollFree(carrierTollFree)) {
-                                        if (val_carrFax(carrierFax)) {
-                                            // if (val_carrPayTerms(carrierPayTerms)) {
-                                            if (datalistCheck(carrierPayTerms, 'browsers', 'carrierPayTerms', 'Payment Terms')) {
-                                                if (val_carrTaxID(taxID)) {
-                                                    if (val_carrMC(mc)) {
-                                                        if (val_carrDOT(dot)) {
-                                                            if (emptydatalistCheck(carrierFactoring1, 'Add_Carrier', 'carrierFactoring', 'Factoring Company')) {
-                                                                // if (val_carrFactoring(carrierFactoring)) {
-                                                                $("#carrier").toggleClass("show");
-                                                                $("#carrier").toggleClass("active");
-                                                                $("#insurance").toggleClass("show");
-                                                                $("#insurance").toggleClass("active");
-                                                                $("#home-tab").toggleClass("active");
-                                                                $("#insurance-tab").toggleClass("active");
-                                                                // $("#accounting").toggleClass("show");
-                                                                // $("#accounting").toggleClass("active");
-                                                                // $("#equipment").toggleClass("show");
-                                                                // $("#equipment").toggleClass("active");
-    
-    
-                                                                if ($("#home-tab").attr("aria-selected") === 'true') {
-                                                                    $("#home-tab").attr("aria-selected", "false");
-                                                                } else {
-                                                                    $("#home-tab").attr("aria-selected", "true");
-                                                                }
-    
-                                                                if ($("#insurance-tab").attr("aria-selected") === 'true') {
-                                                                    $("#insurance-tab").attr("aria-selected", "false");
-                                                                } else {
-                                                                    $("#insurance-tab").attr("aria-selected", "true");
-                                                                }
-    
-                                                                $("#home-title").toggleClass("show");
-                                                                $("#insurance-title").toggleClass("show");
-                                                                // }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                // }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+    /**
+     * Define a function to navigate betweens form steps.
+     * It accepts one parameter. That is - step number.
+     */
+    const navigateToFormStep = (stepNumber) => {
+        /**
+         * Hide all form steps.
+         */
+        document.querySelectorAll(".form-step").forEach((formStepElement) => {
+            formStepElement.classList.add("d-none");
+        });
+        /**
+         * Mark all form steps as unfinished.
+         */
+        document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {
+            formStepHeader.classList.add("form-stepper-unfinished");
+            formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");
+        });
+        /**
+         * Show the current form step (as passed to the function).
+         */
+        document.querySelector("#step-" + stepNumber).classList.remove("d-none");
+        /**
+         * Select the form step circle (progress bar).
+         */
+        const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');
+        /**
+         * Mark the current form step as active.
+         */
+        formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");
+        formStepCircle.classList.add("form-stepper-active");
+        /**
+         * Loop through each form step circles.
+         * This loop will continue up to the current step number.
+         * Example: If the current step is 3,
+         * then the loop will perform operations for step 1 and 2.
+         */
+        for (let index = 0; index < stepNumber; index++) {
+            /**
+             * Select the form step circle (progress bar).
+             */
+            const formStepCircle = document.querySelector('li[step="' + index + '"]');
+            /**
+             * Check if the element exist. If yes, then proceed.
+             */
+            if (formStepCircle) {
+                /**
+                 * Mark the form step as completed.
+                 */
+                formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");
+                formStepCircle.classList.add("form-stepper-completed");
             }
-        } else if (val == 'second') {
-            var liabilityTelephone = document.getElementById('liabilityTelephone').value;
-            var insuranceTelephone = document.getElementById('insuranceTelephone').value;
-            var cargoTelephone = document.getElementById('cargoTelephone').value;
-    
-            if (val_carrTelephoneAll(liabilityTelephone)) {
-                if (val_carrTelephoneAll(insuranceTelephone)) {
-                    if (val_carrTelephoneAll(cargoTelephone)) {
-                        $("#accounting").toggleClass("show");
-                        $("#accounting").toggleClass("active");
-                        $("#insurance").toggleClass("show");
-                        $("#insurance").toggleClass("active");
-                        $("#accounting-tab").toggleClass("active");
-                        $("#insurance-tab").toggleClass("active");
-                        if ($("#accounting-tab").attr("aria-selected") === 'true') {
-                            $("#accounting-tab").attr("aria-selected", "false");
-                        } else {
-                            $("#accounting-tab").attr("aria-selected", "true");
-                        }
-    
-                        if ($("#insurance-tab").attr("aria-selected") === 'true') {
-                            $("#insurance-tab").attr("aria-selected", "false");
-                        } else {
-                            $("#insurance-tab").attr("aria-selected", "true");
-                        }
-    
-                        $("#accounting-title").toggleClass("show");
-                        $("#insurance-title").toggleClass("show");
-                    }
-                }
-            }
-        } else if (val == 'third') {
-            var primaryTelephone = document.getElementById('primaryTelephone').value;
-            var primaryEmail = document.getElementById('primaryEmail').value;
-            var secondaryTelephone = document.getElementById('secondaryTelephone').value;
-            var secondaryEmail = document.getElementById('secondaryEmail').value;
-    
-            if (val_carrTelephoneAll(primaryTelephone)) {
-                if (val_carrEmailAll(primaryEmail)) {
-                    if (val_carrTelephoneAll(secondaryTelephone)) {
-                        if (val_carrEmailAll(secondaryEmail)) {
-                            // val_carrEmailAll
-                            $("#accounting").toggleClass("show");
-                            $("#accounting").toggleClass("active");
-                            $("#equipment").toggleClass("show");
-                            $("#equipment").toggleClass("active");
-                            $("#accounting-tab").toggleClass("active");
-                            $("#equipment-tab").toggleClass("active");
-                            if ($("#accounting-tab").attr("aria-selected") === 'true') {
-                                $("#accounting-tab").attr("aria-selected", "false");
-                            } else {
-                                $("#accounting-tab").attr("aria-selected", "true");
-                            }
-    
-                            if ($("#equipment-tab").attr("aria-selected") === 'true') {
-                                $("#equipment-tab").attr("aria-selected", "false");
-                            } else {
-                                $("#equipment-tab").attr("aria-selected", "true");
-                            }
-    
-                            $("#accounting-title").toggleClass("show");
-                            $("#equipment-title").toggleClass("show");
-                        }
-                    }
-                }
-            }
-        } else if (val == 'fourth') {
-            $("#accounting").toggleClass("show");
-            $("#accounting").toggleClass("active");
-            $("#equipment").toggleClass("show");
-            $("#equipment").toggleClass("active");
-            $("#accounting-tab").toggleClass("active");
-            $("#equipment-tab").toggleClass("active");
-            if ($("#accounting-tab").attr("aria-selected") === 'true') {
-                $("#accounting-tab").attr("aria-selected", "false");
-            } else {
-                $("#accounting-tab").attr("aria-selected", "true");
-            }
-    
-            if ($("#equipment-tab").attr("aria-selected") === 'true') {
-                $("#equipment-tab").attr("aria-selected", "false");
-            } else {
-                $("#equipment-tab").attr("aria-selected", "true");
-            }
-    
-            $("#accounting-title").toggleClass("show");
-            $("#equipment-title").toggleClass("show");
         }
-    }
-    
-    function togglePrev(val) {
-        if (val == 'third') {
-            $("#accounting").toggleClass("show");
-            $("#accounting").toggleClass("active");
-            $("#insurance").toggleClass("show");
-            $("#insurance").toggleClass("active");
-            $("#accounting-tab").toggleClass("active");
-            $("#insurance-tab").toggleClass("active");
-            if ($("#accounting-tab").attr("aria-selected") === 'true') {
-                $("#accounting-tab").attr("aria-selected", "false");
-            } else {
-                $("#accounting-tab").attr("aria-selected", "true");
-            }
-    
-            if ($("#insurance-tab").attr("aria-selected") === 'true') {
-                $("#insurance-tab").attr("aria-selected", "false");
-            } else {
-                $("#insurance-tab").attr("aria-selected", "true");
-            }
-    
-            $("#accounting-title").toggleClass("show");
-            $("#insurance-title").toggleClass("show");
-        } else if (val == 'second') {
-            $("#carrier").toggleClass("show");
-            $("#carrier").toggleClass("active");
-            $("#insurance").toggleClass("show");
-            $("#insurance").toggleClass("active");
-            $("#home-tab").toggleClass("active");
-            $("#insurance-tab").toggleClass("active");
-    
-            if ($("#home-tab").attr("aria-selected") === 'true') {
-                $("#home-tab").attr("aria-selected", "false");
-            } else {
-                $("#home-tab").attr("aria-selected", "true");
-            }
-    
-            if ($("#insurance-tab").attr("aria-selected") === 'true') {
-                $("#insurance-tab").attr("aria-selected", "false");
-            } else {
-                $("#insurance-tab").attr("aria-selected", "true");
-            }
-    
-            $("#home-title").toggleClass("show");
-            $("#insurance-title").toggleClass("show");
-        }
-    }
-    
-    function toggleAll(val) {
-        if ($("#carrier").hasClass("show")) {
-            $("#carrier").toggleClass("show");
-        }
-        if ($("#carrier").hasClass("active")) {
-            $("#carrier").toggleClass("active");
-        }
-        if ($("#insurance").hasClass("show")) {
-            $("#insurance").toggleClass("show");
-        }
-        if ($("#insurance").hasClass("active")) {
-            $("#insurance").toggleClass("active");
-        }
-        if ($("#accounting").hasClass("show")) {
-            $("#accounting").toggleClass("show");
-        }
-        if ($("#accounting").hasClass("active")) {
-            $("#accounting").toggleClass("active");
-        }
-        if ($("#equipment").hasClass("show")) {
-            $("#equipment").toggleClass("show");
-        }
-        if ($("#equipment").hasClass("active")) {
-            $("#equipment").toggleClass("active");
-        }
-        if ($("#home-tab").hasClass("active")) {
-            $("#home-tab").toggleClass("active");
-        }
-        if ($("#insurance-tab").hasClass("active")) {
-            $("#insurance-tab").toggleClass("active");
-        }
-        if ($("#accounting-tab").hasClass("active")) {
-            $("#accounting-tab").toggleClass("active");
-        }
-        if ($("#equipment-tab").hasClass("active")) {
-            $("#equipment-tab").toggleClass("active");
-        }
-        if ($("#home-title").hasClass("show")) {
-            $("#home-title").toggleClass("show");
-        }
-        if ($("#insurance-title").hasClass("show")) {
-            $("#insurance-title").toggleClass("show");
-        }
-        if ($("#accounting-title").hasClass("show")) {
-            $("#accounting-title").toggleClass("show");
-        }
-        if ($("#equipment-title").hasClass("show")) {
-            $("#equipment-title").toggleClass("show");
-        }
-    
-        if ($("#home-tab").attr("aria-selected") === 'true') {
-            $("#home-tab").attr("aria-selected", "false");
-        } else {
-            $("#home-tab").attr("aria-selected", "true");
-        }
-    
-        if ($("#insurance-tab").attr("aria-selected") === 'true') {
-            $("#insurance-tab").attr("aria-selected", "false");
-        } else {
-            $("#insurance-tab").attr("aria-selected", "true");
-        }
-    
-        if ($("#accounting-tab").attr("aria-selected") === 'true') {
-            $("#accounting-tab").attr("aria-selected", "false");
-        } else {
-            $("#accounting-tab").attr("aria-selected", "true");
-        }
-    
-        if ($("#equipment-tab").attr("aria-selected") === 'true') {
-            $("#equipment-tab").attr("aria-selected", "false");
-        } else {
-            $("#equipment-tab").attr("aria-selected", "true");
-        }
-    
-        if (val == 'first') {
-            $("#carrier").toggleClass("show");
-            $("#carrier").toggleClass("active");
-            $("#home-tab").toggleClass("active");
-            $("#home-title").toggleClass("show");
-        } else if (val == 'second') {
-            $("#insurance").toggleClass("show");
-            $("#insurance").toggleClass("active");
-            $("#insurance-tab").toggleClass("active");
-            $("#insurance-title").toggleClass("show");
-        } else if (val == 'third') {
-            $("#accounting").toggleClass("show");
-            $("#accounting").toggleClass("active");
-            $("#accounting-tab").toggleClass("active");
-            $("#accounting-title").toggleClass("show");
-        } else if (val == 'fourth') {
-            $("#equipment").toggleClass("show");
-            $("#equipment").toggleClass("active");
-            $("#equipment-tab").toggleClass("active");
-            $("#equipment-title").toggleClass("show");
-        }
-    
-    }
+    };
+    /**
+     * Select all form navigation buttons, and loop through them.
+     */
+    document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {
+        /**
+         * Add a click event listener to the button.
+         */
+        formNavigationBtn.addEventListener("click", () => {
+            /**
+             * Get the value of the step.
+             */
+            const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
+            /**
+             * Call the function to navigate to the target form step.
+             */
+            navigateToFormStep(stepNumber);
+        });
+    });
     //=============== end form set =============================================================
 
     //===================== start store data===================================================
     $(".AddExternalCarrierBtn").click(function(){
+        $(".update_store_external_carrier").val("1");
         $("#AddExternalCarrier").modal("show");
     });
     $(".closeAddExternalCarreirModal").click(function(){
         $("#AddExternalCarrier").modal("hide");
     });
+    $('#carrierBlacklisted').click(function(){
+        if($(this).prop("checked") == true){
+            $("#carrierBlacklisted").val('on');
+           
+        }
+        else if($(this).prop("checked") == false){
+            $("#carrierBlacklisted").val('off');
+          
+        }
+    });
+    $('#carrierCorporation').click(function(){
+        if($(this).prop("checked") == true){
+            $("#carrierCorporation").val('on');
+           
+        }
+        else if($(this).prop("checked") == false){
+            $("#carrierCorporation").val('off');
+          
+        }
+    });
+    $('#customCheck9').click(function(){
+        if($(this).prop("checked") == true){
+            $("#insuranceCompany").val($("#liabilityCompany").val());
+            $("#insurancePolicy").val($("#liabilityPolicy").val());
+            $("#insuranceExpDate").val($("#liabilityExpDate").val());
+            $("#insuranceTelephone").val($("#liabilityTelephone").val());
+            $("#insuranceExt").val($("#liabilityEXT").val());
+            $("#insuranceContactName").val($("#liabilityContact").val());
+            $("#insuranceAmt").val($("#liabilityAmount").val());
+            $("#insuranceNotes").val($("#liabilityNotes").val());
+        }
+        else if($(this).prop("checked") == false){
+            $("#insuranceCompany").val('');
+            $("#insurancePolicy").val('');
+            $("#insuranceExpDate").val('');
+            $("#insuranceTelephone").val('');
+            $("#insuranceExt").val('');
+            $("#insuranceContactName").val('');
+            $("#insuranceAmt").val('');
+            $("#insuranceNotes").val('');
+        }
+    });
+     $('#customCheck10').click(function(){
+        if($(this).prop("checked") == true){
+            $("#cargoName").val($("#liabilityCompany").val());
+            $("#cargoPolicy").val($("#liabilityPolicy").val());
+            $("#cargoExpDate").val($("#liabilityExpDate").val());
+            $("#cargoTelephone").val($("#liabilityTelephone").val());
+            $("#cargoExt").val($("#liabilityEXT").val());
+            $("#cargoContactName").val($("#liabilityContact").val());
+            $("#cargoInsuranceAmount").val($("#liabilityAmount").val());
+            $("#cargoNotes").val($("#liabilityNotes").val());
+        }
+        else if($(this).prop("checked") == false){
+            $("#cargoName").val('');
+            $("#cargoPolicy").val('');
+            $("#cargoExpDate").val('');
+            $("#cargoTelephone").val('');
+            $("#cargoExt").val('');
+            $("#cargoContactName").val('');
+            $("#cargoInsuranceAmount").val('');
+            $("#cargoNotes").val('');
+        }
+    });
+
     $("#AddExternalCarrierSaveBtn").click(function(){
+        var id=$(".update_external_carrier_id").val();
+        var comID=$(".update_external_carrier_Comid").val();
         var name =$('#carrierName').val();
         var address =$('#carrierAddress').val();
         var location =$('#carrierLocation').val();
@@ -447,6 +283,7 @@ $(document).ready(function () {
         var cargoExpiryDate =$('#cargoExpDate').val();
         var cargoTelephone =$('#cargoTelephone').val();
         var cargoExt =$('#cargoExt').val();
+        var primaryName=$('#primaryName').val();
         var cargoContactName =$('#cargoContactName').val();
         var cargoInsuranceAmt =$('#cargoInsuranceAmount').val();
         var cargoNotes =$('#cargoNotes').val();
@@ -459,16 +296,52 @@ $(document).ready(function () {
         var primaryNotes =$('#primaryNotes').val();
         var sizeOfFleet =$('#sizeOfFleet').val();
    
-        if(fuelCardType=='')
+        if(name=='')
         {
-            swal.fire( "'Enter Enter Fuel Card Type");
-            $('#addFuel_Card_Type').focus();
+            swal.fire( "'Enter carrier Name");
+            $('#carrierName').focus();
             return false;
-            
+        } 
+        if(address=='')
+        {
+            swal.fire( "'Enter carrier Address");
+            return false;
+        } 
+        if(location=='')
+        {
+            swal.fire( "'Enter carrier location");
+            $('#carrierLocation').focus();
+            return false;
+        } 
+        if(zip=='')
+        {
+            swal.fire( "'Enter carrier Zip");
+            $('#carrierZip').focus();
+            return false;
+        } 
+        if(email=='')
+        {
+            swal.fire( "'Enter carrier Email");
+            $('#carrierEmail').focus();
+            return false;
+        } 
+        if(paymentTerms=='')
+        {
+            swal.fire( "'Enter carrier PaymentTerms");
+            $('#carrierPaymentTerms').focus();
+            return false;
+        } 
+        if(factoringCompany=='')
+        {
+            swal.fire( "'Enter carrier FactoringCompany");
+            $('#carrierFactoringCompany').focus();
+            return false;
         } 
         var formData = new FormData();
-        formData.append('_token',$("#_token_AddExternalCarrier").val());
+        formData.append('_token',$("#_token_UpdateExternalCarrier").val());
         formData.append('name',name);
+        formData.append('id',id);
+        formData.append('comID',comID);
         formData.append('address',address);
         formData.append('location',location);
         formData.append('zip',zip);
@@ -482,6 +355,7 @@ $(document).ready(function () {
         formData.append('taxID',taxID);
         formData.append('mc',mc);
         formData.append('dot',dot);
+        formData.append('primaryName',primaryName);
         formData.append('factoringParent',factoringParent);
         formData.append('factoringCompany',factoringCompany);
         formData.append('carrierNotes',carrierNotes);
@@ -492,35 +366,89 @@ $(document).ready(function () {
         formData.append('autoInsExpiryDate',autoInsExpiryDate);
         formData.append('autoInsTelephone',autoInsTelephone);
         formData.append('autoInsExt',autoInsExt);
+        formData.append('liabilityContact',liabilityContact);
+        formData.append('autoInsLiabilityAmount',autoInsLiabilityAmount);
+        formData.append('autoInsuranceNotes',autoInsuranceNotes);
+        formData.append('insuranceLiabilityCompany',insuranceLiabilityCompany);
+        formData.append('insurancePolicyNo',insurancePolicyNo);
+        formData.append('insuranceExpDate',insuranceExpDate);
+        formData.append('insuranceTelephone',insuranceTelephone);
+        formData.append('insuranceExt',insuranceExt);
         formData.append('insuranceContactName',insuranceContactName);
-        formData.append('name',name);
-        formData.append('name',name);
-        formData.append('name',name);
-        formData.append('name',name);
-        $.ajax({
-            type: "POST",
-            url: base_path+"/admin/storeExternalCarrier",
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            data:formData,
-            success: function(data) {
-                // console.log(data)                    
-                swal.fire("Done!", "External Carrier added successfully", "success");
-                $('#AddExternalCarrier').modal('hide');
-                $.ajax({
-                    type: "GET",
-                    url: base_path + "/admin/getExternalCarrier",
-                    async: false,
-                    success: function (text) {
-                        console.log(text);
-                        createExternalCarrier(text);
-                        ExternalCarrierResult = text;
-                    }
-                });
-            }
-        });
+        formData.append('insuranceLiabilityAmount',insuranceLiabilityAmount);
+        formData.append('insuranceNotes',insuranceNotes);
+        formData.append('cargoCompany',cargoCompany);
+        formData.append('cargoPolicyNo',cargoPolicyNo);
+        formData.append('cargoExpiryDate',cargoExpiryDate);
+        formData.append('cargoTelephone',cargoTelephone);
+        formData.append('cargoExt',cargoExt);
+        formData.append('cargoContactName',cargoContactName);
+        formData.append('cargoInsuranceAmt',cargoInsuranceAmt);
+        formData.append('cargoNotes',cargoNotes);
+        formData.append('WSIBNo',WSIBNo);
+        formData.append('primaryTelephone',primaryTelephone);
+        formData.append('primaryEmail',primaryEmail);
+        formData.append('secondaryName',secondaryName);
+        formData.append('secondaryTelephone',secondaryTelephone);
+        formData.append('secondaryEmail',secondaryEmail);
+        formData.append('primaryNotes',primaryNotes);
+        formData.append('sizeOfFleet',sizeOfFleet);
+        var dataType=$(".update_store_external_carrier").val();
+        alert(dataType);
+        if(dataType==1)
+        {
+            $.ajax({
+                type: "POST",
+                url: base_path+"/admin/storeExternalCarrier",
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:formData,
+                success: function(data) {
+                    // console.log(data)                    
+                    swal.fire("Done!", "External Carrier added successfully", "success");
+                    $('#AddExternalCarrier').modal('hide');
+                    $.ajax({
+                        type: "GET",
+                        url: base_path + "/admin/getExternalCarrier",
+                        async: false,
+                        success: function (text) {
+                            console.log(text);
+                            createExternalCarrier(text);
+                            ExternalCarrierResult = text;
+                        }
+                    });
+                }
+            });
+        }
+        else
+        {
+            $.ajax({
+                type: "POST",
+                url: base_path+"/admin/updateExternalCarrier",
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:formData,
+                success: function(data) {
+                    // console.log(data)                    
+                    swal.fire("Done!", "External Carrier Update successfully", "success");
+                    $('#AddExternalCarrier').modal('hide');
+                    $.ajax({
+                        type: "GET",
+                        url: base_path + "/admin/getExternalCarrier",
+                        async: false,
+                        success: function (text) {
+                            console.log(text);
+                            createExternalCarrier(text);
+                            ExternalCarrierResult = text;
+                        }
+                    });
+                }
+            });
+        }
     });
 
     //============================== end store data ===========================================
@@ -531,9 +459,83 @@ $(document).ready(function () {
         $("#UpdateExternalCarrier").modal("hide");
     })
     $('body').on('click','.edit_externalCarrier_form',function(){
+        $(".update_store_external_carrier").val("2");
         var id= $(this).attr("data-externalCarriId");
         var comId=$(this).attr("data-com_Id");
-        $("#UpdateExternalCarrier").modal("show");
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/editExternalCarrier",
+            async: false,
+            data:{id:id, comId:comId},
+            success: function(text) {
+                // var openiDate=text.openingDate;
+                // var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                // var date = new Date(openiDate*1000);
+                // var year = date.getFullYear();
+                // var month = months_arr[date.getMonth()];
+                // var day = date.getDate();
+                // if(day <=9 )
+                // {
+                //     var openingDate = year+'-0'+day+'-'+month;
+                // }
+                // else
+                // {
+                //     var openingDate = year+'-'+month+'-'+day;
+                // }
+                $('.update_external_carrier_id').val(text._id);
+                $('.update_external_carrier_Comid').val(text.companyID);
+                $('#carrierName').val(text.name);
+                $('#carrierAddress').val(text.address);
+                $('#carrierLocation').val(text.location);
+                $('#carrierZip').val(text.zip);
+                $('#carrierContactName').val(text.contactName);
+                $('#carrierEmail').val(text.email);
+                $('#carrierTelephone').val(text.telephone);
+                $('#carrierExt').val(text.ext);
+                $('#carrierTollFree').val(text.tollFree);
+                $('#carrierPayTerms').val(text.payTerms);
+                $('#carrierTaxID').val(text.taxID);
+                $('#carrierMC').val(text.mc);
+                $('#carrierFactoring').val(text.factoringCompany);
+                $('#carrierNotes').val(text.carrierNotes);
+                $('#carrierBlacklisted').val(text.blacklisted);
+                $('#carrierCorporation').val(text.corporation);
+                $('#liabilityCompany').val(text.autoInsuranceCompany);
+                $('#liabilityPolicy').val(text.autoInsPolicyNo);
+                $('#liabilityExpDate').val(text.autoInsExpiryDate);
+                $('#liabilityTelephone').val(text.autoInsTelephone);
+                $('#liabilityEXT').val(text.autoInsExt);
+                $('#liabilityContact').val(text.liabilityContact);
+                $('#liabilityAmount').val(text.autoInsLiabilityAmount);
+                $('#liabilityNotes').val(text.autoInsuranceNotes);
+                $('#insuranceCompany').val(text.insuranceLiabilityCompany);
+                $('#insurancePolicy').val(text.insurancePolicyNo);
+                $('#insuranceExpDate').val(text.insuranceExpDate);
+                $('#insuranceTelephone').val(text.insuranceTelephone);
+                $('#insuranceExt').val(text.insuranceExt);
+                $('#insuranceContactName').val(text.insuranceContactName);
+                $('#insuranceAmt').val(text.insuranceLiabilityAmount);
+                $('#insuranceNotes').val(text.insuranceNotes);
+                $('#cargoName').val(text.cargoCompany);
+                $('#cargoPolicy').val(text.cargoPolicyNo);
+                $('#cargoExpDate').val(text.cargoExpiryDate);
+                $('#cargoTelephone').val(text.cargoTelephone);
+                $('#cargoExt').val(text.cargoExt);
+                $('#cargoContactName').val(text.cargoContactName);
+                $('#cargoInsuranceAmount').val(text.cargoInsuranceAmt);
+                $('#cargoNotes').val(text.cargoNotes);
+                $('#wsib').val(text.WSIBNo);
+                $('#primaryName').val(text.primaryName);
+                $('#primaryTelephone').val(text.primaryTelephone);
+                $('#primaryEmail').val(text.primaryEmail);
+                $('#secondaryName').val(text.secondaryName);
+                $('#secondaryTelephone').val(text.secondaryTelephone);
+                $('#secondaryEmail').val(text.secondaryEmail);
+                $('#primaryNotes').val(text.primaryNotes);
+                $('#sizeOfFleet').val(text.sizeOfFleet);
+             }
+        });
+        $("#AddExternalCarrier").modal("show");
     });
     //==================================== end update data =====================================
 

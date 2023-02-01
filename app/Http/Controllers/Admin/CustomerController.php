@@ -159,47 +159,57 @@ class CustomerController extends Controller
 
        //$customerAdd = Customer::all();
   
-       $companyIDForCustomerfactoring=1;
+       $companyID=(int)Auth::user()->companyID;;
        $totalCustomerfactoringArray=0;
-       $getCompanyForCustomerfactoring = Factoring_company_add::where('companyID',$companyIDForCustomerfactoring)->first();
-
-       if($getCompanyForCustomerfactoring){
-           $CustomerfactoringArray=$getCompanyForCustomerfactoring->factoring;
-           $totalCustomerfactoringArray=count($CustomerfactoringArray)+ 1;
-       }
-  
+       $getCompanyForCustomerfactoring = Factoring_company_add::where('companyID',$companyID)->first();
+           if($getCompanyForCustomerfactoring)
+            {
+                $CustomerfactoringArray=$getCompanyForCustomerfactoring->factoring;
+                $ids=array();
+                foreach( $CustomerfactoringArray as $key=> $getCarrierIds)
+                {
+                    $ids[]=$getCarrierIds['_id'];
+                }
+                $ids=max($ids);
+                $totalCustomerfactoringArray=$ids+1;
+            }
+            else
+            {
+                $totalCustomerfactoringArray=0; 
+            }
+                // dd($totalCustomerfactoringArray);
        $CustomerfactoringData[]=array(    
-                       '_id' => $totalCustomerfactoringArray,
-                       'counter' => $totalCustomerfactoringArray,
-                       
-                       'factoringCompanyname' => $request->factoringCompanyName,
-                       'address' => $request->factoringCompanyAddress,
-                       'location' => $request->factoringCompanyLocation,
-                       'zip' => $request->factoringCompanyZip,
-                       'primaryContact' => $request->factoringCompanyPrimaryContact,
-                       'telephone' => $request->factoringCompanyPrimaryContactTelephone,
-                       'extFactoring' => $request->factoringCompanyPrimaryContactExt,
-                       'fax' => $request->factoringCompanyFax,
+            '_id' => $totalCustomerfactoringArray,
+            'counter' => $totalCustomerfactoringArray,
+            
+            'factoringCompanyname' => $request->factoringCompanyName,
+            'address' => $request->factoringCompanyAddress,
+            'location' => $request->factoringCompanyLocation,
+            'zip' => $request->factoringCompanyZip,
+            'primaryContact' => $request->factoringCompanyPrimaryContact,
+            'telephone' => $request->factoringCompanyPrimaryContactTelephone,
+            'extFactoring' => $request->factoringCompanyPrimaryContactExt,
+            'fax' => $request->factoringCompanyFax,
 
-                       'tollFree' => $request->factoringTollFree,
-                       'email' => $request->factoringCompanyContactEmail,
+            'tollFree' => $request->factoringTollFree,
+            'email' => $request->factoringCompanyContactEmail,
 
-                       'secondaryContact' => $request->factoringCompanySecondaryContact,
-                       'ext' => $request->factoringCompanySecondaryContactExt,
-                       'currencySetting' => $request->factoringCompanycurrency,
-                       'taxID' => $request->factoringCompanyTaxID,
-                       'internalNote' => $request->factoringCompanyInternalNotes,
-                        'insertedTime' => '',
-                       'insertedUserId' => '',
+            'secondaryContact' => $request->factoringCompanySecondaryContact,
+            'ext' => $request->factoringCompanySecondaryContactExt,
+            'currencySetting' => $request->factoringCompanycurrency,
+            'taxID' => $request->factoringCompanyTaxID,
+            'internalNote' => $request->factoringCompanyInternalNotes,
+            'insertedTime' => '',
+            'insertedUserId' => '',
 
-                       'deleteStatus' => 'No',
-                       'deleteUser' => '',
-                       'deleteTime' => '',
-                       );
+            'deleteStatus' => 'NO',
+            'deleteUser' => '',
+            'deleteTime' => '',
+            );
 
            if($getCompanyForCustomerfactoring){
                
-            Factoring_company_add::where(['companyID' =>$companyIDForCustomerfactoring])->update([
+            Factoring_company_add::where(['companyID' =>$companyID])->update([
                    'counter'=> $totalCustomerfactoringArray,
                    'factoring' =>array_merge($CustomerfactoringArray,$CustomerfactoringData) ,
                ]);
@@ -211,7 +221,7 @@ class CustomerController extends Controller
                        if(Factoring_company_add::create([
                            // 'companyID' => (int)$_SESSION['companyId'],
                            '_id' => 1,
-                           'companyID' => $companyIDForCustomerfactoring,
+                           'companyID' => $companyID,
                            'counter' => 1,
                            'factoring' => $CustomerfactoringData,
                        ])) {

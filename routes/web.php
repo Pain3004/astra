@@ -127,6 +127,10 @@ Route::get('admin/getPaymentTerms', [PaymentTermsController::class, 'getPaymentT
 Route::get('admin/getCustomerBFactoringCompany', [CustomerController::class, 'getCustomerBFactoringCompany']);
 Route::post('admin/factoringCompany', [CustomerController::class, 'addCustomerfactoringCompany']);
 Route::get('admin/getFactCompany', [factCompanyController::class, 'getFactCompany']);
+Route::get('admin/editFactCompany', [factCompanyController::class, 'editFactCompany']);
+Route::post('admin/updateFactCompany', [factCompanyController::class, 'updateFactCompany']);
+Route::post('admin/deleteFactCompany', [factCompanyController::class, 'deleteFactCompany']);
+Route::post('admin/restoreFactCompany', [factCompanyController::class, 'restoreFactCompany']);
 
 //company
 Route::get('admin/company', [CompanyController::class, 'getCompanyData']);

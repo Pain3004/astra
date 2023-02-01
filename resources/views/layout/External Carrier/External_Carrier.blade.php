@@ -56,541 +56,520 @@
 <!--=========================== end external carrier view ============================= -->
 
 <!--========================= start store external carrier  ============================= -->
+
+
 <div class="container">
-    <div class="modal fade" data-backdrop="static" id="AddExternalCarrier" role="dialog">
-        <div class="modal-dialog custom_modal" role="document">
+    <div class="modal fade" data-backdrop="static" id="AddExternalCarrier">
+        <div class="modal-dialog modal-dialog-scrollable custom_modal_small">
             <div class="modal-content">
+                <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add External Carrier</h4>
-                    <button type="button" class="closeAddExternalCarreirModal" >&times;</button>
+                    <h4 class="modal-title">Add External Carrier </h4>
+                    <button type="button" class="button-24 closeAddExternalCarreirModal" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="modal-body">
-                    <div class="payment-container" style="z-index: 1600"></div>
-                    <div class="factoring-container" style="z-index: 1600"></div>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item1 show" id="home-title" data-name="addextrec">
-                            <a class="nav-link1 active" id="home-tab" data-toggle="tab" href="#carrier" role="tab"
-                                aria-controls="home" aria-selected="true">Add External
-                                Carrier</a>
-                        </li>
-                        <li class="nav-item1" id="insurance-title" data-name="addIncrec">
-                            <a class="nav-link1" id="insurance-tab" data-toggle="tab" href="#insurance" role="tab"
-                                aria-controls="profile" aria-selected="false">Add Insurance</a>
-                        </li>
-                        <li class="nav-item1" id="accounting-title" data-name="addaccorec">
-                            <a class="nav-link1" id="accounting-tab" data-toggle="tab" href="#accounting" role="tab"
-                                aria-controls="contact" aria-selected="false">Add Accounting</a>
-                        </li>
-                        <li class="nav-item1" id="equipment-title" data-name="addequerec">
-                            <a class="nav-link1" id="equipment-tab" data-toggle="tab" href="#equipment" role="tab"
-                                aria-controls="contact" aria-selected="false">Add Equipment</a>
-                        </li>
-                    </ul>
-                    <div class="row">
-                        <div class="row row-sm">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <form id="" enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="hidden" name="_token" id="_token_AddExternalCarrier" value="{{ csrf_token() }}" />
-                                            <div class="tab-pane fade show active" id="carrier" role="tabpanel" aria-labelledby="home-tab"  data-name="fillextdata"> <br>
-                                                <div class="row">
-                                                    <div class="form-group col-md-3">
-                                                        <label>Name <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter Name" id="carrierName"
-                                                                name="carrierName" type="text">
-                                                            <input type="hidden" value="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label>Address <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter Address" id="carrierAddress"
-                                                                name="carrierAddress" type="text">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Location <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" type="text" id="carrierLocation"
-                                                                name="carrierLocation">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Zip <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter Zip Code" type="text" id="carrierZip"
-                                                                name="carrierZip">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Contact Name</label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter Contact Name" type="text"
-                                                                id="carrierContactName" name="carrierContactName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label>Email <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" type="email" value="" id="carrierEmail"
-                                                                placeholder="Enter Email" name="carrierEmail">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Telephone <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" data-mask="(999) 999-9999" type="text"
-                                                                id="carrierTelephone" name="carrierTelephone" placeholder="(999) 999-9999">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-1">
-                                                        <label>Ext</label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter Ext" type="text" id="carrierExt"
-                                                                name="carrierExt">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Toll Free</label>
-                                                        <div>
-                                                            <input class="form-control" data-mask="(999) 999-9999" placeholder="(999) 999-9999"
-                                                                type="text" id="carrierTollFree" name="carrierTollFree">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Fax</label>
-                                                        <div>
-                                                            <input class="form-control" data-mask="(999) 999-9999" placeholder="(999) 999-9999"
-                                                                type="text" id="carrierFax" name="carrierFax">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Payment Terms </label>
-                                                        
-                                                        <!-- <i class="mdi mdi-plus-circle plus" title="Add Payment Terms"
-                                                            id="Add_Payment_Terms"></i> -->
-                                                        
-                                                       <input type="number" class="form-control" id="carrierPayTerms" name="carrierPayTerms">
+                <!-- Modal body -->
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <form >
+                            <input type="hidden" class="update_store_external_carrier">
+                        <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                            <!-- Step 1 -->
+                            <li class="form-stepper-active text-center form-stepper-list" step="1">
+                                <a class="mx-2">
+                                    <span class="form-stepper-circle">
+                                        <span>1</span>
+                                    </span>
+                                    <div class="label">Add External Carrier</div>
+                                </a>
+                            </li>
+                            <!-- Step 2 -->
+                            <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                                <a class="mx-2">
+                                    <span class="form-stepper-circle text-muted">
+                                        <span>2</span>
+                                    </span>
+                                    <div class="label text-muted">Add Insurance</div>
+                                </a>
+                            </li>
+                            <!-- Step 3 -->
+                            <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                                <a class="mx-2">
+                                    <span class="form-stepper-circle text-muted">
+                                        <span>3</span>
+                                    </span>
+                                    <div class="label text-muted">Add Accounting</div>
+                                </a>
+                            </li>
+                            <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
+                                <a class="mx-2">
+                                    <span class="form-stepper-circle text-muted">
+                                        <span>4</span>
+                                    </span>
+                                    <div class="label text-muted">Add Equipment</div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Step 1 Content -->
+                        <section id="step-1" class="form-step">
+                            <h2 class="font-normal">Add External Carrier</h2>
+                            <!-- Step 1 input fields -->
+                            <div class="mt-3">
+                            <div class="form-row">
+                                <input type="hidden" name="_token" id="_token_UpdateExternalCarrier" value="{{ csrf_token() }}" />
+                                <input type="hidden" class="update_external_carrier_id">
+                                <input type="hidden" class="update_external_carrier_Comid">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputFirstName4"> Name<span
+                                                class="required"></span></label>
+                                        <input type="text" class="form-control" name="carrierName"
+                                            id="carrierName" placeholder="First Name">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputAddress">Address<span
+                                                class="required"></span></label>
+                                        <input type="text" class="form-control" name="carrierAddress"
+                                            id="carrierAddress" placeholder="Address">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputLocation">Location<span
+                                                class="required"></span></label>
+                                        <input type="text" class="form-control" name="carrierLocation"
+                                            id="carrierLocation" placeholder="Location">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputZip">Zip<span
+                                                class="required"></span></label>
+                                        <input type="number" class="form-control" name="carrierZip"
+                                            id="carrierZip" placeholder="Zip">
+                                    </div>
 
-
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>Tax ID <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" data-mask="99-9999999" placeholder="99-9999999"
-                                                                type="text" id="carrierTaxID" name="carrierTaxID">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>M.C. #<span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter M.C. #" type="text" id="carrierMC"
-                                                                name="carrierMC">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label>D.O.T. <span style="color: red">*</span></label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter D.O.T" type="text" id="carrierDOT"
-                                                                name="carrierDOT">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label>Factoring Company </label>
-                                                       
-                                                        <!-- <i class="mdi mdi-plus-circle plus" title="Add Factoring Company" id="AddFactoring"></i> -->
-                                                        
-                                                        <input list="Add_Carrier" class="form-control" placeholder="--Search Here--"
-                                                            id="carrierFactoring"  name="carrierFactoring" type="number">
-                                                        <!-- <datalist id="Add_Carrier">
-                                                        </datalist> -->
-                                                        <input class="form-control" type="hidden" value="" id="factoring-parent">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label>Internal Notes</label>
-                                                        <div>
-                                                            <textarea rows="1" cols="30" class="form-control" type="textarea" id="carrierNotes"
-                                                                name="carrierNotes" placeholder="Enter Internal Notes"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-3" data-name="carrierblack">
-                                                        <label>Blacklisted</label>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="carrierBlacklisted"
-                                                                name="carrierBlacklisted" data-parsley-multiple="groups"
-                                                                data-parsley-mincheck="2">
-                                                            <label class="custom-control-label" for="carrierBlacklisted">This
-                                                                Carrier is Blacklisted</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-3" data-name="carrierCor">
-                                                        <label>Corporation</label>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="carrierCorporation"
-                                                                name="carrierCorporation" data-parsley-multiple="groups"
-                                                                data-parsley-mincheck="2">
-                                                            <label class="custom-control-label" for="carrierCorporation">This
-                                                                carrier is a corporation</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <button onclick="toggleCarrier('first')" class="btn btn-success float-right">Next <i
-                                                        class="mdi mdi-arrow-right"></i>
-                                                </button>
-                                            </div>
-                                            <div class="tab-pane fade" id="insurance" role="tabpanel" aria-labelledby="profile-tab"
-                                                data-name="addIncData">
-                                                <br>
-                                                <div class="col-xl-12" data-name="addIncData1" id="tab1">
-                                                    <div class="card m-b-30">
-                                                        <div class="card-header">
-                                                            General liabity Insurer
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-3">
-                                                                    <label>Liablity Company</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Liablity Company"
-                                                                            type="text" id="liabilityCompany" name="liabilityCompany">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Policy #</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Policy #" type="text"
-                                                                            id="liabilityPolicy" name="liabilityPolicy">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Exp. Date</label>
-                                                                    <div>
-                                                                        <input class="form-control" type="date" id="liabilityExpDate"
-                                                                            name="liabilityExpDate">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Telephone *</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="(999) 999-9999"
-                                                                            data-mask="(999) 999-9999" type="text" id="liabilityTelephone"
-                                                                            name="liabilityTelephone">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-1">
-                                                                    <label>Ext</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Ext" type="text"
-                                                                            id="liabilityEXT" name="liabilityEXT">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Contact Name</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Contact Name" type="text"
-                                                                            id="liabilityContact" name="liabilityContact">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Liability ($)</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Liability ($)"
-                                                                            type="text" id="liabilityAmount" name="liabilityAmount">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label>Internal Notes</label>
-                                                                    <div>
-                                                                        <textarea rows="1" cols="30" class="form-control" type="textarea"
-                                                                            id="liabilityNotes" name="liabilityNotes"
-                                                                            placeholder="Enter Internal Notes"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12" data-name="addIncData2" id="tab2">
-                                                    <div class="card m-b-30">
-                                                        <div class="card-header">
-                                                            Auto Mobile Insurer
-                                                            <div class="form-group col-md-3">
-                                                                <label></label>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="customCheck9"
-                                                                        data-parsley-multiple="groups" data-parsley-mincheck="2"
-                                                                     >
-                                                                    <label class="custom-control-label" for="customCheck9">Same
-                                                                        as Liability Company</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-3">
-                                                                    <label>Auto Insurance Company</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Auto Insurance Company"
-                                                                            type="text" id="insuranceCompany" name="insuranceCompany">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Policy #</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Policy #" type="text"
-                                                                            id="insurancePolicy" name="insurancePolicy">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Exp. Date</label>
-                                                                    <div>
-                                                                        <input class="form-control" type="date" id="insuranceExpDate"
-                                                                            name="insuranceExpDate">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Telephone *</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="(999) 999-9999"
-                                                                            data-mask="(999) 999-9999" type="text" id="insuranceTelephone"
-                                                                            name="insuranceTelephone">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-1">
-                                                                    <label>Ext</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Ext" type="text"
-                                                                            id="insuranceExt" name="insuranceExt">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Contact Name</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Contact Name" type="text"
-                                                                            id="insuranceContactName" name="insuranceContactName">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Liability ($)</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Liability ($)"
-                                                                            type="text" id="insuranceAmt" name="insuranceAmt">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label>Internal Notes</label>
-                                                                    <div>
-                                                                        <textarea rows="1" cols="30" class="form-control" type="textarea"
-                                                                            id="insuranceNotes" name="insuranceNotes"
-                                                                            placeholder="Enter Internal Notes"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-12" data-name="addIncData3" id="tab3">
-                                                    <div class="card m-b-30">
-                                                        <div class="card-header">
-                                                            Cargo Insurer
-                                                            <div class="form-group col-md-3">
-                                                                <label></label>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" class="custom-control-input" id="customCheck10"
-                                                                        data-parsley-multiple="groups" data-parsley-mincheck="2"
-                                                                      >
-                                                                    <label class="custom-control-label" for="customCheck10">Same
-                                                                        as Liability Company</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-3">
-                                                                    <label>Cargo Company</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Cargo Company"
-                                                                            type="text" id="cargoName" name="cargoName">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Policy #</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Policy #" type="text"
-                                                                            id="cargoPolicy" name="cargoPolicy">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Exp. Date</label>
-                                                                    <div>
-                                                                        <input class="form-control" type="date" id="cargoExpDate"
-                                                                            name="cargoExpDate">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Telephone *</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="(999) 999-9999"
-                                                                            data-mask="(999) 999-9999" type="text" id="cargoTelephone"
-                                                                            name="cargoTelephone">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-1">
-                                                                    <label>Ext</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Ext" type="text"
-                                                                            id="cargoExt" name="cargoExt">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Contact Name</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Contact Name" type="text"
-                                                                            id="cargoContactName" name="cargoContactName">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>Cargo Insurance ($)</label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter Cargo Insurance ($)"
-                                                                            type="text" id="cargoInsuranceAmount" name="cargoInsuranceAmount">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label>Internal Notes</label>
-                                                                    <div>
-                                                                        <textarea rows="1" cols="30" class="form-control" type="textarea"
-                                                                            id="cargoNotes" name="cargoNotes"
-                                                                            placeholder="Enter Internal Notes"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-2">
-                                                                    <label>WSIB # </label>
-                                                                    <div>
-                                                                        <input class="form-control" placeholder="Enter WSIB # " type="text"
-                                                                            id="wsib" name="wsib">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-
-                                                <button onclick="toggleCarrier('second')" style="margin-right: 3px"
-                                                    class="btn btn-success float-right">Next <i class="mdi mdi-arrow-right"></i>
-                                                </button>
-                                                <button onclick="togglePrev('second')" style="margin-right: 3px"
-                                                    class="float-right btn btn-secondary"><i class="mdi mdi-arrow-left"></i>
-                                                    Previous
-                                                </button>
-                                            </div>
-                                            <div class="tab-pane fade" id="accounting" role="tabpanel" aria-labelledby="contact-tab"
-                                                data-name="addaccodata">
-                                                <br>
-                                                <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label>Primary Name</label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter Primary Name" type="text"
-                                                                id="primaryName" name="primaryName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label>Primary Telephone</label>
-                                                        <div>
-                                                            <input class="form-control" data-mask="(999) 999-9999" placeholder="(999) 999-9999"
-                                                                type="text" id="primaryTelephone" name="primaryTelephone">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label>
-                                                            Primary Email</label>
-                                                        <div>
-                                                            <input class="form-control" type="email" placeholder="Enter Primary Email"
-                                                                id="primaryEmail" name="primaryEmail">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label>Secondary Name </label>
-                                                        <div>
-                                                            <input class="form-control" placeholder="Enter Secondary Name " type="text"
-                                                                id="secondaryName" name="secondaryName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label>Secondary Telephone</label>
-                                                        <div>
-                                                            <input class="form-control" data-mask="(999) 999-9999" placeholder="(999) 999-9999"
-                                                                type="text" id="secondaryTelephone" name="secondaryTelephone">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label>
-                                                            Secondary Email</label>
-                                                        <div>
-                                                            <input class="form-control" type="email" placeholder=" Enter Secondary Email"
-                                                                id="secondaryEmail" name="secondaryEmail">
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label>Add Notes</label>
-                                                        <div>
-                                                            <textarea rows="3" cols="30" class="form-control" type="textarea" id="primaryNotes"
-                                                                name="primaryNotes" placeholder="Enter Internal Notes"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                                <button onclick="toggleCarrier('third')" style="margin-right: 3px"
-                                                    class="btn btn-success float-right">Next <i class="mdi mdi-arrow-right"></i>
-                                                </button>
-                                                <button onclick="togglePrev('third')" style="margin-right: 3px"
-                                                    class="float-right btn btn-secondary"><i class="mdi mdi-arrow-left"></i>
-                                                    Previous
-                                                </button>
-
-                                            </div>
-                                            <div class="tab-pane fade" id="equipment" role="tabpanel" aria-labelledby="Equipment-tab"
-                                                data-name="addequidata">
-                                                <br>
-                                                <center>
-                                                    <div class="form-group col-md-6">
-                                                        <label>Size Of Fleet :</label>
-                                                        <div>
-                                                            <input class="form-control" type="text" placeholder="Size Of Fleet :"
-                                                                id="sizeOfFleet" name="sizeOfFleet">
-                                                        </div>
-                                                    </div>
-                                                </center>
-
-                                                <div class="row" id="equipAdd">
-                                                </div>
-
-                                                <hr>
-                                               
-                                                <button onclick="toggleCarrier('fourth')" style="margin-right: 3px" data-name="prevCarrierM"
-                                                    class="float-right btn btn-secondary">
-                                                    <i class="mdi mdi-arrow-left"></i> Previous
-                                                </button>
-                                            </div>
-                                     
-                                        </form>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputContactName">Contact Name<span>
+                                            </span></label>
+                                        <input type="text" class="form-control"
+                                            name="carrierContactName" id="carrierContactName"
+                                            placeholder="Contact Name">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail">Email<span
+                                                class="required"></span></label>
+                                        <input type="email" class="form-control" name="carrierEmail"
+                                            id="carrierEmail" placeholder="Email">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputTelephone">Telephone</label>
+                                        <input type="number" class="form-control" name="carrierTelephone"
+                                            id="carrierTelephone"
+                                            placeholder="Telephone">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputExt">Ext</label>
+                                        <input type="text" class="form-control" name="carrierExt"
+                                            id="carrierExt">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputTollFree">TollFree</label>
+                                        <input type="text" class="form-control" name="carrierTollFree"
+                                            id="carrierTollFree"
+                                            placeholder="TollFree">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputFax">Fax<span>
+                                            </span></label>
+                                        <input type="text" class="form-control"
+                                            name="carrierFax" id="carrierFax"
+                                            placeholder="Fax">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPaymentTerms">Payment Terms<span
+                                                class="required"></span></label>
+                                        <input type="text" class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="carrierPayTerms" id="carrierPayTerms" placeholder="PaymentTerms">
+                                        <datalist  class="customerPaymentTermSet">  <option>Select Here</option> </datalist>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputTaxID">Tax ID</label>
+                                        <input type="text" class="form-control" name="carrierTaxID"
+                                            id="carrierTaxID"
+                                            placeholder="Tax ID">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputMC">M.C.#</label>
+                                        <input type="text" class="form-control" name="carrierMC"
+                                            id="carrierMC"
+                                            placeholder="M.C.#">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputDOT">D.O.T.<span>
+                                            </span></label>
+                                        <input type="text" class="form-control"
+                                            name="carrierDOT" id="carrierDOT"
+                                            placeholder="D.O.T.">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputFactoringCompany">Factoring Company<span
+                                                class="required"></span></label>
+                                        <input type="text" class="form-control customerBFactoringCompanySet" list="customerBFactoringCompanySet"  name="carrierFactoring" id="carrierFactoring" placeholder="Factoring Company">
+                                        <datalist  class="customerBFactoringCompanySet">
+                                            <option>Select Here</option>
+                                        </datalist>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputInternalNotes">Internal Notes</label>
+                                        <input type="text" class="form-control" name="carrierNotes"
+                                            id="carrierNotes"
+                                            placeholder="Internal Notes">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <p style="font-weight: bold;">Blacklisted</p>
+                                        <input type="checkBox" name="carrierBlacklisted" id="carrierBlacklisted">
+                                        <lable for="inputBlacklist">This Carrier is Blacklisted</lable>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <p style="font-weight: bold;">Corporation</p>
+                                        <input type="checkBox" name="carrierCorporation" id="carrierCorporation">
+                                        <lable for="inputCorporation">This Carrier is a corporation</lable>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            <div class="mt-3">
+                                <button class="button-29 btn-navigate-form-step" type="button" step_number="2">Next</button>
+                            </div>
+                        </section>
+                        <!-- Step 2 Content, default hidden on page load. -->
+                        <section id="step-2" class="form-step d-none">
+                            <h2 class="font-normal">Social Profiles</h2>
+                            <!-- Step 2 input fields -->
+                            <div class="mt-3">
+                                <div class="card-header">
+                                    General liabity Insurer
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label>Liablity Company</label>
+                                            <div>
+                                                <input class="form-control" placeholder="Enter Liablity Company"
+                                                    type="text" id="liabilityCompany" name="liabilityCompany">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Policy #</label>
+                                            <div>
+                                                <input class="form-control" placeholder="Enter Policy #" type="text"
+                                                    id="liabilityPolicy" name="liabilityPolicy">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Exp. Date</label>
+                                            <div>
+                                                <input class="form-control" type="date" id="liabilityExpDate"
+                                                    name="liabilityExpDate">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Telephone *</label>
+                                            <div>
+                                                <input class="form-control" placeholder="(999) 999-9999"
+                                                    data-mask="(999) 999-9999" type="text" id="liabilityTelephone"
+                                                    name="liabilityTelephone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-1">
+                                            <label>Ext</label>
+                                            <div>
+                                                <input class="form-control" placeholder="Enter Ext" type="text"
+                                                    id="liabilityEXT" name="liabilityEXT">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Contact Name</label>
+                                            <div>
+                                                <input class="form-control" placeholder="Enter Contact Name" type="text"
+                                                    id="liabilityContact" name="liabilityContact">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Liability ($)</label>
+                                            <div>
+                                                <input class="form-control" placeholder="Enter Liability ($)"
+                                                    type="text" id="liabilityAmount" name="liabilityAmount">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label>Internal Notes</label>
+                                            <div>
+                                                <textarea rows="1" cols="30" class="form-control" type="textarea"
+                                                    id="liabilityNotes" name="liabilityNotes"
+                                                    placeholder="Enter Internal Notes"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="card-header">
+                                            Auto Mobile Insurer
+                                            <div class="form-group col-md-3">
+                                                <label></label>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck9"
+                                                        data-parsley-multiple="groups" data-parsley-mincheck="2"
+                                                        >
+                                                    <label class="custom-control-label" for="customCheck9">Same
+                                                        as Liability Company</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-3">
+                                                    <label>Auto Insurance Company</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Auto Insurance Company"
+                                                            type="text" id="insuranceCompany" name="insuranceCompany">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Policy #</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Policy #" type="text"
+                                                            id="insurancePolicy" name="insurancePolicy">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Exp. Date</label>
+                                                    <div>
+                                                        <input class="form-control" type="date" id="insuranceExpDate"
+                                                            name="insuranceExpDate">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Telephone *</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="(999) 999-9999"
+                                                            data-mask="(999) 999-9999" type="text" id="insuranceTelephone"
+                                                            name="insuranceTelephone">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-1">
+                                                    <label>Ext</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Ext" type="text"
+                                                            id="insuranceExt" name="insuranceExt">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Contact Name</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Contact Name" type="text"
+                                                            id="insuranceContactName" name="insuranceContactName">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Liability ($)</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Liability ($)"
+                                                            type="text" id="insuranceAmt" name="insuranceAmt">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Internal Notes</label>
+                                                    <div>
+                                                        <textarea rows="1" cols="30" class="form-control" type="textarea"
+                                                            id="insuranceNotes" name="insuranceNotes"
+                                                            placeholder="Enter Internal Notes"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-header">
+                                            Cargo Insurer
+                                            <div class="form-group col-md-3">
+                                                <label></label>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck10"
+                                                        data-parsley-multiple="groups" data-parsley-mincheck="2"
+                                                        >
+                                                    <label class="custom-control-label" for="customCheck10">Same
+                                                        as Liability Company</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="form-group col-md-3">
+                                                    <label>Cargo Company</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Cargo Company"
+                                                            type="text" id="cargoName" name="cargoName">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Policy #</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Policy #" type="text"
+                                                            id="cargoPolicy" name="cargoPolicy">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Exp. Date</label>
+                                                    <div>
+                                                        <input class="form-control" type="date" id="cargoExpDate"
+                                                            name="cargoExpDate">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Telephone *</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="(999) 999-9999"
+                                                            data-mask="(999) 999-9999" type="text" id="cargoTelephone"
+                                                            name="cargoTelephone">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-1">
+                                                    <label>Ext</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Ext" type="text"
+                                                            id="cargoExt" name="cargoExt">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Contact Name</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Contact Name" type="text"
+                                                            id="cargoContactName" name="cargoContactName">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Cargo Insurance ($)</label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter Cargo Insurance ($)"
+                                                            type="text" id="cargoInsuranceAmount" name="cargoInsuranceAmount">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Internal Notes</label>
+                                                    <div>
+                                                        <textarea rows="1" cols="30" class="form-control" type="textarea"
+                                                            id="cargoNotes" name="cargoNotes"
+                                                            placeholder="Enter Internal Notes"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>WSIB # </label>
+                                                    <div>
+                                                        <input class="form-control" placeholder="Enter WSIB # " type="text"
+                                                            id="wsib" name="wsib">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="button-29 btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                                <button class="button-29 btn-navigate-form-step" type="button" step_number="3">Next</button>
+                            </div>
+                        </section>
+                        <!-- Step 3 Content, default hidden on page load. -->
+                        <section id="step-3" class="form-step d-none">
+                            <!-- <h2 class="font-normal">Personal Details</h2> -->
+                            <!-- Step 3 input fields -->
+                            <div class="mt-3">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label>Primary Name</label>
+                                        <div>
+                                            <input class="form-control" placeholder="Enter Primary Name" type="text"
+                                                id="primaryName" name="primaryName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Primary Telephone</label>
+                                        <div>
+                                            <input class="form-control" data-mask="(999) 999-9999" placeholder="(999) 999-9999"
+                                                type="text" id="primaryTelephone" name="primaryTelephone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Primary Email</label>
+                                        <div>
+                                            <input class="form-control" type="email" placeholder="Enter Primary Email"
+                                                id="primaryEmail" name="primaryEmail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Secondary Name </label>
+                                        <div>
+                                            <input class="form-control" placeholder="Enter Secondary Name " type="text"
+                                                id="secondaryName" name="secondaryName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Secondary Telephone</label>
+                                        <div>
+                                            <input class="form-control" data-mask="(999) 999-9999" placeholder="(999) 999-9999"
+                                                type="text" id="secondaryTelephone" name="secondaryTelephone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Secondary Email</label>
+                                        <div>
+                                            <input class="form-control" type="email" placeholder=" Enter Secondary Email"
+                                                id="secondaryEmail" name="secondaryEmail">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>Add Notes</label>
+                                        <div>
+                                            <textarea rows="3" cols="30" class="form-control" type="textarea" id="primaryNotes"
+                                                name="primaryNotes" placeholder="Enter Internal Notes"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="button-29 btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                                <button class="button-29 btn-navigate-form-step" type="button" step_number="4">Next</button>
+                            </div>
+                        </section>
+                        <!-- Step 4 Content, default hidden on page load. -->
+                        <section id="step-4" class="form-step d-none">
+                            <!-- <h2 class="font-normal">Step 4</h2> -->
+                            <!-- Step 4 input fields -->
+                            <div class="mt-3">
+                                <center>
+                                    <div class="form-group col-md-6">
+                                        <label>Size Of Fleet :</label>
+                                        <div>
+                                            <input class="form-control" type="text" placeholder="Size Of Fleet :"
+                                                id="sizeOfFleet" name="sizeOfFleet">
+                                        </div>
+                                    </div>
+                                </center>
+                                <div class="row" id="equipAdd">
+                                </div>
+
+                                <hr>
+                            </div>
+                            <div class="mt-3">
+                                <button class="button-29 btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                            </div>
+                        </section>
+                    </form>                
                 </div>
+                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" style="vertical-align:middle" class="button-29" id="AddExternalCarrierSaveBtn" >Save</button>
-                    <button type="button"style="vertical-align:middle" class=" closeAddExternalCarreirModal button-29" >Close</button>
-                </div>          
+                    <button type="submit" class="button-29" data-dismiss="modal" id="AddExternalCarrierSaveBtn">Submit</button>
+                    <button type="button" class="button-29 closeAddExternalCarreirModal" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
