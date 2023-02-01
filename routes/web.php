@@ -135,6 +135,8 @@ Route::get('admin/getCustomerPaymentTerms', [CustomerController::class, 'getCust
 Route::post('admin/PaymentTerms', [CustomerController::class, 'addCustomerPaymentTerms']);
 Route::get('admin/getPaymentTerms', [PaymentTermsController::class, 'getPaymentTerms']);
 Route::post('admin/deletePayTerms', [PaymentTermsController::class, 'deletePayTerms']);
+Route::get('admin/editPayTerms', [PaymentTermsController::class, 'editPayTerms']);
+Route::post('admin/updatePaymentTerm', [PaymentTermsController::class, 'updatePaymentTerm']);
 
 //factoringCompany
 Route::get('admin/getCustomerBFactoringCompany', [CustomerController::class, 'getCustomerBFactoringCompany']);
@@ -267,6 +269,7 @@ Route::post('admin/deleteEquipmentType', [EquipmentTypeController::class, 'delet
 //Recurrence Category
 Route::get('admin/getRecurrenceCategory', [RecurrenceCategoryController::class, 'getRecurrenceCategory']);
 Route::post('admin/addRecurrenceCategory', [RecurrenceCategoryController::class, 'addRecurrenceCategory']);
+Route::post('admin/deleteRecurrenceCategory', [RecurrenceCategoryController::class, 'deleteRecurrenceCategory']);
 
 //Terms Conditions
 Route::get('admin/getTermsConditions', [TermsConditionsController::class, 'getTermsConditions']);
@@ -280,6 +283,7 @@ Route::post('admin/deleteTruckTrailer', [TruckTrailerMakeController::class, 'del
 //Load Type
 Route::get('admin/getLoaType', [LoadController::class, 'getLoaType']);
 Route::post('admin/addLoadType', [LoadController::class, 'addLoadType']);
+Route::post('admin/deleteLoad', [LoadController::class, 'deleteLoad']);
 
 //ExternalCarrierController
 Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);

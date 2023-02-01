@@ -137,8 +137,7 @@
 </div>		 -->
 
 <!------------------------------------------------------------------- Add   modal ------------------------------------------------------------------->
-<div class="container">
-    <!-- The Modal -->
+<!-- <div class="container">
     <div class="modal modalLb" data-backdrop="static" id="lb_dropdown_list" role="dialog">
         <div class="modal-dialog custom_modal_small_5 modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -149,7 +148,6 @@
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
 
-                    <!-- Row -->
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
@@ -179,7 +177,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Row -->
                 </div>
                 <div class="modal-footer">
                     <form action="{{route('download-pdf')}}" method="post" target="__blank">
@@ -192,7 +189,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-------------------------------------------------------------------End modal------------------------------------------------------------------->		
 

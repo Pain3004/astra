@@ -466,7 +466,18 @@ $(document).ready(function() {
         $(".PaymentTermsDataSubmit").click(function(){
             var PaymentTermsName=$('#PaymentTermsName').val();
             var NetDay=$('#NetDay').val();
-           //alert(currencyName);
+
+            if(PaymentTermsName == ''){
+                swal.fire("Enter Payment Terms");
+                $('#PaymentTermsName').focus();
+                return false
+            }
+            if(NetDay == 0){
+                swal.fire("Enter Payment Terms");
+                $('#NetDay').focus();
+                return false
+            }
+        //    alert(NetDay);
             $.ajax({
                 url: base_path+"/admin/PaymentTerms",
                 type: "POST",
@@ -480,25 +491,83 @@ $(document).ready(function() {
                 success: function(dataCustomerPaymentTermsNameResult){
                     console.log(dataCustomerPaymentTermsNameResult);
                     if(dataCustomerPaymentTermsNameResult){
-                        alert("Payment Terms added successfully.");
+                        swal.fire("Payment Terms added successfully.");
                         $("#PaymentTermsModal").modal("hide");
                     }else{
-                        alert("Payment Terms not added successfully.");
+                        swal.fire("Payment Terms not added successfully.");
                     }
-                    // $.ajax({
-                    //     type: "GET",
-                    //     url: base_path+"/admin/getPaymentTerms",
-                    //     async: false,
-                    //     success: function(text) {
-                    //         console.log(text);
-                    //         createPaymentTermsRows(text);
-                    //       }
-                    // });
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getPaymentTerms",
+                        async: false,
+                        success: function(text) {
+                            // console.log(text);
+                            createPaymentTermsRows(text);
+                          }
+                    });
+                    $('#PaymentTermsModal2').modal('show');
                 }
             });
         });
         //});
-
+        function createPaymentTermsRows(Result) {
+            var len1 = 0;
+            var no=1;
+                if (Result != null) {
+                    $("#PaymentTermsTable").html('');
+                    len1 = Result.PaymentTterms.length;
+                    if (len1 > 0) {
+                        for (var i = len1-1; i >= 0; i--) { 
+                            
+                            len2 = Result.PaymentTterms[i].payment.length;
+                            var Id =Result.PaymentTterms[i]._id;
+                            var com_Id =Result.PaymentTterms[i].companyID;
+    
+                            if (len2 > 0) {
+                                for (var j = len2-1; j >= 0; j--) {
+    
+                                    var payment_id =Result.PaymentTterms[i].payment[j]._id;
+                                    var paymentTerm =Result.PaymentTterms[i].payment[j].paymentTerm;
+                                    var paymentDays =Result.PaymentTterms[i].payment[j].paymentDays;
+                                    if(!paymentDays){
+                                        var paymentDays ='';
+                                    }
+                                    var deleteStatus =Result.PaymentTterms[i].payment[j].deleteStatus;
+    
+                                    if(deleteStatus == "NO" || deleteStatus == "No"){
+                                            var PaymentTermsStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                                            "<td data-field='no'>" + no + "</td>" +
+                                            "<td data-field='no' style='display:none;'>" + no + "</td>" +
+                                            "<td data-field='paymentTerm'>" + paymentTerm + "</td>" +
+                                            "<td data-field='paymentDays'>" + paymentDays + "</td>" +
+                                            "<td style='text-align:center'>"+
+                                                "<a class='button-23 "+editPrivilege+" editPayTerms'  title='Edit1' data-Id='"+payment_id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                                "</a> <a class='deletePayTerms button-23 "+delPrivilege+"' title='Delete' data-Id='"+payment_id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                            "</td></tr>";
+                
+                                        $("#PaymentTermsTable").append(PaymentTermsStr);
+                                        no++;
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }else {
+                                var PaymentTermsStr = "<tr data-id=" + i + ">" +
+                                    "<td align='center' colspan='4'>No record found.</td>" +
+                                    "</tr>";
+                    
+                                $("#PaymentTermsTable").append(PaymentTermsStr);
+                    }
+                
+                }else {
+                var PaymentTermsStr = "<tr data-id=" + i + ">" +
+                    "<td align='center' colspan='4'>No record found.</td>" +
+                    "</tr>";
+    
+                $("#PaymentTermsTable").append(PaymentTermsStr);
+            }
+        }
     // <!-- -------------------------------------------------------------------------over add PaymentTerms ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get customer Factoring Company ------------------------------------------------------------------------- -->  
   

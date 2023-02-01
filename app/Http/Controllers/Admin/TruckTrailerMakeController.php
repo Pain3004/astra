@@ -20,8 +20,10 @@ class TruckTrailerMakeController extends Controller
 {
     public function getTruckTrailerMake(Request $request){
     $companyId=1;
-    $trailer_type = traileradd::where('companyID',$companyId)->get();  //only for company id one
-    $Truck_type = Truck_type::where('companyID',$companyId)->get();  //only for company id one
+    $trailer_type = traileradd::where('companyID',1)->get();  //only for company id one
+    $Truck_type = Truck_type::where('companyID',1)->get();  //only for company id one
+
+    // dd(count($trailer_type));
     //$trailer_add = traileradd::get();
     //$Truck_type = Truck_type::get();
        return response()->json(['trailer_type'=>$trailer_type,'Truck_type'=>$Truck_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -47,7 +49,7 @@ class TruckTrailerMakeController extends Controller
                            'truckType' => $request->tt_name,
                            'counter' => 0,
                            'created_by' => Auth::user()->userFirstName.' '.Auth::user()->userLastName, 
-                           'created_at' =>Carbon::now()->timestamp,
+                           'created_time' =>Carbon::now()->timestamp,
                            'deleteStatus' => 'NO',
                            'deleteUser' => '',
                            'deleteTime' => '',
@@ -92,7 +94,7 @@ class TruckTrailerMakeController extends Controller
                            'trailerType' => $request->tt_name,
                            'counter' => 0,
                            'created_by' => Auth::user()->userFirstName.' '.Auth::user()->userLastName, 
-                           'created_at' =>Carbon::now()->timestamp,
+                           'created_time' =>Carbon::now()->timestamp,
                            'deleteStatus' => 'NO',
                            'deleteUser' => '',
                            'deleteTime' => '',

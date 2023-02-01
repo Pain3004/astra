@@ -44,7 +44,7 @@ $(document).ready(function() {
                         
                         len2 = Result.Load_type[i].loadType.length;
                         var main_Id =Result.Load_type[i].loadType._id;
-                        var com_Id =Result.Load_type[i].loadType.companyID;
+                        var com_Id =Result.Load_type[i].companyID;
 
                         if (len2 > 0) {
                             for (var j = len2-1; j >= 0; j--) {
@@ -57,11 +57,12 @@ $(document).ready(function() {
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
+                                        "<td data-field='no' style='display:none'>" + no + "</td>" +
                                         "<td data-field='loadName'>" + loadName + "</td>" +
                                         "<td data-field='loadType'>" + loadType + "</td>" +
                                         "<td style='width: 100px'>"+
-                                            " <a class='button-23  "+editPrivilege+"' id='editmodel' title='Edit' ><i class='fe fe-edit'></i>"+
-                                            "</a> <a class='delete1 button-23 "+delPrivilege+"' data-id="+ email +" title='Delete'><i class='fe fe-delete'></i></a>"+
+                                            "<a class='button-23 "+editPrivilege+" editLoad'  title='Edit1' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "</a><a class='deleteLoad button-23 "+delPrivilege+"' title='Delete' data-Id='"+id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
                                         "</td></tr>";
             
                                     $("#Load_typeTable").append(Str);
@@ -142,49 +143,49 @@ $(document).ready(function() {
     });
 // - -------------------------------------------------------------------------over add    ------------------------------------------------------------------------- -- 
 //-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
-// $('body').on('click', '.deleteEquipmentType', function(){
-//     var  id=$(this).attr("data-Id");
-//     var comId=$(this).attr('data-comID');
+$('body').on('click', '.deleteLoad', function(){
+    var  id=$(this).attr("data-Id");
+    var comId=$(this).attr('data-comID');
 
-//     swal.fire({
-//         title: "Delete?",
-//         text: "Please ensure and then confirm!",
-//         type: "warning",
-//         showCancelButton: !0,
-//         confirmButtonText: "Yes, delete it!",
-//         cancelButtonText: "No, cancel!",
-//         reverseButtons: !0
-//     }).then(function (e) {
-//         if (e.value === true) 
-//         {
-//             $.ajax({
-//                 type: 'post',
-//                 url: base_path+"/admin/deleteEquipmentType",
-//                 data: { 
-//                     _token: $("#_tokenbranchOffice").val(), 
-//                     id: id,
-//                     comId:comId
-//                 },
-//                 success: function(resp){
-//                     swal.fire("Done!", "Equipment Type Deleted successfully", "success");
-//                     $.ajax({
-//                         type: "GET",
-//                         url: base_path+"/admin/getEquipmentType",
-//                         async: false,
-//                         success: function(text) {
-//                             console.log(text);
-//                             createEquipmentTypeRows(text);
-//                           }
-//                     });
-//                     $('#EquipmentTypeModal').modal('show');
-//                 },
-//                 error: function (resp) {
-//                     swal.fire("Error!", 'Something went wrong.', "error");
-//                 }
-//             });
-//         } 
-//     });
-// });
+    swal.fire({
+        title: "Delete?",
+        text: "Please ensure and then confirm!",
+        type: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: !0
+    }).then(function (e) {
+        if (e.value === true) 
+        {
+            $.ajax({
+                type: 'post',
+                url: base_path+"/admin/deleteLoad",
+                data: { 
+                    _token: $("#_tokenbranchOffice").val(), 
+                    id: id,
+                    comId:comId
+                },
+                success: function(resp){
+                    swal.fire("Done!", "load Type Deleted successfully", "success");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getLoaType",
+                        async: false,
+                        success: function(text) {
+                            console.log(text);
+                            createLoad_typeRows(text);
+                          }
+                    });
+                    $('#LoadModal').modal('show');
+                },
+                error: function (resp) {
+                    swal.fire("Error!", 'Something went wrong.', "error");
+                }
+            });
+        } 
+    });
+});
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
 
 

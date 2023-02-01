@@ -81,5 +81,36 @@ class LoadController extends Controller
       
    }
 
+   public function deleteLoad(Request $request)
+    {
+        $id=$request->id;
+        $companyID=(int)$request->comId;
+
+        $result = Load_type::where('companyID',$companyID)->first();
+        $Array=$result->loadType;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['deleteStatus']="Yes";  
+        $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['deleteTime']=strtotime(date('d-m-y h:i:s'));       
+        
+        $result->loadType=$Array;
+        // dd($FuelVendor->fuelCard);
+        if($result->save())
+        {
+         $arr = array('status' => 'success', 'message' => 'load Type Deleted successfully.','statusCode' => 200); 
+         return json_encode($arr);
+        }
+    }
     
 }

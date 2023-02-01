@@ -121,7 +121,7 @@ class CustomerController extends Controller
                
             Payment_terms::where(['companyID' =>$companyIDForPaymentTerms])->update([
                    'counter'=> $totalPaymentTermsArray,
-                   'payment' =>array_merge($PaymentTermsData,$paymentTermsArray) ,
+                   'payment' =>array_merge($paymentTermsArray,$PaymentTermsData),
                ]);
 
                $arrrPaymentTerms = array('status' => 'success', 'message' => 'Currency added successfully.'); 

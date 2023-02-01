@@ -10,7 +10,7 @@
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="RecurrenceCategoryModal" role="dialog">
-        <div class="modal-dialog custom_modal_small3 modal-dialog-scrollable" role="document">
+        <div class="modal-dialog custom_modal_small4 modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Recurrence Category</h5>
@@ -20,7 +20,7 @@
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
                 @if($insertUser== 1)
-                    <a  class="button-57" id="addRecurrenceCategory"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
+                    <a  class="button-57_alt" id="addRecurrenceCategory"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
                 @endif 
                 
                 @if($deleteUser== 1)    
@@ -43,6 +43,7 @@
                                                 <thead class="thead_th">
                                                     <tr class="tr">
                                                         <th>NO</th>
+                                                        <th style="display:none">NO</th>
                                                         <th>Name</th>
                                                         <th>Action</th>
                                                     </tr>

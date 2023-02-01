@@ -44,7 +44,7 @@ $(document).ready(function() {
                         
                         len2 = Result.RecurrenceCategory[i].fixPay.length;
                         var main_Id =Result.RecurrenceCategory[i].fixPay._id;
-                        var com_Id =Result.RecurrenceCategory[i].fixPay.companyID;
+                        var com_Id =Result.RecurrenceCategory[i].companyID;
 
                         if (len2 > 0) {
                             for (var j = len2-1; j >= 0; j--) {
@@ -57,12 +57,13 @@ $(document).ready(function() {
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
+                                        "<td data-field='no' style='display:none'>" + no + "</td>" +
                                         "<td data-field='fixPayType'>" + fixPayType + "</td>" +
                                        
                                         "<td style='width: 100px'>"+
-                                            " <a class='button-23  "+editPrivilege+"' id='editmodel' title='Edit' ><i class='fe fe-edit'></i>"+
-                                            "</a> <a class='delete1 button-23 "+delPrivilege+"' data-id="+ email +" title='Delete'><i class='fe fe-delete'></i></a>"+
-                                        "</td></tr>";
+                                        "<a class='button-23 "+editPrivilege+" editRecurrenceCategory'  title='Edit1' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                        "</a><a class='deleteRecurrenceCategory button-23 "+delPrivilege+"' title='Delete' data-Id='"+id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                    "</td></tr>";
             
                                     $("#RecurrenceCategoryTable").append(Str);
                                     no++;
@@ -135,6 +136,51 @@ $(document).ready(function() {
 
 
 // - -------------------------------------------------------------------------over add    ------------------------------------------------------------------------- -- 
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+$('body').on('click', '.deleteRecurrenceCategory', function(){
+    var  id=$(this).attr("data-Id");
+    var comId=$(this).attr('data-comID');
+
+    swal.fire({
+        title: "Delete?",
+        text: "Please ensure and then confirm!",
+        type: "warning",
+        showCancelButton: !0,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: !0
+    }).then(function (e) {
+        if (e.value === true) 
+        {
+            $.ajax({
+                type: 'post',
+                url: base_path+"/admin/deleteRecurrenceCategory",
+                data: { 
+                    _token: $("#_tokenbranchOffice").val(), 
+                    id: id,
+                    comId:comId
+                },
+                success: function(resp){
+                    swal.fire("Done!", "Recurrence Category Deleted successfully", "success");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getRecurrenceCategory",
+                        async: false,
+                        success: function(text) {
+                            console.log(text);
+                            createRecurrenceCategoryRows(text);
+                          }
+                    });
+                    $('#RecurrenceCategoryModal').modal('show');
+                },
+                error: function (resp) {
+                    swal.fire("Error!", 'Something went wrong.', "error");
+                }
+            });
+        } 
+    });
+});
+//-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
 
 
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 

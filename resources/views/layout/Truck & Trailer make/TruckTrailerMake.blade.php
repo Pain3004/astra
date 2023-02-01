@@ -43,7 +43,8 @@
                                                 <thead class="thead_th">
                                                     <tr class="tr">
                                                         <th>NO</th>
-                                                        <th style="display:none;">CD</th>
+                                                        <!-- <th style="display:none;">CD</th> -->
+                                                        <th >CD</th>
                                                         <th>Name</th>
                                                         <th>Type</th>
                                                         <th>Action</th>
@@ -111,7 +112,6 @@
                                                         <label for="name">Type <span style="color:#ff0000">*</span></label>
                                                             <select class="form-control select2" id="type" tabindex="-1" aria-hidden="true">
                                                                 <option>Truck</option>
-                                                                <option>Time</option>
                                                                 <option>Trailer</option>
                                                             </select>
                                                     </div>

@@ -20,12 +20,11 @@
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
                 @if($insertUser== 1)
-                    <a  class="button-57_alt" id="addloadType"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>>
+                    <a  class="button-57_alt" id="addloadType"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
                 @endif 
                 
                 @if($deleteUser== 1)    
                     <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
-
                 @endif
                     
                 </div>
@@ -39,10 +38,11 @@
 
                                     <div class="card-body">
                                         <div class="table-responsive export-table">
-                                            <table id="EquipmentType_table_pagination" class="table">
+                                            <table id="" class="table">
                                                 <thead class="thead_th">
                                                     <tr class="tr">
                                                         <th>NO</th>
+                                                        <th style="display:none">NO</th>
                                                         <th>Name</th>
                                                         <th>Unit</th>
                                                         <th>Action</th>

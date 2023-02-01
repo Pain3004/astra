@@ -2,27 +2,33 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
+    $('#PaymentTermsModal2, #PaymentTermsModal, #editPaymentTermsModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+
     $('.PaymentTermsClose').click(function(){
         $('#PaymentTermsModal2').modal('hide');
     });
     $('#AddPaymentTerms').click(function(){
-        $('#PaymentTermsModal2').modal('hide');
+        // $('#PaymentTermsModal2').modal('hide');
         $('#PaymentTermsModal').modal('show');
     });
     $('.PaymentTermsModalCloseButton').click(function(){
-        $('#PaymentTermsModal2').modal('show');
         $('#PaymentTermsModal').modal('hide');
-        
     });
-// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
+    $('.editPayTermsClose').click(function(){
+        $('#editPaymentTermsModal').modal('hide');
+    });
+// <!-- -------------------------------------------------------------------------Get   ------------------------------------------------------------------------- -->  
    
     $('#PaymentTerms_navbar').click(function(){
         $.ajax({
             type: "GET",
-            url: base_path+"/admin/getPaymentTerms",
+            url: base_path+"/admin/getPaymentTerms",                                     
             async: false,
             success: function(text) {
-                console.log(text);
+                // console.log(text);
                 createPaymentTermsRows(text);
               }
         });
@@ -30,7 +36,7 @@ $(document).ready(function() {
     });
 
 
-// <!-- -------------------------------------------------------------------------over Get fuelReceipt  ------------------------------------------------------------------------- --> 
+// <!-- -------------------------------------------------------------------------over Get   ------------------------------------------------------------------------- --> 
 // <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
     
     function createPaymentTermsRows(Result) {
@@ -60,10 +66,11 @@ $(document).ready(function() {
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var PaymentTermsStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
+                                        "<td data-field='no' style='display:none;'>" + no + "</td>" +
                                         "<td data-field='paymentTerm'>" + paymentTerm + "</td>" +
                                         "<td data-field='paymentDays'>" + paymentDays + "</td>" +
                                         "<td style='text-align:center'>"+
-                                            "<a class='button-23 "+editPrivilege+" editPayTerms'  title='Edit1' data-Id='"+payment_id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "<a class='editPayTerms button-23 "+editPrivilege+"'  title='Edit1' data-Id='"+payment_id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
                                             "</a> <a class='deletePayTerms button-23 "+delPrivilege+"' title='Delete' data-Id='"+payment_id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
                                         "</td></tr>";
             
@@ -91,7 +98,82 @@ $(document).ready(function() {
         }
     }
 // <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
-   
+   //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
+    $("body").on('click','.editPayTerms', function(){
+        var comID =$(this).attr("data-comID");
+        var Id=$(this).attr("data-Id");
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/editPayTerms",
+            async: false,
+            data:{comID:comID, Id:Id},
+            //dataType:JSON,
+            success: function(text) {
+                $('#up_PaymentTErms_name').val(text.paymentTerm);
+                $('#up_PaymentTErms_Days').val(text.paymentDays);
+                $('#PayTermsComid').val(text.companyID);
+                $('#PayTermsid').val(text._id);
+            }
+        });
+
+        $("#editPaymentTermsModal").modal("show");
+    });
+
+$("#PayTermsUpdate").click(function(){
+alert();
+    // $('#branchOfficeModal').modal('hide');
+    var name =$('#up_PaymentTErms_name').val();
+    var days =$('#up_PaymentTErms_Days').val();
+    var compID =$('#PayTermsComid').val();
+    var id =$('#PayTermsid').val();
+//    var tokan=$('#tokeneditbranchOffice').val();
+
+    if(name=='')
+    {
+        swal.fire( "'Enter name");
+        $('#up_PaymentTErms_name').focus();
+        return false;            
+    } 
+    if(location=='')
+    {
+        swal.fire( "'Enter location");
+        $('#up_PaymentTErms_Days').focus();
+        return false;
+    }
+    
+    $.ajax({
+        
+        url: base_path+"/admin/updatePaymentTerm",
+        type: "POST",
+        datatype:"JSON",
+
+        data:{
+            _token: $("#tokeneditPaymentTErms").val(),
+            name:name,
+            days:days,
+            compID:compID,
+            id:id,
+        },
+        success: function(data) {
+            console.log(data)                    
+            swal.fire("Done!", "Payment Term updated successfully", "success");
+
+            $('#editPaymentTermsModal').modal('hide');
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getPaymentTerms",
+                async: false,
+                success: function(text) {
+                    console.log(text);
+                    createPaymentTermsRows(text);
+                  }
+            });
+            $('#PaymentTermsModal2').modal('show');
+        }
+    });
+});
+//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
+
 //-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
 
 $('body').on('click', '.deletePayTerms', function(){
@@ -113,7 +195,7 @@ $('body').on('click', '.deletePayTerms', function(){
                 type: 'post',
                 url: base_path+"/admin/deletePayTerms",
                 data: { 
-                    _token: $("#_tokenbranchOffice").val(), 
+                    _token: $("#tokeneditPaymentTErms").val(), 
                     id: id,
                     comId:comId
                 },

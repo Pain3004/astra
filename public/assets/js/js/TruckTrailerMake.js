@@ -55,11 +55,18 @@ $(document).ready(function() {
                                 var  com_Id=Result.Truck_type[i].companyID;
                                 var  id=Result.Truck_type[i].truck[j]._id;
                                 var  truckType=Result.Truck_type[i].truck[j].truckType;
+
+
+                                
+
+
                                 var  created_time1=Result.Truck_type[i].truck[j].created_time;
                                 
 
-                                if(!created_time1){
-                                    created_time1 ='';
+                                if(created_time1){
+                                    created_time1 =Result.Truck_type[i].truck[j].created_time;
+                                }else{
+                                    created_time1='';
                                 }
                                 var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                                 var date = new Date(created_time1*1000);
@@ -73,7 +80,8 @@ $(document).ready(function() {
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
-                                        "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                        // "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                        "<td data-field='no'>" + created_time + "</td>" +
                                         "<td data-field='fixPayType'>" + truckType + "</td>" +
                                         "<td data-field='Truck'>Truck</td>" +
                                         "<td style='text-align:center'>"+
@@ -112,24 +120,27 @@ $(document).ready(function() {
                                 var  com_Id=Result.trailer_type[i].companyID;
                                 var  id=Result.trailer_type[i].trailer[j]._id;
                                 var  trailerType=Result.trailer_type[i].trailer[j].trailerType;
-                                var  created_time1=Result.trailer_type[i].trailer[j].created_time;
-                                if(!created_time1){
-                                    created_time1 ='';
+                                var  created_time_tr1=Result.trailer_type[i].trailer[j].created_time;
+                                if(created_time_tr1){
+                                    created_time_tr1 =Result.trailer_type[i].trailer[j].created_time;
+                                }else{
+                                    created_time_tr1='';
                                 }
 
-                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-                                var date = new Date(created_time1*1000);
-                                var year = date.getFullYear();
-                                var month = months_arr[date.getMonth()];
-                                var day = date.getDate();
-                                var created_time = month+'/'+day+'/'+year;
+                                var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date_tr = new Date(created_time_tr1*1000);
+                                var year_tr = date_tr.getFullYear();
+                                var month_tr = months_arr_tr[date_tr.getMonth()];
+                                var day_tr = date_tr.getDate();
+                                var created_time_tr = month_tr+'/'+day_tr+'/'+year_tr;
 
                                 var deleteStatus =Result.trailer_type[i].trailer[j].deleteStatus;
 
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
-                                        "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                        // "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                        "<td data-field='no'>" + created_time_tr + "</td>" +
                                         "<td data-field='trailerType'>" + trailerType + "</td>" +
                                         "<td data-field='trailer'>Trailer</td>" +
                                         "<td style='text-align:center'>"+

@@ -566,7 +566,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
 
 
 #addContractCategory, #contractCategoryModal, #addDriverModal, #addRecurrence, #substractRecurrence, #setupDriverModal, #addUserModal, #addCustomerModal, #plusCurrencyModal, #factoringCompanyModal, #factoringCompanyModal, #PaymentTermsModal,
-#addTruckModal, #userEditModal, #addTruckModal, #addEquipmentTypeModal, #TruckTrailerMakeModal, #addTruckTrailerMakeModal, #LoadModal, #addLoadTypeModal, #addBranchOfficeModal, #editBranchOfficeModal {
+#addTruckModal, #userEditModal, #addTruckModal, #addEquipmentTypeModal, #TruckTrailerMakeModal, #addTruckTrailerMakeModal, #LoadModal, #addLoadTypeModal, #addBranchOfficeModal, #editBranchOfficeModal, #editPaymentTermsModal {
   backdrop-filter: blur(1px) contrast(.1);
 }
 
@@ -981,5 +981,32 @@ color: #ffffff;
           position: relative;
           margin: 0 auto;
           top: 25%;
+      
+        }
+
+    /* ---------------------------------------------------------------------------- modal 6 --------------------------------------------------- */
+  
+      /* small screen, hidden by default */
+      @media only screen and (max-width: 770px ) {
+        .custom_modal_small_6{
+          top: 4%;
+          left: 10%;
+        }
+      }
+      
+      /* large screen, shown by default */
+      @media only screen and (min-width: 771px ) {
+        .custom_modal_small_6{
+      
+          top: 9%;
+        }
+      }
+      
+        .custom_modal_small_6{
+          max-width: 30% !important;
+          max-height: 60% !important;
+          position: relative;
+          margin: 0 auto;
+          top: 20%;
       
         }

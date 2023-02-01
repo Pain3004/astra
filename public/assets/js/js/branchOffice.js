@@ -23,7 +23,7 @@ $(document).ready(function() {
     $('.editBranchOfficeClose').click(function(){
         $('#editBranchOfficeModal').modal('hide');
     });
-// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
+// <!-- -------------------------------------------------------------------------Get   ------------------------------------------------------------------------- -->  
    
     $('#branchOffive_navbar').click(function(){
         //alert();
@@ -42,9 +42,8 @@ $(document).ready(function() {
     });
 
 
-// <!-- -------------------------------------------------------------------------over Get fuelReceipt  ------------------------------------------------------------------------- --> 
+// <!-- -------------------------------------------------------------------------over Get   ------------------------------------------------------------------------- --> 
 // <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
-    
 // get
     function createBranchOfficeRows(BranchOfficeResult) {
         var BranchOfficelen = 0;
@@ -109,166 +108,39 @@ $(document).ready(function() {
     }
 // <!-- -------------------------------------------------------------------------over function   ------------------------------------------------------------------------- -->  
 // <!-- -------------------------------------------------------------------------add     ------------------------------------------------------------------------- -->  
-   
-$("#saveBranchOffice").click(function(){
-    var name=$('#BranchOffice_name').val();
-    if(name=='')
-    {
-        swal.fire( "Enter name");
-        $('#BranchOffice_name').focus();
-        return false;
-    } 
-
-    var Location=$('#BranchOffice_Location').val();
-    if(Location=='')
-    {
-        swal.fire( "Enter Location");
-        $('#BranchOffice_Location').focus();
-        return false;
-    } 
-//alert(currencyName);
-    $.ajax({
-        url: base_path+"/admin/addBranchOffice",
-        type: "POST",
-        datatype:"JSON",
-        data: {
-            _token: $("#_tokenbranchOffice").val(),
-            name: name,
-            Location: Location,
-        },
-        cache: false,
-        success: function(Result){
-            console.log(Result);
-            if(Result){
-                swal.fire( "Branch Office added successfully.");
-                // alert("Equipment Type added successfully.");
-                $("#addBranchOfficeModal").modal("hide");
-                $.ajax({
-                    type: "GET",
-                    url: base_path+"/admin/getBranchOffice",
-                    async: false,
-                    //dataType:JSON,
-                    success: function(text) {
-                        //alert();
-                        console.log(text);
-                        createBranchOfficeRows(text);
-                      }
-                });
-                // $('#branchOfficeModal').modal('show');
-            }else{
-                swal.fire("Branch Office not added successfully.");
-            }
-        }
-    });
-});
-
-
-// <!-- -------------------------------------------------------------------------over add ------------------------------------------------------------------------- -->    
-//-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
-
- $("body").on('click','.editBranchOffice', function(){
-    var compID =$(this).attr("data-comID");
-    var officeID=$(this).attr("data-Id");
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/editBranchOffice",
-        async: false,
-        data:{officeID:officeID, compID:compID},
-        //dataType:JSON,
-        success: function(text) {
-            $('#up_BranchOffice_name').val(text.officeName);
-            $('#up_BranchOffice_Location').val(text.officeLocation);
-            $('#officeComid').val(text.companyID);
-            $('#officeid').val(text._id);
-         }
-    });
-
-    $("#editBranchOfficeModal").modal("show");
- });
-
- $("#branchOfficeUpdatebutton").click(function(){
-
-    // $('#branchOfficeModal').modal('hide');
-    var name =$('#up_BranchOffice_name').val();
-    var location =$('#up_BranchOffice_Location').val();
-    var compID =$('#officeComid').val();
-    var officeid =$('#officeid').val();
-//    var tokan=$('#tokeneditbranchOffice').val();
-  
-    if(name=='')
-    {
-        swal.fire( "'Enter name");
-        $('#up_BranchOffice_name').focus();
-        return false;            
-    } 
-    if(location=='')
-    {
-        swal.fire( "'Enter location");
-        $('#up_BranchOffice_Location').focus();
-        return false;
-    }
-    
-    $.ajax({
-        
-        url: base_path+"/admin/updateBranchOffice",
-        type: "POST",
-        datatype:"JSON",
-  
-        data:{
-            _token: $("#_tokenbranchOffice").val(),
-            name:name,
-            location:location,
-            compID:compID,
-            officeid:officeid,
-        },
-        success: function(data) {
-            console.log(data)                    
-            swal.fire("Done!", "Branch Office updated successfully", "success");
-
-            $('#editBranchOfficeModal').modal('hide');
-                $.ajax({
-                    type: "GET",
-                    url: base_path+"/admin/getBranchOffice",
-                    async: false,
-                    //dataType:JSON,
-                    success: function(text) {
-                        //alert();
-                        console.log(text);
-                        createBranchOfficeRows(text);
-                    }
-                });
-                // $('#branchOfficeModal').modal('show');
-        }
-    });
- });
-//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
-//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
-
-$('body').on('click', '.deleteBranchOffice', function(){
-    var  id=$(this).attr("data-Id");
-    var comId=$(this).attr('data-comID');
-
-    swal.fire({
-        title: "Delete?",
-        text: "Please ensure and then confirm!",
-        type: "warning",
-        showCancelButton: !0,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: !0
-    }).then(function (e) {
-        if (e.value === true) 
+    $("#saveBranchOffice").click(function(){
+        var name=$('#BranchOffice_name').val();
+        if(name=='')
         {
-            $.ajax({
-                type: 'post',
-                url: base_path+"/admin/deleteBranchOffice",
-                data: { 
-                    _token: $("#_tokenbranchOffice").val(), 
-                    id: id,
-                    comId:comId
-                },
-                success: function(resp){
-                    swal.fire("Done!", "Branch Office Deleted successfully", "success");
+            swal.fire( "Enter name");
+            $('#BranchOffice_name').focus();
+            return false;
+        } 
+
+        var Location=$('#BranchOffice_Location').val();
+        if(Location=='')
+        {
+            swal.fire( "Enter Location");
+            $('#BranchOffice_Location').focus();
+            return false;
+        } 
+    //alert(currencyName);
+        $.ajax({
+            url: base_path+"/admin/addBranchOffice",
+            type: "POST",
+            datatype:"JSON",
+            data: {
+                _token: $("#_tokenbranchOffice").val(),
+                name: name,
+                Location: Location,
+            },
+            cache: false,
+            success: function(Result){
+                console.log(Result);
+                if(Result){
+                    swal.fire( "Branch Office added successfully.");
+                    // alert("Equipment Type added successfully.");
+                    $("#addBranchOfficeModal").modal("hide");
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/getBranchOffice",
@@ -278,17 +150,139 @@ $('body').on('click', '.deleteBranchOffice', function(){
                             //alert();
                             console.log(text);
                             createBranchOfficeRows(text);
-                          }
+                        }
                     });
-                    $('#branchOfficeModal').modal('show');
-                },
-                error: function (resp) {
-                    swal.fire("Error!", 'Something went wrong.', "error");
+                    // $('#branchOfficeModal').modal('show');
+                }else{
+                    swal.fire("Branch Office not added successfully.");
                 }
-            });
-        } 
+            }
+        });
     });
-});
+// <!-- -------------------------------------------------------------------------over add ------------------------------------------------------------------------- -->    
+//-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
+    $("body").on('click','.editBranchOffice', function(){
+        var compID =$(this).attr("data-comID");
+        var officeID=$(this).attr("data-Id");
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/editBranchOffice",
+            async: false,
+            data:{officeID:officeID, compID:compID},
+            //dataType:JSON,
+            success: function(text) {
+                $('#up_BranchOffice_name').val(text.officeName);
+                $('#up_BranchOffice_Location').val(text.officeLocation);
+                $('#officeComid').val(text.companyID);
+                $('#officeid').val(text._id);
+            }
+        });
+
+        $("#editBranchOfficeModal").modal("show");
+    });
+
+    $("#branchOfficeUpdatebutton").click(function(){
+
+        // $('#branchOfficeModal').modal('hide');
+        var name =$('#up_BranchOffice_name').val();
+        var location =$('#up_BranchOffice_Location').val();
+        var compID =$('#officeComid').val();
+        var officeid =$('#officeid').val();
+    //    var tokan=$('#tokeneditbranchOffice').val();
+    
+        if(name=='')
+        {
+            swal.fire( "'Enter name");
+            $('#up_BranchOffice_name').focus();
+            return false;            
+        } 
+        if(location=='')
+        {
+            swal.fire( "'Enter location");
+            $('#up_BranchOffice_Location').focus();
+            return false;
+        }
+        
+        $.ajax({
+            
+            url: base_path+"/admin/updateBranchOffice",
+            type: "POST",
+            datatype:"JSON",
+    
+            data:{
+                _token: $("#_tokenbranchOffice").val(),
+                name:name,
+                location:location,
+                compID:compID,
+                officeid:officeid,
+            },
+            success: function(data) {
+                console.log(data)                    
+                swal.fire("Done!", "Branch Office updated successfully", "success");
+
+                $('#editBranchOfficeModal').modal('hide');
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getBranchOffice",
+                        async: false,
+                        //dataType:JSON,
+                        success: function(text) {
+                            //alert();
+                            console.log(text);
+                            createBranchOfficeRows(text);
+                        }
+                    });
+                    // $('#branchOfficeModal').modal('show');
+            }
+        });
+    });
+//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+    $('body').on('click', '.deleteBranchOffice', function(){
+        var  id=$(this).attr("data-Id");
+        var comId=$(this).attr('data-comID');
+
+        swal.fire({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+            if (e.value === true) 
+            {
+                $.ajax({
+                    type: 'post',
+                    url: base_path+"/admin/deleteBranchOffice",
+                    data: { 
+                        _token: $("#_tokenbranchOffice").val(), 
+                        id: id,
+                        comId:comId
+                    },
+                    success: function(resp){
+                        swal.fire("Done!", "Branch Office Deleted successfully", "success");
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/getBranchOffice",
+                            async: false,
+                            //dataType:JSON,
+                            success: function(text) {
+                                //alert();
+                                console.log(text);
+                                createBranchOfficeRows(text);
+                            }
+                        });
+                        $('#branchOfficeModal').modal('show');
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+        });
+    });
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
 
 // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
