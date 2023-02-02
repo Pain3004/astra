@@ -78,7 +78,7 @@ $('.Completed_tab').click(function(){
                 $("#AccManaDeliveredTable").html('');
                 AccManalen = AccManaResult.AccountingManager.length;
                 //CreditCardlen = subCreditCardResult.CreditCard.length;
-//alert(CreditCardlen);
+                //alert(CreditCardlen);
                 if (AccManalen > 0) {
                     for (var i = AccManalen-1; i >= 0; i--) { 
                         
@@ -117,7 +117,10 @@ $('.Completed_tab').click(function(){
                                         "<td data-field='rate' >" + rate + "</td>" +
                                         "<td data-field='loadername' >" + loadername + "</td>" +
                                         "<td data-field='loadertotal' >" + loadertotal + "</td>" +
-                                        "<td data-field='status' >" + status + "</td>" +
+                                        "<td data-field='status' >" +"<select class='form-control change_status_account'>"+
+                                            "<option value='Delivered'>Delivered</option><option value='Invoiced'>Invoiced</option><option value='Complate'>Complate</option>"+
+                                        "</select>"+
+                                        "</td>" +
                                         "<td data-field='load_notes' >" + load_notes + "</td>" +
                                        
                                         // "<td style='text-align:center'>"+
@@ -148,8 +151,8 @@ $('.Completed_tab').click(function(){
             $("#AccManaDeliveredTable").append(AccManaDeleStr);
         }
     }
-// <!-- -------------------------------------------------------------------------End getAccount Deliverd------------------------------------------------------------------------ -->  
-// <!-- -------------------------------------------------------------------------function getAccount Invoice ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------End getAccount Deliverd------------------------------------------------------------------------ -->  
+    // <!-- -------------------------------------------------------------------------function getAccount Invoice ------------------------------------------------------------------------- --> 
     function createAccManaInvoiceRows(AccManaInvoiceResult) {
         var AccManaInvoicelen = 0;
         var no=1;
@@ -158,13 +161,13 @@ $('.Completed_tab').click(function(){
                 $("#AccManaInvoicedTable").html('');
                 AccManaInvoicelen = AccManaInvoiceResult.AccountingManagerInvoice.length;
                 //CreditCardlen = subCreditCardResult.CreditCard.length;
-    //alert(CreditCardlen);
+                //alert(CreditCardlen);
                 if (AccManaInvoicelen > 0) {
                     for (var i = AccManaInvoicelen-1; i >= 0; i--) { 
                         
                         load_len = AccManaInvoiceResult.AccountingManagerInvoice[i].load.length;
                         //alert(sub_credit_len);
-                        varAccManaInvoice_Id =AccManaInvoiceResult.AccountingManagerInvoice[i]._id;
+                        var AccManaInvoice_Id=AccManaInvoiceResult.AccountingManagerInvoice[i]._id;
                         var AccManaInvoice_com_Id =AccManaInvoiceResult.AccountingManagerInvoice[i].companyID;
 
                         //alert(bankAdminlen);
@@ -309,4 +312,37 @@ function createAccManaCompletedRows(AccManaCompleteResult) {
     }
 }
 // <!-- -------------------------------------------------------------------------End getAccount Completed------------------------------------------------------------------------- -->  
+
+
+//============= start update status of deleverd ==========================
+    $('body').on('change',".change_status_account", function(){
+        var status=$(this).val();
+        swal.fire({
+            title: "Delete?",
+            text: "Are you sure Change !",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+            if (e.value === true) 
+            {
+                $.ajax({
+                    type: 'post',
+                    url: base_path+"/admin/accountChangeStatus",
+                    data: { _token: $("#_tokenChangeAccountStatus").val(), status: status},
+                    success: function(resp){
+                        swal.fire("Done!", "Changed Status In  Successfully", "success");
+
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+        });
+        // alert(status);
+    });
+//===================== end update status ================================
 });

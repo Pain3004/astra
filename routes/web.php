@@ -240,6 +240,7 @@ Route::post('admin/restoresubCreditCard', [SubCreditCardController::class, 'rest
 Route::get('admin/getAccountDeliverdValue', [AccountManagerController::class, 'getAccountDeliverdValue']);
 Route::get('admin/getAccountInvoiceValue', [AccountManagerController::class, 'getAccountInvoiceValue']);
 Route::get('admin/getAccountCompletedValue', [AccountManagerController::class, 'getAccountCompletedValue']);
+Route::post('admin/accountChangeStatus', [AccountManagerController::class, 'accountChangeStatus']);
 
 //Branch Office
 Route::get('admin/getBranchOffice', [BranchOfficeController::class, 'getBranchOffice']);
