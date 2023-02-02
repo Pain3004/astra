@@ -72,38 +72,100 @@ class EquipmentTypeController extends Controller
         }
 
       
-   }
+    }
 
-   public function deleteEquipmentType(Request $request)
-   {
-       $id=$request->id;
-       //dd($id);
-       $companyID=(int)$request->comId;
+    public function editEquipmentType(Request $request){
 
-       $result = Equipment_add::where('companyID',$companyID)->first();
-       $Array=$result->equipment;
-       $len=count($Array);
-       $i=0;
-       $v=0;
-       for($i=0; $i<$len; $i++)
-       {
-           $ids=$Array[$i]['_id'];
-           if($ids==$id)
-           {
-               $v=$i;
-           }
-       }
+        $id=$request->Id;
+        $companyID=(int)$request->comID;
 
-       $Array[$v]['deleteStatus']="Yes";  
-       $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
-       $Array[$v]['deleteTime']=Carbon::now()->timestamp;       
-       
-       $result->equipment=$Array;
-       // dd($FuelVendor->fuelCard);
-       if($result->save())
-       {
-        $arr = array('status' => 'success', 'message' => 'Branch office Deleted successfully.','statusCode' => 200); 
-        return json_encode($arr);
-       }
-   }
+        $result = Equipment_add::where('companyID',$companyID)->first();
+        $Array=$result->equipment;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+        
+        $companyID=array(
+            "companyID"=>$companyID
+        ) ;
+
+        $EditData=$Array[$v];
+        $dataArray=array_merge($companyID,$EditData);
+        return response()->json($dataArray, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+
+    }
+
+    public function updateEquipmentType(Request $request)
+    {
+        $id=$request->id;
+        $companyID=(int)$request->compID;
+
+        $result = Equipment_add::where('companyID',$companyID)->first();
+        $Array=$result->equipment;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['equipmentType']=$request->name;        
+        $Array[$v]['edit_by']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        // $Array[$v]['edit_time']=Carbon::now()->timestamp;
+        $Array[$v]['edit_time']=strtotime(time());
+
+        $result->equipment=$Array;
+        // dd($FuelVendor->fuelCard);
+        if($result->save())
+        {
+         $arr = array('status' => 'success', 'message' => 'Equipment Type updated successfully.','statusCode' => 200); 
+         return json_encode($arr);
+        }
+    }
+
+    public function deleteEquipmentType(Request $request)
+    {
+        $id=$request->id;
+        //dd($id);
+        $companyID=(int)$request->comId;
+
+        $result = Equipment_add::where('companyID',$companyID)->first();
+        $Array=$result->equipment;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['deleteStatus']="Yes";  
+        $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['deleteTime']=Carbon::now()->timestamp;       
+        
+        $result->equipment=$Array;
+        // dd($FuelVendor->fuelCard);
+        if($result->save())
+        {
+            $arr = array('status' => 'success', 'message' => 'Branch office Deleted successfully.','statusCode' => 200); 
+            return json_encode($arr);
+        }
+    }
 }

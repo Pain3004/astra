@@ -114,8 +114,6 @@ Route::post('admin/deleteDriverOwnerOperator', [DriverController::class, 'delete
 Route::post('admin/restoreDriverOwnerOperator', [DriverController::class, 'restoreDriverOwnerOperator']);
 Route::post('admin/deleteViewDriverApp', [DriverController::class, 'deleteViewDriverApp']);
 
-
-
 //customer
 Route::get('admin/customer', [CustomerController::class, 'getCustomerData']);
 Route::post('admin/addCustomer', [CustomerController::class, 'addCustomerData']);
@@ -265,11 +263,14 @@ Route::post('admin/deleteTrailer', [TrailerAdminAddController::class, 'deleteTra
 Route::get('admin/getEquipmentType', [EquipmentTypeController::class, 'getEquipmentType']);
 Route::post('admin/addEquipmentType', [EquipmentTypeController::class, 'addEquipmentType']);
 Route::post('admin/deleteEquipmentType', [EquipmentTypeController::class, 'deleteEquipmentType']);
+Route::get('admin/editEquipmentType', [EquipmentTypeController::class, 'editEquipmentType']);
+Route::post('admin/updateEquipmentType', [EquipmentTypeController::class, 'updateEquipmentType']);
 
 //Recurrence Category
 Route::get('admin/getRecurrenceCategory', [RecurrenceCategoryController::class, 'getRecurrenceCategory']);
 Route::post('admin/addRecurrenceCategory', [RecurrenceCategoryController::class, 'addRecurrenceCategory']);
 Route::post('admin/deleteRecurrenceCategory', [RecurrenceCategoryController::class, 'deleteRecurrenceCategory']);
+
 
 //Terms Conditions
 Route::get('admin/getTermsConditions', [TermsConditionsController::class, 'getTermsConditions']);
@@ -279,6 +280,8 @@ Route::post('admin/addTermsConditions', [TermsConditionsController::class, 'addT
 Route::get('admin/getTruckTrailerMake', [TruckTrailerMakeController::class, 'getTruckTrailerMake']);
 Route::post('admin/addTruckTrailer', [TruckTrailerMakeController::class, 'addTruckTrailer']);
 Route::post('admin/deleteTruckTrailer', [TruckTrailerMakeController::class, 'deleteTruckTrailer']);
+Route::get('admin/editTruckTrailer', [TruckTrailerMakeController::class, 'editTruckTrailer']);
+Route::post('admin/updatetruckTrailer', [TruckTrailerMakeController::class, 'updatetruckTrailer']);
 
 //Load Type
 Route::get('admin/getLoaType', [LoadController::class, 'getLoaType']);

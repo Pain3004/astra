@@ -49,7 +49,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="Load_typeTable">
-                        
                                                 </tbody>
                                             </table>
                                         </div>

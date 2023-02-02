@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
-    $('#EquipmentTypeModal, #addEquipmentTypeModal').modal({
+    $('#EquipmentTypeModal, #addEquipmentTypeModal, #editEquipmentType').modal({
         backdrop: 'static',
         keyboard: false
     })
@@ -16,7 +16,12 @@ $(document).ready(function() {
     $('#addEquipmentType').click(function(){
         $('#addEquipmentTypeModal').modal('show');
     });
-
+    $('.editEquipmentTypeClose').click(function(){
+        $('#editEquipmentType').modal('hide');
+    });
+    // $('.editPayTermsClose').click(function(){
+    //     $('#editPaymentTermsModal').modal('hide');
+    // });
     
 // <!-- -------------------------------------------------------------------------Get  EquipmentType ------------------------------------------------------------------------- -->  
    
@@ -36,7 +41,6 @@ $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------over Get  EquipmentType ------------------------------------------------------------------------- --> 
 // <!-- -------------------------------------------------------------------------function getr EquipmentType ------------------------------------------------------------------------- --> 
-    
     function createEquipmentTypeRows(Result) {
         var len1 = 0;
         var no=1;
@@ -55,16 +59,17 @@ $(document).ready(function() {
 
                                 var  id=Result.EquipmentType[i].equipment[j]._id;
                                 var  equipmentType=Result.EquipmentType[i].equipment[j].equipmentType;
-                               
                                 var deleteStatus =Result.EquipmentType[i].equipment[j].deleteStatus;
 
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
+                                        "<td data-field='no' style='display:none;'>" + no + "</td>" +
+
                                         "<td data-field='equipmentType'>" + equipmentType + "</td>" +
                                        
                                         "<td style='text-align:center'>"+
-                                            "<a class='button-23  "+editPrivilege+"'  title='Edit1' data-Id='"+id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "<a class='editEquipmentType button-23  "+editPrivilege+"'  title='Edit' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
                                             "</a> <a class='deleteEquipmentType button-23 "+delPrivilege+"' data-Id  ="+ id +" data-comID='"+com_Id+"' title='Delete'><i class='fe fe-delete'></i></a>"+
                                             "</td></tr>";
             
@@ -93,7 +98,6 @@ $(document).ready(function() {
     }
  // <!-- -------------------------------------------------------------------------over Get Equipment Type  ------------------------------------------------------------------------- -->  
  // <!-- -------------------------------------------------------------------------add Equipment Type   ------------------------------------------------------------------------- -->  
-   
     $("#saveEquipmentType").click(function(){
         var EquipmentType_name=$('#EquipmentType_name').val();
         if(EquipmentType_name=='')
@@ -136,9 +140,71 @@ $(document).ready(function() {
             }
         });
     });
-
-
 // <!-- -------------------------------------------------------------------------over add Equipment Type   ------------------------------------------------------------------------- --> 
+   //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
+   $("body").on('click','.editEquipmentType', function(){
+    var comID =$(this).attr("data-comID");
+    var Id=$(this).attr("data-Id");
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/editEquipmentType",
+        async: false,
+        data:{comID:comID, Id:Id},
+        //dataType:JSON,
+        success: function(text) {
+            $('#up_EquipmentType_name').val(text.equipmentType);
+            $('#EquipmentTypeComid').val(text.companyID);
+            $('#EquipmentTypeid').val(text._id);
+        }
+    });
+
+    $("#editEquipmentType").modal("show");
+});
+
+$("#EquipmentTypeUpdate").click(function(){
+// alert();
+    // $('#branchOfficeModal').modal('hide');
+    var name =$('#up_EquipmentType_name').val();
+    var compID =$('#EquipmentTypeComid').val();
+    var id =$('#EquipmentTypeid').val();
+
+    if(name=='')
+    {
+        swal.fire( "'Enter name");
+        $('#up_EquipmentType_name').focus();
+        return false;            
+    } 
+    
+    $.ajax({
+        url: base_path+"/admin/updateEquipmentType",
+        type: "POST",
+        datatype:"JSON",
+        data:{
+            _token: $("#tokeneditEquipmentType").val(),
+            name:name,
+            compID:compID,
+            id:id,
+        },
+        success: function(data) {
+            console.log(data)                    
+            swal.fire("Done!","Equipment Type updated successfully", "success");
+
+            $('#editEquipmentType').modal('hide');
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getEquipmentType",
+                async: false,
+                success: function(text) {
+                    console.log(text);
+                    createEquipmentTypeRows(text);
+                  }
+            });
+            $('#EquipmentTypeModal').modal('show');
+        }
+    });
+});
+//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
+
 //-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
 $('body').on('click', '.deleteEquipmentType', function(){
     var  id=$(this).attr("data-Id");
@@ -159,7 +225,7 @@ $('body').on('click', '.deleteEquipmentType', function(){
                 type: 'post',
                 url: base_path+"/admin/deleteEquipmentType",
                 data: { 
-                    _token: $("#_tokenbranchOffice").val(), 
+                    _token: $("#tokeneditEquipmentType").val(), 
                     id: id,
                     comId:comId
                 },

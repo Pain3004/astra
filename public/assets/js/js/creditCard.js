@@ -214,7 +214,6 @@ $("body").on('click','.edit_modalCreditCard',function(){
             $(".updateCreditCardcardLimit").val(res.cardLimit);
             $(".updateCreditCardopeningBalance").val(res.openingBalance);
         }
-
    })
     $("#UpdateCreditCardModal").modal("show");
 });

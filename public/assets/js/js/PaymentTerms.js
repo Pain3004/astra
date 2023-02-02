@@ -119,106 +119,105 @@ $(document).ready(function() {
         $("#editPaymentTermsModal").modal("show");
     });
 
-$("#PayTermsUpdate").click(function(){
-alert();
-    // $('#branchOfficeModal').modal('hide');
-    var name =$('#up_PaymentTErms_name').val();
-    var days =$('#up_PaymentTErms_Days').val();
-    var compID =$('#PayTermsComid').val();
-    var id =$('#PayTermsid').val();
-//    var tokan=$('#tokeneditbranchOffice').val();
+    $("#PayTermsUpdate").click(function(){
+    alert();
+        // $('#branchOfficeModal').modal('hide');
+        var name =$('#up_PaymentTErms_name').val();
+        var days =$('#up_PaymentTErms_Days').val();
+        var compID =$('#PayTermsComid').val();
+        var id =$('#PayTermsid').val();
+    //    var tokan=$('#tokeneditbranchOffice').val();
 
-    if(name=='')
-    {
-        swal.fire( "'Enter name");
-        $('#up_PaymentTErms_name').focus();
-        return false;            
-    } 
-    if(location=='')
-    {
-        swal.fire( "'Enter location");
-        $('#up_PaymentTErms_Days').focus();
-        return false;
-    }
-    
-    $.ajax({
-        
-        url: base_path+"/admin/updatePaymentTerm",
-        type: "POST",
-        datatype:"JSON",
-
-        data:{
-            _token: $("#tokeneditPaymentTErms").val(),
-            name:name,
-            days:days,
-            compID:compID,
-            id:id,
-        },
-        success: function(data) {
-            console.log(data)                    
-            swal.fire("Done!", "Payment Term updated successfully", "success");
-
-            $('#editPaymentTermsModal').modal('hide');
-            $.ajax({
-                type: "GET",
-                url: base_path+"/admin/getPaymentTerms",
-                async: false,
-                success: function(text) {
-                    console.log(text);
-                    createPaymentTermsRows(text);
-                  }
-            });
-            $('#PaymentTermsModal2').modal('show');
+        if(name=='')
+        {
+            swal.fire( "'Enter name");
+            $('#up_PaymentTErms_name').focus();
+            return false;            
+        } 
+        if(location=='')
+        {
+            swal.fire( "'Enter location");
+            $('#up_PaymentTErms_Days').focus();
+            return false;
         }
+        
+        $.ajax({
+            
+            url: base_path+"/admin/updatePaymentTerm",
+            type: "POST",
+            datatype:"JSON",
+
+            data:{
+                _token: $("#tokeneditPaymentTErms").val(),
+                name:name,
+                days:days,
+                compID:compID,
+                id:id,
+            },
+            success: function(data) {
+                console.log(data)                    
+                swal.fire("Done!", "Payment Term updated successfully", "success");
+
+                $('#editPaymentTermsModal').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getPaymentTerms",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        createPaymentTermsRows(text);
+                    }
+                });
+                $('#PaymentTermsModal2').modal('show');
+            }
+        });
     });
-});
 //-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
 
 //-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+    $('body').on('click', '.deletePayTerms', function(){
+        var  id=$(this).attr("data-Id");
+        var comId=$(this).attr('data-comID');
 
-$('body').on('click', '.deletePayTerms', function(){
-    var  id=$(this).attr("data-Id");
-    var comId=$(this).attr('data-comID');
-
-    swal.fire({
-        title: "Delete?",
-        text: "Please ensure and then confirm!",
-        type: "warning",
-        showCancelButton: !0,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: !0
-    }).then(function (e) {
-        if (e.value === true) 
-        {
-            $.ajax({
-                type: 'post',
-                url: base_path+"/admin/deletePayTerms",
-                data: { 
-                    _token: $("#tokeneditPaymentTErms").val(), 
-                    id: id,
-                    comId:comId
-                },
-                success: function(resp){
-                    swal.fire("Done!", "Payment Terms Deleted successfully", "success");
-                    $.ajax({
-                        type: "GET",
-                        url: base_path+"/admin/getPaymentTerms",
-                        async: false,
-                        success: function(text) {
-                            console.log(text);
-                            createPaymentTermsRows(text);
-                          }
-                    });
-                    $('#PaymentTermsModal2').modal('show');
-                },
-                error: function (resp) {
-                    swal.fire("Error!", 'Something went wrong.', "error");
-                }
-            });
-        } 
+        swal.fire({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+            if (e.value === true) 
+            {
+                $.ajax({
+                    type: 'post',
+                    url: base_path+"/admin/deletePayTerms",
+                    data: { 
+                        _token: $("#tokeneditPaymentTErms").val(), 
+                        id: id,
+                        comId:comId
+                    },
+                    success: function(resp){
+                        swal.fire("Done!", "Payment Terms Deleted successfully", "success");
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/getPaymentTerms",
+                            async: false,
+                            success: function(text) {
+                                console.log(text);
+                                createPaymentTermsRows(text);
+                            }
+                        });
+                        $('#PaymentTermsModal2').modal('show');
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+        });
     });
-});
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
 // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 });

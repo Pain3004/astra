@@ -209,7 +209,7 @@ class DriverController extends Controller
         }
         
         $truckno='';
-        $truckno=$unserializeData['ownerTruckNo'];
+        $truckno=$unserializeData['truckNo'];
         $truckID= explode("-", $truckno);
             // $truckID[0]; // piece1.
            // echo $truckID[1]; // piece2.

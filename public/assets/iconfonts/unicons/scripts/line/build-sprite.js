@@ -24,5 +24,5 @@ glob(svgFiles, {}, function (er, files) {
     if (err) console.log(err)
   })
 
-  console.log(`Wrote Sprite for ${writtenFiles} files`)
+  // console.log(`Wrote Sprite for ${writtenFiles} files`)
 })

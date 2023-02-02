@@ -16,7 +16,7 @@ $(document).ready(function() {
             url: base_path+"/admin/getCompanyHolder",
             async: false,
             success: function(text) {
-                console.log(text);
+                // console.log(text);
                 ShowCompanyName(text);
                 comapnyRes = text;
              }
@@ -29,7 +29,7 @@ $(document).ready(function() {
             //dataType:JSON,
             success: function(text) {
                 //alert();
-                console.log(text);
+                // console.log(text);
                 createBankRows(text);
                 bankResult = text;
              }
@@ -199,7 +199,7 @@ $(".bankDataSavebutton").click(function(){
                 url: base_path+"/admin/getBankData",
                 async: false,
                 success: function(text) {
-                    console.log(text);
+                    // console.log(text);
                     createBankRows(text);
                     bankResult = text;
                  }
@@ -286,7 +286,7 @@ function ShowCompanyName(comapnyRes)
                     url: base_path+"/admin/getCompanyHolder",
                     async: false,
                     success: function(text) {
-                        console.log(text);
+                        // console.log(text);
                         ShowCompanyName(text);
                         comapnyRes = text;
                      }
@@ -414,7 +414,7 @@ $(".closeUpdateBankData").click(function(){
                 url: base_path+"/admin/getBankData",
                 async: false,
                 success: function(text) {
-                    console.log(text);
+                    // console.log(text);
                     createBankRows(text);
                     bankResult = text;
                  }
@@ -451,7 +451,7 @@ $('body').on('click','.delete_bank_details',function(){
                         url: base_path+"/admin/getBankData",
                         async: false,
                         success: function(text) {
-                            console.log(text);
+                            // console.log(text);
                             createBankRows(text);
                             bankResult = text;
                          }
@@ -480,7 +480,7 @@ $('body').on('click','.delete_bank_details',function(){
         url: base_path+"/admin/getCompanyHolder",
         async: false,
         success: function(text) {
-            console.log(text);
+            // console.log(text);
             RestoreCompanyName(text);
             comapnyRes = text;
          }
@@ -587,7 +587,7 @@ function BankDetailsCheckboxRestore()
             BankDetailsIds.push($(this).val());
             companyIds.push($(this).attr("date-compID"));
         });
-        console.log(BankDetailsIds);
+        // console.log(BankDetailsIds);
         var CreditCardAllCheckedIds =JSON.stringify(BankDetailsIds);
         $('#checked_BankDetails_ids').val(CreditCardAllCheckedIds);
        

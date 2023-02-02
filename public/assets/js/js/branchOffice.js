@@ -34,7 +34,7 @@ $(document).ready(function() {
             //dataType:JSON,
             success: function(text) {
                 //alert();
-                console.log(text);
+                // console.log(text);
                 createBranchOfficeRows(text);
               }
         });

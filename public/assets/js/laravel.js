@@ -964,11 +964,11 @@ $('body').on('click',function() {
   var OwnerOperatorblock = '<div class="optionBox ">'+
       '<div class="block">'+
           '<div class="row row-sm" id="OwnerOperatorContainer">'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Category</label>'+
                       '<input type="text" class="form-control" name="installmentCategory[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Installment Type</label>'+
                           '<select name="installmentType[]" class="form-control">'+
                               '<option value="">Select type</option>'+
@@ -978,31 +978,25 @@ $('body').on('click',function() {
                               '<option value="Quarterly">Quarterly</option>'+
                           '</select>'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Amount</label>'+
                       '<input name="amount[]" type="text" class="form-control" />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-1">'+
                       '<label class="form-label" for="">Installment</label>'+
                       '<input name="installment[]" type="text" class="form-control"  />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-1">'+
                       '<label class="form-label" for="">start#</label>'+
                       '<input name="startNo[]" type="text" class="form-control"  />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">start Date</label>'+
                       '<input name="startDate[]" type="date" class="form-control" />'+
                   '</div>'+
-                  '<div class="col-sm-5">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Internal Note</label>'+
                       '<textarea rows="1" cols="20" class="form-control" type="textarea" name="internalNote[]"></textarea>'+
-                  '</div>'+
-                  '<div class="col-sm-1">'+
-                      '<label class="form-label" for="">Delete</label>'+
-                      
-                  
-                      '</button>'+
                   '</div>'+
                   '<!-- <input type="text" /> <span class="remove">Remove Option</span> -->'+
                   '<button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>'+

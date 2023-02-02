@@ -565,7 +565,7 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
 }
 
 
-#addContractCategory, #contractCategoryModal, #addDriverModal, #addRecurrence, #substractRecurrence, #setupDriverModal, #addUserModal, #addCustomerModal, #plusCurrencyModal, #factoringCompanyModal, #factoringCompanyModal, #PaymentTermsModal,
+#addContractCategory, #editEquipmentType, #edittruckTrailer, #contractCategoryModal, #addDriverModal, #addRecurrence, #substractRecurrence, #setupDriverModal, #addUserModal, #addCustomerModal, #plusCurrencyModal, #factoringCompanyModal, #factoringCompanyModal, #PaymentTermsModal,
 #addTruckModal, #userEditModal, #addTruckModal, #addEquipmentTypeModal, #TruckTrailerMakeModal, #addTruckTrailerMakeModal, #LoadModal, #addLoadTypeModal, #addBranchOfficeModal, #editBranchOfficeModal, #editPaymentTermsModal {
   backdrop-filter: blur(1px) contrast(.1);
 }
@@ -976,7 +976,7 @@ color: #ffffff;
       }
       
         .custom_modal_small_5{
-          max-width: 30% !important;
+          max-width: 20% !important;
           max-height: 40% !important;
           position: relative;
           margin: 0 auto;
