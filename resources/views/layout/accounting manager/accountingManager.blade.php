@@ -69,8 +69,9 @@
                                                 <th>Load Pay</th>
                                                 <th>Driver/Carrier/Owner Operator</th>
                                                 <th>Driver/Carrier/Owner Operator Pay</th>
-                                                <th>Action</th>
+                                                <th>Status</th>
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="AccManaDeliveredTable">
@@ -86,8 +87,9 @@
                                                 <th>Load Pay</th>
                                                 <th>Driver/Carrier/Owner Operator</th>
                                                 <th>Driver/Carrier/Owner Operator Pay</th>
-                                                <th>Action</th>
+                                                <th>Status</th>
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -109,8 +111,9 @@
                                                     <th>Rec Due Date</th>
                                                     <th>Invoice Received Date</th>
                                                     <th>Pay Due Date</th>
-                                                    <th>Action</th>
+                                                    <th>Status</th>
                                                     <th>Notes</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="AccManaInvoicedTable">
@@ -130,8 +133,9 @@
                                                 <th>Rec Due Date</th>
                                                 <th>Invoice Received Date</th>
                                                 <th>Pay Due Date</th>
-                                                <th>Action</th>
+                                                <th>Status</th>
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                         </table>
@@ -154,6 +158,7 @@
                                                     <!-- <th>Receive Date</th>
                                                     <th>Pay Date</th> -->
                                                     <th>Notes</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="AccManaCompleteTable">
@@ -174,6 +179,7 @@
                                                 <!-- <th>Receive Date</th>
                                                 <th>Pay Date</th> -->
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                         </table>
