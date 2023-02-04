@@ -4,7 +4,6 @@ pipeline {
         stage("Build") {
             steps {
                 bat 'php --version'
-                bat 'composer required mongodb/mongodb'
                 bat 'composer update'
                 bat 'php artisan serve'
             }
