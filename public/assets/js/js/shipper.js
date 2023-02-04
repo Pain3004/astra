@@ -106,6 +106,10 @@ $(document).ready(function() {
                     $("#shipperTable").append(shipperStr);
                     no++;
                     } 
+                    // $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
+                    //     function sort_td(a, b) {
+                    //     return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
+                    // }
                 }
             } else {
                 var shipperStr = "<tr data-id=" + i + ">" +
@@ -140,10 +144,12 @@ $(document).ready(function() {
                     var  consigneeRecivingNote=shipperResult.consignee.consignee[i].consigneeRecivingNote;
                     var  consigneeInternalNote=shipperResult.consignee.consignee[i].consigneeInternalNote;
                     var  deleteStatus=shipperResult.consignee.consignee[i].deleteStatus;
-
+                    // var  deleteStatus=shipperResult.consignee.consignee[i].shipperTable;
+                    
                     if(deleteStatus == 'NO'){
                         var consigneeStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                             //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                        "<td data-field='no'>" + no + "</td>" +
                         "<td data-field='no'>" + no + "</td>" +
                         "<td data-field='consigneeName' >" + consigneeName + "</td>" +
                         "<td data-field='consigneeName' >Consignee</td>" +
@@ -171,6 +177,10 @@ $(document).ready(function() {
                         $("#shipperTable").append(consigneeStr);
                         no++;
                     } 
+                    // $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
+                    //     function sort_td(a, b) {
+                    //     return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
+                    // }
                 }
             } 
             else 

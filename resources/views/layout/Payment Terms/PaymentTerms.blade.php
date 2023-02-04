@@ -24,7 +24,7 @@
                     <a href="#" class="button-57_alt" id="AddPaymentTerms"><i class="fa fa-plus" aria-hidden="true"></i><span>Add PaymentTerms</span></a>
                 @endif 
                 @if($deleteUser== 1)    
-                    <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    <a href="#" class="button-57_alt" id="restorePaymentTerms"><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
                 @endif
 
                 </div>
@@ -68,7 +68,7 @@
                         <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                     @endif
                 </form>
-                    <button type="button" class="button-29 branchOfficeClose" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-29 PaymentTermsClose" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -136,4 +136,48 @@
 <!-------------------------------------------------------------------End edit  modal------------------------------------------------------------------->
 
 <!------------------------------------------------------------------ end ------------------------------------------------------------------>
-
+<!------------------------------------------------------------------- start restore ------------------------------------------------------------------->
+<div class="container">
+    <div class="modal fade" data-backdrop="static" id="RestorePaymentTermsModal">
+        <div class="modal-dialog custom_modal_small_6 modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Restore Payment Terms</h4>
+                    <button type="button" class="button-24 restorePaymentTermsclose" data-dismiss="modal">&times;</button>
+                </div>
+                <div style="margin-top: 15px; margin-left: 15px;">
+                    <input type="hidden" name="checked_id" id="checked_PaymentTerms" value="">
+                    <input type="hidden" name="company_id" id="checked_PaymentTerms_company_ids" value="">
+                    <button id="restore_PaymentTermsData"  class="button-57_alt restore_PaymentTermsData" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore </span></button>
+                </div>
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="table-responsive export-table">
+                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                            <tr class="tr">
+                                                <th scope="col"><input type="checkbox" name="all_ids[]" class="PaymentTerms_all_ids" style="height: 15px;"></th>
+                                                <th>Name</th>
+                                                <th>Net Days</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="RestorePaymentTermsTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button-29 restorePaymentTermsclose" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------------- End restore ------------------------------------------------------------------->

@@ -135,11 +135,16 @@ Route::get('admin/getPaymentTerms', [PaymentTermsController::class, 'getPaymentT
 Route::post('admin/deletePayTerms', [PaymentTermsController::class, 'deletePayTerms']);
 Route::get('admin/editPayTerms', [PaymentTermsController::class, 'editPayTerms']);
 Route::post('admin/updatePaymentTerm', [PaymentTermsController::class, 'updatePaymentTerm']);
+Route::post('admin/restorePaymentTerms', [PaymentTermsController::class, 'restorePaymentTerms']);
 
 //factoringCompany
 Route::get('admin/getCustomerBFactoringCompany', [CustomerController::class, 'getCustomerBFactoringCompany']);
 Route::post('admin/factoringCompany', [CustomerController::class, 'addCustomerfactoringCompany']);
 Route::get('admin/getFactCompany', [factCompanyController::class, 'getFactCompany']);
+Route::get('admin/editFactCompany', [factCompanyController::class, 'editFactCompany']);
+Route::post('admin/updateFactCompany', [factCompanyController::class, 'updateFactCompany']);
+Route::post('admin/deleteFactCompany', [factCompanyController::class, 'deleteFactCompany']);
+Route::post('admin/restoreFactCompany', [factCompanyController::class, 'restoreFactCompany']);
 
 //company
 Route::get('admin/company', [CompanyController::class, 'getCompanyData']);
@@ -242,6 +247,8 @@ Route::post('admin/restoresubCreditCard', [SubCreditCardController::class, 'rest
 Route::get('admin/getAccountDeliverdValue', [AccountManagerController::class, 'getAccountDeliverdValue']);
 Route::get('admin/getAccountInvoiceValue', [AccountManagerController::class, 'getAccountInvoiceValue']);
 Route::get('admin/getAccountCompletedValue', [AccountManagerController::class, 'getAccountCompletedValue']);
+Route::post('admin/accountChangeStatus', [AccountManagerController::class, 'accountChangeStatus']);
+Route::post('admin/DeleteaccountManger', [AccountManagerController::class, 'DeleteaccountManger']);
 
 //Branch Office
 Route::get('admin/getBranchOffice', [BranchOfficeController::class, 'getBranchOffice']);
@@ -249,6 +256,7 @@ Route::post('admin/addBranchOffice', [BranchOfficeController::class, 'addBranchO
 Route::get('admin/editBranchOffice', [BranchOfficeController::class, 'editBranchOffice']);
 Route::post('admin/updateBranchOffice', [BranchOfficeController::class, 'updateBranchOffice']);
 Route::post('admin/deleteBranchOffice', [BranchOfficeController::class, 'deleteBranchOffice']);
+Route::post('admin/restoreBranchOffice', [BranchOfficeController::class, 'restoreBranchOffice']);
 
 //Trailer
 Route::get('admin/getTrailer', [TrailerAdminAddController::class, 'getTrailer']);
@@ -265,12 +273,14 @@ Route::post('admin/addEquipmentType', [EquipmentTypeController::class, 'addEquip
 Route::post('admin/deleteEquipmentType', [EquipmentTypeController::class, 'deleteEquipmentType']);
 Route::get('admin/editEquipmentType', [EquipmentTypeController::class, 'editEquipmentType']);
 Route::post('admin/updateEquipmentType', [EquipmentTypeController::class, 'updateEquipmentType']);
+Route::post('admin/restoreEquipmentType', [EquipmentTypeController::class, 'restoreEquipmentType']);
 
 //Recurrence Category
 Route::get('admin/getRecurrenceCategory', [RecurrenceCategoryController::class, 'getRecurrenceCategory']);
 Route::post('admin/addRecurrenceCategory', [RecurrenceCategoryController::class, 'addRecurrenceCategory']);
 Route::post('admin/deleteRecurrenceCategory', [RecurrenceCategoryController::class, 'deleteRecurrenceCategory']);
-
+Route::get('admin/editRecurrenceCategory', [RecurrenceCategoryController::class, 'editRecurrenceCategory']);
+Route::post('admin/updateRecurrenceCategory', [RecurrenceCategoryController::class, 'updateRecurrenceCategory']);
 
 //Terms Conditions
 Route::get('admin/getTermsConditions', [TermsConditionsController::class, 'getTermsConditions']);
@@ -287,6 +297,8 @@ Route::post('admin/updatetruckTrailer', [TruckTrailerMakeController::class, 'upd
 Route::get('admin/getLoaType', [LoadController::class, 'getLoaType']);
 Route::post('admin/addLoadType', [LoadController::class, 'addLoadType']);
 Route::post('admin/deleteLoad', [LoadController::class, 'deleteLoad']);
+Route::get('admin/editLoad', [LoadController::class, 'editLoad']);
+Route::post('admin/updateLoad', [LoadController::class, 'updateLoad']);
 
 //ExternalCarrierController
 Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);

@@ -61,12 +61,12 @@ $(document).ready(function() {
                                 var  equipmentType=Result.EquipmentType[i].equipment[j].equipmentType;
                                 var deleteStatus =Result.EquipmentType[i].equipment[j].deleteStatus;
 
-                                if(deleteStatus == "NO" || deleteStatus == "No"){
+                                if(deleteStatus == "NO" || deleteStatus == "No" || deleteStatus == "no"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
                                         "<td data-field='no' style='display:none;'>" + no + "</td>" +
 
-                                        "<td data-field='equipmentType'>" + equipmentType + "</td>" +
+                                        "<td data-field='equipmentType'>" + j + "-" + equipmentType + "</td>" +
                                        
                                         "<td style='text-align:center'>"+
                                             "<a class='editEquipmentType button-23  "+editPrivilege+"'  title='Edit' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
@@ -250,7 +250,147 @@ $('body').on('click', '.deleteEquipmentType', function(){
     });
 });
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
+//------------------------------ start restore  ---------------------------------------------
+$('.restoreEquipmentTypeclose').click(function(){
+    $('#RestoreEquipmentTypeModal').modal('hide');
+});
 
+$("#restoreEquipmentType").click(function(){
+    $.ajax({
+        type: "GET",
+        url: base_path + "/admin/getEquipmentType",
+        async: false,
+        success: function (RestoreResult) {
+           RestoreEquipmentType(RestoreResult);
+        }
+    });
+    $('#RestoreEquipmentTypeModal').modal('show');
+});
+
+function RestoreEquipmentType(RestoreResult)
+{
+    var R_Len = 0;
+    if (RestoreResult != null) {
+        $("#RestoreEquipmentTypeTable").html('');
+        var data=RestoreResult.EquipmentType.length;
+        // EquipmentTypelen = EquipmentTypeResult.Office.length;
+        console.log(data);
+        for(var i=0; i<data; i++)
+        {
+            R_Len = RestoreResult.EquipmentType[i].equipment.length;
+            console.log(R_Len);
+            if(R_Len != null)
+            {
+                var no=1;
+                for(var j=R_Len-1; j>=0; j--)
+                {
+                    var com_Id=RestoreResult.EquipmentType[i].companyID;
+                    var id=RestoreResult.EquipmentType[i].equipment[j]._id;
+                    var name =RestoreResult.EquipmentType[i].equipment[j].equipmentType;
+                    var deleteStatus =RestoreResult.EquipmentType[i].equipment[j].deleteStatus;
+                    if (deleteStatus == "Yes" || deleteStatus == "YES" || deleteStatus == "yes") 
+                    {
+                        // alert(j);
+                        // alert(deleteStatus);
+                        var R_str = "<tr data-id=" + (i + 1) + ">" +
+                            "<td data-field='no'><input type='checkbox' name='checkEquipmentTypeOne[]' class='checkedIdsOneBranch' style='height: 15px;' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                            "<td style='display:none;'></td>" +
+                            "<td >" + j + "-" + name + "</td>" +
+                        $("#RestoreEquipmentTypeTable").append(R_str);
+                        // alert(R_str);   
+                        no++;
+                    }
+                }
+            }
+            else
+            {
+                var R_str = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+                $("#RestoreEquipmentTypeTable").append(R_str);
+            }                  
+        }
+    }
+    else
+    {
+        var R_str = "<tr data-id=" + i + ">" +
+        "<td align='center' colspan='4'>No record found.</td>" +
+        "</tr>";
+        $("#RestoreEquipmentTypeTable").append(R_str);
+    }
+}
+$(document).on("change", ".EquipmentType_all_ids", function() 
+{
+    if(this.checked) {
+        $('.checkedIdsOneBranch:checkbox').each(function() 
+        {
+            this.checked = true;
+            branchOfficeCheckboxRestore();
+        });
+    } 
+    else 
+    {
+        $('.checkedIdsOneBranch:checkbox').each(function() {
+            this.checked = false;
+        });
+    }
+});
+$('body').on('click','.checkedIdsOneBranch',function(){
+    branchOfficeCheckboxRestore();
+});
+function branchOfficeCheckboxRestore()
+{
+    var branchOfficeds = [];
+    var companyIds=[]
+        $.each($("input[name='checkEquipmentTypeOne[]']:checked"), function(){
+            branchOfficeds.push($(this).val());
+            companyIds.push($(this).attr("data-comId"));
+        });
+        // console.log(branchOfficeds);
+        var braOffIds =JSON.stringify(branchOfficeds);
+        $('#checked_EquipmentType').val(braOffIds);
+       
+        var companyCheckedIds =JSON.stringify(companyIds);
+        $('#checked_EquipmentType_company_ids').val(companyCheckedIds);
+
+        if(branchOfficeds.length > 0)
+        {
+            $('#restore_EquipmentTypeData').removeAttr('disabled');
+        }
+        else
+        {
+            $('#restore_EquipmentTypeData').attr('disabled',true);
+        }
+}
+$('body').on('click','.restore_EquipmentTypeData',function(){
+   
+    var all_ids=$('#checked_EquipmentType').val();
+    alert(all_ids);
+    var custID=$("#checked_EquipmentType_company_ids").val();
+    $.ajax({
+        type:"post",
+        data:{
+            _token:$("#tokeneditbranchOffice").val(),
+            all_ids:all_ids,
+            custID:custID
+        },
+        url: base_path+"/admin/restoreEquipmentType",
+        success: function(response) {               
+            swal.fire("Branch Office Restored successfully");
+            $("#RestoreEquipmentTypeModal").modal("hide");
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getEquipmentType",
+                async: false,
+                success: function(text) {
+                    createEquipmentTypeRows(text);
+                }
+            });
+            // $('#branchOfficeModal').modal('show');
+        }
+    });
+});
+// ---------------------------------------------end restore  ---------------------------------------------
 
 // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 });

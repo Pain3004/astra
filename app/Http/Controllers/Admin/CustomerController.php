@@ -153,53 +153,66 @@ class CustomerController extends Controller
        // dd($customerCurr);
         return response()->json($customerBFactoringCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
-    public function addCustomerfactoringCompany(Request $request){
+    public function addCustomerfactoringCompany(Request $request)
+    {
         //dd($request);
        //$companyIDForPaymentTerms=2;
 
        //$customerAdd = Customer::all();
   
-       $companyIDForCustomerfactoring=1;
+       $companyID=(int)Auth::user()->companyID;;
        $totalCustomerfactoringArray=0;
-       $getCompanyForCustomerfactoring = Factoring_company_add::where('companyID',$companyIDForCustomerfactoring)->first();
-
-       if($getCompanyForCustomerfactoring){
-           $CustomerfactoringArray=$getCompanyForCustomerfactoring->factoring;
-           $totalCustomerfactoringArray=count($CustomerfactoringArray)+ 1;
-       }
-  
+       $getCompanyForCustomerfactoring = Factoring_company_add::where('companyID',$companyID)->first();
+           if($getCompanyForCustomerfactoring)
+            {
+                $CustomerfactoringArray=$getCompanyForCustomerfactoring->factoring;
+                $ids=array();
+                foreach( $CustomerfactoringArray as $key=> $getCarrierIds)
+                {
+                    $ids[]=$getCarrierIds['_id'];
+                }
+                $ids=max($ids);
+                $totalCustomerfactoringArray=$ids+1;
+            }
+            else
+            {
+                $totalCustomerfactoringArray=0; 
+            }
+                // dd($totalCustomerfactoringArray);
        $CustomerfactoringData[]=array(    
-                       '_id' => $totalCustomerfactoringArray,
-                       'counter' => $totalCustomerfactoringArray,
-                       
-                       'factoringCompanyname' => $request->factoringCompanyName,
-                       'address' => $request->factoringCompanyAddress,
-                       'location' => $request->factoringCompanyLocation,
-                       'zip' => $request->factoringCompanyZip,
-                       'primaryContact' => $request->factoringCompanyPrimaryContact,
-                       'telephone' => $request->factoringCompanyPrimaryContactTelephone,
-                       'extFactoring' => $request->factoringCompanyPrimaryContactExt,
-                       'fax' => $request->factoringCompanyFax,
+            '_id' => $totalCustomerfactoringArray,
+            'counter' => $totalCustomerfactoringArray,
+            
+            'factoringCompanyname' => $request->factoringCompanyName,
+            'address' => $request->factoringCompanyAddress,
+            'location' => $request->factoringCompanyLocation,
+            'zip' => $request->factoringCompanyZip,
+            'primaryContact' => $request->factoringCompanyPrimaryContact,
+            'telephone' => $request->factoringCompanyPrimaryContactTelephone,
+            'extFactoring' => $request->factoringCompanyPrimaryContactExt,
+            'fax' => $request->factoringCompanyFax,
 
-                       'tollFree' => $request->factoringTollFree,
-                       'email' => $request->factoringCompanyContactEmail,
+            'tollFree' => $request->factoringTollFree,
+            'email' => $request->factoringCompanyContactEmail,
+            
+            'secondaryContact' => $request->factoringCompanySecondaryContact,
+            'factoringtelephone' => $request->factoringCompanySecondaryContactTelephone,
+            'ext' => $request->factoringCompanySecondaryContactExt,
+            'currencySetting' => $request->factoringCompanycurrency,
+            'paymentTerms' => $request->factoringCompanyPaymentTerms,
+            'taxID' => $request->factoringCompanyTaxID,
+            'internalNote' => $request->factoringCompanyInternalNotes,
+            'insertedTime' => '',
+            'insertedUserId' => '',
 
-                       'secondaryContact' => $request->factoringCompanySecondaryContact,
-                       'ext' => $request->factoringCompanySecondaryContactExt,
-                       'currencySetting' => $request->factoringCompanycurrency,
-                       'taxID' => $request->factoringCompanyTaxID,
-                       'internalNote' => $request->factoringCompanyInternalNotes,
-                        'insertedTime' => '',
-                       'insertedUserId' => '',
-
-                       'deleteStatus' => 'No',
-                       'deleteUser' => '',
-                       'deleteTime' => '',
-                       );
+            'deleteStatus' => 'NO',
+            'deleteUser' => '',
+            'deleteTime' => '',
+            );
 
            if($getCompanyForCustomerfactoring){
                
-            Factoring_company_add::where(['companyID' =>$companyIDForCustomerfactoring])->update([
+            Factoring_company_add::where(['companyID' =>$companyID])->update([
                    'counter'=> $totalCustomerfactoringArray,
                    'factoring' =>array_merge($CustomerfactoringArray,$CustomerfactoringData) ,
                ]);
@@ -211,7 +224,7 @@ class CustomerController extends Controller
                        if(Factoring_company_add::create([
                            // 'companyID' => (int)$_SESSION['companyId'],
                            '_id' => 1,
-                           'companyID' => $companyIDForCustomerfactoring,
+                           'companyID' => $companyID,
                            'counter' => 1,
                            'factoring' => $CustomerfactoringData,
                        ])) {
@@ -225,11 +238,11 @@ class CustomerController extends Controller
            }
 
       
-   }
+    }
 
     public function addCustomerData(Request $request){
        // echo "hello";
-       //dd($request->all());
+         //dd($request->all());
 
         request()->validate([
             //'customerName' => 'required',
@@ -239,9 +252,9 @@ class CustomerController extends Controller
        
         ]);
         
-        $customerAdd = Customer::all();
+        // $customerAdd = Customer::all();
    
-        $companyIDForCustomer=2;
+        $companyIDForCustomer=1;
         $totalCustomerArray=0;
         $getCompanyForCustomer = Customer::where('companyID',$companyIDForCustomer)->first();
 
@@ -249,7 +262,7 @@ class CustomerController extends Controller
             $CustomerArray=$getCompanyForCustomer->customer;
             $totalCustomerArray=count($CustomerArray)+ 1;
         }
-   
+        // dd($request);
        // $password = sha1($request->password);
         $customerData[]=array(    
                         '_id' => $totalCustomerArray ,
@@ -296,24 +309,24 @@ class CustomerController extends Controller
                         'isBroker' => $request->customerIsBroker,
                         'insertedTime' => '' ,
                         'insertedUserId' => '' ,
-                        'deleteStatus' => '' ,
+                        'deleteStatus' => 'NO' ,
                         'deleteUser' => '' ,
                         'deleteTime' => '' ,
                         'averagedays' =>'' ,
                         'totalloads' => '' ,
 
                         );
-   // dd($getCompany);         
-   // $getCompany="";
+        //    dd($customerData);         
+        // $getCompany="";
            
             if($getCompanyForCustomer){
-                
+                // dd($getCompanyForCustomer);
                 // $CustomerArray=$getCompanyForCustomer->customer;
                 // $totalCustomerArray=count($CustomerArray);
                // dd($totalCustomerArray);
                 Customer::where(['companyID' =>$companyIDForCustomer])->update([
                     'counter'=> $totalCustomerArray,
-                    'customer' =>array_merge($customerData,$CustomerArray) ,
+                    'customer' =>array_merge($CustomerArray,$customerData) ,
                     // 'user_type' => "user",
         
                     // 'deleteStatus' => 0,
@@ -382,8 +395,8 @@ class CustomerController extends Controller
                      }
                 }
        }
-    //    dd($v);
-    //    dd($cusomerArray[$v]);
+            //    dd($v);
+            //    dd($cusomerArray[$v]);
         $customerData->customer= $cusomerArray[$v];
         return response()->json($customerData); 
     }
@@ -412,7 +425,7 @@ class CustomerController extends Controller
                      }
                 }
        }
-    //    dd($request->workerComp);
+            //    dd($request->workerComp);
        $customerArray[$v]['custName']=$request->custName;
        $customerArray[$v]['custAddress']=$request->custAddress;
        $customerArray[$v]['custLocation']=$request->custLocation;
@@ -447,9 +460,9 @@ class CustomerController extends Controller
        $customerArray[$v]['customerRate']=$request->customerRate;
        $customerArray[$v]['numberOninvoice']=$request->numberOninvoice;
        $customerArray[$v]['internalNotes']=$request->internalNotes;
-    //    dd($request);
+            //    dd($request);
        $customerData->customer = $customerArray;
-    //    dd( $customerData->customer);
+            //    dd( $customerData->customer);
        if($customerData->save()){
             $arr = array('status' => 'success', 'message' => 'Customer updated successfully.','statusCode' => 200); 
             return json_encode($arr);
@@ -468,6 +481,7 @@ class CustomerController extends Controller
         $v=0;
         for ($i=0; $i<$arrayLength; $i++){
             $ids=$customerData->customer[$i];
+            // $ids=(array)$ids;
             foreach ($ids as $value){
                 if($value==$id){
                     $v=$id;
@@ -499,8 +513,8 @@ class CustomerController extends Controller
             $v=0;
             $data=array();
             for ($i=0; $i<$arrayLength; $i++){
-                $ids=$customerData->customer[$i]['_id'];
-                $ids=(array)$ids;
+                $ids=$customerData->customer[$i];
+                // $ids=(array)$ids;
                 foreach ($ids as $value){
                 //    print_r(gettype($cu_ids));
 

@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // -------------------------------------------------------------------------  start ------------------------------------------------------------------------- --  
-    $('#RecurrenceCategoryModal, #addRecurrenceCategoryModal').modal({
+    $('#RecurrenceCategoryModal, #addRecurrenceCategoryModal, #editRecurrenceCategoryModal').modal({
         backdrop: 'static',
         keyboard: false
     })
@@ -18,6 +18,10 @@ $(document).ready(function() {
     $('.addRecurrenceCategoryClose').click(function(){
         $('#addRecurrenceCategoryModal').modal('hide');
     });
+
+    $('.editRecurrenceCategoryClose').click(function(){
+        $('#editRecurrenceCategoryModal').modal('hide');
+    });
 // -------------------------------------------------------------------------    Get   ------------------------------------------------------------------------- --  
     $('#RecurrenceCategory_navbar').click(function(){
         $.ajax({
@@ -25,7 +29,7 @@ $(document).ready(function() {
             url: base_path+"/admin/getRecurrenceCategory",
             async: false,
             success: function(text) {
-                console.log(text);
+                // console.log(text);
                 createRecurrenceCategoryRows(text);
               }
         });
@@ -57,12 +61,12 @@ $(document).ready(function() {
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
-                                        "<td data-field='no' style='display:none'>" + no + "</td>" +
+                                        // "<td data-field='no' style='display:none'>" + no + "</td>" +
                                         "<td data-field='fixPayType'>" + fixPayType + "</td>" +
                                        
                                         "<td style='width: 100px'>"+
-                                        "<a class='button-23 "+editPrivilege+" editRecurrenceCategory'  title='Edit1' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                        "</a><a class='deleteRecurrenceCategory button-23 "+delPrivilege+"' title='Delete' data-Id='"+id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                        "<a class='editRecurrenceCategory button-23 "+editPrivilege+" '  title='Edit' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                        "<a class='deleteRecurrenceCategory button-23 "+delPrivilege+"' title='Delete' data-Id='"+id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
                                     "</td></tr>";
             
                                     $("#RecurrenceCategoryTable").append(Str);
@@ -89,15 +93,14 @@ $(document).ready(function() {
         }
     }
  // -- -------------------------------------------------------------------------   over Get   ------------------------------------------------------------------------- --
-
  // -- -------------------------------------------------------------------------    add    ------------------------------------------------------------------------- -- 
-   
     $("#saveRecurrenceCategory").click(function(){
         var fixPayType_name=$('#fixPayType_name').val();
         
         if(fixPayType_name=='')
         {
-            swal.fire( "Enter Name");
+            swal.fire({ title: 'Enter Name', text: 'Redirecting...', timer: 2000, })               
+            //swal.fire( "Enter Name");
             $('#fixPayType_name').focus();
             return false;
         } 
@@ -133,55 +136,108 @@ $(document).ready(function() {
             }
         });
     });
-
-
 // - -------------------------------------------------------------------------over add    ------------------------------------------------------------------------- -- 
-//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
-$('body').on('click', '.deleteRecurrenceCategory', function(){
-    var  id=$(this).attr("data-Id");
-    var comId=$(this).attr('data-comID');
+   //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
+   $("body").on('click','.editRecurrenceCategory', function(){
+    var comID =$(this).attr("data-comID");
+    var Id=$(this).attr("data-Id");
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/editRecurrenceCategory",
+        async: false,
+        data:{comID:comID, Id:Id},
+        //dataType:JSON,
+        success: function(text) {
+            $('#up_RecurrenceCategory_name').val(text.fixPayType);
+            $('#RecurrenceCategoryComid').val(text.companyID);
+            $('#RecurrenceCategoryId').val(text._id);
+        }
+    });
 
-    swal.fire({
-        title: "Delete?",
-        text: "Please ensure and then confirm!",
-        type: "warning",
-        showCancelButton: !0,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: !0
-    }).then(function (e) {
-        if (e.value === true) 
-        {
+    $("#editRecurrenceCategoryModal").modal("show");
+});
+
+$("#RecurrenceCategoryUpdate").click(function()
+{
+    var name =$('#up_RecurrenceCategory_name').val();
+    var compID =$('#RecurrenceCategoryComid').val();
+    var id =$('#RecurrenceCategoryId').val();
+    
+    $.ajax({
+        url: base_path+"/admin/updateRecurrenceCategory",
+        type: "POST",
+        datatype:"JSON",
+        data:{
+            _token: $("#tokeneditRecurrenceCategory").val(),
+            name:name,
+            compID:compID,
+            id:id,
+        },
+        success: function(data) {
+            console.log(data)     
+            swal.fire({ title: 'Recurrence Category updated successfully', text: 'Redirecting...', icon: 'success', timer: 2000, buttons: false, })               
+            // swal.fire("Recurrence Category updated successfully");
+
+            $('#editRecurrenceCategoryModal').modal('hide');
             $.ajax({
-                type: 'post',
-                url: base_path+"/admin/deleteRecurrenceCategory",
-                data: { 
-                    _token: $("#_tokenbranchOffice").val(), 
-                    id: id,
-                    comId:comId
-                },
-                success: function(resp){
-                    swal.fire("Done!", "Recurrence Category Deleted successfully", "success");
-                    $.ajax({
-                        type: "GET",
-                        url: base_path+"/admin/getRecurrenceCategory",
-                        async: false,
-                        success: function(text) {
-                            console.log(text);
-                            createRecurrenceCategoryRows(text);
-                          }
-                    });
-                    $('#RecurrenceCategoryModal').modal('show');
-                },
-                error: function (resp) {
-                    swal.fire("Error!", 'Something went wrong.', "error");
-                }
+                type: "GET",
+                url: base_path+"/admin/getRecurrenceCategory",
+                async: false,
+                success: function(text) {
+                    console.log(text);
+                    createRecurrenceCategoryRows(text);
+                  }
             });
-        } 
+            $('#RecurrenceCategoryModal').modal('show');
+        }
     });
 });
+//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
+
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+    $('body').on('click', '.tokeneditRecurrenceCategory', function(){
+        var  id=$(this).attr("data-Id");
+        var comId=$(this).attr('data-comID');
+
+        swal.fire({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+            if (e.value === true) 
+            {
+                $.ajax({
+                    type: 'post',
+                    url: base_path+"/admin/deleteRecurrenceCategory",
+                    data: { 
+                        _token: $("#_tokenbranchOffice").val(), 
+                        id: id,
+                        comId:comId
+                    },
+                    success: function(resp){
+                        swal.fire("Done!", "Recurrence Category Deleted successfully", "success");
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/getRecurrenceCategory",
+                            async: false,
+                            success: function(text) {
+                                console.log(text);
+                                createRecurrenceCategoryRows(text);
+                            }
+                        });
+                        $('#RecurrenceCategoryModal').modal('show');
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+        });
+    });
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
-
-
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });

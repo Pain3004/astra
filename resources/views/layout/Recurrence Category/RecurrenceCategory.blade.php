@@ -10,7 +10,7 @@
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="RecurrenceCategoryModal" role="dialog">
-        <div class="modal-dialog custom_modal_small4 modal-dialog-scrollable" role="document">
+        <div class="modal-dialog custom_modal_small_6 modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Recurrence Category</h5>
@@ -43,7 +43,7 @@
                                                 <thead class="thead_th">
                                                     <tr class="tr">
                                                         <th>NO</th>
-                                                        <th style="display:none">NO</th>
+                                                        <!-- <th style="display:none">NO</th> -->
                                                         <th>Name</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -82,14 +82,14 @@
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="addRecurrenceCategoryModal" role="dialog">
-        <div class="modal-dialog custom_modal_small_5 modal-dialog-scrollable" role="document">
+        <div class="modal-dialog custom_modal_small_5" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Create Recurrence Category</h5>
                     <button type="button" class="button-24 addRecurrenceCategoryClose" >×</button>
 
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
+                <div class="modal-body" style="overflow-y: auto !important;margin-left: 22px;">
 
                     <!-- Row -->
                     <div class="row">
@@ -98,11 +98,11 @@
                                 <div class="card">
 
                                     <div class="card-body">
-                                        <div class="table-responsive export-table">
+                                        <div class="export-table">
                                             <form>
                                             <input type="hidden" name="_token" id="_tokenRecurrenceCategory" value="{{ csrf_token() }}" />
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-12">
                                                         <label for="name">Name <span style="color:#ff0000">*</span></label>
                                                         <input type="text" class="form-control required" id="fixPayType_name" placeholder=" Name">
                                                     </div>
@@ -128,44 +128,58 @@
         </div>
     </div>
 </div>
+<!-------------------------------------------------------------------End Add   ------------------------------------------------------------------->
+<!------------------------------------------------------------------- edit modal ------------------------------------------------------------------->
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal fade" data-backdrop="static" id="editRecurrenceCategoryModal" role="dialog">
+        <div class="modal-dialog custom_modal_small_5" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Recurrence Category</h5>
+                    <button type="button" class="button-24 editRecurrenceCategoryClose" >×</button>
 
-<!-------------------------------------------------------------------End Add Equipment Type modal------------------------------------------------------------------->
+                </div>
+                <div class="modal-body" style="overflow-y: auto !important;margin-left: 22px;">
 
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="card">
 
-<script>
+                                    <div class="card-body">
+                                        <div class="export-table">
+                                            <form>
+                                            <input type="hidden" name="_token" id="tokeneditRecurrenceCategory" value="{{ csrf_token() }}" />
+                                            <input type="hidden" name="" id="RecurrenceCategoryId"  />
+                                            <input type="hidden" name="" id="RecurrenceCategoryComid"  />
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Name <span style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control required" id="up_RecurrenceCategory_name" placeholder=" Name">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <div class="modal-footer">
+                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                        @csrf
+                        <!-- <button class="button-29" style="vertical-align:middle"><span>Export</span></button> -->
+                    </form>
+                    <button type="button" class="button-29" id="RecurrenceCategoryUpdate" >update</button>
+                    <button type="button" class="button-29 editRecurrenceCategoryClose" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-------------------------------------------------------------------End edit  modal------------------------------------------------------------------->
 
-// $(document).ready(function() {
-//     $('#EquipmentType_table_pagination').DataTable({
-
-//         "columnDefs": [
-//             {
-//                 "targets": [ 2 ],
-//                 "searchable": false,
-//                 "sortable":false
-//             },
-//         ]
-
-//     });
-// });
-
-</script>
-<!-------------------------------------------------------------------End Add Equipment Type modal------------------------------------------------------------------->
-
-
-<script>
-
-// $(document).ready(function() {
-//     $('#EquipmentType_table_pagination').DataTable({
-
-//         "columnDefs": [
-//             {
-//                 "targets": [ 2 ],
-//                 "searchable": false,
-//                 "sortable":false
-//             },
-//         ]
-
-//     });
-// });
-
-</script>

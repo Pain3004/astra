@@ -65,12 +65,12 @@
 														<li class="side-menu-label1"><a href="javascript:void(0)">Admin</a></li>
 														@if(isset($adminArray['addCustomer']))
 															@if($adminArray['addCustomer']==1)
-															<li><a href="#customerModal" class="slide-item" data-toggle="modal" data-target="#customerModal">Customer</a></li>
+															<li><a href="#" class="slide-item" id="customer_navbar">Customer</a></li>
 															<!-- <li><a href="#" class="slide-item" id="customer_navbar">Customer</a></li> -->
 															@endif 
 														@elseif(isset($adminArray['customer']))
 															@if($adminArray['customer']==1)
-															<li><a href="#customerModal" class="slide-item" data-toggle="modal" data-target="#customerModal">Customer</a></li>
+															<li><a href="#" class="slide-item" id="customer_navbar">Customer</a></li>
 															<!-- <li><a href="#" class="slide-item" id="customer_navbar">Customer</a></li> -->
 															@endif 
 														@endif

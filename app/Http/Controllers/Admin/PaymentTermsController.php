@@ -119,5 +119,53 @@ class PaymentTermsController extends Controller
         }
     }
 
-    
+    public function restorePaymentTerms(Request $request)
+    {
+        //dd($request);
+        $cardIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $PaymentTerms = Payment_terms::where('companyID',$company_id )->first();
+            $PaymentTermsArray=$PaymentTerms->payment;
+            $arrayLength=count($PaymentTermsArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$PaymentTerms->payment[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $PaymentTermsArray[$row]['deleteStatus'] = "NO";
+                $PaymentTerms->payment= $PaymentTermsArray;
+                $save=$PaymentTerms->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Payment Terms Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
 }

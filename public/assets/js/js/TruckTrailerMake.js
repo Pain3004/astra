@@ -149,8 +149,8 @@ $(document).ready(function() {
                                     no++;
                                 }
                                 $("#TruckTrailerMakeTable tr").sort(sort_td).appendTo("#TruckTrailerMakeTable");
-                                function sort_td(a, b) {
-                                return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
+                                    function sort_td(a, b) {
+                                    return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
                                 }
                             }
                         }

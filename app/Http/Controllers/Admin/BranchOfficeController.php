@@ -174,4 +174,54 @@ class BranchOfficeController extends Controller
          return json_encode($arr);
         }
     }
+
+    public function restoreBranchOffice(Request $request)
+    {
+        //dd($request);
+        $cardIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Office = Office::where('companyID',$company_id )->first();
+            $OfficeArray=$Office->office;
+            $arrayLength=count($OfficeArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Office->office[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $OfficeArray[$row]['deleteStatus'] = "NO";
+                $Office->office= $OfficeArray;
+                $save=$Office->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Branck office Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
 }

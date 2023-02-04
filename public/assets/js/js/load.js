@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // -------------------------------------------------------------------------  start ------------------------------------------------------------------------- --  
-    $('#LoadModal, #addLoadTypeModal').modal({
+    $('#LoadModal, #addLoadTypeModal, #editLoadModal').modal({
         backdrop: 'static',
         keyboard: false
     })
@@ -17,6 +17,10 @@ $(document).ready(function() {
 
     $('.addLoadTypeClose').click(function(){
         $('#addLoadTypeModal').modal('hide');
+    });
+
+    $('.editLoadClose').click(function(){
+        $('#editLoadModal').modal('hide');
     });
 // -------------------------------------------------------------------------    Get   ------------------------------------------------------------------------- --  
     $('#Load_navbar').click(function(){
@@ -61,8 +65,8 @@ $(document).ready(function() {
                                         "<td data-field='loadName'>" + loadName + "</td>" +
                                         "<td data-field='loadType'>" + loadType + "</td>" +
                                         "<td style='width: 100px'>"+
-                                            "<a class='button-23 "+editPrivilege+" editLoad'  title='Edit1' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                            "</a><a class='deleteLoad button-23 "+delPrivilege+"' title='Delete' data-Id='"+id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                            "<a class='editLoad button-23 "+editPrivilege+" '  title='Edit' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "<a class='deleteLoad button-23 "+delPrivilege+"' title='Delete' data-Id='"+id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
                                         "</td></tr>";
             
                                     $("#Load_typeTable").append(Str);
@@ -89,7 +93,6 @@ $(document).ready(function() {
         }
     }
  // -- -------------------------------------------------------------------------   over Get   ------------------------------------------------------------------------- --
-
  // -- -------------------------------------------------------------------------    add    ------------------------------------------------------------------------- -- 
     $("#saveLoadType").click(function(){
         var loadName=$('#loadType_name').val();
@@ -142,6 +145,65 @@ $(document).ready(function() {
         });
     });
 // - -------------------------------------------------------------------------over add    ------------------------------------------------------------------------- -- 
+   //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
+   $("body").on('click','.editLoad', function(){
+    var comID =$(this).attr("data-comID");
+    var Id=$(this).attr("data-Id");
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/editLoad",
+        async: false,
+        data:{comID:comID, Id:Id},
+        //dataType:JSON,
+        success: function(text) {
+            $('#up_Load_name').val(text.loadName);
+            $('#up_Load_unit').val(text.loadType);
+            $('#LoadComid').val(text.companyID);
+            $('#LoadId').val(text._id);
+        }
+    });
+
+    $("#editLoadModal").modal("show");
+});
+
+$("#loadUpdate").click(function(){
+    // $('#branchOfficeModal').modal('hide');
+    var name =$('#up_Load_name').val();
+    var unit =$('#up_Load_unit').val();
+    var compID =$('#LoadComid').val();
+    var id =$('#LoadId').val();
+//    var tokan=$('#tokeneditbranchOffice').val();
+    $.ajax({
+        
+        url: base_path+"/admin/updateLoad",
+        type: "POST",
+        datatype:"JSON",
+        data:{
+            _token: $("#tokeneditLoad").val(),
+            name:name,
+            unit:unit,
+            compID:compID,
+            id:id,
+        },
+        success: function(data) {
+            console.log(data)                    
+            swal.fire("Done!", "Load updated successfully", "success");
+
+            $('#editLoadModal').modal('hide');
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getLoaType",
+                async: false,
+                success: function(text) {
+                    console.log(text);
+                    createLoad_typeRows(text);
+                  }
+            });
+            $('#LoadModal').modal('show');
+        }
+    });
+});
+//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
 //-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
 $('body').on('click', '.deleteLoad', function(){
     var  id=$(this).attr("data-Id");

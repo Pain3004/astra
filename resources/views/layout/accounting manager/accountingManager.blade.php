@@ -22,11 +22,12 @@
                         <div style="margin-top: 15px; margin-left: 15px;">
                             <!-- Tabs -->
                             <nav class="nav d-sm-flex d-block">
-                                <button class="button-57_alt2 Delivered_tab" data-bs-toggle="tab" href="#tab_Delivered"><i class="fas fa-shipping-fast" style='font-size:15px;' aria-hidden="true"></i><span><i class="fas fa-shipping-fast" style='color:white;' aria-hidden="true"></i><br>Delivered</span></button>
+                            <input type="hidden" name="_token" id="_tokenChangeAccountStatus" value="{{ csrf_token() }}"  >
+                                <button class="button-57_alt2 Delivered_tab" data-bs-toggle="tab" href="#tab_Delivered"><i class="fas fa fa-truck" style='font-size:15px;' aria-hidden="true"></i><span><i class="fas fa fa-truck" style='color:white;' aria-hidden="true"></i><br>Delivered</span></button>
                                 
-                                <button class="button-57_alt2 Invoiced_tab" data-bs-toggle="tab" href="#tab_Invoiced"><i class="fas fa-file-invoice-dollar" style='font-size:15px;' aria-hidden="true"></i><span><i class="fas fa-file-invoice-dollar" style='color:white;' aria-hidden="true"></i><br>Invoiced</span></button>
+                                <button class="button-57_alt2 Invoiced_tab" data-bs-toggle="tab" href="#tab_Invoiced"><i class="fa fa-usd" style='font-size:15px;' aria-hidden="true"></i><span><i class="fa fa-usd" style='color:white;' aria-hidden="true"></i><br>Invoiced</span></button>
                                 
-                                <button class="button-57_alt2 Completed_tab" data-bs-toggle="tab" href="#tab_Completed"><i class="fa fa-check-circle" style='font-size:15px;' aria-hidden="true"></i><span><i class="fa fa-check-circle" style='color:white;' aria-hidden="true"></i><br>Completed</span></button>
+                                <button class="button-57_alt2 Completed_tab" data-bs-toggle="tab" href="#tab_Completed"><i class="fa fa-check" style='font-size:15px;' aria-hidden="true"></i><span><i class="fa fa-check" style='color:white;' aria-hidden="true"></i><br>Completed</span></button>
                             </nav>
                         </div>
                     </div>
@@ -82,8 +83,9 @@
                                                 <th>Load Pay</th>
                                                 <th>Driver/Carrier/Owner Operator</th>
                                                 <th>Driver/Carrier/Owner Operator Pay</th>
-                                                <th>Action</th>
+                                                <th>Status</th>
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="AccManaDeliveredTable">
@@ -99,8 +101,9 @@
                                                 <th>Load Pay</th>
                                                 <th>Driver/Carrier/Owner Operator</th>
                                                 <th>Driver/Carrier/Owner Operator Pay</th>
-                                                <th>Action</th>
+                                                <th>Status</th>
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -122,8 +125,9 @@
                                                     <th>Rec Due Date</th>
                                                     <th>Invoice Received Date</th>
                                                     <th>Pay Due Date</th>
-                                                    <th>Action</th>
+                                                    <th>Status</th>
                                                     <th>Notes</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="AccManaInvoicedTable">
@@ -143,8 +147,9 @@
                                                 <th>Rec Due Date</th>
                                                 <th>Invoice Received Date</th>
                                                 <th>Pay Due Date</th>
-                                                <th>Action</th>
+                                                <th>Status</th>
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                         </table>
@@ -167,6 +172,7 @@
                                                     <!-- <th>Receive Date</th>
                                                     <th>Pay Date</th> -->
                                                     <th>Notes</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="AccManaCompleteTable">
@@ -187,6 +193,7 @@
                                                 <!-- <th>Receive Date</th>
                                                 <th>Pay Date</th> -->
                                                 <th>Notes</th>
+                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
                                         </table>

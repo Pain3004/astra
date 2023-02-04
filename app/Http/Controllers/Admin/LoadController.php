@@ -11,6 +11,7 @@ use Image;
 use MongoDB\BSON\ObjectId;
 use Auth;
 use PDF;
+use carbon\carbon;
 
 use Illuminate\Database\Eloquent\Collection;
 
@@ -79,9 +80,70 @@ class LoadController extends Controller
         }
 
       
-   }
+    }
 
-   public function deleteLoad(Request $request)
+    public function editLoad(Request $request){
+
+        $id=$request->Id;
+        $companyID=(int)$request->comID;
+
+        $result = Load_type::where('companyID',$companyID)->first();
+        $Array=$result->loadType;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+        
+        $companyID=array(
+            "companyID"=>$companyID
+        ) ;
+
+        $EditData=$Array[$v];
+        $dataArray=array_merge($companyID,$EditData);
+        return response()->json($dataArray, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+
+    }
+
+    public function updateLoad(Request $request)
+    {
+        $id=$request->id;
+        $companyID=(int)$request->compID;
+
+        $result = Load_type::where('companyID',$companyID)->first();
+        $Array=$result->loadType;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['loadName']=$request->name;        
+        $Array[$v]['loadType']=$request->unit;
+        $Array[$v]['edit_by']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['edit_time']=Carbon::now()->timestamp;
+
+        $result->loadType=$Array;
+        if($result->save())
+        {
+         $arr = array('status' => 'success', 'message' => 'Load updated successfully.','statusCode' => 200); 
+         return json_encode($arr);
+        }
+    }
+
+    public function deleteLoad(Request $request)
     {
         $id=$request->id;
         $companyID=(int)$request->comId;

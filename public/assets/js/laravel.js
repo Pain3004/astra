@@ -87,7 +87,8 @@ function createRows(response) {
     }
 
     if (len > 0) {
-        for (var i = 0; i < len; i++) {
+        // for (var i = 0; i < len; i++) {
+        for (var i = len-1; i >= 0; i--) {
             var id = response[i].id;
             var email = response[i].userEmail;
             var username = response[i].userName;
@@ -420,6 +421,7 @@ $(document).ready(function() {
                 cache: false,
                 success: function(resp){
                   if(resp.success === true){
+                    $("#addUserModal").modal("hide");
                       swal.fire("Done!", resp.message, "success");
                       $.ajax({
                           type: "GET",

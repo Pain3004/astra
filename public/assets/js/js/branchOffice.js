@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
-    $('#branchOfficeModal, #addBranchOfficeModal, #editBranchOfficeModal').modal({
+    $('#branchOfficeModal, #addBranchOfficeModal, #editBranchOfficeModal, #RestoreBranchOfficeModal').modal({
         backdrop: 'static',
         keyboard: false
     })
@@ -18,10 +18,13 @@ $(document).ready(function() {
     $('.addBranchOfficeClose').click(function(){
         $('#addBranchOfficeModal').modal('hide');
     });
-
     
     $('.editBranchOfficeClose').click(function(){
         $('#editBranchOfficeModal').modal('hide');
+    });
+
+    $('.restoreBranchOfficeclose').click(function(){
+        $('#RestoreBranchOfficeModal').modal('hide');
     });
 // <!-- -------------------------------------------------------------------------Get   ------------------------------------------------------------------------- -->  
    
@@ -74,7 +77,8 @@ $(document).ready(function() {
                                         //alert("ff");
                                         var branchOfficeStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
-                                        "<td data-field='officeName' >" + officeName + "</td>" +
+                                        "<td data-field='no' style='display:none'>" + no + "</td>" +
+                                        "<td data-field='officeName' >" + j + "-" + officeName + "</td>" +
                                         "<td data-field='officeLocation' >" + officeLocation + "</td>" +
                                        
                                         "<td style='text-align:center'>"+
@@ -284,6 +288,144 @@ $(document).ready(function() {
         });
     });
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
+//------------------------------ start restore  ---------------------------------------------
+    $("#restoreBranchOffice").click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path + "/admin/getBranchOffice",
+            async: false,
+            success: function (RestoreResult) {
+                //console.log(text);
+               RestoreBranchOffice(RestoreResult);
+                // RestoreResult = text;
+            }
+        });
+        $('#RestoreBranchOfficeModal').modal('show');
+    });
+   
+    function RestoreBranchOffice(RestoreResult)
+    {
+        var R_Len = 0;
+        if (RestoreResult != null) {
+            $("#RestoreBranchOfficeTable").html('');
+            var data=RestoreResult.Office.length;
+            // BranchOfficelen = BranchOfficeResult.Office.length;
+            console.log(data);
+            for(var i=0; i<data; i++)
+            {
+                R_Len = RestoreResult.Office[i].office.length;
+                console.log(R_Len);
+                if(R_Len != null)
+                {
+                    var no=1;
+                    for(var j=R_Len-1; j>=0; j--)
+                    {
+                        var com_Id=RestoreResult.Office[i].companyID;
+                        var id=RestoreResult.Office[i].office[j]._id;
+                        var name =RestoreResult.Office[i].office[j].officeName;
+                        var location =RestoreResult.Office[i].office[j].officeLocation;
+                        var deleteStatus =RestoreResult.Office[i].office[j].deleteStatus;
+
+                        if (deleteStatus == "Yes" || deleteStatus == "YES" || deleteStatus == "yes") 
+                        {
+                            var R_str = "<tr data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'><input type='checkbox' name='checkBranchOfficeOne[]' class='checkedIdsOneBranch' style='height: 15px;' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                                "<td >" + name + "</td>" +
+                                "<td>" + location + "</td>" +
+                            $("#RestoreBranchOfficeTable").append(R_str);
+                            no++;
+                        }
+                    }
+                }
+                else
+                {
+                    var R_str = "<tr data-id=" + i + ">" +
+                    "<td align='center' colspan='4'>No record found.</td>" +
+                    "</tr>";
+                    $("#RestoreBranchOfficeTable").append(R_str);
+                }                  
+            }
+        }
+        else
+        {
+            var R_str = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
+            $("#RestoreBranchOfficeTable").append(R_str);
+        }
+    }
+    $(document).on("change", ".BranchOffice_all_ids", function() 
+    {
+        if(this.checked) {
+            $('.checkedIdsOneBranch:checkbox').each(function() 
+            {
+                this.checked = true;
+                branchOfficeCheckboxRestore();
+            });
+        } 
+        else 
+        {
+            $('.checkedIdsOneBranch:checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+    $('body').on('click','.checkedIdsOneBranch',function(){
+        branchOfficeCheckboxRestore();
+    });
+    function branchOfficeCheckboxRestore()
+    {
+        var branchOfficeds = [];
+        var companyIds=[]
+            $.each($("input[name='checkBranchOfficeOne[]']:checked"), function(){
+                branchOfficeds.push($(this).val());
+                companyIds.push($(this).attr("data-comId"));
+            });
+            // console.log(branchOfficeds);
+            var braOffIds =JSON.stringify(branchOfficeds);
+            $('#checked_BranchOffice').val(braOffIds);
+           
+            var companyCheckedIds =JSON.stringify(companyIds);
+            $('#checked_BranchOffice_company_ids').val(companyCheckedIds);
+
+            if(branchOfficeds.length > 0)
+            {
+                $('#restore_BranchOfficeData').removeAttr('disabled');
+            }
+            else
+            {
+                $('#restore_BranchOfficeData').attr('disabled',true);
+            }
+    }
+    $('body').on('click','.restore_BranchOfficeData',function(){
+       
+        var all_ids=$('#checked_BranchOffice').val();
+        alert(all_ids);
+        var custID=$("#checked_BranchOffice_company_ids").val();
+        $.ajax({
+            type:"post",
+            data:{
+                _token:$("#tokeneditbranchOffice").val(),
+                all_ids:all_ids,
+                custID:custID
+            },
+            url: base_path+"/admin/restoreBranchOffice",
+            success: function(response) {               
+                swal.fire("Branch Office Restored successfully");
+                $("#RestoreBranchOfficeModal").modal("hide");
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getBranchOffice",
+                    async: false,
+                    success: function(text) {
+                        createBranchOfficeRows(text);
+                    }
+                });
+                // $('#branchOfficeModal').modal('show');
+            }
+        });
+    });
+    // ---------------------------------------------end restore  ---------------------------------------------
 
 // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
 });
