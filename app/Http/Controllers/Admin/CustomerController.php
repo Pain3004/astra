@@ -42,9 +42,18 @@ class CustomerController extends Controller
 
         if($getCompanyForCurrency){
             $currencyArray=$getCompanyForCurrency->currency;
-            $totalCurrencyArray=count($currencyArray);
+            $ids=array();
+            foreach( $currencyArray as $key=> $admin_bank_id)
+            {
+                $ids[]=$admin_bank_id['_id'];
+            }
+            $ids=max($ids);
+            $totalcurrencyArray=$ids+1;
         }
-   
+        else
+        {
+            $totalcurrencyArray=0; 
+        }
         $currencyData[]=array(    
                         '_id' => $totalCurrencyArray,
                         'counter' => 0,
@@ -259,7 +268,7 @@ class CustomerController extends Controller
             $CustomerArray=$getCompanyForCustomer->customer;
             $totalCustomerArray=count($CustomerArray)+ 1;
         }
-   
+        // dd($request);
        // $password = sha1($request->password);
         $customerData[]=array(    
                         '_id' => $totalCustomerArray ,
@@ -306,15 +315,15 @@ class CustomerController extends Controller
                         'isBroker' => $request->customerIsBroker,
                         'insertedTime' => '' ,
                         'insertedUserId' => '' ,
-                        'deleteStatus' => '' ,
+                        'deleteStatus' => 'NO' ,
                         'deleteUser' => '' ,
                         'deleteTime' => '' ,
                         'averagedays' =>'' ,
                         'totalloads' => '' ,
 
                         );
-   // dd($getCompany);         
-   // $getCompany="";
+                    // dd($getCompany);         
+                    // $getCompany="";
            
             if($getCompanyForCustomer){
                 
@@ -323,7 +332,7 @@ class CustomerController extends Controller
                // dd($totalCustomerArray);
                 Customer::where(['companyID' =>$companyIDForCustomer])->update([
                     'counter'=> $totalCustomerArray,
-                    'customer' =>array_merge($customerData,$CustomerArray) ,
+                    'customer' =>array_merge($CustomerArray,$customerData) ,
                     // 'user_type' => "user",
         
                     // 'deleteStatus' => 0,
@@ -477,7 +486,8 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
         for ($i=0; $i<$arrayLength; $i++){
-            $ids=$customerData->customer[$i];
+            $ids=$customerData->customer[$i]['_id'];
+            $ids=(array)$ids;
             foreach ($ids as $value){
                 if($value==$id){
                     $v=$id;

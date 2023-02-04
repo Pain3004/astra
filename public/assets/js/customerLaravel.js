@@ -1,127 +1,97 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
-    
     $('.plusCurrencyModalCloseButton').click(function(){
         $("#plusCurrencyModal").modal("hide");
     });
 
 
-// <!-- -------------------------------------------------------------------------Get customer ------------------------------------------------------------------------- -->  
-//   $('#customer_navbar').click(function(){
-    //alert('customer');
-    var customerResponse = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/customer",
-        async: false,
-        //dataType:JSON,
-        success: function(customerResult) {
-            //console.log(customerResult);
-            createcustomerRows(customerResult);
-            customerResponse = customerResult;
-        }
-    });
-//     $("#customerModal").modal("show");
-//   }); 
+    // <!-- -------------------------------------------------------------------------Get customer ------------------------------------------------------------------------- -->  
+  $('#customer_navbar').click(function(){
+        //alert('customer');
+        var customerResponse = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/customer",
+            async: false,
+            //dataType:JSON,
+            success: function(customerResult) {
+                //console.log(customerResult);
+                createcustomerRows(customerResult);
+                customerResponse = customerResult;
+            }
+        });
+        $("#customerModal").modal("show");
+    }); 
 
 
     function createcustomerRows(customerResponse) {
-
-        // console.log(customerResponse);
-        var custlen1 = 0;
-        
-        $('#customerTable').empty(); // Empty <tbody>
-        // if (customerResponse != null) {
-        //     custlen1 = customerResponse.length;
-        //     //len1 = sizeof($driverResponse);
-        // }
-
-        //if (custlen1 > 0) {
-           var no=1;
-                //for (var i = 0; i < custlen1; i++) {  
-                var custlen2=customerResponse.customer.length; 
-                    //if(custlen2 > 0){
-                        for (var j = 0; j < custlen2; j++) {
-                        // var counter = driverResponse[i].counter;
-                        // var no = driverResponse[i]._id;
-                        var companyID =customerResponse.companyID;
-                        //var driverId=customerResponse[i].customer[j]._id;
-                        var customerId=customerResponse.customer[j]._id;
-                        var custName = customerResponse.customer[j].custName;
-                        var custLocation = customerResponse.customer[j].custLocation;
-                        var custZip = customerResponse.customer[j].custZip;
-                        var custPrimaryContact = customerResponse.customer[j].primaryContact;
-                        var custTelephone = customerResponse.customer[j].custTelephone;
-                        var custEmail = customerResponse.customer[j].custEmail;
-                        var delete_status = customerResponse.customer[j].deleteStatus;
-                        if(delete_status=="NO"){
-                            var customerStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                            //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                                "<td data-field='no'>" + no + "</td>" +
-                                "<td data-field='customerName' >" + custName + "</td>" +
-                                "<td data-field='customerLocation'>" + custLocation + "</td>" +
-                                "<td data-field='customerZip'>" + custZip + "</td>" +
-                                "<td data-field='customerPrimaryContacte'>" + custPrimaryContact + "</td>" +
-                                "<td data-field='customerTelephone'>" + custTelephone + "</td>" +
-                                "<td data-field='customerEmail'>" + custEmail + "</td>" +
-
-                                // "<td style='width: 100px'><a class='btn btn-primary fs-14 text-white edit-icn' title='Edit' id='edit'><i class='fe fe-edit' ></i></a></td></tr>"
-                                // "<td style='width: 100px'><i class='btn btn-primary fe fe-edit customerEdit' data-id=" + custComid+ "&"+custEmail + "> </i><a class=' btn btn-danger fs-14 text-white customerDelete-icn' data-id=" + custComid+ "&"+custEmail + " title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
-                                "<td style='width: 100px'><i class='button-29 fe fe-edit customerEdit' data-id=" + customerId+ " date-cusId="+companyID+" data-email="+custEmail +"> </i>&nbsp; &nbsp; <a class=' button-29 fs-14 text-white customerDelete' data-id=" + customerId+ " date-cusId="+companyID+"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
-                            $("#customerTable").append(customerStr);
-                            no++;
-                        }
-                    //} 
-                //}
+        var custlen2 = 0;
+        console.log(customerResponse);
+        if(customerResponse !="")
+        {
+            $('#customerTable').html(); 
+            var no=1; 
+            custlen2=customerResponse.customer.length;
+            console.log(custlen2); 
+            if(custlen2>0)
+            {
+                for (var j = 0; j < custlen2; j++) 
+                {
+                    var companyID =customerResponse.companyID;
+                    var customerId=customerResponse.customer[j]._id;
+                    var custName = customerResponse.customer[j].custName;
+                    var custLocation = customerResponse.customer[j].custLocation;
+                    var custZip = customerResponse.customer[j].custZip;
+                    var custPrimaryContact = customerResponse.customer[j].primaryContact;
+                    var custTelephone = customerResponse.customer[j].custTelephone;
+                    var custEmail = customerResponse.customer[j].custEmail;
+                    var delete_status = customerResponse.customer[j].deleteStatus;
+                    console.log(delete_status);
+                    if(delete_status=="NO")
+                    {
+                        var customerStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                        "<td data-field='no'>" + no + "</td>" +
+                        "<td data-field='customerName' >" + custName + "</td>" +
+                        "<td data-field='customerLocation'>" + custLocation + "</td>" +
+                        "<td data-field='customerZip'>" + custZip + "</td>" +
+                        "<td data-field='customerPrimaryContacte'>" + custPrimaryContact + "</td>" +
+                        "<td data-field='customerTelephone'>" + custTelephone + "</td>" +
+                        "<td data-field='customerEmail'>" + custEmail + "</td>" +
+                        "<td style='width: 100px'><i class='button-29 fe fe-edit customerEdit' data-id=" + customerId+ " date-cusId="+companyID+" data-email="+custEmail +"> </i>&nbsp; &nbsp; <a class=' button-29 fs-14 text-white customerDelete' data-id=" + customerId+ " date-cusId="+companyID+"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
+                        $("#customerTable").append(customerStr);
+                        no++;
+                    }
+                }
             }
-        // } else {
-        //     var customerStr = "<tr data-id=" + i + ">" +
-        //         "<td align='center' colspan='4'>No record found.</td>" +
-        //         "</tr>";
-
-        //     $("#customerTable").append(customerStr);
-        // }
+        }
+        else
+        {
+            var tr_str1 = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
+            $("#customerTable").append(tr_str1);
+        }
 
     }
-    // <!-- -------------------------------------------------------------------------Get customer over ------------------------------------------------------------------------- -->  
-    // function customerValidation(customerResponse) {
-    //     var customerName= $('#customerName').val();
-    //     var customerAddress= $('#customerAddress').val();
-    //     var customerLocation= $('#customerLocation').val();
-    //     var customerZip= $('#customerZip').val();
+    // <!-- -------------------------------------------------------------------------Get customer over ------------------------------------------------------------------------- --> 
 
-    //     if(customerName == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerName').focus();
-    //         return false;
-    //     }
-    //     if(customerAddress == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerAddress').focus();
-    //         return false;
-    //     }
-    //     if(customerLocation == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerLocation').focus();
-    //         return false;
-    //     }
-    //     if(customerZip == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerZip').focus();
-    //         return false;
-    //     }
-    // }
-
+    // start store data ===============================================
+    $(".addCustomerButton").click(function(){
+        $("#addCustomerModal").modal("show");
+    });
+    $(".closeaddCustomerModal").click(function(){
+        $("#addCustomerModal").modal("hide");
+    });
     $('.advanceTabCustomer').click(function(){
        
-        var customerName= $('#customerName').val();
+        var customerName= $('#customerName1').val();
         var customerAddress= $('#customerAddress').val();
         var customerLocation= $('#customerLocation').val();
         var customerZip= $('#customerZip').val();
 
         if(customerName == ''){
             swal.fire("", "Please Enter Name", "",);
-            $('#customerName').focus();
+            $('#customerName1').focus();
             return false;
         }
         if(customerAddress == ''){
@@ -143,19 +113,8 @@ $(document).ready(function() {
 
     // <!-- -------------------------------------------------------------------------add customer  ------------------------------------------------------------------------- -->  
    
-    // $(".addCustomerButton").click(function(){
-    //     $("#addCustomerTab").show();
-    // });
-       
-        // $('#customerDataSubmit').click(customerValidation);
         $(".customerDataSubmit").click(function(){
-
-            // if($("#customerBillingAddressChkbox-1").prop('checked') == true){
-            //     alert("checked");
-            // }else{
-            //     alert("not");
-            // }
-            var customerName= $('#customerName').val();
+            var customerName= $('#customerName1').val();
             var customerAddress= $('#customerAddress').val();
             var customerLocation= $('#customerLocation').val();
             var customerZip= $('#customerZip').val();
@@ -215,60 +174,65 @@ $(document).ready(function() {
                 $('#customerZip').focus();
                 return false;
             }
+            var formData = new FormData();
+            formData.append('_token',$("#_tokenCustomer").val());
+             formData.append(' customerName', customerName);
+             formData.append(' customerAddress', customerAddress);
+             formData.append(' customerLocation', customerLocation);
+             formData.append(' customerZip', customerZip);
+             formData.append(' customerBillingAddressChkbox', customerBillingAddressChkbox);
+             formData.append(' customerBillingLocation', customerBillingLocation);
+             formData.append(' customerBillingLocation', customerBillingLocation);
+             formData.append(' customerBillingZip', customerBillingZip);
+             formData.append(' customerPrimaryContact', customerPrimaryContact);
+             formData.append(' customerTelephone', customerTelephone);
+             formData.append(' customerExt', customerExt);
+             formData.append(' customerEmail', customerEmail);
+             formData.append(' customerFax', customerFax);
+             formData.append(' customerBillingContact', customerBillingContact);
+             formData.append(' customerBillingEmail', customerBillingEmail);
+             formData.append(' customerBillingTelephone', customerBillingTelephone);
+             formData.append(' customerBillingExt', customerBillingExt);
+             formData.append(' customerUrs', customerUrs);
+             formData.append(' customerMc', customerMc);
+             formData.append(' customerBlacklisted', customerBlacklisted);
+             formData.append(' customerIsBroker', customerIsBroker);
+             formData.append(' customerDuplicateShipper', customerDuplicateShipper);
+             formData.append(' customerDuplicateConsignee', customerDuplicateConsignee);
 
-            $.ajax({
-                url: base_path+"/admin/addCustomer",
+             formData.append(' customerCurrency', customerCurrency);
+             formData.append(' customerPaymentTerm', customerPaymentTerm);
+             formData.append(' customerCreditLimit', customerCreditLimit);
+             formData.append(' customerSalesRepresentative', customerSalesRepresentative);
+             formData.append(' customerFactoringCompanyname', customerFactoringCompanyname);
+             formData.append(' customerFederalID', customerFederalID);
+             formData.append(' customerWorkerComp', customerWorkerComp);
+             formData.append(' customerWebsiteURL', customerWebsiteURL);
+             formData.append(' customerNumbersonInvoice', customerNumbersonInvoice); 
+             formData.append(' customerCustomerRate', customerCustomerRate);
+             formData.append(' customerInternalNotes', customerInternalNotes);
+             $.ajax({
                 type: "POST",
-                datatype:"JSON",
-                data: {
-                    _token: $("#_tokenCustomer").val(),
-                  //   type: 1,
-                  customerName: customerName,
-                  customerAddress: customerAddress,
-                  customerLocation: customerLocation,
-                  customerZip: customerZip,
-                  customerBillingAddressChkbox: customerBillingAddressChkbox,
-                  customerBillingLocation: customerBillingLocation,
-                  customerBillingLocation: customerBillingLocation,
-                  customerBillingZip: customerBillingZip,
-                  customerPrimaryContact: customerPrimaryContact,
-                  customerTelephone: customerTelephone,
-                  customerExt: customerExt,
-                  customerEmail: customerEmail,
-                  customerFax: customerFax,
-                  customerBillingContact: customerBillingContact,
-                  customerBillingEmail: customerBillingEmail,
-                  customerBillingTelephone: customerBillingTelephone,
-                  customerBillingExt: customerBillingExt,
-                  customerUrs: customerUrs,
-                  customerMc: customerMc,
-                  customerBlacklisted: customerBlacklisted,
-                  customerIsBroker: customerIsBroker,
-                  customerDuplicateShipper: customerDuplicateShipper,
-                  customerDuplicateConsignee: customerDuplicateConsignee,
-
-                  customerCurrency: customerCurrency,
-                  customerPaymentTerm: customerPaymentTerm,
-                  customerCreditLimit: customerCreditLimit,
-                  customerSalesRepresentative: customerSalesRepresentative,
-                  customerFactoringCompanyname: customerFactoringCompanyname,
-                  customerFederalID: customerFederalID,
-                  customerWorkerComp: customerWorkerComp,
-                  customerWebsiteURL: customerWebsiteURL,
-                  customerNumbersonInvoice: customerNumbersonInvoice, 
-                  customerCustomerRate: customerCustomerRate,
-                  customerInternalNotes: customerInternalNotes,
-                  
-                },
+                url: base_path+"/admin/addCustomer",
+                async: false,
                 cache: false,
-                success: function(dataCustomerResult){
-                    console.log(dataCustomerResult);
-                    if(dataCustomerResult){
-                        alert("Customer added successfully.");
-                        // $('#driverModal').modal('show');
-                    }else{
-                        alert("Customer not added successfully.");
-                    }
+                contentType: false,
+                processData: false,
+                data:formData,
+                success: function(dataCustomerResult) {                   
+                    swal.fire("Done!", "Customer added successfully", "success");
+                    $("#addCustomerModal").modal("hide");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/customer",
+                        async: false,
+                        //dataType:JSON,
+                        success: function(customerResult) {
+                            //console.log(customerResult);
+                            createcustomerRows(customerResult);
+                            customerResponse = customerResult;
+                        }
+                    });
                 }
             });
         });
@@ -589,6 +553,23 @@ $(".factoringCompanyDataSubmit").click(function(){
             $("#customerBillingZip").val('');
         }
     });
+
+
+    $('#updateCustomerBillingAddressChkbox').click(function(){
+        if($(this).prop("checked") == true){
+            $("#updateCustomerBillingAddress").val($("#updateCustomerAddress").val());
+            $("#updateCustomerBillingLocation").val($("#updateCustomerLocation").val());
+            $("#updateCustomerBillingZip").val($("#updateCustomerZip").val());
+        }
+        else if($(this).prop("checked") == false){
+            $("#updateCustomerBillingAddress").val('');
+            $("#updateCustomerBillingLocation").val('');
+            $("#updateCustomerBillingZip").val('');
+        }
+    });
+
+
+    
     $('#customerBlacklisted').click(function(){
         if($(this).prop("checked") == true){
             $("#customerBlacklisted").val('on');
@@ -656,10 +637,10 @@ $(".factoringCompanyDataSubmit").click(function(){
 
 
 //show_add_customer
-function show_add_customer(){    
-    $("#addCustomerTab").addClass("tab-pane fade in active show");
-    $("#addAdvanceCustomerTab").removeClass('active show');    
-}
+// function show_add_customer(){    
+//     $("#addCustomerTab").addClass("tab-pane fade in active show");
+//     $("#addAdvanceCustomerTab").removeClass('active show');    
+// }
 
 // =============== start update customer show model ====================
 
@@ -1039,6 +1020,7 @@ $('body').on('click','.customerDelete',function(){
         cancelButtonText: "No, cancel!",
         reverseButtons: !0
     }).then(function (e) {
+
         if (e.value === true) 
         {
             $.ajax({

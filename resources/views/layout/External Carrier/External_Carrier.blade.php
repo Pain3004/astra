@@ -555,8 +555,177 @@
                                     </div>
                                 </center>
                                 <div class="row" id="equipAdd">
-                                </div>
-
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control" value="FLATBED" type="text" name="equipment" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
                                 <hr>
                             </div>
                             <div class="mt-3">

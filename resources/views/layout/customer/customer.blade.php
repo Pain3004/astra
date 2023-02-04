@@ -6,13 +6,13 @@
         <div class="modal-dialog custom_modal modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Customer 6464646</h5>
+                    <h5 class="modal-title">Customer </h5>
                     <button type="button" class="button-24" data-dismiss="modal">×</button>
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                     
-                    <button href="#addCustomerModal" data-toggle="modal" data-target="#addCustomerModal" class="button-57_alt addCustomerButton" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Customer</span></button>
+                    <button href="#" data-toggle="modal"  class="button-57_alt addCustomerButton" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Customer</span></button>
                     <button class="button-57_alt restoreCustomerData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore Customer</span></button>
                 </div>
                 
@@ -51,19 +51,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Customer</h5>
-                    <button type="button" class="button-24" data-dismiss="modal">×</button>
+                    <button type="button" class="button-24 closeaddCustomerModal" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     
                     <div class="container">
                         <ul class="nav nav-tabs">
-                        
-                            <!-- <li class="active add1button" style="width:200px; color:white;"><a data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li> -->
-                            <li  ><a onClick="show_add_customer()" class="button-29 add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
+                            <li  ><a class="button-29 add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
                             <li  ><a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div id="addCustomerTab" class="tab-pane fade in active">
+                            <div id="addCustomerTab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab"  data-name="fillextdata">
                                 <form>
                                     <input type="hidden" name="_token" id="_tokenCustomer" value="{{ csrf_token() }}" />
                                     <div class="form-row">
@@ -162,7 +160,6 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
                                             <label for="customerBlacklisted">Blacklisted :</span></label>
-                                            <!-- <input type="checkbox" class="form-control " id="" value="Same as Mailing Address"> -->
                                             <input type="checkbox" id="customerBlacklisted" name="" value="off"> This Customer is Blacklisted
                                         </div>
                                     </div>
@@ -184,22 +181,15 @@
                                 
                                     <div class="modal-footer">
                                         <a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="align:right;" >Next</a>
-                                        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --> 
                                     </div>
+                                </form>
                             </div>
                             <div id="addAdvanceCustomerTab" class="tab-pane fade">
                                 <br>
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <!-- <button type="button" class="btn btn-icon btn-facebook"><i class="fa fa-facebook"></i></button> -->
-                                        <!-- <a class="btn btn-outline-info">Info</a> -->
                                         <label for="customerCurrencySetting">Currency Setting</label><span class="button-29" id="plusCurrency" style="margin-left: 5px;"><i class="fa fa-plus"></i></span>
                                         <div class="dropdown show">
-
-                                            <!-- <select name="currency" id="currency" class="customerCurrencySet11 btn-dropdown">
-                                            <option value="">Select Currency</option>
-                                            </select> -->
-                                        
                                                 <input class="form-control customerCurrencySet" list="customerCurrencySet" name="currency" id="currency_customer">
                                                 <datalist id="customerCurrencySet" class="customerCurrencySet"><option>Select Here</option></datalist>    
                                         </div>
@@ -264,17 +254,12 @@
                                     
                                     <div class="modal-footer w-100" style="align:right;">
                                         <button type="submit" class="button-29 customerDataSubmit">Save</button>
-                                        <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                                        <button type="button" class="button-29 closeaddCustomerModal" data-dismiss="modal">Close</button>
                                     </div>
-                                    
-
-                                    </form>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
-
                 </div>
             
                 <!-- <div class="modal-footer">

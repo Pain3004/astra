@@ -19,7 +19,11 @@ class factCompanyController extends Controller
     public function getFactCompany(){
         $companyId=(int)Auth::user()->companyID;
         $FactCompany = Factoring_company_add::where('companyID',$companyId)->first();
-       return response()->json($FactCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $FactCompany=collect($FactCompany->factoring);
+        $FactCompany = $FactCompany->chunk(4);
+       $FactCompany= $FactCompany->toArray();
+    //    dd($FactCompany);
+       return response()->json(['FactCompany'=>$FactCompany], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
     public function editFactCompany(Request $request)
