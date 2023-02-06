@@ -21,6 +21,11 @@ class ShipperController extends Controller
         // $companyId=65;
         $companyId=(int)1;
         // dd($companyId);
+        $shipper=  Shipper::aggregate([
+            ['$match' => ['companyID' => $companyId]],
+            ['$project' => ['size' => ['$size' => ['$shipper']]]]
+        ]);
+        dd($shipper);
         $shipper = Shipper::where('companyID',$companyId)->first();
         $consignee = Consignee::where('companyID',$companyId)->first();
 

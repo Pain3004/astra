@@ -295,7 +295,14 @@ $(document).ready(function () {
         var secondaryEmail =$('#secondaryEmail').val();
         var primaryNotes =$('#primaryNotes').val();
         var sizeOfFleet =$('#sizeOfFleet').val();
-   
+        var quantity=[];
+        $.each($("input[name='quantity[]']"), function () {
+            quantity.push($(this).val());
+        });
+        var equipment=[];
+        $.each($("input[name='equipment[]']"), function () {
+            equipment.push($(this).val());
+        });
         if(name=='')
         {
             swal.fire( "'Enter carrier Name");
@@ -344,6 +351,8 @@ $(document).ready(function () {
         formData.append('comID',comID);
         formData.append('address',address);
         formData.append('location',location);
+        formData.append('quantity',quantity);
+        formData.append('equipment',equipment);
         formData.append('zip',zip);
         formData.append('contactName',contactName);
         formData.append('email',email);
@@ -482,6 +491,7 @@ $(document).ready(function () {
                 // {
                 //     var openingDate = year+'-'+month+'-'+day;
                 // }
+                var equArLenth=text.equipment.length;
                 $('.update_external_carrier_id').val(text._id);
                 $('.update_external_carrier_Comid').val(text.companyID);
                 $('#carrierName').val(text.name);
@@ -492,14 +502,24 @@ $(document).ready(function () {
                 $('#carrierEmail').val(text.email);
                 $('#carrierTelephone').val(text.telephone);
                 $('#carrierExt').val(text.ext);
-                $('#carrierTollFree').val(text.tollFree);
+                $('#carrierTollFree').val(text.tollfree);
                 $('#carrierPayTerms').val(text.payTerms);
                 $('#carrierTaxID').val(text.taxID);
+                $("#carrierPayTerms").val(text.paymentTerms);
                 $('#carrierMC').val(text.mc);
                 $('#carrierFactoring').val(text.factoringCompany);
                 $('#carrierNotes').val(text.carrierNotes);
+                if(text.blacklisted=='on')
+                {
+                    $('#carrierBlacklisted').prop('checked', true);
+                }
+                if(text.corporation=='on')
+                {
+                    $('#carrierCorporation').prop('checked', true);
+                }
                 $('#carrierBlacklisted').val(text.blacklisted);
                 $('#carrierCorporation').val(text.corporation);
+                $('#carrierFax').val(text.fax);
                 $('#liabilityCompany').val(text.autoInsuranceCompany);
                 $('#liabilityPolicy').val(text.autoInsPolicyNo);
                 $('#liabilityExpDate').val(text.autoInsExpiryDate);
@@ -533,6 +553,11 @@ $(document).ready(function () {
                 $('#secondaryEmail').val(text.secondaryEmail);
                 $('#primaryNotes').val(text.primaryNotes);
                 $('#sizeOfFleet').val(text.sizeOfFleet);
+                for(var i=0; i<equArLenth;i++)
+                {
+                    $("input[name='quantity[]']").val(text.equipment[i].quantity);
+                    $("input[name='equipment[]']").val(text.equipment[i].equipment);
+                }
              }
         });
         $("#AddExternalCarrier").modal("show");

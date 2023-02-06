@@ -18,43 +18,24 @@ class ExternalCarrierController extends Controller
 {
     public function getExternalCarrier(Request $request)
     {
-        $companyId=(int)Auth::user()->companyID;
-        // dd($companyId);
-        // $Carrier = Carrier::where('companyID',$companyId)->skip(10)->take(10);
-        // ->limit(30)->offset(30);
-
-
-        // $Carrier= Carrier::where('companyID',$companyId ,function ($users) {
-        //     foreach ($users as $user) {
-        //         // dd($user);
-        //         $user->carrier->orderBy('_id','acd',function($carData){
-        //             foreach($carData as $row)
-        //             {                        
-        //                $r= $row->skip(10)->take(10)->get();
-        //                dd($r);
-        //             }
-        //         });
-        //         // $dataar=count($user->carrier);
-        //         // $data=[];
-                
-
-        //         // Carrier::where('id', $user->id)
-        //         //     ->get();
-        //     }
-        // });
-     
-            // $Carrier = Carrier::where('companyID',$companyId,function ($join) {
-            //     $join->on('carrier.carrier', '=', 'latest_posts.user_id');
-            // })->get();
-            $Carrier = Carrier::where('companyID',$companyId)->get();
-        // $Carrier=$Carrier->get();
-        // dd($Carrier);
+        // $companyId=(int)Auth::user()->companyID;
+        $companyId=(int)25;
+        $Carrier = Carrier::where('companyID',$companyId)->get();
+    //     $Carrier=collect($Carrier->carrier);
+    //     $Carrier = $Carrier->chunk(4);
+    //    $Carrier= $Carrier->toArray();
+    //    dd($Carrier);
        
         return response()->json($Carrier, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function storeExternalCarrier(Request $request)
     {
-        $companyId=(int)Auth::user()->companyID;
+        // $companyId=(int)Auth::user()->companyID;
+        $companyId=(int)25;
+        $quantity=$request->quantity;
+        $equipment=$request->equipment;
+        $quantity=explode(',',$quantity);
+        $equipment=explode(',',$equipment);
         $Carrier = Carrier::where('companyID',$companyId)->get();
         foreach( $Carrier as  $Carrier_data)
         {
@@ -73,6 +54,17 @@ class ExternalCarrierController extends Controller
             {
                 $totalCarrierArray=0; 
             }
+            foreach($quantity as $row)
+            {
+                foreach($equipment as $r)
+                {
+                    $equArray[]=array(
+                        'quantity'=>$row,
+                        'equipment'=>$r,
+                    );
+                }
+            }
+            $equArray=array($equArray);
             $openingDate=$request->openingDate;
             $openingDate = strtotime($openingDate);
             $CarrierData[]=array(    
@@ -130,7 +122,7 @@ class ExternalCarrierController extends Controller
                 'primaryNotes' => $request->primaryNotes,
                 'sizeOfFleet' => $request->sizeOfFleet,
                 'carrierDoc'=>array(),
-                'equipment'=>array(),
+                'equipment'=>$equArray,
                 'created_by' => Auth::user()->userFirstName,
                 'created_time' => date('d-m-y h:i:s'),
                 'edit_by' =>Auth::user()->userName,
@@ -200,12 +192,29 @@ class ExternalCarrierController extends Controller
     public function updateExternalCarrier(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)Auth::user()->companyID;
+        $companyID=(int)25;
+        $quantity=$request->quantity;
+        $equipment=$request->equipment;
+        $quantity=explode(',',$quantity);
+        $equipment=explode(',',$equipment);
+        // $companyID=(int)Auth::user()->companyID;
         $Carrier = Carrier::where('companyID',$companyID)->first();
         $CarrierArray=$Carrier->carrier;
         $carriLength=count($CarrierArray);
         $i=0;
         $v=0;
+        foreach($quantity as $row)
+        {
+            foreach($equipment as $r)
+            {
+                $equArray[]=array(
+                    'quantity'=>$row,
+                    'equipment'=>$r,
+                );
+            }
+        }
+        $equArray=array($equArray);
+        // dd($equArray);
         for($i=0; $i<$carriLength; $i++)
         {
             $ids=$Carrier->carrier[$i];
@@ -269,6 +278,7 @@ class ExternalCarrierController extends Controller
         $CarrierArray[$v]['secondaryEmail']=$request->secondaryEmail; 
         $CarrierArray[$v]['primaryNotes']=$request->primaryNotes; 
         $CarrierArray[$v]['sizeOfFleet']=$request->sizeOfFleet; 
+        $CarrierArray[$v]['equipment']=$equArray; 
         $Carrier->carrier=$CarrierArray;
         // dd($Carrier->carrier);
         if($Carrier->save())

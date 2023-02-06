@@ -384,17 +384,19 @@ $(document).ready(function() {
                 $("#edit_truck_plate_expiry").val(response.truck.plateExpiry);
                 $("#edit_truck_inspection").val(response.truck.inspectionExpiry);
                 $("#edit_truck_status").val(response.truck.status);
-              
+
+
+
+
                 if(response.truck.ownership =="CompanyTruck")
                 {
-                    // alert(response.truck.ownership);
-                    $("#edit_truck_ownership").checked =true;
-                    $("#edit_truck_Own").checked =false;
+                    $("#edit_truck_ownership").prop('checked', true);
+                    $("#edit_truck_Own").prop('checked', false);
                 }
                 else
                 {
-                    $("#edit_truck_ownership").checked =false;
-                    $("#edit_truck_Own").checked =true;
+                    $("#edit_truck_ownership").prop('checked', false);
+                    $("#edit_truck_Own").prop('checked', true);
                 }
                 $("#edit_truck_mileage").val(response.truck.mileage);
                 $("#edit_truck_axies").val(response.truck.axies);

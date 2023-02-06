@@ -3,6 +3,9 @@ $(document).ready(function() {
     $('.plusCurrencyModalCloseButton').click(function(){
         $("#plusCurrencyModal").modal("hide");
     });
+    $(".close_customerModal").click(function(){
+        $("#customerModal").modal("hide");
+    });
 
 
     // <!-- -------------------------------------------------------------------------Get customer ------------------------------------------------------------------------- -->  

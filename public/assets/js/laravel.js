@@ -365,6 +365,10 @@ $(document).ready(function() {
     // ===================== end user create =============================
     //===================== start office create ==========================
     $(".add_office_model_form_btn").click(function(){
+    
+        $("#add_office_modal_form").modal("show");
+    });
+    $(".office_name_set").click(function(){
         $.ajax({
             type: "GET",
             url: base_path+"/admin/get_office_address",
@@ -375,7 +379,6 @@ $(document).ready(function() {
                 officeAddressData = data;
             }
         });
-        $("#add_office_modal_form").modal("show");
     });
     $(".close_office_modal_form").click(function(){
         $("#add_office_modal_form").modal("hide");
@@ -463,6 +466,16 @@ $(document).ready(function() {
 
     // =========== start create add_Company_Name_modal_form ====================
     $(".add_Company_Name_modal_form_btn").click(function(){
+        
+        $("#addCompanyModal").modal("show");
+    });
+    $(".close_Company_Name_modal_form").click(function(){
+        $("#addCompanyModal").modal("hide");
+    });
+    // $(".save_Company_Name_modal_data").click(function(){
+    //     alert("dgfgf");
+    // });
+    $('.set_company_name').click(function(){
         $.ajax({
             type: "GET",
             url: base_path+"/admin/get_company_details",
@@ -473,15 +486,7 @@ $(document).ready(function() {
                 companyDetails = data;
             }
         });
-        $("#addCompanyModal").modal("show");
-    });
-    $(".close_Company_Name_modal_form").click(function(){
-        $("#addCompanyModal").modal("hide");
-    });
-    // $(".save_Company_Name_modal_data").click(function(){
-    //     alert("dgfgf");
-    // });
-
+    })
     // $.ajax({
     //     type: "GET",
     //     url: base_path+"/admin/get_company_details",

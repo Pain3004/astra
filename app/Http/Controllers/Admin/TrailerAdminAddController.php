@@ -18,8 +18,8 @@ class TrailerAdminAddController extends Controller
     public function getTrailer()
     {
         $companyId=1;
-        $traileradd = traileradd::where('companyID',$companyId)->first();
         $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$companyId)->first();
+        $traileradd = traileradd::where('companyID',$companyId)->first();
         // $traileradd=traileradd::get();
         // $TrailerAdminAdd=TrailerAdminAdd::get();
         // dd($TrailerAdminAdd);
@@ -305,7 +305,7 @@ class TrailerAdminAddController extends Controller
                 }
         // dd($trailerDoc);
         $i=0;
-        $v=0;
+        $v=0; 
        for ($i=0; $i<$arrayLength; $i++){
             $ids=$traileradd->trailer[$i]['_id'];
             $ids=(array)$ids;
@@ -379,6 +379,53 @@ class TrailerAdminAddController extends Controller
         if ($traileradd->save()) {
             $arr = array('status' => 'success', 'message' => 'Trailer deleted successfully.','statusCode' => 200); 
         return json_encode($arr);
+        }
+    } 
+
+    public function restoreTrailer(Request $request)
+    {
+        $cardIds=$request->all_ids;
+        $custID=(array)1;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$company_id )->first();
+            $TrailerAdminAddArray=$TrailerAdminAdd->trailer;
+            $arrayLength=count($TrailerAdminAddArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$TrailerAdminAdd->trailer[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            foreach($data as $row)
+            {
+                $TrailerAdminAddArray[$row]['deleteStatus'] = "NO";
+                $TrailerAdminAdd->trailer= $TrailerAdminAddArray;
+                $save=$TrailerAdminAdd->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Trailer Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
         }
     }
 }

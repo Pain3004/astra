@@ -84,16 +84,17 @@
 
                                                         <div class="form-row">
                                                             <div class="form-group col-md-4">
-                                                                <label for="editCompanyName">Company Name</label>
+                                                                <label for="editCompanyName">Company Name <span class="glyphicon glyphicon-plus-sign add_Company_Name_modal_form_btn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                                                                 <select id="editCompanyName" name="editCompanyName"
-                                                                    class="form-control">
+                                                                    class="form-control set_company_name">
                                                                     <option selected>Choose...</option>
                                                                     <option value="1">1</option>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group col-md-4">
-                                                                <label for="editOffice">Office</label>
-                                                                <select id="editOffice" name="editOffice" class="form-control">
+                                                                <label for="editOffice">Office <span style="color:#ff0000">*</span>&nbsp; 
+                                                        <span class="glyphicon glyphicon-plus-sign add_office_model_form_btn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
+                                                                <select id="editOffice" name="editOffice" class="form-control office_name_set">
                                                                     <option selected>Choose...</option>
                                                                     <option value="1">1</option>
                                                                 </select>

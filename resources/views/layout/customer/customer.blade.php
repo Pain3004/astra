@@ -7,7 +7,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Customer </h5>
-                    <button type="button" class="button-24" data-dismiss="modal">×</button>
+                    <button type="button" class="button-24 close_customerModal" data-dismiss="modal">×</button>
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
@@ -37,7 +37,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-29 close_customerModal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
