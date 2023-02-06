@@ -303,19 +303,26 @@ class TruckTrailerMakeController extends Controller
         //dd($request);
         $cardIds=$request->all_ids;
         $custID=(array)$request->custID;
+        if(is_string($cardIds))
+            {
+                $cardIds=explode(",",$cardIds);
+            }
+        dd($cardIds);
+        
         foreach($custID as $company_id)
         {
             $company_id=str_replace( array( '\'', '"',
             ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            //dd($company_id);
             $company_id=(int)$company_id;
-            $Office = Office::where('companyID',$company_id )->first();
-            $OfficeArray=$Office->office;
+            $Office = Truck_type::where('companyID',$company_id )->first();
+            $OfficeArray=$Office->truck;
             $arrayLength=count($OfficeArray);         
             $i=0;
             $v=0;
             $data=array();
             for ($i=0; $i<$arrayLength; $i++){
-                $ids=$Office->office[$i]['_id'];
+                $ids=$Office->truck[$i]['_id'];
                 $ids=(array)$ids;
                 foreach ($ids as $value){
                     $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
@@ -323,6 +330,7 @@ class TruckTrailerMakeController extends Controller
                     {
                         $cardIds=explode(",",$cardIds);
                     }
+                    
                     foreach($cardIds as $credit_card_id)
                     {
                         $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
@@ -338,7 +346,7 @@ class TruckTrailerMakeController extends Controller
             foreach($data as $row)
             {
                 $OfficeArray[$row]['deleteStatus'] = "NO";
-                $Office->office= $OfficeArray;
+                $Office->truck= $OfficeArray;
                 $save=$Office->save();
             }
             if (isset($save)) {
