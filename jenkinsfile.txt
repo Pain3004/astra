@@ -5,7 +5,6 @@ pipeline {
             steps {
                 bat 'php --version'
                 bat 'composer update'
-                bat 'php artisan serve'
             }
         }
         stage("Unit test") {
