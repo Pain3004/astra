@@ -31,7 +31,7 @@
                     @endif 
                     
                     @if($deleteUser== 1)    
-                        <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                        <a href="#" class="button-57_alt restore_trailerBtn" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
 
                     @endif
 
@@ -453,6 +453,70 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- ========= start restore ============================== -->
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal fade" data-backdrop="static" id="RestoreTrailerModal">
+        <div class="modal-dialog modal-dialog-scrollable custom_modal">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Trailer</h4>
+                    <button type="button" class="button-24 coseRestoreTrilershow" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div style="margin-top: 15px; margin-left: 15px;">
+                    <input type="hidden" name="trailer_id" id="checked_trailer__ids" value="">
+                    <button id="restore_trailer_data"  class="button-57_alt restore_trailer_data" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore</span></button>
+
+                </div>
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <div class="row">
+                   
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                
+
+                                        <div class="table-responsive export-table">
+                                            <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                                <thead class="thead-th">
+                                                    <tr class="tr">
+                                                        <th><input type="checkbox" name="all_ids[]" class="Trailer_all_ids"></th>
+                                                        <th>Trailer</th>
+                                                        <th>Trailer Type</th>
+                                                        <th>License Plate</th>
+                                                        <th>Plate Expiry</th>
+                                                        <th>Inspection Expiration</th>
+                                                        <th>Status</th>
+                                                        <th>Model</th>
+                                                        <th>Year</th>
+                                                        <th>Axles</th>
+                                                        <th>Registered State</th>
+                                                        <th>VIN</th>
+                                                        <th>DOT Expiry Date	</th>
+                                                        <th>Activation Date	</th>
+                                                        <th>Internal Notes	</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="Restoretrailer_tbl">
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button-29 coseRestoreTrilershow" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 

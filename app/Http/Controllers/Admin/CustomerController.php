@@ -385,7 +385,8 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLength; $i++){
-            $ids=$customerData->customer[$i]['_id'];
+        // dd($customerData->customer[$i]);
+            $ids=$customerData->customer[$i];
             $ids=(array)$ids;
                 foreach ($ids as $value){
                     // dd($value);
@@ -416,7 +417,7 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLengthUp; $i++){
-                $ids=$customerData->customer[$i]['_id'];
+                $ids=$customerData->customer[$i];
                 $ids=(array)$ids;
                 foreach ($ids as $value){
                     if($value==$id){

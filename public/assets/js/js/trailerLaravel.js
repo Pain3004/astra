@@ -3,17 +3,17 @@ $(document).ready(function() {
     // ============== strart list data trailer =================
    
     $("#trailer_nav").on('click',function(){
-        $('.trailerTypeSet').val('');
-            $.ajax({
-            type: "GET",
-            url: base_path+"/admin/trailer_getTrailertype",
-            async: false,
-            //dataType:JSON,
-            success: function(data) {
-                createTrailerTypeList(data);
-                trailerTypeResponse = data;
-            }
-        });
+        // $('.trailerTypeSet').val('');
+        //     $.ajax({
+        //     type: "GET",
+        //     url: base_path+"/admin/trailer_getTrailertype",
+        //     async: false,
+        //     //dataType:JSON,
+        //     success: function(data) {
+        //         createTrailerTypeList(data);
+        //         trailerTypeResponse = data;
+        //     }
+        // });
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getTrailer",
@@ -28,23 +28,6 @@ $(document).ready(function() {
     });
     function creategetTrailerRows(TrailerResult) 
     {
-
-    //Privilege
-	// var edit=$('#updateUser').val();
-    // var delet =$('#deleteUser').val();
-
-    // if(edit == 1){
-    //    var editPrivilege=''; 
-    // }else{
-    //     var editPrivilege='privilege';
-    // }
-    // if(delet == 1){
-    //     var delPrivilege=''; 
-    //  }else{
-    //      var delPrivilege='privilege';
-    //  }
-
-     /////
         var Trailer1 = 0;
         if (TrailerResult != null) 
         {
@@ -69,31 +52,37 @@ $(document).ready(function() {
                         // console.log(trailerTypeid);
                         if(trailerTypeid == trailer_Type_id)
                         {
-                          var   trailerType=TrailerResult.trailer.trailer[j].trailerType;
+                          var  trailerType=TrailerResult.trailer.trailer[j].trailerType;
                             // trailerType="";
+                            console.log(trailerType);
                             break;
                         }
                         else
                         {
-                           var trailerType="----";
+                           var  trailerType="----";
                         }
                     }
 
                     var licensePlate =TrailerResult.trailer_type.trailer[i].licenseType;
-                    // var plateExpiry = new Date(TrailerResult.trailer_type.trailer[i].plateExpiry);
-                    // var inspectionExpiry = new Date(TrailerResult.trailer_type.trailer[i].inspectionExpiration);
+                  
                     var registeredState=TrailerResult.trailer_type.trailer[i].registeredState;
                     var status =TrailerResult.trailer_type.trailer[i].status;
                     var model =TrailerResult.trailer_type.trailer[i].model;
-                    // var activationDate = new Date(TrailerResult.trailer_type.trailer[i].activationDate);
+                    
                     var axies =TrailerResult.trailer_type.trailer[i].axies;
                     var vin =TrailerResult.trailer_type.trailer[i].vin;
-                    // var dot = new Date(TrailerResult.trailer_type.trailer[i].dot);
+                    
                     var year =TrailerResult.trailer_type.trailer[i].year;
                     var internalNotes =TrailerResult.trailer_type.trailer[i].internalNotes;
                     // var startDate =new Date(TrailerResult.trailer_type.trailer[i].startDate);
-                    if(licensePlate !="" && licensePlate !=null){licensePlate=licensePlate; }  else {licensePlate="----"}
-
+                    if(licensePlate !="" && licensePlate !=null)
+                    {
+                        licensePlate=licensePlate;
+                    }
+                    else
+                    {
+                        licensePlate="----"
+                    }
                     if(model !="" && model != null)
                     {
                         model=model;
@@ -142,16 +131,13 @@ $(document).ready(function() {
                     {
                         internalNotes="----";
                     }
-                    // var deactivationDate =TrailerResult.trailer_type.trailer[i].deactivationDate;
-                    // if(deactivationDate== false){
-                    //     deactivationDate='';
-                    // }
-                    // var dotexpiryDate =TrailerResult.trailer_type.trailer[i].dotexpiryDate;
-                    // if(dotexpiryDate== false){
-                    //     dotexpiryDate='';
-                    // }
                     if(TrailerResult.trailer_type.trailer[i].deleteStatus == "NO")
                     {
+                        var dot =TrailerResult.trailer_type.trailer[i].dot;
+                        
+                        var inspectionExpiry = TrailerResult.trailer_type.trailer[i].inspectionExpiration;
+                        var activationDate = TrailerResult.trailer_type.trailer[i].activationDate;
+                        var platExpiry=TrailerResult.trailer_type.trailer[i].plateExpiry;
                         if(platExpiry != '')
                         {
                             var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
@@ -163,7 +149,7 @@ $(document).ready(function() {
                         }
                         else
                         {
-                          var  platExpiry="-----";
+                            platExpiry="-----";
                         }
                         if(inspectionExpiry !='' && inspectionExpiry != null)
                         {
@@ -176,7 +162,7 @@ $(document).ready(function() {
                         }
                         else
                         {
-                          var  inspectionExpiry="-----";
+                            inspectionExpiry="-----";
                         }
                         if(activationDate !="" && activationDate !=null)
                         {
@@ -189,7 +175,7 @@ $(document).ready(function() {
                         }
                         else
                         {
-                           var activationDate="-----";
+                            activationDate="-----";
                         }
                         if(dot !="" && dot !=null)
                         {
@@ -201,10 +187,12 @@ $(document).ready(function() {
                         }
                         else
                         {
-                           var dot="-----";
+                            dot="-----";
                         }
+
+
                     
-                        var trailerStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                        var trailerStr = "<tr data-id=" + (i + 1) + ">" +
                         //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
                         "<td data-field='no'>" + no + "</td>" +
                         "<td data-field='trailerNumber' >" + trailerNumber + "</td>" +
@@ -221,12 +209,10 @@ $(document).ready(function() {
                         "<td data-field='dot' >" + dot + "</td>" +
                         "<td data-field='activationDate' >" + activationDate + "</td>" +
                         "<td data-field='internalNotes' >" +internalNotes  + "</td>" +
-                        "<td data-field=''>"+
-                            "<a class='button-23  edit_trailerModel  "+editPrivilege+"'  title='edit' data-trailerId='"+trailerId+"' data-trailerType='' ><i class='fe fe-edit'></i></a>&nbsp <input type='hidden' value="+trailerId+" class='trailer_id_edit'>"+
-                            "<form> <input type='hidden' name='_token' id='_tokenDeleteTrailer' value='{{ csrf_token() }}' /> <a class='button-23  delete_trailer "+delPrivilege+"'  title='delete' data-trailerId='"+trailerId+"' data-trailerType='' ><i class='fe fe-trash'></i></a>&nbsp </form><input type='hidden' value="+trailerId+" class='trailer_id_delete'>"
+                        "<td style='text-align:center'>"+
+                            "<a class='mt-2 button-29 fs-14 text-white edit_trailerModel'  title='edit' data-trailerId='"+trailerId+"' data-trailerType='' ><i class='fe fe-edit'></i></a>&nbsp <input type='hidden' value="+trailerId+" class='trailer_id_edit'>"+
+                            "<form> <input type='hidden' name='_token' id='_tokenDeleteTrailer' value='{{ csrf_token() }}' /> <a class='mt-2 button-29 fs-14 text-white delete_trailer'  title='edit' data-trailerId='"+trailerId+"' data-trailerType='' ><i class='fe fe-trash'></i></a>&nbsp </form><input type='hidden' value="+trailerId+" class='trailer_id_delete'>"
                         "</td></tr>";
-
-                        
 
                         $("#trailer_tbl").append(trailerStr);
                         no++;
@@ -458,8 +444,13 @@ $(document).ready(function() {
     // =================end save trailer type =========================
 
     //============== start edit trailer model ==================
-    $('body').on('click','.edit_trailerModel',function(){
+    $('body').on('click','.edit_trailerModel',function(e){
+        e.preventDefault();
        var id=$(this).attr("data-trailerId");
+       $("#editTrailerModal").modal({
+        // remote: url,
+        refresh: true
+    });
     //    alert(id);
         $.ajax({
             type:'get',
@@ -479,22 +470,27 @@ $(document).ready(function() {
             //  alert(imgLength);
             // var trailer_img=array();
              $(".trailer_img").html();
-             for(var i=0; i<imgLength; i++)
+             console.log(imgLength);
+             if(imgLength>=1)
              {
-                // alert(i);
-                var img_length= response.trailerDoc[i].length;
-                var trailerDoc=response.trailerDoc[i];
-                console.log(trailerDoc);
-                // alert(img_length);
-                for(var v=0; v<img_length; v++)
+                for(var i=0; i<imgLength; i++)
                 {
-                    var trailer_img ="<img src='/"+trailerDoc[v].targetfilepath+"'width='100px'>";
-                    // alert(trailer_img);
-                $(".trailer_img").append(trailer_img);
+                    // alert(i);
+                    var img_length= response.trailerDoc[i].length;
+                    var trailerDoc=response.trailerDoc[i];
+                    console.log(trailerDoc);
+                    // alert(img_length);
+                    for(var v=0; v<img_length; v++)
+                    {
+                        var trailer_img ="<img src='/"+trailerDoc[v].targetfilepath+"'width='100px'>";
+                        // alert(trailer_img);
+                    $(".trailer_img").append(trailer_img);
+                    }
                 }
-             }
+            }
+            
              
-             var plate_expiry=text.plateExpiry;
+             var plate_expiry=response.plateExpiry;
              var inspectionExpiration= response.inspectionExpiration;
              var activationDate= response.activationDate;
              var dot= response.dot;
@@ -503,7 +499,7 @@ $(document).ready(function() {
               var year_plate_expiry = date_plate_expiry.getFullYear();
               var month_plate_expiry = months_arr[date_plate_expiry.getMonth()];
               var day_plate_expiry = date_plate_expiry.getDate();
-              if(day <=9 )
+              if(day_plate_expiry <=9 )
               {
                   var plate_expiry = year_plate_expiry+'-0'+day_plate_expiry+'-'+month_plate_expiry;
               }
@@ -516,7 +512,7 @@ $(document).ready(function() {
               var year_inspectionExpiration = date_inspectionExpiration.getFullYear();
               var month_inspectionExpiration = months_arr[date_inspectionExpiration.getMonth()];
               var day_inspectionExpiration = date_inspectionExpiration.getDate();
-              if(day <=9 )
+              if(day_inspectionExpiration <=9 )
               {
                   var inspectionExpiration = year_inspectionExpiration+'-0'+day_inspectionExpiration+'-'+month_inspectionExpiration;
               }
@@ -529,7 +525,7 @@ $(document).ready(function() {
               var year_activationDate = date_activationDate.getFullYear();
               var month_activationDate = months_arr[date_activationDate.getMonth()];
               var day_activationDate = date_activationDate.getDate();
-              if(day <=9 )
+              if(day_activationDate <=9 )
               {
                   var activationDate = year_activationDate+'-0'+day_activationDate+'-'+month_activationDate;
               }
@@ -543,7 +539,7 @@ $(document).ready(function() {
               var year_dot = date_dot.getFullYear();
               var month_dot = months_arr[date_dot.getMonth()];
               var day_dot = date_dot.getDate();
-              if(day <=9 )
+              if(day_dot <=9 )
               {
                   var dot = year_dot+'-0'+day_dot+'-'+month_dot;
               }
@@ -567,9 +563,12 @@ $(document).ready(function() {
             //    $("#edit_trailer_files").val(response.trailerNumber); 
             }
         });
-        $("#editTrailerModal").modal('show');
+        // $("#editTrailerModal .modal-body").load(e.target, function() { 
+            $("#editTrailerModal").modal('show');
+        // });
      });
      $(".closeEditTrailerModal").click(function(){
+        $(".trailer_img").html("<div></div>");
         $("#editTrailerModal").modal('hide');
      });
 
@@ -656,6 +655,7 @@ $(document).ready(function() {
                 // alert("success !");
                 console.log(data)                    
                 swal.fire("Done!", "Trailer updated successfully", "success");
+                $(".trailer_img").html("<div></div>");
                 $('#editTrailerModal').modal('hide');
                 $.ajax({
                     type: "GET",
@@ -723,6 +723,294 @@ $(document).ready(function() {
             return false;
         })
     });
+
+        // end delete =================================================
+
+    // start restore ===============================================
+    $(".restore_trailerBtn").click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getTrailer",
+            async: false,
+            //dataType:JSON,
+            success: function(data) {  
+                console.log(data)  ;               
+                RestoreTrailerTypeList(data);
+                TrailerResult = data;
+            }
+        });
+        $("#RestoreTrailerModal").modal("show");
+    });
+    $(".coseRestoreTrilershow").click(function(){
+        $("#RestoreTrailerModal").modal("hide");
+    });
+    function RestoreTrailerTypeList(TrailerResult) {
+        var subCreditCardlen = 0;
+        var Trailer1 = 0;
+        if (TrailerResult != null) 
+        {
+            console.log(TrailerResult);
+            Trailer1 = TrailerResult.trailer_type.trailer.length;
+            alert(Trailer1);
+
+            $("#Restoretrailer_tbl").html('');
+            // console.log(Trailer1);
+            if (Trailer1 > 0) 
+            {
+                var no=1;
+                for (var i = Trailer1-1; i >=0; i--) {  
+                    // alert(i);
+                    var  trailerId =TrailerResult.trailer_type.trailer[i]._id;
+                    var trailerNumber =TrailerResult.trailer_type.trailer[i].trailerNumber;
+                    var trailerTypeid =TrailerResult.trailer_type.trailer[i].trailerType;
+                        // console.log(trailerTypeid);
+                    var trailerTypeLen = TrailerResult.trailer_type.trailer.length;
+                    // console.log(trailerTypeLen);
+                    for (var j = 0; j < trailerTypeLen; j++) { 
+                        var trailer_Type_id = TrailerResult.trailer_type.trailer[j]._id;
+                        // console.log(trailerTypeid);
+                        if(trailerTypeid == trailer_Type_id)
+                        {
+                            trailerType=TrailerResult.trailer.trailer[j].trailerType;
+                            // trailerType="";
+                            break;
+                        }
+                        else
+                        {
+                            trailerType="----";
+                        }
+                    }
+
+                    var licensePlate =TrailerResult.trailer_type.trailer[i].licenseType;
+                  
+                    var registeredState=TrailerResult.trailer_type.trailer[i].registeredState;
+                    var status =TrailerResult.trailer_type.trailer[i].status;
+                    var model =TrailerResult.trailer_type.trailer[i].model;
+                    
+                    var axies =TrailerResult.trailer_type.trailer[i].axies;
+                    var vin =TrailerResult.trailer_type.trailer[i].vin;
+                    
+                    var year =TrailerResult.trailer_type.trailer[i].year;
+                    var internalNotes =TrailerResult.trailer_type.trailer[i].internalNotes;
+                    // var startDate =new Date(TrailerResult.trailer_type.trailer[i].startDate);
+                    if(licensePlate !="" && licensePlate !=null)
+                    {
+                        licensePlate=licensePlate;
+                    }
+                    else
+                    {
+                        licensePlate="----"
+                    }
+                    if(model !="" && model != null)
+                    {
+                        model=model;
+                    }
+                    else
+                    {
+                        model="----";
+                    }
+                    if(status != "" && status != null)
+                    {
+                        status=status;
+                    }
+                    else
+                    {
+                        status="----";
+                    }                       
+                    if(year !="" && year != null)
+                    {
+                        year=year;
+                    }
+                    else
+                    {
+                        year="----";
+                    }
+                    if(axies !="" && axies != null)
+                    {
+                        axies=axies;
+                    }
+                    else
+                    {
+                        axies="----";
+                    }
+                    if(registeredState !="" && registeredState != null)
+                    {
+                        registeredState=registeredState;
+                    }
+                    else
+                    {
+                        registeredState="----";
+                    }
+                    if(internalNotes !="" && internalNotes != null)
+                    {
+                        internalNotes=internalNotes;
+                    }
+                    else
+                    {
+                        internalNotes="----";
+                    }
+                    if(TrailerResult.trailer_type.trailer[i].deleteStatus == "YES")
+                    {
+                        var dot =TrailerResult.trailer_type.trailer[i].dot;
+                        
+                        var inspectionExpiry = TrailerResult.trailer_type.trailer[i].inspectionExpiration;
+                        var activationDate = TrailerResult.trailer_type.trailer[i].activationDate;
+                        var platExpiry=TrailerResult.trailer_type.trailer[i].plateExpiry;
+                        if(platExpiry != '')
+                        {
+                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_platExpiry = new Date(platExpiry*1000);
+                            var year_platExpiry = date_platExpiry.getFullYear();
+                            var month_platExpiry = months_arr[date_platExpiry.getMonth()];
+                            var day = date_platExpiry.getDate();
+                            var plateExpiry = month_platExpiry+'/'+day+'/'+year_platExpiry;
+                        }
+                        else
+                        {
+                            platExpiry="-----";
+                        }
+                        if(inspectionExpiry !='' && inspectionExpiry != null)
+                        {
+                            
+                            var date_inspectionExpiry = new Date(inspectionExpiry*1000);
+                            var year_inspectionExpiry = date_inspectionExpiry.getFullYear();
+                            var month_inspectionExpiry = months_arr[date_inspectionExpiry.getMonth()];
+                            var day = date_inspectionExpiry.getDate();
+                            var inspectionExpiry = month_inspectionExpiry+'/'+day+'/'+year_inspectionExpiry;
+                        }
+                        else
+                        {
+                            inspectionExpiry="-----";
+                        }
+                        if(activationDate !="" && activationDate !=null)
+                        {
+
+                            var date_activationDate = new Date(activationDate*1000);
+                            var year_activationDate = date_activationDate.getFullYear();
+                            var month_activationDate = months_arr[date_activationDate.getMonth()];
+                            var day = date_activationDate.getDate();
+                            var activationDate = month_activationDate+'/'+day+'/'+year_activationDate;
+                        }
+                        else
+                        {
+                            activationDate="-----";
+                        }
+                        if(dot !="" && dot !=null)
+                        {
+                            var date_dot = new Date(dot*1000);
+                            var year_dot = date_dot.getFullYear();
+                            var month_dot = months_arr[date_dot.getMonth()];
+                            var day = date_dot.getDate();
+                            var dot = month_dot+'/'+day+'/'+year_dot;
+                        }
+                        else
+                        {
+                            dot="-----";
+                        }
+
+
+                    
+                        var trailerStr = "<tr data-id=" + (i + 1) + ">" +
+                        //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                        "<td data-field='no'><input type='checkbox' class='check_Trailer_one' name='all_Trailer_id[]' data-trailer=" + trailerId+ "  value="+trailerId+"></td>" +
+                        "<td data-field='trailerNumber' >" + trailerNumber + "</td>" +
+                        "<td data-field='trailerType' >" + trailerType + "</td>" +
+                        "<td data-field='licensePlate' >" + licensePlate + "</td>" +
+                        "<td data-field='plateExpiry' >" + plateExpiry + "</td>" +
+                        "<td data-field='inspectionExpiry' >" + inspectionExpiry + "</td>" +
+                        "<td data-field='status' >" + status + "</td>" +
+                        "<td data-field='model' >" + model + "</td>" +
+                        "<td data-field='mileage' >" + year + "</td>" +
+                        "<td data-field='axies' >" + axies + "</td>" +
+                        "<td data-field='registeredState' >" + registeredState + "</td>" +
+                        "<td data-field='vin' >" + vin + "</td>" +
+                        "<td data-field='dot' >" + dot + "</td>" +
+                        "<td data-field='activationDate' >" + activationDate + "</td>" +
+                        "<td data-field='internalNotes' >" +internalNotes  + "</td></tr>";
+
+                        $("#Restoretrailer_tbl").append(trailerStr);
+                        no++;
+                    }
+                    
+                }
+            } 
+            else 
+            {
+                var trailerStr = "<tr data-id=" + i + ">" +
+                    "<td align='center' colspan='4'>No record found.</td>" +
+                    "</tr>";
+    
+                $("#Restoretrailer_tbl").append(trailerStr);
+            }
+        }
+        else 
+        {
+            var tr_str1 = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
+            // $("#currencyTable").append(currencyStr);
+        }
+        // $
+    }
+    $(document).on("change", ".Trailer_all_ids", function() 
+    {
+        if(this.checked) {
+            $('.check_Trailer_one:checkbox').each(function() 
+            {
+                this.checked = true;
+                TrailerCheckboxRestore();
+            });
+        } 
+        else 
+        {
+            $('.check_Trailer_one:checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+    $('body').on('click','.check_Trailer_one',function(){
+        TrailerCheckboxRestore();
+    });
+    function TrailerCheckboxRestore()
+    {
+        var creditCardIds = [];
+			$.each($("input[name='all_Trailer_id[]']:checked"), function(){
+				creditCardIds.push($(this).val());
+			});
+			var SubCreditCardAllCheckedIds =JSON.stringify(creditCardIds);
+			$('#checked_trailer__ids').val(SubCreditCardAllCheckedIds);
+          
+
+			if(creditCardIds.length > 0)
+			{
+				$('#restore_trailer_data').removeAttr('disabled');
+			}
+			else
+			{
+				$('#restore_trailer_data').attr('disabled',true);
+			}
+    }
+    $('body').on('click','.restore_trailer_data',function(){
+        var all_ids=$('#checked_trailer__ids').val();
+        $.ajax({
+            type:"post",
+            data:{_token:$("#_token_Trailer").val(),all_ids:all_ids},
+            url: base_path+"/admin/restoreTrailer",
+            success: function(response) {               
+                swal.fire("Done!", "Trailer Restored successfully", "success");
+                $("#RestoreTrailerModal").modal("hide");
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getTrailer",
+                    success: function(response) {
+                        creategetTrailerRows(response);
+                        TrailerResult = response;
+                        }
+                });
+            }
+        });
+    });
+    // end restore =================================================
 });
 
    
