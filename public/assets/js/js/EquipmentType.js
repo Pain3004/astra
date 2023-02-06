@@ -365,7 +365,7 @@ function branchOfficeCheckboxRestore()
 $('body').on('click','.restore_EquipmentTypeData',function(){
    
     var all_ids=$('#checked_EquipmentType').val();
-    alert(all_ids);
+    //alert(all_ids);
     var custID=$("#checked_EquipmentType_company_ids").val();
     $.ajax({
         type:"post",

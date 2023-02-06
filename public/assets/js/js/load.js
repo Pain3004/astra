@@ -26,7 +26,7 @@ $(document).ready(function() {
     $('#Load_navbar').click(function(){
         $.ajax({
             type: "GET",
-            url: base_path+"/admin/getLoaType",
+            url: base_path+"/admin/getLoadType",
             async: false,
             success: function(text) {
                 console.log(text);
@@ -130,7 +130,7 @@ $(document).ready(function() {
                     $("#addLoadTypeModal form").trigger('reset');
                     $.ajax({
                         type: "GET",
-                        url: base_path+"/admin/getLoaType",
+                        url: base_path+"/admin/getLoadType",
                         async: false,
                         success: function(text) {
                             console.log(text);
@@ -167,12 +167,12 @@ $(document).ready(function() {
 });
 
 $("#loadUpdate").click(function(){
-    // $('#branchOfficeModal').modal('hide');
+    // $('#LoadModal').modal('hide');
     var name =$('#up_Load_name').val();
     var unit =$('#up_Load_unit').val();
     var compID =$('#LoadComid').val();
     var id =$('#LoadId').val();
-//    var tokan=$('#tokeneditbranchOffice').val();
+//    var tokan=$('#tokeneditLoad').val();
     $.ajax({
         
         url: base_path+"/admin/updateLoad",
@@ -192,7 +192,7 @@ $("#loadUpdate").click(function(){
             $('#editLoadModal').modal('hide');
             $.ajax({
                 type: "GET",
-                url: base_path+"/admin/getLoaType",
+                url: base_path+"/admin/getLoadType",
                 async: false,
                 success: function(text) {
                     console.log(text);
@@ -224,7 +224,7 @@ $('body').on('click', '.deleteLoad', function(){
                 type: 'post',
                 url: base_path+"/admin/deleteLoad",
                 data: { 
-                    _token: $("#_tokenbranchOffice").val(), 
+                    _token: $("#tokeneditLoad").val(), 
                     id: id,
                     comId:comId
                 },
@@ -232,7 +232,7 @@ $('body').on('click', '.deleteLoad', function(){
                     swal.fire("Done!", "load Type Deleted successfully", "success");
                     $.ajax({
                         type: "GET",
-                        url: base_path+"/admin/getLoaType",
+                        url: base_path+"/admin/getLoadType",
                         async: false,
                         success: function(text) {
                             console.log(text);
@@ -249,7 +249,148 @@ $('body').on('click', '.deleteLoad', function(){
     });
 });
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
+//------------------------------ start restore  ---------------------------------------------
+$('.restoreLoadclose').click(function(){
+    $('#RestoreLoadModal').modal('hide');
+});
 
+$("#restoreLoad").click(function(){
+    $.ajax({
+        type: "GET",
+        url: base_path + "/admin/getLoadType",
+        async: false,
+        success: function (RestoreResult) {
+            //console.log(text);
+           RestoreLoad(RestoreResult);
+            // RestoreResult = text;
+        }
+    });
+    $('#RestoreLoadModal').modal('show');
+});
+
+function RestoreLoad(RestoreResult)
+{
+    var R_Len = 0;
+    if (RestoreResult != null) {
+        $("#RestoreLoadTable").html('');
+        var data=RestoreResult.Load_type.length;
+        // Loadlen = LoadResult.Load_type.length;
+        console.log(data);
+        for(var i=0; i<data; i++)
+        {
+            R_Len = RestoreResult.Load_type[i].loadType.length;
+            console.log(R_Len);
+            if(R_Len != null)
+            {
+                var no=1;
+                for(var j=R_Len-1; j>=0; j--)
+                {
+                    var com_Id=RestoreResult.Load_type[i].companyID;
+                    var id=RestoreResult.Load_type[i].loadType[j]._id;
+                    var name =RestoreResult.Load_type[i].loadType[j].loadName;
+                    var unit =RestoreResult.Load_type[i].loadType[j].loadType;
+                    var deleteStatus =RestoreResult.Load_type[i].loadType[j].deleteStatus;
+
+                    if (deleteStatus == "Yes" || deleteStatus == "YES" || deleteStatus == "yes") 
+                    {
+                        var R_str = "<tr data-id=" + (i + 1) + ">" +
+                            "<td data-field='no'><input type='checkbox' name='checkLoadOne[]' class='checkedIdsOneBranch' style='height: 15px;' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                            "<td >" + name + "</td>" +
+                            "<td>" + unit + "</td>" +
+                        $("#RestoreLoadTable").append(R_str);
+                        no++;
+                    }
+                }
+            }
+            else
+            {
+                var R_str = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+                $("#RestoreLoadTable").append(R_str);
+            }                  
+        }
+    }
+    else
+    {
+        var R_str = "<tr data-id=" + i + ">" +
+        "<td align='center' colspan='4'>No record found.</td>" +
+        "</tr>";
+        $("#RestoreLoadTable").append(R_str);
+    }
+}
+$(document).on("change", ".Load_all_ids", function() 
+{
+    if(this.checked) {
+        $('.checkedIdsOneBranch:checkbox').each(function() 
+        {
+            this.checked = true;
+            LoadCheckboxRestore();
+        });
+    } 
+    else 
+    {
+        $('.checkedIdsOneBranch:checkbox').each(function() {
+            this.checked = false;
+        });
+    }
+});
+$('body').on('click','.checkedIdsOneBranch',function(){
+    LoadCheckboxRestore();
+});
+function LoadCheckboxRestore()
+{
+    var Load = [];
+    var companyIds=[]
+        $.each($("input[name='checkLoadOne[]']:checked"), function(){
+            Load.push($(this).val());
+            companyIds.push($(this).attr("data-comId"));
+        });
+        // console.log(Load);
+        var braOffIds =JSON.stringify(Load);
+        $('#checked_Load').val(braOffIds);
+       
+        var companyCheckedIds =JSON.stringify(companyIds);
+        $('#checked_Load_company_ids').val(companyCheckedIds);
+
+        if(Load.length > 0)
+        {
+            $('#restore_LoadData').removeAttr('disabled');
+        }
+        else
+        {
+            $('#restore_LoadData').attr('disabled',true);
+        }
+}
+$('body').on('click','.restore_LoadData',function(){
+   
+    var all_ids=$('#checked_Load').val();
+    //alert(all_ids);
+    var custID=$("#checked_Load_company_ids").val();
+    $.ajax({
+        type:"post",
+        data:{
+            _token:$("#tokeneditLoad").val(),
+            all_ids:all_ids,
+            custID:custID
+        },
+        url: base_path+"/admin/restoreLoad",
+        success: function(response) {               
+            swal.fire("Load Restored successfully");
+            $("#RestoreLoadModal").modal("hide");
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getLoadType",
+                async: false,
+                success: function(text) {
+                    createLoad_typeRows(text);
+                }
+            });
+            // $('#LoadModal').modal('show');
+        }
+    });
+});
+// ---------------------------------------------end restore  ---------------------------------------------
 
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });

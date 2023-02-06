@@ -38,6 +38,7 @@
                                                             <thead class="thead_th">
                                                                 <tr class="tr">
                                                                     <th >NO</th>
+                                                                    <th >time</th>
                                                                     <th > Name</th>
                                                                     <th>Type</th>
                                                                     <th >Address</th>

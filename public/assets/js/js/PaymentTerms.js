@@ -324,7 +324,7 @@ function PaymentTermsCheckboxRestore()
 $('body').on('click','.restore_PaymentTermsData',function(){
    
     var all_ids=$('#checked_PaymentTerms').val();
-    alert(all_ids);
+    //alert(all_ids);
     var custID=$("#checked_PaymentTerms_company_ids").val();
     $.ajax({
         type:"post",

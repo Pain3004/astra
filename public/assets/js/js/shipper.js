@@ -73,12 +73,26 @@ $(document).ready(function() {
                     var  shippingNotes=shipperResult.shipper.shipper[i].shippingNotes;
                     var  internalNotes=shipperResult.shipper.shipper[i].internalNotes;
                     var  deleteStatus=shipperResult.shipper.shipper[i].deleteStatus;
+                    var  insertedTime1=shipperResult.shipper.shipper[i].insertedTime;
+
+                    if(insertedTime1){
+                        insertedTime1 =shipperResult.shipper.shipper[i].insertedTime;
+                    }else{
+                        insertedTime1='';
+                    }
+                    var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                    var date_tr = new Date(insertedTime1*1000);
+                    var year_tr = date_tr.getFullYear();
+                    var month_tr = months_arr_tr[date_tr.getMonth()];
+                    var day_tr = date_tr.getDate();
+                    var insertedTime = month_tr+'/'+day_tr+'/'+year_tr;
 
                     if(deleteStatus == 'NO'){
 
 
                     var shipperStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                         "<td data-field='no'>" + no+ "</td>" +
+                        "<td data-field='no'>" + insertedTime1 + "-" + insertedTime + "</td>" +
                         "<td data-field='shipperName' >" + shipperName + "</td>" +
                         "<td data-field='shipperName' >Shipper</td>" +
                         "<td data-field='shipperAddress' >" +shipperAddress  + "</td>" +
@@ -106,10 +120,10 @@ $(document).ready(function() {
                     $("#shipperTable").append(shipperStr);
                     no++;
                     } 
-                    // $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
-                    //     function sort_td(a, b) {
-                    //     return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
-                    // }
+                    $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
+                        function sort_td(a, b) {
+                        return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
+                    }
                 }
             } else {
                 var shipperStr = "<tr data-id=" + i + ">" +
@@ -144,13 +158,25 @@ $(document).ready(function() {
                     var  consigneeRecivingNote=shipperResult.consignee.consignee[i].consigneeRecivingNote;
                     var  consigneeInternalNote=shipperResult.consignee.consignee[i].consigneeInternalNote;
                     var  deleteStatus=shipperResult.consignee.consignee[i].deleteStatus;
-                    // var  deleteStatus=shipperResult.consignee.consignee[i].shipperTable;
+                    var  insertedTime1=shipperResult.consignee.consignee[i].insertedTime;
+
+                    if(insertedTime1){
+                        insertedTime1 =shipperResult.consignee.consignee[i].insertedTime;
+                    }else{
+                        insertedTime1='--';
+                    }
+                    var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                    var date_tr = new Date(insertedTime1*1000);
+                    var year_tr = date_tr.getFullYear();
+                    var month_tr = months_arr_tr[date_tr.getMonth()];
+                    var day_tr = date_tr.getDate();
+                    var insertedTime = month_tr+'/'+day_tr+'/'+year_tr;
                     
                     if(deleteStatus == 'NO'){
                         var consigneeStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                             //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
                         "<td data-field='no'>" + no + "</td>" +
-                        "<td data-field='no'>" + no + "</td>" +
+                        "<td data-field='no'>" + insertedTime1 + "-" + insertedTime + "</td>" +
                         "<td data-field='consigneeName' >" + consigneeName + "</td>" +
                         "<td data-field='consigneeName' >Consignee</td>" +
                         "<td data-field='consigneeAddress' >" +consigneeAddress  + "</td>" +
@@ -177,10 +203,10 @@ $(document).ready(function() {
                         $("#shipperTable").append(consigneeStr);
                         no++;
                     } 
-                    // $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
-                    //     function sort_td(a, b) {
-                    //     return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
-                    // }
+                    $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
+                        function sort_td(a, b) {
+                        return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
+                    }
                 }
             } 
             else 

@@ -281,6 +281,7 @@ Route::post('admin/addRecurrenceCategory', [RecurrenceCategoryController::class,
 Route::post('admin/deleteRecurrenceCategory', [RecurrenceCategoryController::class, 'deleteRecurrenceCategory']);
 Route::get('admin/editRecurrenceCategory', [RecurrenceCategoryController::class, 'editRecurrenceCategory']);
 Route::post('admin/updateRecurrenceCategory', [RecurrenceCategoryController::class, 'updateRecurrenceCategory']);
+Route::post('admin/restoreRecurrenceCategory', [RecurrenceCategoryController::class, 'restoreRecurrenceCategory']);
 
 //Terms Conditions
 Route::get('admin/getTermsConditions', [TermsConditionsController::class, 'getTermsConditions']);
@@ -292,13 +293,16 @@ Route::post('admin/addTruckTrailer', [TruckTrailerMakeController::class, 'addTru
 Route::post('admin/deleteTruckTrailer', [TruckTrailerMakeController::class, 'deleteTruckTrailer']);
 Route::get('admin/editTruckTrailer', [TruckTrailerMakeController::class, 'editTruckTrailer']);
 Route::post('admin/updatetruckTrailer', [TruckTrailerMakeController::class, 'updatetruckTrailer']);
+Route::post('admin/restoreTruckTrailer', [TruckTrailerMakeController::class, 'restoreTruckTrailer']);
 
 //Load Type
-Route::get('admin/getLoaType', [LoadController::class, 'getLoaType']);
+Route::get('admin/getLoadType', [LoadController::class, 'getLoadType']);
 Route::post('admin/addLoadType', [LoadController::class, 'addLoadType']);
 Route::post('admin/deleteLoad', [LoadController::class, 'deleteLoad']);
 Route::get('admin/editLoad', [LoadController::class, 'editLoad']);
 Route::post('admin/updateLoad', [LoadController::class, 'updateLoad']);
+Route::post('admin/restoreLoad', [LoadController::class, 'restoreLoad']);
+
 
 //ExternalCarrierController
 Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);

@@ -195,7 +195,7 @@ $("#RecurrenceCategoryUpdate").click(function()
 //-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
 
 //-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
-    $('body').on('click', '.tokeneditRecurrenceCategory', function(){
+    $('body').on('click', '.deleteRecurrenceCategory', function(){
         var  id=$(this).attr("data-Id");
         var comId=$(this).attr('data-comID');
 
@@ -214,7 +214,7 @@ $("#RecurrenceCategoryUpdate").click(function()
                     type: 'post',
                     url: base_path+"/admin/deleteRecurrenceCategory",
                     data: { 
-                        _token: $("#_tokenbranchOffice").val(), 
+                        _token: $("#tokeneditRecurrenceCategory").val(), 
                         id: id,
                         comId:comId
                     },
@@ -239,5 +239,145 @@ $("#RecurrenceCategoryUpdate").click(function()
         });
     });
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
+//------------------------------ start restore  ---------------------------------------------
+    $('.restoreRecurrenceCategoryclose').click(function(){
+        $('#RestoreRecurrenceCategoryModal').modal('hide');
+    });
+
+    $("#restoreRecurrenceCategory").click(function(){
+        $.ajax({
+            type: "GET",
+            url: base_path + "/admin/getRecurrenceCategory",
+            async: false,
+            success: function (RestoreResult) {
+                //console.log(text);
+               RestoreRecurrenceCategory(RestoreResult);
+                // RestoreResult = text;
+            }
+        });
+        $('#RestoreRecurrenceCategoryModal').modal('show');
+    });
+   
+    function RestoreRecurrenceCategory(RestoreResult)
+    {
+        var R_Len = 0;
+        if (RestoreResult != null) {
+            $("#RestoreRecurrenceCategoryTable").html('');
+            var data=RestoreResult.RecurrenceCategory.length;
+            // RecurrenceCategorylen = RecurrenceCategoryResult.RecurrenceCategory.length;
+            console.log(data);
+            for(var i=0; i<data; i++)
+            {
+                R_Len = RestoreResult.RecurrenceCategory[i].fixPay.length;
+                console.log(R_Len);
+                if(R_Len != null)
+                {
+                    var no=1;
+                    for(var j=R_Len-1; j>=0; j--)
+                    {
+                        var com_Id=RestoreResult.RecurrenceCategory[i].companyID;
+                        var id=RestoreResult.RecurrenceCategory[i].fixPay[j]._id;
+                        var name =RestoreResult.RecurrenceCategory[i].fixPay[j].fixPayType;
+                        var deleteStatus =RestoreResult.RecurrenceCategory[i].fixPay[j].deleteStatus;
+
+                        if (deleteStatus == "Yes" || deleteStatus == "YES" || deleteStatus == "yes") 
+                        {
+                            var R_str = "<tr data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'><input type='checkbox' name='checkRecurrenceCategoryOne[]' class='checkedIdsOneBranch' style='height: 15px;' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                                "<td >" + name + "</td>" +
+                            $("#RestoreRecurrenceCategoryTable").append(R_str);
+                            no++;
+                        }
+                    }
+                }
+                else
+                {
+                    var R_str = "<tr data-id=" + i + ">" +
+                    "<td align='center' colspan='4'>No record found.</td>" +
+                    "</tr>";
+                    $("#RestoreRecurrenceCategoryTable").append(R_str);
+                }                  
+            }
+        }
+        else
+        {
+            var R_str = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
+            $("#RestoreRecurrenceCategoryTable").append(R_str);
+        }
+    }
+    $(document).on("change", ".RecurrenceCategory_all_ids", function() 
+    {
+        if(this.checked) {
+            $('.checkedIdsOneBranch:checkbox').each(function() 
+            {
+                this.checked = true;
+                recurrenceCategoryCheckboxRestore();
+            });
+        } 
+        else 
+        {
+            $('.checkedIdsOneBranch:checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+    $('body').on('click','.checkedIdsOneBranch',function(){
+        recurrenceCategoryCheckboxRestore();
+    });
+    function recurrenceCategoryCheckboxRestore()
+    {
+        var recurrenceCategory = [];
+        var companyIds=[]
+            $.each($("input[name='checkRecurrenceCategoryOne[]']:checked"), function(){
+                recurrenceCategory.push($(this).val());
+                companyIds.push($(this).attr("data-comId"));
+            });
+            // console.log(recurrenceCategory);
+            var braOffIds =JSON.stringify(recurrenceCategory);
+            $('#checked_RecurrenceCategory').val(braOffIds);
+           
+            var companyCheckedIds =JSON.stringify(companyIds);
+            $('#checked_RecurrenceCategory_company_ids').val(companyCheckedIds);
+
+            if(recurrenceCategory.length > 0)
+            {
+                $('#restore_RecurrenceCategoryData').removeAttr('disabled');
+            }
+            else
+            {
+                $('#restore_RecurrenceCategoryData').attr('disabled',true);
+            }
+    }
+    $('body').on('click','.restore_RecurrenceCategoryData',function(){
+       
+        var all_ids=$('#checked_RecurrenceCategory').val();
+        //alert(all_ids);
+        var custID=$("#checked_RecurrenceCategory_company_ids").val();
+        $.ajax({
+            type:"post",
+            data:{
+                _token:$("#tokeneditRecurrenceCategory").val(),
+                all_ids:all_ids,
+                custID:custID
+            },
+            url: base_path+"/admin/restoreRecurrenceCategory",
+            success: function(response) {               
+                swal.fire("Branch Office Restored successfully");
+                $("#RestoreRecurrenceCategoryModal").modal("hide");
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getRecurrenceCategory",
+                    async: false,
+                    success: function(text) {
+                        createRecurrenceCategoryRows(text);
+                    }
+                });
+                // $('#recurrenceCategoryModal').modal('show');
+            }
+        });
+    });
+// ---------------------------------------------end restore  ---------------------------------------------
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });

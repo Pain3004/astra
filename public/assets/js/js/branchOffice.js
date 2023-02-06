@@ -400,7 +400,7 @@ $(document).ready(function() {
     $('body').on('click','.restore_BranchOfficeData',function(){
        
         var all_ids=$('#checked_BranchOffice').val();
-        alert(all_ids);
+        //alert(all_ids);
         var custID=$("#checked_BranchOffice_company_ids").val();
         $.ajax({
             type:"post",

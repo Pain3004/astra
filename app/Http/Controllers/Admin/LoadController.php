@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LoadController extends Controller
 {
-    public function getLoaType(Request $request){
+    public function getLoadType(Request $request){
         $companyId=1;
         $Load_type = Load_type::where('companyID',$companyId)->get();  //only for company id one
     //    $Load_type = Load_type::get();
@@ -175,4 +175,54 @@ class LoadController extends Controller
         }
     }
     
+    public function restoreLoad(Request $request)
+    {
+        //dd($request);
+        $cardIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Load = Load_type::where('companyID',$company_id )->first();
+            $LoadArray=$Load->loadType;
+            $arrayLength=count($LoadArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Load->loadType[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $LoadArray[$row]['deleteStatus'] = "NO";
+                $Load->loadType= $LoadArray;
+                $save=$Load->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Load Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
+
 }

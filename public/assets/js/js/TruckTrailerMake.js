@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // -------------------------------------------------------------------------  start ------------------------------------------------------------------------- --  
-    $('#TruckTrailerMakeModal, #addTruckTrailerMakeModal, #edittruckTrailer').modal({
+    $('#TruckTrailerMakeModal, #addTruckTrailerMakeModal, #edittruckTrailer,#RestoreTruckTrailerModal').modal({
         backdrop: 'static',
         keyboard: false
     })
@@ -245,7 +245,7 @@ $(document).ready(function() {
     });
 
     $("#edittruckTrailer").modal("show");
-});
+    });
 
 $("#truckTrailerUpdate").click(function(){
     var name =$('#up_truckTrailer_name').val();
@@ -330,7 +330,225 @@ $("#truckTrailerUpdate").click(function(){
         });
     });
 //-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
+//------------------------------------------------------------------------- start restore  -------------------------------------------------------------------------
+$('.restoreTruckTrailerclose').click(function(){
+    $('#RestoreTruckTrailerModal').modal('hide');
+});
 
+$("#restoreTruckTrailer").click(function(){
+    $.ajax({
+        type: "GET",
+        url: base_path + "/admin/getTruckTrailerMake",
+        async: false,
+        success: function (RestoreResult) {
+           RestoreTruckTrailer(RestoreResult);
+        }
+    });
+    $('#RestoreTruckTrailerModal').modal('show');
+});
+
+function RestoreTruckTrailer(RestoreResult)
+{
+    var len1 = 0;
+    var no=1;
+    if (RestoreResult != null) {
+        $("#RestoreTruckTrailerTable").html('');
+        len1 = RestoreResult.Truck_type.length;
+        len2 = RestoreResult.trailer_type.length;
+////truck                
+        if (len1 > 0) {
+            for (var i = len1-1; i >= 0; i--) { 
+                
+                len3 = RestoreResult.Truck_type[i].truck.length;
+                len4 = RestoreResult.trailer_type[i].trailer.length;
+                // var main_Id =Result.RecurrenceCategory[i].fixPay._id;
+                // var com_Id =Result.RecurrenceCategory[i].fixPay.companyID;
+
+                if (len3 > 0) {
+                    for (var j = len3-1; j >= 0; j--) {
+
+                        var  com_Id=RestoreResult.Truck_type[i].companyID;
+                        var  id=RestoreResult.Truck_type[i].truck[j]._id;
+                        var  truckType=RestoreResult.Truck_type[i].truck[j].truckType;
+                        var  created_time1=RestoreResult.Truck_type[i].truck[j].created_time;
+
+                        if(created_time1){
+                            created_time1 =RestoreResult.Truck_type[i].truck[j].created_time;
+                        }else{
+                            created_time1='';
+                        }
+                        var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date = new Date(created_time1*1000);
+                        var year = date.getFullYear();
+                        var month = months_arr[date.getMonth()];
+                        var day = date.getDate();
+                        var created_time = month+'/'+day+'/'+year;
+                        var deleteStatus =RestoreResult.Truck_type[i].truck[j].deleteStatus;
+
+                        if(deleteStatus == "Yes" || deleteStatus == "yes" || deleteStatus == "YES"){
+                                var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'><input type='checkbox' name='checkTruckTrailerOne[]' class='checkedIdsOneTruckTrailer' style='height: 15px;' value='"+id+"-Truck' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                                "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                // "<td data-field='no'>" + created_time + "</td>" +
+                                "<td data-field='fixPayType'>" + truckType + "</td>" +
+                                "<td data-field='Truck'>Truck</td>" +
+                                "</tr>";
+    
+                            $("#RestoreTruckTrailerTable").append(Str);
+                            no++;
+                        }
+                        $("#RestoreTruckTrailerTable tr").sort(sort_td).appendTo("#RestoreTruckTrailerTable");
+                        function sort_td(a, b) {
+                            return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
+                        }
+                    }
+                }
+            }
+            
+        }else {
+            var Str = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+
+            $("#RestoreTruckTrailerTable").append(Str);
+        }
+////trailer
+        if (len2 > 0) {
+            for (var i = len2-1; i >= 0; i--) { 
+                len4 = RestoreResult.trailer_type[i].trailer.length;
+                // var main_Id =Result.RecurrenceCategory[i].fixPay._id;
+                // var com_Id =Result.RecurrenceCategory[i].fixPay.companyID;
+
+                if (len3 > 0) {
+                    for (var j = len4-1; j >= 0; j--) {
+
+                        var  com_Id=RestoreResult.trailer_type[i].companyID;
+                        var  id=RestoreResult.trailer_type[i].trailer[j]._id;
+                        var  trailerType=RestoreResult.trailer_type[i].trailer[j].trailerType;
+                        var  created_time_tr1=RestoreResult.trailer_type[i].trailer[j].created_time;
+                        if(created_time_tr1){
+                            created_time_tr1 =RestoreResult.trailer_type[i].trailer[j].created_time;
+                        }else{
+                            created_time_tr1='';
+                        }
+
+                        var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date_tr = new Date(created_time_tr1*1000);
+                        var year_tr = date_tr.getFullYear();
+                        var month_tr = months_arr_tr[date_tr.getMonth()];
+                        var day_tr = date_tr.getDate();
+                        var created_time_tr = month_tr+'/'+day_tr+'/'+year_tr;
+
+                        var deleteStatus =RestoreResult.trailer_type[i].trailer[j].deleteStatus;
+
+                        if(deleteStatus == "NO" || deleteStatus == "No"){
+                                var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'><input type='checkbox' name='checkTruckTrailerOne[]' class='checkedIdsOneTruckTrailer' style='height: 15px;' value='"+id+"-Trailer' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                                "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                // "<td data-field='no'>" + created_time_tr + "</td>" +
+                                "<td data-field='trailerType'>" + trailerType + "</td>" +
+                                "<td data-field='trailer'>Trailer</td>" +
+                                "</tr>";
+    
+                            $("#RestoreTruckTrailerTable").append(Str);
+                            no++;
+                        }
+                        $("#RestoreTruckTrailerTable tr").sort(sort_td).appendTo("#RestoreTruckTrailerTable");
+                            function sort_td(a, b) {
+                            return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
+                        }
+                    }
+                }
+            }
+            
+        }else {
+            var Str = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+
+            $("#RestoreTruckTrailerTable").append(Str);
+        }
+    
+    }else {
+    var Str = "<tr data-id=" + i + ">" +
+        "<td align='center' colspan='4'>No record found.</td>" +
+        "</tr>";
+
+        $("#RestoreTruckTrailerTable").append(Str);
+    }
+}
+$(document).on("change", ".TruckTrailer_all_ids", function() 
+{
+    if(this.checked) {
+        $('.checkedIdsOneTruckTrailer:checkbox').each(function() 
+        {
+            this.checked = true;
+            truckTrailerCheckboxRestore();
+        });
+    } 
+    else 
+    {
+        $('.checkedIdsOneTruckTrailer:checkbox').each(function() {
+            this.checked = false;
+        });
+    }
+});
+$('body').on('click','.checkedIdsOneTruckTrailer',function(){
+    truckTrailerCheckboxRestore();
+});
+function truckTrailerCheckboxRestore()
+{
+    var truckTrailer = [];
+    var companyIds=[]
+        $.each($("input[name='checkTruckTrailerOne[]']:checked"), function(){
+            truckTrailer.push($(this).val());
+            companyIds.push($(this).attr("data-comId"));
+        });
+        // console.log(truckTrailer);
+        var truckTrailerIds =JSON.stringify(truckTrailer);
+        $('#checked_TruckTrailer').val(truckTrailerIds);
+       
+        var companyCheckedIds =JSON.stringify(companyIds);
+        $('#checked_TruckTrailer_company_ids').val(companyCheckedIds);
+
+        if(truckTrailer.length > 0)
+        {
+            $('#restore_TruckTrailerData').removeAttr('disabled');
+        }
+        else
+        {
+            $('#restore_TruckTrailerData').attr('disabled',true);
+        }
+}
+$('body').on('click','.restore_TruckTrailerData',function(){
+   
+    var all_ids=$('#checked_TruckTrailer').val();
+    //alert(all_ids);
+    var custID=$("#checked_TruckTrailer_company_ids").val();
+    $.ajax({
+        type:"post",
+        data:{
+            _token:$("#tokenedittruckTrailer").val(),
+            all_ids:all_ids,
+            custID:custID
+        },
+        url: base_path+"/admin/restoreTruckTrailer",
+        success: function(response) {               
+            swal.fire("Truck & Trailer Restored successfully");
+            $("#RestoreTruckTrailerModal").modal("hide");
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getTruckTrailerMake",
+                async: false,
+                success: function(text) {
+                    createTruckTrailerRows(text);
+                }
+            });
+            // $('#truckTrailerModal').modal('show');
+        }
+    });
+});
+// ---------------------------------------------end restore  ---------------------------------------------
 
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });
