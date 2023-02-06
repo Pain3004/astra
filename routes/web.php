@@ -22,7 +22,6 @@ use App\Http\Controllers\Admin\SubCreditCardController;
 use App\Http\Controllers\Admin\AccountManagerController;
 use App\Http\Controllers\Admin\BranchOfficeController;
 use App\Http\Controllers\Admin\PaymentTermsController;
-use App\Http\Controllers\Admin\TrailerAdminAddController;
 use App\Http\Controllers\Admin\EquipmentTypeController;
 use App\Http\Controllers\Admin\RecurrenceCategoryController;
 use App\Http\Controllers\Admin\TermsConditionsController;
