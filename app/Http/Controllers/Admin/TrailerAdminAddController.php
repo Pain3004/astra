@@ -17,8 +17,10 @@ class TrailerAdminAddController extends Controller
 {
     public function getTrailer()
     {
-        $companyId=1;
+        $companyId=(int)1;
         $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$companyId)->first();
+        // $TrailerAdminAdd = TrailerAdminAdd::findOrFail($companyId);
+        // dd($TrailerAdminAdd);
         $traileradd = traileradd::where('companyID',$companyId)->first();
         // $traileradd=traileradd::get();
         // $TrailerAdminAdd=TrailerAdminAdd::get();

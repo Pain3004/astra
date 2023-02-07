@@ -18,7 +18,7 @@ class CustomerController extends Controller
     
     
     public function getCustomerData(Request $request){
-        $companyID=(int)1;
+        $companyID=(int)67;
         $customer = Customer::where('companyID',$companyID )->first();
         return response()->json($customer, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
@@ -42,18 +42,9 @@ class CustomerController extends Controller
 
         if($getCompanyForCurrency){
             $currencyArray=$getCompanyForCurrency->currency;
-            $ids=array();
-            foreach( $currencyArray as $key=> $admin_bank_id)
-            {
-                $ids[]=$admin_bank_id['_id'];
-            }
-            $ids=max($ids);
-            $totalcurrencyArray=$ids+1;
+            $totalCurrencyArray=count($currencyArray);
         }
-        else
-        {
-            $totalcurrencyArray=0; 
-        }
+   
         $currencyData[]=array(    
                         '_id' => $totalCurrencyArray,
                         'counter' => 0,
@@ -130,7 +121,7 @@ class CustomerController extends Controller
                
             Payment_terms::where(['companyID' =>$companyIDForPaymentTerms])->update([
                    'counter'=> $totalPaymentTermsArray,
-                   'payment' =>array_merge($PaymentTermsData,$paymentTermsArray) ,
+                   'payment' =>array_merge($paymentTermsArray,$PaymentTermsData),
                ]);
 
                $arrrPaymentTerms = array('status' => 'success', 'message' => 'Currency added successfully.'); 
@@ -154,7 +145,7 @@ class CustomerController extends Controller
            }
 
       
-   }
+    }
 
     public function getCustomerBFactoringCompany(Request $request){
         $companyIDForCustomer=2;
@@ -162,7 +153,8 @@ class CustomerController extends Controller
        // dd($customerCurr);
         return response()->json($customerBFactoringCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
-    public function addCustomerfactoringCompany(Request $request){
+    public function addCustomerfactoringCompany(Request $request)
+    {
         //dd($request);
        //$companyIDForPaymentTerms=2;
 
@@ -202,10 +194,12 @@ class CustomerController extends Controller
 
             'tollFree' => $request->factoringTollFree,
             'email' => $request->factoringCompanyContactEmail,
-
+            
             'secondaryContact' => $request->factoringCompanySecondaryContact,
+            'factoringtelephone' => $request->factoringCompanySecondaryContactTelephone,
             'ext' => $request->factoringCompanySecondaryContactExt,
             'currencySetting' => $request->factoringCompanycurrency,
+            'paymentTerms' => $request->factoringCompanyPaymentTerms,
             'taxID' => $request->factoringCompanyTaxID,
             'internalNote' => $request->factoringCompanyInternalNotes,
             'insertedTime' => '',
@@ -244,11 +238,11 @@ class CustomerController extends Controller
            }
 
       
-   }
+    }
 
     public function addCustomerData(Request $request){
        // echo "hello";
-       //dd($request->all());
+         //dd($request->all());
 
         request()->validate([
             //'customerName' => 'required',
@@ -258,9 +252,9 @@ class CustomerController extends Controller
        
         ]);
         
-        $customerAdd = Customer::all();
+        // $customerAdd = Customer::all();
    
-        $companyIDForCustomer=2;
+        $companyIDForCustomer=67;
         $totalCustomerArray=0;
         $getCompanyForCustomer = Customer::where('companyID',$companyIDForCustomer)->first();
 
@@ -278,7 +272,7 @@ class CustomerController extends Controller
                         'custLocation' => $request->customerLocation,
                         'custZip' => $request->customerZip,
 
-                        'billingAddress' => $request->altTelephone,
+                        'billingAddress' => $request->customerBillingAddress,
 
                         'billingLocation' => $request->customerBillingLocation,
                         'billingZip' => $request->customerBillingZip,
@@ -322,11 +316,11 @@ class CustomerController extends Controller
                         'totalloads' => '' ,
 
                         );
-                    // dd($getCompany);         
-                    // $getCompany="";
+        //    dd($customerData);         
+        // $getCompany="";
            
             if($getCompanyForCustomer){
-                
+                // dd($getCompanyForCustomer);
                 // $CustomerArray=$getCompanyForCustomer->customer;
                 // $totalCustomerArray=count($CustomerArray);
                // dd($totalCustomerArray);
@@ -383,7 +377,7 @@ class CustomerController extends Controller
         $id=$request->id;
         // dd($id);
         $email=$request->email;
-        $companyID=(int)1;
+        $companyID=(int)67;
         $customerData=Customer::where("companyID",$companyID)->first();
         $cusomerArray=$customerData->customer;
         $arrayLength=count($cusomerArray);
@@ -401,8 +395,8 @@ class CustomerController extends Controller
                      }
                 }
        }
-    //    dd($v);
-    //    dd($cusomerArray[$v]);
+            //    dd($v);
+            //    dd($cusomerArray[$v]);
         $customerData->customer= $cusomerArray[$v];
         return response()->json($customerData); 
     }
@@ -412,7 +406,7 @@ class CustomerController extends Controller
           
         ]);
 
-        $companyID=(int)1;
+        $companyID=(int)67;
         $id=$request->id;
 
         $customerData = Customer::where('companyID',$companyID )->first();
@@ -431,7 +425,7 @@ class CustomerController extends Controller
                      }
                 }
        }
-    //    dd($request->workerComp);
+            //    dd($request->workerComp);
        $customerArray[$v]['custName']=$request->custName;
        $customerArray[$v]['custAddress']=$request->custAddress;
        $customerArray[$v]['custLocation']=$request->custLocation;
@@ -466,9 +460,9 @@ class CustomerController extends Controller
        $customerArray[$v]['customerRate']=$request->customerRate;
        $customerArray[$v]['numberOninvoice']=$request->numberOninvoice;
        $customerArray[$v]['internalNotes']=$request->internalNotes;
-    //    dd($request);
+            //    dd($request);
        $customerData->customer = $customerArray;
-    //    dd( $customerData->customer);
+            //    dd( $customerData->customer);
        if($customerData->save()){
             $arr = array('status' => 'success', 'message' => 'Customer updated successfully.','statusCode' => 200); 
             return json_encode($arr);
@@ -486,8 +480,8 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
         for ($i=0; $i<$arrayLength; $i++){
-            $ids=$customerData->customer[$i]['_id'];
-            $ids=(array)$ids;
+            $ids=$customerData->customer[$i];
+            // $ids=(array)$ids;
             foreach ($ids as $value){
                 if($value==$id){
                     $v=$id;
@@ -519,8 +513,8 @@ class CustomerController extends Controller
             $v=0;
             $data=array();
             for ($i=0; $i<$arrayLength; $i++){
-                $ids=$customerData->customer[$i]['_id'];
-                $ids=(array)$ids;
+                $ids=$customerData->customer[$i];
+                // $ids=(array)$ids;
                 foreach ($ids as $value){
                 //    print_r(gettype($cu_ids));
 

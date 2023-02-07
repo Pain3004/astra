@@ -464,6 +464,9 @@ $(document).ready(function () {
 
 
     // =========================== start update data ===========================================
+    $('#AddExternalCarrier').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
     $(".closeUpdateExternalCarreirModal").click(function(){
         $("#UpdateExternalCarrier").modal("hide");
     })
