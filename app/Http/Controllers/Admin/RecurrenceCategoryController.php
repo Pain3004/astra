@@ -11,19 +11,22 @@ use Image;
 use MongoDB\BSON\ObjectId;
 use Auth;
 use PDF;
+use carbon\carbon;
 
 use Illuminate\Database\Eloquent\Collection;
 
 class RecurrenceCategoryController extends Controller
 {
-    public function getRecurrenceCategory(Request $request){
+    public function getRecurrenceCategory(Request $request)
+    {
         $companyId=1;
        $RecurrenceCategory = RecurrenceCategory::where('companyID',$companyId)->get();  //only for company id one
-    //    $RecurrenceCategory = RecurrenceCategory::get();
+        //    $RecurrenceCategory = RecurrenceCategory::get();
        return response()->json(['RecurrenceCategory'=>$RecurrenceCategory], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
-    public function addRecurrenceCategory(Request $request){
+    public function addRecurrenceCategory(Request $request)
+    {
 
         $companyID=1;
         $totalRecurrenceCategoryArray=0;
@@ -71,7 +74,148 @@ class RecurrenceCategoryController extends Controller
         }
 
       
-   }
+    }
 
+    public function editRecurrenceCategory(Request $request){
+
+        $id=$request->Id;
+        $companyID=(int)$request->comID;
+
+        $result = RecurrenceCategory::where('companyID',$companyID)->first();
+        $Array=$result->fixPay;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+        
+        $companyID=array(
+            "companyID"=>$companyID
+        ) ;
+
+        $EditData=$Array[$v];
+        $dataArray=array_merge($companyID,$EditData);
+        return response()->json($dataArray, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+
+    }
+
+    public function updateRecurrenceCategory(Request $request)
+    {
+        $id=$request->id;
+        $companyID=(int)$request->compID;
+
+        $result = RecurrenceCategory::where('companyID',$companyID)->first();
+        $Array=$result->fixPay;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['fixPayType']=$request->name;        
+        $Array[$v]['edit_by']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['edit_time']=Carbon::now()->timestamp;
+
+        $result->fixPay=$Array;
+        // dd($FuelVendor->fuelCard);
+        if($result->save())
+        {
+         $arr = array('status' => 'success', 'message' => 'Recurrence Category updated successfully.','statusCode' => 200); 
+         return json_encode($arr);
+        }
+    }
+
+    public function deleteRecurrenceCategory(Request $request)
+    {
+        $id=$request->id;
+        $companyID=(int)$request->comId;
+
+        $result = RecurrenceCategory::where('companyID',$companyID)->first();
+        $Array=$result->fixPay;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['deleteStatus']="Yes";  
+        $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['deleteTime']=strtotime(date('d-m-y h:i:s'));       
+        
+        $result->fixPay=$Array;
+        // dd($FuelVendor->fuelCard);
+        if($result->save())
+        {
+         $arr = array('status' => 'success', 'message' => 'Recurrence Category Deleted successfully.','statusCode' => 200); 
+         return json_encode($arr);
+        }
+    }
     
+    public function restoreRecurrenceCategory(Request $request)
+    {
+        //dd($request);
+        $cardIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $RecurrenceCategory = RecurrenceCategory::where('companyID',$company_id )->first();
+            $RecurrenceCategoryArray=$RecurrenceCategory->fixPay;
+            $arrayLength=count($RecurrenceCategoryArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$RecurrenceCategory->fixPay[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $RecurrenceCategoryArray[$row]['deleteStatus'] = "NO";
+                $RecurrenceCategory->fixPay= $RecurrenceCategoryArray;
+                $save=$RecurrenceCategory->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Recurrence Category Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
 }

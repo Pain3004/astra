@@ -24,7 +24,7 @@
                     <a href="#" class="button-57_alt" id="AddFactoringCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Factoring Company</span></a>
                 @endif
                 @if($deleteUser== 1)    
-                    <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    <a href="#" class="button-57_alt restoreFactringComlData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
                 @endif 
                     <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
                     <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
@@ -79,7 +79,7 @@
     </div>
 
 </div>
-<!-------------------------------------------------------------------end Facoring Company modal ------------------------------------------------------------------->
+<!-------------------------------------------------------------------end Factoring Company modal ------------------------------------------------------------------->
 <!------------------------------------------------------------------  add Factoring Company  modal ------------------------------------------------------------------>
 
 <div class="container resizeModal">
@@ -213,3 +213,206 @@
 	C4.622,10.623,2.833,8.831,2.845,6.631L2.845,6.631z" />
   </symbol>
 </svg>  
+
+<!--=========================== start update ========================== -->
+<div class="container">
+    <div class="modal fade" data-backdrop="static" id="update_FactoringCompanyModal" role="dialog">
+        <div class="modal-dialog custom_modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Factoring Company </h4>
+                    <button type="button" class="closeUpdateFactoringCompanyModal" >&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="" >
+                                            @csrf
+                                            <input type="hidden" name="_token" id="_token_updateFactoringCompany" value="{{ csrf_token() }}" />
+                                            <input type="hidden" name="fuel_recepit_id" class="factringCom_id_edit" >
+                                            <div class="form-row">
+                                                <div class="form-group col-md-2">
+                                                    <label>Factoring Company Name <span style="color:#ff0000">*</span>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control update_factoringCompanyname" name="factoringCompanyname"> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Address <span style="color:#ff0000">*</span>
+                                                    </label>
+                                                    <div>
+                                                        <input type="text" class="form-control update_Factring_address" name="address"> 
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Location<span style="color:#ff0000">*</span>
+                                                    </label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control update_fact_location " type="text" 
+                                                            name="location"  />
+                                                        </div>
+                                                </div>
+                                                 <div class="form-group col-md-2">
+                                                    <label>Postal / Zip<span style="color:#ff0000">*</span>
+                                                    </label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control update_fact_zip " type="text" 
+                                                            name="zip"  />
+                                                        </div>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Primary Contact</label>
+                                                    <div >
+                                                        <input class="form-control update_fact_primaryContact " type="text" 
+                                                            name="primaryContact"  />   
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-3 ">
+                                                    <label>Telephone </label>
+                                                    <div>
+                                                        <input class="form-control update_fac_telephone" type="text" name="telephone"  />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2 ">
+                                                    <label>EXT</label>
+                                                    <div>
+                                                        <input class="form-control update_fac_ext" type="text" name="ext">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>FAX
+                                                        </label>
+                                                    <input type="text" class="form-control update_fac_fax"  name="fax" required>
+                                                </div>
+                                            </div>
+                                            <!-- row 3 -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-2">
+                                                    <label >Toll Free</label>
+                                                    <input class="form-control update_fac_tollFree"  type="text"  name="tollFree" required>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label>Contact Email</label>
+                                                    <input class="form-control update_fac_email"  type="text"  name="email">
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label> Secondary Contact </label>
+                                                    <input type="text" class="form-control update_fac_secondaryContact" name="secondaryContact"  > 
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label >Factring Telephone</label>
+                                                    <input class="form-control update_fac_factoringtelephone" name="factoringtelephone" type="text">
+                                                </div>
+                                                <div class="form-group col-md-2 ">
+                                                    <label >Factring Ext  </label>
+                                                    <input class="form-control update_fac_extFactoring " name="extFactoring" type="text"> 
+                                                </div>
+                                               
+                                                <div class="form-group col-md-2">
+                                                    <label >Currency Setting <span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign" id="factoringCurrency" ></span></label>
+                                                    <input class="form-control update_fac_currencySetting customerCurrencySet " list="customerCurrencySet" name="currencySetting " type="text" required>
+
+                                                    <datalist class="customerCurrencySet"></datalist> 
+                                                </div>
+                                                <div class="form-group col-md-2 ">
+                                                    <label >Payment Terms <span style="color:#ff0000">*</span><span class="glyphicon glyphicon-plus-sign" ></span></label>
+                                                    <input class="form-control update_fac_paymentTerms customerPaymentTermSet" list="customerPaymentTermSet"  name="paymentTerms " type="text" required>
+                                                    <datalist id="customerPaymentTermSet" class="customerPaymentTermSet"></datalist> 
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label >TAX ID <span style="color:#ff0000">*</span></label>
+                                                    <input class="form-control update_fac_taxID " name="taxID " type="text" >
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label >Internal Notes </label>
+                                                    <div>
+                                                        <textarea rows="2" cols="30" class="form-control update_fac_internalNote " name="internalNote "   type="textarea"  placeholder="Internal Note" ></textarea>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="vertical-align:middle" class="button-29 UpdateFactoringCompanyModal"  >Update</button>
+                    <button type="button"style="vertical-align:middle" class=" closeUpdateFactoringCompanyModal button-29" >Close</button>
+                </div>          
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!--========================= end update ============================== -->
+
+<!--======================= start restore ============================= -->
+<div class="container">
+    <!-- The Modal -->
+    <div class="modal fade" data-backdrop="static" id="RestoreFacoringCompanyModal">
+        <div class="modal-dialog modal-dialog-scrollable custom_modal">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Restore Factoring Company</h4>
+                    <button type="button" class="button-24 RestoreFactoringCompanyModalClose" >&times;</button>
+                </div>
+
+                <div style="margin-top: 15px; margin-left: 15px;">
+                        <input type="hidden" name="checked_id" id="checked_FactringCom_ids" value="">
+                        <input type="hidden" name="company_id" id="checked_FactringC_company_ids" value="">
+                        <button id="restorefactring_com_btn"  class="button-57_alt restorefactring_com_btn" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore fuel vendor</span></button>
+                </div>
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="table-responsive export-table">
+                                    <table id="factoring_table_pagination" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                            <tr class="tr">
+                                                <th><input type="checkbox" name="all_factIds[]" class="checked_FactringIds"></th>
+                                                <th>Factoring Company Name</th>
+                                                <th>Address</th>
+                                                <th>Location</th>
+                                                <th>Postal/Zip</th>
+                                                <th>Primary Contact</th>
+                                                <th>Telephone</th>
+                                                <th>Ext</th>
+                                                <th>Fax</th>
+                                                <th>Toll Free</th>
+                                                <th>Contact Email</th>
+                                                <th>Secondary Contact</th>
+                                                <th>Telephone</th>
+                                                <th>Ext</th>
+                                                <th>Currency Setting</th>
+                                                <th>Payment Terms</th>
+                                                <th>Tax ID</th>
+                                                <th>Internal Notes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="RestorefactCompTable">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button-29 RestoreFactoringCompanyModalClose" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--============================ end restore =========================== -->

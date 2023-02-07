@@ -13,7 +13,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add User</h4>
-                    <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+                    <button type="button" class="button-24 addUserModalClose">&times;</button>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
@@ -691,7 +691,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="button-29" data-dismiss="modal" id="usersave">Submit</button>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-29 addUserModalClose">Close</button>
                 </div>
             </div>
         </div>

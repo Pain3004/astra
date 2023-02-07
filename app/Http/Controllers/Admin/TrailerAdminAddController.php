@@ -18,11 +18,11 @@ class TrailerAdminAddController extends Controller
     public function getTrailer()
     {
         $companyId=1;
-        $traileradd = traileradd::where('companyID',$companyId)->first();
         $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$companyId)->first();
+        $traileradd = traileradd::where('companyID',$companyId)->first();
         // $traileradd=traileradd::get();
         // $TrailerAdminAdd=TrailerAdminAdd::get();
-        // dd($TrailerAdminAdd);
+        // dd($traileradd);
         return response()->json(['trailer'=>$traileradd,'trailer_type'=>$TrailerAdminAdd], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
         
     }
@@ -101,16 +101,16 @@ class TrailerAdminAddController extends Controller
                     'trailerNumber' => $request->trailer_number,
                     'trailerType' => $request->trailerType,
                     'licenseType' => $request->license_plate,
-                    'plateExpiry' => $request->plate_expiry,
-                    'inspectionExpiration' => $request->inspection,
+                    'plateExpiry' =>  strtotime($request->plate_expiry),
+                    'inspectionExpiration' =>  strtotime($request->inspection),
                     'status' => $request->status,
                     'model' => $request->model,
                     'year' => $request->year,
                     'axies' => $request->axies,
                     'registeredState' => $request->RegisteredState,
                     'vin' => $request->vin,
-                    'dot' => $request->dot,
-                    'activationDate' => $request->activation,
+                    'dot' =>  strtotime($request->dot),
+                    'activationDate' =>  strtotime($request->activation),
                     'internalNotes' => $request->internal_note,
                     'trailerDoc' => $trailerDoc,                   
                     'insertedTime' => time(),
@@ -315,16 +315,16 @@ class TrailerAdminAddController extends Controller
        $trailerArray[$v]['trailerNumber'] = $request->trailer_number;
        $trailerArray[$v]['trailerType'] = $request->trailertypeId;
        $trailerArray[$v]['licenseType'] = $request->license_plate;
-       $trailerArray[$v]['plateExpiry'] = $request->plate_expiry;
-       $trailerArray[$v]['inspectionExpiration'] = $request->inspection;
+       $trailerArray[$v]['plateExpiry'] =  strtotime($request->plate_expiry);
+       $trailerArray[$v]['inspectionExpiration'] =  strtotime($request->inspection);
        $trailerArray[$v]['status'] = $request->status;
        $trailerArray[$v]['model'] = $request->model;
        $trailerArray[$v]['year'] = $request->year;
        $trailerArray[$v]['axies'] = $request->axies;
        $trailerArray[$v]['registeredState'] = $request->RegisteredState;
        $trailerArray[$v]['vin'] = $request->vin;
-       $trailerArray[$v]['dot'] = $request->dot;
-       $trailerArray[$v]['activationDate'] = $request->activation;
+       $trailerArray[$v]['dot'] =  strtotime($request->dot);
+       $trailerArray[$v]['activationDate'] =  strtotime($request->activation);
        $trailerArray[$v]['internalNotes'] = $request->internal_note;
        $trailerArray[$v]['trailerDoc'] = $trailerDoc;                   
        $trailerArray[$v]['insertedTime'] = time();
@@ -366,6 +366,52 @@ class TrailerAdminAddController extends Controller
         if ($traileradd->save()) {
             $arr = array('status' => 'success', 'message' => 'Trailer deleted successfully.','statusCode' => 200); 
         return json_encode($arr);
+        }
+    }
+    public function restoreTrailer(Request $request)
+    {
+        $cardIds=$request->all_ids;
+        $custID=(array)1;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$company_id )->first();
+            $TrailerAdminAddArray=$TrailerAdminAdd->trailer;
+            $arrayLength=count($TrailerAdminAddArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$TrailerAdminAdd->trailer[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            foreach($data as $row)
+            {
+                $TrailerAdminAddArray[$row]['deleteStatus'] = "NO";
+                $TrailerAdminAdd->trailer= $TrailerAdminAddArray;
+                $save=$TrailerAdminAdd->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Trailer Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
         }
     }
 }

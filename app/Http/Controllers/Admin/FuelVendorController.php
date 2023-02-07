@@ -32,17 +32,24 @@ class FuelVendorController extends Controller
             if($FuelVendor_data)
             {
                 $FuelVendorArray=$FuelVendor_data->fuelCard;
-                // dd($FuelVendorArray);
-                $totalFuelVendorArray=count($FuelVendor_data->fuelCard);
+                $ids=array();
+                foreach( $FuelVendorArray as $key=> $getFuelCard_data)
+                {
+                    $ids[]=$getFuelCard_data['_id'];
+                }
+                $ids=max($ids);
+                $totalFuelVendorArray=$ids+1;
             }
             else
             {
                 $totalFuelVendorArray=0; 
             }
+            $openingDate=$request->openingDate;
+            $openingDate = strtotime($openingDate);
             $FuelVendorData[]=array(    
                 '_id' => $totalFuelVendorArray,
                 'fuelCardType' => $request->fuelCardType,
-                'openingDate' => $request->openingDate,
+                'openingDate' => $openingDate,
                 'openingBalance' => $request->openingBalance,
                 'currentBalance' => $request->currentBalance,
                 'counter' =>0,
@@ -95,7 +102,8 @@ class FuelVendorController extends Controller
         $v=0;
         for($i=0; $i<$fuelLength; $i++)
         {
-            $ids=$FuelVendor->fuelCard[$i];
+            $ids=$FuelVendor->fuelCard[$i]['_id'];
+            $ids=(array)$ids;
             foreach($ids as $value)
             {
                 if($value==$id)
@@ -131,11 +139,10 @@ class FuelVendorController extends Controller
                     $v=$i;
                 }
             }
-        }  
-        // dd($request->fuelCardType);
+        } 
         $FuelVendorArray[$v]['fuelCardType']=$request->fuelCardType;        
         $FuelVendorArray[$v]['currentBalance']=$request->currentBalance;
-        $FuelVendorArray[$v]['openingDate']=$request->openingDate;
+        $FuelVendorArray[$v]['openingDate']=strtotime($request->openingDate);
         $FuelVendorArray[$v]['openingBalance']=$request->openingBalance;
         $FuelVendor->fuelCard=$FuelVendorArray;
         // dd($FuelVendor->fuelCard);

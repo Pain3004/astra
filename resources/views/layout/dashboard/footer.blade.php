@@ -62,6 +62,9 @@
 <!-- dashboard js -->
 <!-- <script src="{{URL::to('/')}}/assets/js/js/form.js"></script> -->
 
+<!-- Tooltip and Popover JS -->
+<!-- <script src="{{URL::to('/')}}/assets/js/tooltip&popover.js"></script> -->
+
 <!-- DATA TABLE JS-->
 
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
@@ -88,7 +91,6 @@
 
 <!-- INTERNAL DATATABLES JS -->
 <script src="{{URL::to('/')}}/assets/js/table-editable.js"></script>
-
 
 
 <!-- CUSTOM JS -->
@@ -119,6 +121,8 @@
 <script src="{{URL::to('/')}}/assets/js/js/Terms&Conditions.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/TruckTrailerMake.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/load.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/loadboard.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 
 </body>
 

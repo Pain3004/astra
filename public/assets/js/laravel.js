@@ -13,26 +13,53 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 var base_path = $("#url").val();
 
+$('#addUser').click(function(){
+    $('#addUserModal').modal('show');
+});
+
+$('#addCompany').click(function(){
+    $('#addCompanyModal').modal('show');
+});
+
+$('.closeDriverModal').click(function(){
+    $('#driverModal').modal('hide');
+});
+
+$('.userModalClose').click(function(){
+    $('#userModal').modal('hide');
+});
+
+$('.addUserModalClose').click(function(){
+    $('#addUserModal').modal('hide');
+});
+
 $('.closeAddOwnerModal').click(function(){
     $('#addDriverOwnerModal').modal('hide');
 });
 
+$('.closoAddCompanyModal').click(function(){
+    $('#addCompanyModal').modal('hide');
+});
+
+$('.closoCompanyModal').click(function(){
+    $('#companyModal').modal('hide');
+});
 
 $(document).ready(function() {
  
-    
-    var response = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/user",
-        async: false,
-        success: function(text) {
-            createRows(text);
-            response = text;
-        }
+    $('#User_navbar').click(function(){
+        var response = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/user",
+            async: false,
+            success: function(text) {
+                createRows(text);
+                response = text;
+            }
+        });
+        $('#userModal').modal('show')
     });
-
-    
 });
 
 
@@ -60,7 +87,8 @@ function createRows(response) {
     }
 
     if (len > 0) {
-        for (var i = 0; i < len; i++) {
+        // for (var i = 0; i < len; i++) {
+        for (var i = len-1; i >= 0; i--) {
             var id = response[i].id;
             var email = response[i].userEmail;
             var username = response[i].userName;
@@ -393,6 +421,7 @@ $(document).ready(function() {
                 cache: false,
                 success: function(resp){
                   if(resp.success === true){
+                    $("#addUserModal").modal("hide");
                       swal.fire("Done!", resp.message, "success");
                       $.ajax({
                           type: "GET",
@@ -490,7 +519,7 @@ $(document).ready(function() {
                 // var no=1;
                 //$(".customerCurrencySet").html('');
                 $(".office_name_set").html('');
-                for (var i = 0; i <= officeTypelength; i++) 
+                for (var i=0; i<officeTypelength; i++) 
                 {  
                     var officeName =officeAddressData.office[i].officeName;
                     var officeId =officeAddressData.office[i]._id;
@@ -540,7 +569,7 @@ $(document).ready(function() {
                 // var no=1;
                 //$(".customerCurrencySet").html('');
                 $(".set_company_name").html('');
-                for (var i = 0; i <= companyDetailLength; i++) 
+                for (var i=0; i<companyDetailLength; i++) 
                 {  
                     var companyName =companyDetails.company[i].companyName;
                     var companyId =companyDetails.company[i]._id;
@@ -644,19 +673,22 @@ $(document).ready(function(){
 // <!-- ------------------------------------------------------------------------- driver ------------------------------------------------------------------------- -->
 
 $(document).ready(function() {
-    var driverResponse = '';
+    
 
 // <!-- -------------------------------------------------------------------------Get driver ajax ------------------------------------------------------------------------- -->    
-$.ajax({
-    type: "GET",
-    url: base_path+"/admin/driver",
-    async: false,
-    success: function(text) {
-        createDriverRows(text);
-        driverResponse = text;
-    }
+$('#Driver_navbar').click(function(){ 
+    var driverResponse = '';
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/driver",
+        async: false,
+        success: function(text) {
+            createDriverRows(text);
+            driverResponse = text;
+        }
+    });
+    $("#driverModal").modal("show");
 });
-
     function createDriverRows(driverResponse) {
 //Privilege 
     // var edit=$('#updateUser').val();
@@ -934,11 +966,11 @@ $('body').on('click',function() {
   var OwnerOperatorblock = '<div class="optionBox ">'+
       '<div class="block">'+
           '<div class="row row-sm" id="OwnerOperatorContainer">'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Category</label>'+
                       '<input type="text" class="form-control" name="installmentCategory[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Installment Type</label>'+
                           '<select name="installmentType[]" class="form-control">'+
                               '<option value="">Select type</option>'+
@@ -948,31 +980,25 @@ $('body').on('click',function() {
                               '<option value="Quarterly">Quarterly</option>'+
                           '</select>'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Amount</label>'+
                       '<input name="amount[]" type="text" class="form-control" />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-1">'+
                       '<label class="form-label" for="">Installment</label>'+
                       '<input name="installment[]" type="text" class="form-control"  />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-1">'+
                       '<label class="form-label" for="">start#</label>'+
                       '<input name="startNo[]" type="text" class="form-control"  />'+
                   '</div>'+
-                  '<div class="col-sm-3">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">start Date</label>'+
                       '<input name="startDate[]" type="date" class="form-control" />'+
                   '</div>'+
-                  '<div class="col-sm-5">'+
+                  '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Internal Note</label>'+
                       '<textarea rows="1" cols="20" class="form-control" type="textarea" name="internalNote[]"></textarea>'+
-                  '</div>'+
-                  '<div class="col-sm-1">'+
-                      '<label class="form-label" for="">Delete</label>'+
-                      
-                  
-                      '</button>'+
                   '</div>'+
                   '<!-- <input type="text" /> <span class="remove">Remove Option</span> -->'+
                   '<button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>'+
@@ -1301,7 +1327,7 @@ $('body').on('click',function() {
             success: function(resp){
                 if(resp.success == true){
                     swal.fire("Done!", resp.message, "success");
-                    // $("#driverTable").append(tr_str4);
+                    
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/driver",
@@ -1312,6 +1338,7 @@ $('body').on('click',function() {
                         }
                     });
                     $("#addDriverModal form").trigger("reset");
+                    $("#addDriverModal").modal('hide');
                 } 
               },
               error: function(data){
@@ -1357,18 +1384,20 @@ $.ajax({
 });
 
 $(document).ready(function() {
-    var response = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getContract",
-        data: {
-            companyID: 4,
-        },
-        async: false,
-        success: function(text) {
-            driverContract(text);
-            response = text;
-        }
+    $(".contract_categoryModal").click(function(){
+        var response = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getContract",
+            data: {
+                companyID: 4,
+            },
+            async: false,
+            success: function(text) {
+                driverContract(text);
+                response = text;
+            }
+        });
     });
 
 });
@@ -1838,6 +1867,7 @@ $(document).ready(function() {
 
 
 // <!-- -------------------------------------------------------------------------Get Company ajax ------------------------------------------------------------------------- -->    
+$('#Company_navbar').click(function(){  
     $.ajax({
         type: "GET",
         url: base_path+"/admin/company",
@@ -1847,7 +1877,8 @@ $(document).ready(function() {
             companyResponse = text;
         }
     });
-
+    $('#companyModal').modal("show");
+});
     function createCompanyRows(companyResponse) {
         var len1 = 0;
         
@@ -1876,8 +1907,11 @@ $(document).ready(function() {
                         var bankCompany = companyResponse[i].company[j].bankCompany;
                         if (companyResponse[i].company[j].file != '') {
                             for (var k = 0; k < companyResponse[i].company[j].file.length; k++) {
-                                var filepath = base_path+'/'+companyResponse[i].company[j].file[k].filepath;
+                                var filepath = companyResponse[i].company[j].file[k].filepath;
                                 var file_name = companyResponse[i].company[j].file[k].Originalname;
+
+                                var com_logo_img ="<img src='/"+filepath+"'width='100px'>";
+
                             }
                         }
                         else {
@@ -1900,7 +1934,7 @@ $(document).ready(function() {
                             "<td data-field='mailingAddress'>" + mailingAddress + "</td>" +
                             "<td data-field='factoringCompany'>" + factoringCompany + "</td>" +
                             "<td data-field='bankCompany'>" + bankCompany + "</td>" +
-                            "<td data-field='filepath'><a href='"+ filepath +"' target='_blank'>"+ file_name +"</a></td>" +
+                            "<td data-field='filepath'><a href='"+ filepath +"' target='_blank'>"+ com_logo_img +"</a></td>" +
                             "<td><a class='editCompany mt-2 btn btn-primary fs-14 text-white edit3'  title='Edit' data-id=" + comid+ "&"+mailingAddress + "><i class='fe fe-edit'></i></a>&nbsp<a class='deleteCompany mt-2 btn btn-danger fs-14 text-white delete-icn' data-id=" + comid+ "&"+mailingAddress + " title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
                         $("#companyTable").append(tr_str1);
                         no++;

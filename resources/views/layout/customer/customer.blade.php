@@ -15,7 +15,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Customer</h5>
-                    <button type="button" class="button-24" data-dismiss="modal">×</button>
+                    <button type="button" class="button-24 closeCustomer">×</button>
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
@@ -23,7 +23,7 @@
                     <!-- <button href="#addCustomerModal" data-toggle="modal" data-target="#addCustomerModal" class="button-57_alt addCustomerButton" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Customer</span></button>
                     <button class="button-57_alt restoreCustomerData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore Customer</span></button> -->
                     @if($insertUser== 1)
-                        <button href="#addCustomerModal" data-toggle="modal" data-target="#addCustomerModal" class="button-57_alt addCustomerButton" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Customer</span></button>
+                        <button href="#"  class="button-57_alt addCustomerButton" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Customer</span></button>
                     @endif 
                     
                     @if($deleteUser== 1)    
@@ -60,7 +60,7 @@
                         <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                     @endif
                 </form>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-29 closeCustomer">Close</button>
                 </div>
             </div>
         </div>
@@ -70,11 +70,11 @@
  <!------------------------------------------------------------------  add customer modal ------------------------------------------------------------------>
  <div class="container">
     <div class="modal fade" data-backdrop="static" id="addCustomerModal" role="dialog">
-        <div class="modal-dialog custom_modal_small modal-dialog-scrollable" role="document">
+        <div class="modal-dialog custom_modal_small_7 modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Customer</h5>
-                    <button type="button" class="button-24" data-dismiss="modal">×</button>
+                    <button type="button" class="button-24 closeaddCustomerModal" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     
@@ -82,11 +82,11 @@
                         <ul class="nav nav-tabs">
                         
                             <!-- <li class="active add1button" style="width:200px; color:white;"><a data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li> -->
-                            <li  ><a onClick="show_add_customer()" class="button-29 add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
+                            <li  ><a  class="button-29 add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
                             <li  ><a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div id="addCustomerTab" class="tab-pane fade in active">
+                            <div id="addCustomerTab"class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab"  data-name="fillextdata">
                                 <form>
                                     <input type="hidden" name="_token" id="_tokenCustomer" value="{{ csrf_token() }}" />
                                     <div class="form-row">
@@ -209,6 +209,7 @@
                                         <a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="align:right;" >Next</a>
                                         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --> 
                                     </div>
+                                </form>
                             </div>
                             <div id="addAdvanceCustomerTab" class="tab-pane fade">
                                 <br>
@@ -290,11 +291,9 @@
                                     
                                     <div class="modal-footer w-100" style="align:right;">
                                         <button type="submit" class="button-29 customerDataSubmit">Save</button>
-                                        <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                                        <button type="button" class="button-29 closeaddCustomerModal" data-dismiss="modal">Close</button>
                                     </div>
                                     
-
-                                    </form>
                                 </div>
                             </div>
                             
@@ -316,8 +315,8 @@
 
 <div class="container" >
   <!-- The Modal -->
-  <div class="modal fade" id="PaymentTermsModal" data-backdrop="static" style="z-index:10000000000;"> >
-    <div class="modal-dialog custom_modal_small2 modal-dialog-scrollable">
+  <div class="modal fade" id="PaymentTermsModal" data-backdrop="static" style="z-index:1000000000;"> >
+    <div class="modal-dialog custom_modal_small_5 modal-dialog-scrollable">
       <div class="modal-content">
       
         <!-- Modal Header -->
@@ -340,12 +339,12 @@
                     <div class="form-group col-md-12">
                         <label for="NetDays">Net Days <span style="color:#ff0000">*</span></label>
                         <!-- <input type="text" class="form-control" id="NetDays" placeholder=" Enter Net Days" > -->
-                         <input class="form-control" list="NetDays" name="NetDay" id="NetDay" >
-                        <datalist id="NetDays" >
+                         <!-- <input class="form-control" list="NetDays" name="NetDay" id="NetDay" > -->
+                        <select class="form-control" id="NetDay" >
                             @for ($i = 0; $i <= 180; $i++)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
-                        </datalist>    
+                        </select>    
                     </div>
                 </div>
             </form>

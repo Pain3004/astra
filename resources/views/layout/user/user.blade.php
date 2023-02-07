@@ -15,14 +15,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">User</h5>
-                    <button type="button" class="button-24" data-dismiss="modal">×</button>
+                    <button type="button" class="button-24 userModalClose" >×</button>
 
                     </button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
 
                         @if($insertUser== 1)
-                            <a href="#addUserModal" class="button-57" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
+                            <!-- <a href="#addUserModal" class="button-57" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a> -->
+                            <a href="#" class="button-57_alt" id="addUser"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
+
                         @endif 
                         <!-- @if($deleteUser==1)
                             <a href="#" class="button-57" data-toggle="modal" data-target="#"><i class="fa fa-plus" aria-hidden="true"></i><span>Restore</span></a>
@@ -64,7 +66,7 @@
                             <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                         @endif
                     </form>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-29 userModalClose">Close</button>
                     <!-- <button class="btn btnclose" style="background-color:red;" data-bs-dismiss="modal">Close</button> -->
                 </div>
             </div>

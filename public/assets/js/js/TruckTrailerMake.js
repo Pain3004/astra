@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // -------------------------------------------------------------------------  start ------------------------------------------------------------------------- --  
-    $('#TruckTrailerMakeModal, #addTruckTrailerMakeModal').modal({
+    $('#TruckTrailerMakeModal, #addTruckTrailerMakeModal, #edittruckTrailer,#RestoreTruckTrailerModal').modal({
         backdrop: 'static',
         keyboard: false
     })
@@ -18,6 +18,10 @@ $(document).ready(function() {
     $('.addTruckTrailerMakeClose').click(function(){
         $('#addTruckTrailerMakeModal').modal('hide');
     });
+
+    $('.edittruckTrailerClose').click(function(){
+        $('#edittruckTrailer').modal('hide');
+    });
 // -------------------------------------------------------------------------    Get   ------------------------------------------------------------------------- --  
     $('#TruckTrailerMake_navbar').click(function(){
         $.ajax({
@@ -27,7 +31,7 @@ $(document).ready(function() {
             success: function(text) {
                 console.log(text);
                 createTruckTrailerMakeRows(text);
-              }
+            }
         });
         $('#TruckTrailerMakeModal').modal('show');
     });
@@ -52,23 +56,42 @@ $(document).ready(function() {
                         if (len3 > 0) {
                             for (var j = len3-1; j >= 0; j--) {
 
+                                var  com_Id=Result.Truck_type[i].companyID;
                                 var  id=Result.Truck_type[i].truck[j]._id;
                                 var  truckType=Result.Truck_type[i].truck[j].truckType;
-                               
+                                var  created_time1=Result.Truck_type[i].truck[j].created_time;
+
+                                if(created_time1){
+                                    created_time1 =Result.Truck_type[i].truck[j].created_time;
+                                }else{
+                                    created_time1='';
+                                }
+                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date = new Date(created_time1*1000);
+                                var year = date.getFullYear();
+                                var month = months_arr[date.getMonth()];
+                                var day = date.getDate();
+                                var created_time = month+'/'+day+'/'+year;
                                 var deleteStatus =Result.Truck_type[i].truck[j].deleteStatus;
 
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
+                                        "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                        // "<td data-field='no'>" + created_time + "</td>" +
                                         "<td data-field='fixPayType'>" + truckType + "</td>" +
                                         "<td data-field='Truck'>Truck</td>" +
                                         "<td style='text-align:center'>"+
-                                            "<a class='button-23  "+editPrivilege+"'  title='Edit1' data-Id='"+id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                            "</a> <a class='delete1 button-23 "+delPrivilege+"' data-id="+ email +" title='Delete'><i class='fe fe-delete'></i></a>"+
-                                        "</td></tr>";
+                                            "<a class='editTruckTrailer button-23  "+editPrivilege+"' title='Edit' data-type='Truck' data-Id='"+id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "<a class='deleteTruckTrailer button-23 "+delPrivilege+"' title='Delete' data-type='Truck' data-Id="+ id +" data-comID='"+com_Id+"' ><i class='fe fe-delete'></i></a>"+
+                                    "</td></tr>";
             
                                     $("#TruckTrailerMakeTable").append(Str);
                                     no++;
+                                }
+                                $("#TruckTrailerMakeTable tr").sort(sort_td).appendTo("#TruckTrailerMakeTable");
+                                function sort_td(a, b) {
+                                    return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
                                 }
                             }
                         }
@@ -91,22 +114,43 @@ $(document).ready(function() {
                         if (len3 > 0) {
                             for (var j = len4-1; j >= 0; j--) {
 
+                                var  com_Id=Result.trailer_type[i].companyID;
                                 var  id=Result.trailer_type[i].trailer[j]._id;
                                 var  trailerType=Result.trailer_type[i].trailer[j].trailerType;
-                               
+                                var  created_time_tr1=Result.trailer_type[i].trailer[j].created_time;
+                                if(created_time_tr1){
+                                    created_time_tr1 =Result.trailer_type[i].trailer[j].created_time;
+                                }else{
+                                    created_time_tr1='';
+                                }
+
+                                var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date_tr = new Date(created_time_tr1*1000);
+                                var year_tr = date_tr.getFullYear();
+                                var month_tr = months_arr_tr[date_tr.getMonth()];
+                                var day_tr = date_tr.getDate();
+                                var created_time_tr = month_tr+'/'+day_tr+'/'+year_tr;
+
                                 var deleteStatus =Result.trailer_type[i].trailer[j].deleteStatus;
 
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
                                         "<td data-field='no'>" + no + "</td>" +
+                                        "<td data-field='no' style='display:none;'>" + created_time + "</td>" +
+                                        // "<td data-field='no'>" + created_time_tr + "</td>" +
                                         "<td data-field='trailerType'>" + trailerType + "</td>" +
                                         "<td data-field='trailer'>Trailer</td>" +
                                         "<td style='text-align:center'>"+
-                                            "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "<a class='editTruckTrailer button-23  "+editPrivilege+"' title='Edit1' data-type='Trailer' data-Id='"+id+"' data-comID='"+com_Id+"'><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "<a class='deleteTruckTrailer button-23 "+delPrivilege+"' title='Delete' data-type='Trailer' data-Id="+ id +" data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
                                         "</td></tr>";
             
                                     $("#TruckTrailerMakeTable").append(Str);
                                     no++;
+                                }
+                                $("#TruckTrailerMakeTable tr").sort(sort_td).appendTo("#TruckTrailerMakeTable");
+                                    function sort_td(a, b) {
+                                    return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
                                 }
                             }
                         }
@@ -127,18 +171,14 @@ $(document).ready(function() {
 
                 $("#TruckTrailerMakeTable").append(Str);
             }
-
     }
  // -- -------------------------------------------------------------------------   over Get   ------------------------------------------------------------------------- --
-
  // -- -------------------------------------------------------------------------    add    ------------------------------------------------------------------------- -- 
-   
     $("#saveTruckTrailerMake").click(function(){
         var tt_name=$('#tt_name').val();
         var type=$('#type').val();
 
-        alert(tt_name);
-        alert(type);
+       
         // if(fixPayType_name=='')
         // {
         //     swal.fire( "Enter Name");
@@ -178,10 +218,285 @@ $(document).ready(function() {
             }
         });
     });
-
-
 // - -------------------------------------------------------------------------over add    ------------------------------------------------------------------------- -- 
+   //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
+   $("body").on('click','.editTruckTrailer', function(){
+    var comID =$(this).attr("data-comID");
+    var Id=$(this).attr("data-Id");
+    var Type=$(this).attr("data-type");
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/editTruckTrailer",
+        async: false,
+        data:{comID:comID, Id:Id,Type:Type},
+        //dataType:JSON,
+        success: function(text) {
+            if(text.type=='Truck'){
+                $('#up_truckTrailer_name').val(text.truckType);
+                $('#up_truckTrailer_type').val('Truck');
+            }
+            if(text.type=='Trailer'){
+                $('#up_truckTrailer_name').val(text.trailerType);
+                $('#up_truckTrailer_type').val('Trailer');
+            }
+            $('#truckTrailerComid').val(text.companyID);
+            $('#truckTrailerid').val(text._id);
+        }
+    });
 
+    $("#edittruckTrailer").modal("show");
+    });
+
+$("#truckTrailerUpdate").click(function(){
+    var name =$('#up_truckTrailer_name').val();
+    var type =$('#up_truckTrailer_type').val();
+    var compID =$('#truckTrailerComid').val();
+    var id =$('#truckTrailerid').val();
+    
+    $.ajax({
+        url: base_path+"/admin/updatetruckTrailer",
+        type: "POST",
+        datatype:"JSON",
+        data:{
+            _token: $("#tokenedittruckTrailer").val(),
+            name:name,
+            type:type,
+            compID:compID,
+            id:id,
+        },
+        success: function(data) {
+            console.log(data)                    
+            swal.fire("Done!", +type+" Truck & Trailer updated successfully", "success");
+
+            $('#edittruckTrailer').modal('hide');
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getTruckTrailerMake",
+                async: false,
+                success: function(text) {
+                    createTruckTrailerMakeRows(text);
+                }
+            });
+            $('#TruckTrailerMakeModal').modal('show');
+        }
+    });
+});
+//-- -------------------------------------------------------------------------  end edit  -- -------------------------------------------------------------------------
+
+//-- -------------------------------------------------------------------------  start delete  -- -------------------------------------------------------------------------
+    $('body').on('click', '.deleteTruckTrailer', function(){
+        var id=$(this).attr("data-Id");
+        var comId=$(this).attr('data-comID');
+        var type=$(this).attr("data-type");
+
+        swal.fire({
+            title: "Delete?",
+            text: "Please ensure and then confirm!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+            if (e.value === true) 
+            {
+                $.ajax({
+                    type: 'post',
+                    url: base_path+"/admin/deleteTruckTrailer",
+                    data: { 
+                        _token: $("#tokenedittruckTrailer").val(), 
+                        id: id,
+                        comId:comId,
+                        type:type
+                    },
+                    success: function(resp){
+                        swal.fire("Done!", "Truck & Trailer Deleted successfully", "success");
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/getTruckTrailerMake",
+                            async: false,
+                            success: function(text) {
+                                console.log(text);
+                                createTruckTrailerMakeRows(text);
+                            }
+                        });
+                        $('#TruckTrailerMakeModal').modal('show');
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+        });
+    });
+//-- -------------------------------------------------------------------------  end delete  -- -------------------------------------------------------------------------
+// ------------------------------------------------------------------------- start restore -------------------------------------------------------------------------
+    $("#restoreTruckTrailer").click(function(){
+        $.ajax({
+                type: "GET",
+                url: base_path+"/admin/getTruckTrailerMake",
+                async: false,
+                success: function(text) {
+                    RestoreTruckTrailerRows(text);
+                }
+            });
+        $("#RestoreTruckTrailerModal").modal("show");
+    });
+    $(".restoreTruckTrailerclose").click(function(){
+        $("#RestoreTruckTrailerModal").modal("hide");
+    });
+    function RestoreTruckTrailerRows(Result) {
+        // var Trailerlen = 0;
+        if (Result != null) {
+            var Trailerlen = Result.trailer_type.trailer.length;
+            $("#RestoreTruckTrailerTable").html('');
+
+            if (Trailerlen > 0) {
+                var no=1;
+                for (var i = Trailerlen-1; i > 0; i--) {  
+                    var comId=Result.trailer_type.companyID;
+                    var id =Result.trailer_type.trailer._id;
+                    var trailerType =Result.trailer_type.trailer.trailerType;
+                    var  deleteStatus=Result.trailer_type.trailer.deleteStatus;
+
+                    if(deleteStatus == 'YES' || deleteStatus == 'Yes' || deleteStatus == 'yes'){
+                    var trailerStr = "<tr data-id=" + (i + 1) + ">" +
+                        "<td data-field='no'><input type='checkbox' class='check_TruckTrailer_one' name='allTTComIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='shipper' value="+id+"></td>" +
+                        "<td data-field='' >" + trailerType + "</td>" +
+                        "<td data-field='' >Trailer</td>" +
+                        "</tr>";
+
+                    $("#RestoreTruckTrailerTable").append(trailerStr);
+                    no++;
+                    } 
+                }
+            } else {
+                var trailerStr = "<tr data-id=" + i + ">" +
+                    "<td align='center' colspan='4'>No record found.</td>" +
+                    "</tr>";
+    
+                $("#RestoreTruckTrailerTable").append(trailerStr);
+            }
+
+
+
+            var trucklen = Result.Truck_type.truck.length;
+            if (trucklen > 0) {
+                var no=1;
+                for (var i = trucklen-1; i > 0; i--) {  
+                    var comId=Result.Truck_type.companyID;
+                    var id =Result.Truck_type.truck._id;
+                    var truckType =Result.Truck_type.truck.truckType;
+                    var  deleteStatus=Result.Truck_type.truck.deleteStatus;
+
+                    if(deleteStatus == 'YES'){
+                        var truckStr = "<tr data-id=" + (i + 1) + ">" +
+                            //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                        "<td data-field=''><input type='checkbox' class='check_TruckTrailer_one' name='allTTComIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='consignee' value="+id+"></td>" +
+                        "<td data-field='' >" + truckType + "</td>" +
+                        "<td data-field='' >Truck</td>" +
+                        $("#RestoreTruckTrailerTable").append(truckStr);
+                        no++;
+                    } 
+                }
+            } 
+            else 
+            {
+                var truckStr = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+
+                $("#RestoreTruckTrailerTable").append(truckStr);
+            }
+
+
+        }
+        else
+        {
+            var tr_str1 = "<tr data-id=" + i + ">" +
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
+            $("#RestoreTruckTrailerTable").append(trailerStr);
+        }
+    }
+    $(document).on("change", ".TruckTrailer_all_ids", function() 
+    {
+        if(this.checked) {
+            $('.check_TruckTrailer_one:checkbox').each(function() 
+            {
+                this.checked = true;
+                truckTrailerRestore();
+            });
+        } 
+        else 
+        {
+            $('.check_TruckTrailer_one:checkbox').each(function() {
+                this.checked = false;
+            });
+        }
+    });
+    $('body').on('click','.check_TruckTrailer_one',function(){
+        truckTrailerRestore();
+    });
+    // function truckTrailerRestore()
+    // {
+    //     var truckTrailerds = [];
+    //     var companyIds=[];
+    //     var DataType=[];
+	// 		$.each($("input[name='allTTComIdCheck[]']:checked"), function(){
+	// 			truckTrailerds.push($(this).val());
+    //             companyIds.push($(this).attr("date-compID"));
+    //             DataType.push($(this).attr("data-typeOf"));
+	// 		});
+    //         console.log(DataType);
+	// 		console.log(truckTrailerds);
+	// 		var shipperConsidAllCheckedIds =JSON.stringify(truckTrailerds);
+	// 		$('#checked_RestoreShipperModal_ids').val(shipperConsidAllCheckedIds);
+           
+	// 		var companyCheckedIds =JSON.stringify(companyIds);
+	// 		$('#checked_RestoreShipperModal_company_ids').val(companyCheckedIds);
+            
+	// 		var DataTypeNames =JSON.stringify(DataType);
+	// 		$('#checked_RestoreShipperModal_type').val(DataTypeNames);
+
+
+	// 		if(truckTrailerds.length > 0)
+	// 		{
+	// 			$('#restore_RestoreShipperModal_data').removeAttr('disabled');
+	// 		}
+	// 		else
+	// 		{
+	// 			$('#restore_RestoreShipperModal_data').attr('disabled',true);
+	// 		}
+    // }
+    // $('body').on('click','.restore_RestoreShipperModal_data',function(){
+    //     var all_ids=$('#checked_RestoreShipperModal_ids').val();
+    //     var custID=$("#checked_RestoreShipperModal_company_ids").val();
+    //     var dataType=$("#checked_RestoreShipperModal_type").val();
+    //     $.ajax({
+    //         type:"post",
+    //         data:{_token:$("#_tokenUpdateSub_creditCard").val(),all_ids:all_ids,custID:custID,dataType:dataType},
+    //         url: base_path+"/admin/restoreShipper",
+    //         success: function(response) {               
+    //             swal.fire("Done!", "Shipper & Consignee Restored successfully", "success");
+    //             $("#RestoreTruckTrailerModal").modal("hide");
+    //             $.ajax({
+    //                 type: "GET",
+    //                 url: base_path+"/admin/getTruckTrailerMake",
+    //                 async: false,
+    //                 success: function(text) {
+    //                     console.log(text);
+    //                     createGetShipperRows(text);
+    //                     Result = text;
+    //                 }
+    //             });
+    //         }
+    //     });
+    
+
+      
+    // });
+// ------------------------------------------------------------------------- end restore -------------------------------------------------------------------------
 
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });

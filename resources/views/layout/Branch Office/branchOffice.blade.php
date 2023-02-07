@@ -10,7 +10,7 @@
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="branchOfficeModal">
-        <div class="modal-dialog modal-dialog-scrollable custom_modal">
+        <div class="modal-dialog custom_modal_small_6 modal-dialog-scrollable">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -23,13 +23,10 @@
                 @if($insertUser== 1)
                     <a href="#" class="button-57_alt" id="addBranchOffice"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Office</span></a>                
                 @endif 
-                
                 @if($deleteUser== 1)    
-                    <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
-
+                    <a href="#" class="button-57_alt" id="restoreBranchOffice"><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    <!-- <button class="button-57_alt restoreExternalCarrierBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></button> -->
                 @endif
-                
-
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
@@ -37,25 +34,21 @@
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
-                                
-
-                                        <div class="table-responsive export-table">
-                                            <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-
-                                                <thead class="thead_th">
-                                                    <tr class="tr">
-                                                        <th>NO</th>
-                                                        <th>Name</th>
-                                                        <th>Location</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="officeTable">
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                               
+                                <div class="table-responsive export-table">
+                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                            <tr class="tr">
+                                                <th>NO</th>
+                                                <th style="display:none">NO</th>
+                                                <th>Name</th>
+                                                <th>Location</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="officeTable">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,7 +68,6 @@
     </div>
 
 </div>
-
 <!-------------------------------------------------------------------over  modal------------------------------------------------------------------->
 <!------------------------------------------------------------------- Add modal ------------------------------------------------------------------->
 <div class="container">
@@ -131,7 +123,6 @@
         </div>
     </div>
 </div>
-
 <!-------------------------------------------------------------------End Add  modal------------------------------------------------------------------->
 <!------------------------------------------------------------------- edit modal ------------------------------------------------------------------->
 <div class="container">
@@ -189,5 +180,72 @@
         </div>
     </div>
 </div>
-
 <!-------------------------------------------------------------------End edit  modal------------------------------------------------------------------->
+<!------------------------------------------------------------------- start restore ------------------------------------------------------------------->
+<div class="container">
+    <div class="modal fade" data-backdrop="static" id="RestoreBranchOfficeModal">
+        <div class="modal-dialog custom_modal_small_6 modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Restore Branch Office</h4>
+                    <button type="button" class="button-24 restoreBranchOfficeclose" data-dismiss="modal">&times;</button>
+                </div>
+                <div style="margin-top: 15px; margin-left: 15px;">
+                    <input type="hidden" name="checked_id" id="checked_BranchOffice" value="">
+                    <input type="hidden" name="company_id" id="checked_BranchOffice_company_ids" value="">
+                    <button id="restore_BranchOfficeData"  class="button-57_alt restore_BranchOfficeData" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore </span></button>
+                </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="table-responsive export-table">
+                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                            <tr class="tr">
+                                                <th scope="col" col width="40"><input type="checkbox" name="all_ids[]" class="BranchOffice_all_ids"></th>
+                                                <th>NO</th>
+                                                <th>Name</th>
+                                                <th>Location</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="RestoreBranchOfficeTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="table-responsive export-table">
+                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                            <tr class="tr">
+                                                <th scope="col"><input type="checkbox" name="all_ids[]" class="BranchOffice_all_ids" style="height: 15px;"></th>
+                                                <th>Name</th>
+                                                <th>Location</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="RestoreBranchOfficeTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button-29 restoreBranchOfficeclose" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------------- End restore ------------------------------------------------------------------->
