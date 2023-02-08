@@ -1502,3 +1502,52 @@ $(document).ready(function() {
         document.getElementById(id).style.display = "none";
     });
 });
+//********** */
+if( custName =="" && custName == null)
+{
+custName="----";
+}
+else
+{
+custName=custName;
+}
+if( custLocation =="" && custLocation == null)
+{
+custLocation="----";
+}
+else
+{
+custLocation=custLocation;
+}
+if( custZip =="" && custZip == null)
+{
+custZip="----";
+}
+else
+{
+custZip=custZip;
+}
+if( custPrimaryContact =="" && custPrimaryContact == null)
+{
+custPrimaryContact="----";
+}
+else
+{
+custPrimaryContact=custPrimaryContact;
+}
+if( custTelephone =="" && custTelephone == null)
+{
+custTelephone="----";
+}
+else
+{
+custTelephone=custTelephone;
+}
+if( custEmail =="" && custEmail == null)
+{
+custEmail="----";
+}
+else
+{
+custEmail=custEmail;
+}

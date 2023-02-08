@@ -49,7 +49,7 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="inputEmail4">Email<span
                                                                 class="required"></span></label>
-                                                        <input type="email" class="form-control" name="inputEmail4"
+                                                        <input type="email" class="form-control email" name="inputEmail4"
                                                             id="inputEmail4" placeholder="Email">
                                                     </div>
 

@@ -1,34 +1,17 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
 
-// <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
  
 
-$('.closeShipperModal').click(function(){
+    $('.closeShipperModal').click(function(){
          $('#Shipper_and_ConsigneeModal').modal('hide');
-    //     $('#addTruckModal').modal('hide');
-     });
+    });
 
-    // $('.closeAddTruckModal').click(function(){
-    //     $('#addTruckModal').modal('hide');
-    //     //$('#truckModal').modal('show');
-    // });
-
-    // $('.addtruckModal').click(function(){
-    //     //$('#truckModal').modal('hide');
-    //     $('#addTruckModal').modal('show');
-    // });
-
-
-//driver as owner operator modal
-   
-    // $('#up_driverAddTruck').click(function(){
-    //     $('#addTruckModal').modal('show');
-    // });
-// <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
    
     $('.consignee_tab').click(function(){
-        //alert();
+        $(".editAddressType").val("consignee");
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getConsignee",
@@ -44,11 +27,12 @@ $('.closeShipperModal').click(function(){
     });
 
 
-// <!-- -------------------------------------------------------------------------over Get truck  ------------------------------------------------------------------------- --> 
-// <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------over Get truck  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
     
-// get truck
-    function createGetConsigneeRows(ConsigneeResult) {
+    // get truck
+    function createGetConsigneeRows(ConsigneeResult) 
+    {
         var consigneelen = 0;
             if (ConsigneeResult != null) {
                 consigneelen = ConsigneeResult.consignee.length;
@@ -58,7 +42,7 @@ $('.closeShipperModal').click(function(){
                 if (consigneelen > 0) {
                     var no=1;
                     for (var i = consigneelen-1; i > 0; i--) {  
-                        var _id =ConsigneeResult.consignee[i]._id;
+                        var id =ConsigneeResult.consignee[i]._id;
                         var consigneeName =ConsigneeResult.consignee[i].consigneeName;
                         var consigneeAddress =ConsigneeResult.consignee[i].consigneeAddress;
                         var consigneeLocation =ConsigneeResult.consignee[i].consigneeLocation;
@@ -82,7 +66,7 @@ $('.closeShipperModal').click(function(){
 
                         var consigneeStr = "<tr data-id=" + (i + 1) + ">" +
                         //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                            "<td data-field='no'>" + no+"-"+ deleteStatus + "</td>" +
+                            "<td data-field='no'>" + no + "</td>" +
                             "<td data-field='consigneeName' >" + consigneeName + "</td>" +
                             "<td data-field='consigneeAddress' >" +consigneeAddress  + "</td>" +
                             "<td data-field='consigneeLocation' >" +consigneeLocation  + "</td>" +
@@ -101,7 +85,9 @@ $('.closeShipperModal').click(function(){
                             "<td data-field='consigneeInternalNote' >" + consigneeInternalNote + "</td>" +
                             
                             "<td style='text-align:center'>"+
-                                "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-truckId='"+_id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                "<a class='editConsigShipperAndCongneeBtn button-29'  title='Edit1' data-consigneeAndConsig='"+id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+
+                                "<a class='button-29 deleteConsiShipperAndCongneeBtn'  title='Edit1' data-consigneeAndConsig='"+id+"'><i class='fe fe-trash'></i></a>&nbsp"+
                             "</td></tr>";
 
                         $("#consigneeTable").append(consigneeStr);
@@ -123,8 +109,62 @@ $('.closeShipperModal').click(function(){
             $("#consigneeTable").append(consigneeStr);
         }
     }
-// <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
 
 
-// <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+
+    //======================== start update ==========================================
+    
+  
+    //============================== end update =============================================
+
+
+    //-========================start delete =============================================
+    // $('body').on('click','.deleteConsiShipperAndCongneeBtn', function(){
+    //     var id=$(this).attr("data-consigneeAndConsig");
+    //     swal.fire({
+    //         title: "Delete?",
+    //         text: "Please ensure and then confirm!",
+    //         type: "warning",
+    //         showCancelButton: !0,
+    //         confirmButtonText: "Yes, delete it!",
+    //         cancelButtonText: "No, cancel!",
+    //         reverseButtons: !0
+    //     }).then(function (e) {
+    //         if (e.value === true) 
+    //         {
+    //             $.ajax({
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
+    //                 type: 'post',
+    //                 url: base_path+"/admin/deleteConsignee",
+    //                 data: { _token: $("#_token_AddShipperAndConsignee").val(), id: id},
+    //                 success: function(resp){
+    //                     swal.fire("Done!", "Fuel Vendorconsignee Deleted successfully", "success");
+    //                     $.ajax({
+    //                         type: "GET",
+    //                         url: base_path+"/admin/getConsignee",
+    //                         async: false,
+    //                         //dataType:JSON,
+    //                         success: function(text) {
+    //                             //alert();
+    //                             console.log(text);
+    //                             createGetConsigneeRows(text);
+    //                             ConsigneeResult = text;
+    //                          }
+    //                     });
+    //                     $('#Shipper_and_ConsigneeModal').modal('show');
+
+    //                 },
+    //                 error: function (resp) {
+    //                     swal.fire("Error!", 'Something went wrong.', "error");
+    //                 }
+    //             });
+    //         } 
+    //     });
+    // });
+
+    //================================== end delete=====================================
 });

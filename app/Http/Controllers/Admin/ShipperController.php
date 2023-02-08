@@ -18,9 +18,14 @@ use Illuminate\Database\Eloquent\Collection;
 class ShipperController extends Controller
 {
     public function getShipper(){
-        $companyId=65;
-        // $companyId=(int)$request->comID;
+        $companyId=(int)65;
+        // $companyId=(int)1;
         // dd($companyId);
+        // $shipper=  Shipper::aggregate([
+        //     ['$match' => ['companyID' => $companyId]],
+        //     ['$project' => ['size' => ['$size' => ['$shipper']]]]
+        // ]);
+        // dd($shipper);
         $shipper = Shipper::where('companyID',$companyId)->first();
         $consignee = Consignee::where('companyID',$companyId)->first();
 
@@ -72,8 +77,8 @@ class ShipperController extends Controller
                     'shippingNotes' => $request->shippingNotes,
                     'internalNotes' => $request->internal_note,
                     'counter' =>0,
-                    'insertedUserId' => Auth::user()->userFirstName,
-                    'insertedTime' => time(),
+                    'created_by' => Auth::user()->userFirstName,
+                    'created_time' => date('d-m-y h:i:s'),
                     'edit_by' =>Auth::user()->userName,
                     'edit_time' =>time(),
                     'deleteStatus' =>"NO",                    
@@ -127,9 +132,8 @@ class ShipperController extends Controller
                                 'consigneeInternalNote' => $request->shippingNotes,
                                 'internal_note' => $request->internal_note,
                                 'counter' =>0,
-                                'insertedUserId' => Auth::user()->userFirstName,
-                                'insertedTime' =>time(),
-                                // 'insertedTime' =>time(),
+                                'created_by' => Auth::user()->userFirstName,
+                                'created_time' => date('d-m-y h:i:s'),
                                 'edit_by' =>Auth::user()->userName,
                                 'edit_time' =>time(),
                                 'deleteStatus' =>"NO",                        
@@ -200,9 +204,7 @@ class ShipperController extends Controller
     public function editShipper(Request $request)
     {
         $id=$request->id;
-        // $companyID=(int)1;
-        
-        $companyID=(int)$request->comID;
+        $companyID=(int)65;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         // dd($Shipper );
         $ShipperArray=$Shipper->shipper;
@@ -231,8 +233,7 @@ class ShipperController extends Controller
     public function updateShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)$request->comID;
-        // $companyID=(int)1;
+        $companyID=(int)65;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -240,8 +241,7 @@ class ShipperController extends Controller
         $v=0;
         for($i=0; $i<$fuelLength; $i++)
         {
-            $ids=$Shipper->shipper[$i]['_id'];
-            $ids=(array)$ids;
+            $ids=$Shipper->shipper[$i];
             foreach($ids as $value)
             {
                 if($value==$id)
@@ -277,8 +277,7 @@ class ShipperController extends Controller
     public function deleteShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)$request->comID;
-        // $companyID=(int)1;
+        $companyID=(int)65;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -286,8 +285,7 @@ class ShipperController extends Controller
         $v=0;
         for($i=0; $i<$fuelLength; $i++)
         {
-            $ids=$Shipper->shipper[$i]['_id'];
-            $ids=(array)$ids;
+            $ids=$Shipper->shipper[$i];
             foreach($ids as $value)
             {
                 if($value==$id)
@@ -306,11 +304,12 @@ class ShipperController extends Controller
     }
     public function restoreShipper(Request $request)
     {
-        //dd($request);
-        $consiId=$request->id;
+        // $shipIds=$request->id;
+        // dd($shipIds);
         $shipIds=$request->all_ids;
         $dataType=str_replace( array('[', ']'), ' ',$request->dataType);
         $dataType_add=explode(",",$dataType);
+        // dd($dataType_add);
         $custID=(array)$request->custID;
         $address="shipper";
         foreach($dataType_add as $key=>$shipAndConTy)
@@ -321,7 +320,7 @@ class ShipperController extends Controller
         //    dd($shipAndConTy);
             if($shipAndConTy=='shipper')
             {
-                // print_r($shipAndConTy);
+                // dd($shipAndConTy);
                 foreach($custID as $company_id)
                 {
                     $company_id=str_replace( array( '\'', '"',
@@ -371,16 +370,11 @@ class ShipperController extends Controller
             }
             if($shipAndConTy=="consignee")
             {
-                // echo "<br> </br>";
-                // print_r($shipAndConTy);
-                //dd($shipAndConTy);
                 foreach($custID as $company_id)
                 {
-                    // echo "consignee";
                     $company_id=str_replace( array( '\'', '"',
                     ',' , ' " " ', '[', ']' ), ' ', $company_id);
                     $company_id=(int)$company_id;
-                
                     $Consignee = Consignee::where('companyID',$company_id )->first();
                     $ConsigneeArray=$Consignee->consignee;
                     $arrayLength=count($ConsigneeArray);         
@@ -391,14 +385,13 @@ class ShipperController extends Controller
                         $ids=$Consignee->consignee[$i]['_id'];
                         $ids=(array)$ids;
                         foreach ($ids as $value){
-                            // dd( $consiId);
-                            $consiId= str_replace( array('[', ']'), ' ', $consiId);
-                            // dd($consiId);
-                            if(is_string($consiId))
+                            $shipIds= str_replace( array('[', ']'), ' ', $shipIds);
+                            // dd($shipIds);
+                            if(is_string($shipIds))
                             {
-                                $consiId=explode(",",$consiId);
+                                $shipIds=explode(",",$shipIds);
                             }
-                            foreach($consiId as $fue_v_id)
+                            foreach($shipIds as $fue_v_id)
                             {
                                 $fue_v_id= str_replace( array('"', ']' ), ' ', $fue_v_id);
                                 if($value==$fue_v_id)
@@ -428,7 +421,5 @@ class ShipperController extends Controller
         // dd($request->custID);
        
     }
-
-
 
 }
