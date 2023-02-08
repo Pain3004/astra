@@ -18,14 +18,14 @@ use Illuminate\Database\Eloquent\Collection;
 class ShipperController extends Controller
 {
     public function getShipper(){
-        // $companyId=65;
-        $companyId=(int)1;
+        $companyId=(int)65;
+        // $companyId=(int)1;
         // dd($companyId);
-        $shipper=  Shipper::aggregate([
-            ['$match' => ['companyID' => $companyId]],
-            ['$project' => ['size' => ['$size' => ['$shipper']]]]
-        ]);
-        dd($shipper);
+        // $shipper=  Shipper::aggregate([
+        //     ['$match' => ['companyID' => $companyId]],
+        //     ['$project' => ['size' => ['$size' => ['$shipper']]]]
+        // ]);
+        // dd($shipper);
         $shipper = Shipper::where('companyID',$companyId)->first();
         $consignee = Consignee::where('companyID',$companyId)->first();
 
@@ -35,8 +35,8 @@ class ShipperController extends Controller
     }
     public function storeShipper(Request $request)
     {
-        $companyID=(int)1;
-        // $companyID=(int)65;
+        // $companyID=(int)1;
+        $companyID=(int)65;
         // dd($request->addressType);
         if($request->addressType=="shipper")
         {
@@ -204,7 +204,7 @@ class ShipperController extends Controller
     public function editShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)1;
+        $companyID=(int)65;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         // dd($Shipper );
         $ShipperArray=$Shipper->shipper;
@@ -233,7 +233,7 @@ class ShipperController extends Controller
     public function updateShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)1;
+        $companyID=(int)65;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -277,7 +277,7 @@ class ShipperController extends Controller
     public function deleteShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)1;
+        $companyID=(int)65;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -304,10 +304,12 @@ class ShipperController extends Controller
     }
     public function restoreShipper(Request $request)
     {
-        $consiId=$request->id;
+        // $shipIds=$request->id;
+        // dd($shipIds);
         $shipIds=$request->all_ids;
         $dataType=str_replace( array('[', ']'), ' ',$request->dataType);
         $dataType_add=explode(",",$dataType);
+        // dd($dataType_add);
         $custID=(array)$request->custID;
         $address="shipper";
         foreach($dataType_add as $key=>$shipAndConTy)
@@ -318,7 +320,7 @@ class ShipperController extends Controller
         //    dd($shipAndConTy);
             if($shipAndConTy=='shipper')
             {
-                // print_r($shipAndConTy);
+                // dd($shipAndConTy);
                 foreach($custID as $company_id)
                 {
                     $company_id=str_replace( array( '\'', '"',
@@ -368,16 +370,11 @@ class ShipperController extends Controller
             }
             if($shipAndConTy=="consignee")
             {
-                // echo "<br> </br>";
-                // print_r($shipAndConTy);
-                // dd($shipAndConTy);
                 foreach($custID as $company_id)
                 {
-                    // echo "consignee";
                     $company_id=str_replace( array( '\'', '"',
                     ',' , ' " " ', '[', ']' ), ' ', $company_id);
                     $company_id=(int)$company_id;
-                
                     $Consignee = Consignee::where('companyID',$company_id )->first();
                     $ConsigneeArray=$Consignee->consignee;
                     $arrayLength=count($ConsigneeArray);         
@@ -388,14 +385,13 @@ class ShipperController extends Controller
                         $ids=$Consignee->consignee[$i]['_id'];
                         $ids=(array)$ids;
                         foreach ($ids as $value){
-                            // dd( $consiId);
-                            $consiId= str_replace( array('[', ']'), ' ', $consiId);
-                            // dd($consiId);
-                            if(is_string($consiId))
+                            $shipIds= str_replace( array('[', ']'), ' ', $shipIds);
+                            // dd($shipIds);
+                            if(is_string($shipIds))
                             {
-                                $consiId=explode(",",$consiId);
+                                $shipIds=explode(",",$shipIds);
                             }
-                            foreach($consiId as $fue_v_id)
+                            foreach($shipIds as $fue_v_id)
                             {
                                 $fue_v_id= str_replace( array('"', ']' ), ' ', $fue_v_id);
                                 if($value==$fue_v_id)

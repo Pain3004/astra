@@ -159,14 +159,14 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputTelephone">Telephone</label>
-                                        <input type="number" class="form-control" name="carrierTelephone"
+                                        <input type="text" class="form-control" name="carrierTelephone"
                                             id="carrierTelephone"
-                                            placeholder="Telephone">
+                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputExt">Ext</label>
                                         <input type="text" class="form-control" name="carrierExt"
-                                            id="carrierExt">
+                                            id="carrierExt"  placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -174,14 +174,14 @@
                                         <label for="inputTollFree">TollFree</label>
                                         <input type="text" class="form-control" name="carrierTollFree"
                                             id="carrierTollFree"
-                                            placeholder="TollFree">
+                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputFax">Fax<span>
                                             </span></label>
                                         <input type="text" class="form-control"
                                             name="carrierFax" id="carrierFax"
-                                            placeholder="Fax">
+                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputPaymentTerms">Payment Terms<span
@@ -274,7 +274,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-2">
-                                            <label>Telephone *</label>
+                                            <label>Telephone </label>
                                             <div>
                                                 <input class="form-control" placeholder="(999) 999-9999"
                                                     data-mask="(999) 999-9999" type="text" id="liabilityTelephone"
@@ -347,7 +347,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label>Telephone *</label>
+                                                    <label>Telephone</label>
                                                     <div>
                                                         <input class="form-control" placeholder="(999) 999-9999"
                                                             data-mask="(999) 999-9999" type="text" id="insuranceTelephone"
@@ -422,7 +422,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label>Telephone *</label>
+                                                    <label>Telephone </label>
                                                     <div>
                                                         <input class="form-control" placeholder="(999) 999-9999"
                                                             data-mask="(999) 999-9999" type="text" id="cargoTelephone"

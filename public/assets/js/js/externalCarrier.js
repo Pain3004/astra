@@ -44,6 +44,78 @@ $(document).ready(function () {
                         var mc =ExternalCarrierResult[g].carrier[i].mc;
                         var dot =ExternalCarrierResult[g].carrier[i].dot;
                         var deleteStatus =ExternalCarrierResult[g].carrier[i].deleteStatus;
+                        if(name != " " && name != null)
+                        {
+                            name=name;
+                        }
+                        else
+                        {
+                            name="-----";
+                        }
+                        if(address != " " && address != null)
+                        {
+                            address=address;
+                        }
+                        else
+                        {
+                            address="-----";
+                        }
+                        if(zip != " " && zip != null)
+                        {
+                            zip=zip;
+                        }
+                        else
+                        {
+                            zip="-----";
+                        }
+                        if(contactName != " " && contactName != null)
+                        {
+                            contactName=contactName;
+                        }
+                        else
+                        {
+                            contactName="-----";
+                        }
+                        if(email != " " && email != null)
+                        {
+                            email=email;
+                        }
+                        else
+                        {
+                            email="-----";
+                        }
+                        if(taxID != " " && taxID != null)
+                        {
+                            taxID=taxID;
+                        }
+                        else
+                        {
+                            taxID="-----";
+                        }
+                        if(telephone != " " && telephone != null)
+                        {
+                            telephone=telephone;
+                        }
+                        else
+                        {
+                            telephone="-----";
+                        }
+                        if(mc != " " && mc != null)
+                        {
+                            mc=mc;
+                        }
+                        else
+                        {
+                            mc="-----";
+                        }
+                        if(dot != " " && dot != null)
+                        {
+                            dot=dot;
+                        }
+                        else
+                        {
+                            dot="-----";
+                        }                       
                         if (deleteStatus == "NO") 
                         {
                             var ExternalCarHtml = "<tr data-id=" + (i + 1) + ">" +
@@ -403,7 +475,7 @@ $(document).ready(function () {
         formData.append('primaryNotes',primaryNotes);
         formData.append('sizeOfFleet',sizeOfFleet);
         var dataType=$(".update_store_external_carrier").val();
-        alert(dataType);
+        // alert(dataType);
         if(dataType==1)
         {
             $.ajax({

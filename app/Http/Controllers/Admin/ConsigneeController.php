@@ -27,7 +27,7 @@ class ConsigneeController extends Controller
     }
     public function storeConsignee(Request $request)
     {
-        $companyID=(int)1;
+        $companyID=(int)65;
         // dd($request);
         if($request->addressType=="consignee")
         {
@@ -193,7 +193,7 @@ class ConsigneeController extends Controller
     public function editConsignee(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)1;
+        $companyID=(int)65;
         $Consignee = Consignee::where('companyID',$companyID)->first();
         // dd($Consignee );
         $ConsigneeArray=$Consignee->consignee;
@@ -223,7 +223,7 @@ class ConsigneeController extends Controller
     {
         $id=$request->fuel_id;
         // dd($id);
-        $companyID=(int)1;
+        $companyID=(int)65;
         $Consignee = Consignee::where('companyID',$companyID)->first();
         $ConsigneeArray=$Consignee->consignee;
         $fuelLength=count($ConsigneeArray);
@@ -267,7 +267,7 @@ class ConsigneeController extends Controller
     public function deleteConsignee(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)1;
+        $companyID=(int)65;
         $Consignee = Consignee::where('companyID',$companyID)->first();
         $ConsigneeArray=$Consignee->consignee;
         $fuelLength=count($ConsigneeArray);
@@ -296,7 +296,7 @@ class ConsigneeController extends Controller
     {
         $consiId=$request->id;
         dd($consiId);
-        $custID=(array)1;
+        $custID=(array)65;
         foreach($custID as $company_id)
         {
             $company_id=str_replace( array( '\'', '"',

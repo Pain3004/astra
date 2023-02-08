@@ -2343,4 +2343,87 @@ $(document).ready(function() {
     function up_dec_percentage() {
         document.getElementById("up_ownerPercentage").stepUp(-1);
     }
+
+
+    // added by bhagwati 
+   // email validation===================================
+   
+   function IsEmail() {
+    var email= $(".email").val();
+    var testEmail =/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    // if (!filter_var(email, FILTER_VALIDATE_EMAIL)) {
+    //     // invalid emailaddress
+    //     return false;
+    // }
+    if (testEmail.test(email))
+    {
+        return true;
+    }
+    else
+    {
+        return true;
+    }
+}
+//  url validation =======================================
+function isUrlValid() {
+    if(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test($(".url").val()))
+    {
+       return true;
+    } 
+    else 
+    {
+       return false;
+    }
+}
+// start location view in all ===============================
+$(".location_view").keyup(function(){
+    var fieldID=$(this).attr('data-location');  
+    // alert(fieldID)
+    var placeArray = "";
+    $.getJSON("./place.json", function (json) {
+    placeArray = json; // this will show the info it in firebug console
+    });
+   var placetimeout='';;
+    clearTimeout(placetimeout);
+    var location = document.getElementById(fieldID);
+    var st = fieldID + "-list";
+    if (location.value == "") {
+      document.getElementById(st).style.display = "none";
+    }
+    placetimeout = setTimeout(function () {
+      var regex = new RegExp(location.value, "i");
+      var list = `<ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front col-md-10" unselectable="on" style="left:16px;top: 61.625px; height:auto; box-shadow: 2px 2px 2px 3px rgb(0 0 0 / 6%); max-height: 200px;overflow: auto;z-index: 9999;">`;
+      var count = 1;
+  
+      $.each(placeArray, function (key, val) {
+        if (val.city.search(regex) != -1) {
+          list += '<li class="ui-menu-item" style="padding: 5px; border-bottom: 1px solid;"><div id="ui-id-2" tabindex="-1" class="ui-menu-item-wrapper putValue" data-value='+val.city.toUpperCase()+' data-fieldID='+fieldID+' data-id='+st+'>'+val.city.toUpperCase()+'</div> </li>';
+  
+          count++;
+        }
+      });
+      list += `</ul>`;
+      if (document.getElementById(st) == undefined) {
+        var div = document.createElement("div");
+        div.setAttribute("id", st);
+        location.parentNode.insertBefore(div, location.nextSibling);
+      } else {
+        document.getElementById(st).style.display = "block";
+      }
+      document.getElementById(st).innerHTML = list;
+    }, 800);
+});
+$('body').on('click','.putValue',function(){
+    var value=$(this).attr("data-value");        
+    var fieldID=$(this).attr("data-fieldID");
+    var id=$(this).attr("data-id");
+    // var date='customerLocation';
+    // console.log(date);
+    // console.log(value + " , " + fieldID + " , " + id);
+    document.getElementById(fieldID).value=value;
+    // $("#customerLocation").val(value);
+    document.getElementById(id).style.display = "none";
+});
+
+
     

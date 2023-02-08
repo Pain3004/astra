@@ -121,50 +121,50 @@ $(document).ready(function() {
 
 
     //-========================start delete =============================================
-    $('body').on('click','.deleteConsiShipperAndCongneeBtn', function(){
-        var id=$(this).attr("data-consigneeAndConsig");
-        swal.fire({
-            title: "Delete?",
-            text: "Please ensure and then confirm!",
-            type: "warning",
-            showCancelButton: !0,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: !0
-        }).then(function (e) {
-            if (e.value === true) 
-            {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'post',
-                    url: base_path+"/admin/deleteConsignee",
-                    data: { _token: $("#_token_AddShipperAndConsignee").val(), id: id},
-                    success: function(resp){
-                        swal.fire("Done!", "Fuel Vendorconsignee Deleted successfully", "success");
-                        $.ajax({
-                            type: "GET",
-                            url: base_path+"/admin/getConsignee",
-                            async: false,
-                            //dataType:JSON,
-                            success: function(text) {
-                                //alert();
-                                console.log(text);
-                                createGetConsigneeRows(text);
-                                ConsigneeResult = text;
-                             }
-                        });
-                        $('#Shipper_and_ConsigneeModal').modal('show');
+    // $('body').on('click','.deleteConsiShipperAndCongneeBtn', function(){
+    //     var id=$(this).attr("data-consigneeAndConsig");
+    //     swal.fire({
+    //         title: "Delete?",
+    //         text: "Please ensure and then confirm!",
+    //         type: "warning",
+    //         showCancelButton: !0,
+    //         confirmButtonText: "Yes, delete it!",
+    //         cancelButtonText: "No, cancel!",
+    //         reverseButtons: !0
+    //     }).then(function (e) {
+    //         if (e.value === true) 
+    //         {
+    //             $.ajax({
+    //                 headers: {
+    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                 },
+    //                 type: 'post',
+    //                 url: base_path+"/admin/deleteConsignee",
+    //                 data: { _token: $("#_token_AddShipperAndConsignee").val(), id: id},
+    //                 success: function(resp){
+    //                     swal.fire("Done!", "Fuel Vendorconsignee Deleted successfully", "success");
+    //                     $.ajax({
+    //                         type: "GET",
+    //                         url: base_path+"/admin/getConsignee",
+    //                         async: false,
+    //                         //dataType:JSON,
+    //                         success: function(text) {
+    //                             //alert();
+    //                             console.log(text);
+    //                             createGetConsigneeRows(text);
+    //                             ConsigneeResult = text;
+    //                          }
+    //                     });
+    //                     $('#Shipper_and_ConsigneeModal').modal('show');
 
-                    },
-                    error: function (resp) {
-                        swal.fire("Error!", 'Something went wrong.', "error");
-                    }
-                });
-            } 
-        });
-    });
+    //                 },
+    //                 error: function (resp) {
+    //                     swal.fire("Error!", 'Something went wrong.', "error");
+    //                 }
+    //             });
+    //         } 
+    //     });
+    // });
 
     //================================== end delete=====================================
 });
