@@ -1188,3 +1188,23 @@ color: #ffffff;
         .form-stepper a {
           cursor: default;
         }
+        .numberCircle {
+          border-radius: 50%;
+          width: 36px;
+          height: 36px;
+          padding: 8px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+          position: relative;
+          background: #fff;
+            background-color: rgb(255, 255, 255);
+          background-color: rgb(255, 255, 255);
+          border: 2px solid #fff;
+          color: #fff;
+          text-align: center;
+          left: -5px;
+          margin-left: -13px;
+          z-index: 1;
+          font: 18px Arial, sans-serif;
+          display: inline-block;
+        }

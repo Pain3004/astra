@@ -468,11 +468,16 @@
 										<!-- NOTIFICATIONS -->
 										<div class="dropdown d-md-flex profile-1">
 												<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex animate">
-													<span>
 														@if($loggedUser < 5)
 															@foreach($user as $data)
-																<img src="https://eu.ui-avatars.com/api/?background=random&name={{$data->userFirstName}}+{{$data->userLastName}}" alt="profile-user"
-																class="avatar  profile-user brround cover-image user_Name_OnHover" data-name="{{$data->userFirstName}}+{{$data->userLastName}}" title="{{$data->userFirstName}} {{$data->userLastName}}">
+															<div class="stacks">
+																<span class="stack" title="{{$data->userFirstName}} {{$data->userLastName}} | Currently on : Dashboard">
+															<div class="numberCircle" style="background-color:#01579B">
+															<img src="https://eu.ui-avatars.com/api/?background=random&name={{$data->userFirstName}}+{{$data->userLastName}}" alt="profile-user"
+																class="avatar  profile-user brround cover-image user_Name_OnHover " data-name="{{$data->userFirstName}}+{{$data->userLastName}}" title="{{$data->userFirstName}} {{$data->userLastName}}">
+																</div></span></div>
+																<!-- <img src="https://eu.ui-avatars.com/api/?background=random&name={{$data->userFirstName}}+{{$data->userLastName}}" alt="profile-user"
+																class="avatar  profile-user brround cover-image user_Name_OnHover " data-name="{{$data->userFirstName}}+{{$data->userLastName}}" title="{{$data->userFirstName}} {{$data->userLastName}}"> -->
 																<!-- <div class="user_name_on_hover">
 																{{$data->userFirstName}} {{$data->userLastName}}
 																</div> -->
