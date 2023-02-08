@@ -31,7 +31,7 @@
 
                                         <div class="table-responsive export-table">
                                         @if($insertUser== 1)
-                                            <button href="#"  class="button-57_alt addtruckModal" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add </span></button>
+                                            <a href="#"  class="button-57_alt addtruckModal" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add </span></a>
                                         @endif 
                                         
                                         @if($deleteUser== 1)    

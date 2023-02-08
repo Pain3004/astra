@@ -18,7 +18,7 @@ class CustomerController extends Controller
     
     
     public function getCustomerData(Request $request){
-        $companyID=(int)1;
+        $companyID=(int)67;
         $customer = Customer::where('companyID',$companyID )->first();
         return response()->json($customer, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
@@ -145,7 +145,7 @@ class CustomerController extends Controller
            }
 
       
-   }
+    }
 
     public function getCustomerBFactoringCompany(Request $request){
         $companyIDForCustomer=2;
@@ -254,7 +254,7 @@ class CustomerController extends Controller
         
         // $customerAdd = Customer::all();
    
-        $companyIDForCustomer=1;
+        $companyIDForCustomer=67;
         $totalCustomerArray=0;
         $getCompanyForCustomer = Customer::where('companyID',$companyIDForCustomer)->first();
 
@@ -272,7 +272,7 @@ class CustomerController extends Controller
                         'custLocation' => $request->customerLocation,
                         'custZip' => $request->customerZip,
 
-                        'billingAddress' => $request->altTelephone,
+                        'billingAddress' => $request->customerBillingAddress,
 
                         'billingLocation' => $request->customerBillingLocation,
                         'billingZip' => $request->customerBillingZip,
@@ -377,7 +377,7 @@ class CustomerController extends Controller
         $id=$request->id;
         // dd($id);
         $email=$request->email;
-        $companyID=(int)1;
+        $companyID=(int)67;
         $customerData=Customer::where("companyID",$companyID)->first();
         $cusomerArray=$customerData->customer;
         $arrayLength=count($cusomerArray);
@@ -385,8 +385,7 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLength; $i++){
-        // dd($customerData->customer[$i]);
-            $ids=$customerData->customer[$i];
+            $ids=$customerData->customer[$i]['_id'];
             $ids=(array)$ids;
                 foreach ($ids as $value){
                     // dd($value);
@@ -407,7 +406,7 @@ class CustomerController extends Controller
           
         ]);
 
-        $companyID=(int)1;
+        $companyID=(int)67;
         $id=$request->id;
 
         $customerData = Customer::where('companyID',$companyID )->first();
@@ -417,7 +416,7 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLengthUp; $i++){
-                $ids=$customerData->customer[$i];
+                $ids=$customerData->customer[$i]['_id'];
                 $ids=(array)$ids;
                 foreach ($ids as $value){
                     if($value==$id){

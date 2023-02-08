@@ -30360,6 +30360,7 @@ body.fixed-header .header {
     height: 2rem;
     line-height: 2.2rem;
     border-radius: 50px !important;
+    margin-left: -10px;
 }
 
 .dropdown-item:hover .dropdown-icon,
@@ -112538,5 +112539,9 @@ textarea.form-control {
 
 .invoice_dropdown{
    display: none;
+}
+
+.deleteAction{
+    color:red;
 }
 /* ----------------------------------------------------------------------------- */

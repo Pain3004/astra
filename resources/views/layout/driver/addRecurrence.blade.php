@@ -1,7 +1,7 @@
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="addRecurrence">
-        <div class="modal-dialog modal-dialog-scrollable custom_modal_small2">
+        <div class="modal-dialog modal-dialog-scrollable custom_modal_small2" >
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -18,28 +18,25 @@
                         <table class=" table-responsive other-table" id="otherTable">
                             <thead>
                                 <tr>
-                                    <td>Fix Pay Category <span class="mandatory">*</span><i class="mdi mdi-plus-circle plus"
-                                            title="Add Fix Pay Category" id="Fix_Pay_Category"></i></td>
-                                    <td>Installment Type <span class="mandatory">*</span></td>
-                                    <td>Amount <span class="mandatory">*</span></td>
-                                    <td>Installment <span class="mandatory">*</span></td>
-                                    <td>start# <span class="mandatory">*</span></td>
-                                    <td>start Date <span class="mandatory">*</span></td>
-                                    <td>Internal Note <span class="mandatory">*</span></td>
+                                    <td>Fix Pay Category <span style="color:#ff0000">*</span> <i title="Add Reccurence" class="mdi mdi-plus-circle plus" id="plusReccurence" style="color:blue !important"></i></td>
+                                    <td>Installment Type <span style="color:#ff0000">*</span></td>
+                                    <td>Amount <span style="color:#ff0000">*</span></td>
+                                    <td>Installment <span style="color:#ff0000">*</span></td>
+                                    <td>start# <span style="color:#ff0000">*</span></td>
+                                    <td>start Date <span style="color:#ff0000">*</span></td>
+                                    <td>Internal Note <span style="color:#ff0000">*</span></td>
                                     <td>Delete</td>
                                 </tr>
                             </thead>
                             <tbody id="TextBoxContainer2">
                                 <td width="150">
-                                    <input class="form-control" name="installmentCategory" list="fixpaycat"
-                                        onkeyup="searchFixpay(this.value,'fixpaycat');" autocomplete="off" />
-                                    <datalist id="fixpaycat">
 
-                                    </datalist>
+                                    <input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" name="PlusRecurrence" id="PlusRecurrence">
+                                    <datalist id="driverPlusRecurrence" class="driverPlusRecurrence"></datalist>
+
                                 </td>
                                 <td width="150">
-                                    <input class="form-control" name="installmentType" list="instatype1"
-                                        autocomplete="off" />
+                                    <input class="form-control" name="installmentType" list="instatype1" autocomplete="off" />
                                 </td>
                                 <td width="100">
                                     <input name="amount" type="text" class="form-control" />

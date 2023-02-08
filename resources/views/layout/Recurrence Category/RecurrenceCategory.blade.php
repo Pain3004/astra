@@ -9,7 +9,7 @@
 <!------------------------------------------------------------------- view Recurrence Category modal ------------------------------------------------------------------->
 <div class="container">
     <!-- The Modal -->
-    <div class="modal fade" data-backdrop="static" id="RecurrenceCategoryModal" role="dialog">
+    <div class="modal fade" data-backdrop="static" id="RecurrenceCategoryModal" role="dialog" style="z-index:100;">
         <div class="modal-dialog custom_modal_small_6 modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -81,7 +81,7 @@
 <!------------------------------------------------------------------- Add Recurrence Category modal ------------------------------------------------------------------->
 <div class="container">
     <!-- The Modal -->
-    <div class="modal fade" data-backdrop="static" id="addRecurrenceCategoryModal" role="dialog">
+    <div class="modal fade" data-backdrop="static" id="addRecurrenceCategoryModal" role="dialog" >
         <div class="modal-dialog custom_modal_small_5" role="document">
             <div class="modal-content">
                 <div class="modal-header">

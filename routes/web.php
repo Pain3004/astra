@@ -283,6 +283,7 @@ Route::post('admin/deleteRecurrenceCategory', [RecurrenceCategoryController::cla
 Route::get('admin/editRecurrenceCategory', [RecurrenceCategoryController::class, 'editRecurrenceCategory']);
 Route::post('admin/updateRecurrenceCategory', [RecurrenceCategoryController::class, 'updateRecurrenceCategory']);
 Route::post('admin/restoreRecurrenceCategory', [RecurrenceCategoryController::class, 'restoreRecurrenceCategory']);
+// Route::get('admin/getPlusRecurrence', [RecurrenceCategoryController::class, 'getPlusRecurrence']);
 
 //Terms Conditions
 Route::get('admin/getTermsConditions', [TermsConditionsController::class, 'getTermsConditions']);

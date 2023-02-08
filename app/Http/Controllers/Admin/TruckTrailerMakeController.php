@@ -300,59 +300,126 @@ class TruckTrailerMakeController extends Controller
    
     public function restoreTruckTrailer(Request $request)
     {
-        //dd($request);
-        $cardIds=$request->all_ids;
+       // dd($request->id);
+        $truckId=$request->id;
+        $trailerIds=$request->all_ids;
+        $dataType=str_replace( array('[', ']'), ' ',$request->dataType);
+        $dataType_add=explode(",",$dataType);
         $custID=(array)$request->custID;
-        if(is_string($cardIds))
-            {
-                $cardIds=explode(",",$cardIds);
-            }
-        dd($cardIds);
-        
-        foreach($custID as $company_id)
+
+        //dd($trailerId);
+        // $type=count(($dataType_add));
+        // for($t=0; $t<$type; $t++){
+
+        // }
+        foreach($dataType_add as $key=>$truckTrailerConTy)
         {
-            $company_id=str_replace( array( '\'', '"',
-            ',' , ' " " ', '[', ']' ), ' ', $company_id);
-            //dd($company_id);
-            $company_id=(int)$company_id;
-            $Office = Truck_type::where('companyID',$company_id )->first();
-            $OfficeArray=$Office->truck;
-            $arrayLength=count($OfficeArray);         
-            $i=0;
-            $v=0;
-            $data=array();
-            for ($i=0; $i<$arrayLength; $i++){
-                $ids=$Office->truck[$i]['_id'];
-                $ids=(array)$ids;
-                foreach ($ids as $value){
-                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
-                    if(is_string($cardIds))
-                    {
-                        $cardIds=explode(",",$cardIds);
-                    }
+            
+            $truckTrailerConTy=str_replace( array('"' ,']'), ' ',$truckTrailerConTy);
+            $truckTrailerConTy = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $truckTrailerConTy)));
+            //$truckTrailerConTy="shipper";
+            
+        if($truckTrailerConTy=="Truck")
+        {
+            foreach($custID as $company_id)
+            {
+                $company_id=str_replace( array( '\'', '"',
+                ',' , ' " " ', '[', ']' ), ' ', $company_id);
+                $company_id=(int)$company_id;
+            
+                $Truck = Truck_type::where('companyID',$company_id )->first();
+                $TruckArray=$Truck->truck;
+                $arrayLength=count($TruckArray);         
+                $i=0;
+                $v=0;
+                $data=array();
+                for ($i=0; $i<$arrayLength; $i++){
+                    $ids=$Truck->truck[$i]['_id'];
+                    $ids=(array)$ids;
                     
-                    foreach($cardIds as $credit_card_id)
-                    {
-                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
-                        if($value==$credit_card_id)
-                        {                        
-                            $data[]=$i; 
+                    foreach ($ids as $value){
+                        $trailerIds= str_replace( array('[', ']'), ' ', $trailerIds);
+                        if(is_string($trailerIds))
+                        {
+                            $trailerIds=explode(",",$trailerIds);
+                        }
+                        foreach($trailerIds as $ship_id)
+                        {
+                            $ship_id= str_replace( array('"', ']' ), ' ', $ship_id);
+                            if($value==$ship_id)
+                            {                        
+                                $data[]=$i; 
+                            }
                         }
                     }
                 }
-            }
-            //
-            // dd($data);
-            foreach($data as $row)
-            {
-                $OfficeArray[$row]['deleteStatus'] = "NO";
-                $Office->truck= $OfficeArray;
-                $save=$Office->save();
-            }
-            if (isset($save)) {
-                $arr = array('status' => 'success', 'message' => 'Branck office Restored successfully.','statusCode' => 200); 
-            return json_encode($arr);
-            }
+                //
+                // dd($data);
+                foreach($data as $row)
+                {
+                    $TruckArray[$row]['deleteStatus'] = "NO";
+                    $Truck->truck= $TruckArray;
+                    $save=$Truck->save();
+                }
+                if (isset($save)) {
+                    $arr = array('status' => 'success', 'message' => 'Truck Restored successfully.','statusCode' => 200); 
+                return json_encode($arr);
+                }
+            } 
         }
+            if($truckTrailerConTy=='Trailer')
+            {
+                // print_r($truckTrailerConTy);
+                foreach($custID as $company_id)
+                {
+                    $company_id=str_replace( array( '\'', '"',
+                    ',' , ' " " ', '[', ']' ), ' ', $company_id);
+                    $company_id=(int)$company_id;
+                    $Trailer = traileradd::where('companyID',$company_id )->first();
+                    $TrailerArray=$Trailer->trailer;
+                    $arrayLength=count($TrailerArray);         
+                    $i=0;
+                    $v=0;
+                    $data=array();
+                    for ($i=0; $i<$arrayLength; $i++){
+                        $ids=$Trailer->trailer[$i]['_id'];
+                        $ids=(array)$ids;
+                        foreach ($ids as $value){
+                            // dd( $trailerIds);
+                            $trailerIds= str_replace( array('[', ']'), ' ', $trailerIds);
+                            // dd($trailerIds);
+                            if(is_string($trailerIds))
+                            {
+                                $trailerIds=explode(",",$trailerIds);
+                            }
+                            foreach($trailerIds as $ship_id)
+                            {
+                                $ship_id= str_replace( array('"', ']' ), ' ', $ship_id);
+                                if($value==$ship_id)
+                                {                        
+                                    $data[]=$i; 
+                                }
+                            }
+                        }
+                    }
+                    foreach($data as $row)
+                    {
+                        $TrailerArray[$row]['deleteStatus'] = "NO";
+                        $Trailer->trailer= $TrailerArray;
+                        $save=$Trailer->save();
+                    }
+                    if (isset($save)) {
+                        $arr = array('status' => 'success', 'message' => 'Trailer Restored successfully.','statusCode' => 200); 
+                    return json_encode($arr);
+                    }
+                }
+                
+            }
+           
+           
+        }
+           
+        // dd($request->custID);
+       
     }
 }

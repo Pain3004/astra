@@ -59,6 +59,9 @@
 <!-- SIDE-MENU JS -->
 <script src="{{URL::to('/')}}/assets/plugins/sidemenu/sidemenu.js"></script>
 
+<!-- teliphone validation -->
+<script src="{{URL::to('/')}}/assets/js/jquery.mask.min.js"></script>
+
 <!-- dashboard js -->
 <!-- <script src="{{URL::to('/')}}/assets/js/js/form.js"></script> -->
 
@@ -98,7 +101,7 @@
 <script src="{{URL::to('/')}}/assets/js/openmodel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/userprev.js"></script>
 <script src="{{URL::to('/')}}/static/js/checkbox.js"></script>
-<script src="{{URL::to('/')}}/assets/js/customerLaravel.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/customerLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/currencyLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/truckLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/shipper.js"></script>

@@ -203,8 +203,9 @@
                     <button type="button" class="button-24 restoreTruckTrailerclose" data-dismiss="modal">&times;</button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <input type="hidden" name="checked_id" id="checked_TruckTrailer" value="">
+                    <input type="hidden" name="checked_id" id="checked_TruckTrailer_ids" value="">
                     <input type="hidden" name="company_id" id="checked_TruckTrailer_company_ids" value="">
+                    <input type="hidden" name="company_id" id="checked_TruckTrailer_type" value="">
                     <button id="restore_TruckTrailerData"  class="button-57_alt restore_TruckTrailerData" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore </span></button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">

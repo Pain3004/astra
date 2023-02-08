@@ -10,7 +10,28 @@ $(document).ready(function() {
 
     // <!-- -------------------------------------------------------------------------Get customer ------------------------------------------------------------------------- -->  
     $('#customer_navbar').click(function(){
-        //alert('customer');
+        //alert(); 
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/user",
+            async: false,
+            success: function(response) {
+                // console.log(response);
+                customerSalesRepresentative(response);
+                result = response;
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getCustomerBFactoringCompany",
+            async: false,
+            //dataType:JSON,
+            success: function(customerBFactoringCompanyResult) {
+                //console.log(customerCurrencyResult);
+                createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
+                customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
+            }
+        });
         var customerResponse = '';
         $.ajax({
             type: "GET",
@@ -35,14 +56,14 @@ $(document).ready(function() {
     // // alert(delet);
 
     // if(edit == 1){
-    //    var editPrivilege=''; 
+    //    va'; 
     // }else{
-    //     var editPrivilege='privilege';
+    //     vaprivilege';
     // }
     // if(delet == 1){
-    //     var delPrivilege=''; 
+    //     va'; 
     //  }else{
-    //      var delPrivilege='privilege';
+    //      vaprivilege';
     //  }
 
         // console.log(customerResponse);
@@ -86,11 +107,11 @@ $(document).ready(function() {
                                 // "<td style='width: 100px'><a class='btn btn-primary fs-14 text-white edit-icn' title='Edit' id='edit'><i class='fe fe-edit' ></i></a></td></tr>"
                                 // "<td style='width: 100px'><i class='btn btn-primary fe fe-edit customerEdit' data-id=" + custComid+ "&"+custEmail + "> </i><a class=' btn btn-danger fs-14 text-white customerDelete-icn' data-id=" + custComid+ "&"+custEmail + " title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
                                 // "<td style='width: 100px'><i class='button-29 fe fe-edit customerEdit' data-id=" + customerId+ " date-cusId="+companyID+" data-email="+custEmail +"> </i>&nbsp; &nbsp; <a class=' button-29 fs-14 text-white customerDelete' data-id=" + customerId+ " date-cusId="+companyID+"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
-                               // "<td style='width: 100px'><i class='button-29 fe fe-edit customerEdit "+editPrivilege+"' data-id=" + customerId+ " date-cusId="+companyID+" data-email="+custEmail +"> </i>&nbsp; &nbsp; <a class='"+delPrivilege+" button-29 fs-14 text-white customerDelete' data-id=" + customerId+ " date-cusId="+companyID+"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
+                               // "<td style='width: 100px'><i class='button-29 fe fe-edit customerEdit ' data-id=" + customerId+ " date-cusId="+companyID+" data-email="+custEmail +"> </i>&nbsp; &nbsp; <a class=' button-29 fs-14 text-white customerDelete' data-id=" + customerId+ " date-cusId="+companyID+"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
                                 
                                 "<td style='width: 100px'>"+
-                                " <a class='button-23 customerEdit "+editPrivilege+"' data-id=" + customerId+ " date-cusId="+companyID+" data-email="+custEmail +" title='Edit' ><i class='fe fe-edit'></i>"+
-                                "</a> <a class='customerDelete button-23 "+delPrivilege+"'  data-id=" + customerId+ "   date-cusId="+companyID+"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a>"+
+                                " <a class='button-23 customerEdit ' data-id=" + customerId+ " date-cusId="+companyID+" data-email="+custEmail +" title='Edit' ><i class='fe fe-edit'></i>"+
+                                "</a> <a class='customerDelete button-23 '  data-id=" + customerId+ "   date-cusId="+companyID+"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a>"+
                                 "</td></tr>";
 
                                 
@@ -111,33 +132,6 @@ $(document).ready(function() {
 
     }
     // <!-- -------------------------------------------------------------------------Get customer over ------------------------------------------------------------------------- -->  
-    // function customerValidation(customerResponse) {
-    //     var customerName= $('#customerName1').val();
-    //     var customerAddress= $('#customerAddress').val();
-    //     var customerLocation= $('#customerLocation').val();
-    //     var customerZip= $('#customerZip').val();
-
-    //     if(customerName == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerName').focus();
-    //         return false;
-    //     }
-    //     if(customerAddress == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerAddress').focus();
-    //         return false;
-    //     }
-    //     if(customerLocation == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerLocation').focus();
-    //         return false;
-    //     }
-    //     if(customerZip == ''){
-    //         alert("Please Enter Name");
-    //         $('#customerZip').focus();
-    //         return false;
-    //     }
-    // }
 
     $('.advanceTabCustomer').click(function(){
        
@@ -169,25 +163,27 @@ $(document).ready(function() {
     });
 
     // <!-- -------------------------------------------------------------------------add customer  ------------------------------------------------------------------------- -->  
-   
-    // $(".addCustomerButton").click(function(){
-    //     $("#addCustomerTab").show();
+    // $(function () {
+    //     $('.usa-phone').mask("(999) 999-9999");
     // });
-       
-        // $('#customerDataSubmit').click(customerValidation);
+    $('#addCustomerModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
+    $('#updateCustomerModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
         $(".addCustomerButton").click(function(){
+            // $("#addCustomerModal").val(null).trigger("change");
             $("#addCustomerModal").modal("show");
         });
         $(".closeaddCustomerModal").click(function(){
+            $('#addAdvanceCustomerTab').removeClass('active show'); 
+            $('#addCustomerTab').addClass('active show');           
             $("#addCustomerModal").modal("hide");
         });
         $(".customerDataSubmit").click(function(){
 
-            // if($("#customerBillingAddressChkbox-1").prop('checked') == true){
-            //     alert("checked");
-            // }else{
-            //     alert("not");
-            // }
+           
             var customerName= $('#customerName1').val();
             var customerAddress= $('#customerAddress').val();
             var customerLocation= $('#customerLocation').val();
@@ -196,7 +192,7 @@ $(document).ready(function() {
             var customerBillingAddressChkbox= $('#customerBillingAddressChkbox').val();
 
 
-        //  var customerBillingAddress= $('#customerBillingAddress').val();
+            var customerBillingAddress= $('#customerBillingAddress').val();
             var customerBillingLocation= $('#customerBillingLocation').val();
             var customerBillingZip= $('#customerBillingZip').val();
             var customerPrimaryContact= $('#customerPrimaryContact').val();
@@ -229,26 +225,54 @@ $(document).ready(function() {
             var customerInternalNotes= $('#customerInternalNotes').val();
           
             if(customerName == ''){
-                alert("Please Enter Name");
+                 swal.fire("Please Enter Name");
                 $('#customerName1').focus();
                 return false;
             }
             if(customerAddress == ''){
-                alert("Please Enter Name");
+                 swal.fire("Please Enter Name");
                 $('#customerAddress').focus();
                 return false;
             }
             if(customerLocation == ''){
-                alert("Please Enter Name");
+                 swal.fire("Please Enter Name");
                 $('#customerLocation').focus();
                 return false;
             }
             if(customerZip == ''){
-                alert("Please Enter Name");
+                 swal.fire("Please Enter Name");
                 $('#customerZip').focus();
                 return false;
             }
-
+            if(customerPaymentTerm=='')
+            {
+                swal.fire("Please Payment terms");
+                return false;
+            }
+            if(customerEmail !== "")
+            {
+                if(IsEmail() == false)
+                {
+                    swal.fire("Please enter valid email address");
+                    return false;
+                } 
+            }
+            if(customerBillingEmail !== "")
+            {
+                if(IsEmail() == false)
+                {
+                    swal.fire("Please enter valid email address");
+                    return false;
+                } 
+            }
+            // if(customerWebsiteURL !== "")
+            // {
+            //     if(isUrlValid()== false)
+            //     {
+            //         swal.fire("Please enter valid url");
+            //         return false;
+            //     }
+            // }
             var formData = new FormData();
             formData.append('_token',$("#_tokenCustomer").val());
              formData.append(' customerName', customerName);
@@ -256,6 +280,7 @@ $(document).ready(function() {
              formData.append(' customerLocation', customerLocation);
              formData.append(' customerZip', customerZip);
              formData.append(' customerBillingAddressChkbox', customerBillingAddressChkbox);
+             formData.append('customerBillingAddress',customerBillingAddress);
              formData.append(' customerBillingLocation', customerBillingLocation);
              formData.append(' customerBillingLocation', customerBillingLocation);
              formData.append(' customerBillingZip', customerBillingZip);
@@ -362,7 +387,9 @@ $(document).ready(function() {
         $("#plusCurrencyModal").modal("show");
     });
 
-        
+    $('#plusCurrencyModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
 
     $("#closeCurrencyModal").click(function(){
         $("#plusCurrencyModal").modal("hide");
@@ -454,6 +481,9 @@ $(document).ready(function() {
 
     
     //<!-- ------------------------------------------------------------------------- add customer PaymentTerms ------------------------------------------------------------------------- -->
+    $('#PaymentTermsModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
     $("#plusPaymentTerms").click(function(){
         $("#PaymentTermsModal").modal("show");
     });
@@ -512,6 +542,9 @@ $(document).ready(function() {
             }
         });
     });
+    $('#PaymentTermsModal2').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
         //});
     function createPaymentTermsRows(Result) {
         var len1 = 0;
@@ -544,8 +577,8 @@ $(document).ready(function() {
                                         "<td data-field='paymentTerm'>" + paymentTerm + "</td>" +
                                         "<td data-field='paymentDays'>" + paymentDays + "</td>" +
                                         "<td style='text-align:center'>"+
-                                            "<a class='button-23 "+editPrivilege+" editPayTerms'  title='Edit1' data-Id='"+payment_id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                            "</a> <a class='deletePayTerms button-23 "+delPrivilege+"' title='Delete' data-Id='"+payment_id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                            "<a class='button-23  editPayTerms'  title='Edit1' data-Id='"+payment_id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                            "</a> <a class='deletePayTerms button-23' title='Delete' data-Id='"+payment_id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
                                         "</td></tr>";
             
                                     $("#PaymentTermsTable").append(PaymentTermsStr);
@@ -574,20 +607,20 @@ $(document).ready(function() {
     // <!-- -------------------------------------------------------------------------over add PaymentTerms ------------------------------------------------------------------------- -->
     // <!-- -------------------------------------------------------------------------get customer Factoring Company ------------------------------------------------------------------------- -->  
   
-    $('.customerBFactoringCompanySet').focus(function(){
-        //alert(); 
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/getCustomerBFactoringCompany",
-            async: false,
-            //dataType:JSON,
-            success: function(customerBFactoringCompanyResult) {
-                //console.log(customerCurrencyResult);
-                createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
-                customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
-            }
-        });
-    });
+    // $('.customerBFactoringCompanySet').focus(function(){
+    //     //alert(); 
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path+"/admin/getCustomerBFactoringCompany",
+    //         async: false,
+    //         //dataType:JSON,
+    //         success: function(customerBFactoringCompanyResult) {
+    //             //console.log(customerCurrencyResult);
+    //             createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
+    //             customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
+    //         }
+    //     });
+    // });
 
     function createCustomerBFactoringCompanyList(customerBFactoringCompanyResponse) {    
         if (customerBFactoringCompanyResponse != null) {
@@ -599,7 +632,7 @@ $(document).ready(function() {
             for (var i = 0; i < customerBFactoringCompanyLength; i++) {  
                 var factoringCompanyname =customerBFactoringCompanyResponse.factoring[i].factoringCompanyname;
                 var factoringCompanyId =customerBFactoringCompanyResponse.factoring[i]._id;
-                var customerFactoringCompanyname = "<option id='customerFactoringCompanyname' value='"+ factoringCompanyId +"'>"+ factoringCompanyname +"</option>"
+                var customerFactoringCompanyname = "<option  value='"+ factoringCompanyId +"'>"+ factoringCompanyname +"</option>"
                 //"<a class='dropdown-item custCurrency' value='"+ currency +"'>"+ no +" )"+ currency +"</a>";
 
                 $(".customerBFactoringCompanySet").append(customerFactoringCompanyname);
@@ -616,8 +649,10 @@ $(document).ready(function() {
     $("#plusFactoringCompany").click(function(){
         $("#factoringCompanyModal").modal("show");
     });
-
-    $("#closefactoringCompanyModal").click(function(){
+    $('#factoringCompanyModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
+    $(".factoringCompanyModalCloseButton").click(function(){
         $("#factoringCompanyModal").modal("hide");
     });
 
@@ -646,6 +681,36 @@ $(document).ready(function() {
         var factoringCompanyInternalNotes=$('#factoringCompanyInternalNotes').val();
 
     //alert(currencyName);
+        if(factoringCompanyName=='')
+        {
+            swal.fire( "Enter factoring Company Name");
+            return false;
+        }
+        if(factoringCompanyAddress=='')
+        {
+            swal.fire( "Enter factoring Company Address");
+            return false;
+        }
+        if(factoringCompanyLocation=='')
+        {
+            swal.fire( "Enter factoring Company Location");
+            return false;
+        }
+        if(factoringCompanyZip=='')
+        {
+            swal.fire( "Enter factoring Company Zip");
+            return false;
+        }
+        if(factoringCompanycurrency=='')
+        {
+            swal.fire( "Select Currency");
+            return false;
+        }
+        if(factoringCompanyPaymentTerms=='')
+        {
+            swal.fire( "Select PaymentTerms");
+            return false;
+        }
         $.ajax({
             url: base_path+"/admin/factoringCompany",
             type: "POST",
@@ -1330,4 +1395,110 @@ $(document).ready(function() {
         });
     });
     //============================ end restore  customer =================
+
+
+    // email validation===================================
+   
+    function IsEmail() {
+        var email= $(".email").val();
+        var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+        if (testEmail.test(email))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //  url validation =======================================
+    function isUrlValid() {
+        if(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test($(".url").val()))
+        {
+           return true;
+        } 
+        else 
+        {
+           return false;
+        }
+    }
+
+
+    // salse representative =============================================
+    // $('.customerRepresentativeSalseTerm').click(function(){
+        
+    // });
+
+    function customerSalesRepresentative(result) {
+        // console.log(result);
+        var customerCurrencyLength = 0;
+        if (result != null) {
+            customerCurrencyLength = result.length;
+        }
+
+        if (customerCurrencyLength > 0) {
+            var no=1;
+            $(".customerRepresentativeSalseTerm").html('');
+            for (var i = 0; i < customerCurrencyLength; i++) {  
+                var username =result[i].userFirstName;
+                var customerPaymentTerm = "<option  value='"+ username +"'>"+ username +"</option>"
+                $(".customerRepresentativeSalseTerm").append(customerPaymentTerm);
+                no++;
+
+            }
+        }
+        
+    }
+
+    // end =============================================================
+
+    // start location view in all ===============================
+   $(".location_view").keyup(function(){
+        var fieldID=$(this).attr('data-location');  
+        // alert(fieldID)
+        var placeArray = "";
+        $.getJSON("./place.json", function (json) {
+        placeArray = json; // this will show the info it in firebug console
+        });
+       var placetimeout='';;
+        clearTimeout(placetimeout);
+        var location = document.getElementById(fieldID);
+        var st = fieldID + "-list";
+        if (location.value == "") {
+          document.getElementById(st).style.display = "none";
+        }
+        placetimeout = setTimeout(function () {
+          var regex = new RegExp(location.value, "i");
+          var list = `<ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front col-md-10" unselectable="on" style="left:16px;top: 61.625px; height:auto; box-shadow: 2px 2px 2px 3px rgb(0 0 0 / 6%); max-height: 200px;overflow: auto;z-index: 9999;">`;
+          var count = 1;
+      
+          $.each(placeArray, function (key, val) {
+            if (val.city.search(regex) != -1) {
+              list += '<li class="ui-menu-item" style="padding: 5px; border-bottom: 1px solid;"><div id="ui-id-2" tabindex="-1" class="ui-menu-item-wrapper putValue" data-value='+val.city.toUpperCase()+' data-fieldID='+fieldID+' data-id='+st+'>'+val.city.toUpperCase()+'</div> </li>';
+      
+              count++;
+            }
+          });
+          list += `</ul>`;
+          if (document.getElementById(st) == undefined) {
+            var div = document.createElement("div");
+            div.setAttribute("id", st);
+            location.parentNode.insertBefore(div, location.nextSibling);
+          } else {
+            document.getElementById(st).style.display = "block";
+          }
+          document.getElementById(st).innerHTML = list;
+        }, 800);
+    });
+    $('body').on('click','.putValue',function(){
+        var value=$(this).attr("data-value");        
+        var fieldID=$(this).attr("data-fieldID");
+        var id=$(this).attr("data-id");
+        // var date='customerLocation';
+        // console.log(date);
+        // console.log(value + " , " + fieldID + " , " + id);
+        document.getElementById(fieldID).value=value;
+        // $("#customerLocation").val(value);
+        document.getElementById(id).style.display = "none";
+    });
 });

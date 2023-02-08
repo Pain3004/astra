@@ -104,7 +104,8 @@ class DriverController extends Controller
 
 //dd($updateinstallmentarray);
         $OwnerArray[$v]['driverId'] = $request->driverId;
-        $OwnerArray[$v]['percentage'] = $unserializeData['up_ownerPercentage'];
+        // $OwnerArray[$v]['percentage'] = $unserializeData['up_ownerPercentage'];
+        $OwnerArray[$v]['percentage'] = $unserializeData['percentage'];
         $OwnerArray[$v]['truckNo'] = $unserializeData['truckNo'];
         $OwnerArray[$v]['installment'] = $updateinstallmentarray;
 
@@ -140,21 +141,17 @@ class DriverController extends Controller
     }
 
     public function addOwnerOparator(Request $request){
-//dd($request);
         // request()->validate([
         //     'percentage' => 'required',
         //     'truckNo' => 'required',
         // ]);
 
         $companyID=1;
-        // $object='1';
-
         $getCompanyForDriver = Driver::where('companyID',$companyID)->first();
         // $result = Driver::where('companyID',$companyID )->first();
         $driverArray=$getCompanyForDriver->driver;
 
         $arrayLength=count($driverArray);
-       // dd($arrayLength);
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLength; $i++){
@@ -261,7 +258,8 @@ class DriverController extends Controller
 
 }
 
-    public function editDriverOwnerData(Request $request){        
+    public function editDriverOwnerData(Request $request){  
+        //dd($request);    
         $companyID=(int)1;
         $ownerOperatorID=(int)$request->id;
 
@@ -280,7 +278,7 @@ class DriverController extends Controller
         }
        
         $EditownerOperatorData=$result->ownerOperator[$v];
-   
+   //dd($EditownerOperatorData);
         $resultDriver = Driver::where('companyID',$companyID )->first();
         $arrayLengthDriver=count($resultDriver->driver);
         $j=0;

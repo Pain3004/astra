@@ -306,6 +306,7 @@ class ShipperController extends Controller
     }
     public function restoreShipper(Request $request)
     {
+        //dd($request);
         $consiId=$request->id;
         $shipIds=$request->all_ids;
         $dataType=str_replace( array('[', ']'), ' ',$request->dataType);
@@ -372,7 +373,7 @@ class ShipperController extends Controller
             {
                 // echo "<br> </br>";
                 // print_r($shipAndConTy);
-                dd($shipAndConTy);
+                //dd($shipAndConTy);
                 foreach($custID as $company_id)
                 {
                     // echo "consignee";

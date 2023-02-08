@@ -379,5 +379,49 @@ $("#RecurrenceCategoryUpdate").click(function()
         });
     });
 // ---------------------------------------------end restore  ---------------------------------------------
+// ---------------------------------------------plus Recurrence   ---------------------------------------------
+$('#plusReccurence').click(function(){
+    $('#addRecurrenceCategoryModal').modal('show');
+});
+
+$('.driverPlusRecurrence').focus(function(){
+    //alert(); 
+     $.ajax({
+         type: "GET",
+         url: base_path+"/admin/getRecurrenceCategory",
+         async: false,
+         //dataType:JSON,
+         success: function(Result) {                    
+             createPlusRecurrence(Result);
+             
+         }
+     });
+});
+function createPlusRecurrence(Result) { 
+            
+    var Length = 0;    
+    
+    if (Result != null) {
+        Len = Result.RecurrenceCategory.length;
+        console.log(Len) ;
+    }
+    if (Len > 0) {
+        for (var j = 0; j < Len; j++) {  
+        Length = Result.RecurrenceCategory[j].fixPay.length;
+         
+            if (Length > 0) {
+                $(".driverPlusRecurrence").html('');
+                // $(".currencyList").html('');
+                for (var i = 0; i < Length; i++) {  
+                    var fixPayType =Result.RecurrenceCategory[j].fixPay[i].fixPayType;
+                    console.log(fixPayType);
+                    var fixPayTypeList = "<option id='PlusRecurrence'  value='"+ fixPayType +"'>"                   
+                $(".driverPlusRecurrence").append(fixPayTypeList);
+                }
+            }
+        }
+    }
+}
+// ---------------------------------------------end plus Recurrence  ---------------------------------------------
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });

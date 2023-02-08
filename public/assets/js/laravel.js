@@ -24,6 +24,10 @@ $('#addCompany').click(function(){
 $('.closeDriverModal').click(function(){
     $('#driverModal').modal('hide');
 });
+$('.closeAddDriverModal').click(function(){
+    $('#RecurrenceCategoryModal').modal('hide');
+    $('#addDriverModal').modal('hide');
+});
 
 $('.userModalClose').click(function(){
     $('#userModal').modal('hide');
@@ -734,24 +738,24 @@ $('#Driver_navbar').click(function(){
                         var ownerOperatorStatus =driverResponse.driver[j].ownerOperatorStatus;
                         var ownerOperatorDeleteStatus =driverResponse.driver[j].ownerOperatorDeleteStatus;
 
-                        if(delete_status=="NO"){
+                        if(delete_status=="NO" || delete_status=="No" || delete_status=="no"){
                             
-                            if(ownerOperatorStatus == 'YES'){
+                            if(ownerOperatorStatus == 'YES' || ownerOperatorStatus == 'Yes' || ownerOperatorStatus == 'yes'){
                                 var actionBtnOwnerOperator= "<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class=' deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
-                                    "<a class='removeDriverOwner button-23 '  title='Remove Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-user-x'></i></a>"+
-                                    "<a class='editDriverOwner button-23 '  title='Edit Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-edit'></i></a>&nbsp";
+                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='removeDriverOwner button-23 '  title='Remove Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:red'><i class='fe fe-user-x'></i></a>"+
+                                    "<a class='editDriverOwner button-23 '  title='Edit Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-edit'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-danger');
                             }
                             else if(ownerOperatorStatus == 'NO' && ownerOperatorDeleteStatus == 'NO'){
                                 var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class=' deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
-                                    "<a class='addDriverOwner button-23'  title='Add As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-user-plus'></i></a>&nbsp";
+                                    "<a class='deleteDriver button-23  "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='addDriverOwner button-23'  title='Add As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-user-plus'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-success');
-                            }else if(ownerOperatorDeleteStatus == 'YES'){
+                            }else if(ownerOperatorDeleteStatus == 'YES' || ownerOperatorDeleteStatus == 'Yes' || ownerOperatorDeleteStatus == 'yes'){
                                 var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
                                     "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
-                                    "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe  fe-user-plus'></i></a>&nbsp";
+                                    "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:orange'><i class='fe  fe-user-plus'></i></a>&nbsp";
 
                             }
                         var tr_str1 = "<tr data-id=" + (i + 1) + ">" +
@@ -794,6 +798,7 @@ $('#Driver_navbar').click(function(){
     })
     
     $('.addDriverOwnerModalCloseButton').click(function(){
+        $("#addDriverOwnerModal form").trigger("reset");
         $('#addDriverOwnerModal').modal('hide');
         // $('#driverModal').modal('show');
     });
@@ -823,31 +828,7 @@ $('#Driver_navbar').click(function(){
         // console.log(atob(name));
         $('#addDriverOwnerModal').modal('show');  
     });
-// $('.addDriverOwner').click(function(){
-//     var name =$(this).data('name');
-//     $('#owner-driver-name').val(atob(name));
 
-//     var driver_id =$(this).data('id');
-//     $('.driver-id').val(driver_id);
-
-//     // console.log(atob(name));
-//     $('#addDriverOwnerModal').modal('show');  
-// });
-
-
-
-// $('#driver_navbar').click(function(){
-//     $.ajax({
-//         type: "GET",
-//         url: base_path+"/admin/driver",
-//         async: false,
-//         success: function(text) {
-//             createDriverRows(text);
-//             driverResponse = text;
-//         }
-//     });
-//     $('#driverModal').modal('show');  
-// });
 
 
 
@@ -980,7 +961,7 @@ $('body').on('click',function() {
                               '<option value="Quarterly">Quarterly</option>'+
                           '</select>'+
                   '</div>'+
-                  '<div class="col-sm-2">'+
+                  '<div class="col-sm-1">'+
                       '<label class="form-label" for="">Amount</label>'+
                       '<input name="amount[]" type="text" class="form-control" />'+
                   '</div>'+
@@ -1000,11 +981,14 @@ $('body').on('click',function() {
                       '<label class="form-label" for="">Internal Note</label>'+
                       '<textarea rows="1" cols="20" class="form-control" type="textarea" name="internalNote[]"></textarea>'+
                   '</div>'+
-                  '<!-- <input type="text" /> <span class="remove">Remove Option</span> -->'+
-                  '<button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>'+
-          '</div>'+
+                  
+                //   '<label class="form-label" for=""></label>'+
+                    '<button type="button" class="btn btn-danger remove" style="width: auto;height:fit-content;margin-top: auto;"><spanaria-hidden="true">&times;</span>'+
+                  
+            '</div>'+
       '</div>'+
       '</div>'
+  
   
   $('.add').click(function() {
       $(this).before(OwnerOperatorblock);
@@ -1018,25 +1002,20 @@ $('body').on('click',function() {
   
       var ownerPercentage=$('#ownerPercentage').val();
       var ownerTruckNo=$('#ownerTruckNo').val();
-      var driverId=$('#driverid').val();
-     // alert(driverId);
-      
+      //var driverId=$('#driverid').val();
+      var driverId=$('.addDriverOwner').attr('data-id');
   
       if(ownerPercentage == ''){
-          // alert("Enter Percentage");
-           swal.fire("Error!", "Enter Percentage", "error");
-          // swal({title: 'Please Enter Date Of Birth',text: 'Redirecting...',timer: 1500,buttons: false,})
-          
+           //swal.fire("Error!", "Enter Percentage", "error");
+          swal.fire({title: 'Please Enter Percentage',text: 'Redirecting...',timer: 3000,buttons: false,})
           $("#ownerPercentage").focus();
           return false;
       }
       if(ownerTruckNo == ''){
-          // alert("Enter Truck No");
-          swal.fire("Error!", "Enter Truck No", "error");
-         // swal({title: 'Please Enter Date Of Birth',text: 'Redirecting...',timer: 1500,buttons: false,})
+         swal.fire({title: 'Please Select owner Truck No',text: 'Redirecting...',timer: 3000,buttons: false,})
          $("#ownerTruckNo").focus();
          return false;
-     }
+    }
   
       $.ajax({
           type: "POST",
@@ -1090,7 +1069,6 @@ $('body').on('click',function() {
               success: function(dataResult) {
                   $('.up_optionBox').empty(); 
                   $('.optionBox').empty(); 
-                  // console.log(dataResult);
                   $('#up_ownerid').val(dataResult[0]._id);
                   $('#up_driverid').val(dataResult[0].driverId);
                   $('#up_owner-driver-name').val(dataResult[1]);
@@ -1115,11 +1093,11 @@ $('body').on('click',function() {
                       $(".up_optionBox").append('<div>'+
                                               '<div class="block">'+
                                                   '<div class="row row-sm" id="up_OwnerOperatorContainer">'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">Category</label>'+
                                                           '<input type="text" class="form-control" name="up_installmentCategory[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" value="'+installmentCategory +'"/>'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">Installment Type</label>'+
                                                               '<select name="up_installmentType[]" class="form-control test_test ">'+
                                                                   '<option value="">Select type</option>'+
@@ -1129,33 +1107,33 @@ $('body').on('click',function() {
                                                                   '<option value="Quarterly">Quarterly</option>'+
                                                               '</select>'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-1">'+
                                                           '<label class="form-label" for="">Amount</label>'+
                                                           '<input name="up_amount[]" type="text" class="form-control" value="'+amount +'"  />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-1">'+
                                                           '<label class="form-label" for="">Installment</label>'+
                                                           '<input name="up_installment[]" type="text" class="form-control" value="'+installment +'" />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-1">'+
                                                           '<label class="form-label" for="">start#</label>'+
                                                           '<input name="up_startNo[]" type="text" class="form-control" value="'+startNo +'" />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">start Date</label>'+
                                                           '<input name="up_startDate[]" type="date" class="form-control" value="'+startDate +'" />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-5">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">Internal Note</label>'+
                                                           '<textarea rows="1" cols="20" class="form-control" type="textarea" name="up_internalNote[]">'+internalNote +'</textarea>'+
                                                       '</div>'+
-                                                      '<div class="col-sm-1">'+
-                                                          '<label class="form-label" for="">Delete</label>'+
+                                                    //   '<div class="col-sm-1">'+
+                                                    //     //   '<label class="form-label" for="">Delete</label>'+
                                                           
-                                                          '</button>'+
-                                                      '</div>'+
+                                                    //       '</button>'+
+                                                    //   '</div>'+
                                                       '<!-- <input type="text" /> <span class="remove">Remove Option</span> -->'+
-                                                      '<button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>'+
+                                                      '<button type="button" class="btn btn-danger remove" style="width: auto;height:fit-content;margin-top: auto;"><spanaria-hidden="true">&times;</span>'+
                                                   '</div>'+
                                               '</div>'+
                                           '</div>'
@@ -1216,6 +1194,9 @@ $('body').on('click',function() {
   
   // <!-- ------------------------------------------------------------------------- end editOwner driver  data  ------------------------------------------------------------------------- -->
 // <!-- ------------------------------------------------------------------------- add driver  ------------------------------------------------------------------------- -->
+$('#addDriver').click(function(){
+    $('#addDriverModal').modal('show');
+});
 
       $('.driverDataSubmit').click(function(){   
             var companyID = 4;
@@ -1244,7 +1225,7 @@ $('body').on('click',function() {
             var hazmatExpiry = $('#hazmatExpiry').val();
             var rate = $('#rate').val();
             var currency = $('#currency_add').val();
-            console.log(currency);
+            // console.log(currency);
             var recurrencePlus = $('#recurrencePlus').val();
             var recurrenceMin = $('#recurrenceMin').val();
             var terminationDate = $('#terminationDate').val();
@@ -1718,7 +1699,6 @@ function drivermodal()
 
         var driver_id =$(this).data('id');
         $('.driver-id').val(driver_id);
-        // console.log(driver_id);
 
         $('#addDriverOwnerModal').modal('show');  
     });
@@ -2380,6 +2360,47 @@ function GetDynamicRecurrencesubstract(value) {
 
 // <!-- ------------------------------------------------------------------------- End of Minus Recurrence ------------------------------------------------------------------------- -->
 
+//get truck
+    // $('.fuel_truck_report').focus(function(){
+    //     //alert(); 
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path+"/admin/fuel_truck_report",
+    //         async: false,
+    //         //dataType:JSON,
+    //         success: function(fuel_truck_reportResult) {                    
+    //             createfuel_truck_reportList(fuel_truck_reportResult);
+    //             fuel_truck_reportResponse = fuel_truck_reportResult;
+    //         }
+    //     });
+    // });
+
+    // function createfuel_truck_reportList(fuel_truck_reportResponse) {           
+    //     var fuel_truck_reportLength = 0;    
+        
+    //     if (fuel_truck_reportResponse != null) {
+    //         fuel_truck_reportLength = fuel_truck_reportResponse.currency.length;
+    //     }
+
+    //     if (fuel_truck_reportLength > 0) {
+    //        // var no=1;
+    //         $(".fuel_truck_report").html('');
+    //         $(".currencyList").html('');
+    //         for (var i = 0; i < fuel_truck_reportLength; i++) {  
+    //             var currency =fuel_truck_reportResponse.currency[i].currencyType;
+    //             //var fuel_truck_report = "<option id='fuel_truck_report' value='"+ currency +"'>"+ currency +"</option>"
+    //             //"<a class='dropdown-item custCurrency' value='"+ currency +"'>"+ no +" )"+ currency +"</a>";                  
+
+    //            var fuel_truck_reportList = "<option id='fuel_truck_report'  value='"+ currency +"'>"                   
+    //            $(".fuel_truck_report").append(fuel_truck_reportList);
+    //            //<option value="Edge">
+    //             //no++;
+
+    //         }
+    //     }
+        
+    // }
+// over truck
 
 $('.editCompanyModalCloseButton').click(function(){
     $('#editCompanyModal').modal('hide');
