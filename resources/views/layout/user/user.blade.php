@@ -1,20 +1,13 @@
+<?php 
+	$userdata=Auth::user();
+	$insertUser=$userdata->privilege['insertUser'];
+    // $updateUser=$userdata->privilege['updateUser'];
+    $deleteUser=$userdata->privilege['deleteUser'];
+    $importUser=$userdata->privilege['importUser'];
+    $exportUser=$userdata->privilege['exportUser'];
+ ?>
 <!-- driver modal -->
-
-
-
-
 <div class="container">
-    <!-- <h2>Large Modal</h2> -->
-    <!-- Button to Open the Modal -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            Open modal
-        </button> -->
-
-
-
-
-
-
 
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="userModal" role="dialog">
@@ -22,12 +15,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">User</h5>
-                    <button type="button" class="button-24" data-dismiss="modal">×</button>
+                    <button type="button" class="button-24 userModalClose" >×</button>
 
                     </button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <a href="#addUserModal" class="button-57" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
+
+                        @if($insertUser== 1)
+                            <a href="#" class="button-57_alt" id="addUser"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
+
+                        @endif 
+                    
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
 
@@ -57,10 +55,11 @@
                 <div class="modal-footer">
                     <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
-                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                        @if($exportUser == 1)
+                            <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                        @endif
                     </form>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
-                    <!-- <button class="btn btnclose" style="background-color:red;" data-bs-dismiss="modal">Close</button> -->
+                    <button type="button" class="button-29 userModalClose">Close</button>
                 </div>
             </div>
         </div>

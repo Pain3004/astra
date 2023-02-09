@@ -1,4 +1,4 @@
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="accManagModal" role="dialog">
         <div class="modal-dialog custom_modal modal-dialog-scrollable" role="document">

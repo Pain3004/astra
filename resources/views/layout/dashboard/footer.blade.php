@@ -67,7 +67,7 @@
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/jszip.min.js"></script>
-<script src="{{URL::to('/')}}/assets/plugins/datatable/pdfmake/pdfmake.min.js"></script>
+<!-- <script src="{{URL::to('/')}}/assets/plugins/datatable/pdfmake/pdfmake.min.js"></script> -->
 <script src="{{URL::to('/')}}/assets/plugins/datatable/pdfmake/vfs_fonts.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/buttons.html5.min.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/buttons.print.min.js"></script>
@@ -122,6 +122,7 @@
 <script src="{{URL::to('/')}}/assets/js/js/load.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/PaymentReceiptRegi.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/Reports.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 <script sr="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="{{URL::to('/')}}/assets/js/jquery.mask.min.js"></script>

@@ -71,7 +71,7 @@
 															<li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li>
 														
 															
-															<li><a href="#userModal" class="slide-item" data-toggle="modal" data-target="#userModal">User</a></li>
+															<li><a href="#" id="userModalNav" class="slide-item" >User</a></li>
 															
 															
 															<li><a href="#" id="truck_navbar" class="slide-item">Truck</a></li>

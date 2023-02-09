@@ -7,6 +7,16 @@ $(document).ready(function () {
     $('.ExternalCarrierModalBtn').click(function () {
         $.ajax({
             type: "GET",
+            url: base_path+"/admin/getCustomerBFactoringCompany",
+            async: false,
+            //dataType:JSON,
+            success: function(customerBFactoringCompanyResult) {
+                createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
+                customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
+            }
+        });
+        $.ajax({
+            type: "GET",
             url: base_path + "/admin/getExternalCarrier",
             async: false,
             success: function (text) {
@@ -17,6 +27,22 @@ $(document).ready(function () {
         });
         $('#ExternalCarrierModal').modal('show');
     });
+    function createCustomerBFactoringCompanyList(customerBFactoringCompanyResponse) {    
+        if (customerBFactoringCompanyResponse != null) {
+           var customerBFactoringCompanyLength = customerBFactoringCompanyResponse.factoring.length;         
+        }
+
+        if (customerBFactoringCompanyLength > 0) {
+            $(".customerBFactoringCompanySet").html('');
+            for (var i = 0; i < customerBFactoringCompanyLength; i++) {  
+                var factoringCompanyname =customerBFactoringCompanyResponse.factoring[i].factoringCompanyname;
+                var factoringCompanyId =customerBFactoringCompanyResponse.factoring[i]._id;
+                var customerFactoringCompanyname = "<option  value='"+ factoringCompanyId +"'>"+ factoringCompanyname +"</option>"
+                $(".customerBFactoringCompanySet").append(customerFactoringCompanyname);
+            }
+        }
+        
+    }
     function createExternalCarrier(ExternalCarrierResult) {
         var extCariLeng = 0;
         if (ExternalCarrierResult != null) {
@@ -161,6 +187,20 @@ $(document).ready(function () {
            
     }
     //============ end view external carrier ==================================================
+
+    // open factoring modal  =====================================
+    $("#plusFactoringCompany3").click(function(){
+        $("#factoringCompanyModal").modal("show");
+    });
+    $("#plusPaymentTerms3").click(function(){
+        $("#PaymentTermsModal").modal("show");
+    });
+    // $(".plusPaymentTerms").click(function(){
+    //     $("#PaymentTermsModal").find().modal("show");
+    // })
+    // end ===============================================
+
+
     //=================================== form set -============================================
    
 
@@ -229,6 +269,61 @@ $(document).ready(function () {
             /**
              * Get the value of the step.
              */
+             var name =$('#carrierName').val();
+             var address =$('#carrierAddress').val();
+             var location =$('#carrierLocation').val();
+             var zip =$('#carrierZip').val();
+             var email =$('#carrierEmail').val();
+             var paymentTerms =$('#carrierPayTerms').val();
+             var factoringCompany =$('#carrierFactoring').val();
+        if(name=='')
+        {
+            swal.fire( "'Enter carrier Name");
+            $('#carrierName').focus();
+            return false;
+        } 
+        if(address=='')
+        {
+            swal.fire( "'Enter carrier Address");
+            return false;
+        } 
+        if(location=='')
+        {
+            swal.fire( "'Enter carrier location");
+            $('#carrierLocation').focus();
+            return false;
+        } 
+        if(zip=='')
+        {
+            swal.fire( "'Enter carrier Zip");
+            $('#carrierZip').focus();
+            return false;
+        } 
+        var testEmail =/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        if(email=='')
+        {
+            swal.fire( "'Enter carrier Email");
+            $('#carrierEmail').focus();
+            
+            return false;
+        } 
+        if(testEmail.test(email)==false)
+        {
+            swal.fire( "'Enter valid Email");
+            return false;
+        }
+        if(paymentTerms=='')
+        {
+            swal.fire( "'Enter carrier PaymentTerms");
+            $('#carrierPaymentTerms').focus();
+            return false;
+        } 
+        if(factoringCompany=='')
+        {
+            swal.fire( "'Enter carrier FactoringCompany");
+            $('#carrierFactoringCompany').focus();
+            return false;
+        } 
             const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));
             /**
              * Call the function to navigate to the target form step.
@@ -244,6 +339,21 @@ $(document).ready(function () {
         $("#AddExternalCarrier").modal("show");
     });
     $(".closeAddExternalCarreirModal").click(function(){
+        $('.step_1').addClass("form-stepper-active");
+        $(".step_1").removeClass("form-stepper-completed");
+        $('.step_2').addClass("form-stepper-unfinished ");
+        $(".step_2").removeClass("form-stepper-active");
+        $(".step_2").removeClass("form-stepper-completed");
+        $('.step_3').addClass("form-stepper-unfinished ");
+        $(".step_3").removeClass("form-stepper-active");
+        $(".step_3").removeClass("form-stepper-completed");
+        $('.step_4').addClass("form-stepper-unfinished ");
+        $(".step_4").removeClass("form-stepper-active");
+        $(".step_4").removeClass("form-stepper-completed");
+        $("#step-1").removeClass("d-none");
+        $("#step-2").addClass("d-none");
+        $("#step-3").addClass("d-none");
+        $("#step-4").addClass("d-none");
         $("#AddExternalCarrier").modal("hide");
     });
     $('#carrierBlacklisted').click(function(){
@@ -398,12 +508,35 @@ $(document).ready(function () {
             $('#carrierZip').focus();
             return false;
         } 
+        var testEmail =/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         if(email=='')
         {
             swal.fire( "'Enter carrier Email");
             $('#carrierEmail').focus();
+            
             return false;
         } 
+        if(testEmail.test(email)==false)
+        {
+            swal.fire( "'Enter valid Email");
+            return false;
+        }
+        // if(primaryEmail !=="")
+        // {
+        //     if(testEmail.test(primaryEmail)==false)
+        //     {
+        //         swal.fire( "'Enter valid Email");
+        //         return false;
+        //     }
+        // }
+        // if(secondaryEmail !=="")
+        // {
+        //     if(testEmail.test(secondaryEmail)==false)
+        //     {
+        //         swal.fire( "'Enter valid Email");
+        //         return false;
+        //     }
+        // }
         if(paymentTerms=='')
         {
             swal.fire( "'Enter carrier PaymentTerms");
@@ -490,12 +623,27 @@ $(document).ready(function () {
                     // console.log(data)                    
                     swal.fire("Done!", "External Carrier added successfully", "success");
                     $('#AddExternalCarrier').modal('hide');
+                    $('.step_1').addClass("form-stepper-active");
+                    $(".step_1").removeClass("form-stepper-completed");
+                    $('.step_2').addClass("form-stepper-unfinished ");
+                    $(".step_2").removeClass("form-stepper-active");
+                    $(".step_2").removeClass("form-stepper-completed");
+                    $('.step_3').addClass("form-stepper-unfinished ");
+                    $(".step_3").removeClass("form-stepper-active");
+                    $(".step_3").removeClass("form-stepper-completed");
+                    $('.step_4').addClass("form-stepper-unfinished ");
+                    $(".step_4").removeClass("form-stepper-active");
+                    $(".step_4").removeClass("form-stepper-completed");
+                    $("#step-1").removeClass("d-none");
+                    $("#step-2").addClass("d-none");
+                    $("#step-3").addClass("d-none");
+                    $("#step-4").addClass("d-none");
                     $.ajax({
                         type: "GET",
                         url: base_path + "/admin/getExternalCarrier",
                         async: false,
                         success: function (text) {
-                            console.log(text);
+                            // console.log(text);
                             createExternalCarrier(text);
                             ExternalCarrierResult = text;
                         }
@@ -516,6 +664,21 @@ $(document).ready(function () {
                 success: function(data) {
                     // console.log(data)                    
                     swal.fire("Done!", "External Carrier Update successfully", "success");
+                    $('.step_1').addClass("form-stepper-active");
+                    $(".step_1").removeClass("form-stepper-completed");
+                    $('.step_2').addClass("form-stepper-unfinished ");
+                    $(".step_2").removeClass("form-stepper-active");
+                    $(".step_2").removeClass("form-stepper-completed");
+                    $('.step_3').addClass("form-stepper-unfinished ");
+                    $(".step_3").removeClass("form-stepper-active");
+                    $(".step_3").removeClass("form-stepper-completed");
+                    $('.step_4').addClass("form-stepper-unfinished ");
+                    $(".step_4").removeClass("form-stepper-active");
+                    $(".step_4").removeClass("form-stepper-completed");
+                    $("#step-1").removeClass("d-none");
+                    $("#step-2").addClass("d-none");
+                    $("#step-3").addClass("d-none");
+                    $("#step-4").addClass("d-none");
                     $('#AddExternalCarrier').modal('hide');
                     $.ajax({
                         type: "GET",
@@ -552,20 +715,51 @@ $(document).ready(function () {
             async: false,
             data:{id:id, comId:comId},
             success: function(text) {
-                // var openiDate=text.openingDate;
-                // var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-                // var date = new Date(openiDate*1000);
-                // var year = date.getFullYear();
-                // var month = months_arr[date.getMonth()];
-                // var day = date.getDate();
-                // if(day <=9 )
-                // {
-                //     var openingDate = year+'-0'+day+'-'+month;
-                // }
-                // else
-                // {
-                //     var openingDate = year+'-'+month+'-'+day;
-                // }
+                var autoInsExpiryDat=text.autoInsExpiryDate;
+                var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                var date_autoInsExpiryDate = new Date(autoInsExpiryDat*1000);
+                var year_autoInsExpiryDate = date_autoInsExpiryDate.getFullYear();
+                var month_autoInsExpiryDate = months_arr[date_autoInsExpiryDate.getMonth()];
+                var day_autoInsExpiryDate = date_autoInsExpiryDate.getDate();
+                if(day_autoInsExpiryDate <=9 )
+                {
+                    var autoInsExpiryDate = year_autoInsExpiryDate+'-0'+day_autoInsExpiryDate+'-'+month_autoInsExpiryDate;
+                }
+                else
+                {
+                    var autoInsExpiryDate = year_autoInsExpiryDate+'-'+month_autoInsExpiryDate+'-'+day_autoInsExpiryDate;
+                }
+
+                var insuranceExpDat=text.insuranceExpDate;
+                var date_insuranceExpDate = new Date(insuranceExpDat*1000);
+                var year_insuranceExpDate = date_insuranceExpDate.getFullYear();
+                var month_insuranceExpDate = months_arr[date_insuranceExpDate.getMonth()];
+                var day_insuranceExpDate = date_insuranceExpDate.getDate();
+                if(day_insuranceExpDate <=9 )
+                {
+                    var insuranceExpDate = year_insuranceExpDate+'-0'+day_insuranceExpDate+'-'+month_insuranceExpDate;
+                }
+                else
+                {
+                    var insuranceExpDate = year_insuranceExpDate+'-'+month_insuranceExpDate+'-'+day_insuranceExpDate;
+                }
+
+                var cargoExpiryDat=text.cargoExpiryDate;
+                var date_cargoExpiryDate = new Date(cargoExpiryDat*1000);
+                var year_cargoExpiryDate = date_cargoExpiryDate.getFullYear();
+                var month_cargoExpiryDate = months_arr[date_cargoExpiryDate.getMonth()];
+                var day_cargoExpiryDate = date_cargoExpiryDate.getDate();
+                if(day_cargoExpiryDate <=9 )
+                {
+                    var cargoExpiryDate = year_cargoExpiryDate+'-0'+day_cargoExpiryDate+'-'+month_cargoExpiryDate;
+                }
+                else
+                {
+                    var cargoExpiryDate = year_cargoExpiryDate+'-'+month_cargoExpiryDate+'-'+day_cargoExpiryDate;
+                }
+
+
+            
                 var equArLenth=text.equipment.length;
                 $('.update_external_carrier_id').val(text._id);
                 $('.update_external_carrier_Comid').val(text.companyID);
@@ -582,6 +776,7 @@ $(document).ready(function () {
                 $('#carrierTaxID').val(text.taxID);
                 $("#carrierPayTerms").val(text.paymentTerms);
                 $('#carrierMC').val(text.mc);
+                $("#carrierDOT").val(text.dot);
                 $('#carrierFactoring').val(text.factoringCompany);
                 $('#carrierNotes').val(text.carrierNotes);
                 if(text.blacklisted=='on')
@@ -597,7 +792,7 @@ $(document).ready(function () {
                 $('#carrierFax').val(text.fax);
                 $('#liabilityCompany').val(text.autoInsuranceCompany);
                 $('#liabilityPolicy').val(text.autoInsPolicyNo);
-                $('#liabilityExpDate').val(text.autoInsExpiryDate);
+                $('#liabilityExpDate').val(autoInsExpiryDate);
                 $('#liabilityTelephone').val(text.autoInsTelephone);
                 $('#liabilityEXT').val(text.autoInsExt);
                 $('#liabilityContact').val(text.liabilityContact);
@@ -605,7 +800,7 @@ $(document).ready(function () {
                 $('#liabilityNotes').val(text.autoInsuranceNotes);
                 $('#insuranceCompany').val(text.insuranceLiabilityCompany);
                 $('#insurancePolicy').val(text.insurancePolicyNo);
-                $('#insuranceExpDate').val(text.insuranceExpDate);
+                $('#insuranceExpDate').val(insuranceExpDate);
                 $('#insuranceTelephone').val(text.insuranceTelephone);
                 $('#insuranceExt').val(text.insuranceExt);
                 $('#insuranceContactName').val(text.insuranceContactName);
@@ -613,7 +808,7 @@ $(document).ready(function () {
                 $('#insuranceNotes').val(text.insuranceNotes);
                 $('#cargoName').val(text.cargoCompany);
                 $('#cargoPolicy').val(text.cargoPolicyNo);
-                $('#cargoExpDate').val(text.cargoExpiryDate);
+                $('#cargoExpDate').val(cargoExpiryDate);
                 $('#cargoTelephone').val(text.cargoTelephone);
                 $('#cargoExt').val(text.cargoExt);
                 $('#cargoContactName').val(text.cargoContactName);
@@ -835,4 +1030,5 @@ $(document).ready(function () {
         });
     });
     //==============================end restore fuel card =====================================
+
 });

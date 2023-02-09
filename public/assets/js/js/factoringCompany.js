@@ -53,7 +53,8 @@ $(document).ready(function() {
             
             if (consigneelen > 0) {
                 var no=1; 
-                for(var j=0;j<consigneelen;j++)
+                
+                for(var j = consigneelen-1; j >= 0; j--)
                 {
                     var data= factoringCompanyResult.FactCompany[j];
                     $.each(data, function(i, v) { 

@@ -215,13 +215,13 @@
                                                     <div class="form-group col-md-2 loan">
                                                         <label>Payee <span class="mandatory">*</span></label>
                                                         <div>
-                                                            <input class="form-control" placeholder="Payee" type="text" id="">
+                                                            <input class="form-control" placeholder="Payee" type="text" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-4 loan" >
                                                         <label>PO BOX# </label>
                                                         <div>
-                                                            <input class="form-control" placeholder="PO BOX#" type="text" id="">
+                                                            <input class="form-control" placeholder="PO BOX#" type="text" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-4 ">
@@ -264,7 +264,7 @@
                                                     </div>
                                                     <div class="form-group col-md-2 otherCashBank" >
                                                         <label>Transaction Date <span class="mandatory">*</span></label>
-                                                        <input class="form-control" type="date" id="">
+                                                        <input class="form-control" type="date" >
                                                     </div>
                                                     <div class="form-group col-md-4 driver">
                                                         <label>Cheque #</label>
@@ -285,7 +285,7 @@
                                                 <div class="form-group col-md-4">
                                                     <label>Memo</label>
                                                     <div>
-                                                        <textarea rows="2" cols="30" class="form-control" type="textarea" id="" placeholder="Memo *" name="internal_note" required></textarea>
+                                                        <textarea rows="2" cols="30" class="form-control" type="textarea"  placeholder="Memo *" name="internal_note" required></textarea>
                                                         <input type="hidden" id="companyId" value="<?php echo Auth::user()->userName ?>">
                                                         <input type="hidden" id="company-user-name" value="<?php echo Auth::user()->userName; ?>">
                                                     </div>
@@ -342,7 +342,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" style="vertical-align:middle" class="button-29 saveAddPaymentRegistrion" id="" >Save</button>
+                    <button type="button" style="vertical-align:middle" class="button-29 saveAddPaymentRegistrion"  >Save</button>
                     <button type="button"style="vertical-align:middle" class=" closeAddPaymentRegistrion button-29" >Close</button>
                 </div>          
             </div>

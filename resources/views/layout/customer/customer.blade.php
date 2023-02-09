@@ -449,7 +449,7 @@
                                 <input type="text" class="form-control" id="factoringCompanyContactEmail" placeholder=" Enter Contact Email" >
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="customerCurrencySetting">Currency Setting <span class="glyphicon glyphicon-plus-sign" id="plusCurrency2" ></span> </label>
+                                <label for="customerCurrencySetting">Currency Setting <span style="color:red">*</span><span class="glyphicon glyphicon-plus-sign" style="color:blue !important" id="plusCurrency2" ></span> </label>
                                 <div class="dropdown show">
                                     <input class="form-control customerCurrencySet " list="customerCurrencySet" name="currency" id="currency1">
                                     <datalist id="customerCurrencySet" class="customerCurrencySet"></datalist>    
@@ -457,7 +457,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                     <label for="customerPaymentTerms">Payment Terms <span style="color: red">*</span></label>
-                                            <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
+                                            <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms2" data-name="plusPaymentTerms" style='color:blue !important'></i>
                                     <div class="dropdown show">
                                       
                                         <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="PaymentTerms1">

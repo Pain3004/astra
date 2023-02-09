@@ -35,7 +35,7 @@
                                                         
                                                         <table id="editable-file-datatable" style="margin-bottom : -360rem" class="table editable-table table-nowrap table-bordered table-edit wp-100"> -->
 
-                                                <!-- <table id="" class="table editable-table table-nowrap table-bordered table-edit wp-100"> -->
+                                                <!-- <table class="table editable-table table-nowrap table-bordered table-edit wp-100"> -->
                                                 <thead class="thead_th">
                                                     <tr class="tr">
                                                         <!-- <th>counter</th> -->

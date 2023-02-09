@@ -84,7 +84,7 @@ $(document).ready(function() {
                     var  internalNotes=shipperResult.shipper.shipper[i].internalNotes;
                     var  deleteStatus=shipperResult.shipper.shipper[i].deleteStatus;
                     var  insertedTime1=shipperResult.shipper.shipper[i].insertedTime;
-                    if(shipperName !="" && shipperName !=null)
+                    if(shipperName !=="" && shipperName !==null)
                     {
                         shipperName=shipperName; 
                     }
@@ -92,7 +92,7 @@ $(document).ready(function() {
                     {
                         shipperName="----";
                     }
-                    if(shipperAddress !="" && shipperAddress !=null)
+                    if(shipperAddress !=="" && shipperAddress !==null)
                     {
                         shipperAddress=shipperAddress; 
                     }
@@ -100,7 +100,7 @@ $(document).ready(function() {
                     {
                         shipperAddress="----";
                     }
-                    if(shipperLocation !="" &&shipperLocation  !=null)
+                    if(shipperLocation !=="" &&shipperLocation  !==null)
                     {
                         shipperLocation=shipperLocation; 
                     }
@@ -108,7 +108,7 @@ $(document).ready(function() {
                     {
                         shipperLocation="----";
                     }
-                    if(shipperPostal !="" && shipperPostal !=null)
+                    if(shipperPostal !=="" && shipperPostal !==null)
                     {
                         shipperPostal=shipperPostal; 
                     }
@@ -116,7 +116,7 @@ $(document).ready(function() {
                     {
                         shipperPostal="----";
                     }
-                    if(shipperContact !="" &&  shipperContact!=null)
+                    if(shipperContact !=="" &&  shipperContact!==null)
                     {
                         shipperContact=shipperContact; 
                     }
@@ -124,7 +124,7 @@ $(document).ready(function() {
                     {
                         shipperContact="----";
                     }
-                    if(shipperTelephone !="" && shipperTelephone !=null)
+                    if(shipperTelephone !=="" && shipperTelephone !==null)
                     {
                         shipperTelephone=shipperTelephone; 
                     }
@@ -132,7 +132,7 @@ $(document).ready(function() {
                     {
                         shipperTelephone="----";
                     }
-                    if(shipperExt !="" &&  shipperExt!=null)
+                    if(shipperExt !=="" &&  shipperExt!==null)
                     {
                         shipperExt=shipperExt; 
                     }
@@ -140,7 +140,7 @@ $(document).ready(function() {
                     {
                         shipperExt="----";
                     }
-                    if(shipperTollFree !="" &&  shipperTollFree!=null)
+                    if(shipperTollFree !=="" &&  shipperTollFree!==null)
                     {
                         shipperTollFree=shipperTollFree; 
                     }
@@ -148,7 +148,7 @@ $(document).ready(function() {
                     {
                         shipperTollFree="----";
                     }
-                    if(shipperFax !="" && shipperFax !=null)
+                    if(shipperFax !=="" && shipperFax !==null)
                     {
                         shipperFax=shipperFax; 
                     }
@@ -156,7 +156,7 @@ $(document).ready(function() {
                     {
                         shipperFax="----";
                     }
-                    if(shipperShippingHours !="" && shipperShippingHours !=null)
+                    if(shipperShippingHours !=="" && shipperShippingHours !==null)
                     {
                         shipperShippingHours=shipperShippingHours; 
                     }
@@ -164,7 +164,7 @@ $(document).ready(function() {
                     {
                         shipperShippingHours="----";
                     }
-                    if(shipperAppointments !="" &&  shipperAppointments!=null)
+                    if(shipperAppointments !=="" &&  shipperAppointments!==null)
                     {
                         shipperAppointments=shipperAppointments; 
                     }
@@ -172,7 +172,7 @@ $(document).ready(function() {
                     {
                         shipperAppointments="----";
                     }
-                    if(shipperIntersaction !="" && shipperIntersaction !=null)
+                    if(shipperIntersaction !=="" && shipperIntersaction !==null)
                     {
                         shipperIntersaction=shipperIntersaction; 
                     }
@@ -180,7 +180,7 @@ $(document).ready(function() {
                     {
                         shipperIntersaction="----";
                     }
-                    if(shipperStatus !="" &&  shipperStatus!=null)
+                    if(shipperStatus !=="" &&  shipperStatus!==null)
                     {
                         shipperStatus=shipperStatus; 
                     }
@@ -188,7 +188,7 @@ $(document).ready(function() {
                     {
                         shipperStatus="----";
                     }
-                    if(shippingNotes !="" &&  shippingNotes!=null)
+                    if(shippingNotes !=="" &&  shippingNotes!==null)
                     {
                         shippingNotes=shippingNotes; 
                     }
@@ -196,7 +196,7 @@ $(document).ready(function() {
                     {
                         shippingNotes="----";
                     }
-                    if(internalNotes !="" &&internalNotes  !=null)
+                    if(internalNotes !=="" &&internalNotes  !==null)
                     {
                         internalNotes=internalNotes; 
                     }
@@ -289,7 +289,7 @@ $(document).ready(function() {
                     var  consigneeInternalNote=shipperResult.consignee.consignee[i].consigneeInternalNote;
                     var  deleteStatus=shipperResult.consignee.consignee[i].deleteStatus;
                     var  insertedTime1=shipperResult.consignee.consignee[i].insertedTime;
-                    if(consigneeName !="" && consigneeName !=null)
+                    if(consigneeName !=="" && consigneeName !==null)
                     {
                         consigneeName=consigneeName; 
                     }
@@ -297,7 +297,7 @@ $(document).ready(function() {
                     {
                         consigneeName="----";
                     }
-                    if(consigneeAddress !="" && consigneeAddress  !=null)
+                    if(consigneeAddress !=="" && consigneeAddress  !==null)
                     {
                         consigneeAddress=consigneeAddress; 
                     }
@@ -305,7 +305,7 @@ $(document).ready(function() {
                     {
                         consigneeAddress="----";
                     }
-                    if(consigneeLocation !="" && consigneeLocation !=null)
+                    if(consigneeLocation !=="" && consigneeLocation !==null)
                     {
                         consigneeLocation=consigneeLocation; 
                     }
@@ -313,7 +313,7 @@ $(document).ready(function() {
                     {
                         consigneeLocation="----";
                     }
-                    if(consigneePostal !="" && consigneePostal  !=null)
+                    if(consigneePostal !=="" && consigneePostal  !==null)
                     {
                         consigneePostal=consigneePostal; 
                     }
@@ -321,7 +321,7 @@ $(document).ready(function() {
                     {
                         consigneePostal="----";
                     }
-                    if(consigneeContact !="" && consigneeContact !=null)
+                    if(consigneeContact !=="" && consigneeContact !==null)
                     {
                         consigneeContact=consigneeContact; 
                     }
@@ -329,7 +329,7 @@ $(document).ready(function() {
                     {
                         consigneeContact="----";
                     }
-                    if(consigneeEmail !="" && consigneeEmail  !=null)
+                    if(consigneeEmail !=="" && consigneeEmail  !==null)
                     {
                         consigneeEmail=consigneeEmail;
                     }
@@ -337,7 +337,7 @@ $(document).ready(function() {
                     {
                         consigneeEmail="----";
                     }
-                    if(consigneeTelephone !="" &&  consigneeTelephone!=null)
+                    if(consigneeTelephone !=="" &&  consigneeTelephone!==null)
                     {
                         consigneeTelephone=consigneeTelephone; 
                     }
@@ -345,7 +345,7 @@ $(document).ready(function() {
                     {
                         consigneeTelephone="----";
                     }
-                    if(consigneeExt !="" && consigneeExt !=null)
+                    if(consigneeExt !=="" && consigneeExt !==null)
                     {
                         consigneeExt=consigneeExt; 
                     }
@@ -353,7 +353,7 @@ $(document).ready(function() {
                     {
                         consigneeExt="----";
                     }
-                    if(consigneeTollFree !="" && consigneeTollFree !=null)
+                    if(consigneeTollFree !=="" && consigneeTollFree !==null)
                     {
                         consigneeTollFree=consigneeTollFree; 
                     }
@@ -361,7 +361,7 @@ $(document).ready(function() {
                     {
                         consigneeTollFree="----";
                     }
-                    if(consigneeFax !="" &&consigneeFax  !=null)
+                    if(consigneeFax !=="" &&consigneeFax  !==null)
                     {
                         consigneeFax=consigneeFax; 
                     }
@@ -369,7 +369,7 @@ $(document).ready(function() {
                     {
                         consigneeFax="----";
                     }
-                    if(consigneeReceiving !="" && consigneeReceiving !=null)
+                    if(consigneeReceiving !=="" && consigneeReceiving !==null)
                     {
                         consigneeReceiving=consigneeReceiving; 
                     }
@@ -377,7 +377,7 @@ $(document).ready(function() {
                     {
                         consigneeShippingHours="----";
                     }
-                    if(consigneeAppointments !="" &&  consigneeAppointments!=null)
+                    if(consigneeAppointments !=="" &&  consigneeAppointments!==null)
                     {
                         consigneeAppointments=consigneeAppointments; 
                     }
@@ -385,7 +385,7 @@ $(document).ready(function() {
                     {
                         consigneeAppointments="----";
                     }
-                    if(consigneeIntersaction !="" && consigneeIntersaction !=null)
+                    if(consigneeIntersaction !=="" && consigneeIntersaction !==null)
                     {
                         consigneeIntersaction=consigneeIntersaction; 
                     }
@@ -393,7 +393,7 @@ $(document).ready(function() {
                     {
                         consigneeIntersaction="----";
                     }
-                    if(consigneeStatus !="" && consigneeStatus !=null)
+                    if(consigneeStatus !=="" && consigneeStatus !==null)
                     {
                         consigneeStatus=consigneeStatus; 
                     }
@@ -401,7 +401,7 @@ $(document).ready(function() {
                     {
                         consigneeStatus="----";
                     }
-                    if(consigneeRecivingNote !="" && consigneeRecivingNote !=null)
+                    if(consigneeRecivingNote !=="" && consigneeRecivingNote !==null)
                     {
                         consigneeRecivingNote=consigneeRecivingNote; 
                     }
@@ -409,7 +409,7 @@ $(document).ready(function() {
                     {
                         consigneeRecivingNote="----";
                     }
-                    if(consigneeInternalNote !="" && consigneeInternalNote !=null)
+                    if(consigneeInternalNote !=="" && consigneeInternalNote !==null)
                     {
                         consigneeInternalNote=consigneeInternalNote; 
                     }

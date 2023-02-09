@@ -24,8 +24,7 @@ class ExternalCarrierController extends Controller
     //     $Carrier=collect($Carrier->carrier);
     //     $Carrier = $Carrier->chunk(4);
     //    $Carrier= $Carrier->toArray();
-    //    dd($Carrier);
-       
+    //    dd($Carrier);       
         return response()->json($Carrier, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function storeExternalCarrier(Request $request)
@@ -64,6 +63,7 @@ class ExternalCarrierController extends Controller
                     );
                 }
             }
+            // dd($request->dot);
             $equArray=array($equArray);
             $openingDate=$request->openingDate;
             $openingDate = strtotime($openingDate);
@@ -90,7 +90,7 @@ class ExternalCarrierController extends Controller
                 'corporation' => $request->corporation,
                 'autoInsuranceCompany' => $request->autoInsuranceCompany,
                 'autoInsPolicyNo' => $request->autoInsPolicyNo,
-                'autoInsExpiryDate' => $request->autoInsExpiryDate,
+                'autoInsExpiryDate' => strtotime($request->autoInsExpiryDate),
                 'autoInsTelephone' => $request->autoInsTelephone,
                 'autoInsExt' => $request->autoInsExt,
                 'liabilityContact' => $request->liabilityContact,
@@ -98,7 +98,7 @@ class ExternalCarrierController extends Controller
                 'autoInsuranceNotes' => $request->autoInsuranceNotes,
                 'insuranceLiabilityCompany' => $request->insuranceLiabilityCompany,
                 'insurancePolicyNo' => $request->insurancePolicyNo,
-                'insuranceExpDate' => $request->insuranceExpDate,
+                'insuranceExpDate' => strtotime($request->insuranceExpDate),
                 'insuranceTelephone' => $request->insuranceTelephone,
                 'insuranceExt' => $request->insuranceExt,
                 'insuranceContactName' => $request->insuranceContactName,
@@ -106,7 +106,7 @@ class ExternalCarrierController extends Controller
                 'insuranceNotes' => $request->insuranceNotes,
                 'cargoCompany' => $request->cargoCompany,
                 'cargoPolicyNo' => $request->cargoPolicyNo,
-                'cargoExpiryDate' => $request->cargoExpiryDate,
+                'cargoExpiryDate' => strtotime($request->cargoExpiryDate),
                 'cargoTelephone' => $request->cargoTelephone,
                 'cargoExt' => $request->cargoExt,
                 'cargoContactName' => $request->cargoContactName,
@@ -191,6 +191,7 @@ class ExternalCarrierController extends Controller
     }
     public function updateExternalCarrier(Request $request)
     {
+        // dd($request->dot);
         $id=$request->id;
         $companyID=(int)25;
         $quantity=$request->quantity;
@@ -247,7 +248,7 @@ class ExternalCarrierController extends Controller
         $CarrierArray[$v]['corporation']=$request->corporation; 
         $CarrierArray[$v]['autoInsuranceCompany']=$request->autoInsuranceCompany; 
         $CarrierArray[$v]['autoInsPolicyNo']=$request->autoInsPolicyNo; 
-        $CarrierArray[$v]['autoInsExpiryDate']=$request->autoInsExpiryDate; 
+        $CarrierArray[$v]['autoInsExpiryDate']=strtotime($request->autoInsExpiryDate); 
         $CarrierArray[$v]['autoInsTelephone']=$request->autoInsTelephone; 
         $CarrierArray[$v]['autoInsExt']=$request->autoInsExt; 
         $CarrierArray[$v]['liabilityContact']=$request->liabilityContact; 
@@ -255,7 +256,7 @@ class ExternalCarrierController extends Controller
         $CarrierArray[$v]['autoInsuranceNotes']=$request->autoInsuranceNotes; 
         $CarrierArray[$v]['insuranceLiabilityCompany']=$request->insuranceLiabilityCompany; 
         $CarrierArray[$v]['insurancePolicyNo']=$request->insurancePolicyNo; 
-        $CarrierArray[$v]['insuranceExpDate']=$request->insuranceExpDate; 
+        $CarrierArray[$v]['insuranceExpDate']=strtotime($request->insuranceExpDate); 
         $CarrierArray[$v]['insuranceTelephone']=$request->insuranceTelephone; 
         $CarrierArray[$v]['insuranceExt']=$request->insuranceExt; 
         $CarrierArray[$v]['insuranceContactName']=$request->insuranceContactName; 
@@ -263,7 +264,7 @@ class ExternalCarrierController extends Controller
         $CarrierArray[$v]['insuranceNotes']=$request->insuranceNotes; 
         $CarrierArray[$v]['cargoCompany']=$request->cargoCompany; 
         $CarrierArray[$v]['cargoPolicyNo']=$request->cargoPolicyNo; 
-        $CarrierArray[$v]['cargoExpiryDate']=$request->cargoExpiryDate; 
+        $CarrierArray[$v]['cargoExpiryDate']=strtotime($request->cargoExpiryDate); 
         $CarrierArray[$v]['cargoTelephone']=$request->cargoTelephone; 
         $CarrierArray[$v]['cargoExt']=$request->cargoExt; 
         $CarrierArray[$v]['cargoContactName']=$request->cargoContactName; 

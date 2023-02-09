@@ -18,7 +18,7 @@ class UserController extends Controller
 {
     public function addUsers(Request $request)
     {
-        // dd($request->inser_user);
+        //dd($request);
 		// $data = $db->companyAdmin->findOne(["_id"=> (int)$_SESSION['companyId']]);
         // $flag = false;
         // $flagfield = '';
@@ -74,7 +74,7 @@ class UserController extends Controller
                 // print_r($request->userPass);die;
                 if (User::create([
                     'counter' => 0,
-                    'companyName' => $request->input('companyName'),
+                    // 'companyName' => $request->input('companyName'),
                     // 'companyID' => (int)$_SESSION['companyId'],
                     'userEmail' => $request->input('userEmail'),
                     'companyName' => $request->input('companyName'),
@@ -90,54 +90,58 @@ class UserController extends Controller
                     'TollFree' => $request->TollFree,
                     'userFax' => $request->userFax,
                     'privilege' => (object)array(
-                        'insertUser' => $request->inser_user,
-                        'updateUser' => $request->update_user,
-                        'deleteUser' => $request->delete_user,
-                        'importUser' => $request->import_user,
-                        'exportUser' => $request->export_user,
+                        'insertUser' => (int)$request->inser_user,
+                        'updateUser' => (int)$request->update_user,
+                        'deleteUser' => (int)$request->delete_user,
+                        'importUser' => (int)$request->import_user,
+                        'exportUser' => (int)$request->export_user,
                     ),
                     'dashboard' => (object)array(
-                        'profit_loss' => (int)$request->input('profit_loss'),
+                        'profit_loss' =>(int)$request->input('profit_loss'),
                         'dispatcher' => (int)$request->input('dispatcher'),
                         'driver' => (int)$request->input('driver'),
-                        'company' => (int)$request->input('company'),
+                        'company' =>(int) $request->input('company'),
                         'truck' => (int)$request->input('truck'),
-                        'carrier' => (int)$request->input('carrier'),
+                        'carrier' =>(int)$request->input('carrier'),
                         'equipment' => (int)$request->input('equipment'),
-                        'sales_representative' => (int)$request->input('sales_representative'),
+                        'sales_representative' =>(int) $request->input('sales_representative'),
                         'new_active_load' => (int)$request->input('new_active_load'),
                     ),
                     'master' => (object)array(
                         
                         // 'master' => $request->input('master'),
                         'addCompany' => (int)$request->input('addCompany'),
-                        'paymentTerms' => (int)$request->input('paymentTerms'),
                         'office' => (int)$request->input('office'),
-                        'equipmentType' => (int)$request->input('equipmentType'),
-                        'truckType' => (int)$request->input('truckType'),
-                        'trailerType' => (int)$request->input('trailerType'),
+                        'currencySetting' => (int)$request->input('currencySetting'),
+                        'paymentTerms' => (int)$request->input('paymentTerms'),
+                        'termCondition' => (int)$request->input('termCondition'),
                         'statusType' => (int)$request->input('statusType'),
                         'loadType' => (int)$request->input('loadType'),
-                        // 'bankCategory' => $request->input('bankCategory'),
-                        'addNote' => (int)$request->input('addNote'),
-                        'currencySetting' => (int)$request->input('currencySetting'),
-                        'fixPayCategory' => (int)$request->input('fixPayCategory'),
-                        'fuelCardType' => (int)$request->input('fuelCardType'),
-                        'dispactherIncentive' =>  (int)$request->input('dispactherIncentive'),
-                        'salesIncentive' =>  (int)$request->input('salesIncentive'),
-                        'documentType' => (int)$request->input('documentType')
+                        'equipmentType' => (int)$request->input('equipmentType'),
+                        'reccuranceCategory' => (int)$request->input('reccuranceCategory'),
+                        'trucktrailerType' => (int)$request->input('truckType'),
+                        'userPrivillege' => (int)$request->input('userPrivillege'),
+                        'setting' => (int)$request->input('setting'),
+
+                        // 'addNote' => (int)$request->input('addNote'),
+                        
+                        // 'fixPayCategory' => (int)$request->input('fixPayCategory'),
+                        // 'fuelCardType' => (int)$request->input('fuelCardType'),
+                        // 'dispactherIncentive' =>  (int)$request->input('dispactherIncentive'),
+                        // 'salesIncentive' =>  (int)$request->input('salesIncentive'),
+                        // 'documentType' => (int)$request->input('documentType')
                     ),
                     'admin' => (object)array(
-                        'admin' => $request->admin,
-                        'customer'=>$request->customer,
-                        'shipper_Consignee'=>$request->addShipper,
+                        'admin' => (int)$request->admin,
+                        'customer'=>(int)$request->customer,
+                        'shipper_Consignee'=>(int)$request->addShipper,
                         // 'consignee' =>$request->addConsignee,
-                        'external_carrier'=>$request->external_carrier,
-                        'driver_owner_operator'=>$request->driver_owner_operator,
-                        'user'=>$request->user,
-                        'truck'=>$request->truck,
-                        'trailer'=>$request->trailer,
-                        'factoring_Company'=>$request->factoringCompany,
+                        'external_carrier'=>(int)$request->external_carrier,
+                        'driver_owner_operator'=>(int)$request->driver_owner_operator,
+                        'user'=>(int)$request->user,
+                        'truck'=>(int)$request->truck,
+                        'trailer'=>(int)$request->trailer,
+                        'factoring_Company'=>(int)$request->factoringCompany,
                         // 'addCustomer' => (int)$request->input('addCustomer'),
                         // 'addShipper' => (int)$request->input('addShipper'),
                         // 'addBank' => (int)$request->input('addBank'),
@@ -154,12 +158,12 @@ class UserController extends Controller
                         // 'iftaCard' => (int)$request->input('iftaCard'),
                     ),
                     'ifta' => (object)array(
-                        'ifta'=>$request->ifta,
-                        'fuel_vendor'=>$request->fuel_vendor,
-                        'iftaCard' => $request->iftaCard,
-                        'Fuel_reciepts_cash_advance' => $request->Fuel_reciepts_cash_advance,
-                        'tolls'=>$request->tolls,
-                        'IFTA_trips'=>$request->IFTA_trips,
+                        'ifta'=>(int)$request->ifta,
+                        'fuel_vendor'=>(int)$request->fuel_vendor,
+                        'iftaCard' =>(int) $request->iftaCard,
+                        'Fuel_reciepts_cash_advance' => (int)$request->Fuel_reciepts_cash_advance,
+                        'tolls'=>(int)$request->tolls,
+                        'IFTA_trips'=>(int)$request->IFTA_trips,
                         // 'ifta' => $request->input('ifta'),
                         // 'fuelReceipt' => (int)$request->input('fuelReceipt'),
                         // 'addToll' => (int)$request->input('addToll'),
@@ -167,12 +171,14 @@ class UserController extends Controller
                         // 'iftaReport' => $request->input('iftaReport'),
                     ),
                     'account' => (object)array(
-                        'account'=>$request->Finance,
-                        'bank'=>$request->bank,
-                        'accountManager'=>$request->accountManager,
-                        'paymentRegistration'=>$request->paymentRegistration,
-                        'sub_credit_card'=>$request->advancePayment,
-                        'credit_card'=>$request->manageReceipt,
+                        'account'=>(int)$request->Finance,
+                        'bank'=>(int)$request->bank,
+                        'credit_card'=>(int)$request->creditCard,
+                        'sub_credit_card'=>(int)$request->subCreditCard,
+                        'accountManager'=>(int)$request->accountManager,
+                        'paymentRegistration'=>(int)$request->paymentRegistration,
+                        
+                        
                         // // 'account' => $request->input('account'),
                         // 'accountManager' => (int)$request->input('accountManager'),
                         // 'paymentRegistration' => (int)$request->input('paymentRegistration'),
@@ -180,11 +186,13 @@ class UserController extends Controller
                         // 'manageReceipt' => (int)$request->input('manageReceipt'),
                     ),
                     'reports' => (object)array(
-                        'report' => $request->report,
-                        'aggingReport'=>$request->aggingReport,
-                        'Report1099'=>$request->Report1099,
-                        'Expense_report'=>$request->Expense_report,
-                        'Revenue_report'=>$request->Revenue_report,
+                        'report' => (int)$request->report,
+                        'aggingReport'=>(int)$request->aggingReport,
+                        'Revenue_report'=>(int)$request->Revenue_report,
+                        'Expense_report'=>(int)$request->Expense_report,
+                        'Report1099'=>(int)$request->Report1099,
+                        
+                        
                         // 'creditStateReport' => (int)$request->input('creditStateReport'),
                         // 'bankStateReport' => (int)$request->input('bankStateReport'),
                         // 'driverReport' => (int)$request->input('driverReport'),
@@ -200,9 +208,11 @@ class UserController extends Controller
                     ),
 
                     'settlements' => (object)array(
-                        'driverReport' => (int)$request->input('driverReport'),
-                        // 'CustomerSettlement'=>$request->CustomerSettlement,
-                        // 'CarrierSettlement'=>$request->CarrierSettlement,
+                        'settlements' => (int)$request->input('settlements'),
+                        // 'driverReport' => (int)$request->input('driverReport'),
+                        'driverPaySettlements'=>(int)$request->input('driverPaySettlements'),
+                        'customerSettlement'=>(int)$request->input('customerSettlement'),
+                        'CarrierSettlement'=>(int)$request->input('carrierSettlement'),
                         // 'Factoringcompany'=>$request->Factoringcompany,
                     ),
 
@@ -214,29 +224,7 @@ class UserController extends Controller
                     'otp' => '',
                     'emailVerificationStatus' => 1,
                     ])
-                    // $decrese_user = $totalusers - 1;
-                    // if ($db->companyAdmin->updateOne(['_id' => (int)$_SESSION['companyId']], ['$set' => ['remainingUser' => $decrese_user]])) {
-                    //     if ($helper->decrementSubscriptionCounter($db, 'user', '603ce8da39d65c0d19526984', $makedecision['flagfield'])) {
-                    //         // Sent Email to user with Login Email and  Password
-                    //             $email = $this->getUserEmail();
-                    //             $mail = $obj->set_mail();
-                    //             $template = $obj->get_mailTemplate('welcomeuser');
-                    //             $name = $users->getUserFirstName() . " " . $users->getUserLastName();
-                    //             $mail->setFrom('noreply@windsondispatch.com', 'Windson Dispatch');
-                    //             $mail->addAddress($email);
-                    //             $mail->isHTML(true); // Set email format to HTML
-                    //             $mail->Subject = 'Alert From Windson Dispatch';
-                    //             $template = str_replace("@name@", $name, $template);
-                    //             $template = str_replace("@email@", $email, $template);
-                    //             $template = str_replace("@password@", $users->getUserPass(), $template);
-                    //             $mail->Body = $template;
-                    //             if($mail->send()){     
-                                    
-                    //             }else{
-                    //                 // echo 'Fail'.$mail->ErrorInfo;
-                    //             }
-                    //     }
-                    // }
+                    
                 ){
                         $success = true;
                         $message = "User added successfully";
@@ -422,56 +410,6 @@ class UserController extends Controller
         echo 'success';
 
     }
-
-    // public function changeTheme($db,$theme,$userid){
-    //     $mongo = $db->user->updateOne(['companyID' => (int)$_SESSION['companyId'], '_id' => (int)$userid],
-    //         ['$set' => ['mode' => $theme]]
-    //     );
-    //     if($mongo){
-    //         $data = $db->user->findOne(['_id' => (int)$userid]);
-    //         $company = $db->companyAdmin->findOne(['_id' => (int)$_SESSION['companyId']]);
-    //         $companydata = $db->User_Subscription->findOne(['companyID' => (int)$_SESSION['companyId']]);
-    //         $obj = new AuthJWT();
-    //         $values['company'] = 'user';
-    //         $values['authtoken'] = $token;
-    //         $values['onetimeid'] = $onetimeid;
-    //         $values['companyName'] = $data['companyName'];
-    //         $values['userName'] = $data['userFirstName']." ".$data['userLastName'];
-    //         $values['userId'] = $data['_id'];
-    //         $values['companyId'] = $data['companyID'];
-    //         $values['companyPass'] = $data['userPass'];
-    //         $values['adminname'] = $data['userFirstName']. " " .$data['userLastName'];
-    //         $values['theme'] = $data['mode'];
-    //         $values['lock'] = 'unset';
-    //         $values['user_type'] = $data['user_type'];
-    //         $values['companylogo'] = $company['logo']['filepath'];
-    //         if(isset($data['dashboard'])) {
-    //             $values['dashboard'] = json_encode($data['dashboard']);
-    //         }
-    //         $values['privilege'] = json_encode($data['privilege']);
-    //         $values['master'] = json_encode($data['master']);
-    //         $values['reports'] = json_encode($data['reports']);
-    //         $values['admin'] = json_encode($data['admin']);
-    //         $values['ifta'] = json_encode($data['ifta']);
-    //         $values['account'] = json_encode($data['account']);
-    //         $values['expiry'] = json_encode($companydata['subscription_end']);
-    //         $values['stripe_id'] = $companydata['stripeID'];
-    //         $values['plan'] = $companydata['planType'];
-    //         $values['subscription'] = $companydata['subscription'];
-    //         $jwtres = $obj->setJWT($values);
-    //         $token = $jwtres['jwt'];
-    //         $randomId = rand(100000,999999);
-    //         $_SESSION['logid'] = $randomId;
-    //         $onetimeid = $obj->setRandomid($randomId);
-    //         $extime = time() + (21600);
-    //         setcookie('__wid', $token, $extime, '', '', true, true);
-    //         echo 'success';
-    //     }else{
-    //         echo 'failed to update';
-    //     }
-    //     $_SESSION['theme'] = $theme;
-    // }
-
     public function getAllUser(Request $request){
         // $user = User::all();
         $user = User::where('id', '!=', Auth::user()->id)->where('deleteStatus',0)->get();
@@ -550,6 +488,7 @@ class UserController extends Controller
 
         return $pdf->download('Users.pdf');   
     }
+
     public function get_office_address(Request $request)
     {
         $companyId=(int)1;   

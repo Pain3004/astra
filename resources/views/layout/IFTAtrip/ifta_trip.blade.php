@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label>quarter</label>
-                            <select class="form-control quarterIftaTripFilter" id="" style="width: 175px;">
+                            <select class="form-control quarterIftaTripFilter"  style="width: 175px;">
                                 <?php $month = date("n");
                                 $yearQuarter = ceil($month / 3);
                                 for ($i = 1; $i <= 4; $i++) { ?>
@@ -238,7 +238,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="col-6">
-                                            <form id="" >
+                                            <form>
                                                 @csrf                                          
                                                 <div class="form-row">
                                                     <h4> Route Points</h4>

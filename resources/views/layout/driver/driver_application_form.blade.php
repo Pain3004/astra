@@ -1559,7 +1559,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-1">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="" name="" value="" checked style="text-align:right;">
+                            <input type="checkbox" class="form-check-input" name="" value="" checked style="text-align:right;">
                         </div>
                     </div>
                     <div class="form-group col-md-11">

@@ -1,21 +1,33 @@
+<?php 
+	$userdata=Auth::user();
+	$insertUser=$userdata->privilege['insertUser'];
+    // $updateUser=$userdata->privilege['updateUser'];
+    $deleteUser=$userdata->privilege['deleteUser'];
+    $importUser=$userdata->privilege['importUser'];
+    $exportUser=$userdata->privilege['exportUser'];
+ ?> 
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="companyModal" role="dialog">
         <div class="modal-dialog custom_modal modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Company</h5>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-
-                    </button>
+                    <button type="button" class="close closoCompanyModal">×</button>
                 </div>
-                <button href="#addCompanyModal" data-toggle="modal" data-target="#addCompanyModal"
-                    class="login_btn btn1 add1button" style="vertical-align:middle"><span>Add </span></button>
+
+                <div style="margin-top: 15px; margin-left: 15px;">
+
+                        @if($insertUser== 1)
+                            <a href="#" class="button-57_alt" id="addCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Company</span></a>
+                        @endif 
+                </div>
+                
                 <div class="modal-body" style="overflow-y: auto !important;">
 
                     <table id="editable-file-datatable1"
                         class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-                        <thead>
-                            <tr>
+                        <thead class="thead_th">
+                            <tr class="tr">
                                 <th>#</th>
                                 <th>No</th>
                                 <th>Company Name</th>
@@ -40,6 +52,7 @@
                     <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank"> -->
                     @csrf
                     <button class="btn btn-primary" style="vertical-align:middle"><span>Export</span></button>
+                    <button type="button" class="button-29 closoCompanyModal">Close</button>
                     </form>
                     <!-- <button class="btn btnclose" style="background-color:red;" data-bs-dismiss="modal">Close</button> -->
                 </div>
@@ -57,7 +70,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add Company</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close closoAddCompanyModal">&times;</button>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
@@ -88,14 +101,14 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="inputTelephoneNo4">Telephone No<span
                                                                 class="required"></span></label>
-                                                        <input type="tel" class="form-control telephone4"
+                                                        <input type="text" class="form-control telephone4"
                                                             name="inputTelephoneNo4" id="inputTelephoneNo4"
-                                                            placeholder="Telephone No">
+                                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputFaxNo4">Fax No</label>
                                                         <input type="text" class="form-control" name="inputFaxNo4"
-                                                            id="inputFaxNo4" placeholder="Fax No">
+                                                            id="inputFaxNo4" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -118,24 +131,27 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="customerBFactoringCompany">Factoring Company <span
-                                                                class="glyphicon glyphicon-plus-sign"
-                                                                id="plusFactoringCompany"></span></label>
+                                                                class="glyphicon glyphicon-plus-sign" style="color:blue !important ; cursor:pointer;"
+                                                                id="plusFactoringCompany4"></span></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control customerBFactoringCompanySet"
+                                                            
+                                                            <select class="form-control customerBFactoringCompanySet" name="customerBFactoringCompany" id="customerBFactoringCompany1" >                                              <option>Select Here</option>
+                                                            </select>
+                                                            <!-- <input class="form-control customerBFactoringCompanySet"
                                                                 list="customerBFactoringCompanySet"
                                                                 name="customerBFactoringCompany"
                                                                 id="customerBFactoringCompany1">
                                                             <datalist id="customerBFactoringCompanySet"
                                                                 class="customerBFactoringCompanySet">
                                                                 <option>Select Here</option>
-                                                            </datalist>
+                                                            </datalist> -->
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4">
                                                         <label for="inputWebsite4">Website</label>
-                                                        <input type="text" class="form-control" name="inputWebsite4"
+                                                        <input type="url" class="form-control" name="inputWebsite4"
                                                             id="inputWebsite4" placeholder="Website">
                                                     </div>
                                                     <div class="form-group col-md-4">
@@ -144,7 +160,8 @@
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <a type="submit" class="btn btn-primary" data-dismiss="modal" id="companyDataSubmit">Submit</a>
+                                                <a type="submit" class="button-29" data-dismiss="modal" id="companyDataSubmit">Submit</a>
+                                                <button type="button" class="button-29 closoAddCompanyModal">Close</button>
                                                 <br>
                                             </form>
                                             <br>

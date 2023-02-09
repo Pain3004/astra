@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('.plusCurrencyModalCloseButton').click(function(){
         $("#plusCurrencyModal").modal("hide");
     });
-    $('.closeCustomer').click(function(){
+    $('.close_customerModal').click(function(){
         $("#customerModal").modal("hide");
     });
 
@@ -143,7 +143,7 @@ $(document).ready(function() {
                         }
                        
                         if(delete_status=="NO"){
-                            var customerStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                            var customerStr = "<tr class='tr' data-id=" + (j + 1) + ">" +
                             //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
                                 "<td data-field='no'>" + no + "</td>" +
                                 "<td data-field='customerName' >" + custName + "</td>" +
@@ -541,7 +541,7 @@ $(document).ready(function() {
     });
 
     $("#closePaymentTermsModal").click(function(){
-        $('#PaymentTermsModal2').modal('show');
+        // $('#PaymentTermsModal2').modal('show');
         $("#PaymentTermsModal").modal("hide");
     });
 
@@ -671,14 +671,16 @@ $(document).ready(function() {
     //     });
     // });
 
-    function createCustomerBFactoringCompanyList(customerBFactoringCompanyResponse) {    
+    function createCustomerBFactoringCompanyList(customerBFactoringCompanyResponse) {  
+        var customerBFactoringCompanyLength = 0;  
         if (customerBFactoringCompanyResponse != null) {
-            customerBFactoringCompanyLength = customerBFactoringCompanyResponse.factoring.length;         
+           var customerBFactoringCompanyLength = customerBFactoringCompanyResponse.factoring.length;         
         }
 
         if (customerBFactoringCompanyLength > 0) {
             $(".customerBFactoringCompanySet").html('');
-            for (var i = 0; i < customerBFactoringCompanyLength; i++) {  
+           
+            for ( var i = customerBFactoringCompanyLength-1; i>= 0; i--) {  
                 var factoringCompanyname =customerBFactoringCompanyResponse.factoring[i].factoringCompanyname;
                 var factoringCompanyId =customerBFactoringCompanyResponse.factoring[i]._id;
                 var customerFactoringCompanyname = "<option  value='"+ factoringCompanyId +"'>"+ factoringCompanyname +"</option>"
@@ -732,71 +734,80 @@ $(document).ready(function() {
     //alert(currencyName);
         if(factoringCompanyName=='')
         {
-            swal.fire( "Enter factoring Company Name");
+            alert( "Enter factoring Company Name");
             return false;
         }
         if(factoringCompanyAddress=='')
         {
-            swal.fire( "Enter factoring Company Address");
+            alert( "Enter factoring Company Address");
             return false;
         }
         if(factoringCompanyLocation=='')
         {
-            swal.fire( "Enter factoring Company Location");
+            alert( "Enter factoring Company Location");
             return false;
         }
         if(factoringCompanyZip=='')
         {
-            swal.fire( "Enter factoring Company Zip");
+            alert( "Enter factoring Company Zip");
             return false;
         }
         if(factoringCompanycurrency=='')
         {
-            swal.fire( "Select Currency");
+            alert( "Select Currency");
             return false;
         }
         if(factoringCompanyPaymentTerms=='')
         {
-            swal.fire( "Select PaymentTerms");
+            alert( "Select PaymentTerms");
             return false;
         }
+        var formData = new FormData();
+        formData.append('_token',$("#_tokenCustomerFactoringCompany").val());
+        formData.append('factoringCompanyName',factoringCompanyName);
+        formData.append('factoringCompanyAddress',factoringCompanyAddress);
+        formData.append('factoringCompanyLocation',factoringCompanyLocation);
+        formData.append('factoringCompanyZip',factoringCompanyZip);
+        formData.append('factoringCompanyPrimaryContact',factoringCompanyPrimaryContact);
+        formData.append('factoringCompanyPrimaryContactTelephone',factoringCompanyPrimaryContactTelephone);
+        formData.append('factoringCompanyPrimaryContactExt',factoringCompanyPrimaryContactExt);
+        formData.append('factoringCompanyFax',factoringCompanyFax);
+        formData.append('factoringCompanySecondaryContact',factoringCompanySecondaryContact);
+        formData.append('factoringCompanySecondaryContactTelephone',factoringCompanySecondaryContactTelephone);
+        formData.append('factoringCompanySecondaryContactExt',factoringCompanySecondaryContactExt);
+        formData.append('factoringTollFree',factoringTollFree);
+        formData.append('factoringCompanyContactEmail',factoringCompanyContactEmail);
+        formData.append('factoringCompanycurrency',factoringCompanycurrency);
+        formData.append('factoringCompanyPaymentTerms',factoringCompanyPaymentTerms);
+        formData.append('factoringCompanyTaxID',factoringCompanyTaxID);
+        formData.append('factoringCompanyInternalNotes',factoringCompanyInternalNotes);
         $.ajax({
-            url: base_path+"/admin/factoringCompany",
             type: "POST",
-            datatype:"JSON",
-            data: {
-                _token: $("#_tokenCustomerFactoringCompany").val(),
-                factoringCompanyName: factoringCompanyName,
-                factoringCompanyAddress: factoringCompanyAddress,
-                factoringCompanyLocation: factoringCompanyLocation,
-                factoringCompanyZip: factoringCompanyZip,
-
-                factoringCompanyPrimaryContact: factoringCompanyPrimaryContact,
-                factoringCompanyPrimaryContactTelephone: factoringCompanyPrimaryContactTelephone,
-                factoringCompanyPrimaryContactExt: factoringCompanyPrimaryContactExt,
-                factoringCompanyFax: factoringCompanyFax,
-
-                factoringCompanySecondaryContact: factoringCompanySecondaryContact,
-                factoringCompanySecondaryContactTelephone: factoringCompanySecondaryContactTelephone,
-                factoringCompanySecondaryContactExt: factoringCompanySecondaryContactExt,
-                factoringTollFree: factoringTollFree,
-
-                factoringCompanyContactEmail: factoringCompanyContactEmail,
-                factoringCompanycurrency: factoringCompanycurrency,
-                factoringCompanyPaymentTerms: factoringCompanyPaymentTerms,
-                factoringCompanyTaxID: factoringCompanyTaxID,
-
-                factoringCompanyInternalNotes: factoringCompanyInternalNotes,
-            },
+            url: base_path+"/admin/factoringCompany",
+            async: false,
             cache: false,
+            contentType: false,
+            processData: false,
+            data:formData,
             success: function(dataCustomerfactoringCompanyResult){
-                console.log(dataCustomerfactoringCompanyResult);
+                // console.log(dataCustomerfactoringCompanyResult);
                 if(dataCustomerfactoringCompanyResult){
                     swal.fire("Factoring Company added successfully.");
                     $("#factoringCompanyModal").modal("hide");
                 }else{
                     swal.fire("Factoring Company not added successfully.");
                 }
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getCustomerBFactoringCompany",
+                    async: false,
+                    //dataType:JSON,
+                    success: function(customerBFactoringCompanyResult) {
+                        //console.log(customerCurrencyResult);
+                        createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
+                        customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
+                    }
+                });;
             }
         });
     });

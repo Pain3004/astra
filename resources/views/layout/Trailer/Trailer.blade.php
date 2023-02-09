@@ -303,7 +303,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="">
+        <form >
             @csrf
             <input type="hidden" name="_token" id="_tokenTrailer_Type" value="{{ csrf_token() }}" />
             <div class="form-group col-md-12">
@@ -340,7 +340,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" enctype="multipart/form-data">
+                                        <form  enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_EditTrailer" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="id" id="edit_trailer_id" >

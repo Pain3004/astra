@@ -126,7 +126,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form  >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_addFuelReceipts" value="{{ csrf_token() }}" />
                                             <div class="form-row">
@@ -275,7 +275,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form>
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_updateFuelReceipts" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="fuel_recepit_id" class="fuel_recepit_id_edit" >
