@@ -148,7 +148,7 @@ class CustomerController extends Controller
     }
 
     public function getCustomerBFactoringCompany(Request $request){
-        $companyIDForCustomer=2;
+        $companyIDForCustomer=(int)Auth::user()->companyID;;
         $customerBFactoringCompany = Factoring_company_add::where('companyID',$companyIDForCustomer)->first();
        // dd($customerCurr);
         return response()->json($customerBFactoringCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);

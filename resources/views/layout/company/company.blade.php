@@ -101,14 +101,14 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="inputTelephoneNo4">Telephone No<span
                                                                 class="required"></span></label>
-                                                        <input type="tel" class="form-control telephone4"
+                                                        <input type="text" class="form-control telephone4"
                                                             name="inputTelephoneNo4" id="inputTelephoneNo4"
-                                                            placeholder="Telephone No">
+                                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputFaxNo4">Fax No</label>
                                                         <input type="text" class="form-control" name="inputFaxNo4"
-                                                            id="inputFaxNo4" placeholder="Fax No">
+                                                            id="inputFaxNo4" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -131,24 +131,27 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="customerBFactoringCompany">Factoring Company <span
-                                                                class="glyphicon glyphicon-plus-sign"
-                                                                id="plusFactoringCompany"></span></label>
+                                                                class="glyphicon glyphicon-plus-sign" style="color:blue !important ; cursor:pointer;"
+                                                                id="plusFactoringCompany4"></span></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control customerBFactoringCompanySet"
+                                                            
+                                                            <select class="form-control customerBFactoringCompanySet" name="customerBFactoringCompany" id="customerBFactoringCompany1" >                                              <option>Select Here</option>
+                                                            </select>
+                                                            <!-- <input class="form-control customerBFactoringCompanySet"
                                                                 list="customerBFactoringCompanySet"
                                                                 name="customerBFactoringCompany"
                                                                 id="customerBFactoringCompany1">
                                                             <datalist id="customerBFactoringCompanySet"
                                                                 class="customerBFactoringCompanySet">
                                                                 <option>Select Here</option>
-                                                            </datalist>
+                                                            </datalist> -->
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4">
                                                         <label for="inputWebsite4">Website</label>
-                                                        <input type="text" class="form-control" name="inputWebsite4"
+                                                        <input type="url" class="form-control" name="inputWebsite4"
                                                             id="inputWebsite4" placeholder="Website">
                                                     </div>
                                                     <div class="form-group col-md-4">
@@ -157,7 +160,7 @@
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <a type="submit" class="btn btn-primary" data-dismiss="modal" id="companyDataSubmit">Submit</a>
+                                                <a type="submit" class="button-29" data-dismiss="modal" id="companyDataSubmit">Submit</a>
                                                 <button type="button" class="button-29 closoAddCompanyModal">Close</button>
                                                 <br>
                                             </form>

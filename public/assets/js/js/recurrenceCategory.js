@@ -380,8 +380,14 @@ $("#RecurrenceCategoryUpdate").click(function()
     });
 // ---------------------------------------------end restore  ---------------------------------------------
 // ---------------------------------------------plus Recurrence   ---------------------------------------------
+$('#addDriverRecurrence').click(function(){
+    $('#addRecurrence').modal('show');
+});
 $('#plusReccurence').click(function(){
     $('#addRecurrenceCategoryModal').modal('show');
+});
+$('.closeDriverAddRecurrence').click(function(){
+    $('#addRecurrence').modal('hide');
 });
 
 $('.driverPlusRecurrence').focus(function(){
@@ -422,6 +428,59 @@ function createPlusRecurrence(Result) {
         }
     }
 }
+
+$('#saveDriverAddRecurrence').click(function(){
+    var data=$('#adddriverRecurrenceForm').serialize()
+    $('#addRecurrence').modal('hide');
+});
+
+
+
+
+
 // ---------------------------------------------end plus Recurrence  ---------------------------------------------
+// ---------------------------------------------subtract Recurrence   ---------------------------------------------
+$('#substractRecurrenceModal').click(function(){
+    $('#substractRecurrence').modal('show');
+});
+$('#plusReccurencesubtract').click(function(){
+    $('#addRecurrenceCategoryModal').modal('show');
+});
+$('.closeDriverSubRecurrence').click(function(){
+    $('#substractRecurrence').modal('hide');
+});
+
+
+$('#saveDriverSubRecurrence').click(function(){
+    var data1=$('#subdriverRecurrenceForm').serialize()
+    $('#substractRecurrence').modal('hide');
+});
+// ---------------------------------------------end subtract Recurrence  ---------------------------------------------
+// ---------------------------------------------PayInfo   ---------------------------------------------
+$('#driverPayInfo').click(function(){
+    $('#driverPayInfoModal').modal('show');
+});
+
+$('.closeDriverPayInfo').click(function(){
+    $('#driverPayInfoModal').modal('hide');
+});
+
+$('#saveDriverPayInfo').click(function(){
+    var loadedmiles = $('#loadedmiles').val();
+    if(loadedmiles == ''){
+        swal.fire({title: 'Please loaded miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $("#loadedmiles").focus();
+        return false;
+    }
+    var emptymiles = $('#emptymiles').val();
+    if(emptymiles == ''){
+        swal.fire({title: 'Please empty miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $("#emptymiles").focus();
+        return false;
+    }
+
+    $('#driverPayInfoModal').modal('hide');
+});
+// ---------------------------------------------end PayInfo  ---------------------------------------------
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });

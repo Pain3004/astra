@@ -949,7 +949,7 @@ $('body').on('click',function() {
           '<div class="row row-sm" id="OwnerOperatorContainer">'+
                   '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Category</label>'+
-                      '<input type="text" class="form-control" name="installmentCategory[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" />'+
+                      '<input type="text" class="form-control" name="installmentCategory[]" list="fixpaycat" placeholder=" Enter Category" autocomplete="off" />'+
                   '</div>'+
                   '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Installment Type</label>'+
@@ -1198,8 +1198,9 @@ $('#addDriver').click(function(){
     $('#addDriverModal').modal('show');
 });
 
-      $('.driverDataSubmit').click(function(){   
-            var companyID = 4;
+      $('.driverDataSubmit').click(function(){ 
+        
+            var companyID = 1;
             var name = $('#name').val();
             var username = $('#username').val();
             var address = $('#address').val();
@@ -1264,6 +1265,8 @@ $('#addDriver').click(function(){
             datatype:"JSON",
             data: {
                 _token: $("#csrf").val(),
+              data:$('#adddriverRecurrenceForm').serialize(),
+              data1:$('#subdriverRecurrenceForm').serialize(),
               companyID: companyID,
               name: name,
               username: username,
@@ -1308,7 +1311,8 @@ $('#addDriver').click(function(){
             success: function(resp){
                 if(resp.success == true){
                     swal.fire("Done!", resp.message, "success");
-                    
+                    $("#addDriverModal").modal('hide');
+                    $("#addDriverModal form").trigger("reset");
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/driver",
@@ -1318,8 +1322,8 @@ $('#addDriver').click(function(){
                             driverResponse = text;
                         }
                     });
-                    $("#addDriverModal form").trigger("reset");
-                    $("#addDriverModal").modal('hide');
+                    
+                    $("#driverModal").modal('show');
                 } 
               },
               error: function(data){
@@ -2279,41 +2283,35 @@ function removeRowRecurrence(index) {
     }
 
     document.getElementById("recurrence_add" + index).remove();
-    installmentCategory.splice(index, 1);
-    installmentType.splice(index, 1);
-    amount.splice(index, 1);
-    installment.splice(index, 1);
-    startNo.splice(index, 1);
-    startDate.splice(index, 1);
-    internalNote.splice(index, 1);
+    rec_PlusRecurrence.splice(index, 1);
+    rec_installmentType.splice(index, 1);
+    rec_amount.splice(index, 1);
+    rec_installment.splice(index, 1);
+    rec_startNo.splice(index, 1);
+    rec_startDate.splice(index, 1);
+    rec_internalNote.splice(index, 1);
 }
 
 function GetDynamicRecurrence(value) {
     return '<td width="150">' +
-        '<input class="form-control" value = "' + value +
-        '" name="installmentCategory" onkeyup="searchFixpay(this.value,' + "'fixpaycat'" +
-        ')" list="fixpaycat" autocomplete="off"/></td>' +
+        '<input class="form-control driverPlusRecurrence" value = "' + value +
+        '" name="rec_PlusRecurrence[]" ' +
+        ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
         '<td width="150">' +
         '<input class="form-control" value = "' + value +
-        '" name="installmentType" list="instatype1" autocomplete="off"/></td>' +
+        '" name="rec_installmentType[]" list="instatype1" autocomplete="off"/></td>' +
         '<td width="100">' +
-        '<input name="amount" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_amount[]" type="text" value = "' + value + '" class="form-control" /></td>' +
         '<td width="100">' +
-        '<input name="installment" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100"><input name="startNo" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="10"><input name="startDate" type="date" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_installment[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="100"><input name="rec_startNo[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="10"><input name="rec_startDate[]" type="date" value = "' + value + '" class="form-control" /></td>' +
         '<td width="250"><textarea rows="1" cols="30" value = "' + value +
-        '" class="form-control" type="textarea" name="internalNote"></textarea></td>' +
+        '" class="form-control" type="textarea" name="rec_internalNote[]"></textarea></td>' +
         '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
 }
-
 // <!-- ------------------------------------------------------------------------- End of Add Recurrence ------------------------------------------------------------------------- -->
-
-
-
 // <!-- ------------------------------------------------------------------------- Minus Recurrence ------------------------------------------------------------------------- -->
-
-
 $(function() {
     $("#btnAdd3").bind("click", function() {
         var div = $("<tr />");
@@ -2331,31 +2329,32 @@ function recurrence_substract(index) {
         return;
     }
     document.getElementById("recurrencesubstract_add" + index).remove();
-    installment_Category.splice(index, 1);
-    installment_Type.splice(index, 1);
-    amount_recurrence.splice(index, 1);
-    installment_sub.splice(index, 1);
-    start_No.splice(index, 1);
-    start_Date.splice(index, 1);
-    internal_Note.splice(index, 1);
+    rec_PlusRecurrence.splice(index, 1);
+    rec_installmentType.splice(index, 1);
+    rec_amount.splice(index, 1);
+    rec_installment.splice(index, 1);
+    rec_startNo.splice(index, 1);
+    rec_startDate.splice(index, 1);
+    rec_internalNote.splice(index, 1);
 }
 
 function GetDynamicRecurrencesubstract(value) {
     return '<td width="150">' +
-        '<input class="form-control" value = "' + value +
-        '" name="installment_Category" onkeyup="searchFixpay(this.value,' + "'fixpay_cat'" +
-        ')" list="fixpay_cat" autocomplete="off"/></td>' +
-        '<td width="150">' +
-        '<input class="form-control" value = "' + value + '" name="installment_Type" list="instatype"/></td>' +
-        '<td width="100">' +
-        '<input name="amount_recurrence" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100">' +
-        '<input name="installment_sub" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100"><input name="start_No" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="10"><input name="start_Date" type="date" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="250"><textarea rows="1" cols="30" value = "' + value +
-        '" class="form-control" type="textarea" name="internal_Note"></textarea></td>' +
-        '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>'
+    '<input class="form-control driverPlusRecurrence" value = "' + value +
+    '" name="rec_PlusRecurrence_sub[]" ' +
+    ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
+    '<td width="150">' +
+    '<input class="form-control" value = "' + value +
+    '" name="rec_installmentType_sub[]" list="instatype1" autocomplete="off"/></td>' +
+    '<td width="100">' +
+    '<input name="rec_amount_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100">' +
+    '<input name="rec_installment_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100"><input name="rec_startNo_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="10"><input name="rec_startDate_sub[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="250"><textarea rows="1" cols="30" value = "' + value +
+    '" class="form-control" type="textarea" name="rec_internalNote_sub[]"></textarea></td>' +
+    '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
 }
 
 // <!-- ------------------------------------------------------------------------- End of Minus Recurrence ------------------------------------------------------------------------- -->

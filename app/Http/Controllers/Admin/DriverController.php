@@ -77,7 +77,7 @@ class DriverController extends Controller
             $updateinstallmentarray=array();
         }
         
-//dd(isset($unserializeData['installmentCategory']));
+    //dd(isset($unserializeData['installmentCategory']));
         if(isset($unserializeData['installmentCategory'])){
             foreach($unserializeData['installmentCategory'] as $key => $val){
             
@@ -161,93 +161,93 @@ class DriverController extends Controller
                 }
        }
        
-    //    $driverEditData=$getCompanyForDriver->driver[$v];
-      // dd($driverEditData);
-      $driverArray[$v]['ownerOperatorStatus'] = 'YES';
+        //    $driverEditData=$getCompanyForDriver->driver[$v];
+        // dd($driverEditData);
+        $driverArray[$v]['ownerOperatorStatus'] = 'YES';
 
-      $getCompanyForDriver->driver = $driverArray;
-       $getCompanyForDriver->save();
-  
-        $getCompany = Owner_operator_driver::where('companyID',$companyID)->first();
-
-        if($getCompany){
-            $ownerOperatorArrayLength=count($getCompany->ownerOperator);
-        }else{
-            $ownerOperatorArrayLength=0;
-        }
-        
-        $unserializeData = [];
-        parse_str($request->data,$unserializeData);
-
-        if(isset($unserializeData['installmentCategory'])){
-            foreach($unserializeData['installmentCategory'] as $key => $val){
-            
-                $i_cate=$unserializeData['installmentCategory'][$key];
-                $i_type=$unserializeData['installmentType'][$key];
-                $amount=$unserializeData['amount'][$key];
-                $installment=$unserializeData['installment'][$key];
-                $startNo=$unserializeData['startNo'][$key];
-                $startDate=$unserializeData['startDate'][$key];
-                $internalNote=$unserializeData['internalNote'][$key]; 
+        $getCompanyForDriver->driver = $driverArray;
+        $getCompanyForDriver->save();
     
-                $array[]=((object)[
-                    '_id'=>$key,
-                    'installmentCategory'=>$i_cate,
-                    'installmentType'=>$i_type,
-                    'amount'=>$amount,
-                    'installment'=>$installment,
-                    'startNo'=>$startNo,
-                    'startDate'=>$startDate,
-                    'internalNote'=>$internalNote,
-                ]);        
-            }
-        }else{
-            $array=array();
-        }
-        
-        $truckno='';
-        $truckno=$unserializeData['truckNo'];
-        $truckID= explode("-", $truckno);
-            // $truckID[0]; // piece1.
-           // echo $truckID[1]; // piece2.
-            try{
-                $ownerOperatorData[]=array(    
-                    '_id' => $ownerOperatorArrayLength,
-                    'driverId' => $request->driverId,
-                    'percentage' => $unserializeData['percentage'],
-                    'truckNo' => $truckID[0],
-                    'installment' =>$array ,
-                    'deleteStatus' => 'NO',
-                );
+            $getCompany = Owner_operator_driver::where('companyID',$companyID)->first();
 
-                if($getCompany){
-                    $ownerOperatorArray=$getCompany->ownerOperator;
-                    Owner_operator_driver::where(['companyID' =>$companyID ])->update([
-                        'ownerOperator' =>array_merge($ownerOperatorData,$ownerOperatorArray) ,
-                    
-                    ]);
-        
-                    $data = [
-                        'success' => true,
-                        'message'=> 'ownerOperator added successfully'
-                    ] ;
-                    
-                    return response()->json($data);
-                }else{
-                    Owner_operator_driver::create([
-                        
-                        // 'companyID' => (int)$_SESSION['companyId'],
-                        '_id' => 1,
-                        'companyID' => $companyID,
-                        'counter' => 0,
-                        'ownerOperator' => $ownerOperatorData,
-                    ]);
-                }
-            } 
-                catch(\Exception $error){
-                return $error->getMessage();
+            if($getCompany){
+                $ownerOperatorArrayLength=count($getCompany->ownerOperator);
+            }else{
+                $ownerOperatorArrayLength=0;
             }
-    // }
+            
+            $unserializeData = [];
+            parse_str($request->data,$unserializeData);
+
+            if(isset($unserializeData['installmentCategory'])){
+                foreach($unserializeData['installmentCategory'] as $key => $val){
+                
+                    $i_cate=$unserializeData['installmentCategory'][$key];
+                    $i_type=$unserializeData['installmentType'][$key];
+                    $amount=$unserializeData['amount'][$key];
+                    $installment=$unserializeData['installment'][$key];
+                    $startNo=$unserializeData['startNo'][$key];
+                    $startDate=$unserializeData['startDate'][$key];
+                    $internalNote=$unserializeData['internalNote'][$key]; 
+        
+                    $array[]=((object)[
+                        '_id'=>$key,
+                        'installmentCategory'=>$i_cate,
+                        'installmentType'=>$i_type,
+                        'amount'=>$amount,
+                        'installment'=>$installment,
+                        'startNo'=>$startNo,
+                        'startDate'=>$startDate,
+                        'internalNote'=>$internalNote,
+                    ]);        
+                }
+            }else{
+                $array=array();
+            }
+            
+            $truckno='';
+            $truckno=$unserializeData['truckNo'];
+            $truckID= explode("-", $truckno);
+                // $truckID[0]; // piece1.
+            // echo $truckID[1]; // piece2.
+                try{
+                    $ownerOperatorData[]=array(    
+                        '_id' => $ownerOperatorArrayLength,
+                        'driverId' => $request->driverId,
+                        'percentage' => $unserializeData['percentage'],
+                        'truckNo' => $truckID[0],
+                        'installment' =>$array ,
+                        'deleteStatus' => 'NO',
+                    );
+
+                    if($getCompany){
+                        $ownerOperatorArray=$getCompany->ownerOperator;
+                        Owner_operator_driver::where(['companyID' =>$companyID ])->update([
+                            'ownerOperator' =>array_merge($ownerOperatorData,$ownerOperatorArray) ,
+                        
+                        ]);
+            
+                        $data = [
+                            'success' => true,
+                            'message'=> 'ownerOperator added successfully'
+                        ] ;
+                        
+                        return response()->json($data);
+                    }else{
+                        Owner_operator_driver::create([
+                            
+                            // 'companyID' => (int)$_SESSION['companyId'],
+                            '_id' => 1,
+                            'companyID' => $companyID,
+                            'counter' => 0,
+                            'ownerOperator' => $ownerOperatorData,
+                        ]);
+                    }
+                } 
+                    catch(\Exception $error){
+                    return $error->getMessage();
+                }
+        // }
 
         $data = [
             'success' => true,
@@ -256,7 +256,7 @@ class DriverController extends Controller
             return response()->json($data);
 
 
-}
+    }
 
     public function editDriverOwnerData(Request $request){  
         //dd($request);    
@@ -278,7 +278,7 @@ class DriverController extends Controller
         }
        
         $EditownerOperatorData=$result->ownerOperator[$v];
-   //dd($EditownerOperatorData);
+        //dd($EditownerOperatorData);
         $resultDriver = Driver::where('companyID',$companyID )->first();
         $arrayLengthDriver=count($resultDriver->driver);
         $j=0;
@@ -314,6 +314,7 @@ class DriverController extends Controller
     
 //add by Reena
     public function addDriverData(Request $request){
+
         request()->validate([
             'name' => 'required',
             'email' => 'required|unique:driver,driver.driverEmail',
@@ -328,11 +329,74 @@ class DriverController extends Controller
             'rate' => 'required',
             'companyID' => 'required|unique:driver,companyID',
         ]);
+    //add recurrence
+        $unserializeData = [];
+            parse_str($request->data,$unserializeData);
+
+            if(isset($unserializeData['rec_PlusRecurrence'])){
+                foreach($unserializeData['rec_PlusRecurrence'] as $key => $val){
+                
+                    $i_cate=$unserializeData['rec_PlusRecurrence'][$key];
+                    $i_type=$unserializeData['rec_installmentType'][$key];
+                    $amount=$unserializeData['rec_amount'][$key];
+                    $installment=$unserializeData['rec_installment'][$key];
+                    $startNo=$unserializeData['rec_startNo'][$key];
+                    $startDate=$unserializeData['rec_startDate'][$key];
+                    $internalNote=$unserializeData['rec_internalNote'][$key]; 
+        
+                    $recurrenceAdd[]=((object)[
+                        '_id'=>$key,
+                        'installmentCategoryStore'=>$i_cate,
+                        'installmentTypeStore'=>$i_type,
+                        'amountStore'=>$amount,
+                        'currentoStore'=>$startNo,
+                        'installmentStore'=>$installment,
+                        'startNoStore'=>$startNo,
+                        'startDateStore'=>strtotime($startDate),
+                        'currentDateStore'=>strtotime(date('Y-m-d H:i:s')),
+                        'internalNoteStore'=>$internalNote,
+                    ]);        
+                }
+            }else{
+                $recurrenceAdd=array();
+            }
+        //subtract recurrence
+        $unserializeData1 = [];
+            parse_str($request->data1,$unserializeData1);
+
+            if(isset($unserializeData1['rec_PlusRecurrence_sub'])){
+                foreach($unserializeData1['rec_PlusRecurrence_sub'] as $key => $val){
+                
+                    $i_cate_sub=$unserializeData1['rec_PlusRecurrence_sub'][$key];
+                    $i_type_sub=$unserializeData1['rec_installmentType_sub'][$key];
+                    $amount_sub=$unserializeData1['rec_amount_sub'][$key];
+                    $installment_sub=$unserializeData1['rec_installment_sub'][$key];
+                    $startNo_sub=$unserializeData1['rec_startNo_sub'][$key];
+                    $startDate_sub=$unserializeData1['rec_startDate_sub'][$key];
+                    $internalNote_sub=$unserializeData1['rec_internalNote_sub'][$key]; 
+        
+                    $recurrenceSubtract[]=((object)[
+                        '_id'=>$key,
+                        'installmentCategoryStore'=>$i_cate_sub,
+                        'installmentTypeStore'=>$i_type_sub,
+                        'amountStore'=>$amount_sub,
+                        'installmentStore'=>$installment_sub,
+                        'startNoStore'=>$startNo_sub,
+                        'currentNoStore'=>$startNo_sub,
+                        'startDateStore'=>strtotime($startDate_sub),
+                        'currentDateStore'=>strtotime(date('Y-m-d H:i:s')),
+                        'internalNoteStore'=>$internalNote_sub,
+                    ]);        
+                }
+            }else{
+                $recurrenceSubtract=array();
+            }
+
         try{
 
             $driver=Driver::all();
             $companyID=(int)1;
-
+           
             $getCompany = Driver::where('companyID',$companyID)->first();
             if($getCompany){
                 $totalDriverArray=count($getCompany->driver);
@@ -340,9 +404,20 @@ class DriverController extends Controller
                 $totalDriverArray=0; 
             }
 
+        // for id
+        $ArrayId=$getCompany->driver;
+        
+        foreach($ArrayId as $ArrayId){
+            $ids[]=$ArrayId['_id'];
+        }
+       
+        $max_id=max($ids);
+        $new_id=$max_id+1;
+        //end for id
+        // dd($new_id);
             $password = sha1($request->password);
             $driverData[]=array(    
-                            '_id' => $totalDriverArray,
+                            '_id' => $new_id,
                             'counter' => 3,
                             'ownerID' => '',
                             'driverName' => $request->name,
@@ -356,18 +431,18 @@ class DriverController extends Controller
                             'driverZip' => $request->zip,
                             'driverStatus' => $request->status,
                             'driverSocial' => $request->socialSecurityNo,
-                            'dateOfbirth' => $request->dateOfBirth,
-                            'dateOfHire' => $request->dateOfHire,
+                            'dateOfbirth' => strtotime($request->dateOfBirth),
+                            'dateOfHire' => strtotime($request->dateOfHire),
                             'driverLicenseNo' => $request->licenseNo,
                             'driverLicenseIssue' => $request->licenseIssueState,
-                            'driverLicenseExp' => $request->licenseExpDate,
-                            'driverLastMedical' => $request->lastMedical,
-                            'driverNextMedical' => $request->nextMedical,
-                            'driverLastDrugTest' => $request->lastDrugTest,
-                            'driverNextDrugTest' => $request->nextDrugTest,
-                            'passportExpiry' => $request->passportExpiry,
-                            'fastCardExpiry' => $request->fastCardExpiry,
-                            'hazmatExpiry' => $request->hazmatExpiry,
+                            'driverLicenseExp' => strtotime($request->licenseExpDate),
+                            'driverLastMedical' => strtotime($request->lastMedical),
+                            'driverNextMedical' => strtotime($request->nextMedical),
+                            'driverLastDrugTest' => strtotime($request->lastDrugTest),
+                            'driverNextDrugTest' => strtotime($request->nextDrugTest),
+                            'passportExpiry' => strtotime($request->passportExpiry),
+                            'fastCardExpiry' => strtotime($request->fastCardExpiry),
+                            'hazmatExpiry' => strtotime($request->hazmatExpiry),
                             'rate' => $request->rate,
                             'currency' => $request->currency,
                             'driverLoadedMile' => (int)$request->driverLoadedMile,
@@ -379,42 +454,23 @@ class DriverController extends Controller
                             'tarp' => (int)$request->tarp,
                             'percentage' => (int)$request->percentage,
                             'driverBalance' => $request->driverBalance,
-                            'terminationDate' => $request->terminationDate,
+                            'terminationDate' => strtotime($request->terminationDate),
                             'internalNote' => $request->internalNotes,
-                            'deleteStatus' => "NO",
-                            
-                            // 'recurrencePlus' => $request->recurrencePlus,
-                            // 'recurrenceAdd' => (Array)array(
-
-                                //     )
+                            'recurrenceAdd' => $recurrenceAdd,
+                            'recurrenceSubtract' => $recurrenceSubtract,
                                 // 'driverDoc' => (Array)array(
-
                                 //     )
-                                // 'recurrenceMin' => $request->recurrenceMin,
-                                // 'recurrenceSubtract' => (Array)array(
-                                //     '_id'
-                                //     'installmentCategoryStore' => $request->  ,
-                                //     'installmentTypeStore' => $request->  ,
-                                //     'amountStore' => $request->  ,
-                                //     'installmentStore' => $request->  ,
-                                //     'startNoStore' => $request->  ,
-                                //     'currentNoStore' => $request->  ,
-                                //     'startDateStore' => $request->  ,
-                                //     'currentDateStore' => $request->  ,
-                                //     'internalNoteStore' => $request->  ,
-                                //     )
-                                
-                                // 'userLocation' => $request->userLocation,
-                                // 'userTelephone' => $request->userTelephone,
-                                // 'insertedTime' => $request->  ,
-                                // 'insertedUserId' => $request->  ,
-                                // 'deleteStatus' => $request->  ,
-                                // 'deleteUser' => $request->  ,
-                                // 'deleteTime' => $request->  ,
-                                // 'LastUpdateId' => $request->  ,
-                                'ownerOperatorStatus' => 'NO' ,
-                                'ownerOperatorDeleteStatus' => "NO",
-                );
+                            'userLocation' => Auth::user()->userLocation,
+                            'userTelephone' => Auth::user()->userTelephone,
+                            'insertedTime' => strtotime(date('Y-m-d H:i:s')),
+                            'insertedUserId' => Auth::user()->_id,
+                            'deleteStatus' => "NO",
+                            'deleteUser' => Auth::user()->userFirstName,
+                            'deleteTime' => '',
+                            'LastUpdateId' => Auth::user()->_id,
+                            'ownerOperatorStatus' => 'NO' ,
+                            'ownerOperatorDeleteStatus' => "NO",
+            );
                 if($getCompany){
                     $driverArray=$getCompany->driver;
                     Driver::where(['companyID' =>$companyID ])->update([

@@ -56,7 +56,6 @@
 <!--=========================== end external carrier view ============================= -->
 
 <!--========================= start store external carrier  ============================= -->
-<!--========================= start store external carrier  ============================= -->
 
 
 <div class="container">
@@ -74,7 +73,7 @@
                             <input type="hidden" class="update_store_external_carrier">
                         <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
                             <!-- Step 1 -->
-                            <li class="form-stepper-active text-center form-stepper-list" step="1">
+                            <li class="form-stepper-active text-center form-stepper-list step_1" step="1">
                                 <a class="mx-2">
                                     <span class="form-stepper-circle">
                                         <span>1</span>
@@ -83,7 +82,7 @@
                                 </a>
                             </li>
                             <!-- Step 2 -->
-                            <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                            <li class="form-stepper-unfinished text-center form-stepper-list step_2" step="2">
                                 <a class="mx-2">
                                     <span class="form-stepper-circle text-muted">
                                         <span>2</span>
@@ -92,7 +91,7 @@
                                 </a>
                             </li>
                             <!-- Step 3 -->
-                            <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                            <li class="form-stepper-unfinished text-center form-stepper-list step_3" step="3">
                                 <a class="mx-2">
                                     <span class="form-stepper-circle text-muted">
                                         <span>3</span>
@@ -100,7 +99,7 @@
                                     <div class="label text-muted">Add Accounting</div>
                                 </a>
                             </li>
-                            <li class="form-stepper-unfinished text-center form-stepper-list" step="4">
+                            <li class="form-stepper-unfinished text-center form-stepper-list step_4" step="4">
                                 <a class="mx-2">
                                     <span class="form-stepper-circle text-muted">
                                         <span>4</span>
@@ -133,7 +132,7 @@
                                     <div class="form-group col-md-3">
                                         <label for="inputLocation">Location<span
                                                 class="required"></span></label>
-                                        <input type="text" class="form-control" name="carrierLocation"
+                                        <input type="text" class="form-control location_view" name="carrierLocation " data-location="carrierLocation" 
                                             id="carrierLocation" placeholder="Location">
                                     </div>
                                     <div class="form-group col-md-3">
@@ -160,14 +159,14 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputTelephone">Telephone</label>
-                                        <input type="number" class="form-control" name="carrierTelephone"
+                                        <input type="text" class="form-control" name="carrierTelephone"
                                             id="carrierTelephone"
-                                            placeholder="Telephone">
+                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputExt">Ext</label>
                                         <input type="text" class="form-control" name="carrierExt"
-                                            id="carrierExt">
+                                            id="carrierExt"  placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -175,18 +174,19 @@
                                         <label for="inputTollFree">TollFree</label>
                                         <input type="text" class="form-control" name="carrierTollFree"
                                             id="carrierTollFree"
-                                            placeholder="TollFree">
+                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputFax">Fax<span>
                                             </span></label>
                                         <input type="text" class="form-control"
                                             name="carrierFax" id="carrierFax"
-                                            placeholder="Fax">
+                                            placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputPaymentTerms">Payment Terms<span
                                                 class="required"></span></label>
+                                                <i title="Add payment" class="mdi mdi-plus-circle plus " id="plusPaymentTerms3" data-name="plusPaymentTerms" style='color:blue !important'></i>
                                         <input type="text" class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="carrierPayTerms" id="carrierPayTerms" placeholder="PaymentTerms">
                                         <datalist  class="customerPaymentTermSet">  <option>Select Here</option> </datalist>
                                     </div>
@@ -214,16 +214,20 @@
                                     <div class="form-group col-md-3">
                                         <label for="inputFactoringCompany">Factoring Company<span
                                                 class="required"></span></label>
-                                        <input type="text" class="form-control customerBFactoringCompanySet" list="customerBFactoringCompanySet"  name="carrierFactoring" id="carrierFactoring" placeholder="Factoring Company">
+                                                <i title="Add factoring" class="mdi mdi-plus-circle plus" id="plusFactoringCompany3" data-name="plusFactoringCompany" style='color:blue !important'></i>
+                                        <!-- <input type="text" class="form-control customerBFactoringCompanySet" list="customerBFactoringCompanySet"  name="carrierFactoring" id="carrierFactoring" placeholder="Factoring Company">
                                         <datalist  class="customerBFactoringCompanySet">
                                             <option>Select Here</option>
-                                        </datalist>
+                                        </datalist> -->
+
+                                        <select class="form-control customerBFactoringCompanySet"  >                                              <option>Select Here</option>
+                                            </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputInternalNotes">Internal Notes</label>
-                                        <input type="text" class="form-control" name="carrierNotes"
+                                        <textarea  class="form-control" name="carrierNotes"
                                             id="carrierNotes"
-                                            placeholder="Internal Notes">
+                                            placeholder="Internal Notes"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -275,7 +279,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-2">
-                                            <label>Telephone *</label>
+                                            <label>Telephone </label>
                                             <div>
                                                 <input class="form-control" placeholder="(999) 999-9999"
                                                     data-mask="(999) 999-9999" type="text" id="liabilityTelephone"
@@ -348,7 +352,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label>Telephone *</label>
+                                                    <label>Telephone</label>
                                                     <div>
                                                         <input class="form-control" placeholder="(999) 999-9999"
                                                             data-mask="(999) 999-9999" type="text" id="insuranceTelephone"
@@ -423,7 +427,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label>Telephone *</label>
+                                                    <label>Telephone </label>
                                                     <div>
                                                         <input class="form-control" placeholder="(999) 999-9999"
                                                             data-mask="(999) 999-9999" type="text" id="cargoTelephone"
@@ -556,8 +560,276 @@
                                     </div>
                                 </center>
                                 <div class="row" id="equipAdd">
-                                </div>
-
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div><div class="col-6">
+                                        <label>Quantity</label> 
+                                        <div>   
+                                            <input class="form-control externalvalue" type="text" name="quantity[]" value="" placeholder="Quantity">
+                                        </div>  
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Equipment Type</label> 
+                                        <div>   
+                                            <input  class="form-control"  type="text" name="equipment[]" placeholder="Equipment Type">
+                                        </div>  
+                                    </div>
                                 <hr>
                             </div>
                             <div class="mt-3">
@@ -576,7 +848,8 @@
     </div>
 </div>
 <!--======================== end store external carrier ================================== -->
-<!--============================ end update external carrier ============================= -->
+
+
 
 <!---=============== start restore external carrier ======================================= -->
 <div class="container">
@@ -629,4 +902,55 @@
         </div>
     </div>
 </div>
+
 <!--======================= end restore external carrier ==================================== -->
+
+<!-----=================- Payment Terms modal =================------>
+
+<!-- <div class="container" >
+ 
+  <div class="modal fade" id="PaymentexterTermsModal" data-backdrop="static" style="z-index:10000000000;"> >
+    <div class="modal-dialog custom_modal_small_5 modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+      
+        
+        <div class="modal-header">
+        <h5 class="modal-title">Create Payment Terms</h5>
+          <button type="button" class="button-24 PaymentTermsModalCloseButton">&times;</button>
+        </div>
+        
+        
+        <div class="modal-body">
+            <from>
+                <input type="hidden" name="_token" id="_tokenCustomerPaymentTerms" value="{{ csrf_token() }}" />
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="PaymentTermsName">Payment Terms  <span style="color:#ff0000">*</span></label>
+                        <input type="text" class="form-control" id="PaymentTermsName" placeholder=" Enter Payment Terms" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="NetDays">Net Days <span style="color:#ff0000">*</span></label>
+                       
+                         <input class="form-control" list="NetDays" name="NetDay" id="NetDay" >
+                        <datalist id="NetDays" >
+                            @for ($i = 0; $i <= 180; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </datalist>    
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer" >
+            <button type="submit" class="button-29 PaymentTermsDataSubmit">Save</button>
+            <button type="button" class="button-29 PaymentTermsModalCloseButton" data-dismiss="modal" id="closePaymentTermsModal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div> -->
+<!--------============ over Payment Terms modal ============-------->

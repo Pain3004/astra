@@ -46,7 +46,7 @@ class BranchOfficeController extends Controller
                        'officeName' => $request->name,
                        'officeLocation' => $request->Location,
                        'counter' => 0,
-                       'created_by' => Auth::user()->userFirstName,
+                       'created_by' =>Auth::user()->userFirstName,
                        'deleteStatus' => 'NO',
                        'deleteUser' => '',
                        'deleteTime' => '',

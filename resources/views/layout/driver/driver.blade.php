@@ -348,7 +348,7 @@
                                                     <div class="form-group col-md-2">
                                                         <label for="currency">Currency <span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="currency"  placeholder=" " value="USD" disabled>
+                                                        <input type="text" class="form-control" id="currency"  placeholder="Search here... " >
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="up_rate">Rate <span style="color:#ff0000">*</span>
@@ -362,39 +362,29 @@
                                                         </select>
                                                     </div>
 
-                                                    <div class="form-group col-md-2 ml-6" id="dMile"
-                                                        style="display: none">
-                                                        <label>Driver Pay Info</label><br>
-                                                        <a href="#driverPayInfoModal" class="button-29"
-                                                            data-toggle="modal" data-target="#driverPayInfoModal">Open
-                                                            Pay Info</a>
-
-                                                    </div>
+                                                    
                                                     <div class="form-group col-md-2" id="dPercentage"
                                                         style="display: none">
                                                         <label>Percentage( % )</label>
-                                                        <input type="text" class="form-control" id="dPercentage"
-                                                            placeholder="Percentage">
+                                                        <input type="text" class="form-control" id="dPercentage" placeholder="Percentage">
                                                     </div>
-                                                    <div class="form-group col-md-2 col-md-3 ml-6" id="dHourly"
+
+                                                    <div class="form-group col-md-2 ml-6" id="dMile"
                                                         style="display: none">
                                                         <label>Driver Pay Info</label><br>
-                                                        <a href="#driverPayInfoModal" class="button-29"
-                                                            data-toggle="modal" data-target="#driverPayInfoModal">Open
-                                                            Pay Info</a>
+                                                        <a href="#" class="button-57" id="driverPayInfo">Open Pay Info1</a>
                                                     </div>
-                                                    
                                                     <div class="form-group col-md-2 ">
                                                         <label>Recurrence +</label>
                                                         <div>
-                                                            <a href="#addRecurrence" class="button-29" data-toggle="modal" data-target="#addRecurrence">Open recurrence +</a>
-                                                            
+                                                            <a href="#" class="button-57" id="addDriverRecurrence">Open recurrence +</a>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group col-md-2">
                                                         <label>Recurrence -</label>
                                                         <div>
-                                                            <a href="#substractRecurrence" class="button-29" data-toggle="modal" data-target="#substractRecurrence">Open recurrence -</a>
+                                                            <a href="#" class="button-57" id="substractRecurrenceModal">Open recurrence -</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -964,50 +954,50 @@
                         <br>
                         <div class="">
                             <!-- <div class="block">
-                                                <div class="row row-sm">
-                                                        <div class="col-sm-3">
-                                                            <label class="form-label" for="">Category</label>
-                                                            <input type="text" class="form-control" name="installmentCategory1[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" />
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="form-label" for="">Installment Type</label>
-                                                                <select name="installmentType[]" class="form-control">
-                                                                    <option value="">Select type</option>
-                                                                    <option value="Weekly">Weekly</option>
-                                                                    <option value="Monthly">Monthly</option>
-                                                                    <option value="yearly">Yearly</option>
-                                                                    <option value="Quarterly">Quarterly</option>
-                                                                </select>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="form-label" for="">Amount</label>
-                                                            <input name="amount[]" type="text" class="form-control" id="amount"/>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="form-label" for="">Installment</label>
-                                                            <input name="installment[]" type="text" class="form-control" id="installment" />
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="form-label" for="">start#</label>
-                                                            <input name="startNo[]" type="text" class="form-control" id="startNo" />
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="form-label" for="e">start Date</label>
-                                                            <input name="startDate[]" type="date" class="form-control" id="startDate"/>
-                                                        </div>
-                                                        <div class="col-sm-5">
-                                                            <label class="form-label" for="">Internal Note</label>
-                                                            <textarea rows="1" cols="20" class="form-control" type="textarea" name="internalNote[]"></textarea>
-                                                        </div>
-                                                        <div class="col-sm-1">
-                                                            <label class="form-label" for="">Delete</label>
-                                                            
-                                                        
-                                                            </button>
-                                                        </div>
-                                                        <button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>
-                                                </div>
-                                            </div> -->
+                                <div class="row row-sm">
+                                        <div class="col-sm-3">
+                                            <label class="form-label" for="">Category</label>
+                                            <input type="text" class="form-control" name="installmentCategory1[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="form-label" for="">Installment Type</label>
+                                                <select name="installmentType[]" class="form-control">
+                                                    <option value="">Select type</option>
+                                                    <option value="Weekly">Weekly</option>
+                                                    <option value="Monthly">Monthly</option>
+                                                    <option value="yearly">Yearly</option>
+                                                    <option value="Quarterly">Quarterly</option>
+                                                </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="form-label" for="">Amount</label>
+                                            <input name="amount[]" type="text" class="form-control" id="amount"/>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="form-label" for="">Installment</label>
+                                            <input name="installment[]" type="text" class="form-control" id="installment" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="form-label" for="">start#</label>
+                                            <input name="startNo[]" type="text" class="form-control" id="startNo" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="form-label" for="e">start Date</label>
+                                            <input name="startDate[]" type="date" class="form-control" id="startDate"/>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <label class="form-label" for="">Internal Note</label>
+                                            <textarea rows="1" cols="20" class="form-control" type="textarea" name="internalNote[]"></textarea>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <label class="form-label" for="">Delete</label>
+                                            
+                                        
+                                            </button>
+                                        </div>
+                                        <button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>
+                                </div>
+                            </div> -->
                             <div class="block">
                                 <button id="btnAdd1" type="button" class="button-23 add" style="margin-top: 5px;" data-toggle="tooltip" data-original-title="Add more controls" ><i class="mdi mdi-gamepad-down"></i> ADD </button>
                             </div>
