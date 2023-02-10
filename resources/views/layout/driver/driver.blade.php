@@ -136,56 +136,44 @@
                                     <datalist id="driverPlusRecurrence" class="driverPlusRecurrence"></datalist> -->
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="username">Username<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="username"
-                                                            placeholder="username">
+                                                        <label for="username">Username<span style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="username"  placeholder="username">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="telephone">Telephone <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control telephone4"
-                                                            id="telephone" placeholder="Telephone">
+                                                        <label for="telephone">Telephone <span style="color:#ff0000">*</span></label>
+                                                        <!-- <input type="text" class="form-control telephone4" id="telephone" placeholder="Telephone"> -->
+                                                        <input type="text" class="form-control usa-phone" id="telephone" placeholder="(999) 999-9999" data-mask="(999) 999-9999" >
+
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="altTelephone">Alt - Tel #</label>
-                                                        <input type="text" class="form-control telephone4"
-                                                            id="altTelephone" placeholder="Telephone">
+                                                        <!-- <input type="text" class="form-control telephone4" id="altTelephone" placeholder="Telephone"> -->
+                                                        <input type="text" class="form-control usa-phone" id="altTelephone" placeholder="(999) 999-9999" data-mask="(999) 999-9999" >
+
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="address">Address <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="address"
-                                                            placeholder="address">
+                                                        <label for="address">Address <span style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="address" placeholder="address">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                
                                                     <div class="form-group col-md-3">
-                                                        <label for="email">Email<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="email" class="form-control" id="email"
-                                                            placeholder="Email">
+                                                        <label for="email">Email<span  style="color:#ff0000">*</span></label>
+                                                        <input type="email" class="form-control" id="email" placeholder="Email">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="password">Password<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="password" class="form-control" id="password"
-                                                            placeholder="Password">
+                                                        <label for="password">Password<span  style="color:#ff0000">*</span></label>
+                                                        <input type="password" class="form-control" id="password" placeholder="Password">
                                                     </div>
                                                
                                                     <div class="form-group col-md-2">
-                                                        <label for="location">Location <span
-                                                                style="color:#ff0000">*</span> </label>
-                                                        <input type="text" class="form-control" id="location"
-                                                            placeholder="Location">
+                                                        <label for="location">Location <span style="color:#ff0000">*</span> </label>
+                                                        <input type="text" class="form-control" id="location" placeholder="Location">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="zip">Zip <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="zip"
-                                                            placeholder="Zip">
+                                                        <label for="zip">Zip <span  style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="zip"  placeholder="Zip">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="status">Status</label>
@@ -200,34 +188,27 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="socialSecurityNo">Social Security No </label>
-                                                        <input type="text" class="form-control" id="socialSecurityNo"
-                                                            placeholder="Social Security No">
+                                                        <input type="text" class="form-control" id="socialSecurityNo" placeholder="Social Security No">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="dateOfBirth">Date of Birth </label>
-                                                        <input type="date" class="form-control" id="dateOfBirth"
-                                                            placeholder="Date of Birth">
+                                                        <input type="date" class="form-control" id="dateOfBirth"  placeholder="Date of Birth">
                                                     </div>
 
                                                     <div class="form-group col-md-2">
                                                         <label for="dateOfHire">Date of Hire</label>
-                                                        <input type="date" class="form-control" id="dateOfHire"
-                                                            placeholder="Date of Hire">
+                                                        <input type="date" class="form-control" id="dateOfHire" placeholder="Date of Hire">
                                                     </div>
                                                 
                                                     <div class="form-group col-md-2">
                                                         <label for="licenseNo">License No.<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="licenseNo"
-                                                            placeholder="License No">
+                                                        <input type="text" class="form-control" id="licenseNo" placeholder="License No">
                                                     </div>
 
                                                     <div class="form-group col-md-2">
-                                                        <label for="licenseIssueState">License Issue State <span
-                                                                style="color:#ff0000">*</span> </label>
-                                                        <input list="statelist" class="form-control"
-                                                            placeholder="--Select--" id="licenseIssueState"
-                                                            name="driverLicenseIssue" autocomplete="off">
+                                                        <label for="licenseIssueState">License Issue State <span style="color:#ff0000">*</span> </label>
+                                                        <input list="statelist" class="form-control" placeholder="--Select--" id="licenseIssueState" name="driverLicenseIssue" autocomplete="off">
                                                         <datalist id="statelist">
                                                             <option value="AL">
                                                             <option value="AK">
@@ -281,43 +262,35 @@
                                                         </datalist>
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="licenseExpDate">License Exp. Date <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="date" class="form-control" id="licenseExpDate"
-                                                            placeholder="License Exp. Date">
+                                                        <label for="licenseExpDate">License Exp. Date <span style="color:#ff0000">*</span></label>
+                                                        <input type="date" class="form-control" id="licenseExpDate" placeholder="License Exp. Date">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="lastMedical">Last Medical</label>
-                                                        <input type="date" class="form-control" id="lastMedical"
-                                                            placeholder="Last Medical">
+                                                        <input type="date" class="form-control" id="lastMedical" placeholder="Last Medical">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="nextMedical">Next Medical</label>
-                                                        <input type="date" class="form-control" id="nextMedical"
-                                                            placeholder="Next Medical">
+                                                        <input type="date" class="form-control" id="nextMedical" placeholder="Next Medical">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="lastDrugTest">Last Drug Test </label>
-                                                        <input type="date" class="form-control" id="lastDrugTest"
-                                                            placeholder="Last Drug Test">
+                                                        <input type="date" class="form-control" id="lastDrugTest"  placeholder="Last Drug Test">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="nextDrugTest">Next Drug Test </label>
-                                                        <input type="date" class="form-control" id="nextDrugTest"
-                                                            placeholder="Next Drug Test">
+                                                        <input type="date" class="form-control" id="nextDrugTest" placeholder="Next Drug Test">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="passportExpiry">Passport Expiry</label>
-                                                        <input type="date" class="form-control" id="passportExpiry"
-                                                            placeholder="Passport Expiry">
+                                                        <input type="date" class="form-control" id="passportExpiry" placeholder="Passport Expiry">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="fastCardExpiry">Fast Card Expiry</label>
-                                                        <input type="date" class="form-control" id="fastCardExpiry"
-                                                            placeholder="Fast Card Expiry">
+                                                        <input type="date" class="form-control" id="fastCardExpiry"  placeholder="Fast Card Expiry">
                                                     </div>
                                                 </div>
 
@@ -325,18 +298,15 @@
                                                     
                                                     <div class="form-group col-md-2">
                                                         <label for="hazmatExpiry">Hazmat Expiry </label>
-                                                        <input type="date" class="form-control" id="hazmatExpiry"
-                                                            placeholder="Hazmat Expiry">
+                                                        <input type="date" class="form-control" id="hazmatExpiry"  placeholder="Hazmat Expiry">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="terminationDate">Termination Date </label>
-                                                        <input type="date" class="form-control" id="terminationDate"
-                                                            placeholder="Termination Date">
+                                                        <input type="date" class="form-control" id="terminationDate"  placeholder="Termination Date">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="driverBalance ">Driver Balance </label>
-                                                        <input type="text" class="form-control" id="driverBalance"
-                                                            placeholder="Driver Balance ">
+                                                        <input type="text" class="form-control" id="driverBalance" placeholder="Driver Balance ">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="internalNotes">Internal Notes </label>
@@ -348,7 +318,7 @@
                                                     <div class="form-group col-md-2">
                                                         <label for="currency">Currency <span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="currency"  placeholder="Search here... " >
+                                                        <input type="text" class="form-control" id="currency"  placeholder="Search here... " value="USD"  disabled>
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="up_rate">Rate <span style="color:#ff0000">*</span>
@@ -369,10 +339,9 @@
                                                         <input type="text" class="form-control" id="dPercentage" placeholder="Percentage">
                                                     </div>
 
-                                                    <div class="form-group col-md-2 ml-6" id="dMile"
-                                                        style="display: none">
+                                                    <div class="form-group col-md-2 ml-6" id="dMile" style="display: none">
                                                         <label>Driver Pay Info</label><br>
-                                                        <a href="#" class="button-57" id="driverPayInfo">Open Pay Info1</a>
+                                                        <a href="#" class="button-57" id="driverPayInfo">Open Pay Info</a>
                                                     </div>
                                                     <div class="form-group col-md-2 ">
                                                         <label>Recurrence +</label>
@@ -446,74 +415,66 @@
                                                 @csrf
                                                 <!-- <input type="hidden" id="up_comId" name="" > -->
 
-                                                <input type="hidden" name="_token" id="drivercsrf"
-                                                    value="{{Session::token()}}">
+                                                <input type="hidden" name="_token" id="drivercsrf"  value="{{Session::token()}}">
                                                 <input type="hidden" id="up_comId">
                                                 <input type="hidden" name="emaildriver" id="emaildriver">
                                                 <!-- <input type="hidden" name="email4" id="email4"> -->
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_name">Name <span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control required" id="up_name"
-                                                            placeholder=" Name">
+                                                        <input type="text" class="form-control required" id="up_name" placeholder=" Name">
                                                     </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="up_username">Username<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="up_username"
-                                                            placeholder="username">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_username">Username<span style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="up_username" placeholder="username">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_telephone">Telephone <span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control telephone4"
-                                                            id="up_telephone" placeholder="Telephone">
+                                                        <!-- <input type="text" class="form-control telephone4" id="up_telephone" placeholder="Telephone"> -->
+                                                        <input type="text" class="form-control usa-phone telephone4" id="up_telephone"  data-mask="(999) 999-9999" >
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_altTelephone">Alt - Tel #</label>
-                                                        <input type="text" class="form-control telephone4"
-                                                            id="up_altTelephone" placeholder="Telephone">
+                                                        <!-- <input type="text" class="form-control telephone4" id="up_altTelephone" placeholder="Telephone"> -->
+                                                        <input type="text" class="form-control usa-phone telephone4" id="up_altTelephone"  data-mask="(999) 999-9999" >
+
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="up_address">Address <span
+                                                                style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="up_address"  placeholder="address">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="up_address">Address <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="up_address"
-                                                            placeholder="address">
-                                                    </div>
+                                                    
                                                     
                                                 <!-- </div>
 
                                                 <div class="form-row"> -->
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-3">
                                                         <label for="up_email">Email<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="email" class="form-control" id="up_email"
-                                                            placeholder="Email">
+                                                        <input type="email" class="form-control" id="up_email" placeholder="Email">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-3">
                                                         <label for="up_password">Password</label>
-                                                        <input type="password" class="form-control" id="up_password"
-                                                            placeholder="Password">
+                                                        <input type="password" class="form-control" id="up_password"  placeholder="Password">
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-4">
+                                                <!-- </div>
+                                                <div class="form-row"> -->
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_location">Location <span
                                                                 style="color:#ff0000">*</span> </label>
-                                                        <input type="text" class="form-control" id="up_location"
-                                                            placeholder="Location">
+                                                        <input type="text" class="form-control" id="up_location" placeholder="Location">
                                                     </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="up_zip">Zip <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="up_zip"
-                                                            placeholder="Zip">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_zip">Zip <span style="color:#ff0000">*</span></label>
+                                                        <input type="number" class="form-control" id="up_zip" placeholder="Zip">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_status">Status</label>
                                                         <select class="form-control" id="up_status">
                                                             <option value="Active">Active</option>
@@ -524,38 +485,29 @@
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_socialSecurityNo">Social Security No </label>
-                                                        <input type="text" class="form-control" id="up_socialSecurityNo"
-                                                            placeholder="Social Security No">
+                                                        <input type="number" class="form-control" id="up_socialSecurityNo" placeholder="Social Security No">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_dateOfBirth">Date of Birth </label>
-                                                        <input type="date" class="form-control" id="up_dateOfBirth"
-                                                            placeholder="Date of Birth">
+                                                        <input type="date" class="form-control" id="up_dateOfBirth" placeholder="Date of Birth">
                                                     </div>
 
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_dateOfHire">Date of Hire</label>
-                                                        <input type="date" class="form-control" id="up_dateOfHire"
-                                                            placeholder="Date of Hire">
+                                                        <input type="date" class="form-control" id="up_dateOfHire" placeholder="Date of Hire">
                                                     </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-4">
+                                               
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_licenseNo">License No.<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="up_licenseNo"
-                                                            placeholder="License No">
+                                                        <input type="text" class="form-control" id="up_licenseNo" placeholder="License No">
                                                     </div>
 
-                                                    <div class="form-group col-md-4">
-                                                        <label for="up_licenseIssueState">License Issue State <span
-                                                                style="color:#ff0000">*</span> </label>
-                                                        <input list="statelist" class="form-control"
-                                                            placeholder="--Select--" id="up_licenseIssueState"
-                                                            name="driverLicenseIssue" autocomplete="off">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_licenseIssueState">License Issue State <span  style="color:#ff0000">*</span> </label>
+                                                        <input list="statelist" class="form-control" placeholder="--Select--" id="up_licenseIssueState" name="driverLicenseIssue" autocomplete="off">
                                                         <datalist id="statelist">
                                                             <option value="AL">
                                                             <option value="AK">
@@ -608,52 +560,67 @@
                                                             <option value="WY">
                                                         </datalist>
                                                     </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="up_licenseExpDate">License Exp. Date <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="date" class="form-control" id="up_licenseExpDate"
-                                                            placeholder="License Exp. Date">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_licenseExpDate">License Exp. Date <span style="color:#ff0000">*</span></label>
+                                                        <input type="date" class="form-control" id="up_licenseExpDate" placeholder="License Exp. Date">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_lastMedical">Last Medical</label>
-                                                        <input type="date" class="form-control" id="up_lastMedical"
-                                                            placeholder="Last Medical">
+                                                        <input type="date" class="form-control" id="up_lastMedical"  placeholder="Last Medical">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_nextMedical">Next Medical</label>
-                                                        <input type="date" class="form-control" id="up_nextMedical"
-                                                            placeholder="Next Medical">
+                                                        <input type="date" class="form-control" id="up_nextMedical" placeholder="Next Medical">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="up_lastDrugTest">Last Drug Test </label>
-                                                        <input type="date" class="form-control" id="up_lastDrugTest"
-                                                            placeholder="Last Drug Test">
+                                                        <input type="date" class="form-control" id="up_lastDrugTest"  placeholder="Last Drug Test">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_nextDrugTest">Next Drug Test </label>
+                                                        <input type="date" class="form-control" id="up_nextDrugTest" placeholder="Next Drug Test">
+                                                    </div>
+                                                <!-- </div>
+
+                                                <div class="form-row"> -->
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_passportExpiry">Passport Expiry</label>
+                                                        <input type="date" class="form-control" id="up_passportExpiry" placeholder="Passport Expiry">
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_fastCardExpiry">Fast Card Expiry</label>
+                                                        <input type="date" class="form-control" id="up_fastCardExpiry" placeholder="Fast Card Expiry">
+                                                    </div>
+                                                    
+                                                    
+
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_hazmatExpiry">Hazmat Expiry </label>
+                                                        <input type="date" class="form-control" id="up_hazmatExpiry" placeholder="Hazmat Expiry">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="up_nextDrugTest">Next Drug Test </label>
-                                                        <input type="date" class="form-control" id="up_nextDrugTest"
-                                                            placeholder="Next Drug Test">
+                                                        <label for="up_terminationDate">Termination Date </label>
+                                                        <input type="date" class="form-control" id="up_terminationDate" placeholder="Termination Date">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
+                                                        <label for="up_driverBalance ">Driver Balance </label>
+                                                        <input type="text" class="form-control" id="up_driverBalance" placeholder="Driver Balance ">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="up_internalNotes">Internal Notes </label>
+                                                        <input type="text" class="form-control" id="up_internalNotes" placeholder="Notes">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-3">
-                                                        <label for="up_passportExpiry">Passport Expiry</label>
-                                                        <input type="date" class="form-control" id="up_passportExpiry"
-                                                            placeholder="Passport Expiry">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="up_fastCardExpiry">Fast Card Expiry</label>
-                                                        <input type="date" class="form-control" id="up_fastCardExpiry"
-                                                            placeholder="Fast Card Expiry">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="up_hazmatExpiry">Hazmat Expiry </label>
-                                                        <input type="date" class="form-control" id="up_hazmatExpiry"
-                                                            placeholder="Hazmat Expiry">
+                                                    <div class="form-group col-md-2">
+                                                        <label for="up_currency">Currency <span style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="up_currency">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="up_rate">Rate <span style="color:#ff0000">*</span>
@@ -666,67 +633,37 @@
                                                             <option value="hour">Hourly</option>
                                                         </select>
                                                     </div>
-
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-3 ml-6" id="dMileEdit"
-                                                        style="display: none">
+                                                    <!-- <div class="form-group col-md-3 ml-6" id="dMileEdit" style="display: none">
                                                         <label>Driver Pay Info</label>
-                                                        <a href="#driverPayInfoEditModal" class="button-29"
-                                                            data-toggle="modal"
-                                                            data-target="#driverPayInfoEditModal">Open
-                                                            Pay Info</a>
-
-                                                    </div>
-                                                    <div class="form-group col-md-2" id="dPercentageEdit"
-                                                        style="display: none">
+                                                        <a href="#driverPayInfoEditModal" class="button-29" data-toggle="modal" data-target="#driverPayInfoEditModal">Open Pay Info</a>
+                                                    </div> -->
+                                                    <div class="form-group col-md-2" id="dPercentageEdit" style="display: none">
                                                         <label>Percentage( % )</label>
-                                                        <input type="text" class="form-control" id="dPercentageEdit"
-                                                            placeholder="Percentage">
+                                                        <input type="text" class="form-control" id="dPercentageEdit" placeholder="Percentage">
                                                     </div>
-                                                    <div class="form-group col-md-3 ml-6" id="dHourlyEdit"
-                                                        style="display: none">
-                                                        <label>Driver Pay Info</label>
-                                                        <a href="#driverPayInfoEditModal" class="button-29"
-                                                            data-toggle="modal"
-                                                            data-target="#driverPayInfoEditModal">Open
-                                                            Pay Info</a>
+
+                                                    <!-- <div class="form-group col-md-2 ml-6" id="dMile" style="display: none">
+                                                        <label>Driver Pay Info</label><br>
+                                                        <a href="#" class="button-57" id="driverPayInfo">Open Pay Info</a>
+                                                    </div> -->
+                                                    <div class="form-group col-md-3 ml-6" id="dHourlyEdit" style="display: none">
+                                                        <label>Driver Pay Info</label><br>
+                                                        <a href="#" class="button-57"  id="driverPayInfoEdit">Open Pay Info</a>
                                                     </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label for="up_currency">Currency <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="up_currency"
-                                                            placeholder="Currency">
-                                                    </div>
+                                                    
                                                     <div class="form-group col-md-2">
                                                         <label for="up_recurrencePlus">Recurrence+</label>
-                                                        <input type="text" class="form-control" id="up_recurrencePlus"
-                                                            placeholder="Recurrence">
+                                                        <input type="text" class="form-control" id="up_recurrencePlus" placeholder="Recurrence">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="up_recurrenceMin">Recurrence -</label>
-                                                        <input type="text" class="form-control" id="up_recurrenceMin"
-                                                            placeholder="Recurrence-">
+                                                        <input type="text" class="form-control" id="up_recurrenceMin"  placeholder="Recurrence-">
                                                     </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="up_terminationDate">Termination Date </label>
-                                                        <input type="date" class="form-control" id="up_terminationDate"
-                                                            placeholder="Termination Date">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="up_driverBalance ">Driver Balance </label>
-                                                        <input type="text" class="form-control" id="up_driverBalance"
-                                                            placeholder="Driver Balance ">
-                                                    </div>
+                                                    
+                                                    
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label for="up_internalNotes">Internal Notes </label>
-                                                    <input type="text" class="form-control" id="up_internalNotes"
-                                                        placeholder="Notes">
-                                                </div>
-
+                                               
                                             </form>
 
                                         </div>

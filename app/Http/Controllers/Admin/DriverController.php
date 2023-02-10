@@ -77,7 +77,7 @@ class DriverController extends Controller
             $updateinstallmentarray=array();
         }
         
-    //dd(isset($unserializeData['installmentCategory']));
+        //dd(isset($unserializeData['installmentCategory']));
         if(isset($unserializeData['installmentCategory'])){
             foreach($unserializeData['installmentCategory'] as $key => $val){
             
@@ -102,7 +102,7 @@ class DriverController extends Controller
             } 
         }
 
-//dd($updateinstallmentarray);
+        //dd($updateinstallmentarray);
         $OwnerArray[$v]['driverId'] = $request->driverId;
         // $OwnerArray[$v]['percentage'] = $unserializeData['up_ownerPercentage'];
         $OwnerArray[$v]['percentage'] = $unserializeData['percentage'];
@@ -329,7 +329,7 @@ class DriverController extends Controller
             'rate' => 'required',
             'companyID' => 'required|unique:driver,companyID',
         ]);
-    //add recurrence
+        //add recurrence
         $unserializeData = [];
             parse_str($request->data,$unserializeData);
 
@@ -550,7 +550,7 @@ class DriverController extends Controller
             'legal_proof' =>$request->leage_proof
         ]);
 
-     //emergency_contact
+        //emergency_contact
        $emergency_contact=((object)[
                 'emergency_contact_name' =>$request->emergency_contact_name,
                 'emergency_contact_relation' =>$request->emergency_contact_relation,
@@ -578,7 +578,7 @@ class DriverController extends Controller
                 'last_school' =>$request->last_school,
                 'school_city_state' =>$request->school_city_state,
         ]);
-    //w9form
+        //w9form
         $w9form[]=array(
                 'individuals' =>'',
                 'ccorp' =>'',
@@ -590,12 +590,12 @@ class DriverController extends Controller
                 'tax' =>'',
                 'other_txt' =>'',
         );
-    //files       
+        //files       
         $files[]=array(
                 'files' => 'no',
                 'files2' => 'no',
         );
-    //employee_record
+        //employee_record
         $emp_record=((object)[
                 'employer' =>$request->Employer1,
                 'employer_from' =>$request->EmployedFrom1,
@@ -659,7 +659,7 @@ class DriverController extends Controller
                 'emp2_record' =>$emp_record2,
                 'emp3_record' =>$emp_record3,
         ]);
-    //employee_status
+        //employee_status
         $emp_status=((object)[
                 'emp_from' =>$request->emp_from,
                 'emp_to' =>$request->emp_to,
@@ -686,7 +686,7 @@ class DriverController extends Controller
                 'emp1_status' =>$emp1_status,
                 'emp2_status' =>$emp2_status,
         ]);
-    //employee_report
+        //employee_report
         $emp_report=((object)[
                 'accident_date' =>$request->accident_date,
                 'accident_description' =>$request->accident_description,
@@ -707,7 +707,7 @@ class DriverController extends Controller
                 'emp1_report' =>$emp1_report,
                 'emp2_report' =>$emp2_report,
         ]);
-    //employee_traffic
+        //employee_traffic
         $emp_traffic=((object)[
             'traffic_convictions_date' =>$request->traffic_convictions_date,
             'traffic_convictions_location' =>$request->traffic_convictions_location,
@@ -732,7 +732,7 @@ class DriverController extends Controller
             'emp2_traffic' =>$emp2_traffic,
         ]);
 
-    //equipments
+        //equipments
         $straight_truck=((object)[
             'straight_truck_from' =>$request->straight_truck_from,
             'straight_truck_to' =>$request->straight_truck_to,
@@ -773,7 +773,7 @@ class DriverController extends Controller
             'motor_two' =>$motor_two,
         ]);
        
-    //days
+        //days
         $day1=((object)[
             'day_1_date' =>$request->day_1_date,
             'day_1_hours' =>$request->day_1_hours,
@@ -811,7 +811,7 @@ class DriverController extends Controller
             'day6' =>$day6,
             'day7' =>$day7,
         ]);
-    //signature
+        //signature
         $signature=((object)[
             'ip' => '',
             'country' => '',
@@ -877,6 +877,7 @@ class DriverController extends Controller
     }
  //add by Reena edit driver
     public function editDriverData(Request $request){
+       // dd($request);
         $companyID=(int)$request->com_id;
 
         $driverEmail=$request->email;
@@ -1042,12 +1043,12 @@ class DriverController extends Controller
                 $v=$i;
             }
         }
-   //dd($driverAppArray[$v]);
+        //dd($driverAppArray[$v]);
         $destroy=$driverAppArray[$v]->delete(); 
 
-       //$destroy = destroy($driverAppArray[$v]);
-    //    $result->driver = $driverArray;
-//dd($destroy);
+        //$destroy = destroy($driverAppArray[$v]);
+        //    $result->driver = $driverArray;
+        //dd($destroy);
        if ($result->save()) {
             $success = true;
             $message = "Driver deleted successfully";

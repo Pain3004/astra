@@ -482,5 +482,32 @@ $('#saveDriverPayInfo').click(function(){
     $('#driverPayInfoModal').modal('hide');
 });
 // ---------------------------------------------end PayInfo  ---------------------------------------------
+// ---------------------------------------------edit PayInfo   ---------------------------------------------
+$('#driverPayInfoEdit').click(function(){
+    $('#driverPayInfoEditModal').modal('show');
+});
+
+$('.closeDrivereditPayInfo').click(function(){
+    $('#driverPayInfoEditModal').modal('hide');
+});
+
+// $('#saveDriverPayInfo').click(function(){
+//     var loadedmiles = $('#loadedmiles').val();
+//     if(loadedmiles == ''){
+//         swal.fire({title: 'Please loaded miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
+//         $("#loadedmiles").focus();
+//         return false;
+//     }
+//     var emptymiles = $('#emptymiles').val();
+//     if(emptymiles == ''){
+//         swal.fire({title: 'Please empty miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
+//         $("#emptymiles").focus();
+//         return false;
+//     }
+
+//     $('#driverPayInfoModal').modal('hide');
+// });
+// ---------------------------------------------end edit PayInfo  ---------------------------------------------
+
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 
 });

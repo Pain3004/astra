@@ -24,8 +24,8 @@ $(function (e) {
 			sSearch: '',
 		}
 	});
-	table.buttons().container()
-		.appendTo('#editable-file-datatable_wrapper .col-md-6:eq(0)');
+	// table.buttons().container()
+	// 	.appendTo('#editable-file-datatable_wrapper .col-md-6:eq(0)');
 
 	// Delete Data Table
 	var table = $('#delete-datatable').DataTable({

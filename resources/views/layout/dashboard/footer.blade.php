@@ -47,8 +47,8 @@
 <script src="{{URL::to('/')}}/assets/js/reply.js"></script>
 
 <!-- PERFECT SCROLLBAR JS-->
-<script src="{{URL::to('/')}}/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
-<script src="{{URL::to('/')}}/assets/plugins/p-scroll/pscroll.js"></script>
+<!-- <script src="{{URL::to('/')}}/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/p-scroll/pscroll.js"></script> -->
 
 <!-- STICKY JS -->
 <script src="{{URL::to('/')}}/assets/js/sticky.js"></script>

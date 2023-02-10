@@ -694,6 +694,7 @@ $('#Driver_navbar').click(function(){
     $("#driverModal").modal("show");
 });
     function createDriverRows(driverResponse) {
+        // console.log(driverResponse);
 //Privilege 
     // var edit=$('#updateUser').val();
     // var delet =$('#deleteUser').val();
@@ -721,7 +722,8 @@ $('#Driver_navbar').click(function(){
                 // for (var i = 0; i < len1; i++) {  
                 var len2=driverResponse.driver.length; 
                     // if(len2 > 0){
-                        for (var j = 0; j < len2; j++) {
+                    // for (var j = 0; j < len2; j++) {
+                    for (var j = len2-1; j > 0; j--) {
                         var comid =driverResponse.companyID;
                         var driverId=driverResponse.driver[j]._id;
                         var name = driverResponse.driver[j].driverName;
@@ -730,12 +732,32 @@ $('#Driver_navbar').click(function(){
                         var social_security_no = driverResponse.driver[j].driverSocial;
                         if(social_security_no == null){social_security_no="-";}
                         var date_of_birth = driverResponse.driver[j].dateOfbirth;
-                        if(date_of_birth == null){date_of_birth="-";}
-                        var date_of_hire = driverResponse.driver[j].dateOfhire;
-                        if(date_of_hire == null){date_of_hire="-";}
+                        if(date_of_birth == null || date_of_birth == false){date_of_birth="-";}
+                            var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_tr = new Date(date_of_birth*1000);
+                            var year_tr = date_tr.getFullYear();
+                            var month_tr = months_arr_tr[date_tr.getMonth()];
+                            var day_tr = date_tr.getDate();
+                            var date_of_birth = month_tr+'/'+day_tr+'/'+year_tr;
+                        var date_of_hire = driverResponse.driver[j].dateOfHire;
+                        console.log(date_of_hire);
+                        if(date_of_hire == null ){date_of_hire="-";}
+                            var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_tr = new Date(date_of_hire*1000);
+                            var year_tr = date_tr.getFullYear();
+                            var month_tr = months_arr_tr[date_tr.getMonth()];
+                            var day_tr = date_tr.getDate();
+                            var date_of_hire = month_tr+'/'+day_tr+'/'+year_tr;
+                            console.log(date_of_hire);
                         var license_no = driverResponse.driver[j].driverLicenseNo;
                         var lis = driverResponse.driver[j].driverLicenseIssue;
                         var license_exp_date = driverResponse.driver[j].driverLicenseExp;
+                            var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_tr = new Date(license_exp_date*1000);
+                            var year_tr = date_tr.getFullYear();
+                            var month_tr = months_arr_tr[date_tr.getMonth()];
+                            var day_tr = date_tr.getDate();
+                            var license_exp_date = month_tr+'/'+day_tr+'/'+year_tr;
                         var driver_balance = driverResponse.driver[j].driverBalance;
                         if(driver_balance == null){driver_balance="-";}
                         var delete_status = driverResponse.driver[j].deleteStatus;
@@ -745,24 +767,24 @@ $('#Driver_navbar').click(function(){
                         if(delete_status=="NO" || delete_status=="No" || delete_status=="no"){
                             
                             if(ownerOperatorStatus == 'YES' || ownerOperatorStatus == 'Yes' || ownerOperatorStatus == 'yes'){
-                                var actionBtnOwnerOperator= "<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                var actionBtnOwnerOperator= "<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "&"+driverId + "><i class='fe fe-edit'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
                                     "<a class='removeDriverOwner button-23 '  title='Remove Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:red'><i class='fe fe-user-x'></i></a>"+
                                     "<a class='editDriverOwner button-23 '  title='Edit Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-edit'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-danger');
                             }
                             else if(ownerOperatorStatus == 'NO' && ownerOperatorDeleteStatus == 'NO'){
-                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23  "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "&"+driverId +"><i class='fe fe-edit'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23  "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
                                     "<a class='addDriverOwner button-23'  title='Add As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-user-plus'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-success');
                             }else if(ownerOperatorDeleteStatus == 'YES' || ownerOperatorDeleteStatus == 'Yes' || ownerOperatorDeleteStatus == 'yes'){
-                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email +"&"+driverId + "><i class='fe fe-edit'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
                                     "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:orange'><i class='fe  fe-user-plus'></i></a>&nbsp";
 
                             }
-                        var tr_str1 = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                        var tr_str1 = "<tr class='tr' data-id=" + (j + 1) + ">" +
                             "<td data-field='no'>" + no  + "</td>" +
                             "<td data-field='name' >" + name + "</td>" +
                             "<td data-field='email'>" + email + "</td>" +
@@ -1150,8 +1172,6 @@ $('body').on('click',function() {
                   $('#editDriverOwnerModal').modal('show'); 
               },
               error: function(data){
-                  console.log(data);
-                  //alert("rr"); php
               }
           });
       });
@@ -1229,7 +1249,7 @@ $('#addDriver').click(function(){
             var fastCardExpiry = $('#fastCardExpiry').val();
             var hazmatExpiry = $('#hazmatExpiry').val();
             var rate = $('#rate').val();
-            var currency = $('#currency_add').val();
+            var currency = $('#currency').val();
             // console.log(currency);
             var recurrencePlus = $('#recurrencePlus').val();
             var recurrenceMin = $('#recurrenceMin').val();
@@ -1605,13 +1625,15 @@ function drivermodal()
             var result = $(this).attr("data-id").split('&');
             var com_id=result[0];
             var email=result[1];
+            var driver_id=result[2];
             $.ajax({
                 url: base_path+"/admin/editDriver",
                 type: "POST",
                 datatype:"JSON",
-                data: {_token: $("#drivercsrf").val(),com_id: com_id,email: email},
+                data: {_token: $("#drivercsrf").val(),driver_id: driver_id,com_id: com_id,email: email},
                 cache: false,
                 success: function(dataResult){
+
                     $('#up_comId').val(com_id);
                     $('#emaildriver').val(email);
                     $('#up_name').val(dataResult.driverName);
@@ -1624,24 +1646,102 @@ function drivermodal()
                     $('#up_zip').val(dataResult.driverZip);
                     $('#up_status').val(dataResult.driverStatus);
                     $('#up_socialSecurityNo').val(dataResult.driverSocial);
-                    $('#up_dateOfBirth').val(dataResult.dateOfbirth);
-                    $('#up_dateOfHire').val(dataResult.dateOfHire);
+
+                    var date = new Date(dataResult.dateOfbirth*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var dateOfbirth = year+'-0'+day+'-'+month;} 
+                    else{ var dateOfbirth = year+'-'+month+'-'+day; }
+                    $('#up_dateOfBirth').val(dateOfbirth);
+
+                    var date = new Date(dataResult.dateOfHire*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var dateOfHire = year+'-0'+day+'-'+month;} 
+                    else{ var dateOfHire = year+'-'+month+'-'+day; }
+                    $('#up_dateOfHire').val(dateOfHire);
                     $('#up_licenseNo').val(dataResult.driverLicenseNo);
                     $('#up_licenseIssueState').val(dataResult.driverLicenseIssue);
-                    $('#up_licenseExpDate').val(dataResult.driverLicenseExp);
-                    $('#up_lastMedical').val(dataResult.driverLastMedical);
-                    $('#up_nextMedical').val(dataResult.driverNextMedical);
-                    $('#up_lastDrugTest').val(dataResult.driverLastDrugTest);
-                    $('#up_nextDrugTest').val(dataResult.driverNextDrugTest);
-                    $('#up_passportExpiry').val(dataResult.passportExpiry);
-                    $('#up_fastCardExpiry').val(dataResult.fastCardExpiry);
-                    $('#up_hazmatExpiry').val(dataResult.hazmatExpiry);
+
+                    var date = new Date(dataResult.driverLicenseExp*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverLicenseExp = year+'-0'+day+'-'+month;} 
+                    else{ var driverLicenseExp = year+'-'+month+'-'+day; }
+                    $('#up_licenseExpDate').val(driverLicenseExp);
+
+                    var date = new Date(dataResult.driverLastMedical*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverLastMedical = year+'-0'+day+'-'+month;} 
+                    else{ var driverLastMedical = year+'-'+month+'-'+day; }
+                    $('#up_lastMedical').val(driverLastMedical);
+
+                    var date = new Date(dataResult.driverNextMedical*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverNextMedical = year+'-0'+day+'-'+month;} 
+                    else{ var driverNextMedical = year+'-'+month+'-'+day; }
+                    $('#up_nextMedical').val(driverNextMedical);
+
+                    var date = new Date(dataResult.driverLastDrugTest*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverLastDrugTest = year+'-0'+day+'-'+month;} 
+                    else{ var driverLastDrugTest = year+'-'+month+'-'+day; }
+                    $('#up_lastDrugTest').val(driverLastDrugTest);
+
+                    var date = new Date(dataResult.driverNextDrugTest*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverNextDrugTest = year+'-0'+day+'-'+month;} 
+                    else{ var driverNextDrugTest = year+'-'+month+'-'+day; }
+                    $('#up_nextDrugTest').val(driverNextDrugTest);
+
+                    var date = new Date(dataResult.passportExpiry*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var passportExpiry = year+'-0'+day+'-'+month;} 
+                    else{ var passportExpiry = year+'-'+month+'-'+day; }
+                    $('#up_passportExpiry').val(passportExpiry);
+
+                    var date = new Date(dataResult.fastCardExpiry*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var fastCardExpiry = year+'-0'+day+'-'+month;} 
+                    else{ var fastCardExpiry = year+'-'+month+'-'+day; }
+                    $('#up_fastCardExpiry').val(fastCardExpiry);
+
+                    var date = new Date(dataResult.hazmatExpiry*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var hazmatExpiry = year+'-0'+day+'-'+month;} 
+                    else{ var hazmatExpiry = year+'-'+month+'-'+day; }
+                    $('#up_hazmatExpiry').val(hazmatExpiry);
                     $('#up_rate').val(dataResult.rate);
                     $('#up_currency').val(dataResult.currency);
-                    $('#up_terminationDate').val(dataResult.terminationDate);
+
+                    var date = new Date(dataResult.terminationDate*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var terminationDate = year+'-0'+day+'-'+month;} 
+                    else{ var terminationDate = year+'-'+month+'-'+day; }
+                    $('#up_terminationDate').val(terminationDate);
                     $('#up_driverBalance').val(dataResult.driverBalance);
                     $('#up_internalNotes').val(dataResult.internalNotes);
                     $('#dPercentageEdit').val(dataResult.percentage);
+
                     $('#loadedmilesedit').val(dataResult.driverLoadedMile);
                     $('#emptymilesedit').val(dataResult.driverEmptyMile);
                     $('#pickrateedit').val(dataResult.pickupRate);
@@ -1758,7 +1858,7 @@ $(document).ready(function() {
 
         function createviewDriverApplicationRows(viewDriverApplicationResponse) {i
 
-            console.log(viewDriverApplicationResponse);
+            // console.log(viewDriverApplicationResponse);
             var len1 = 0;
             
             $('#viewDriverApplicationTable').empty(); 
@@ -2124,7 +2224,7 @@ function companymodal()
             async: false,
             //dataType:JSON,
             success: function(data) {
-                console.log(data)                    
+                // console.log(data)                    
                 createDriverTruckList(data);
                 truckResponse = data;
             }
@@ -2170,7 +2270,7 @@ function createDriverTruckList(truckResponse) {
             async: false,
             //dataType:JSON,
             success: function(data) {
-                console.log(data)                    
+                // console.log(data)                    
                 createDriverUpTruckList(data);
                 truckResponse = data;
             }
