@@ -18,7 +18,7 @@ class CustomerController extends Controller
     
     
     public function getCustomerData(Request $request){
-        $companyID=(int)67;
+        $companyID=(int)Auth::user()->companyID;
         $customer = Customer::where('companyID',$companyID )->first();
         return response()->json($customer, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
@@ -26,7 +26,7 @@ class CustomerController extends Controller
 
     public function getCustomerCurrency(Request $request){
         
-        $companyIDForCustomer=1;
+        $companyIDForCustomer=(int)Auth::user()->companyID;
         $customerCurr = Currency_add::where('companyID',$companyIDForCustomer)->first();
        // dd($customerCurr);
         return response()->json($customerCurr, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -36,7 +36,7 @@ class CustomerController extends Controller
          //dd($request);
         //$customerAdd = Customer::all();
    
-        $companyIDForCurrency=1;
+        $companyIDForCurrency=(int)Auth::user()->companyID;
         $totalCurrencyArray=0;
         $getCompanyForCurrency = Currency_add::where('companyID',$companyIDForCurrency)->first();
 
@@ -85,7 +85,7 @@ class CustomerController extends Controller
     }
 
     public function getCustomerPaymentTerms(Request $request){
-        $companyIDForCustomer=1;
+        $companyIDForCustomer=(int)Auth::user()->companyID;
         $customerPaymentterms = Payment_terms::where('companyID',$companyIDForCustomer)->first();
        // dd($customerCurr);
         return response()->json($customerPaymentterms, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -93,11 +93,11 @@ class CustomerController extends Controller
 
     public function addCustomerPaymentTerms(Request $request){
         //dd($request);
-       $companyIDForPaymentTerms=1;
+       $companyIDForPaymentTerms=(int)Auth::user()->companyID;
 
        //$customerAdd = Customer::all();
   
-       $companyIDForPaymentTerms=1;
+       $companyIDForPaymentTerms=(int)Auth::user()->companyID;
        $totalPaymentTermsArray=0;
        $getCompanyForPaymentTerms = Payment_terms::where('companyID',$companyIDForPaymentTerms)->first();
 
@@ -160,7 +160,7 @@ class CustomerController extends Controller
 
        //$customerAdd = Customer::all();
   
-       $companyID=(int)Auth::user()->companyID;;
+       $companyID=(int)Auth::user()->companyID;
        $totalCustomerfactoringArray=0;
        $getCompanyForCustomerfactoring = Factoring_company_add::where('companyID',$companyID)->first();
            if($getCompanyForCustomerfactoring)
@@ -385,6 +385,8 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLength; $i++){
+        if(isset($customerData->customer[$i]['_id']))
+        {
             $ids=$customerData->customer[$i]['_id'];
             $ids=(array)$ids;
                 foreach ($ids as $value){
@@ -394,6 +396,8 @@ class CustomerController extends Controller
                         
                      }
                 }
+        }
+            
        }
             //    dd($v);
             //    dd($cusomerArray[$v]);
@@ -416,14 +420,18 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLengthUp; $i++){
-                $ids=$customerData->customer[$i]['_id'];
-                $ids=(array)$ids;
-                foreach ($ids as $value){
-                    if($value==$id){
-                        // dd($id);
-                        $v=$i;
-                     }
-                }
+        if(isset($customerData->customer[$i]['_id']))
+        {
+            $ids=$customerData->customer[$i]['_id'];
+            $ids=(array)$ids;
+            foreach ($ids as $value){
+                if($value==$id){
+                    // dd($id);
+                    $v=$i;
+                 }
+            }
+        }
+               
        }
             //    dd($request->workerComp);
        $customerArray[$v]['custName']=$request->custName;
@@ -480,13 +488,17 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
         for ($i=0; $i<$arrayLength; $i++){
-            $ids=$customerData->customer[$i];
-            // $ids=(array)$ids;
-            foreach ($ids as $value){
-                if($value==$id){
-                    $v=$id;
-                    }
+            if(isset($customerData->customer[$i]['_id']))
+            {
+                $ids=$customerData->customer[$i]['_id'];
+            $ids=(array)$ids;
+                foreach ($ids as $value){
+                    if($value==$id){
+                        $v=$id;
+                        }
+                }
             }
+            
        }
        $customerArray[$v]['deleteStatus'] = "YES";
        $customerData->customer= $customerArray;

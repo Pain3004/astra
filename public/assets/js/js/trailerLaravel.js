@@ -1,21 +1,19 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
     // ============== strart list data trailer =================
+   
     $("#trailer_nav").on('click',function(){
-
         $('.trailerTypeSet').val('');
-        $.ajax({
+            $.ajax({
             type: "GET",
             url: base_path+"/admin/trailer_getTrailertype",
             async: false,
             //dataType:JSON,
-            success: function(data) {                   
+            success: function(data) {
                 createTrailerTypeList(data);
                 trailerTypeResponse = data;
             }
         });
-
-
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getTrailer",
@@ -34,33 +32,26 @@ $(document).ready(function() {
         if (TrailerResult != null) 
         {
             Trailer1 = TrailerResult.trailer_type.trailer.length;
-            // alert(Trailer1);
-
             $("#trailer_tbl").html('');
-            // console.log(Trailer1);
             if (Trailer1 > 0) 
             {
                 var no=1;
                 for (var i = Trailer1-1; i >=0; i--) {  
-                    // alert(i);
                     var  trailerId =TrailerResult.trailer_type.trailer[i]._id;
                     var trailerNumber =TrailerResult.trailer_type.trailer[i].trailerNumber;
                     var trailerTypeid =TrailerResult.trailer_type.trailer[i].trailerType;
-                        // console.log(trailerTypeid);
                     var trailerTypeLen = TrailerResult.trailer_type.trailer.length;
-                    // console.log(trailerTypeLen);
                     for (var j = 0; j < trailerTypeLen; j++) { 
                         var trailer_Type_id = TrailerResult.trailer_type.trailer[j]._id;
-                        // console.log(trailerTypeid);
                         if(trailerTypeid == trailer_Type_id)
                         {
-                            trailerType=TrailerResult.trailer.trailer[j].trailerType;
-                            // trailerType="";
+                          var  trailerType=TrailerResult.trailer.trailer[j].trailerType;
+                            console.log(trailerType);
                             break;
                         }
                         else
                         {
-                            trailerType="----";
+                           var  trailerType="----";
                         }
                     }
 
@@ -139,7 +130,7 @@ $(document).ready(function() {
                         var inspectionExpiry = TrailerResult.trailer_type.trailer[i].inspectionExpiration;
                         var activationDate = TrailerResult.trailer_type.trailer[i].activationDate;
                         var platExpiry=TrailerResult.trailer_type.trailer[i].plateExpiry;
-                        if(platExpiry != '')
+                        if(platExpiry !== false && platExpiry !="")
                         {
                             var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                             var date_platExpiry = new Date(platExpiry*1000);
@@ -152,7 +143,7 @@ $(document).ready(function() {
                         {
                             platExpiry="-----";
                         }
-                        if(inspectionExpiry !='' && inspectionExpiry != null)
+                        if(inspectionExpiry !='' && inspectionExpiry != false)
                         {
                             
                             var date_inspectionExpiry = new Date(inspectionExpiry*1000);
@@ -165,7 +156,7 @@ $(document).ready(function() {
                         {
                             inspectionExpiry="-----";
                         }
-                        if(activationDate !="" && activationDate !=null)
+                        if(activationDate !="" && activationDate !=false)
                         {
 
                             var date_activationDate = new Date(activationDate*1000);
@@ -178,7 +169,7 @@ $(document).ready(function() {
                         {
                             activationDate="-----";
                         }
-                        if(dot !="" && dot !=null)
+                        if(dot !="" && dot !=false)
                         {
                             var date_dot = new Date(dot*1000);
                             var year_dot = date_dot.getFullYear();
@@ -210,10 +201,8 @@ $(document).ready(function() {
                         "<td data-field='dot' >" + dot + "</td>" +
                         "<td data-field='activationDate' >" + activationDate + "</td>" +
                         "<td data-field='internalNotes' >" +internalNotes  + "</td>" +
-                        "<td style='text-align:center'>"+
-                            "<a class='mt-2 button-29 fs-14 text-white edit_trailerModel'  title='edit' data-trailerId='"+trailerId+"' data-trailerType='' ><i class='fe fe-edit'></i></a>&nbsp <input type='hidden' value="+trailerId+" class='trailer_id_edit'>"+
-                            "<form> <input type='hidden' name='_token' id='_tokenDeleteTrailer' value='{{ csrf_token() }}' /> <a class='mt-2 button-29 fs-14 text-white delete_trailer'  title='edit' data-trailerId='"+trailerId+"' data-trailerType='' ><i class='fe fe-trash'></i></a>&nbsp </form><input type='hidden' value="+trailerId+" class='trailer_id_delete'>"
-                        "</td></tr>";
+                        "<td style='width: 100px'><a class='button-23 edit1 edit_trailerModel'  title='Edit'   data-trailerId='"+trailerId+"' data-trailerType=''><i class='fe fe-edit'></i></a><a class='delete1 delete_trailer button-23'   data-trailerId='"+trailerId+"' data-trailerType='' title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
+
 
                         $("#trailer_tbl").append(trailerStr);
                         no++;
@@ -252,7 +241,6 @@ $(document).ready(function() {
     });
     
     $('.addTrailerModal').click(function(){
-        createTrailerTypeList();
        $('#addTrailerModal').modal('show');
     });
     $('.addTrailerType').click(function(){
@@ -261,11 +249,17 @@ $(document).ready(function() {
     $('.closeTrailerType').click(function(){
        $('#addTrailerTypeModal').modal('hide');
     });    
-   
+    $('#addTrailerTypeModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });  
+    $('#addTrailerModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
     
 
 
     // ======================= start save trailer model ======================
+  
     $('.saveTrailerType').click(function(){
         var trailer_type_name = $('#add_trailer_type').val();
         if(trailer_type_name=='')
@@ -292,7 +286,8 @@ $(document).ready(function() {
                     type: "GET",
                     url: base_path+"/admin/trailer_getTrailertype",
                     async: false,
-                    success: function(data) {                 
+                    //dataType:JSON,
+                    success: function(data) {
                         createTrailerTypeList(data);
                         trailerTypeResponse = data;
                     }
@@ -304,10 +299,7 @@ $(document).ready(function() {
     $('#TrailerSavebutton').click(function(){
         var trailertype='';
         var trailer_number = $('#trailerNumber').val();
-        var trailertype = $('.trailerType_Set_id').val().split('-');
-        // alert(trailertype);
-        // return false;
-        var trailertypeId=trailertype[0];
+        var trailertype = $('.trailerType_Set_id').val();
         var license_plate =$('#trailer_license_plate').val();
         var plate_expiry =$('#trailer_plate_expiry').val();
         // alert(plate_expiry);
@@ -328,9 +320,10 @@ $(document).ready(function() {
             return false;
             
         } 
-        if(trailertype=='')
+        // alert(trailertype);
+        if(trailertype=='unselected')
         {
-            swal.fire( "'Select trailer number from dropdown menu");
+            swal.fire( "'Select trailer type from dropdown menu");
             return false;
         }
         if(license_plate=='')
@@ -349,16 +342,12 @@ $(document).ready(function() {
             return false;
         }
         var formData = new FormData();
-        // $.each($("#trailerfiles")[0].trailerfiles, function(i, file) { 
-        //     // alert(file);           
-        //     formData.append('file[]', file);
-        // });
         $.each($("#trailer_files")[0].files, function(i, file) {            
             formData.append('file[]', file);
         });
         formData.append('_token',$("#_token_Trailer").val());
         formData.append('trailer_number',trailer_number.trim());
-        formData.append('trailerType',trailertypeId);
+        formData.append('trailerType',trailertype);
         formData.append('license_plate',license_plate);        
         formData.append('plate_expiry',plate_expiry);
         formData.append('inspection',inspection);
@@ -387,8 +376,6 @@ $(document).ready(function() {
                 $.ajax({
                     type: "GET",
                     url: base_path+"/admin/getTrailer",
-                    // async: false,
-                    //dataType:JSON,
                     success: function(response) {
                         creategetTrailerRows(response);
                         TrailerResult = response;
@@ -403,19 +390,7 @@ $(document).ready(function() {
 
 
     //===================== start save trailer type model ====================
-    // $('.trailerTypeSet').focus(function(){
-        // $('.trailerTypeSet').val('');
-        // $.ajax({
-        //     type: "GET",
-        //     url: base_path+"/admin/trailer_getTrailertype",
-        //     async: false,
-        //     //dataType:JSON,
-        //     success: function(data) {                   
-        //         createTrailerTypeList(data);
-        //         trailerTypeResponse = data;
-        //     }
-        // });
-    // });
+  
     function createTrailerTypeList(trailerTypeResponse) 
     {           
         var trailerTypelength = 0; 
@@ -428,26 +403,30 @@ $(document).ready(function() {
             // var no=1;
             //$(".customerCurrencySet").html('');
             $(".trailerTypeSet").html('');
-            for (var i=0; i<trailerTypelength; i++) 
+             var TrailerTypeList="<option  value='unselected' >----select-----</option>"
+             
+            for (var i = trailerTypelength-1; i >= 0; i--) 
             {  
-                var trailerTypeId =trailerTypeResponse.trailer[i]._id;
                 var trailerType =trailerTypeResponse.trailer[i].trailerType;
+                var trailerTypeId =trailerTypeResponse.trailer[i]._id;
                 if(trailerTypeResponse.trailer[i].deleteStatus == "NO")
                 {
-                    // alert(trailerTypeId);
-                    var TrailerTypeList = "<option  value='"+ trailerTypeId +"'>"+ trailerType +" </option>"   
-                }             
-                $(".trailerTypeSet").append(TrailerTypeList);
-                //<option value="Edge">
-                    //no++;
-            }            
+                    TrailerTypeList+= "<option  value='"+ trailerTypeId +"'>"+ trailerType +" </option>"   
+                }  
+            }    
+            $(".trailerTypeSet").append(TrailerTypeList);        
         }     
     }
     // =================end save trailer type =========================
 
     //============== start edit trailer model ==================
-    $('body').on('click','.edit_trailerModel',function(){
+    $('body').on('click','.edit_trailerModel',function(e){
+        e.preventDefault();
        var id=$(this).attr("data-trailerId");
+       $("#editTrailerModal").modal({
+        // remote: url,
+        refresh: true
+    });
     //    alert(id);
         $.ajax({
             type:'get',
@@ -456,90 +435,102 @@ $(document).ready(function() {
             async: false,
             success:function(response)
             {
-                createTrailerTypeList();
-            //   alert(response.trailerType);
                 $("#edit_trailer_id").val(response._id);
-               $("#edite_trailer_number").val(response.trailerNumber); 
+                $("#edite_trailer_number").val(response.trailerNumber); 
               
-            //    $("#edit_Trailer_Type option:selected").val(response.trailerType).attr("selected", "selected");
-            //    $("#edit_Trailer_Type").val(response.trailerType).selected = true;
-             var imgLength=response.trailerDoc.length;
-            //  alert(imgLength);
-            // var trailer_img=array();
-             $(".trailer_img").html();
-             for(var i=0; i<imgLength; i++)
-             {
-                // alert(i);
-                var img_length= response.trailerDoc[i].length;
-                var trailerDoc=response.trailerDoc[i];
-                console.log(trailerDoc);
-                // alert(img_length);
-                for(var v=0; v<img_length; v++)
+                var imgLength=response.trailerDoc.length;
+                $(".trailer_img").html();
+                // console.log(imgLength);
+                if(imgLength>=1)
                 {
-                    var trailer_img ="<img src='/"+trailerDoc[v].targetfilepath+"'width='100px'>";
-                    // alert(trailer_img);
-                $(".trailer_img").append(trailer_img);
+                    for(var i=0; i<imgLength; i++)
+                    {
+                        // alert(i);
+                        var img_length= response.trailerDoc[i].length;
+                        var trailerDoc=response.trailerDoc[i];
+                        console.log(trailerDoc);
+                        // alert(img_length);
+                        for(var v=0; v<img_length; v++)
+                        {
+                            var trailer_img ="<img src='/"+trailerDoc[v].targetfilepath+"'width='100px'>";
+                            // alert(trailer_img);
+                        $(".trailer_img").append(trailer_img);
+                        }
+                    }
                 }
-             }
-
-
-             var plate_expiry=response.plateExpiry;
-            var inspectionExpiration= response.inspectionExpiration;
-            var activationDate= response.activationDate;
-            var dot= response.dot;
-             var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-             var date_plate_expiry = new Date(plate_expiry*1000);
-             var year_plate_expiry = date_plate_expiry.getFullYear();
-             var month_plate_expiry = months_arr[date_plate_expiry.getMonth()];
-             var day_plate_expiry = date_plate_expiry.getDate();
-             if(day_plate_expiry <=9 )
-             {
-                 var plate_expiry = year_plate_expiry+'-0'+day_plate_expiry+'-'+month_plate_expiry;
-             }
-             else
-             {
-                 var plate_expiry = year_plate_expiry+'-'+month_plate_expiry+'-'+day_plate_expiry;
-             }
-
-             var date_inspectionExpiration = new Date(inspectionExpiration*1000);
-             var year_inspectionExpiration = date_inspectionExpiration.getFullYear();
-             var month_inspectionExpiration = months_arr[date_inspectionExpiration.getMonth()];
-             var day_inspectionExpiration = date_inspectionExpiration.getDate();
-             if(day_plate_expiry <=9 )
-             {
-                 var inspectionExpiration = year_inspectionExpiration+'-0'+day_inspectionExpiration+'-'+month_inspectionExpiration;
-             }
-             else
-             {
-                 var inspectionExpiration = year_inspectionExpiration+'-'+month_inspectionExpiration+'-'+day_inspectionExpiration;
-             }
-
-             var date_activationDate = new Date(activationDate*1000);
-             var year_activationDate = date_activationDate.getFullYear();
-             var month_activationDate = months_arr[date_activationDate.getMonth()];
-             var day_activationDate = date_activationDate.getDate();
-             if(day_plate_expiry <=9 )
-             {
-                 var activationDate = year_activationDate+'-0'+day_activationDate+'-'+month_activationDate;
-             }
-             else
-             {
-                 var activationDate = year_activationDate+'-'+month_activationDate+'-'+day_activationDate;
-             }
+            
              
-
-             var date_dot = new Date(dot*1000);
-             var year_dot = date_dot.getFullYear();
-             var month_dot = months_arr[date_dot.getMonth()];
-             var day_dot = date_dot.getDate();
-             if(day_plate_expiry <=9 )
-             {
-                 var dot = year_dot+'-0'+day_dot+'-'+month_dot;
-             }
-             else
-             {
-                 var dot = year_dot+'-'+month_dot+'-'+day_dot;
-             }
+                var plate_expiry=response.plateExpiry;
+                var inspectionExpiration= response.inspectionExpiration;
+                var activationDate= response.activationDate;
+                var dot= response.dot;
+                var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                var date_plate_expiry = new Date(plate_expiry*1000);
+                var year_plate_expiry = date_plate_expiry.getFullYear();
+                var month_plate_expiry = months_arr[date_plate_expiry.getMonth()];
+                var day_plate_expiry = date_plate_expiry.getDate();
+                if(plate_expiry !== false)
+                {
+                    if(day_plate_expiry <=9 )
+                    {
+                        var plate_expiry = year_plate_expiry+'-0'+day_plate_expiry+'-'+month_plate_expiry;
+                    }
+                    else
+                    {
+                        var plate_expiry = year_plate_expiry+'-'+month_plate_expiry+'-'+day_plate_expiry;
+                    }
+                }
+              
+    
+                var date_inspectionExpiration = new Date(inspectionExpiration*1000);
+                var year_inspectionExpiration = date_inspectionExpiration.getFullYear();
+                var month_inspectionExpiration = months_arr[date_inspectionExpiration.getMonth()];
+                var day_inspectionExpiration = date_inspectionExpiration.getDate();
+                if(inspectionExpiration !== false)
+                {
+                    if(day_inspectionExpiration <=9 )
+                    {
+                        var inspectionExpiration = year_inspectionExpiration+'-0'+day_inspectionExpiration+'-'+month_inspectionExpiration;
+                    }
+                    else
+                    {
+                        var inspectionExpiration = year_inspectionExpiration+'-'+month_inspectionExpiration+'-'+day_inspectionExpiration;
+                    }
+                }
+              
+    
+                var date_activationDate = new Date(activationDate*1000);
+                var year_activationDate = date_activationDate.getFullYear();
+                var month_activationDate = months_arr[date_activationDate.getMonth()];
+                var day_activationDate = date_activationDate.getDate();
+                if(activationDate !== false)
+                {
+                    if(day_activationDate <=9 )
+                    {
+                        var activationDate = year_activationDate+'-0'+day_activationDate+'-'+month_activationDate;
+                    }
+                    else
+                    {
+                        var activationDate = year_activationDate+'-'+month_activationDate+'-'+day_activationDate;
+                    }
+                }
+                
+    
+                var date_dot = new Date(dot*1000);
+                var year_dot = date_dot.getFullYear();
+                var month_dot = months_arr[date_dot.getMonth()];
+                var day_dot = date_dot.getDate();
+                if(dot !== false)
+                {
+                    if(day_dot <=9 )
+                    {
+                        var dot = year_dot+'-0'+day_dot+'-'+month_dot;
+                    }
+                    else
+                    {
+                        var dot = year_dot+'-'+month_dot+'-'+day_dot;
+                    }
+                }
                $("#edit_Trailer_Type").val(response.trailerType); 
                $("#edit_Trailerlicense_plate").val(response.licenseType); 
                $("#edit_Trailerplate_expiry").val(plate_expiry); 
@@ -556,9 +547,15 @@ $(document).ready(function() {
             //    $("#edit_trailer_files").val(response.trailerNumber); 
             }
         });
-        $("#editTrailerModal").modal('show');
+        // $("#editTrailerModal .modal-body").load(e.target, function() { 
+            $("#editTrailerModal").modal('show');
+        // });
      });
+     $('#editTrailerModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
      $(".closeEditTrailerModal").click(function(){
+        $(".trailer_img").html("<div></div>");
         $("#editTrailerModal").modal('hide');
      });
 
@@ -645,6 +642,7 @@ $(document).ready(function() {
                 // alert("success !");
                 console.log(data)                    
                 swal.fire("Done!", "Trailer updated successfully", "success");
+                $(".trailer_img").html("<div></div>");
                 $('#editTrailerModal').modal('hide');
                 $.ajax({
                     type: "GET",
@@ -713,19 +711,19 @@ $(document).ready(function() {
         })
     });
 
-
-    // end delete =================================================
+        // end delete =================================================
 
     // start restore ===============================================
     $(".restore_trailerBtn").click(function(){
         $.ajax({
             type: "GET",
-            url: base_path+"/admin/trailer_getTrailertype",
+            url: base_path+"/admin/getTrailer",
             async: false,
             //dataType:JSON,
-            success: function(data) {                   
+            success: function(data) {  
+                console.log(data)  ;               
                 RestoreTrailerTypeList(data);
-                trailerTypeResponse = data;
+                TrailerResult = data;
             }
         });
         $("#RestoreTrailerModal").modal("show");
@@ -733,11 +731,12 @@ $(document).ready(function() {
     $(".coseRestoreTrilershow").click(function(){
         $("#RestoreTrailerModal").modal("hide");
     });
-    function RestoreTrailerTypeList(trailerTypeResponse) {
+    function RestoreTrailerTypeList(TrailerResult) {
         var subCreditCardlen = 0;
         var Trailer1 = 0;
         if (TrailerResult != null) 
         {
+            // console.log(TrailerResult);
             Trailer1 = TrailerResult.trailer_type.trailer.length;
             // alert(Trailer1);
 
@@ -844,7 +843,7 @@ $(document).ready(function() {
                         var inspectionExpiry = TrailerResult.trailer_type.trailer[i].inspectionExpiration;
                         var activationDate = TrailerResult.trailer_type.trailer[i].activationDate;
                         var platExpiry=TrailerResult.trailer_type.trailer[i].plateExpiry;
-                        if(platExpiry != '')
+                        if(platExpiry != false)
                         {
                             var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                             var date_platExpiry = new Date(platExpiry*1000);
@@ -857,7 +856,7 @@ $(document).ready(function() {
                         {
                             platExpiry="-----";
                         }
-                        if(inspectionExpiry !='' && inspectionExpiry != null)
+                        if(inspectionExpiry !='' && inspectionExpiry != false)
                         {
                             
                             var date_inspectionExpiry = new Date(inspectionExpiry*1000);
@@ -870,7 +869,7 @@ $(document).ready(function() {
                         {
                             inspectionExpiry="-----";
                         }
-                        if(activationDate !="" && activationDate !=null)
+                        if(activationDate !="" && activationDate !=false)
                         {
 
                             var date_activationDate = new Date(activationDate*1000);
@@ -883,7 +882,7 @@ $(document).ready(function() {
                         {
                             activationDate="-----";
                         }
-                        if(dot !="" && dot !=null)
+                        if(dot !="" && dot !=false)
                         {
                             var date_dot = new Date(dot*1000);
                             var year_dot = date_dot.getFullYear();

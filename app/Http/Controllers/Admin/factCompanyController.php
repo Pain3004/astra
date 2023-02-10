@@ -16,20 +16,18 @@ use Illuminate\Database\Eloquent\Collection;
 
 class factCompanyController extends Controller
 {
-    public function getFactCompany(){
+    public function getFactCompany()
+    {
         $companyId=(int)Auth::user()->companyID;
         $FactCompany = Factoring_company_add::where('companyID',$companyId)->first();
-        $FactCompany=collect($FactCompany->factoring);
-        $FactCompany = $FactCompany->chunk(4);
-       $FactCompany= $FactCompany->toArray();
-    //    dd($FactCompany);
-       return response()->json(['FactCompany'=>$FactCompany], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+       return response()->json($FactCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
     public function editFactCompany(Request $request)
     {
         $id=$request->id;
         $companyID=(int)Auth::user()->companyID;
+        // dd($companyID);
         $Factoring_company_add = Factoring_company_add::where('companyID',$companyID)->first();
         $Factoring_company_addArray=$Factoring_company_add->factoring;
         $facComLength=count($Factoring_company_addArray);
@@ -175,6 +173,7 @@ class factCompanyController extends Controller
             }
         }
     }
+
 
 
 }

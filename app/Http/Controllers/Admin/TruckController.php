@@ -17,35 +17,31 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TruckController extends Controller
 {
-    public function getTruck(Request $request){
+    public function getTruck(Request $request)
+    {
         $companyId=1;
         $truck = Truckadd::where('companyID',$companyId)->first();
         $truck_type = Truck_type::where('companyID',$companyId)->first();
-        //dd($truck);
        return response()->json(['truck'=>$truck,'truck_type'=>$truck_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-        //return response()->json($truck, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
-    public function truck_getTrucktype(Request $request){
-        $companyId=1;
-       
-        $truck_type = Truck_type::where('companyID',$companyId)->first();
-    
+    public function truck_getTrucktype(Request $request)
+    {
+        $companyId=(int)Auth::user()->companyID;;       
+        $truck_type = Truck_type::where('companyID',$companyId)->first();    
        return response()->json($truck_type, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-        //return response()->json($truck, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     
-    public function addTruckData(Request $request){
+    public function addTruckData(Request $request)
+    {
         request()->validate([
-            //'truckNumber' => 'required',
-            // 'truckType' => 'required',
-            // 'licensePlate' => 'required',
-            // 'plateExpiry' => 'required',
-            // 'ownership' => 'required',
-            // 'vin' => 'required',
+            'truck_number' => 'required',
+            'trucktype' => 'required',
+            'license_plate' => 'required',
+            'plate_expiry' => 'required',
+            'ownership' => 'required',
+            'vin' => 'required',
         ]);
-  
-//file upload
       $path = public_path().'/TruckFile';
       if(!File::exists($path)) {
         File::makeDirectory($path, $mode = 0777, true, true);
@@ -77,16 +73,24 @@ class TruckController extends Controller
         }
         catch(\Exception $error){
             return $error->getMessage();
-        }
-
-// add data in truck        
+        }       
         try{
-            $Truck=Truckadd::all();
-            $companyID=(int)1;
+            $companyID=(int)Auth::user()->companyID;
 
             $getTruck = Truckadd::where('companyID',$companyID)->first();
+            // dd($getTruck);
                 if($getTruck){
                     $totalTruckArray=count($getTruck->truck);
+                //     $totalTruckArray=$getTruck->truck;
+                //     $ids=array();
+                // foreach( $totalTruckArray as $key=> $row)
+                // {
+                //     $ids[]=$row['_id'];
+                // }
+                // $ids=max($ids);
+                // dd($ids);
+                // $totalTruckArray=$ids+1;
+
                 }else{
                     $totalTruckArray=0; 
                 }
@@ -95,30 +99,29 @@ class TruckController extends Controller
                 }else{
                     $truckDoc=array();
                 }
-            
+                // dd($totalTruckArray);
             $truckData[]=array(    
                     '_id' => $totalTruckArray,
-                    //'_id' => new ObjectId(),
                     'counter' => 0,
                     'truckNumber' => $request->truck_number,
-                    'truckType' => $request->trucktypeId,
+                    'truckType' => $request->trucktype,
                     'licensePlate' => $request->license_plate,
-                    'plateExpiry' => $request->plate_expiry,
-                    'inspectionExpiry' => $request->inspection,
+                    'plateExpiry' => strtotime($request->plate_expiry),
+                    'inspectionExpiry' =>strtotime($request->inspection),
                     'status' => $request->truck_status,
                     'ownership' => $request->ownership,
                     'mileage' => $request->mileage,
                     'axies' => $request->axies,
                     'year' => $request->year,
                     'fuelType' => $request->fuel_type,
-                    'startDate' => $request->start_date,
-                    'deactivationDate' => $request->deactivation,
+                    'startDate' => strtotime($request->start_date),
+                    'deactivationDate' => strtotime($request->deactivation),
                     'ifta' => $request->ifta,
                     'registeredState' => $request->RegisteredState,
                     'insurancePolicy' => $request->Insurance_Policy,
                     'grossWeight' => $request->gross,
                     'vin' => $request->vin,
-                    'dotexpiryDate' => $request->dot,
+                    'dotexpiryDate' => strtotime($request->dot),
                     'transponder' => $request->transponder,
                     'internalNotes' => $request->internal_note,
                     'trucDoc' => $truckDoc,
@@ -131,7 +134,6 @@ class TruckController extends Controller
                     'deleteTime' => "",
                         
                 );
-// dd($driverData[]);
                 if($getTruck){
                     $truckArray=$getTruck->truck;
                     Truckadd::where(['companyID' =>$companyID ])->update([
@@ -229,14 +231,10 @@ class TruckController extends Controller
               return $error->getMessage();
           }  
         $companyID=(int)$request->companyID;
-        // dd($companyID);
         $id=$request->id;
         $truckData=Truckadd::where('companyID',$companyID)->first();
-        // dd( $truckData);
         $truckArray=$truckData->truck;
         $arrayLength=count($truckArray);
-
-        $Truck=Truckadd::all();
         $getTruck = Truckadd::where('companyID',$companyID)->first();
         if($getTruck){
             $totaltruckArray=count($getTruck->truck);
@@ -248,7 +246,6 @@ class TruckController extends Controller
         }else{
             $truckDoc=array();
         }
-        // dd($arrayLength);
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLength; $i++){
@@ -259,30 +256,28 @@ class TruckController extends Controller
                      }
                 }
        }
-    //    dd($request->ifta);
-    //    $truckdoc=$truckfile;
        $truckArray[$v]['truckNumber'] = $request->truckNumber;
        $truckArray[$v]['truckType'] = $request->truckType;
        $truckArray[$v]['licenseType'] = $request->licenseType;
-       $truckArray[$v]['plateExpiry'] = $request->plateExpiry;
-       $truckArray[$v]['inspectionExpiry'] = $request->inspectionExpiry;
+       $truckArray[$v]['plateExpiry'] = strtotime($request->plateExpiry);
+       $truckArray[$v]['inspectionExpiry'] = strtotime($request->inspectionExpiry);
        $truckArray[$v]['status'] = $request->status;
        $truckArray[$v]['ownership'] = $request->ownership;
        $truckArray[$v]['mileage'] = $request->mileage;
        $truckArray[$v]['axies'] = $request->axies;
        $truckArray[$v]['year'] = $request->year;
        $truckArray[$v]['fuelType'] = $request->fuelType;
-       $truckArray[$v]['startDate'] = $request->startDate;
-       $truckArray[$v]['deactivationDate'] = $request->deactivationDate;
+       $truckArray[$v]['startDate'] = strtotime($request->startDate);
+       $truckArray[$v]['deactivationDate'] = strtotime($request->deactivationDate);
        $truckArray[$v]['registeredState'] = $request->registeredState;
        $truckArray[$v]['insurancePolicy'] = $request->insurancePolicy;
        $truckArray[$v]['grossWeight'] = $request->grossWeight;
        $truckArray[$v]['vin'] = $request->vin;
-       $truckArray[$v]['dotexpiryDate'] = $request->dotexpiryDate;
+       $truckArray[$v]['dotexpiryDate'] = strtotime($request->dotexpiryDate);
        $truckArray[$v]['transponder'] = $request->transponder;
        $truckArray[$v]['ifta'] = $request->ifta;
        $truckArray[$v]['internalNotes'] = $request->internalNotes;
-    //    $truckArray[$v]['trucDoc'] = $truckdoc;                   
+        $truckArray[$v]['trucDoc'] = $truckDoc;                   
        $truckArray[$v]['insertedTime'] = time();
        $truckArray[$v]['insertedUserId'] =Auth::user()->_id;
        $truckArray[$v]['deleteStatus'] = "NO";
@@ -372,16 +367,13 @@ class TruckController extends Controller
     }
     public function create_truckType(Request $request)
     {
-        $companyID=(int)1;
-        // dd($request->truckType);
+        $companyID=(int)Auth::user()->companyID;
         $getTruck = Truck_type::where('companyID',$companyID)->get();
-        // dd($getTruck);
          $totalTruckArray=array();
          foreach($getTruck as $row)
          {
             if($row){
                 $totalTruckArray=count($row->truck);
-                // dd( $totalTruckArray);
             }else{
                 $totalTruckArray=0; 
             }
@@ -394,7 +386,6 @@ class TruckController extends Controller
                     
             );
             $truckArray=$row->truck;
-            // dd( $totalTruckArray);
             if(Truck_type::where(['companyID' =>$companyID ])->update([
                 'companyID' => $companyID,
                 'counter' => $totalTruckArray+1,
@@ -404,7 +395,6 @@ class TruckController extends Controller
                     'success' => true,
                     'message'=> 'truck added successfully'
                     ] ;
-                    // return response()->json($data);
             }
         }
         return response()->json($data);

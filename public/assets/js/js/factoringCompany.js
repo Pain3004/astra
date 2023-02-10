@@ -1,6 +1,6 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
-    //==================================== start view fatctoring =============================================================
+// ==========================start view ===================================
 
     $('.FactoringCompanyModalClose').click(function(){
          $('#FacoringCompanyModal').modal('hide');
@@ -9,7 +9,19 @@ $(document).ready(function() {
     $('#AddFactoringCompany').click(function(){
         $('#addFactoringCompanyModal').modal('show');
     });
-
+    $(".factoringCompanyModalCloseButton").click(function(){
+        $('#addFactoringCompanyModal').modal('hide');
+    });
+    $('#addFactoringCompanyModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
+    
+    $('#plusCurrencyModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
+    $('#PaymentTermsModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
     $('#factoringCurrency').click(function(){
         $('#plusCurrencyModal').modal('show');
     });
@@ -21,112 +33,238 @@ $(document).ready(function() {
     $('.addFactoringCompanyModalCloseButton').click(function(){
         $('#addFactoringCompanyModal').modal('hide');
     });
-
-    // <!-- -------------------------------------------------------------------------Get factoringCompany  ------------------------------------------------------------------------- -->  
    
     $('#facCompany_navbar').click(function(){
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getFactCompany",
             success: function(text) {
-                console.log(text);
                 createFactoringCompanyRows(text);
                 factoringCompanyResult = text;
              }
         });
         $('#FacoringCompanyModal').modal('show');
+   
+        
     });
-
-
-    // <!-- -------------------------------------------------------------------------over Get factoringCompany  ------------------------------------------------------------------------- --> 
-
-
-    // <!-- -------------------------------------------------------------------------function  get------------------------------------------------------------------------- --> 
-    
-    function createFactoringCompanyRows(factoringCompanyResult) {
+    function createFactoringCompanyRows(factoringCompanyResult) 
+    {    
         var consigneelen = 0;
         if (factoringCompanyResult != null) {
-            consigneelen = factoringCompanyResult.FactCompany.length;
+            consigneelen = factoringCompanyResult.factoring.length;
             $("#factCompTable").html('');
-            // const x = consigneelen.chunk(2, 4);
-  
-            
+
             if (consigneelen > 0) {
                 var no=1; 
-                
-                for(var j = consigneelen-1; j >= 0; j--)
-                {
-                    var data= factoringCompanyResult.FactCompany[j];
-                    $.each(data, function(i, v) { 
-                            var id =factoringCompanyResult.FactCompany[j][i]._id;
-                            var factoringCompanyname =factoringCompanyResult.FactCompany[j][i].factoringCompanyname;
-                            // console.log(factoringCompanyname);
-                            var address =factoringCompanyResult.FactCompany[j][i].address;
-                            var location=factoringCompanyResult.FactCompany[j][i].location;
-                            var zip=factoringCompanyResult.FactCompany[j][i].zip;
-                            var primaryContact=factoringCompanyResult.FactCompany[j][i].primaryContact;
-                            var telephone=factoringCompanyResult.FactCompany[j][i].telephone;
-                            var extFactoring =factoringCompanyResult.FactCompany[j][i].extFactoring;
-                            var fax =factoringCompanyResult.FactCompany[j][i].fax;
-                            var tollFree=factoringCompanyResult.FactCompany[j][i].tollFree;
-                            var ContactEmail=factoringCompanyResult.FactCompany[j][i].email;
-                            var secondaryContact =factoringCompanyResult.FactCompany[j][i].secondaryContact;
-                            var factoringtelephone =factoringCompanyResult.FactCompany[j][i].factoringtelephone;
-                            var ext =factoringCompanyResult.FactCompany[j][i].ext;
-                            var currencySetting =factoringCompanyResult.FactCompany[j][i].currencySetting;
-                            var paymentTerms =factoringCompanyResult.FactCompany[j][i].paymentTerms;
-                            var  taxID=factoringCompanyResult.FactCompany[j][i].taxID;
-                            var internalNote =factoringCompanyResult.FactCompany[j][i].internalNote;
-                            var deleteStatus =factoringCompanyResult.FactCompany[j][i].deleteStatus;
-                        
-                            if(deleteStatus == 'NO' ){
-    
-                                var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                                //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                                "<td data-field='no'>" + no + "</td>" +
-                                "<td data-field='factoringCompanyname' >" + factoringCompanyname + "</td>" +
-                                "<td data-field='address' >" + address + "</td>" +
-                                "<td data-field='location' >" + location + "</td>" +
-                                "<td data-field='zip' >" + zip + "</td>" +
-                                "<td data-field='primaryContact' >" + primaryContact + "</td>" +
-                                "<td data-field='telephone' >" + telephone + "</td>" +
-                                "<td data-field='extFactoring' >" + extFactoring + "</td>" +
-                                "<td data-field='fax' >" + fax + "</td>" +
-                                "<td data-field='tollFree' >" + tollFree + "</td>" +
-                                "<td data-field='ContactEmail' >" + ContactEmail + "</td>" +
-                                "<td data-field='secondaryContact' >" + secondaryContact + "</td>" +
-                                "<td data-field='factoringtelephone' >" + factoringtelephone + "</td>" +
-                                "<td data-field='ext' >" + ext + "</td>" +
-                                "<td data-field='currencySetting' >" + currencySetting + "</td>" +
-                                "<td data-field='paymentTerms' >" + paymentTerms + "</td>" +
-                                "<td data-field='taxID' >" + taxID + "</td>" +
-                                "<td data-field='internalNote' >" + internalNote + "</td>" +
-                                
-                                "<td style='text-align:center'>"+
-                                    "<a class='button-23 editFactringCompany'  title='Edit1' data-factId='"+id+"' ><i class='fe fe-edit'></i></a>"+
-                                    "<a class='button-23 deleteFactringCompany'  title='Edit1' data-factId='"+id+"' ><i class='fe fe-trash'></i></a>"+
-                                "</td></tr>";
-    
-                                $("#factCompTable").append(factComStr);
-                                no++;
-                            } 
-                    });
-                  
-                }
-            } 
-        }
-        else {
-            var tr_str1 = "<tr data-id=" + i + ">" +
-            "<td align='center' colspan='4'>No record found.</td>" +
-            "</tr>";
+                for (var i = consigneelen-1; i >= 0; i--) {  
+                    var id =factoringCompanyResult.factoring[i]._id;
+                    var factoringCompanyname =factoringCompanyResult.factoring[i].factoringCompanyname;
+                    var address =factoringCompanyResult.factoring[i].address;
+                    var location=factoringCompanyResult.factoring[i].location;
+                    var zip=factoringCompanyResult.factoring[i].zip;
+                    var primaryContact=factoringCompanyResult.factoring[i].primaryContact;
+                    var telephone=factoringCompanyResult.factoring[i].telephone;
+                    var extFactoring =factoringCompanyResult.factoring[i].extFactoring;
+                    var fax =factoringCompanyResult.factoring[i].fax;
+                    var tollFree=factoringCompanyResult.factoring[i].tollFree;
+                    var ContactEmail=factoringCompanyResult.factoring[i].email;
+                    var secondaryContact =factoringCompanyResult.factoring[i].secondaryContact;
+                    var factoringtelephone =factoringCompanyResult.factoring[i].factoringtelephone;
+                    var ext =factoringCompanyResult.factoring[i].ext;
+                    var currencySetting =factoringCompanyResult.factoring[i].currencySetting;
+                    var paymentTerms =factoringCompanyResult.factoring[i].paymentTerms;
+                    var  taxID=factoringCompanyResult.factoring[i].taxID;
+                    var internalNote =factoringCompanyResult.factoring[i].internalNote;
+                    var deleteStatus =factoringCompanyResult.factoring[i].deleteStatus;
+                    if(factoringCompanyname !="" && factoringCompanyname!= null)
+                    {
+                        factoringCompanyname=factoringCompanyname;
+                    }
+                    else
+                    {
+                        factoringCompanyname="-----";
+                    }
+                    if(address !="" && address!= null)
+                    {
+                        address=address;
+                    }
+                    else
+                    {
+                        address="-----";
+                    }
+                    if(location !="" && location!= null)
+                    {
+                        location=location;
+                    }
+                    else
+                    {
+                        location="-----";
+                    }
+                    if(zip !="" && zip!= null)
+                    {
+                        zip=zip;
+                    }
+                    else
+                    {
+                        zip="-----";
+                    }
+                    if(primaryContact !="" && primaryContact!= null)
+                    {
+                        primaryContact=primaryContact;
+                    }
+                    else
+                    {
+                        primaryContact="-----";
+                    }
+                    if(telephone !="" && telephone!= null)
+                    {
+                        telephone=telephone;
+                    }
+                    else
+                    {
+                        telephone="-----";
+                    }
+                    if(extFactoring !="" && extFactoring!= null)
+                    {
+                        extFactoring=extFactoring;
+                    }
+                    else
+                    {
+                        extFactoring="-----";
+                    }
+                    if(fax !="" && fax!= null)
+                    {
+                        fax=fax;
+                    }
+                    else
+                    {
+                        fax="-----";
+                    }
+                    if(tollFree !="" && tollFree!= null)
+                    {
+                        tollFree=tollFree;
+                    }
+                    else
+                    {
+                        tollFree="-----";
+                    }
+                    if(ContactEmail !="" && ContactEmail!= null)
+                    {
+                        ContactEmail=ContactEmail;
+                    }
+                    else
+                    {
+                        ContactEmail="-----";
+                    }
+                    if(secondaryContact !="" && secondaryContact!= null)
+                    {
+                        secondaryContact=secondaryContact;
+                    }
+                    else
+                    {
+                        secondaryContact="-----";
+                    }
+                    if(factoringtelephone !="" && factoringtelephone!= null)
+                    {
+                        factoringtelephone=factoringtelephone;
+                    }
+                    else
+                    {
+                        factoringtelephone="-----";
+                    }
+                    if(ext !="" && ext!= null)
+                    {
+                        ext=ext;
+                    }
+                    else
+                    {
+                        ext="-----";
+                    }
+                    if(currencySetting !="" && currencySetting!= null)
+                    {
+                        currencySetting=currencySetting;
+                    }
+                    else
+                    {
+                        currencySetting="-----";
+                    }
+                    if(paymentTerms !="" && paymentTerms!= null)
+                    {
+                        paymentTerms=paymentTerms;
+                    }
+                    else
+                    {
+                        paymentTerms="-----";
+                    }
+                    if(taxID !="" && taxID!= null)
+                    {
+                        taxID=taxID;
+                    }
+                    else
+                    {
+                        taxID="-----";
+                    }
+                    if(internalNote !="" && internalNote!= null)
+                    {
+                        internalNote=internalNote;
+                    }
+                    else
+                    {
+                        internalNote="-----";
+                    }
+                    if(deleteStatus == 'NO' ){
 
-            $("#factCompTable").append(tr_str1);
+
+                        var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                        //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                            "<td data-field='no'>" + no + "</td>" +
+                            "<td data-field='factoringCompanyname' >" + factoringCompanyname + "</td>" +
+                            "<td data-field='address' >" + address + "</td>" +
+                            "<td data-field='location' >" + location + "</td>" +
+                            "<td data-field='zip' >" + zip + "</td>" +
+                            "<td data-field='primaryContact' >" + primaryContact + "</td>" +
+                            "<td data-field='telephone' >" + telephone + "</td>" +
+                            "<td data-field='extFactoring' >" + extFactoring + "</td>" +
+                            "<td data-field='fax' >" + fax + "</td>" +
+                            "<td data-field='tollFree' >" + tollFree + "</td>" +
+                            "<td data-field='ContactEmail' >" + ContactEmail + "</td>" +
+                            "<td data-field='secondaryContact' >" + secondaryContact + "</td>" +
+                            "<td data-field='factoringtelephone' >" + factoringtelephone + "</td>" +
+                            "<td data-field='ext' >" + ext + "</td>" +
+                            "<td data-field='currencySetting' >" + currencySetting + "</td>" +
+                            "<td data-field='paymentTerms' >" + paymentTerms + "</td>" +
+                            "<td data-field='taxID' >" + taxID + "</td>" +
+                            "<td data-field='internalNote' >" + internalNote + "</td>" +
+                            
+                            "<td style='text-align:center'>"+
+                                "<a class='button-23 editFactringCompany'  title='Edit1' data-factId='"+id+"'><i class='fe fe-edit'></i></a>&nbsp"+
+                                "<a class='button-23 deleteFactringCompany'  title='Delete' data-factId='"+id+"'><i class='fe fe-delete'></i></a>&nbsp"
+                            "</td></tr>";
+
+                        $("#factCompTable").append(factComStr);
+                        no++;
+                        } 
+                    }
+                } else {
+                    var factComStr = "<tr data-id=" + i + ">" +
+                        "<td align='center' colspan='4'>No record found.</td>" +
+                        "</tr>";
+        
+                    $("#factCompTable").append(factComStr);
+                }
+            }else {
+            var tr_str1 = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+
+            $("#factCompTable").append(factComStr);
         }
     }
-    // <!-- -------------------------------------------------------------------------over function  ------------------------------------------------------------------------- --> 
-    //  //<!-- ------------------------------------------------------------------------- add customer factoringCompany ------------------------------------------------------------------------- -->
+
+    //====================== end view =====================================
+
+    //============== start add ===========================================
     $(".addFactoringCompanyDataSubmit").click(function(){
-        //alert();
         var factoringCompanyName=$('#addfactoringCompanyName').val();
         var factoringCompanyAddress=$('#addfactoringCompanyAddress').val();
         var factoringCompanyLocation=$('#addfactoringCompanyLocation').val();
@@ -148,64 +286,91 @@ $(document).ready(function() {
         var factoringCompanyTaxID=$('#addfactoringCompanyTaxID1').val();
 
         var factoringCompanyInternalNotes=$('#addfactoringCompanyInternalNotes').val();
-
-        var formData = new FormData();
-        formData.append('_token',$("#_tokenaddFactoringCompany").val());
-        formData.append('factoringCompanyName',factoringCompanyName);
-        formData.append('factoringCompanyAddress',factoringCompanyAddress);
-        formData.append('factoringCompanyLocation',factoringCompanyLocation);
-        formData.append('factoringCompanyZip',factoringCompanyZip);
-        formData.append('factoringCompanyPrimaryContact',factoringCompanyPrimaryContact);
-        formData.append('factoringCompanyPrimaryContactTelephone',factoringCompanyPrimaryContactTelephone);
-        formData.append('factoringCompanyPrimaryContactExt',factoringCompanyPrimaryContactExt);
-        formData.append('factoringCompanyFax',factoringCompanyFax);
-        formData.append('factoringCompanySecondaryContact',factoringCompanySecondaryContact);
-        formData.append('factoringCompanySecondaryContactTelephone',factoringCompanySecondaryContactTelephone);
-        formData.append('factoringCompanySecondaryContactExt',factoringCompanySecondaryContactExt);
-        formData.append('factoringTollFree',factoringTollFree);
-        formData.append('factoringCompanyContactEmail',factoringCompanyContactEmail);
-        formData.append('factoringCompanycurrency',factoringCompanycurrency);
-        formData.append('factoringCompanyPaymentTerms',factoringCompanyPaymentTerms);
-        formData.append('factoringCompanyTaxID',factoringCompanyTaxID);
-        formData.append('factoringCompanyInternalNotes',factoringCompanyInternalNotes);
-        //alert(currencyName);
+        if(factoringCompanyName == "")
+        {
+            alert( "'Enter Factoring Company Name");
+            return false;
+        }
+        if(factoringCompanyAddress == "")
+        {
+            alert( "'Enter Factoring Address");
+            return false;
+        }
+        if(factoringCompanyLocation == "")
+        {
+            alert( "'Enter Factoring Location");
+            return false;
+        }
+        if(factoringCompanyZip == "")
+        {
+            alert( "'Enter Factoring Zip");
+            return false;
+        }
+        if(factoringCompanycurrency == "")
+        {
+            alert( "'Enter Factoring Currency");
+            return false;
+        }
+        if(factoringCompanyPaymentTerms == "")
+        {
+            alert( "'Enter Factoring Payment Terms");
+            return false;
+        }
+        if(factoringCompanyTaxID == "")
+        {
+            alert( "'Enter Factoring Tax Id");
+            return false;
+        }
         $.ajax({
-            type: "POST",
             url: base_path+"/admin/factoringCompany",
-            async: false,
+            type: "POST",
+            datatype:"JSON",
+            data: {
+                _token: $("#_tokenaddFactoringCompany").val(),
+                factoringCompanyName: factoringCompanyName,
+                factoringCompanyAddress: factoringCompanyAddress,
+                factoringCompanyLocation: factoringCompanyLocation,
+                factoringCompanyZip: factoringCompanyZip,
+
+                factoringCompanyPrimaryContact: factoringCompanyPrimaryContact,
+                factoringCompanyPrimaryContactTelephone: factoringCompanyPrimaryContactTelephone,
+                factoringCompanyPrimaryContactExt: factoringCompanyPrimaryContactExt,
+                factoringCompanyFax: factoringCompanyFax,
+
+                factoringCompanySecondaryContact: factoringCompanySecondaryContact,
+                factoringCompanySecondaryContactTelephone: factoringCompanySecondaryContactTelephone,
+                factoringCompanySecondaryContactExt: factoringCompanySecondaryContactExt,
+                factoringTollFree: factoringTollFree,
+
+                factoringCompanyContactEmail: factoringCompanyContactEmail,
+                factoringCompanycurrency: factoringCompanycurrency,
+                factoringCompanyPaymentTerms: factoringCompanyPaymentTerms,
+                factoringCompanyTaxID: factoringCompanyTaxID,
+
+                factoringCompanyInternalNotes: factoringCompanyInternalNotes,
+            },
             cache: false,
-            contentType: false,
-            processData: false,
-            data:formData,
-            success: function(res){
-                swal.fire("Factoring Company added successfully.");
-                $("#addFactoringCompanyModal").modal("hide");
-                $.ajax({
-                    type: "GET",
-                    url: base_path+"/admin/getFactCompany",
-                    success: function(text) {
-                        // console.log(text);
-                        createFactoringCompanyRows(text);
-                        factoringCompanyResult = text;
-                        }
-                });
-              
+            success: function(dataCustomerfactoringCompanyResult){
+                console.log(dataCustomerfactoringCompanyResult);
+                if(dataCustomerfactoringCompanyResult){
+                    swal.fire("Factoring Company added successfully.");
+                    $("#addFactoringCompanyModal").modal("hide");
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getFactCompany",
+                        success: function(text) {
+                            createFactoringCompanyRows(text);
+                            factoringCompanyResult = text;
+                         }
+                    });
+                    $('#FacoringCompanyModal').modal('show');
+                }else{
+                    alert("Factoring Company not added successfully.");
+                }
             }
         });
     });
-    // // <!-- -------------------------------------------------------------------------over add customer factoringCompany ------------------------------------------------------------------------- -->   
-    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
-    // $('#factoring_table_pagination').DataTable({
-    //     "columnDefs": [
-    //         {
-    //             "targets": [ 12 ],
-    //             "searchable": false,
-    //             "sortable":false
-    //         },
-    //     ]
-
-    // });
-
+    //============ end store data =======================================
 
     //================== start edit ==============================================
     $(".closeUpdateFactoringCompanyModal").click(function(){
@@ -218,7 +383,6 @@ $(document).ready(function() {
             url: base_path+"/admin/editFactCompany",
             async: false,
             data:{id:id},
-            //dataType:JSON,
             success: function(text) {
                 $('.factringCom_id_edit').val(text._id);
                 $('.update_factoringCompanyname').val(text.factoringCompanyname);
@@ -265,37 +429,37 @@ $(document).ready(function() {
         var internalNote=$('.update_fac_internalNote').val();
         if(factoringCompanyname=='')
         {
-            swal.fire( "'Enter Enter Factring Company Name");
+            alert( "'Enter Enter Factring Company Name");
             return false;            
         } 
         if(address=='')
         {
-            swal.fire( "'Enter Enter Factring address");
+            alert( "'Enter Enter Factring address");
             return false;            
         } 
         if(location=='')
         {
-            swal.fire( "'Enter Enter Factring location");
+            alert( "'Enter Enter Factring location");
             return false;            
         } 
         if(zip=='')
         {
-            swal.fire( "'Enter Enter Factring Company Zip");
+            alert( "'Enter Enter Factring Company Zip");
             return false;            
         }  
         if(currencySetting=='')
         {
-            swal.fire( "'Enter Enter currencySetting");
+            alert( "'Enter Enter currencySetting");
             return false;            
         }  
         if(paymentTerms=='')
         {
-            swal.fire( "'Enter Enter paymentTerms");
+            alert( "'Enter Enter paymentTerms");
             return false;            
         }  
         if(taxID=='')
         {
-            swal.fire( "'Enter Enter taxID");
+            alert( "'Enter Enter taxID");
             return false;            
         } 
         var formData = new FormData();
@@ -367,7 +531,7 @@ $(document).ready(function() {
                             url: base_path + "/admin/getFactCompany",
                             async: false,
                             success: function (text) {
-                                console.log(text);
+                                // console.log(text);
                                 createFactoringCompanyRows(text);
                                 factoringCompanyResult = text;
                             }
@@ -376,7 +540,7 @@ $(document).ready(function() {
 
                     },
                     error: function (resp) {
-                        swal.fire("Error!", 'Something went wrong.', "error");
+                        alert("Error!", 'Something went wrong.', "error");
                     }
                 });
             }
@@ -403,71 +567,60 @@ $(document).ready(function() {
     {
         var consigneelen = 0;
         if (factoringCompanyResult != null) {
-            consigneelen = factoringCompanyResult.FactCompany.length;
+            consigneelen = factoringCompanyResult.factoring.length;
             $("#RestorefactCompTable").html('');
-            // const x = consigneelen.chunk(2, 4);
-  
-            
+
             if (consigneelen > 0) {
                 var no=1; 
-                for(var j=0;j<consigneelen;j++)
-                {
-                    var data= factoringCompanyResult.FactCompany[j];
-                    $.each(data, function(i, v) { 
-                            var id =factoringCompanyResult.FactCompany[j][i]._id;
-                            var factoringCompanyname =factoringCompanyResult.FactCompany[j][i].factoringCompanyname;
-                            // console.log(factoringCompanyname);
-                            var address =factoringCompanyResult.FactCompany[j][i].address;
-                            var location=factoringCompanyResult.FactCompany[j][i].location;
-                            var zip=factoringCompanyResult.FactCompany[j][i].zip;
-                            var primaryContact=factoringCompanyResult.FactCompany[j][i].primaryContact;
-                            var telephone=factoringCompanyResult.FactCompany[j][i].telephone;
-                            var extFactoring =factoringCompanyResult.FactCompany[j][i].extFactoring;
-                            var fax =factoringCompanyResult.FactCompany[j][i].fax;
-                            var tollFree=factoringCompanyResult.FactCompany[j][i].tollFree;
-                            var ContactEmail=factoringCompanyResult.FactCompany[j][i].email;
-                            var secondaryContact =factoringCompanyResult.FactCompany[j][i].secondaryContact;
-                            var factoringtelephone =factoringCompanyResult.FactCompany[j][i].factoringtelephone;
-                            var ext =factoringCompanyResult.FactCompany[j][i].ext;
-                            var currencySetting =factoringCompanyResult.FactCompany[j][i].currencySetting;
-                            var paymentTerms =factoringCompanyResult.FactCompany[j][i].paymentTerms;
-                            var  taxID=factoringCompanyResult.FactCompany[j][i].taxID;
-                            var internalNote =factoringCompanyResult.FactCompany[j][i].internalNote;
-                            var deleteStatus =factoringCompanyResult.FactCompany[j][i].deleteStatus;
-                        
-                            if(deleteStatus == 'YES' ){
-    
-                                var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                                //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                                "<td data-field='no'>" + no + "</td>" +
-                                "<td data-field='factoringCompanyname' >" + factoringCompanyname + "</td>" +
-                                "<td data-field='address' >" + address + "</td>" +
-                                "<td data-field='location' >" + location + "</td>" +
-                                "<td data-field='zip' >" + zip + "</td>" +
-                                "<td data-field='primaryContact' >" + primaryContact + "</td>" +
-                                "<td data-field='telephone' >" + telephone + "</td>" +
-                                "<td data-field='extFactoring' >" + extFactoring + "</td>" +
-                                "<td data-field='fax' >" + fax + "</td>" +
-                                "<td data-field='tollFree' >" + tollFree + "</td>" +
-                                "<td data-field='ContactEmail' >" + ContactEmail + "</td>" +
-                                "<td data-field='secondaryContact' >" + secondaryContact + "</td>" +
-                                "<td data-field='factoringtelephone' >" + factoringtelephone + "</td>" +
-                                "<td data-field='ext' >" + ext + "</td>" +
-                                "<td data-field='currencySetting' >" + currencySetting + "</td>" +
-                                "<td data-field='paymentTerms' >" + paymentTerms + "</td>" +
-                                "<td data-field='taxID' >" + taxID + "</td>" +
-                                "<td data-field='internalNote' >" + internalNote + "</td>" +
-                                
-                                "<td style='text-align:center'>"+
-                                    "<a class='button-23 editFactringCompany'  title='Edit1' data-factId='"+id+"' ><i class='fe fe-edit'></i></a>"+
-                                    "<a class='button-23 deleteFactringCompany'  title='Edit1' data-factId='"+id+"' ><i class='fe fe-trash'></i></a>"+
-                                "</td></tr>";
-    
-                                $("#RestorefactCompTable").append(factComStr);
-                                no++;
-                            } 
-                    });
-                  
+                for (var i = consigneelen-1; i >= 0; i--) {  
+                    var custID=factoringCompanyResult.companyID;
+                    var id =factoringCompanyResult.factoring[i]._id;
+                    var factoringCompanyname =factoringCompanyResult.factoring[i].factoringCompanyname;
+                    var address =factoringCompanyResult.factoring[i].address;
+                    var location=factoringCompanyResult.factoring[i].location;
+                    var zip=factoringCompanyResult.factoring[i].zip;
+                    var primaryContact=factoringCompanyResult.factoring[i].primaryContact;
+                    var telephone=factoringCompanyResult.factoring[i].telephone;
+                    var extFactoring =factoringCompanyResult.factoring[i].extFactoring;
+                    var fax =factoringCompanyResult.factoring[i].fax;
+                    var tollFree=factoringCompanyResult.factoring[i].tollFree;
+                    var ContactEmail=factoringCompanyResult.factoring[i].email;
+                    var secondaryContact =factoringCompanyResult.factoring[i].secondaryContact;
+                    var factoringtelephone =factoringCompanyResult.factoring[i].factoringtelephone;
+                    var ext =factoringCompanyResult.factoring[i].ext;
+                    var currencySetting =factoringCompanyResult.factoring[i].currencySetting;
+                    var paymentTerms =factoringCompanyResult.factoring[i].paymentTerms;
+                    var  taxID=factoringCompanyResult.factoring[i].taxID;
+                    var internalNote =factoringCompanyResult.factoring[i].internalNote;
+                    var deleteStatus =factoringCompanyResult.factoring[i].deleteStatus;
+                
+                    if(deleteStatus == 'YES' ){
+
+                        var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                        //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                        "<td data-field='no'><input type='checkbox' class='check_FactrCom_one' name='checkedFactComp_ids[]' data-id=" + id + " date-cusId=" + custID + "  value=" + id + "></td>" +
+                        "<td data-field='factoringCompanyname' >" + factoringCompanyname + "</td>" +
+                        "<td data-field='address' >" + address + "</td>" +
+                        "<td data-field='location' >" + location + "</td>" +
+                        "<td data-field='zip' >" + zip + "</td>" +
+                        "<td data-field='primaryContact' >" + primaryContact + "</td>" +
+                        "<td data-field='telephone' >" + telephone + "</td>" +
+                        "<td data-field='extFactoring' >" + extFactoring + "</td>" +
+                        "<td data-field='fax' >" + fax + "</td>" +
+                        "<td data-field='tollFree' >" + tollFree + "</td>" +
+                        "<td data-field='ContactEmail' >" + ContactEmail + "</td>" +
+                        "<td data-field='secondaryContact' >" + secondaryContact + "</td>" +
+                        "<td data-field='factoringtelephone' >" + factoringtelephone + "</td>" +
+                        "<td data-field='ext' >" + ext + "</td>" +
+                        "<td data-field='currencySetting' >" + currencySetting + "</td>" +
+                        "<td data-field='paymentTerms' >" + paymentTerms + "</td>" +
+                        "<td data-field='taxID' >" + taxID + "</td>" +
+                        "<td data-field='internalNote' >" + internalNote + "</td></tr>";
+
+                        $("#RestorefactCompTable").append(factComStr);
+                        no++;
+                    } 
+
                 }
             } 
         }
@@ -533,7 +686,7 @@ $(document).ready(function() {
                     url: base_path + "/admin/getFactCompany",
                     async: false,
                     success: function (text) {
-                        console.log(text);
+                        // console.log(text);
                         createFactoringCompanyRows(text);
                         factoringCompanyResult = text;
                     }

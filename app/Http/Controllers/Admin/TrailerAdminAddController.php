@@ -17,25 +17,20 @@ class TrailerAdminAddController extends Controller
 {
     public function getTrailer()
     {
-        $companyId=(int)1;
+        $companyId=(int)Auth::user()->companyID;
         $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$companyId)->first();
-        // $TrailerAdminAdd = TrailerAdminAdd::findOrFail($companyId);
-        // dd($TrailerAdminAdd);
         $traileradd = traileradd::where('companyID',$companyId)->first();
-        // $traileradd=traileradd::get();
-        // $TrailerAdminAdd=TrailerAdminAdd::get();
-        // dd($TrailerAdminAdd);
         return response()->json(['trailer'=>$traileradd,'trailer_type'=>$TrailerAdminAdd], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
         
     }
     public function addTrailerData(Request $request)
     {
         request()->validate([
-            //'trailer_number' => 'required',
-            // 'trailertype' => 'required',
-            // 'license_plate' => 'required',
-            // 'plate_expiry' => 'required',
-            // 'vin' => 'required',
+            'trailer_number' => 'required',
+            'trailerType' => 'required',
+            'license_plate' => 'required',
+            'plate_expiry' => 'required',
+            'vin' => 'required',
         ]);  
         $path = public_path().'/TrailerFile'; 
         // dd($path);       
@@ -46,11 +41,8 @@ class TrailerAdminAddController extends Controller
           $privilege=Auth::user()->privilege;
          
           try{
-            // dd($request->file('file'));
                 if ($files = $request->file('file')) {
                     foreach ($request->file('file') as $file) {
-                    // dd($file);
-                      
                       $name =  time().rand(0,1000).$file->getClientOriginalName();
                       $filePath=$file->move(public_path().'/TrailerFile/', $name);
                       $data[] = $name;
@@ -78,10 +70,7 @@ class TrailerAdminAddController extends Controller
           } 
             
         try{
-             
-
-            $Trailer=TrailerAdminAdd::all();
-            $companyID=(int)1;
+            $companyID=(int)Auth::user()->companyID;
 
             $getTrailer = TrailerAdminAdd::where('companyID',$companyID)->first();
                 if($getTrailer){
@@ -103,12 +92,11 @@ class TrailerAdminAddController extends Controller
                 $activation = strtotime($activation);
             $trailerData[]=array(    
                     '_id' => $totalTrailerArray,
-                    //'_id' => new ObjectId(),
                     'counter' => 0,
                     'trailerNumber' => $request->trailer_number,
                     'trailerType' => $request->trailerType,
                     'licenseType' => $request->license_plate,
-                    'plateExpiry' => $request->plate_expiry,
+                    'plateExpiry' => strtotime($request->plate_expiry),
                     'inspectionExpiration' => $inspection,
                     'status' => $request->status,
                     'model' => $request->model,
@@ -161,13 +149,13 @@ class TrailerAdminAddController extends Controller
     }
     public function trailer_getTrailertype()
     {
-        $companyId=1;   
+        $companyId=(int)Auth::user()->companyID;  
         $truck_type = traileradd::where('companyID',$companyId)->first();    
         return response()->json($truck_type, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function trailer_addTrailertype(Request $request)
     {
-        $companyID=1;
+        $companyID=(int)Auth::user()->companyID;
         // dd($request->trailer_type_name);
         $getTrailer = traileradd::where('companyID',$companyID)->first();
         if($getTrailer){
@@ -202,7 +190,7 @@ class TrailerAdminAddController extends Controller
     public function edit_trailer(Request $request)
     {
         $id=$request->id;
-        $companyID=1;
+        $companyID=(int)Auth::user()->companyID;
         $trailerType=traileradd::where('companyID',$companyID)->first();
         // dd($trailerType);
         $trailerTyperArray=$trailerType->trailer;
@@ -287,7 +275,7 @@ class TrailerAdminAddController extends Controller
           catch(\Exception $error){
               return $error->getMessage();
           }  
-        $companyID=(int)1;
+        $companyID=(int)Auth::user()->companyID;
         $id=$request->id;
         $traileradd=TrailerAdminAdd::where('companyID',$companyID)->first();
         $trailerArray=$traileradd->trailer;
@@ -317,8 +305,8 @@ class TrailerAdminAddController extends Controller
                      }
                 }
        }
-    //    $trailerDoc=$trailerfile;
-    //    dd($request->axies);
+        //    $trailerDoc=$trailerfile;
+        //    dd($request->axies);
         $inspection=$request->inspection;
         $inspection = strtotime($inspection);
         $dot=$request->dot;
@@ -357,9 +345,7 @@ class TrailerAdminAddController extends Controller
     }
     public function deleteTrailer(Request $request)
     {
-        $companyID=(int)1;
-        $id=$request->id;
-        $companyID=(int)1;
+        $companyID=(int)Auth::user()->companyID;
         $id=$request->id;
         $traileradd=TrailerAdminAdd::where('companyID',$companyID)->first();
         $trailerArray=$traileradd->trailer;
@@ -387,7 +373,7 @@ class TrailerAdminAddController extends Controller
     public function restoreTrailer(Request $request)
     {
         $cardIds=$request->all_ids;
-        $custID=(array)1;
+        $custID=(array)Auth::user()->companyID;
         foreach($custID as $company_id)
         {
             $company_id=str_replace( array( '\'', '"',

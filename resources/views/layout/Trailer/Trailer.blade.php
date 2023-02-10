@@ -1,3 +1,11 @@
+<?php 
+	$userdata=Auth::user();
+	$insertUser=$userdata->privilege['insertUser'];
+    // $updateUser=$userdata->privilege['updateUser'];
+    $deleteUser=$userdata->privilege['deleteUser'];
+    $importUser=$userdata->privilege['importUser'];
+    $exportUser=$userdata->privilege['exportUser'];
+ ?> 
 <!------------------------------------------------------------------- Trailer modal ------------------------------------------------------------------->
 
 <div class="container">
@@ -13,73 +21,58 @@
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <a href="#" class="button-57 addTrailerModal">
+                    <!-- <a href="#addDriverModal" class="button-57 addTrailerModal">
                         <i class="fa fa-plus " aria-hidden="true"></i>
                         <span>Add trailer</span>
-                    </a>
-                    <a  class="button-57_alt restore_trailerBtn" ><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore</span></a>
-                    <!-- <a href="#setupDriverModal" class="button-57" data-toggle="modal"
-                        data-target="#setupDriverModal">
-                        <i class="fa fa-sliders" aria-hidden="true"></i>
-                        </span><span>Button 2</span>
                     </a> -->
-                    <!-- <a href="#contractCategoryModal" class="contract_categoryModal button-57_alt" data-toggle="modal"
-                        data-target="#contractCategoryModal">
-                        <i class="fa fa-id-card" aria-hidden="true"></i>
-                        </span><span>Button 3</span>
-                    </a> -->
+
+                    @if($insertUser== 1)
+                        <a href="#addDriverModal" class="button-57_alt addTrailerModal"><i class="fa fa-plus " aria-hidden="true"></i> <span>Add trailer</span> </a>
+                    @endif 
+                    
+                    @if($deleteUser== 1)    
+                        <a href="#" class="button-57_alt restore_trailerBtn" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+
+                    @endif
 
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
-                 <!-- <button type="button" class="btn btn-primary btn-lg addTrailerModal" >ADD</button> -->
-                    <!-- Row -->
-                    <div class="row">
-                   
-                        <div class="row row-sm">
-                            <div class="col-lg-12">
+                        <table id="" class="table">
+                            <thead class="thead_th">
+                                <tr class="tr">
+                                    <th>NO</th>
+                                    <th>Trailer</th>
+                                    <th>Trailer Type</th>
+                                    <th>License Plate</th>
+                                    <th>Plate Expiry</th>
+                                    <th>Inspection Expiration</th>
+                                    <th>Status</th>
+                                    <th>Model</th>
+                                    <th>Year</th>
+                                    <th>Axles</th>
+                                    <th>Registered State</th>
+                                    <th>VIN</th>
+                                    <th>DOT Expiry Date	</th>
+                                    <th>Activation Date	</th>
+                                    <th>Internal Notes	</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trailer_tbl">
                                 
-
-                                        <div class="table-responsive export-table">
-                                            <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-                                                <thead class="thead-th">
-                                                    <tr class="tr">
-                                                        <th>NO</th>
-                                                        <th>Trailer</th>
-                                                        <th>Trailer Type</th>
-                                                        <th>License Plate</th>
-                                                        <th>Plate Expiry</th>
-                                                        <th>Inspection Expiration</th>
-                                                        <th>Status</th>
-                                                        <th>Model</th>
-                                                        <th>Year</th>
-                                                        <th>Axles</th>
-                                                        <th>Registered State</th>
-                                                        <th>VIN</th>
-                                                        <th>DOT Expiry Date	</th>
-                                                        <th>Activation Date	</th>
-                                                        <th>Internal Notes	</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="trailer_tbl">
-                                                    
-                                                </tbody>
-                                            </table>
-                                        </div>
-                               
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Row -->
+                            </tbody>
+                        </table>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                <form action="{{route('driver-pdf')}}" method="post" target="__blank">
-                        @csrf
-                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
-                    </form>
+                        <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                            @csrf
+                            @if($exportUser == 1)
+                                <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                            @endif
+                        </form>
                     <button type="button" class="button-29 coseTrilershow" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -89,7 +82,7 @@
 </div>
 
 
- <!-- ============ start addTrailerModal ========================================= -->
+ <!-- ============ start addTrailerModal================ -->
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="addTrailerModal" role="dialog">
         <div class="modal-dialog custom_modal" role="document">
@@ -120,10 +113,10 @@
                                                 <div class="form-group col-md-2">
                                                     <label for="trailertype">Trailer Type <span style="color:#ff0000">*</span>&nbsp; 
 
-                                                    <!-- <a href="#" class="button-57 addTrailerType">
+                                                    <!-- <a href="#addDriverModal" class="button-57 addTrailerType">
                                                         <i class="fa fa-plus " aria-hidden="true"></i>
                                                     </a> -->
-                                                    <span class="glyphicon glyphicon-plus-sign addTrailerType " id="addTrailerType" data-toggle="modal"  style="cursor:pointer;"></span>
+                                                    <span class="glyphicon glyphicon-plus-sign addTrailerType " id="addTrailerType" data-toggle="modal"  style="cursor:pointer; color:blue;"></span>
                                                 </label>
                                                         <div class="dropdown show">
                                                             <select  class="form-control trailerTypeSet trailerType_Set_id" name="trailerType" >
@@ -173,7 +166,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="Year">Year</label>
-                                                    <input class="form-control" placeholder="Year" type="text" id="trailer_year" name="year">
+                                                    <input class="form-control" placeholder="Year" type="number" id="trailer_year" name="year">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="Axles">Axles</label>
@@ -239,7 +232,7 @@
 </div>
 <!-- ========== end addTrailerModal ========== -->
  <!--============================== over add modal =========== -->
-<datalist id="registered_state" class="registered_state">
+<datalist id="registered_state">
     <option value="AL">
     <option value="AK">
     <option value="AR">
@@ -294,7 +287,7 @@
 
 <!-- ========== strart addTrailer type Modal ========== -->
 <div class="modal fade" id="addTrailerTypeModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create Trailer Type</h5>
@@ -302,8 +295,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form >
+      <div class="modal-body" style="overflow-y: auto !important;">
+        <form id="">
             @csrf
             <input type="hidden" name="_token" id="_tokenTrailer_Type" value="{{ csrf_token() }}" />
             <div class="form-group col-md-12">
@@ -340,7 +333,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form  enctype="multipart/form-data">
+                                        <form id="" enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_EditTrailer" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="id" id="edit_trailer_id" >
@@ -353,7 +346,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="trailertype">Trailer Type <span style="color:#ff0000">*</span>&nbsp; 
-                                                    <!-- <span class="glyphicon glyphicon-plus-sign addTrailerType "  data-toggle="modal"  style="cursor:pointer;"></span> -->
+                                                    <!-- <span class="glyphicon glyphicon-plus-sign addTrailerType "  data-toggle="modal"  style="cursor:pointer;color:blue !important;"></span> -->
                                                 </label>
                                                         <div class="dropdown show">
                                                         <select  class="form-control trailerTypeSet trailerType_Set_id" name="trailerType" id="edit_Trailer_Type" >
@@ -462,7 +455,6 @@
     </div>
 </div>
 
-
 <!-- ========= start restore ============================== -->
 <div class="container">
     <!-- The Modal -->
@@ -490,8 +482,8 @@
 
                                         <div class="table-responsive export-table">
                                             <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-                                                <thead class="thead-th">
-                                                    <tr class="tr">
+                                                <thead class="thead_th">
+                                                    <tr class="tH">
                                                         <th><input type="checkbox" name="all_ids[]" class="Trailer_all_ids"></th>
                                                         <th>Trailer</th>
                                                         <th>Trailer Type</th>

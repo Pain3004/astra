@@ -136,6 +136,7 @@ $(document).ready(function() {
                         if( custEmail =="" && custEmail == null)
                         {
                             custEmail="----";
+                            console.log(custEmail);
                         }
                         else
                         {
