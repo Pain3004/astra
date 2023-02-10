@@ -9,7 +9,7 @@
 <!-------------------------------------------------------------------  modal ------------------------------------------------------------------->
 <div class="container">
     <!-- The Modal -->
-    <div class="modal fade" data-backdrop="static" id="PaymentTermsModal2" >
+    <div class="modal fade" data-backdrop="static" id="PaymentTermsModal2" style="z-index:100;">
         <div class="modal-dialog custom_modal_small_6 modal-dialog-scrollable">
             <div class="modal-content">
 

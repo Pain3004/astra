@@ -127,6 +127,7 @@
 <script src="{{URL::to('/')}}/assets/js/js/loadboard.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 
+<script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
 </body>
 
 </html>

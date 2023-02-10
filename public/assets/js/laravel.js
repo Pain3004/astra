@@ -728,12 +728,16 @@ $('#Driver_navbar').click(function(){
                         var email = driverResponse.driver[j].driverEmail;
                         var location = driverResponse.driver[j].driverAddress;
                         var social_security_no = driverResponse.driver[j].driverSocial;
+                        if(social_security_no == null){social_security_no="-";}
                         var date_of_birth = driverResponse.driver[j].dateOfbirth;
+                        if(date_of_birth == null){date_of_birth="-";}
                         var date_of_hire = driverResponse.driver[j].dateOfhire;
+                        if(date_of_hire == null){date_of_hire="-";}
                         var license_no = driverResponse.driver[j].driverLicenseNo;
                         var lis = driverResponse.driver[j].driverLicenseIssue;
                         var license_exp_date = driverResponse.driver[j].driverLicenseExp;
                         var driver_balance = driverResponse.driver[j].driverBalance;
+                        if(driver_balance == null){driver_balance="-";}
                         var delete_status = driverResponse.driver[j].deleteStatus;
                         var ownerOperatorStatus =driverResponse.driver[j].ownerOperatorStatus;
                         var ownerOperatorDeleteStatus =driverResponse.driver[j].ownerOperatorDeleteStatus;
@@ -758,7 +762,7 @@ $('#Driver_navbar').click(function(){
                                     "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:orange'><i class='fe  fe-user-plus'></i></a>&nbsp";
 
                             }
-                        var tr_str1 = "<tr data-id=" + (i + 1) + ">" +
+                        var tr_str1 = "<tr class='tr' data-id=" + (i + 1) + ">" +
                             "<td data-field='no'>" + no  + "</td>" +
                             "<td data-field='name' >" + name + "</td>" +
                             "<td data-field='email'>" + email + "</td>" +
@@ -2444,5 +2448,68 @@ $(document).ready(function() {
         document.getElementById("up_ownerPercentage").stepUp(-1);
     }
     
+
+
+    //  url validation =======================================
+function isUrlValid() {
+    if(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test($(".url").val()))
+    {
+       return true;
+    } 
+    else 
+    {
+       return false;
+    }
+}
+// start location view in all ===============================
+$(".location_view").keyup(function(){
+    var fieldID=$(this).attr('data-location');  
+    // alert(fieldID)
+    var placeArray = "";
+    $.getJSON("./place.json", function (json) {
+    placeArray = json; // this will show the info it in firebug console
+    });
+   var placetimeout='';;
+    clearTimeout(placetimeout);
+    var location = document.getElementById(fieldID);
+    var st = fieldID + "-list";
+    if (location.value == "") {
+      document.getElementById(st).style.display = "none";
+    }
+    placetimeout = setTimeout(function () {
+      var regex = new RegExp(location.value, "i");
+      var list = `<ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front col-md-10" unselectable="on" style="left:16px;top: 61.625px; height:auto; box-shadow: 2px 2px 2px 3px rgb(0 0 0 / 6%); max-height: 200px;overflow: auto;z-index: 9999;">`;
+      var count = 1;
+  
+      $.each(placeArray, function (key, val) {
+        if (val.city.search(regex) != -1) {
+          list += '<li class="ui-menu-item" style="padding: 5px; border-bottom: 1px solid;"><div id="ui-id-2" tabindex="-1" class="ui-menu-item-wrapper putValue" data-value='+val.city.toUpperCase()+' data-fieldID='+fieldID+' data-id='+st+'>'+val.city.toUpperCase()+'</div> </li>';
+  
+          count++;
+        }
+      });
+      list += `</ul>`;
+      if (document.getElementById(st) == undefined) {
+        var div = document.createElement("div");
+        div.setAttribute("id", st);
+        location.parentNode.insertBefore(div, location.nextSibling);
+      } else {
+        document.getElementById(st).style.display = "block";
+      }
+      document.getElementById(st).innerHTML = list;
+    }, 800);
+});
+$('body').on('click','.putValue',function(){
+    var value=$(this).attr("data-value");        
+    var fieldID=$(this).attr("data-fieldID");
+    var id=$(this).attr("data-id");
+    // var date='customerLocation';
+    // console.log(date);
+    // console.log(value + " , " + fieldID + " , " + id);
+    document.getElementById(fieldID).value=value;
+    // $("#customerLocation").val(value);
+    document.getElementById(id).style.display = "none";
+});
+
 
    

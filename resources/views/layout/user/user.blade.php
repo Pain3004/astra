@@ -22,16 +22,9 @@
                 <div style="margin-top: 15px; margin-left: 15px;">
 
                         @if($insertUser== 1)
-                            <!-- <a href="#addUserModal" class="button-57" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a> -->
                             <a href="#" class="button-57_alt" id="addUser"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
 
                         @endif 
-                        <!-- @if($deleteUser==1)
-                            <a href="#" class="button-57" data-toggle="modal" data-target="#"><i class="fa fa-plus" aria-hidden="true"></i><span>Restore</span></a>
-                        @endif  -->
-                    <!-- @if($importUser==1)
-                            <a href="#" class="button-57" data-toggle="modal" data-target="#"><i class="fa fa-plus" aria-hidden="true"></i><span>Import</span></a>
-                        @endif  -->
                     
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
@@ -67,7 +60,6 @@
                         @endif
                     </form>
                     <button type="button" class="button-29 userModalClose">Close</button>
-                    <!-- <button class="btn btnclose" style="background-color:red;" data-bs-dismiss="modal">Close</button> -->
                 </div>
             </div>
         </div>

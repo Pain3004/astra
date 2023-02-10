@@ -74,7 +74,7 @@ class UserController extends Controller
                 // print_r($request->userPass);die;
                 if (User::create([
                     'counter' => 0,
-                    // 'companyName' => $request->input('companyName'),
+                    'companyName' => $request->input('companyName'),
                     // 'companyID' => (int)$_SESSION['companyId'],
                     'userEmail' => $request->input('userEmail'),
                     'companyName' => $request->input('companyName'),
@@ -410,6 +410,56 @@ class UserController extends Controller
         echo 'success';
 
     }
+
+    // public function changeTheme($db,$theme,$userid){
+    //     $mongo = $db->user->updateOne(['companyID' => (int)$_SESSION['companyId'], '_id' => (int)$userid],
+    //         ['$set' => ['mode' => $theme]]
+    //     );
+    //     if($mongo){
+    //         $data = $db->user->findOne(['_id' => (int)$userid]);
+    //         $company = $db->companyAdmin->findOne(['_id' => (int)$_SESSION['companyId']]);
+    //         $companydata = $db->User_Subscription->findOne(['companyID' => (int)$_SESSION['companyId']]);
+    //         $obj = new AuthJWT();
+    //         $values['company'] = 'user';
+    //         $values['authtoken'] = $token;
+    //         $values['onetimeid'] = $onetimeid;
+    //         $values['companyName'] = $data['companyName'];
+    //         $values['userName'] = $data['userFirstName']." ".$data['userLastName'];
+    //         $values['userId'] = $data['_id'];
+    //         $values['companyId'] = $data['companyID'];
+    //         $values['companyPass'] = $data['userPass'];
+    //         $values['adminname'] = $data['userFirstName']. " " .$data['userLastName'];
+    //         $values['theme'] = $data['mode'];
+    //         $values['lock'] = 'unset';
+    //         $values['user_type'] = $data['user_type'];
+    //         $values['companylogo'] = $company['logo']['filepath'];
+    //         if(isset($data['dashboard'])) {
+    //             $values['dashboard'] = json_encode($data['dashboard']);
+    //         }
+    //         $values['privilege'] = json_encode($data['privilege']);
+    //         $values['master'] = json_encode($data['master']);
+    //         $values['reports'] = json_encode($data['reports']);
+    //         $values['admin'] = json_encode($data['admin']);
+    //         $values['ifta'] = json_encode($data['ifta']);
+    //         $values['account'] = json_encode($data['account']);
+    //         $values['expiry'] = json_encode($companydata['subscription_end']);
+    //         $values['stripe_id'] = $companydata['stripeID'];
+    //         $values['plan'] = $companydata['planType'];
+    //         $values['subscription'] = $companydata['subscription'];
+    //         $jwtres = $obj->setJWT($values);
+    //         $token = $jwtres['jwt'];
+    //         $randomId = rand(100000,999999);
+    //         $_SESSION['logid'] = $randomId;
+    //         $onetimeid = $obj->setRandomid($randomId);
+    //         $extime = time() + (21600);
+    //         setcookie('__wid', $token, $extime, '', '', true, true);
+    //         echo 'success';
+    //     }else{
+    //         echo 'failed to update';
+    //     }
+    //     $_SESSION['theme'] = $theme;
+    // }
+
     public function getAllUser(Request $request){
         // $user = User::all();
         $user = User::where('id', '!=', Auth::user()->id)->where('deleteStatus',0)->get();

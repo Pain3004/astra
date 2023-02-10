@@ -205,7 +205,7 @@
                                             <!-- <span class="button-29" id="plusPaymentTerms" style="margin-left: 5px;"><i class="fa fa-plus"></i></span>  -->
                                             <div class="dropdown show">
                                                 
-                                                    <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="PaymentTerms">
+                                                    <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="CustomerPayment_Terms">
                                                     <datalist id="customerPaymentTerm" class="customerPaymentTermSet">
                                                         <option>Select Here</option>
                                                     </datalist>

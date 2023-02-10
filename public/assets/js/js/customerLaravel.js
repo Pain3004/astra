@@ -261,8 +261,8 @@ $(document).ready(function() {
             var customerDuplicateShipper= $('#customerDuplicateShipper').val();
             var customerDuplicateConsignee= $('#customerDuplicateConsignee').val();
 
-            var customerCurrency= $('#customerCurrency').val();
-            var customerPaymentTerm= $('#customerPaymentTerm').val();
+            var customerCurrency= $('#currency_customer').val();
+            var customerPaymentTerm= $('#CustomerPayment_Terms').val();
             var customerCreditLimit= $('#customerCreditLimit').val();
             var customerSalesRepresentative= $('#customerSalesRepresentative').val();
             var customerFactoringCompanyname= $('#customerFactoringCompanyname').val();
@@ -541,7 +541,7 @@ $(document).ready(function() {
     });
 
     $("#closePaymentTermsModal").click(function(){
-        $('#PaymentTermsModal2').modal('show');
+        //$('#PaymentTermsModal2').modal('show');
         $("#PaymentTermsModal").modal("hide");
     });
 
