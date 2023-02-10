@@ -93,7 +93,7 @@ $(document).ready(function() {
                         var custTelephone = customerResponse.customer[j].custTelephone;
                         var custEmail = customerResponse.customer[j].custEmail;
                         var delete_status = customerResponse.customer[j].deleteStatus;
-                        if( custName =="" && custName == null)
+                        if( custName =="" || custName == null)
                         {
                             custName="----";
                         }
@@ -101,7 +101,7 @@ $(document).ready(function() {
                         {
                             custName=custName;
                         }
-                        if( custLocation =="" && custLocation == null)
+                        if( custLocation ==""|| custLocation == null)
                         {
                             custLocation="----";
                         }
@@ -109,7 +109,7 @@ $(document).ready(function() {
                         {
                             custLocation=custLocation;
                         }
-                        if( custZip =="" && custZip == null)
+                        if( custZip =="" || custZip == null)
                         {
                             custZip="----";
                         }
@@ -117,7 +117,7 @@ $(document).ready(function() {
                         {
                             custZip=custZip;
                         }
-                        if( custPrimaryContact =="" && custPrimaryContact == null)
+                        if( custPrimaryContact ==""|| custPrimaryContact == null)
                         {
                             custPrimaryContact="----";
                         }
@@ -125,7 +125,7 @@ $(document).ready(function() {
                         {
                             custPrimaryContact=custPrimaryContact;
                         }
-                        if( custTelephone =="" && custTelephone == null)
+                        if( custTelephone ==""|| custTelephone == null)
                         {
                             custTelephone="----";
                         }
@@ -133,7 +133,7 @@ $(document).ready(function() {
                         {
                             custTelephone=custTelephone;
                         }
-                        if( custEmail =="" && custEmail == null)
+                        if( custEmail ==""|| custEmail == null)
                         {
                             custEmail="----";
                         }

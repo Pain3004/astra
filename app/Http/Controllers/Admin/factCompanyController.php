@@ -16,10 +16,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class factCompanyController extends Controller
 {
-    public function getFactCompany(){
-        $companyId=1;
+    public function getFactCompany()
+    {
+        $companyId=(int)Auth::user()->companyID;
         $FactCompany = Factoring_company_add::where('companyID',$companyId)->first();
-       // dd($FactCompany);
        return response()->json($FactCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }

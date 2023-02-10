@@ -106,7 +106,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringCompanyLocation ">Location <span style="color:#ff0000">*</span></label>
-                                <input type="text" class="form-control" id="addfactoringCompanyLocation" placeholder=" Enter Location " >
+                                <input type="text" class="form-control location_view" data-location="addfactoringCompanyLocation"   id="addfactoringCompanyLocation" placeholder=" Enter Location " >
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringCompanyZip">Postal / Zip   <span style="color:#ff0000">*</span></label>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringCompanyPrimaryContactTelephone">Telephone</span></label>
-                                <input type="text" class="form-control" id="addfactoringCompanyPrimaryContactTelephone" placeholder=" Enter Telephone " >
+                                <input type="text" class="form-control" id="addfactoringCompanyPrimaryContactTelephone" placeholder=" Enter Telephone "  placeholder="(999) 999-9999" data-mask="(999) 999-9999"  >
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringCompanyPrimaryContactExt ">Ext </label>
@@ -128,7 +128,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringCompanyFax">Fax</label>
-                                <input type="text" class="form-control" id="addfactoringCompanyFax" placeholder=" Enter Fax " >
+                                <input type="text" class="form-control" id="addfactoringCompanyFax"  placeholder="(999) 999-9999" data-mask="(999) 999-9999"  >
                             </div>
                             
                         </div>
@@ -139,7 +139,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringCompanySecondaryContactTelephone">Telephone </label>
-                                <input type="text" class="form-control" id="addfactoringCompanySecondaryContactTelephone" placeholder=" Enter Telephone " >
+                                <input type="text" class="form-control" id="addfactoringCompanySecondaryContactTelephone"  placeholder="(999) 999-9999" data-mask="(999) 999-9999"  >
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringCompanySecondaryContactExt ">Ext </label>
@@ -147,7 +147,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="addfactoringTollFree">Toll Free   </label>
-                                <input type="text" class="form-control" id="addfactoringTollFree" placeholder=" Enter Toll Free " >
+                                <input type="text" class="form-control" id="addfactoringTollFree"  placeholder="(999) 999-9999" data-mask="(999) 999-9999"  >
                             </div>
                         </div>
                         <div class="form-row">
@@ -156,14 +156,14 @@
                                 <input type="text" class="form-control" id="addfactoringCompanyContactEmail" placeholder=" Enter Contact Email" >
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="addcustomerCurrencySetting">Currency Setting <span class="glyphicon glyphicon-plus-sign" id="factoringCurrency" ></span> </label>
+                                <label for="addcustomerCurrencySetting">Currency Setting <span class="glyphicon glyphicon-plus-sign" id="factoringCurrency"  style="cursor:pointer;color:blue !important"></span> </label>
                                 <div class="dropdown show">
                                     <input class="form-control customerCurrencySet " list="customerCurrencySet" name="currency" id="addcurrency1">
                                     <datalist id="customerCurrencySet" class="customerCurrencySet"></datalist>    
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
-                                    <label for="addcustomerPaymentTerms">Payment Terms <span class="glyphicon glyphicon-plus-sign" id="factoringPaymentTerms" ></span> </label>
+                                    <label for="addcustomerPaymentTerms">Payment Terms <span class="glyphicon glyphicon-plus-sign" id="factoringPaymentTerms" style="cursor:pointer;color:blue !important" ></span> </label>
                                     <div class="dropdown show">
                                       
                                         <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="addPaymentTerms1">
@@ -229,13 +229,13 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form>
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_updateFactoringCompany" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="fuel_recepit_id" class="factringCom_id_edit" >
                                             <div class="form-row">
                                                 <div class="form-group col-md-2">
-                                                    <label>Factoring Company Name <span style="color:#ff0000">*</span>
+                                                    <label>Factoring Company<span style="color:#ff0000">*</span>
                                                     </label>
                                                     <div>
                                                         <input type="text" class="form-control update_factoringCompanyname" name="factoringCompanyname"> 
@@ -252,7 +252,7 @@
                                                     <label>Location<span style="color:#ff0000">*</span>
                                                     </label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control update_fact_location " type="text" 
+                                                            <input class="form-control update_fact_location location_view" data-location="fact_location_add_data" id="fact_location_add_data" type="text" 
                                                             name="location"  />
                                                         </div>
                                                 </div>
@@ -274,7 +274,7 @@
                                                 <div class="form-group col-md-3 ">
                                                     <label>Telephone </label>
                                                     <div>
-                                                        <input class="form-control update_fac_telephone" type="text" name="telephone"  />
+                                                        <input class="form-control update_fac_telephone" type="text" name="telephone"  placeholder="(999) 999-9999" data-mask="(999) 999-9999"   />
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2 ">
@@ -286,14 +286,14 @@
                                                 <div class="form-group col-md-2">
                                                     <label>FAX
                                                         </label>
-                                                    <input type="text" class="form-control update_fac_fax"  name="fax" required>
+                                                    <input type="text" class="form-control update_fac_fax"  name="fax"  placeholder="(999) 999-9999" data-mask="(999) 999-9999"  required>
                                                 </div>
                                             </div>
                                             <!-- row 3 -->
                                             <div class="form-row">
                                                 <div class="form-group col-md-2">
                                                     <label >Toll Free</label>
-                                                    <input class="form-control update_fac_tollFree"  type="text"  name="tollFree" required>
+                                                    <input class="form-control update_fac_tollFree"  type="text"  name="tollFree"  placeholder="(999) 999-9999" data-mask="(999) 999-9999"  required>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label>Contact Email</label>
@@ -305,7 +305,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Factring Telephone</label>
-                                                    <input class="form-control update_fac_factoringtelephone" name="factoringtelephone" type="text">
+                                                    <input class="form-control update_fac_factoringtelephone" name="factoringtelephone" type="text"  placeholder="(999) 999-9999" data-mask="(999) 999-9999" >
                                                 </div>
                                                 <div class="form-group col-md-2 ">
                                                     <label >Factring Ext  </label>
@@ -313,13 +313,17 @@
                                                 </div>
                                                
                                                 <div class="form-group col-md-2">
-                                                    <label >Currency Setting <span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign" id="factoringCurrency" ></span></label>
+                                                    <label >Currency Setting <span style="color:#ff0000">*</span> 
+                                                    <!-- <span class="glyphicon glyphicon-plus-sign" id="factoringCurrency"  style="cursor:pointer;color:blue !important"></span> -->
+                                                </label>
                                                     <input class="form-control update_fac_currencySetting customerCurrencySet " list="customerCurrencySet" name="currencySetting " type="text" required>
 
                                                     <datalist class="customerCurrencySet"></datalist> 
                                                 </div>
                                                 <div class="form-group col-md-2 ">
-                                                    <label >Payment Terms <span style="color:#ff0000">*</span><span class="glyphicon glyphicon-plus-sign" ></span></label>
+                                                    <label >Payment Terms <span style="color:#ff0000">*</span>
+                                                    <!-- <span class="glyphicon glyphicon-plus-sign"   style="cursor:pointer;color:blue !important"></span> -->
+                                                </label>
                                                     <input class="form-control update_fac_paymentTerms customerPaymentTermSet" list="customerPaymentTermSet"  name="paymentTerms " type="text" required>
                                                     <datalist id="customerPaymentTermSet" class="customerPaymentTermSet"></datalist> 
                                                 </div>

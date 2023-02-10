@@ -164,7 +164,7 @@ $(document).ready(function() {
                     {
                         shipperShippingHours="----";
                     }
-                    if(shipperAppointments !="" &&  shipperAppointments!=null)
+                    if(shipperAppointments !="" &&  shipperAppointments!=null &&  shipperAppointments!="null")
                     {
                         shipperAppointments=shipperAppointments; 
                     }
@@ -180,7 +180,7 @@ $(document).ready(function() {
                     {
                         shipperIntersaction="----";
                     }
-                    if(shipperStatus !="" &&  shipperStatus!=null)
+                    if(shipperStatus !="" &&  shipperStatus!=null &&  shipperStatus!="null")
                     {
                         shipperStatus=shipperStatus; 
                     }
@@ -203,6 +203,14 @@ $(document).ready(function() {
                     else
                     {
                         internalNotes="----";
+                    }
+                    if(shipperEmail !="" && shipperEmail !=null && shipperEmail!="null")
+                    {
+                        shipperEmail=shipperEmail;
+                    }
+                    else
+                    {
+                        shipperEmail="---------";
                     }
 
                     if(insertedTime1){
