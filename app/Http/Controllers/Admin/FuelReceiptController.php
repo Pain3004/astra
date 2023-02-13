@@ -17,17 +17,13 @@ use Illuminate\Database\Eloquent\Collection;
 class FuelReceiptController extends Controller
 {
     public function getFuelReceipt(Request $request){
-        $companyId=1;
+        $companyId=67;
         $FuelReceipt = FuelReceipt::where('companyID',$companyId)->first();
-        // $FuelVendor = FuelVendor::where('companyID',$companyId)->first();
-        // $driver = Driver::where('companyID',$companyId )->first();
-       //dd($FuelCard);
-       //return response()->json(['FuelCard'=>$FuelCard, 'FuelVendor'=>$FuelVendor, 'driver'=>$driver], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        return response()->json($FuelReceipt, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function createFuelReceipt(Request $request)
     {
-        $companyId=(int)1;
+        $companyId=(int)67;
         $FuelReceipt = FuelReceipt::where('companyID',$companyId)->get();
         return response()->json($FuelReceipt, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
@@ -39,9 +35,9 @@ class FuelReceiptController extends Controller
        
         ]);
         
-        $FuelReceipt = FuelReceipt::all();
+        // $FuelReceipt = FuelReceipt::all();
    
-        $companyId=(int)1;
+        $companyId=(int)67;
         $totalFuelReceiptArray=0;
         $getFuelReceipt = FuelReceipt::where('companyID',$companyId)->first();
 
@@ -148,7 +144,6 @@ class FuelReceiptController extends Controller
                 }
             }
         }
-        
         $date=$request->date;
         $date = strtotime($date);
         $fuelReceiptArray[$v]['driverName' ]= $request->driverName;
@@ -260,11 +255,13 @@ class FuelReceiptController extends Controller
    {
         $companyId=1;
         $Invoiced = Invoiced::where('companyID',$companyId)->first();
+       //$Invoiced=null;
         return response()->json($Invoiced, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
    }
    public function deleteMulFuelReceipt(Request $request)
    {
     $fuelReceIds=$request->all_ids;
+    // dd($fuelReceIds);
     $custID=(array)$request->custID;
     foreach($custID as $fuel_re_id)
     {
@@ -272,6 +269,7 @@ class FuelReceiptController extends Controller
         ',' , ' " " ', '[', ']' ), ' ', $fuel_re_id);
         $fuel_re_id=(int)$fuel_re_id;
         $FuelReceipt = FuelReceipt::where('companyID',$fuel_re_id )->first();
+        // dd($FuelReceipt);
         $fuelReceiptArray=$FuelReceipt->fuel_receipt;
         $arrayLength=count($fuelReceiptArray);            
         $i=0;
@@ -296,6 +294,7 @@ class FuelReceiptController extends Controller
                 }
             }
         }
+        // dd($data);
         foreach($data as $row)
         {
             $fuelReceiptArray[$row]['deleteStatus'] = "YES";

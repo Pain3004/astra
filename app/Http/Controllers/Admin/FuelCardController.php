@@ -45,7 +45,7 @@ class FuelCardController extends Controller
         // dd($totalFuelCardArray);
         $FuelCardData[]=array(    
                         '_id' => $totalFuelCardArray ,
-                        // 'counter' => 0,
+                        'counter' => $totalFuelCardArray,
                         'cardHolderName' => $request->cardHolderName,
                         'employeeNo' => $request->employeeNo,
                         'iftaCardNo' => $request->iftaCardNo,
@@ -60,6 +60,7 @@ class FuelCardController extends Controller
 
                         );
            
+            // if($totalFuelCardArray<4){
             if($getFuelCard){
                 FuelCard::where(['companyID' =>$companyId])->update([
                     'counter'=> $totalFuelCardArray,
@@ -70,6 +71,19 @@ class FuelCardController extends Controller
                 $arrCustome = array('status' => 'success', 'message' => 'Fuel card added successfully.'); 
                 return json_encode($arrCustome);
             }
+            // else
+            // {
+               
+            //     FuelCard::create([
+            //         '_id' =>4,
+            //         'companyID'=>1,
+            //         'ifta_card' => $FuelCardData,
+            //         'counter' =>1,
+            //         'created_time' => date('d-m-y h:i:s'),
+            //         'edit_time' =>time(),
+            //         'deleteStatus' =>"NO",
+            //     ]);
+            // }
     }
     public function editFuelCard(Request $request)
     {

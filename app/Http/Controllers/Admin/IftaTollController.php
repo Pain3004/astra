@@ -140,7 +140,6 @@ class IftaTollController extends Controller
                 }
             }
         }  
-        
         $tollDate=$request->tollDate;
         $tollDate = strtotime($tollDate);
        $iftaTollArray[$v]['tollDate' ]= $tollDate;

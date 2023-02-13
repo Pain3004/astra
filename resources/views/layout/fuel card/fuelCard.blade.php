@@ -1,3 +1,11 @@
+<?php 
+	$userdata=Auth::user();
+	$insertUser=$userdata->privilege['insertUser'];
+    // $updateUser=$userdata->privilege['updateUser'];
+    $deleteUser=$userdata->privilege['deleteUser'];
+    $importUser=$userdata->privilege['importUser'];
+    $exportUser=$userdata->privilege['exportUser'];
+ ?> 
 <!------------------------------------------------------------------- Trailer modal ------------------------------------------------------------------->
 <div class="container">
     <!-- The Modal -->
@@ -12,9 +20,13 @@
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <button class="button-57_alt AddFuelCardFormModal" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add </span></button>
-                    <button class="button-57_alt restoreFuelCardData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></button>
-
+                    @if($insertUser== 1)
+                        <a href="#" class="button-57_alt AddFuelCardFormModal" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Fuel Card </span></a>
+                    @endif 
+                    
+                    @if($deleteUser== 1)    
+                        <a href="#" class="button-57_alt restoreFuelCardData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    @endif
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
@@ -38,15 +50,15 @@
                                         <tbody id="FuelCardTable">
 
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
+                                        <!-- <tfoot>
+                                            <tr class="tr">
                                                 <th>No</th>
                                                 <th>Card Holder Name</th>
                                                 <th>IFTA Card No</th>
                                                 <th>Card Type</th>
                                                 <th>Action</th>
                                             </tr>
-                                        </tfoot>
+                                        </tfoot> -->
                                     </table>
                                 </div>
                                
@@ -58,11 +70,18 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                        @csrf
+                        @if($exportUser == 1)
+                            <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                        @endif
+                    </form>
                     <button type="button" class="button-29 fuelCardClose">Close</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
  <!-- ================= start add fuelCard ========================================= -->
  <div class="modal fade" id="AddFuelCard"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,11 +110,11 @@
                         </div>
                         <label>IFTA Card Number<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control add_IFTA_Card_Number " type="text" name="iftaCardNumber" required />
+                            <input  class="form-control add_IFTA_Card_Number " type="number" name="iftaCardNumber" required />
                         </div>
-                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_vendor_model "  data-toggle="modal"  style="cursor:pointer;"></span> </label>
+                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_card_type_new "  data-toggle="modal"  style="cursor:pointer;color:blue;"></span> </label>
                         <div>
-                            <select  class="form-control card_vendor_type add_Fuel_Card_Type"  name="fuelCardType" required > 
+                            <select  class=" aiz-selectpicker search_select form-control card_vendor_type add_Fuel_Card_Type" data-live-search="true" name="fuelCardType" required > 
                                 <option> Select one</option>
                             </select>
                         </div>
@@ -141,9 +160,9 @@
                         </div>
                         <label>IFTA Card Number<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control update_IFTA_Card_Number " type="text" name="iftaCardNumber" required />
+                            <input  class="form-control update_IFTA_Card_Number " type="number" name="iftaCardNumber" required />
                         </div>
-                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_vendor_model "  data-toggle="modal"  style="cursor:pointer;"></span> </label>
+                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_card_type_new "  data-toggle="modal"  style="cursor:pointer; color:blue;"></span> </label>
                         <div>
                             <select  class="form-control card_vendor_type update_Fuel_Card_Type"  name="fuelCardType" required > 
                                 <option> Select one</option>
@@ -187,7 +206,7 @@
                                     <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                             <tr class="tr">
-                                                <th scope="col" col width="40"><input type="checkbox" name="all_ids[]" class="fuel_card_all_ids"></th>
+                                                <th scope="col" col width="40"><input type="checkbox" nam="all_ids[]" class="fuel_card_all_ids"></th>
                                                 <th scope="col" col width="100">Card Holder Name</th>
                                                 <th scope="col" col width="100">IFTA Card No</th>
                                                 <th scope="col" col width="100">CardType</th>

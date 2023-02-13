@@ -1,4 +1,13 @@
+<?php 
+	$userdata=Auth::user();
+	$insertUser=$userdata->privilege['insertUser'];
+    // $updateUser=$userdata->privilege['updateUser'];
+    $deleteUser=$userdata->privilege['deleteUser'];
+    $importUser=$userdata->privilege['importUser'];
+    $exportUser=$userdata->privilege['exportUser'];
+ ?> 
 <!------------------------------------------------------------------- Trailer modal ------------------------------------------------------------------->
+
 <div class="container">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="iftaTollModal">
@@ -7,18 +16,28 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Ifta Tolls</h4>
+                    <h4 class="modal-title">Fuel Toll</h4>
                     <button type="button" class="button-24 iftaTollClose" >&times;</button>
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <button class="button-57_alt createIftaTollModalBtn" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add </span></button>
-
-                    <button class="button-57_alt restoreIftaTollData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></button>
-
+                @if($insertUser== 1)
+                    <a href="#" class="button-57_alt createIftaTollModalBtn" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Fuel Toll</span></a>
+                @endif 
+                
+                @if($deleteUser== 1)    
+                    <a href="#" class="button-57_alt restoreIftaTollData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
                     <input type="hidden" name="checked_id" id="delete_checked_ifta_toll_ids" value="">
                     <input type="hidden" name="company_id" id="delete_checked_iftaToll_company_ids" value="">
                     <button id="delete_IftaTollData_btn"  class="button-57_alt delete_IftaTollData_btn" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete fuel vendor</span></button>
+
+                @endif
+                    <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
+                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
+                    <a href="#contractCategoryModal" class="button-57_alt" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a> -->
+                    <div class="searchbar" style="float: right; margin-right: 15px;">
+                        <input type="text" placeholder="search" />
+                    </div>
 
                 </div>
                 <!-- Modal body -->
@@ -31,11 +50,9 @@
                                 <div class="table-responsive export-table">
                                     <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
-                                        <tr  class="tr">
+                                        <tr class="tr">
                                            
                                             <th scope="col" col width="50"> <input type="checkbox" name="all_ids[]" class="delete_all_checked_ids"></th>
-                                            <!-- <th scope="col" col width="50"> <input type="checkbox" disabled></th>     -->
-
                                             <th >No</th>
                                             <th>Transaction Date</th>
                                             <th>Transaction Type</th>
@@ -78,6 +95,12 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    @csrf
+                    @if($exportUser == 1)
+                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                    @endif
+                </form>
                     <button type="button" class="button-29 iftaTollClose">Close</button>
                 </div>
             </div>
@@ -100,7 +123,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form>
+                                        <form id="" >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_createIftaToll" value="{{ csrf_token() }}" />
                                             <div class="form-row">
@@ -183,7 +206,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form>
+                                        <form id="" >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_updateIftaToll" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="iftaTollId" class="updateiftaTollId" >

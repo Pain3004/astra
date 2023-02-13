@@ -66,6 +66,9 @@
 "https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
 	</script> -->
       
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+
 
 <style type="text/css">
    .header-brand-img {

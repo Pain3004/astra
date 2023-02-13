@@ -1,14 +1,13 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
-    // <!-- -----------------------start ---------------------------------- -->  
+
+// <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
     $('.iftaTollClose').click(function(){
         $('#iftaTollModal').modal('hide');
     });
-
-
-    // <!-- -------------------------------------Get fuelReceipt  ------------------------- -->  
+// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
    
-    $(".iftaToll_navbar").click(function(){
+    $('#iftaToll_navbar').click(function(){
         $.ajax({
             type: "GET",
             url: base_path + "/admin/getInvoicedNumber",
@@ -25,7 +24,7 @@ $(document).ready(function() {
                 }
             }
         });
-        // alert();
+        //alert();
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getIftaToll",
@@ -59,7 +58,6 @@ $(document).ready(function() {
                    
                     var no=1;
                     for (var i = IftaTolllen-1; i >= 0; i--) {  
-                        // var comId=1;
                         var comId =IftaTollResult.companyID;
                         var IftaTollId =IftaTollResult.tolls[i]._id;
                         // var transectionDate =new Date(IftaTollResult.tolls[i].tollDate);
@@ -73,24 +71,24 @@ $(document).ready(function() {
                        
                         var deleteStatus =IftaTollResult.tolls[i].deleteStatus;
               //alert(fuelCardId);
-                           if(IftaTollResult.tolls[i].tollDate != null)
-                            {
-                                var tollDate=IftaTollResult.tolls[i].tollDate;
-                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-                                var date = new Date(tollDate*1000);
-                                var year = date.getFullYear();
-                                var month = months_arr[date.getMonth()];
-                                var day = date.getDate();
-                                var transectionDate = month+'/'+day+'/'+year;
-                            }
-                            else
-                            {
-                                transectionDate="----";
-                            }
+                        if(IftaTollResult.tolls[i].tollDate != null)
+                        {
+                            var tollDate=IftaTollResult.tolls[i].tollDate;
+                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date = new Date(tollDate*1000);
+                            var year = date.getFullYear();
+                            var month = months_arr[date.getMonth()];
+                            var day = date.getDate();
+                            var transectionDate = month+'/'+day+'/'+year;
+                        }
+                        else
+                        {
+                            transectionDate="----";
+                        }
 
                         if(deleteStatus == "NO"){
                             //alert("ff");
-                            var IftaTollStr = "<tr data-id=" + (i + 1) + ">" +
+                            var IftaTollStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                             "<td data-field=''><input type='checkbox' class='delete_check_iftaToll_one' name='delete_checkediftaToll_ids[]' data-id=" + IftaTollId + " date-cusId=" + comId + "  value=" + IftaTollId + "></td>" +
                             "<td data-field='no'>" + no + "</td>" +
                             "<td data-field='transectionDate' >" + transectionDate + "</td>" +
@@ -103,12 +101,12 @@ $(document).ready(function() {
                             "<td data-field='invoiceNo' >" + invoiceNo + "</td>" +
                        
                             "<td style='text-align:center'>"+
-                                
-
-                                "<a class='mt-2 button-29 fs-14 text-white edit_modal_iftaToll'  title='Edit1' data-tollId='"+IftaTollId+"' data-compID='"+comId+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                "<a class='mt-2 button-29 fs-14 text-white delete_modal_iftaToll'  title='delete' data-tollId='"+IftaTollId+"' data-compID='"+comId+"' ><i class='fe fe-trash'></i></a>&nbsp"+
-
-                            "</td></tr>";
+                                "<td style='width: 100px'>"+
+                                " <a class='button-23 edit_modal_iftaToll "+editPrivilege+"' id='editmodel' title='Edit' data-tollId='"+IftaTollId+"' data-compID='"+comId+"' ><i class='fe fe-edit'></i>"+
+                                "</a> <a class='delete1 button-23 delete_modal_iftaToll "+delPrivilege+"'  title='Delete' data-tollId='"+IftaTollId+"' data-compID='"+comId+"' ><i class='fe fe-delete'></i></a>"+
+                        "</td></tr>";  
+                        
+                        
 
                         $("#iftaTollTable").append(IftaTollStr);
                         no++;
@@ -128,10 +126,11 @@ $(document).ready(function() {
 
             $("#iftaTollTable").append(IftaTollStr);
         }
-    }   
+    }
 
-    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+   
 
+// <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
     //================================= start ifta toll create =============================
     $(".createIftaTollModalBtn").click(function(){
         $("#createIftaTollFormModal").modal("show");
@@ -530,6 +529,7 @@ $(document).ready(function() {
     });
     //============================ end ifta toll restore ============================
 
+    
     //================================ start multi delete toll ==============================
     $(document).on("change", ".delete_all_checked_ids", function () {
         if (this.checked) {

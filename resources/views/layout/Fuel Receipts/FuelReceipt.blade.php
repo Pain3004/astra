@@ -1,4 +1,12 @@
-<!------------------------------------------------------------------- Trailer modal ------------------------------------------------------------------->
+<?php 
+	$userdata=Auth::user();
+	$insertUser=$userdata->privilege['insertUser'];
+    // $updateUser=$userdata->privilege['updateUser'];
+    $deleteUser=$userdata->privilege['deleteUser'];
+    $importUser=$userdata->privilege['importUser'];
+    $exportUser=$userdata->privilege['exportUser'];
+ ?> 
+<!-------------------------------------------------------------------  modal ------------------------------------------------------------------->
 <div class="container">
     <!-- The Modal -->
     <!-- <div class="modal fade" data-backdrop="static" id="Fuel Receipts"> -->
@@ -9,25 +17,38 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Fuel Receipts</h4>
-                    <button type="button" class="button-24 fuelReceiptCloselist" >&times;</button>
+                    <button type="button" class="button-24 fuelReceiptClose" >&times;</button>
                 </div>
-
+                <div>
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <button class="button-57_alt create_fuel_receipt_modal_form_btn" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add </span></button>
+                    @if($insertUser== 1)
+                        <a href="#" class="button-57_alt create_fuel_receipt_modal_form_btn" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Fuel Receipts</span></a>
+                    @endif 
+                    
+                    @if($deleteUser== 1)    
+                        <a href="#" class="button-57_alt restoreFuelReceiptData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                        <input type="hidden" name="checked_id" id="checked_fuelRecepit_delete" value="">
+                        <input type="hidden" name="company_id" id="checked_fuelRecepit_company_ids_delete" value="">
+                        <a id="delete_Fuel_ReceiptData"  class="button-57_alt delete_Fuel_ReceiptData" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete </span></a>
 
-                    <button class="button-57_alt restoreFuelReceiptData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></button>
-
-                    <input type="hidden" name="checked_id" id="checked_fuelRecepit_delete" value="">
-                    <input type="hidden" name="company_id" id="checked_fuelRecepit_company_ids_delete" value="">
-                    <button id="delete_Fuel_ReceiptData"  class="button-57_alt delete_Fuel_ReceiptData" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete </span></button>
-
-
+                    @endif
+                    <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
+                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
+                    <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a>
                     <div class="searchbar" style="float: right; margin-right: 15px;">
-                        <input type="text" placeholder="search" />
+                        <input type="text" placeholder="search" /> -->
+                        <!-- <div class="symbol">
+                            
+                            <svg class="lens">
+                            <use xlink:href="#lens" />
+                            </svg>
+                        </div> -->
                     </div>
 
                 </div>
+                <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
+                    <!-- Row -->
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
@@ -35,9 +56,10 @@
                                 <div class="table-responsive export-table">
                                     <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
-                                        <tr class="tr">
+                                        <tr >
                                            
                                             <th scope="col" col width="50"> <input type="checkbox" name="fuel_ids[]" class="fuel_recepit_ids_delete"></th>
+                                            <!-- <th scope="col" col width="50"> <input type="checkbox" disabled></th>     -->
 
                                             <th >No</th>
                                             <th >Driver Name</th>
@@ -66,30 +88,29 @@
                                         <tbody id="FuelReceTable">
 
                                         </tbody>
-                                        <tfoot class="thead_th">
-                                            <tr class="tr">
-                                                <th ></th>
-                                                <th >No</th>
-                                                <th >Driver Name</th>
-                                                <th >Transaction Date </th>
-                                                <th >Payment Type</th>
-                                                <th >Card Number </th>
-                                                <th >Number </th>
-                                                <th >Driver Number</th>
-                                                <th >Transaction Time</th>
-                                                <th >Location Name </th>
-                                                <th >Location City</th>
-                                                <th > Location State </th>
-                                                <th >Fuel Vendor</th>
-                                                <th >Fuel Type</th>
-                                                <th >Amount</th>
-                                                <th >Quantity</th>
-                                                <th >Total Amount </th>
-                                                <th >Transaction Discount</th>
-                                                <th >Transaction Fee</th>
-                                                <th >Transaction Gross </th>
-                                                <th >Invoice No </th>
-                                                <th >Action</th>
+                                        <tfoot>
+                                            <tr>
+                                            <th ></th>
+                                            <th >No</th>
+                                            <th >Driver Name</th>
+                                            <th >Transaction Date </th>
+                                            <th >Card Number </th>
+                                            <th >Number </th>
+                                            <th >Driver Number</th>
+                                            <th >Transaction Time</th>
+                                            <th >Location Name </th>
+                                            <th >Location City</th>
+                                            <th > Location State </th>
+                                            <th >Fuel Vendor</th>
+                                            <th >Fuel Type</th>
+                                            <th >Amount</th>
+                                            <th >Quantity</th>
+                                            <th >Total Amount </th>
+                                            <th >Transaction Discount</th>
+                                            <th >Transaction Fee</th>
+                                            <th >Transaction Gross </th>
+                                            <th >Invoice No </th>
+                                            <th >Action</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -103,7 +124,13 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="button-29 fuelReceiptCloselist">Close</button>
+                <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    @csrf
+                    @if($exportUser == 1)
+                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                    @endif
+                </form>
+                    <button type="button" class="button-29 fuelReceiptClose">Close</button>
                 </div>
             </div>
         </div>
@@ -126,7 +153,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form  >
+                                        <form id="" >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_addFuelReceipts" value="{{ csrf_token() }}" />
                                             <div class="form-row">
@@ -199,7 +226,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location Name <span style="color:#ff0000">*</span></label>
-                                                    <input type="text" class="form-control addFuelReceiptLocationName" name="locationName" required >
+                                                    <input type="text" class="form-control addFuelReceiptLocationName location_view" data-location="fuelAddLocationRecepit" id="fuelAddLocationRecepit" name="locationName" required >
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location City</label>
@@ -275,7 +302,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form>
+                                        <form id="" >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_updateFuelReceipts" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="fuel_recepit_id" class="fuel_recepit_id_edit" >
@@ -350,7 +377,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location Name <span style="color:#ff0000">*</span></label>
-                                                    <input type="text" class="form-control updateFuelReceiptLocationName" name="locationName" required > 
+                                                    <input type="text" class="form-control updateFuelReceiptLocationName location_view" id="fuelUpdateLocationRecepit" data-location="fuelUpdateLocationRecepit" name="locationName" required > 
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location City</label>

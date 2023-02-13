@@ -126,9 +126,11 @@
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 <script sr="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="{{URL::to('/')}}/assets/js/jquery.mask.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> -->
-<script type="text/javascript"
-        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap" ></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>>
+
 
 </body>
 

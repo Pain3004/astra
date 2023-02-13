@@ -1,3 +1,11 @@
+<?php 
+	$userdata=Auth::user();
+	$insertUser=$userdata->privilege['insertUser'];
+    // $updateUser=$userdata->privilege['updateUser'];
+    $deleteUser=$userdata->privilege['deleteUser'];
+    $importUser=$userdata->privilege['importUser'];
+    $exportUser=$userdata->privilege['exportUser'];
+ ?> 
 <!------------------------------------------------------------------- Trailer modal ------------------------------------------------------------------->
 <div class="container">
     <!-- The Modal -->
@@ -12,8 +20,18 @@
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <a  class="button-57 create_fuel_vendor_model"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
-                    <button class="button-57_alt restore_fuel_vendor" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore Fuel Vendor</span></button>
+
+                    @if($insertUser== 1)
+                        <a  class="button-57_alt create_fuel_vendor_model"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
+                        
+                    @endif 
+                    
+                    @if($deleteUser== 1)    
+                        <a href="#" class="button-57_alt restore_fuel_vendor" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+
+                    @endif
+                    
+                    
 
                 </div>
                 <!-- Modal body -->
@@ -22,6 +40,7 @@
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
+
                                 <div class="table-responsive export-table">
                                     <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
@@ -48,18 +67,20 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                <form action="{{route('driver-pdf')}}" method="post" target="__blank">
+                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
-                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                        @if($exportUser == 1)
+                            <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                        @endif
                     </form>
                     <button type="button" class="button-29 fuelVendorClose">Close</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
- <!-- ============ start add fuelVendor ================ -->
+</div>
+<!-- ============ start add fuelVendor ================ -->
 <div class="modal fade" id="AddFuelVendor"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -84,11 +105,11 @@
                         </div>
                         <label>Opening Amount<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control " type="text" id="add_Opening_Amount" name="openingBalance" required />
+                            <input  class="form-control " type="number" id="add_Opening_Amount" name="openingBalance" required />
                         </div>
                         <label>Current Amount<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control " type="text" id="add_currentBalance" name="currentBalance" required />
+                            <input  class="form-control " type="number" id="add_currentBalance" name="currentBalance" required />
                         </div>
                     </div>
                 </form>
@@ -127,14 +148,14 @@
                         <div>
                             <input type= "date" class="form-control date_formate_change" id="update_OpeningDate" name="openingDate" required />
                         </div>
-                        <label>Opening Amount<span style="color:#ff0000">*</span></label>
+                        <!-- <label>Opening Amount<span style="color:#ff0000">*</span></label>
                         <div>
                             <input  class="form-control " type="text" id="update_Opening_Amount" name="openingBalance" required />
                         </div>
                         <label>Current Amount<span style="color:#ff0000">*</span></label>
                         <div>
                             <input  class="form-control " type="text" id="update_currentBalance" name="currentBalance" required />
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>

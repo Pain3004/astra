@@ -125,7 +125,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerFax">Fax  </label>
-                                            <input type="text" class="form-control" id="customerFax"placeholder="Enter Fax">
+                                            <input type="text" class="form-control" id="customerFax" placeholder="(999) 999-9999" data-mask="(999) 999-9999" >
                                         </div>
                                     </div>
 
@@ -576,7 +576,7 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerFax">Fax  </label>
-                                                            <input type="text" class="form-control" id="updateCustomerFax"placeholder="Enter Fax" name="custFax">
+                                                            <input type="text" class="form-control" id="updateCustomerFax"  placeholder="(999) 999-9999" data-mask="(999) 999-9999" name="custFax">
                                                         </div>
                                                     </div>
 
