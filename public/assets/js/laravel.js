@@ -2415,6 +2415,54 @@ function GetDynamicRecurrence(value) {
         '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
 }
 // <!-- ------------------------------------------------------------------------- End of Add Recurrence ------------------------------------------------------------------------- -->
+// <!-- ------------------------------------------------------------------------- update Add Recurrence ------------------------------------------------------------------------- -->
+$(function() {
+    $("#up_btnAdd2").bind("click", function() {
+        var div = $("<tr />");
+        div.html(GetDynamicRecurrence(""));
+        $("#up_TextBoxContainer2").append(div);
+    });
+    $("body").on("click", ".remove", function() {
+        $(this).closest("tr").remove();
+    });
+
+});
+
+function removeRowRecurrence(index) {
+    if (index == 0) {
+        return;
+    }
+
+    document.getElementById("recurrence_add" + index).remove();
+    up_rec_PlusRecurrence.splice(index, 1);
+    up_rec_installmentType.splice(index, 1);
+    up_rec_amount.splice(index, 1);
+    up_rec_installment.splice(index, 1);
+    up_rec_startNo.splice(index, 1);
+    up_rec_startDate.splice(index, 1);
+    up_rec_internalNote.splice(index, 1);
+}
+
+function GetDynamicRecurrence(value) {
+    return '<td width="150">' +
+        '<input class="form-control driverPlusRecurrence" value = "' + value +
+        '" name="up_rec_PlusRecurrence[]" ' +
+        ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
+        '<td width="150">' +
+        '<input class="form-control" value = "' + value +
+        '" name="up_rec_installmentType[]" list="instatype1" autocomplete="off"/></td>' +
+        '<td width="100">' +
+        '<input name="up_rec_amount[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="100">' +
+        '<input name="up_rec_installment[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="100"><input name="up_rec_startNo[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="10"><input name="up_rec_startDate[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="250"><textarea rows="1" cols="30" value = "' + value +
+        '" class="form-control" type="textarea" name="up_rec_internalNote[]"></textarea></td>' +
+        '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
+}
+// <!-- ------------------------------------------------------------------------- End update of Add Recurrence ------------------------------------------------------------------------- -->
+
 // <!-- ------------------------------------------------------------------------- Minus Recurrence ------------------------------------------------------------------------- -->
 $(function() {
     $("#btnAdd3").bind("click", function() {
@@ -2460,8 +2508,53 @@ function GetDynamicRecurrencesubstract(value) {
     '" class="form-control" type="textarea" name="rec_internalNote_sub[]"></textarea></td>' +
     '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
 }
-
 // <!-- ------------------------------------------------------------------------- End of Minus Recurrence ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------update Minus Recurrence ------------------------------------------------------------------------- -->
+$(function() {
+    $("#up_btnAdd3").bind("click", function() {
+        var div = $("<tr />");
+        div.html(GetDynamicRecurrencesubstract(""));
+        $("#up_TextBoxContainer3").append(div);
+    });
+    $("body").on("click", ".remove", function() {
+        $(this).closest("tr").remove();
+    });
+
+});
+
+function recurrence_substract(index) {
+    if (index == 0) {
+        return;
+    }
+    document.getElementById("recurrencesubstract_add" + index).remove();
+    up_rec_PlusRecurrence.splice(index, 1);
+    up_rec_installmentType.splice(index, 1);
+    up_rec_amount.splice(index, 1);
+    up_rec_installment.splice(index, 1);
+    up_rec_startNo.splice(index, 1);
+    up_rec_startDate.splice(index, 1);
+    up_rec_internalNote.splice(index, 1);
+}
+
+function GetDynamicRecurrencesubstract(value) {
+    return '<td width="150">' +
+    '<input class="form-control driverPlusRecurrence" value = "' + value +
+    '" name="up_rec_PlusRecurrence_sub[]" ' +
+    ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
+    '<td width="150">' +
+    '<input class="form-control" value = "' + value +
+    '" name="up_rec_installmentType_sub[]" list="instatype1" autocomplete="off"/></td>' +
+    '<td width="100">' +
+    '<input name="up_rec_amount_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100">' +
+    '<input name="up_rec_installment_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100"><input name="up_rec_startNo_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="10"><input name="up_rec_startDate_sub[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="250"><textarea rows="1" cols="30" value = "' + value +
+    '" class="form-control" type="textarea" name="up_rec_internalNote_sub[]"></textarea></td>' +
+    '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
+}
+// <!-- ------------------------------------------------------------------------- End of update Minus Recurrence ------------------------------------------------------------------------- -->
 
 //get truck
     // $('.fuel_truck_report').focus(function(){
