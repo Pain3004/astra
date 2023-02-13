@@ -693,5 +693,5 @@
     </div>
   </div>
 </div>
-
+@endif
 <!--   ====== end add truck type model     -->

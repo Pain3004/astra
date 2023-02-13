@@ -382,7 +382,7 @@
 										</ul>
 									</li>
 								@endif
-							@endif
+					
 							@if(isset($iftaArray['ifta']))
 								@if($iftaArray['ifta']==1)
 									<li class="slide">
