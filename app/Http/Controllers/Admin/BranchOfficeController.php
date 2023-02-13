@@ -46,7 +46,7 @@ class BranchOfficeController extends Controller
                        'officeName' => $request->name,
                        'officeLocation' => $request->Location,
                        'counter' => 0,
-                       'created_by' => Auth::user()->userFirstName,
+                       'created_by' =>Auth::user()->userFirstName,
                        'deleteStatus' => 'NO',
                        'deleteUser' => '',
                        'deleteTime' => '',
@@ -142,4 +142,86 @@ class BranchOfficeController extends Controller
         }
     }
     
+    public function deleteBranchOffice(Request $request)
+    {
+        $id=$request->id;
+        //dd($id);
+        $companyID=(int)$request->comId;
+
+        $result = Office::where('companyID',$companyID)->first();
+        $Array=$result->office;
+        $len=count($Array);
+        $i=0;
+        $v=0;
+        for($i=0; $i<$len; $i++)
+        {
+            $ids=$Array[$i]['_id'];
+            if($ids==$id)
+            {
+                $v=$i;
+            }
+        }
+
+        $Array[$v]['deleteStatus']="Yes";  
+        $Array[$v]['deleteUser']=Auth::user()->userFirstName.' '.Auth::user()->userLastName; 
+        $Array[$v]['deleteTime']=date('d-m-y h:i:s');       
+        
+        $result->office=$Array;
+        // dd($FuelVendor->fuelCard);
+        if($result->save())
+        {
+         $arr = array('status' => 'success', 'message' => 'Branch office Deleted successfully.','statusCode' => 200); 
+         return json_encode($arr);
+        }
+    }
+
+    public function restoreBranchOffice(Request $request)
+    {
+        //dd($request);
+        $cardIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Office = Office::where('companyID',$company_id )->first();
+            $OfficeArray=$Office->office;
+            $arrayLength=count($OfficeArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Office->office[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $OfficeArray[$row]['deleteStatus'] = "NO";
+                $Office->office= $OfficeArray;
+                $save=$Office->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Branck office Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
 }

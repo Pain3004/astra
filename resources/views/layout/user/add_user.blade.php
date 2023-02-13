@@ -1,30 +1,21 @@
-
-<!-- Add User modal -->
 <div class="container">
-    <!-- <h2>Large Modal</h2> -->
-    <!-- Button to Open the Modal -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            Open modal
-        </button> -->
-    <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="addUserModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal_small">
             <div class="modal-content">
-                <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add User</h4>
-                    <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+                    <button type="button" class="button-24 addUserModalClose">&times;</button>
                 </div>
-                <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <!-- Row -->
-                    <div class="row">
+                   <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive export-table">
-                                            <form method="post"> @csrf <input type="hidden" name="_token" id="csrf"
+                                            <form method="post">
+                                                 @csrf 
+                                                 <input type="hidden" name="_token" id="csrf"
                                                     value="{{Session::token()}}">
                                                 <div class="form-row">
                                                    
@@ -49,7 +40,7 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="inputEmail4">Email<span
                                                                 class="required"></span></label>
-                                                        <input type="email" class="form-control" name="inputEmail4"
+                                                        <input type="email" class="form-control email" name="inputEmail4"
                                                             id="inputEmail4" placeholder="Email">
                                                     </div>
 
@@ -70,20 +61,20 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputLocation">Location</label>
-                                                        <input type="text" class="form-control" name="inputLocation"
+                                                        <input type="text" class="form-control location_view" data-location="inputLocation" name="inputLocation"
                                                             id="inputLocation"
                                                             placeholder="Apartment, studio, or floor">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="inputZip">Zip</label>
-                                                        <input type="text" class="form-control" name="inputZip"
+                                                        <input type="number" class="form-control" name="inputZip"
                                                             id="inputZip">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                 <div class="form-group col-md-2">
                                                         <label>Company Name &nbsp; 
-                                                        <span class="glyphicon glyphicon-plus-sign add_Company_Name_modal_form_btn "  data-toggle="modal"  style="cursor:pointer;" ></span>
+                                                        <span class="glyphicon glyphicon-plus-sign add_Company_Name_modal_form_btn "  data-toggle="modal"  style="cursor:pointer; color:blue !important;" ></span>
                                                         </label>
                                                             <div class="dropdown show">
                                                             <select  class="form-control set_company_name" name="company_name" id="inputCompanyName">
@@ -92,8 +83,8 @@
                                                             </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="">Office<span style="color:#ff0000">*</span>&nbsp; 
-                                                        <span class="glyphicon glyphicon-plus-sign add_office_model_form_btn"  data-toggle="modal"  style="cursor:pointer;"></span>
+                                                        <label for="">Office
+                                                        <span class="glyphicon glyphicon-plus-sign add_office_model_form_btn"  style="color:blue !important" data-toggle="modal"  style="cursor:pointer;"></span>
                                                         </label>
                                                             <div class="dropdown show">
                                                                 <select  class="form-control  office_name_set" name="officeName" id="inputOffice">
@@ -103,25 +94,25 @@
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="inputTelephone">Telephone</label>
-                                                        <input type="tel" class="form-control telephone4" name="inputTelephone"
-                                                            id="inputTelephone">
+                                                        <input type="text" class="form-control " name="inputTelephone"
+                                                            id="inputTelephone" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="inputExt">Ext</label>
                                                         <input type="text" class="form-control" name="inputExt"
-                                                            id="inputExt">
+                                                            id="inputExt" >
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="inputTollFree">Toll Free</label>
                                                         <input type="tel" class="form-control" name="inputTollFree"
-                                                            id="inputTollFree">
+                                                            id="inputTollFree" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="inputFax">Fax</label>
                                                         <input type="text" class="form-control" name="inputFax"
-                                                            id="inputFax">
+                                                            id="inputFax" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -691,7 +682,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="button-29" data-dismiss="modal" id="usersave">Submit</button>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-29 addUserModalClose">Close</button>
                 </div>
             </div>
         </div>
@@ -719,7 +710,7 @@
                         </div>
                         <label>Location<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input type= "text" class="form-control " id="add_officeLocation" name="officeLocation" required />
+                            <input type= "text" class="form-control location_view" data-location="add_officeLocation" id="add_officeLocation" name="officeLocation" required />
                         </div>                        
                     </div>
                 </form>

@@ -47,8 +47,8 @@
 <script src="{{URL::to('/')}}/assets/js/reply.js"></script>
 
 <!-- PERFECT SCROLLBAR JS-->
-<script src="{{URL::to('/')}}/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
-<script src="{{URL::to('/')}}/assets/plugins/p-scroll/pscroll.js"></script>
+<!-- <script src="{{URL::to('/')}}/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/p-scroll/pscroll.js"></script> -->
 
 <!-- STICKY JS -->
 <script src="{{URL::to('/')}}/assets/js/sticky.js"></script>
@@ -59,15 +59,21 @@
 <!-- SIDE-MENU JS -->
 <script src="{{URL::to('/')}}/assets/plugins/sidemenu/sidemenu.js"></script>
 
+<!-- teliphone validation -->
+<script src="{{URL::to('/')}}/assets/js/jquery.mask.min.js"></script>
+
 <!-- dashboard js -->
 <!-- <script src="{{URL::to('/')}}/assets/js/js/form.js"></script> -->
+
+<!-- Tooltip and Popover JS -->
+<!-- <script src="{{URL::to('/')}}/assets/js/tooltip&popover.js"></script> -->
 
 <!-- DATA TABLE JS-->
 
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/jszip.min.js"></script>
-<script src="{{URL::to('/')}}/assets/plugins/datatable/pdfmake/pdfmake.min.js"></script>
+<!-- <script src="{{URL::to('/')}}/assets/plugins/datatable/pdfmake/pdfmake.min.js"></script> -->
 <script src="{{URL::to('/')}}/assets/plugins/datatable/pdfmake/vfs_fonts.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/buttons.html5.min.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/datatable/js/buttons.print.min.js"></script>
@@ -90,23 +96,28 @@
 <script src="{{URL::to('/')}}/assets/js/table-editable.js"></script>
 
 
-
 <!-- CUSTOM JS -->
 <script src="{{URL::to('/')}}/assets/js/custom.js"></script>
 <script src="{{URL::to('/')}}/assets/js/openmodel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/userprev.js"></script>
 <script src="{{URL::to('/')}}/static/js/checkbox.js"></script>
-<script src="{{URL::to('/')}}/assets/js/customerLaravel.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/customerLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/currencyLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/truckLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/shipper.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/consignee.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/factoringCompany.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/trailerLaravel.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/EquipmentType.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/status.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/recurrenceCategory.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/Terms&Conditions.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/TruckTrailerMake.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/load.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/loadboard.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 
-
-
-
+<script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
 </body>
 
 </html>

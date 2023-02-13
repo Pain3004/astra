@@ -112085,7 +112085,7 @@ textarea.form-control {
 
 .app-actions .btn:hover:after {
     content: '';
-    background: url(assets/images/lines.svg) no-repeat;
+    /* background: url(assets/images/lines.svg) no-repeat; */
     /* background:#8fbd56; */
     position: absolute;
     top: 0;

@@ -71,12 +71,12 @@
                                                             </div>
                                                             <div class="form-group col-md-3">
                                                                 <label for="editLocation">Location</label>
-                                                                <input type="text" class="form-control" name="editLocation"
+                                                                <input type="text" class="form-control location_view" data-location="editLocation" name="editLocation"
                                                                     id="editLocation" placeholder="Apartment, studio, or floor">
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label for="editZip">Zip</label>
-                                                                <input type="text" class="form-control" name="editZip"
+                                                                <input type="number" class="form-control" name="editZip"
                                                                     id="editZip">
                                                             </div>
                                                         </div>
@@ -85,23 +85,31 @@
                                                         <div class="form-row">
                                                             <div class="form-group col-md-4">
                                                                 <label for="editCompanyName">Company Name</label>
-                                                                <select id="editCompanyName" name="editCompanyName"
+                                                                <span class="glyphicon glyphicon-plus-sign add_Company_Name_modal_form_btn "  data-toggle="modal"  style="cursor:pointer; color:blue !important;" ></span>
+                                                                <select  class="form-control set_company_name" name="company_name" id="editCompanyName">
+                                                                    <option>Select Here</option>
+                                                                </select>
+                                                                <!-- <select id="editCompanyName" name="editCompanyName"
                                                                     class="form-control">
                                                                     <option selected>Choose...</option>
                                                                     <option value="1">1</option>
-                                                                </select>
+                                                                </select> -->
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="editOffice">Office</label>
-                                                                <select id="editOffice" name="editOffice" class="form-control">
+                                                                <span class="glyphicon glyphicon-plus-sign add_office_model_form_btn"  style="color:blue !important" data-toggle="modal"  style="cursor:pointer;"></span>
+                                                                <select  class="form-control  office_name_set" name="officeName" id="editOffice">
+                                                                    <option>Select Here</option>
+                                                                </select>
+                                                                <!-- <select id="editOffice" name="editOffice" class="form-control">
                                                                     <option selected>Choose...</option>
                                                                     <option value="1">1</option>
-                                                                </select>
+                                                                </select> -->
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label for="editTelephone">Telephone</label>
                                                                 <input type="text" class="form-control telephone4"
-                                                                    name="editTelephone" id="editTelephone">
+                                                                    name="editTelephone" id="editTelephone" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label for="editExt">Ext</label>
@@ -110,12 +118,12 @@
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label for="editTollFree">Toll Free</label>
-                                                                <input type="tel" class="form-control" name="editTollFree"
-                                                                    id="editTollFree">
+                                                                <input type="text" class="form-control" name="editTollFree"
+                                                                    id="editTollFree" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label for="editFax">Fax</label>
-                                                                <input type="text" class="form-control" name="editFax" id="editFax">
+                                                                <input type="text" class="form-control" placeholder="(999) 999-9999" data-mask="(999) 999-9999"  name="editFax" id="editFax">
                                                             </div>
                                                         </div>
                                                     </form>

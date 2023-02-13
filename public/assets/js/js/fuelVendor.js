@@ -46,7 +46,22 @@ $(document).ready(function() {
                         var CompID =FuelVendorResult.companyID;
                         var fuelVendorId =FuelVendorResult.fuelCard[i]._id;
                         var fuelCardType =FuelVendorResult.fuelCard[i].fuelCardType;
-                        var openingDate =FuelVendorResult.fuelCard[i].openingDate;
+                        // var openingDate =new Date(FuelVendorResult.fuelCard[i].openingDate);
+                        if(FuelVendorResult.fuelCard[i].openingDate != null)
+                        {
+                            var openingBale=FuelVendorResult.fuelCard[i].openingDate;
+                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date = new Date(openingBale*1000);
+                            var year = date.getFullYear();
+                            var month = months_arr[date.getMonth()];
+                            var day = date.getDate();
+                            var openingDate = month+'/'+day+'/'+year;
+                        }
+                        else
+                        {
+                            openingDate="----";
+                        }
+                        // var openingDate =FuelVendorResult.fuelCard[i].openingDate;
                         var openingBalance =FuelVendorResult.fuelCard[i].openingBalance;
                         var currentBalance =FuelVendorResult.fuelCard[i].currentBalance;
                         var deleteStatus =FuelVendorResult.fuelCard[i].deleteStatus;
@@ -177,11 +192,26 @@ $(document).ready(function() {
             data:{fuelCard:fuelCard, compID:compID},
             //dataType:JSON,
             success: function(text) {
-                alert(text.companyID);
+                // alert(text.companyID);
+                var openiDate=text.openingDate;
+                var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                var date = new Date(openiDate*1000);
+                var year = date.getFullYear();
+                var month = months_arr[date.getMonth()];
+                var day = date.getDate();
+                if(day <=9 )
+                {
+                    var openingDate = year+'-0'+day+'-'+month;
+                }
+                else
+                {
+                    var openingDate = year+'-'+month+'-'+day;
+                }
+
                 $('.updateFuel_Card_Type').val(text.fuelCardType);
                 $('.fuel_id').val(text._id);
                 $('.comp_id').val(text.companyID);
-                $('#update_OpeningDate').val(text.openingDate);
+                $('#update_OpeningDate').val(openingDate);
                 $('#update_Opening_Amount').val(text.openingBalance);
                 $("#update_currentBalance").val(text.currentBalance);
              }
@@ -199,7 +229,7 @@ $(document).ready(function() {
         var currentBalance=$("#update_currentBalance").val();
         if(fuelCardType=='')
         {
-            swal.fire( "'Enter Enter Fuel Card Type");
+            swal.fire( "'Enter Fuel Card Type");
             $('#updateFuel_Card_Type').focus();
             return false;            
         } 
@@ -349,11 +379,7 @@ $(document).ready(function() {
                             "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
                             "<td data-field='openingDate' >" +openingDate  + "</td>" +
                             "<td data-field='openingBalance' >" + openingBalance + "</td>" +
-                            "<td data-field='currentBalance' >" + currentBalance + "</td>" +
-                            "<td style='text-align:center'>"+
-                                "<a class='mt-2 button-29 fs-14 text-white edit_modal_fuel_vendor'  title='Edit1' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                "<a class='mt-2 button-29 fs-14 text-white delete_modal_fuel_vendor'  title='delete' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-trash'></i></a>&nbsp"+
-                            "</td></tr>";
+                            "<td data-field='currentBalance' >" + currentBalance + "</td></tr>";
 
                         $("#restoreFuelVendorTable").append(fuelVendorStr);
                         no++;
