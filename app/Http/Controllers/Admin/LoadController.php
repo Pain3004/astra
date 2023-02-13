@@ -35,7 +35,7 @@ class LoadController extends Controller
             $Array=$getCompany->loadType;
             $totalArray=count($Array)+ 1;
         }
-       // dd($Array);
+       // for id
         foreach($Array as $key =>$array){
             $ids[]=$Array[$key]['_id'];
         }

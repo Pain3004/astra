@@ -218,4 +218,41 @@ class RecurrenceCategoryController extends Controller
             }
         }
     }
+
+    // public function adddriverRecurrence(Request $request){
+            
+    //         $unserializeData = [];
+    //         parse_str($request->data,$unserializeData);
+
+    //         if(isset($unserializeData['rec_PlusRecurrence'])){
+    //             foreach($unserializeData['rec_PlusRecurrence'] as $key => $val){
+                
+    //                 $i_cate=$unserializeData['rec_PlusRecurrence'][$key];
+    //                 $i_type=$unserializeData['rec_installmentType'][$key];
+    //                 $amount=$unserializeData['rec_amount'][$key];
+    //                 $installment=$unserializeData['rec_installment'][$key];
+    //                 $startNo=$unserializeData['rec_startNo'][$key];
+    //                 $startDate=$unserializeData['rec_startDate'][$key];
+    //                 $internalNote=$unserializeData['rec_internalNote'][$key]; 
+        
+    //                 $array[]=((object)[
+    //                     '_id'=>$key,
+    //                     'installmentCategory'=>$i_cate,
+    //                     'installmentType'=>$i_type,
+    //                     'amount'=>$amount,
+    //                     'installment'=>$installment,
+    //                     'startNo'=>$startNo,
+    //                     'startDate'=>strtotime($startDate),
+    //                     'internalNote'=>$internalNote,
+    //                 ]);        
+    //             }
+    //         }else{
+    //             $array=array();
+    //         }
+
+    //         dd($array);
+    
+
+
+    // }
 }

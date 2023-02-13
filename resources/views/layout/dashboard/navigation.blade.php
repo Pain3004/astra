@@ -111,13 +111,13 @@
 														
 														@if(isset($adminArray['users']))
 															@if($adminArray['users']==1)
-															<!-- <li><a href="#userModal" class="slide-item" data-toggle="modal" data-target="#userModal">User</a></li> -->
-															<li><a href="#" id="User_navbar" class="slide-item" >User</a></li>
+															<!-- <li><a href="#" id="User_navbar" class="slide-item" >User</a></li> -->
+															<li><a href="#" id="userModalNav" class="slide-item" >User</a></li>
 															@endif 
 														@elseif(isset($adminArray['user']))
 															@if($adminArray['user']==1)
-															<!-- <li><a href="#userModal" class="slide-item" data-toggle="modal" data-target="#userModal">User</a></li> -->
-															<li><a href="#" id="User_navbar" class="slide-item" >User</a></li>
+															<!-- <li><a href="#" id="User_navbar" class="slide-item" >User</a></li> -->
+															<li><a href="#" id="userModalNav" class="slide-item" >User</a></li>
 															@endif 
 														@endif
 														

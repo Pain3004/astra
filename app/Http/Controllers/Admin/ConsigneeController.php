@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Shipper;
 use App\Models\Consignee;
 use File;
 use Image;
@@ -70,8 +69,8 @@ class ConsigneeController extends Controller
                     'consigneeRecivingNote' => $request->shippingNotes,
                     'consigneeInternalNote' => $request->internal_note,
                     'counter' =>0,
-                    'insertedUserId' => Auth::user()->userFirstName,
-                    'insertedTime' => time(),
+                    'created_by' => Auth::user()->userFirstName,
+                    'created_time' => date('d-m-y h:i:s'),
                     'edit_by' =>Auth::user()->userName,
                     'edit_time' =>time(),
                     'deleteStatus' =>"NO",                    
@@ -123,8 +122,8 @@ class ConsigneeController extends Controller
                                 'shippingNotes' => $request->shippingNotes,
                                 'internalNotes' => $request->internal_note,
                                 'counter' =>0,
-                                'insertedUserId' => Auth::user()->userFirstName,
-                                'insertedTime' => time(),
+                                'created_by' => Auth::user()->userFirstName,
+                                'created_time' => date('d-m-y h:i:s'),
                                 'edit_by' =>Auth::user()->userName,
                                 'edit_time' =>time(),
                                 'deleteStatus' =>"NO",                    
@@ -194,8 +193,7 @@ class ConsigneeController extends Controller
     public function editConsignee(Request $request)
     {
         $id=$request->id;
-        // $companyID=(int)1;
-        $companyID=(int)$request->comID;
+        $companyID=(int)65;
         $Consignee = Consignee::where('companyID',$companyID)->first();
         // dd($Consignee );
         $ConsigneeArray=$Consignee->consignee;
@@ -225,8 +223,7 @@ class ConsigneeController extends Controller
     {
         $id=$request->fuel_id;
         // dd($id);
-        $companyID=(int)$request->comID;
-        // $companyID=(int)1;
+        $companyID=(int)65;
         $Consignee = Consignee::where('companyID',$companyID)->first();
         $ConsigneeArray=$Consignee->consignee;
         $fuelLength=count($ConsigneeArray);
@@ -234,8 +231,7 @@ class ConsigneeController extends Controller
         $v=0;
         for($i=0; $i<$fuelLength; $i++)
         {
-            $ids=$Consignee->consignee[$i]['_id'];
-            $ids=(array)$ids;
+            $ids=$Consignee->consignee[$i];
             foreach($ids as $value)
             {
                 if($value==$id)
@@ -271,8 +267,7 @@ class ConsigneeController extends Controller
     public function deleteConsignee(Request $request)
     {
         $id=$request->id;
-        // $companyID=(int)1;
-        $companyID=(int)$request->comID;
+        $companyID=(int)65;
         $Consignee = Consignee::where('companyID',$companyID)->first();
         $ConsigneeArray=$Consignee->consignee;
         $fuelLength=count($ConsigneeArray);
@@ -280,8 +275,7 @@ class ConsigneeController extends Controller
         $v=0;
         for($i=0; $i<$fuelLength; $i++)
         {
-            $ids=$Consignee->consignee[$i]['_id'];
-            $ids=(array)$ids;
+            $ids=$Consignee->consignee[$i];
             foreach($ids as $value)
             {
                 if($value==$id)
@@ -297,6 +291,58 @@ class ConsigneeController extends Controller
          $arr = array('status' => 'success', 'message' => 'consignee deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
         }
+    }
+    public function restoreConsignee(Request $request)
+    {
+        $consiId=$request->id;
+        dd($consiId);
+        $custID=(array)65;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Consignee = Consignee::where('companyID',$company_id )->first();
+            $ConsigneeArray=$Consignee->consignee;
+            $arrayLength=count($ConsigneeArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Consignee->consignee[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    // dd( $consiId);
+                    $consiId= str_replace( array('[', ']'), ' ', $consiId);
+                    // dd($consiId);
+                    if(is_string($consiId))
+                    {
+                        $consiId=explode(",",$consiId);
+                    }
+                    foreach($consiId as $fue_v_id)
+                    {
+                        $fue_v_id= str_replace( array('"', ']' ), ' ', $fue_v_id);
+                        if($value==$fue_v_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $ConsigneeArray[$row]['deleteStatus'] = "NO";
+                $Consignee->consignee= $ConsigneeArray;
+                $save=$Consignee->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Consignee Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+     
     }
 
 

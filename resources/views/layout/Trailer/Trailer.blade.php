@@ -116,7 +116,7 @@
                                                     <!-- <a href="#addDriverModal" class="button-57 addTrailerType">
                                                         <i class="fa fa-plus " aria-hidden="true"></i>
                                                     </a> -->
-                                                    <span class="glyphicon glyphicon-plus-sign addTrailerType " id="addTrailerType" data-toggle="modal"  style="cursor:pointer;"></span>
+                                                    <span class="glyphicon glyphicon-plus-sign addTrailerType " id="addTrailerType" data-toggle="modal"  style="cursor:pointer; color:blue;"></span>
                                                 </label>
                                                         <div class="dropdown show">
                                                             <select  class="form-control trailerTypeSet trailerType_Set_id" name="trailerType" >
@@ -166,7 +166,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="Year">Year</label>
-                                                    <input class="form-control" placeholder="Year" type="text" id="trailer_year" name="year">
+                                                    <input class="form-control" placeholder="Year" type="number" id="trailer_year" name="year">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="Axles">Axles</label>
@@ -287,7 +287,7 @@
 
 <!-- ========== strart addTrailer type Modal ========== -->
 <div class="modal fade" id="addTrailerTypeModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create Trailer Type</h5>
@@ -295,7 +295,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow-y: auto !important;">
         <form id="">
             @csrf
             <input type="hidden" name="_token" id="_tokenTrailer_Type" value="{{ csrf_token() }}" />
@@ -346,7 +346,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="trailertype">Trailer Type <span style="color:#ff0000">*</span>&nbsp; 
-                                                    <!-- <span class="glyphicon glyphicon-plus-sign addTrailerType "  data-toggle="modal"  style="cursor:pointer;"></span> -->
+                                                    <!-- <span class="glyphicon glyphicon-plus-sign addTrailerType "  data-toggle="modal"  style="cursor:pointer;color:blue !important;"></span> -->
                                                 </label>
                                                         <div class="dropdown show">
                                                         <select  class="form-control trailerTypeSet trailerType_Set_id" name="trailerType" id="edit_Trailer_Type" >
@@ -482,8 +482,8 @@
 
                                         <div class="table-responsive export-table">
                                             <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-                                                <thead class="thead-th">
-                                                    <tr class="tr">
+                                                <thead class="thead_th">
+                                                    <tr class="tH">
                                                         <th><input type="checkbox" name="all_ids[]" class="Trailer_all_ids"></th>
                                                         <th>Trailer</th>
                                                         <th>Trailer Type</th>

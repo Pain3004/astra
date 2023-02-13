@@ -346,69 +346,78 @@ $("#truckTrailerUpdate").click(function(){
         $("#RestoreTruckTrailerModal").modal("hide");
     });
     function RestoreTruckTrailerRows(Result) {
-        // var Trailerlen = 0;
+        console.log(Result);
         if (Result != null) {
-            var Trailerlen = Result.trailer_type.trailer.length;
-            $("#RestoreTruckTrailerTable").html('');
 
-            if (Trailerlen > 0) {
-                var no=1;
-                for (var i = Trailerlen-1; i > 0; i--) {  
-                    var comId=Result.trailer_type.companyID;
-                    var id =Result.trailer_type.trailer._id;
-                    var trailerType =Result.trailer_type.trailer.trailerType;
-                    var  deleteStatus=Result.trailer_type.trailer.deleteStatus;
+            var len = Result.trailer_type.length;
+            if (len > 0) {
+                for (var j = 0; j < len; j++) {  
+                    $("#RestoreTruckTrailerTable").html('');
+                    var Trailerlen = Result.trailer_type[j].trailer.length;
+                    if (Trailerlen > 0) {
+                        var no=1;
+                        var comId=Result.trailer_type[j].companyID;
+                        for (var i = Trailerlen-1; i >= 0; i--) {  
+                            var id =Result.trailer_type[j].trailer[i]._id;
+                            var trailerType =Result.trailer_type[j].trailer[i].trailerType;
+                            var deleteStatus=Result.trailer_type[j].trailer[i].deleteStatus;
 
-                    if(deleteStatus == 'YES' || deleteStatus == 'Yes' || deleteStatus == 'yes'){
-                    var trailerStr = "<tr data-id=" + (i + 1) + ">" +
-                        "<td data-field='no'><input type='checkbox' class='check_TruckTrailer_one' name='allTTComIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='shipper' value="+id+"></td>" +
-                        "<td data-field='' >" + trailerType + "</td>" +
-                        "<td data-field='' >Trailer</td>" +
+                            if(deleteStatus == 'Yes'){
+                                var trailerStr = "<tr data-id=" + (i + 1) + ">" +
+                                    "<td data-field=''><input type='checkbox' class='check_TruckTrailer_one' name='allTTComIdCheck[]' style='height: 15px;' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='Trailer' value="+id+"></td>" +
+                                    "<td data-field='' >" + trailerType + "</td>" +
+                                    "<td data-field='' >Trailer</td>" +
+                                    "</tr>";
+
+                                $("#RestoreTruckTrailerTable").append(trailerStr);
+                                no++;
+                            } 
+                        }
+                    } else {
+                        var trailerStr = "<tr data-id=" + i + ">" +
+                            "<td align='center' colspan='4'>No record found.</td>" +
+                            "</tr>";
+            
+                        $("#RestoreTruckTrailerTable").append(trailerStr);
+                    }
+                }
+            }
+
+            var len2 = Result.Truck_type.length;
+            if (len2 > 0) {
+                for (var m = 0; m < len; m++) {  
+                    var trucklen = Result.Truck_type[m].truck.length;
+                    if (trucklen > 0) {
+                        var no=1;
+                        var comId=Result.Truck_type[m].companyID;
+
+                        for (var n = trucklen-1; n >= 0; n--) {  
+                            var id =Result.Truck_type[m].truck[n]._id;
+                            var truckType =Result.Truck_type[m].truck[n].truckType;
+                            var deleteStatus=Result.Truck_type[m].truck[n].deleteStatus;
+
+                            if(deleteStatus == 'YES' || deleteStatus == 'Yes' || deleteStatus == 'yes'){
+                                var truckStr = "<tr data-id=" + (n + 1) + ">" +
+                                    //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                                "<td data-field=''><input type='checkbox' class='check_TruckTrailer_one' name='allTTComIdCheck[]' style='height: 15px;' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='Truck' value="+id+"></td>" +
+                                "<td data-field='' >" + truckType + "</td>" +
+                                "<td data-field='' >Truck</td>" +
+                                $("#RestoreTruckTrailerTable").append(truckStr);
+                                no++;
+                            } 
+                        }
+                        
+                    } 
+                    else 
+                    {
+                        var truckStr = "<tr data-id=" + n + ">" +
+                        "<td align='center' colspan='4'>No record found.</td>" +
                         "</tr>";
 
-                    $("#RestoreTruckTrailerTable").append(trailerStr);
-                    no++;
-                    } 
-                }
-            } else {
-                var trailerStr = "<tr data-id=" + i + ">" +
-                    "<td align='center' colspan='4'>No record found.</td>" +
-                    "</tr>";
-    
-                $("#RestoreTruckTrailerTable").append(trailerStr);
-            }
-
-
-
-            var trucklen = Result.Truck_type.truck.length;
-            if (trucklen > 0) {
-                var no=1;
-                for (var i = trucklen-1; i > 0; i--) {  
-                    var comId=Result.Truck_type.companyID;
-                    var id =Result.Truck_type.truck._id;
-                    var truckType =Result.Truck_type.truck.truckType;
-                    var  deleteStatus=Result.Truck_type.truck.deleteStatus;
-
-                    if(deleteStatus == 'YES'){
-                        var truckStr = "<tr data-id=" + (i + 1) + ">" +
-                            //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                        "<td data-field=''><input type='checkbox' class='check_TruckTrailer_one' name='allTTComIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='consignee' value="+id+"></td>" +
-                        "<td data-field='' >" + truckType + "</td>" +
-                        "<td data-field='' >Truck</td>" +
                         $("#RestoreTruckTrailerTable").append(truckStr);
-                        no++;
-                    } 
+                    }
                 }
-            } 
-            else 
-            {
-                var truckStr = "<tr data-id=" + i + ">" +
-                "<td align='center' colspan='4'>No record found.</td>" +
-                "</tr>";
-
-                $("#RestoreTruckTrailerTable").append(truckStr);
             }
-
 
         }
         else
@@ -438,64 +447,64 @@ $("#truckTrailerUpdate").click(function(){
     $('body').on('click','.check_TruckTrailer_one',function(){
         truckTrailerRestore();
     });
-    // function truckTrailerRestore()
-    // {
-    //     var truckTrailerds = [];
-    //     var companyIds=[];
-    //     var DataType=[];
-	// 		$.each($("input[name='allTTComIdCheck[]']:checked"), function(){
-	// 			truckTrailerds.push($(this).val());
-    //             companyIds.push($(this).attr("date-compID"));
-    //             DataType.push($(this).attr("data-typeOf"));
-	// 		});
-    //         console.log(DataType);
-	// 		console.log(truckTrailerds);
-	// 		var shipperConsidAllCheckedIds =JSON.stringify(truckTrailerds);
-	// 		$('#checked_RestoreShipperModal_ids').val(shipperConsidAllCheckedIds);
+    function truckTrailerRestore()
+    {
+        var truckTrailerds = [];
+        var companyIds=[];
+        var DataType=[];
+			$.each($("input[name='allTTComIdCheck[]']:checked"), function(){
+				truckTrailerds.push($(this).val());
+                companyIds.push($(this).attr("date-compID"));
+                DataType.push($(this).attr("data-typeOf"));
+			});
+            console.log(DataType);
+			console.log(truckTrailerds);
+			var truckTrailerIdAllCheckedIds =JSON.stringify(truckTrailerds);
+			$('#checked_TruckTrailer_ids').val(truckTrailerIdAllCheckedIds);
            
-	// 		var companyCheckedIds =JSON.stringify(companyIds);
-	// 		$('#checked_RestoreShipperModal_company_ids').val(companyCheckedIds);
+			var companyCheckedIds =JSON.stringify(companyIds);
+			$('#checked_TruckTrailer_company_ids').val(companyCheckedIds);
             
-	// 		var DataTypeNames =JSON.stringify(DataType);
-	// 		$('#checked_RestoreShipperModal_type').val(DataTypeNames);
+			var DataTypeNames =JSON.stringify(DataType);
+			$('#checked_TruckTrailer_type').val(DataTypeNames);
 
 
-	// 		if(truckTrailerds.length > 0)
-	// 		{
-	// 			$('#restore_RestoreShipperModal_data').removeAttr('disabled');
-	// 		}
-	// 		else
-	// 		{
-	// 			$('#restore_RestoreShipperModal_data').attr('disabled',true);
-	// 		}
-    // }
-    // $('body').on('click','.restore_RestoreShipperModal_data',function(){
-    //     var all_ids=$('#checked_RestoreShipperModal_ids').val();
-    //     var custID=$("#checked_RestoreShipperModal_company_ids").val();
-    //     var dataType=$("#checked_RestoreShipperModal_type").val();
-    //     $.ajax({
-    //         type:"post",
-    //         data:{_token:$("#_tokenUpdateSub_creditCard").val(),all_ids:all_ids,custID:custID,dataType:dataType},
-    //         url: base_path+"/admin/restoreShipper",
-    //         success: function(response) {               
-    //             swal.fire("Done!", "Shipper & Consignee Restored successfully", "success");
-    //             $("#RestoreTruckTrailerModal").modal("hide");
-    //             $.ajax({
-    //                 type: "GET",
-    //                 url: base_path+"/admin/getTruckTrailerMake",
-    //                 async: false,
-    //                 success: function(text) {
-    //                     console.log(text);
-    //                     createGetShipperRows(text);
-    //                     Result = text;
-    //                 }
-    //             });
-    //         }
-    //     });
+			if(truckTrailerds.length > 0)
+			{
+				$('#restore_TruckTrailerData').removeAttr('disabled');
+			}
+			else
+			{
+				$('#restore_TruckTrailerData').attr('disabled',true);
+			}
+    }
+    $('body').on('click','.restore_TruckTrailerData',function(){
+        var all_ids=$('#checked_TruckTrailer_ids').val();
+        var custID=$("#checked_TruckTrailer_company_ids").val();
+        var dataType=$("#checked_TruckTrailer_type").val();
+        $.ajax({
+            type:"post",
+            data:{_token:$("#tokenedittruckTrailer").val(),all_ids:all_ids,custID:custID,dataType:dataType},
+            url: base_path+"/admin/restoreTruckTrailer",
+            success: function(response) {   
+                $('#RestoreTruckTrailerModal').modal('hide');            
+                swal.fire("Done!", "Truck & Trailer Restored successfully", "success");
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getTruckTrailerMake",
+                    async: false,
+                    success: function(text) {
+                        console.log(text);
+                        createTruckTrailerMakeRows(text);
+                    }
+                });
+                $('#TruckTrailerMakeModal').modal('show');
+            }
+        });
     
 
       
-    // });
+    });
 // ------------------------------------------------------------------------- end restore -------------------------------------------------------------------------
 
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 

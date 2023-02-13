@@ -24,6 +24,10 @@ $('#addCompany').click(function(){
 $('.closeDriverModal').click(function(){
     $('#driverModal').modal('hide');
 });
+$('.closeAddDriverModal').click(function(){
+    $('#RecurrenceCategoryModal').modal('hide');
+    $('#addDriverModal').modal('hide');
+});
 
 $('.userModalClose').click(function(){
     $('#userModal').modal('hide');
@@ -690,6 +694,7 @@ $('#Driver_navbar').click(function(){
     $("#driverModal").modal("show");
 });
     function createDriverRows(driverResponse) {
+        // console.log(driverResponse);
 //Privilege 
     // var edit=$('#updateUser').val();
     // var delet =$('#deleteUser').val();
@@ -717,44 +722,69 @@ $('#Driver_navbar').click(function(){
                 // for (var i = 0; i < len1; i++) {  
                 var len2=driverResponse.driver.length; 
                     // if(len2 > 0){
-                        for (var j = 0; j < len2; j++) {
+                    // for (var j = 0; j < len2; j++) {
+                    for (var j = len2-1; j > 0; j--) {
                         var comid =driverResponse.companyID;
                         var driverId=driverResponse.driver[j]._id;
                         var name = driverResponse.driver[j].driverName;
                         var email = driverResponse.driver[j].driverEmail;
                         var location = driverResponse.driver[j].driverAddress;
                         var social_security_no = driverResponse.driver[j].driverSocial;
+                        if(social_security_no == null){social_security_no="-";}
                         var date_of_birth = driverResponse.driver[j].dateOfbirth;
-                        var date_of_hire = driverResponse.driver[j].dateOfhire;
+                        if(date_of_birth == null || date_of_birth == false){date_of_birth="-";}
+                            var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_tr = new Date(date_of_birth*1000);
+                            var year_tr = date_tr.getFullYear();
+                            var month_tr = months_arr_tr[date_tr.getMonth()];
+                            var day_tr = date_tr.getDate();
+                            var date_of_birth = month_tr+'/'+day_tr+'/'+year_tr;
+                        var date_of_hire = driverResponse.driver[j].dateOfHire;
+                        console.log(date_of_hire);
+                        if(date_of_hire == null ){date_of_hire="-";}
+                            var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_tr = new Date(date_of_hire*1000);
+                            var year_tr = date_tr.getFullYear();
+                            var month_tr = months_arr_tr[date_tr.getMonth()];
+                            var day_tr = date_tr.getDate();
+                            var date_of_hire = month_tr+'/'+day_tr+'/'+year_tr;
+                            console.log(date_of_hire);
                         var license_no = driverResponse.driver[j].driverLicenseNo;
                         var lis = driverResponse.driver[j].driverLicenseIssue;
                         var license_exp_date = driverResponse.driver[j].driverLicenseExp;
+                            var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date_tr = new Date(license_exp_date*1000);
+                            var year_tr = date_tr.getFullYear();
+                            var month_tr = months_arr_tr[date_tr.getMonth()];
+                            var day_tr = date_tr.getDate();
+                            var license_exp_date = month_tr+'/'+day_tr+'/'+year_tr;
                         var driver_balance = driverResponse.driver[j].driverBalance;
+                        if(driver_balance == null){driver_balance="-";}
                         var delete_status = driverResponse.driver[j].deleteStatus;
                         var ownerOperatorStatus =driverResponse.driver[j].ownerOperatorStatus;
                         var ownerOperatorDeleteStatus =driverResponse.driver[j].ownerOperatorDeleteStatus;
 
-                        if(delete_status=="NO"){
+                        if(delete_status=="NO" || delete_status=="No" || delete_status=="no"){
                             
-                            if(ownerOperatorStatus == 'YES'){
-                                var actionBtnOwnerOperator= "<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class=' deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
-                                    "<a class='removeDriverOwner button-23 '  title='Remove Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-user-x'></i></a>"+
-                                    "<a class='editDriverOwner button-23 '  title='Edit Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-edit'></i></a>&nbsp";
+                            if(ownerOperatorStatus == 'YES' || ownerOperatorStatus == 'Yes' || ownerOperatorStatus == 'yes'){
+                                var actionBtnOwnerOperator= "<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "&"+driverId + "><i class='fe fe-edit'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='removeDriverOwner button-23 '  title='Remove Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:red'><i class='fe fe-user-x'></i></a>"+
+                                    "<a class='editDriverOwner button-23 '  title='Edit Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-edit'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-danger');
                             }
                             else if(ownerOperatorStatus == 'NO' && ownerOperatorDeleteStatus == 'NO'){
-                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class=' deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
-                                    "<a class='addDriverOwner button-23'  title='Add As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-user-plus'></i></a>&nbsp";
+                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "&"+driverId +"><i class='fe fe-edit'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23  "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='addDriverOwner button-23'  title='Add As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-user-plus'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-success');
-                            }else if(ownerOperatorDeleteStatus == 'YES'){
-                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
-                                    "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe  fe-user-plus'></i></a>&nbsp";
+                            }else if(ownerOperatorDeleteStatus == 'YES' || ownerOperatorDeleteStatus == 'Yes' || ownerOperatorDeleteStatus == 'yes'){
+                                var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email +"&"+driverId + "><i class='fe fe-edit'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:orange'><i class='fe  fe-user-plus'></i></a>&nbsp";
 
                             }
-                        var tr_str1 = "<tr data-id=" + (i + 1) + ">" +
+                        var tr_str1 = "<tr class='tr' data-id=" + (j + 1) + ">" +
                             "<td data-field='no'>" + no  + "</td>" +
                             "<td data-field='name' >" + name + "</td>" +
                             "<td data-field='email'>" + email + "</td>" +
@@ -794,6 +824,7 @@ $('#Driver_navbar').click(function(){
     })
     
     $('.addDriverOwnerModalCloseButton').click(function(){
+        $("#addDriverOwnerModal form").trigger("reset");
         $('#addDriverOwnerModal').modal('hide');
         // $('#driverModal').modal('show');
     });
@@ -823,31 +854,7 @@ $('#Driver_navbar').click(function(){
         // console.log(atob(name));
         $('#addDriverOwnerModal').modal('show');  
     });
-// $('.addDriverOwner').click(function(){
-//     var name =$(this).data('name');
-//     $('#owner-driver-name').val(atob(name));
 
-//     var driver_id =$(this).data('id');
-//     $('.driver-id').val(driver_id);
-
-//     // console.log(atob(name));
-//     $('#addDriverOwnerModal').modal('show');  
-// });
-
-
-
-// $('#driver_navbar').click(function(){
-//     $.ajax({
-//         type: "GET",
-//         url: base_path+"/admin/driver",
-//         async: false,
-//         success: function(text) {
-//             createDriverRows(text);
-//             driverResponse = text;
-//         }
-//     });
-//     $('#driverModal').modal('show');  
-// });
 
 
 
@@ -968,7 +975,7 @@ $('body').on('click',function() {
           '<div class="row row-sm" id="OwnerOperatorContainer">'+
                   '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Category</label>'+
-                      '<input type="text" class="form-control" name="installmentCategory[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" />'+
+                      '<input type="text" class="form-control" name="installmentCategory[]" list="fixpaycat" placeholder=" Enter Category" autocomplete="off" />'+
                   '</div>'+
                   '<div class="col-sm-2">'+
                       '<label class="form-label" for="">Installment Type</label>'+
@@ -980,7 +987,7 @@ $('body').on('click',function() {
                               '<option value="Quarterly">Quarterly</option>'+
                           '</select>'+
                   '</div>'+
-                  '<div class="col-sm-2">'+
+                  '<div class="col-sm-1">'+
                       '<label class="form-label" for="">Amount</label>'+
                       '<input name="amount[]" type="text" class="form-control" />'+
                   '</div>'+
@@ -1000,11 +1007,14 @@ $('body').on('click',function() {
                       '<label class="form-label" for="">Internal Note</label>'+
                       '<textarea rows="1" cols="20" class="form-control" type="textarea" name="internalNote[]"></textarea>'+
                   '</div>'+
-                  '<!-- <input type="text" /> <span class="remove">Remove Option</span> -->'+
-                  '<button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>'+
-          '</div>'+
+                  
+                //   '<label class="form-label" for=""></label>'+
+                    '<button type="button" class="btn btn-danger remove" style="width: auto;height:fit-content;margin-top: auto;"><spanaria-hidden="true">&times;</span>'+
+                  
+            '</div>'+
       '</div>'+
       '</div>'
+  
   
   $('.add').click(function() {
       $(this).before(OwnerOperatorblock);
@@ -1018,25 +1028,20 @@ $('body').on('click',function() {
   
       var ownerPercentage=$('#ownerPercentage').val();
       var ownerTruckNo=$('#ownerTruckNo').val();
-      var driverId=$('#driverid').val();
-     // alert(driverId);
-      
+      //var driverId=$('#driverid').val();
+      var driverId=$('.addDriverOwner').attr('data-id');
   
       if(ownerPercentage == ''){
-          // alert("Enter Percentage");
-           swal.fire("Error!", "Enter Percentage", "error");
-          // swal({title: 'Please Enter Date Of Birth',text: 'Redirecting...',timer: 1500,buttons: false,})
-          
+           //swal.fire("Error!", "Enter Percentage", "error");
+          swal.fire({title: 'Please Enter Percentage',text: 'Redirecting...',timer: 3000,buttons: false,})
           $("#ownerPercentage").focus();
           return false;
       }
       if(ownerTruckNo == ''){
-          // alert("Enter Truck No");
-          swal.fire("Error!", "Enter Truck No", "error");
-         // swal({title: 'Please Enter Date Of Birth',text: 'Redirecting...',timer: 1500,buttons: false,})
+         swal.fire({title: 'Please Select owner Truck No',text: 'Redirecting...',timer: 3000,buttons: false,})
          $("#ownerTruckNo").focus();
          return false;
-     }
+    }
   
       $.ajax({
           type: "POST",
@@ -1090,7 +1095,6 @@ $('body').on('click',function() {
               success: function(dataResult) {
                   $('.up_optionBox').empty(); 
                   $('.optionBox').empty(); 
-                  // console.log(dataResult);
                   $('#up_ownerid').val(dataResult[0]._id);
                   $('#up_driverid').val(dataResult[0].driverId);
                   $('#up_owner-driver-name').val(dataResult[1]);
@@ -1115,11 +1119,11 @@ $('body').on('click',function() {
                       $(".up_optionBox").append('<div>'+
                                               '<div class="block">'+
                                                   '<div class="row row-sm" id="up_OwnerOperatorContainer">'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">Category</label>'+
                                                           '<input type="text" class="form-control" name="up_installmentCategory[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" value="'+installmentCategory +'"/>'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">Installment Type</label>'+
                                                               '<select name="up_installmentType[]" class="form-control test_test ">'+
                                                                   '<option value="">Select type</option>'+
@@ -1129,33 +1133,33 @@ $('body').on('click',function() {
                                                                   '<option value="Quarterly">Quarterly</option>'+
                                                               '</select>'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-1">'+
                                                           '<label class="form-label" for="">Amount</label>'+
                                                           '<input name="up_amount[]" type="text" class="form-control" value="'+amount +'"  />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-1">'+
                                                           '<label class="form-label" for="">Installment</label>'+
                                                           '<input name="up_installment[]" type="text" class="form-control" value="'+installment +'" />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-1">'+
                                                           '<label class="form-label" for="">start#</label>'+
                                                           '<input name="up_startNo[]" type="text" class="form-control" value="'+startNo +'" />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-3">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">start Date</label>'+
                                                           '<input name="up_startDate[]" type="date" class="form-control" value="'+startDate +'" />'+
                                                       '</div>'+
-                                                      '<div class="col-sm-5">'+
+                                                      '<div class="col-sm-2">'+
                                                           '<label class="form-label" for="">Internal Note</label>'+
                                                           '<textarea rows="1" cols="20" class="form-control" type="textarea" name="up_internalNote[]">'+internalNote +'</textarea>'+
                                                       '</div>'+
-                                                      '<div class="col-sm-1">'+
-                                                          '<label class="form-label" for="">Delete</label>'+
+                                                    //   '<div class="col-sm-1">'+
+                                                    //     //   '<label class="form-label" for="">Delete</label>'+
                                                           
-                                                          '</button>'+
-                                                      '</div>'+
+                                                    //       '</button>'+
+                                                    //   '</div>'+
                                                       '<!-- <input type="text" /> <span class="remove">Remove Option</span> -->'+
-                                                      '<button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>'+
+                                                      '<button type="button" class="btn btn-danger remove" style="width: auto;height:fit-content;margin-top: auto;"><spanaria-hidden="true">&times;</span>'+
                                                   '</div>'+
                                               '</div>'+
                                           '</div>'
@@ -1168,8 +1172,6 @@ $('body').on('click',function() {
                   $('#editDriverOwnerModal').modal('show'); 
               },
               error: function(data){
-                  console.log(data);
-                  //alert("rr"); php
               }
           });
       });
@@ -1216,9 +1218,13 @@ $('body').on('click',function() {
   
   // <!-- ------------------------------------------------------------------------- end editOwner driver  data  ------------------------------------------------------------------------- -->
 // <!-- ------------------------------------------------------------------------- add driver  ------------------------------------------------------------------------- -->
+$('#addDriver').click(function(){
+    $('#addDriverModal').modal('show');
+});
 
-      $('.driverDataSubmit').click(function(){   
-            var companyID = 4;
+      $('.driverDataSubmit').click(function(){ 
+        
+            var companyID = 1;
             var name = $('#name').val();
             var username = $('#username').val();
             var address = $('#address').val();
@@ -1243,8 +1249,8 @@ $('body').on('click',function() {
             var fastCardExpiry = $('#fastCardExpiry').val();
             var hazmatExpiry = $('#hazmatExpiry').val();
             var rate = $('#rate').val();
-            var currency = $('#currency_add').val();
-            console.log(currency);
+            var currency = $('#currency').val();
+            // console.log(currency);
             var recurrencePlus = $('#recurrencePlus').val();
             var recurrenceMin = $('#recurrenceMin').val();
             var terminationDate = $('#terminationDate').val();
@@ -1283,6 +1289,8 @@ $('body').on('click',function() {
             datatype:"JSON",
             data: {
                 _token: $("#csrf").val(),
+              data:$('#adddriverRecurrenceForm').serialize(),
+              data1:$('#subdriverRecurrenceForm').serialize(),
               companyID: companyID,
               name: name,
               username: username,
@@ -1327,7 +1335,8 @@ $('body').on('click',function() {
             success: function(resp){
                 if(resp.success == true){
                     swal.fire("Done!", resp.message, "success");
-                    
+                    $("#addDriverModal").modal('hide');
+                    $("#addDriverModal form").trigger("reset");
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/driver",
@@ -1337,8 +1346,8 @@ $('body').on('click',function() {
                             driverResponse = text;
                         }
                     });
-                    $("#addDriverModal form").trigger("reset");
-                    $("#addDriverModal").modal('hide');
+                    
+                    $("#driverModal").modal('show');
                 } 
               },
               error: function(data){
@@ -1616,13 +1625,15 @@ function drivermodal()
             var result = $(this).attr("data-id").split('&');
             var com_id=result[0];
             var email=result[1];
+            var driver_id=result[2];
             $.ajax({
                 url: base_path+"/admin/editDriver",
                 type: "POST",
                 datatype:"JSON",
-                data: {_token: $("#drivercsrf").val(),com_id: com_id,email: email},
+                data: {_token: $("#drivercsrf").val(),driver_id: driver_id,com_id: com_id,email: email},
                 cache: false,
                 success: function(dataResult){
+
                     $('#up_comId').val(com_id);
                     $('#emaildriver').val(email);
                     $('#up_name').val(dataResult.driverName);
@@ -1635,24 +1646,102 @@ function drivermodal()
                     $('#up_zip').val(dataResult.driverZip);
                     $('#up_status').val(dataResult.driverStatus);
                     $('#up_socialSecurityNo').val(dataResult.driverSocial);
-                    $('#up_dateOfBirth').val(dataResult.dateOfbirth);
-                    $('#up_dateOfHire').val(dataResult.dateOfHire);
+
+                    var date = new Date(dataResult.dateOfbirth*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var dateOfbirth = year+'-0'+day+'-'+month;} 
+                    else{ var dateOfbirth = year+'-'+month+'-'+day; }
+                    $('#up_dateOfBirth').val(dateOfbirth);
+
+                    var date = new Date(dataResult.dateOfHire*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var dateOfHire = year+'-0'+day+'-'+month;} 
+                    else{ var dateOfHire = year+'-'+month+'-'+day; }
+                    $('#up_dateOfHire').val(dateOfHire);
                     $('#up_licenseNo').val(dataResult.driverLicenseNo);
                     $('#up_licenseIssueState').val(dataResult.driverLicenseIssue);
-                    $('#up_licenseExpDate').val(dataResult.driverLicenseExp);
-                    $('#up_lastMedical').val(dataResult.driverLastMedical);
-                    $('#up_nextMedical').val(dataResult.driverNextMedical);
-                    $('#up_lastDrugTest').val(dataResult.driverLastDrugTest);
-                    $('#up_nextDrugTest').val(dataResult.driverNextDrugTest);
-                    $('#up_passportExpiry').val(dataResult.passportExpiry);
-                    $('#up_fastCardExpiry').val(dataResult.fastCardExpiry);
-                    $('#up_hazmatExpiry').val(dataResult.hazmatExpiry);
+
+                    var date = new Date(dataResult.driverLicenseExp*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverLicenseExp = year+'-0'+day+'-'+month;} 
+                    else{ var driverLicenseExp = year+'-'+month+'-'+day; }
+                    $('#up_licenseExpDate').val(driverLicenseExp);
+
+                    var date = new Date(dataResult.driverLastMedical*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverLastMedical = year+'-0'+day+'-'+month;} 
+                    else{ var driverLastMedical = year+'-'+month+'-'+day; }
+                    $('#up_lastMedical').val(driverLastMedical);
+
+                    var date = new Date(dataResult.driverNextMedical*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverNextMedical = year+'-0'+day+'-'+month;} 
+                    else{ var driverNextMedical = year+'-'+month+'-'+day; }
+                    $('#up_nextMedical').val(driverNextMedical);
+
+                    var date = new Date(dataResult.driverLastDrugTest*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverLastDrugTest = year+'-0'+day+'-'+month;} 
+                    else{ var driverLastDrugTest = year+'-'+month+'-'+day; }
+                    $('#up_lastDrugTest').val(driverLastDrugTest);
+
+                    var date = new Date(dataResult.driverNextDrugTest*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var driverNextDrugTest = year+'-0'+day+'-'+month;} 
+                    else{ var driverNextDrugTest = year+'-'+month+'-'+day; }
+                    $('#up_nextDrugTest').val(driverNextDrugTest);
+
+                    var date = new Date(dataResult.passportExpiry*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var passportExpiry = year+'-0'+day+'-'+month;} 
+                    else{ var passportExpiry = year+'-'+month+'-'+day; }
+                    $('#up_passportExpiry').val(passportExpiry);
+
+                    var date = new Date(dataResult.fastCardExpiry*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var fastCardExpiry = year+'-0'+day+'-'+month;} 
+                    else{ var fastCardExpiry = year+'-'+month+'-'+day; }
+                    $('#up_fastCardExpiry').val(fastCardExpiry);
+
+                    var date = new Date(dataResult.hazmatExpiry*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var hazmatExpiry = year+'-0'+day+'-'+month;} 
+                    else{ var hazmatExpiry = year+'-'+month+'-'+day; }
+                    $('#up_hazmatExpiry').val(hazmatExpiry);
                     $('#up_rate').val(dataResult.rate);
                     $('#up_currency').val(dataResult.currency);
-                    $('#up_terminationDate').val(dataResult.terminationDate);
+
+                    var date = new Date(dataResult.terminationDate*1000);
+                    var year = date.getFullYear();
+                    var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                    var day = date.getDate();
+                    if(day <=9 ){ var terminationDate = year+'-0'+day+'-'+month;} 
+                    else{ var terminationDate = year+'-'+month+'-'+day; }
+                    $('#up_terminationDate').val(terminationDate);
                     $('#up_driverBalance').val(dataResult.driverBalance);
                     $('#up_internalNotes').val(dataResult.internalNotes);
                     $('#dPercentageEdit').val(dataResult.percentage);
+
                     $('#loadedmilesedit').val(dataResult.driverLoadedMile);
                     $('#emptymilesedit').val(dataResult.driverEmptyMile);
                     $('#pickrateedit').val(dataResult.pickupRate);
@@ -1718,7 +1807,6 @@ function drivermodal()
 
         var driver_id =$(this).data('id');
         $('.driver-id').val(driver_id);
-        // console.log(driver_id);
 
         $('#addDriverOwnerModal').modal('show');  
     });
@@ -1770,7 +1858,7 @@ $(document).ready(function() {
 
         function createviewDriverApplicationRows(viewDriverApplicationResponse) {i
 
-            console.log(viewDriverApplicationResponse);
+            // console.log(viewDriverApplicationResponse);
             var len1 = 0;
             
             $('#viewDriverApplicationTable').empty(); 
@@ -2136,7 +2224,7 @@ function companymodal()
             async: false,
             //dataType:JSON,
             success: function(data) {
-                console.log(data)                    
+                // console.log(data)                    
                 createDriverTruckList(data);
                 truckResponse = data;
             }
@@ -2182,7 +2270,7 @@ function createDriverTruckList(truckResponse) {
             async: false,
             //dataType:JSON,
             success: function(data) {
-                console.log(data)                    
+                // console.log(data)                    
                 createDriverUpTruckList(data);
                 truckResponse = data;
             }
@@ -2299,41 +2387,83 @@ function removeRowRecurrence(index) {
     }
 
     document.getElementById("recurrence_add" + index).remove();
-    installmentCategory.splice(index, 1);
-    installmentType.splice(index, 1);
-    amount.splice(index, 1);
-    installment.splice(index, 1);
-    startNo.splice(index, 1);
-    startDate.splice(index, 1);
-    internalNote.splice(index, 1);
+    rec_PlusRecurrence.splice(index, 1);
+    rec_installmentType.splice(index, 1);
+    rec_amount.splice(index, 1);
+    rec_installment.splice(index, 1);
+    rec_startNo.splice(index, 1);
+    rec_startDate.splice(index, 1);
+    rec_internalNote.splice(index, 1);
 }
 
 function GetDynamicRecurrence(value) {
     return '<td width="150">' +
-        '<input class="form-control" value = "' + value +
-        '" name="installmentCategory" onkeyup="searchFixpay(this.value,' + "'fixpaycat'" +
-        ')" list="fixpaycat" autocomplete="off"/></td>' +
+        '<input class="form-control driverPlusRecurrence" value = "' + value +
+        '" name="rec_PlusRecurrence[]" ' +
+        ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
         '<td width="150">' +
         '<input class="form-control" value = "' + value +
-        '" name="installmentType" list="instatype1" autocomplete="off"/></td>' +
+        '" name="rec_installmentType[]" list="instatype1" autocomplete="off"/></td>' +
         '<td width="100">' +
-        '<input name="amount" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_amount[]" type="text" value = "' + value + '" class="form-control" /></td>' +
         '<td width="100">' +
-        '<input name="installment" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100"><input name="startNo" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="10"><input name="startDate" type="date" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_installment[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="100"><input name="rec_startNo[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="10"><input name="rec_startDate[]" type="date" value = "' + value + '" class="form-control" /></td>' +
         '<td width="250"><textarea rows="1" cols="30" value = "' + value +
-        '" class="form-control" type="textarea" name="internalNote"></textarea></td>' +
+        '" class="form-control" type="textarea" name="rec_internalNote[]"></textarea></td>' +
         '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
 }
-
 // <!-- ------------------------------------------------------------------------- End of Add Recurrence ------------------------------------------------------------------------- -->
+// <!-- ------------------------------------------------------------------------- update Add Recurrence ------------------------------------------------------------------------- -->
+$(function() {
+    $("#up_btnAdd2").bind("click", function() {
+        var div = $("<tr />");
+        div.html(GetDynamicRecurrence(""));
+        $("#up_TextBoxContainer2").append(div);
+    });
+    $("body").on("click", ".remove", function() {
+        $(this).closest("tr").remove();
+    });
 
+});
 
+function removeRowRecurrence(index) {
+    if (index == 0) {
+        return;
+    }
+
+    document.getElementById("recurrence_add" + index).remove();
+    up_rec_PlusRecurrence.splice(index, 1);
+    up_rec_installmentType.splice(index, 1);
+    up_rec_amount.splice(index, 1);
+    up_rec_installment.splice(index, 1);
+    up_rec_startNo.splice(index, 1);
+    up_rec_startDate.splice(index, 1);
+    up_rec_internalNote.splice(index, 1);
+}
+
+function GetDynamicRecurrence(value) {
+    return '<td width="150">' +
+        '<input class="form-control driverPlusRecurrence" value = "' + value +
+        '" name="up_rec_PlusRecurrence[]" ' +
+        ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
+        '<td width="150">' +
+        '<input class="form-control" value = "' + value +
+        '" name="up_rec_installmentType[]" list="instatype1" autocomplete="off"/></td>' +
+        '<td width="100">' +
+        '<input name="up_rec_amount[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="100">' +
+        '<input name="up_rec_installment[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="100"><input name="up_rec_startNo[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="10"><input name="up_rec_startDate[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="250"><textarea rows="1" cols="30" value = "' + value +
+        '" class="form-control" type="textarea" name="up_rec_internalNote[]"></textarea></td>' +
+        '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
+}
+// <!-- ------------------------------------------------------------------------- End update of Add Recurrence ------------------------------------------------------------------------- -->
 
 // <!-- ------------------------------------------------------------------------- Minus Recurrence ------------------------------------------------------------------------- -->
-
-
 $(function() {
     $("#btnAdd3").bind("click", function() {
         var div = $("<tr />");
@@ -2351,35 +2481,122 @@ function recurrence_substract(index) {
         return;
     }
     document.getElementById("recurrencesubstract_add" + index).remove();
-    installment_Category.splice(index, 1);
-    installment_Type.splice(index, 1);
-    amount_recurrence.splice(index, 1);
-    installment_sub.splice(index, 1);
-    start_No.splice(index, 1);
-    start_Date.splice(index, 1);
-    internal_Note.splice(index, 1);
+    rec_PlusRecurrence.splice(index, 1);
+    rec_installmentType.splice(index, 1);
+    rec_amount.splice(index, 1);
+    rec_installment.splice(index, 1);
+    rec_startNo.splice(index, 1);
+    rec_startDate.splice(index, 1);
+    rec_internalNote.splice(index, 1);
 }
 
 function GetDynamicRecurrencesubstract(value) {
     return '<td width="150">' +
-        '<input class="form-control" value = "' + value +
-        '" name="installment_Category" onkeyup="searchFixpay(this.value,' + "'fixpay_cat'" +
-        ')" list="fixpay_cat" autocomplete="off"/></td>' +
-        '<td width="150">' +
-        '<input class="form-control" value = "' + value + '" name="installment_Type" list="instatype"/></td>' +
-        '<td width="100">' +
-        '<input name="amount_recurrence" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100">' +
-        '<input name="installment_sub" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100"><input name="start_No" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="10"><input name="start_Date" type="date" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="250"><textarea rows="1" cols="30" value = "' + value +
-        '" class="form-control" type="textarea" name="internal_Note"></textarea></td>' +
-        '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>'
+    '<input class="form-control driverPlusRecurrence" value = "' + value +
+    '" name="rec_PlusRecurrence_sub[]" ' +
+    ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
+    '<td width="150">' +
+    '<input class="form-control" value = "' + value +
+    '" name="rec_installmentType_sub[]" list="instatype1" autocomplete="off"/></td>' +
+    '<td width="100">' +
+    '<input name="rec_amount_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100">' +
+    '<input name="rec_installment_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100"><input name="rec_startNo_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="10"><input name="rec_startDate_sub[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="250"><textarea rows="1" cols="30" value = "' + value +
+    '" class="form-control" type="textarea" name="rec_internalNote_sub[]"></textarea></td>' +
+    '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
+}
+// <!-- ------------------------------------------------------------------------- End of Minus Recurrence ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------update Minus Recurrence ------------------------------------------------------------------------- -->
+$(function() {
+    $("#up_btnAdd3").bind("click", function() {
+        var div = $("<tr />");
+        div.html(GetDynamicRecurrencesubstract(""));
+        $("#up_TextBoxContainer3").append(div);
+    });
+    $("body").on("click", ".remove", function() {
+        $(this).closest("tr").remove();
+    });
+
+});
+
+function recurrence_substract(index) {
+    if (index == 0) {
+        return;
+    }
+    document.getElementById("recurrencesubstract_add" + index).remove();
+    up_rec_PlusRecurrence.splice(index, 1);
+    up_rec_installmentType.splice(index, 1);
+    up_rec_amount.splice(index, 1);
+    up_rec_installment.splice(index, 1);
+    up_rec_startNo.splice(index, 1);
+    up_rec_startDate.splice(index, 1);
+    up_rec_internalNote.splice(index, 1);
 }
 
-// <!-- ------------------------------------------------------------------------- End of Minus Recurrence ------------------------------------------------------------------------- -->
+function GetDynamicRecurrencesubstract(value) {
+    return '<td width="150">' +
+    '<input class="form-control driverPlusRecurrence" value = "' + value +
+    '" name="up_rec_PlusRecurrence_sub[]" ' +
+    ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
+    '<td width="150">' +
+    '<input class="form-control" value = "' + value +
+    '" name="up_rec_installmentType_sub[]" list="instatype1" autocomplete="off"/></td>' +
+    '<td width="100">' +
+    '<input name="up_rec_amount_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100">' +
+    '<input name="up_rec_installment_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100"><input name="up_rec_startNo_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="10"><input name="up_rec_startDate_sub[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="250"><textarea rows="1" cols="30" value = "' + value +
+    '" class="form-control" type="textarea" name="up_rec_internalNote_sub[]"></textarea></td>' +
+    '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
+}
+// <!-- ------------------------------------------------------------------------- End of update Minus Recurrence ------------------------------------------------------------------------- -->
 
+//get truck
+    // $('.fuel_truck_report').focus(function(){
+    //     //alert(); 
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path+"/admin/fuel_truck_report",
+    //         async: false,
+    //         //dataType:JSON,
+    //         success: function(fuel_truck_reportResult) {                    
+    //             createfuel_truck_reportList(fuel_truck_reportResult);
+    //             fuel_truck_reportResponse = fuel_truck_reportResult;
+    //         }
+    //     });
+    // });
+
+    // function createfuel_truck_reportList(fuel_truck_reportResponse) {           
+    //     var fuel_truck_reportLength = 0;    
+        
+    //     if (fuel_truck_reportResponse != null) {
+    //         fuel_truck_reportLength = fuel_truck_reportResponse.currency.length;
+    //     }
+
+    //     if (fuel_truck_reportLength > 0) {
+    //        // var no=1;
+    //         $(".fuel_truck_report").html('');
+    //         $(".currencyList").html('');
+    //         for (var i = 0; i < fuel_truck_reportLength; i++) {  
+    //             var currency =fuel_truck_reportResponse.currency[i].currencyType;
+    //             //var fuel_truck_report = "<option id='fuel_truck_report' value='"+ currency +"'>"+ currency +"</option>"
+    //             //"<a class='dropdown-item custCurrency' value='"+ currency +"'>"+ no +" )"+ currency +"</a>";                  
+
+    //            var fuel_truck_reportList = "<option id='fuel_truck_report'  value='"+ currency +"'>"                   
+    //            $(".fuel_truck_report").append(fuel_truck_reportList);
+    //            //<option value="Edge">
+    //             //no++;
+
+    //         }
+    //     }
+        
+    // }
+// over truck
 
 $('.editCompanyModalCloseButton').click(function(){
     $('#editCompanyModal').modal('hide');
@@ -2424,3 +2641,68 @@ $(document).ready(function() {
         document.getElementById("up_ownerPercentage").stepUp(-1);
     }
     
+
+
+    //  url validation =======================================
+function isUrlValid() {
+    if(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test($(".url").val()))
+    {
+       return true;
+    } 
+    else 
+    {
+       return false;
+    }
+}
+// start location view in all ===============================
+$(".location_view").keyup(function(){
+    var fieldID=$(this).attr('data-location');  
+    // alert(fieldID)
+    var placeArray = "";
+    $.getJSON("./place.json", function (json) {
+    placeArray = json; // this will show the info it in firebug console
+    });
+   var placetimeout='';;
+    clearTimeout(placetimeout);
+    var location = document.getElementById(fieldID);
+    var st = fieldID + "-list";
+    if (location.value == "") {
+      document.getElementById(st).style.display = "none";
+    }
+    placetimeout = setTimeout(function () {
+      var regex = new RegExp(location.value, "i");
+      var list = `<ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front col-md-10" unselectable="on" style="left:16px;top: 61.625px; height:auto; box-shadow: 2px 2px 2px 3px rgb(0 0 0 / 6%); max-height: 200px;overflow: auto;z-index: 9999;">`;
+      var count = 1;
+  
+      $.each(placeArray, function (key, val) {
+        if (val.city.search(regex) != -1) {
+          list += '<li class="ui-menu-item" style="padding: 5px; border-bottom: 1px solid;"><div id="ui-id-2" tabindex="-1" class="ui-menu-item-wrapper putValue" data-value='+val.city.toUpperCase()+' data-fieldID='+fieldID+' data-id='+st+'>'+val.city.toUpperCase()+'</div> </li>';
+  
+          count++;
+        }
+      });
+      list += `</ul>`;
+      if (document.getElementById(st) == undefined) {
+        var div = document.createElement("div");
+        div.setAttribute("id", st);
+        location.parentNode.insertBefore(div, location.nextSibling);
+      } else {
+        document.getElementById(st).style.display = "block";
+      }
+      document.getElementById(st).innerHTML = list;
+    }, 800);
+});
+$('body').on('click','.putValue',function(){
+    var value=$(this).attr("data-value");        
+    var fieldID=$(this).attr("data-fieldID");
+    var id=$(this).attr("data-id");
+    // var date='customerLocation';
+    // console.log(date);
+    // console.log(value + " , " + fieldID + " , " + id);
+    document.getElementById(fieldID).value=value;
+    // $("#customerLocation").val(value);
+    document.getElementById(id).style.display = "none";
+});
+
+
+   
