@@ -14,7 +14,7 @@
 			<div class="app-content main-content mt-0" id="LB">
 				<div class="side-app">
 					 <!-- CONTAINER -->
-					 <div class="main-container container-fluid">
+					 <div class="container-fluid">
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
