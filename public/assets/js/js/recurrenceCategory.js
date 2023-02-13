@@ -433,12 +433,17 @@ $('#saveDriverAddRecurrence').click(function(){
     var data=$('#adddriverRecurrenceForm').serialize()
     $('#addRecurrence').modal('hide');
 });
-
-
-
-
-
 // ---------------------------------------------end plus Recurrence  ---------------------------------------------
+// ---------------------------------------------edit plus Recurrence   ---------------------------------------------
+$('#up_addDriverRecurrence').click(function(){
+    $('#editAddRecurrence').modal('show');
+});
+
+$('.closeEditDriverAddRecurrence').click(function(){
+    $('#editAddRecurrence').modal('hide');
+});
+// ---------------------------------------------end edit plus Recurrence  ---------------------------------------------
+
 // ---------------------------------------------subtract Recurrence   ---------------------------------------------
 $('#substractRecurrenceModal').click(function(){
     $('#substractRecurrence').modal('show');
@@ -456,6 +461,16 @@ $('#saveDriverSubRecurrence').click(function(){
     $('#substractRecurrence').modal('hide');
 });
 // ---------------------------------------------end subtract Recurrence  ---------------------------------------------
+// ---------------------------------------------edit plus Recurrence   ---------------------------------------------
+$('#up_substractRecurrenceModal').click(function(){
+    $('#editSubstractRecurrence').modal('show');
+});
+
+$('.closeeditDriverSubRecurrence').click(function(){
+    $('#editSubstractRecurrence').modal('hide');
+});
+// ---------------------------------------------end edit plus Recurrence  ---------------------------------------------
+
 // ---------------------------------------------PayInfo   ---------------------------------------------
 $('#driverPayInfo').click(function(){
     $('#driverPayInfoModal').modal('show');
@@ -490,23 +505,6 @@ $('#driverPayInfoEdit').click(function(){
 $('.closeDrivereditPayInfo').click(function(){
     $('#driverPayInfoEditModal').modal('hide');
 });
-
-// $('#saveDriverPayInfo').click(function(){
-//     var loadedmiles = $('#loadedmiles').val();
-//     if(loadedmiles == ''){
-//         swal.fire({title: 'Please loaded miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
-//         $("#loadedmiles").focus();
-//         return false;
-//     }
-//     var emptymiles = $('#emptymiles').val();
-//     if(emptymiles == ''){
-//         swal.fire({title: 'Please empty miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
-//         $("#emptymiles").focus();
-//         return false;
-//     }
-
-//     $('#driverPayInfoModal').modal('hide');
-// });
 // ---------------------------------------------end edit PayInfo  ---------------------------------------------
 
 // -- -------------------------------------------------------------------------End------------------------------------------------------------------------- -- 

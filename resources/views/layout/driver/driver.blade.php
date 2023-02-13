@@ -451,9 +451,7 @@
                                                 <div class="form-row">
                                                     
                                                     
-                                                <!-- </div>
-
-                                                <div class="form-row"> -->
+                                               
                                                     <div class="form-group col-md-3">
                                                         <label for="up_email">Email<span
                                                                 style="color:#ff0000">*</span></label>
@@ -651,13 +649,27 @@
                                                         <a href="#" class="button-57"  id="driverPayInfoEdit">Open Pay Info</a>
                                                     </div>
                                                     
-                                                    <div class="form-group col-md-2">
+                                                    <!-- <div class="form-group col-md-2">
                                                         <label for="up_recurrencePlus">Recurrence+</label>
                                                         <input type="text" class="form-control" id="up_recurrencePlus" placeholder="Recurrence">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="up_recurrenceMin">Recurrence -</label>
                                                         <input type="text" class="form-control" id="up_recurrenceMin"  placeholder="Recurrence-">
+                                                    </div> -->
+
+                                                    <div class="form-group col-md-2 ">
+                                                        <label>Recurrence +</label>
+                                                        <div>
+                                                            <a href="#" class="button-57" id="up_addDriverRecurrence">Open recurrence +</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-md-2">
+                                                        <label>Recurrence -</label>
+                                                        <div>
+                                                            <a href="#" class="button-57" id="up_substractRecurrenceModal">Open recurrence -</a>
+                                                        </div>
                                                     </div>
                                                     
                                                     
