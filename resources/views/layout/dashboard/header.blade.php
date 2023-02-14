@@ -18,6 +18,8 @@
     <title>Astra</title>
 
     <!-- BOOTSTRAP CSS -->
+    
+    <!-- <link id="style" href="{{URL::to('/')}}/assets/scss/bootstrap/_forms.scss" rel="stylesheet" /> -->
     <link id="style" href="{{URL::to('/')}}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <link href="{{URL::to('/')}}/static/checkbox.css" rel="stylesheet" />
@@ -66,6 +68,8 @@
 "https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
 	</script>
       
+   
+
 
 <style type="text/css">
    .header-brand-img {

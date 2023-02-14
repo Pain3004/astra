@@ -95,6 +95,8 @@
 <!-- INTERNAL DATATABLES JS -->
 <script src="{{URL::to('/')}}/assets/js/table-editable.js"></script>
 
+<!-- FORMVALIDATION JS -->
+<script src="{{URL::to('/')}}/assets/js/form-validation.js"></script>
 
 <!-- CUSTOM JS -->
 <script src="{{URL::to('/')}}/assets/js/custom.js"></script>

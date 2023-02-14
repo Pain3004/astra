@@ -420,7 +420,7 @@ function createPlusRecurrence(Result) {
                 // $(".currencyList").html('');
                 for (var i = 0; i < Length; i++) {  
                     var fixPayType =Result.RecurrenceCategory[j].fixPay[i].fixPayType;
-                    console.log(fixPayType);
+                    // console.log(fixPayType);
                     var fixPayTypeList = "<option id='PlusRecurrence'  value='"+ fixPayType +"'>"                   
                 $(".driverPlusRecurrence").append(fixPayTypeList);
                 }
@@ -442,6 +442,11 @@ $('#up_addDriverRecurrence').click(function(){
 $('.closeEditDriverAddRecurrence').click(function(){
     $('#editAddRecurrence').modal('hide');
 });
+$('#saveEditDriverAddRecurrence').click(function(){
+    $('#editAddRecurrence').modal('hide');
+    $('#editDriverModal').modal('show');
+});
+
 // ---------------------------------------------end edit plus Recurrence  ---------------------------------------------
 
 // ---------------------------------------------subtract Recurrence   ---------------------------------------------
@@ -455,13 +460,12 @@ $('.closeDriverSubRecurrence').click(function(){
     $('#substractRecurrence').modal('hide');
 });
 
-
 $('#saveDriverSubRecurrence').click(function(){
     var data1=$('#subdriverRecurrenceForm').serialize()
     $('#substractRecurrence').modal('hide');
 });
 // ---------------------------------------------end subtract Recurrence  ---------------------------------------------
-// ---------------------------------------------edit plus Recurrence   ---------------------------------------------
+// ---------------------------------------------edit subtract Recurrence   ---------------------------------------------
 $('#up_substractRecurrenceModal').click(function(){
     $('#editSubstractRecurrence').modal('show');
 });
@@ -469,7 +473,12 @@ $('#up_substractRecurrenceModal').click(function(){
 $('.closeeditDriverSubRecurrence').click(function(){
     $('#editSubstractRecurrence').modal('hide');
 });
-// ---------------------------------------------end edit plus Recurrence  ---------------------------------------------
+
+$('#saveEditDriverSubRecurrence').click(function(){
+    $('#editSubstractRecurrence').modal('hide');
+    $('#editDriverModal').modal('show');
+});
+// ---------------------------------------------end edit subtract Recurrence  ---------------------------------------------
 
 // ---------------------------------------------PayInfo   ---------------------------------------------
 $('#driverPayInfo').click(function(){

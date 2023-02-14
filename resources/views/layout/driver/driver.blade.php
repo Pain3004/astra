@@ -169,11 +169,13 @@
                                                
                                                     <div class="form-group col-md-2">
                                                         <label for="location">Location <span style="color:#ff0000">*</span> </label>
-                                                        <input type="text" class="form-control" id="location" placeholder="Location">
+                                                        <!-- <input type="text" class="form-control" id="location" placeholder="Location"> -->
+                                                        <input type="text" class="form-control location_view" data-location="customerBillingLocation" id="location"placeholder="Enter Location">
+
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="zip">Zip <span  style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="zip"  placeholder="Zip">
+                                                        <input type="number" class="form-control" id="zip"  placeholder="Zip">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="status">Status</label>
@@ -188,7 +190,7 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="socialSecurityNo">Social Security No </label>
-                                                        <input type="text" class="form-control" id="socialSecurityNo" placeholder="Social Security No">
+                                                        <input type="number" class="form-control" id="socialSecurityNo" placeholder="Social Security No">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="dateOfBirth">Date of Birth </label>
@@ -203,7 +205,7 @@
                                                     <div class="form-group col-md-2">
                                                         <label for="licenseNo">License No.<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="licenseNo" placeholder="License No">
+                                                        <input type="number" class="form-control" id="licenseNo" placeholder="License No">
                                                     </div>
 
                                                     <div class="form-group col-md-2">
@@ -306,11 +308,12 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="driverBalance ">Driver Balance </label>
-                                                        <input type="text" class="form-control" id="driverBalance" placeholder="Driver Balance ">
+                                                        <input type="number" class="form-control" id="driverBalance" placeholder="Driver Balance ">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="internalNotes">Internal Notes </label>
-                                                        <input type="text" class="form-control" id="internalNotes" placeholder="Notes">
+                                                        <!-- <input type="text" class="form-control" id="internalNotes" placeholder="Notes"> -->
+                                                        <textarea type="text" class="form-control" id="internalNotes" placeholder="Notes"></textarea>
                                                     </div>
                                                     </div>
 
@@ -618,7 +621,8 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="up_currency">Currency <span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="up_currency">
+                                                        <input type="text" class="form-control" id="up_currency" value="USD"  disabled>
+                                                        
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="up_rate">Rate <span style="color:#ff0000">*</span>
@@ -644,7 +648,7 @@
                                                         <label>Driver Pay Info</label><br>
                                                         <a href="#" class="button-57" id="driverPayInfo">Open Pay Info</a>
                                                     </div> -->
-                                                    <div class="form-group col-md-3 ml-6" id="dHourlyEdit" style="display: none">
+                                                    <div class="form-group col-md-2 ml-6" id="dHourlyEdit" style="display: none">
                                                         <label>Driver Pay Info</label><br>
                                                         <a href="#" class="button-57"  id="driverPayInfoEdit">Open Pay Info</a>
                                                     </div>

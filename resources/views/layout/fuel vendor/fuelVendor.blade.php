@@ -148,14 +148,14 @@
                         <div>
                             <input type= "date" class="form-control date_formate_change" id="update_OpeningDate" name="openingDate" required />
                         </div>
-                        <label>Opening Amount<span style="color:#ff0000">*</span></label>
+                        <!-- <label>Opening Amount<span style="color:#ff0000">*</span></label>
                         <div>
                             <input  class="form-control " type="text" id="update_Opening_Amount" name="openingBalance" required />
                         </div>
                         <label>Current Amount<span style="color:#ff0000">*</span></label>
                         <div>
                             <input  class="form-control " type="text" id="update_currentBalance" name="currentBalance" required />
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>

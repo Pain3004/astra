@@ -13,7 +13,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <form id='adddriverRecurrenceForm'> 
-                        <!-- Row -->
+                                                
                         <div class="container">
                             <table class=" table-responsive other-table" id="otherTable">
                                 <thead>
@@ -28,6 +28,7 @@
                                         <td>Delete</td>
                                     </tr>
                                 </thead>
+                                
                                 <tbody id="TextBoxContainer2">
                                     <td width="150">
                                         <input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" name="rec_PlusRecurrence[]" id="rec_PlusRecurrence" autocomplete="off" required>
@@ -36,13 +37,13 @@
                                         <input class="form-control" name="rec_installmentType[]" list="instatype1" autocomplete="off" required/>
                                     </td>
                                     <td width="100">
-                                        <input name="rec_amount[]" type="text" class="form-control" required/>
+                                        <input name="rec_amount[]" type="number" class="form-control" required/>
                                     </td>
                                     <td width="100">
-                                        <input name="rec_installment[]" type="text" class="form-control" required/>
+                                        <input name="rec_installment[]" type="number" class="form-control" required/>
                                     </td>
                                     <td width="100">
-                                        <input name="rec_startNo[]" type="text" class="form-control" required/>
+                                        <input name="rec_startNo[]" type="number" class="form-control" required/>
                                     </td>
                                     <td width="10">
                                         <input name="rec_startDate[]" type="date" class="form-control" required/>
@@ -123,30 +124,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="up_TextBoxContainer2">
-                                    <td width="150">
-                                        <input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" name="rec_PlusRecurrence[]" id="rec_PlusRecurrence" autocomplete="off" required>
-                                    </td>
-                                    <td width="150">
-                                        <input class="form-control" name="up_rec_installmentType[]" list="instatype1" autocomplete="off" required/>
-                                    </td>
-                                    <td width="100">
-                                        <input name="up_rec_amount[]" type="text" class="form-control" required/>
-                                    </td>
-                                    <td width="100">
-                                        <input name="up_rec_installment[]" type="text" class="form-control" required/>
-                                    </td>
-                                    <td width="100">
-                                        <input name="up_rec_startNo[]" type="text" class="form-control" required/>
-                                    </td>
-                                    <td width="10">
-                                        <input name="up_rec_startDate[]" type="date" class="form-control" required/>
-                                    </td>
-                                    <td width="250">
-                                        <textarea rows="1" cols="20" class="form-control" type="textarea" name="up_rec_internalNote[]" required></textarea>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger"><span aria-hidden="true">&times;</span> </button>
-                                    </td>
+                                    
                                 <tfoot>
                                     <tr>
                                         <th colspan="12" class="tableFooter" style="text-align:left;">
@@ -167,19 +145,6 @@
                     <button type="button" class="button-29" id="saveEditDriverAddRecurrence"><i class="mdi mdi-shield-lock-outline"></i> Save </button>
                     <button type="button" class="button-29 closeEditDriverAddRecurrence">Close</button>
                 </div>
-
-                <!-- <datalist id="fixpaycat">
-
-                </datalist> -->
-                <!-- <datalist id="driverPlusRecurrence" class="driverPlusRecurrence">
-
-                </datalist>
-                <datalist id="instatype1">
-                    <option value="Weekly"></option>
-                    <option value="Monthly"></option>
-                    <option value="yearly"></option>
-                    <option value="Quarterly"></option>
-                </datalist> -->
 
             </div>
         </div>

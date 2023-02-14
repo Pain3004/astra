@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,15 +15,15 @@ use Illuminate\Database\Eloquent\Collection;
 
 class FuelVendorController extends Controller
 {
-    public function getFuelVendor(Request $request){
-        $companyId=1;
+    public function getFuelVendor(Request $request)
+    {
+        $companyId=(int)Auth::user()->companyID;
         $FuelVendor = FuelVendor::where('companyID',$companyId)->first();
-       // dd($FuelVendor);
         return response()->json($FuelVendor, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function createFuelVendor(Request $request)
     {
-        $companyID=(int)1;
+        $companyID=(int)Auth::user()->companyID;
         // dd($request->fuelCardType);
         $FuelVendor = FuelVendor::where('companyID',$companyID)->get();
         foreach( $FuelVendor as  $FuelVendor_data)
@@ -141,9 +140,9 @@ class FuelVendorController extends Controller
             }
         } 
         $FuelVendorArray[$v]['fuelCardType']=$request->fuelCardType;        
-        $FuelVendorArray[$v]['currentBalance']=$request->currentBalance;
+        // $FuelVendorArray[$v]['currentBalance']=$request->currentBalance;
         $FuelVendorArray[$v]['openingDate']=strtotime($request->openingDate);
-        $FuelVendorArray[$v]['openingBalance']=$request->openingBalance;
+        // $FuelVendorArray[$v]['openingBalance']=$request->openingBalance;
         $FuelVendor->fuelCard=$FuelVendorArray;
         // dd($FuelVendor->fuelCard);
         if($FuelVendor->save())

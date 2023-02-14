@@ -112544,4 +112544,11 @@ textarea.form-control {
 .deleteAction{
     color:red;
 }
+/* .invalid-feedback{
+    color: #d12c47;
+    display: none;
+    font-size: 87.5%;
+    margin-top: 0.25rem;
+    width: 100%;
+} */
 /* ----------------------------------------------------------------------------- */
