@@ -73,6 +73,12 @@
                         @endif
                     </form>
                     <button type="button" class="button-29 FactoringCompanyModalClose" >Close</button>
+                    <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
+                    <nav aria-label="..." data-name="factring_pagination" class="float-right">
+                        <div class="pagination" id="paginate">
+
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

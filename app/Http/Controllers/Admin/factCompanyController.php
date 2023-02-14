@@ -16,11 +16,16 @@ use Illuminate\Database\Eloquent\Collection;
 
 class factCompanyController extends Controller
 {
-    public function getFactCompany()
+    public function getFactCompany(Request $request)
     {
         $companyId=(int)Auth::user()->companyID;
         $FactCompany = Factoring_company_add::where('companyID',$companyId)->first();
-       return response()->json($FactCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    //    return response()->json($FactCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $FactCompany=collect($FactCompany->factoring);
+        $FactCompany = $FactCompany->chunk(10)[$request->get('offset')];
+    //    $FactCompany= $FactCompany->paginate(20)->toArray();
+    //    dd($FactCompany);
+       return response()->json(['FactCompany'=>$FactCompany], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
     public function editFactCompany(Request $request)

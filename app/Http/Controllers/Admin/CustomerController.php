@@ -9,6 +9,8 @@ use App\Models\Customer;
 use App\Models\Driver;
 use App\Models\Currency_add;
 use App\Models\Payment_terms;
+use App\Models\Shipper;
+use App\Models\Consignee;
 use App\Models\Factoring_company_add;
 use Illuminate\Database\Eloquent\Collection;
 use Auth;
@@ -17,9 +19,13 @@ class CustomerController extends Controller
 {
     
     
-    public function getCustomerData(Request $request){
+    public function getCustomerData(Request $request)
+    {
         $companyID=(int)Auth::user()->companyID;
         $customer = Customer::where('companyID',$companyID )->first();
+         $CustomerArray=$customer->customer;
+        $customer= (array_chunk($CustomerArray,2));
+         dd($customer);
         return response()->json($customer, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
@@ -32,7 +38,8 @@ class CustomerController extends Controller
         return response()->json($customerCurr, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
-    public function addCustomerCurrency(Request $request){
+    public function addCustomerCurrency(Request $request)
+    {
          //dd($request);
         //$customerAdd = Customer::all();
    
@@ -84,20 +91,22 @@ class CustomerController extends Controller
        
     }
 
-    public function getCustomerPaymentTerms(Request $request){
+    public function getCustomerPaymentTerms(Request $request)
+    {
         $companyIDForCustomer=(int)Auth::user()->companyID;
         $customerPaymentterms = Payment_terms::where('companyID',$companyIDForCustomer)->first();
        // dd($customerCurr);
         return response()->json($customerPaymentterms, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
-    public function addCustomerPaymentTerms(Request $request){
+    public function addCustomerPaymentTerms(Request $request)
+    {
         //dd($request);
        $companyIDForPaymentTerms=(int)Auth::user()->companyID;
 
        //$customerAdd = Customer::all();
   
-       $companyIDForPaymentTerms=(int)Auth::user()->companyID;
+       $companyIDForPaymentTerms=1;
        $totalPaymentTermsArray=0;
        $getCompanyForPaymentTerms = Payment_terms::where('companyID',$companyIDForPaymentTerms)->first();
 
@@ -147,7 +156,8 @@ class CustomerController extends Controller
       
     }
 
-    public function getCustomerBFactoringCompany(Request $request){
+    public function getCustomerBFactoringCompany(Request $request)
+    {
         $companyIDForCustomer=(int)Auth::user()->companyID;;
         $customerBFactoringCompany = Factoring_company_add::where('companyID',$companyIDForCustomer)->first();
        // dd($customerCurr);
@@ -240,21 +250,13 @@ class CustomerController extends Controller
       
     }
 
-    public function addCustomerData(Request $request){
-       // echo "hello";
-         //dd($request->all());
-
+    public function addCustomerData(Request $request)
+    {
         request()->validate([
-            //'customerName' => 'required',
-            //'customerAddress' => 'required,
-            // 'customerLocation' => 'required',
-            // 'customerZip' => 'required',
        
         ]);
-        
-        // $customerAdd = Customer::all();
    
-        $companyIDForCustomer=67;
+        $companyIDForCustomer=(int)Auth::user()->companyID;
         $totalCustomerArray=0;
         $getCompanyForCustomer = Customer::where('companyID',$companyIDForCustomer)->first();
 
@@ -262,8 +264,6 @@ class CustomerController extends Controller
             $CustomerArray=$getCompanyForCustomer->customer;
             $totalCustomerArray=count($CustomerArray)+ 1;
         }
-        // dd($request);
-       // $password = sha1($request->password);
         $customerData[]=array(    
                         '_id' => $totalCustomerArray ,
                         'counter' => 0,
@@ -287,11 +287,11 @@ class CustomerController extends Controller
                         'billingExt' => $request->customerBillingExt,
                         'URS' => $request->customerUrs,
 
-                        'currencySetting' => $request->customerCurrency,
+                        // 'currencySetting' => $request->customerCurrency,
                         'paymentTerms' => $request->customerPaymentTerm,
                         'creditLimit' => $request->customerCreditLimit,
                         'salesRep' => $request->customerSalesRepresentative,
-                        'factoringCompany' => $request->customerFactoringCompanyname,
+                        'factoringCompany' => $request->customerBFactoringCompanySet,
                         'factoringParent' => '',
                         'federalID' => $request->customerFederalID,
                         'workerComp' => $request->customerWorkerComp,
@@ -316,26 +316,169 @@ class CustomerController extends Controller
                         'totalloads' => '' ,
 
                         );
-        //    dd($customerData);         
-        // $getCompany="";
+           
            
             if($getCompanyForCustomer){
-                // dd($getCompanyForCustomer);
-                // $CustomerArray=$getCompanyForCustomer->customer;
-                // $totalCustomerArray=count($CustomerArray);
-               // dd($totalCustomerArray);
                 Customer::where(['companyID' =>$companyIDForCustomer])->update([
                     'counter'=> $totalCustomerArray,
-                    'customer' =>array_merge($CustomerArray,$customerData) ,
-                    // 'user_type' => "user",
-        
-                    // 'deleteStatus' => 0,
-                    // 'mode' => 'day',
-                    // 'otp' => '',
-                    // 'emailVerificationStatus' => 1,
-                    
+                    'customer' =>array_merge($CustomerArray,$customerData) ,                    
                 ]);
-
+                if($request->customerDuplicateShipper=='on')
+                {
+                    $Shipper = Shipper::where('companyID',$companyIDForCustomer)->get();
+                    foreach( $Shipper as  $Shipper_data)
+                    {
+                        if($Shipper_data)
+                        {
+                            $ShipperArray=$Shipper_data->shipper;
+                            $ids=array();
+                            foreach( $ShipperArray as $key=> $getFuelCard_data)
+                            {
+                                $ids[]=$getFuelCard_data['_id'];
+                            }
+                            $ids=max($ids);
+                            $totalShipperArray=$ids+1;
+                        }
+                        else
+                        {
+                            $totalShipperArray=0; 
+                        }
+                        $ShipperData[]=array(    
+                            '_id' => $totalShipperArray,
+                            'shipperName' => $request->customerName,
+                            'shipperAddress' => $request->customerAddress,
+                            'shipperLocation' => $request->customerLocation,
+                            'shipperPostal' => $request->customerZip,
+                            'shipperContact' => $request->customerPrimaryContact,
+                            'shipperEmail' => $request->customerEmail,
+                            'shipperTelephone' => $request->customerTelephone,
+                            'shipperExt' => $request->customerExt,
+                            'shipperTollFree' => $request->customerTelephone,
+                            'shipperFax' => $request->customerFax,
+                            'shipperShippingHours' => "",
+                            'shipperAppointments' => "",
+                            'shipperIntersaction' => "",
+                            'shipperStatus' =>"Shipper",
+                            'shippingNotes' =>"",
+                            'internalNotes' => $request->customerInternalNotes,
+                            'counter' =>0,
+                            'created_by' => Auth::user()->userFirstName,
+                            'created_time' => date('d-m-y h:i:s'),
+                            'edit_by' =>Auth::user()->userName,
+                            'edit_time' =>time(),
+                            'deleteStatus' =>"NO",                    
+                        ); 
+        
+                        
+                        if($Shipper_data)
+                        {                
+                            Shipper::where(['companyID' =>$companyIDForCustomer])->update([
+                            'counter'=> $totalShipperArray+1,
+                            'shipper' =>array_merge($ShipperArray,$ShipperData) ,
+                            ]);
+                            $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
+                            return json_encode($arrShipper);
+                            if($request->customerDuplicateConsignee=="on")
+                            {
+                                $Consignee = Consignee::where('companyID',$companyIDForCustomer)->get();
+                                foreach( $Consignee as  $Consignee_data)
+                                {
+                                    if($Consignee_data)
+                                    {
+                                        $ConsigneeArray=$Consignee_data->consignee;
+                                        $ids=array();
+                                        foreach( $ConsigneeArray as $key=> $getFuelCard_data)
+                                        {
+                                            $ids[]=$getFuelCard_data['_id'];
+                                        }
+                                        $ids=max($ids);
+                                        $totalConsigneeArray=$ids+1;
+                                    }
+                                    else
+                                    {
+                                        $totalConsigneeArray=0; 
+                                    }
+                                    $ConsigneeData[]=array(    
+                                        '_id' => $totalShipperArray,
+                                        'consigneeName' => $request->customerName,
+                                        'consigneeAddress' => $request->customerAddress,
+                                        'consigneeLocation' => $request->customerLocation,
+                                        'consigneePostal' => $request->customerZip,
+                                        'consigneeContact' => $request->customerPrimaryContact,
+                                        'consigneeEmail' => $request->customerEmail,
+                                        'consigneeReceiving'=>'',
+                                        'consigneeRecivingNote'=>'',
+                                        'consigneeTelephone' => $request->customerTelephone,
+                                        'consigneeExt' => $request->customerExt,
+                                        'consigneeTollFree' => $request->customerTelephone,
+                                        'consigneeFax' => $request->customerFax,
+                                        'consigneeReceiving' => "",
+                                        'consigneeAppointments' => "",
+                                        'consigneeIntersaction' => "",
+                                        'consigneeStatus' => "Consignee",
+                                        'consigneeInternalNote' =>"",
+                                        'internal_note' => $request->customerInternalNotes,
+                                        'counter' =>0,
+                                        'created_by' => Auth::user()->userFirstName,
+                                        'created_time' => date('d-m-y h:i:s'),
+                                        'edit_by' =>Auth::user()->userName,
+                                        'edit_time' =>time(),
+                                        'deleteStatus' =>"NO",                        
+                                    ); 
+                                    if($Consignee_data)
+                                    {                
+                                        Consignee::where(['companyID' =>$companyIDForCustomer])->update([
+                                        'counter'=> $totalConsigneeArray+1,
+                                        'consignee' =>array_merge($ConsigneeArray,$ConsigneeData) ,
+                                        ]);
+                                        $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
+                                        return json_encode($arrConsignee);
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            if(Consignee::create([
+                                                '_id' => 1,
+                                                'companyID' => $companyIDForCustomer,
+                                                'counter' => 1,
+                                                'consignee' => $currencyData,
+                                            ])) 
+                                            {
+                                                $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
+                                                return json_encode($arrConsignee);
+                                            }
+                                        }
+                                        catch(\Exception $error)
+                                        {
+                                            return $error->getMessage();
+                                        }
+                                    }
+                                }  
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                if(Shipper::create([
+                                    '_id' => 1,
+                                    'companyID' => $companyIDForCustomer,
+                                    'counter' => 1,
+                                    'shipper' => $currencyData,
+                                ])) 
+                                {
+                                    $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
+                                    return json_encode($arrShipper);
+                                }
+                            }
+                            catch(\Exception $error)
+                            {
+                                return $error->getMessage();
+                            }
+                        }
+                    } 
+                }
                 $arrCustome = array('status' => 'success', 'message' => 'Customer added successfully.'); 
                 return json_encode($arrCustome);
             }else{
@@ -377,17 +520,21 @@ class CustomerController extends Controller
         $id=$request->id;
         // dd($id);
         $email=$request->email;
-        $companyID=(int)67;
+        $companyID=(int)Auth::user()->companyID;
         $customerData=Customer::where("companyID",$companyID)->first();
         $cusomerArray=$customerData->customer;
         $arrayLength=count($cusomerArray);
-        // dd($arrayLength);s
+       
         $i=0;
         $v=0;
+        // $ids=[];
+        // dd($customerData->customer[0]['custName']);
        for ($i=0; $i<$arrayLength; $i++){
         if(isset($customerData->customer[$i]['_id']))
         {
-            $ids=$customerData->customer[$i]['_id'];
+             $ids=$customerData->customer[$i]['_id'];
+            // echo "<pre>";
+            // print_r($ids);
             $ids=(array)$ids;
                 foreach ($ids as $value){
                     // dd($value);
@@ -397,8 +544,9 @@ class CustomerController extends Controller
                      }
                 }
         }
-            
+           
        }
+        //    dd($ids);
             //    dd($v);
             //    dd($cusomerArray[$v]);
         $customerData->customer= $cusomerArray[$v];
@@ -410,7 +558,7 @@ class CustomerController extends Controller
           
         ]);
 
-        $companyID=(int)67;
+        $companyID=(int)Auth::user()->companyID;
         $id=$request->id;
 
         $customerData = Customer::where('companyID',$companyID )->first();
@@ -420,18 +568,16 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
        for ($i=0; $i<$arrayLengthUp; $i++){
-        if(isset($customerData->customer[$i]['_id']))
-        {
-            $ids=$customerData->customer[$i]['_id'];
-            $ids=(array)$ids;
-            foreach ($ids as $value){
-                if($value==$id){
-                    // dd($id);
-                    $v=$i;
-                 }
+        if(isset($customerData->customer[$i]['_id'])){
+                $ids=$customerData->customer[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    if($value==$id){
+                        // dd($id);
+                        $v=$i;
+                     }
+                }
             }
-        }
-               
        }
             //    dd($request->workerComp);
        $customerArray[$v]['custName']=$request->custName;
@@ -455,9 +601,9 @@ class CustomerController extends Controller
        $customerArray[$v]['MC']=$request->MC;
        $customerArray[$v]['blacklisted']=$request->blacklisted;
        $customerArray[$v]['isBroker']=$request->isBroker;
-       $customerArray[$v]['DuplicateShipper']=$request->DuplicateShipper;
-       $customerArray[$v]['DuplicateConsignee']=$request->DuplicateConsignee;
-       $customerArray[$v]['currencySetting']=$request->currencySetting;
+    //    $customerArray[$v]['DuplicateShipper']=$request->DuplicateShipper;
+    //    $customerArray[$v]['DuplicateConsignee']=$request->DuplicateConsignee;
+    //    $customerArray[$v]['currencySetting']=$request->currencySetting;
        $customerArray[$v]['paymentTerms']=$request->paymentTerms;
        $customerArray[$v]['creditLimit']=$request->creditLimit;
        $customerArray[$v]['salesRep']=$request->salesRep;
@@ -488,17 +634,13 @@ class CustomerController extends Controller
         $i=0;
         $v=0;
         for ($i=0; $i<$arrayLength; $i++){
-            if(isset($customerData->customer[$i]['_id']))
-            {
-                $ids=$customerData->customer[$i]['_id'];
-            $ids=(array)$ids;
-                foreach ($ids as $value){
-                    if($value==$id){
-                        $v=$id;
-                        }
-                }
+            $ids=$customerData->customer[$i];
+            // $ids=(array)$ids;
+            foreach ($ids as $value){
+                if($value==$id){
+                    $v=$id;
+                    }
             }
-            
        }
        $customerArray[$v]['deleteStatus'] = "YES";
        $customerData->customer= $customerArray;

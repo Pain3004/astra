@@ -18,14 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 class ShipperController extends Controller
 {
     public function getShipper(){
-        $companyId=(int)65;
-        // $companyId=(int)1;
-        // dd($companyId);
-        // $shipper=  Shipper::aggregate([
-        //     ['$match' => ['companyID' => $companyId]],
-        //     ['$project' => ['size' => ['$size' => ['$shipper']]]]
-        // ]);
-        // dd($shipper);
+        $companyId=(int)Auth::user()->companyID;
         $shipper = Shipper::where('companyID',$companyId)->first();
         $consignee = Consignee::where('companyID',$companyId)->first();
 
@@ -35,9 +28,7 @@ class ShipperController extends Controller
     }
     public function storeShipper(Request $request)
     {
-        // $companyID=(int)1;
-        $companyID=(int)65;
-        // dd($request->addressType);
+        $companyID=(int)Auth::user()->companyID;
         if($request->addressType=="shipper")
         {
             $Shipper = Shipper::where('companyID',$companyID)->get();
@@ -204,7 +195,7 @@ class ShipperController extends Controller
     public function editShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=(int)Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         // dd($Shipper );
         $ShipperArray=$Shipper->shipper;
@@ -233,7 +224,7 @@ class ShipperController extends Controller
     public function updateShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=(int)Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -277,7 +268,7 @@ class ShipperController extends Controller
     public function deleteShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=(int)Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -304,23 +295,17 @@ class ShipperController extends Controller
     }
     public function restoreShipper(Request $request)
     {
-        // $shipIds=$request->id;
-        // dd($shipIds);
         $shipIds=$request->all_ids;
         $dataType=str_replace( array('[', ']'), ' ',$request->dataType);
         $dataType_add=explode(",",$dataType);
-        // dd($dataType_add);
         $custID=(array)$request->custID;
         $address="shipper";
         foreach($dataType_add as $key=>$shipAndConTy)
         {
             $shipAndConTy=str_replace( array('"' ,']'), ' ',$shipAndConTy);
             $shipAndConTy = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $shipAndConTy)));
-            // $shipAndConTy="shipper";
-        //    dd($shipAndConTy);
             if($shipAndConTy=='shipper')
             {
-                // dd($shipAndConTy);
                 foreach($custID as $company_id)
                 {
                     $company_id=str_replace( array( '\'', '"',

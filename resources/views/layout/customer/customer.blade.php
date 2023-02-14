@@ -81,7 +81,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerZip">Zip  <span style="color:#ff0000">*</span></label>
-                                            <input type="text" class="form-control" id="customerZip"placeholder="Enter Zip">
+                                            <input type="number" class="form-control" id="customerZip"placeholder="Enter Zip">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -190,22 +190,20 @@
                                 <br>
                                 <form>
                                     <div class="form-row">
-                                        <div class="form-group col-md-3">
+                                        <!-- <div class="form-group col-md-3">
                                             <label for="customerCurrencySetting">Currency Setting</label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusCurrency" style='color:blue !important'></i>
                                             <div class="dropdown show">
                                                     <input class="form-control customerCurrencySet" list="customerCurrencySet" name="currency" id="currency_customer">
                                                     <datalist id="customerCurrencySet" class="customerCurrencySet"><option>Select Here</option></datalist>    
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="customerPaymentTerms">Payment Terms <span style="color: red">*</span></label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
-
-                                            <!-- <span class="button-29" id="plusPaymentTerms" style="margin-left: 5px;"><i class="fa fa-plus"></i></span>  -->
                                             <div class="dropdown show">
                                                 
-                                                    <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="PaymentTerms">
+                                                    <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="CustomerPayment_Terms">
                                                     <datalist id="customerPaymentTerm" class="customerPaymentTermSet">
                                                         <option>Select Here</option>
                                                     </datalist>
@@ -214,12 +212,11 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerCreditLimit">Credit Limit $ </label>
-                                            <input type="text" class="form-control" id="customerCreditLimit"placeholder="Enter Zip">
+                                            <input type="number" class="form-control" id="customerCreditLimit"placeholder="Enter Zip">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerSalesRepresentative">Sales Representative </span></label>
-                                            <!-- <input type="text" class="form-control customerRepresentativeSalseTerm" id="customerSalesRepresentative" placeholder=" Enter Sales Representative" list='customerRepresentativeSalseTerm'> -->
-                                            <select class="form-control customerRepresentativeSalseTerm" id="customerSalesRepresentative"  >                                              <option>Select Here</option>
+                                        <select class="form-control customerRepresentativeSalseTerm" id="customerSalesRepresentative"  >                                              <option>Select Here</option>
                                             </select>
                                         </div>
                                     </div>
@@ -227,12 +224,7 @@
                                         <div class="form-group col-md-3">
                                             <label for="customerBFactoringCompany">Factoring Company</label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusFactoringCompany" data-name="plusFactoringCompany" style='color:blue !important'></i>
-                                            <!-- <span class="button-29" id="plusFactoringCompany" style="margin-left: 5px;"><i class="fa fa-plus"></i></span> -->
                                             <div class="dropdown show">
-                                                <!-- <input class="form-control customerBFactoringCompanySet" list="customerBFactoringCompanySet" name="customerBFactoringCompany" id="customerBFactoringCompany">
-                                                <datalist id="customerBFactoringCompanySet" class="customerBFactoringCompanySet">
-                                                    <option>Select Here</option>
-                                                </datalist> -->
                                                 <select class="form-control customerBFactoringCompanySet" id="customerBFactoringCompanySet"  >                                              <option>Select Here</option>
                                             </select>
                                             </div>
@@ -261,12 +253,8 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="customerInternalNotes">Internal Notes</label>
-                                            <input type="text" class="form-control" id="customerInternalNotes"placeholder="Enter Internal Notes">
+                                            <textarea type="text" class="form-control" id="customerInternalNotes"placeholder="Enter Internal Notes"></textarea>
                                         </div>
-                                        
-
-                                        
-                                        
                                     </div> 
                                 </form>
                             </div>
@@ -403,7 +391,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="factoringCompanyZip">Postal / Zip   <span style="color:#ff0000">*</span></label>
-                                <input type="text" class="form-control" id="factoringCompanyZip" placeholder=" Enter Zip " >
+                                <input type="number" class="form-control" id="factoringCompanyZip" placeholder=" Enter Zip " >
                             </div>
                         </div>
                         <div class="form-row">
@@ -448,16 +436,16 @@
                                 <label for="factoringCompanyContactEmail">Contact Email</label>
                                 <input type="text" class="form-control" id="factoringCompanyContactEmail" placeholder=" Enter Contact Email" >
                             </div>
-                            <div class="form-group col-md-3">
-                                <label for="customerCurrencySetting">Currency Setting <span style="color:red">*</span><span class="glyphicon glyphicon-plus-sign" style="color:blue !important" id="plusCurrency2" ></span> </label>
+                            <!-- <div class="form-group col-md-3">
+                                <label for="customerCurrencySetting">Currency Setting <span class="glyphicon glyphicon-plus-sign" id="plusCurrency2" ></span> </label>
                                 <div class="dropdown show">
                                     <input class="form-control customerCurrencySet " list="customerCurrencySet" name="currency" id="currency1">
                                     <datalist id="customerCurrencySet" class="customerCurrencySet"></datalist>    
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group col-md-3">
                                     <label for="customerPaymentTerms">Payment Terms <span style="color: red">*</span></label>
-                                            <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms2" data-name="plusPaymentTerms" style='color:blue !important'></i>
+                                            <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
                                     <div class="dropdown show">
                                       
                                         <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="PaymentTerms1">
@@ -532,7 +520,7 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerZip">Zip  <span style="color:#ff0000">*</span></label>
-                                                            <input type="text" class="form-control" id="updateCustomerZip"placeholder="Enter Zip" name="custZip">
+                                                            <input type="number" class="form-control" id="updateCustomerZip"placeholder="Enter Zip" name="custZip">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
@@ -553,7 +541,7 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerBillingZip">Zip </label>
-                                                            <input type="text" class="form-control" id="updateCustomerBillingZip"placeholder="Enter Zip" name="billingZip">
+                                                            <input type="number" class="form-control" id="updateCustomerBillingZip"placeholder="Enter Zip" name="billingZip">
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerPrimaryContact">Primary Contact </span></label>
@@ -576,7 +564,7 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerFax">Fax  </label>
-                                                            <input type="text" class="form-control" id="updateCustomerFax"  placeholder="(999) 999-9999" data-mask="(999) 999-9999" name="custFax">
+                                                            <input type="text" class="form-control" id="updateCustomerFax"placeholder="Enter Fax" name="custFax">
                                                         </div>
                                                     </div>
 
@@ -624,19 +612,19 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-row">
+                                                    <!-- <div class="form-row">
                                                         <div class="form-group col-md-12">
                                                             <label for="customerDuplicate">Duplicate :</span></label>
                                                             <input type="checkbox" id="updateCustomerDuplicateShipper" name="" value="off"> As a Shipper
                                                             <input type="checkbox" id="updateCstomerDuplicateConsignee" name="" value="off"> As a Consignee
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </form>
                                                 <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-29" >Next</button>
                                             </div>
                                             <div class="update_advance_first_tap">
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-3">
+                                                    <!-- <div class="form-group col-md-3">
                                                   
                                                         <label for="customerCurrencySetting">Currency Setting
                                                         </label>
@@ -645,10 +633,10 @@
                                                             <input class="form-control customerCurrencySet" list="customerCurrencySet" name="currency" id="updatecurrency">
                                                             <datalist id="customerCurrencySet" class="customerCurrencySet"><option>Select Here</option></datalist> 
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="form-group col-md-3">
                                                         <label for="customerPaymentTerms">Payment Terms
-                                                        <!-- <span class="glyphicon glyphicon-plus-sign addUpPaymentTermsCustomer " id="addPaymentTermsCustomer" data-toggle="modal"  style="cursor:pointer;"></span> -->
+                                                        
                                                         <span style="color: red">*</span></label>
                                                         <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
                                                         <div class="dropdown show">
@@ -664,7 +652,7 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="customerCreditLimit">Credit Limit $ </label>
-                                                        <input type="text" class="form-control" id="updateCustomerCreditLimit"placeholder="Enter Zip" name="creditLimit">
+                                                        <input type="number" class="form-control" id="updateCustomerCreditLimit"placeholder="Enter Zip" name="creditLimit">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="customerSalesRepresentative">Sales Representative </span></label>
@@ -709,7 +697,7 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="customerInternalNotes">Internal Notes</label>
-                                                        <input type="text" class="form-control" id="updateCustomerInternalNotes"placeholder="Enter Internal Notes" name="internalNotes">
+                                                        <textarea type="text" class="form-control" id="updateCustomerInternalNotes"placeholder="Enter Internal Notes" name="internalNotes"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">

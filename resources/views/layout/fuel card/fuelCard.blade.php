@@ -113,10 +113,13 @@
                             <input  class="form-control add_IFTA_Card_Number " type="number" name="iftaCardNumber" required />
                         </div>
                         <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_card_type_new "  data-toggle="modal"  style="cursor:pointer;color:blue;"></span> </label>
-                        <div>
-                            <select  class=" aiz-selectpicker search_select form-control card_vendor_type add_Fuel_Card_Type" data-live-search="true" name="fuelCardType" required > 
+                        <div class="card_vendor_type" id="card_vendar_addData">
+                            <!-- <select  class="selectpicker search_select form-control card_vendor_type add_Fuel_Card_Type" id="card_vendar_addData" data-live-search="true" name="fuelCardType" required >  -->
+                                <!-- <option> Select one</option>
                                 <option> Select one</option>
-                            </select>
+                                <option> Select one</option>
+                                <option> Select one</option> -->
+                            <!-- </select> -->
                         </div>
                     </div>
                 </form>

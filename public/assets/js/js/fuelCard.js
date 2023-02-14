@@ -1,13 +1,13 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
 
-    // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
+    // <!-- ------------------------------------------------------------------------- start ------------------------------------------------------------------------- -->  
     $('.fuelCardClose').click(function(){
         $('#FuelCardModal').modal('hide');
     });
 
 
-    // <!-- -------------------------------------------------------------------------Get truck  ------------------------------------------------------------------------- -->  
+    //===================================== et truck ===========================================
    
     $('#fuelCard_navbar').click(function(){
         //alert();
@@ -27,8 +27,8 @@ $(document).ready(function() {
     });
 
 
-    // <!-- -------------------------------------------------------------------------over Get truck  ------------------------------------------------------------------------- --> 
-    // <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
+    //==================================== over Get truck ==================================== 
+    //===================== function ==========================================================
     function createFuelCardRows(FuelCardResult) {
         var fuelCardlen = 0;
         if (FuelCardResult != null) 
@@ -111,12 +111,12 @@ $(document).ready(function() {
 
    
 
-    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // ==================================End=================================================
 
    //================================ start create fuel card ========================
    $(".create_fuel_card_type_new").click(function(){
-    $("#AddFuelVendor").css("z-index","10000000000");
-    $("#AddFuelVendor").modal("show");
+        $("#AddFuelVendor").css("z-index","10000000000");
+        $("#AddFuelVendor").modal("show");
     });
     $(".closeAddFuelCard").click(function () {
         $("#AddFuelCard").modal("hide");
@@ -124,9 +124,9 @@ $(document).ready(function() {
     $('#AddFuelCard').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
     });
-    $(function() {
-        $('.aiz-selectpicker').selectpicker();
-      });
+    // $(function() {
+    //     $('.selectpicker').selectpicker();
+    //   });
     // $('.card_vendor_type').picker({search : true});
     // $(".card_vendor_type").focus(function(){
         $.ajax({
@@ -139,14 +139,20 @@ $(document).ready(function() {
                 if (text != null) {
                     fuelVendorlen = text.fuelCard.length;
                     $(".card_vendor_type").html();
+                    var html = "<select class=' form-control select2-style1  add_Fuel_Card_Type'  data-live-search='true' name='fuelCardType' required>"
                     if (fuelVendorlen > 0) {
                         for (var i = fuelVendorlen - 1; i >= 0; i--) {
                             var fuelVendorId = text.fuelCard[i]._id;
                             var fuelCardType = text.fuelCard[i].fuelCardType;
-                            var html = "<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>";
-                            $(".card_vendor_type").append(html);
+                             html+="<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>"
+                            // $(".card_vendor_type").append(html);
+                            // $(".card_vendor_type").append("<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>");
                         }
+                        
                     }
+                    html+="</select>"
+                    $(".card_vendor_type").append(html);
+                    // console.log(html);
                 }
             }
         });
