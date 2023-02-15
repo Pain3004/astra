@@ -96,6 +96,7 @@ Route::post('post-forgot-password', [AuthController::class, 'submitForgetPasswor
 
 // Driver
 Route::get('admin/driver', [DriverController::class, 'getDriverData']);
+Route::get('admin/getDriver', [DriverController::class, 'getDriver']);
 Route::post('admin/addDriver', [DriverController::class, 'addDriverData']);
 Route::post('admin/editDriver', [DriverController::class, 'editDriverData']);
 Route::post('admin/updateDriver', [DriverController::class, 'updateDriverData']);
@@ -113,6 +114,7 @@ Route::get('admin/driver_getTruck', [DriverController::class, 'driver_getTruck']
 Route::post('admin/deleteDriverOwnerOperator', [DriverController::class, 'deleteDriverOwnerOperator']);
 Route::post('admin/restoreDriverOwnerOperator', [DriverController::class, 'restoreDriverOwnerOperator']);
 Route::post('admin/deleteViewDriverApp', [DriverController::class, 'deleteViewDriverApp']);
+Route::post('admin/restoreDriver', [DriverController::class, 'restoreDriver']);
 
 //customer
 Route::get('admin/customer', [CustomerController::class, 'getCustomerData']);

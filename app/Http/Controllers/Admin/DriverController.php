@@ -310,6 +310,13 @@ class DriverController extends Controller
         $driver = Driver::where('companyID',$companyID )->first();
         return response()->json($driver);  
     }
+    public function getDriver(Request $request){
+        $companyID=Auth::user()->companyID;
+        $driver = Driver::where('companyID',$companyID )->get();
+        return response()->json(['driver'=>$driver], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
+
+    
     
 //add by Reena
     public function addDriverData(Request $request){
@@ -1401,6 +1408,56 @@ class DriverController extends Controller
     //         return $error->getMessage();
     //     }
     // }
+
+    public function restoreDriver(Request $request)
+    {
+        //dd($request);
+        $cardIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Driver = Driver::where('companyID',$company_id )->first();
+            $DriverArray=$Driver->driver;
+            $arrayLength=count($DriverArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Driver->driver[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $DriverArray[$row]['deleteStatus'] = "NO";
+                $Driver->driver= $DriverArray;
+                $save=$Driver->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Driver Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
 
 }
 

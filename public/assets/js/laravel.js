@@ -680,43 +680,26 @@ $(document).ready(function() {
     
 
 // <!-- -------------------------------------------------------------------------Get driver ajax ------------------------------------------------------------------------- -->    
-$('#Driver_navbar').click(function(){ 
-    var driverResponse = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/driver",
-        async: false,
-        success: function(text) {
-            createDriverRows(text);
-            driverResponse = text;
-        }
+    $('#Driver_navbar').click(function(){ 
+        var driverResponse = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/driver",
+            async: false,
+            success: function(text) {
+                createDriverRows(text);
+                driverResponse = text;
+            }
+        });
+        $("#driverModal").modal("show");
     });
-    $("#driverModal").modal("show");
-});
     function createDriverRows(driverResponse) {
-        // console.log(driverResponse);
-//Privilege 
-    // var edit=$('#updateUser').val();
-    // var delet =$('#deleteUser').val();
-
-    // if(edit == 1){
-    //    var editPrivilege=''; 
-    // }else{
-    //     var editPrivilege='privilege';
-    // }
-    // if(delet == 1){
-    //     var delPrivilege=''; 
-    //  }else{
-    //      var delPrivilege='privilege';
-    //  }
-
         var len1 = 0;
         
         $('#driverTable').empty(); 
         // if (driverResponse != null) {
         //     len1 = driverResponse.length;
         // }
-// alert(len1);
         // if (len1 > 0) {
            var no=1;
                 // for (var i = 0; i < len1; i++) {  
@@ -739,8 +722,7 @@ $('#Driver_navbar').click(function(){
                             var month_tr = months_arr_tr[date_tr.getMonth()];
                             var day_tr = date_tr.getDate();
                             var date_of_birth = month_tr+'/'+day_tr+'/'+year_tr;
-                        var date_of_hire = driverResponse.driver[j].dateOfHire;
-                        console.log(date_of_hire);
+                            var date_of_hire = driverResponse.driver[j].dateOfHire;
                         if(date_of_hire == null ){date_of_hire="-";}
                             var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                             var date_tr = new Date(date_of_hire*1000);
@@ -748,7 +730,6 @@ $('#Driver_navbar').click(function(){
                             var month_tr = months_arr_tr[date_tr.getMonth()];
                             var day_tr = date_tr.getDate();
                             var date_of_hire = month_tr+'/'+day_tr+'/'+year_tr;
-                            console.log(date_of_hire);
                         var license_no = driverResponse.driver[j].driverLicenseNo;
                         var lis = driverResponse.driver[j].driverLicenseIssue;
                         var license_exp_date = driverResponse.driver[j].driverLicenseExp;
@@ -851,10 +832,191 @@ $('#Driver_navbar').click(function(){
         var driver_id =$(this).data('id');
         $('#driverid').val(driver_id);
     
-        // console.log(atob(name));
         $('#addDriverOwnerModal').modal('show');  
     });
 
+//------------------------------ start restore  ---------------------------------------------
+$('.restoreDriverclose').click(function(){
+    $('#RestoreDriverModal').modal('hide');
+});
+
+$("#restoreDriver").click(function(){
+    $.ajax({
+        type: "GET",
+        url: base_path + "/admin/getDriver",
+        async: false,
+        success: function (RestoreResult) {
+            // console.log(RestoreResult);
+           RestoreDriver(RestoreResult);
+        }
+    });
+    $('#RestoreDriverModal').modal('show');
+});
+
+function RestoreDriver(RestoreResult)
+{
+    
+    var R_Len = 0;
+    if (RestoreResult) {
+        //console.log(RestoreResult);
+        $("#RestoreDriverTable").html('');
+        var data=RestoreResult.driver.length;
+        // Driverlen = DriverResult.driver.length;
+        console.log(data);
+        for(var i=0; i<data; i++)
+        {
+            R_Len = RestoreResult.driver[i].driver.length;
+            console.log(R_Len);
+            if(R_Len != null)
+            {
+                var no=1;
+                for(var j=R_Len-1; j>=0; j--)
+                {
+                    var com_Id=RestoreResult.driver[i].companyID;
+                    var id=RestoreResult.driver[i].driver[j]._id;
+                    var name =RestoreResult.driver[i].driver[j].driverName;
+                    var driverEmail =RestoreResult.driver[i].driver[j].driverEmail;
+                    var driverLocation =RestoreResult.driver[i].driver[j].driverLocation;
+                    var driverSocial =RestoreResult.driver[i].driver[j].driverSocial;
+                        if(driverSocial == null){driverSocial="-";}
+                    var dateOfbirth =RestoreResult.driver[i].driver[j].dateOfbirth;
+                        if(dateOfbirth == null || dateOfbirth == false){dateOfbirth="-";}
+                        var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date_tr = new Date(dateOfbirth*1000);
+                        var year_tr = date_tr.getFullYear();
+                        var month_tr = months_arr_tr[date_tr.getMonth()];
+                        var day_tr = date_tr.getDate();
+                        var dateOfbirth = month_tr+'/'+day_tr+'/'+year_tr;
+                    var dateOfHire =RestoreResult.driver[i].driver[j].dateOfHire;
+                    if(dateOfHire == null ){dateOfHire="-";}
+                        var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date_tr = new Date(dateOfHire*1000);
+                        var year_tr = date_tr.getFullYear();
+                        var month_tr = months_arr_tr[date_tr.getMonth()];
+                        var day_tr = date_tr.getDate();
+                        var dateOfHire = month_tr+'/'+day_tr+'/'+year_tr;
+                    var driverLicenseNo =RestoreResult.driver[i].driver[j].driverLicenseNo;
+                    var driverLicenseIssue =RestoreResult.driver[i].driver[j].driverLicenseIssue;
+                    var driverLicenseExp =RestoreResult.driver[i].driver[j].driverLicenseExp;
+                        var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date_tr = new Date(driverLicenseExp*1000);
+                        var year_tr = date_tr.getFullYear();
+                        var month_tr = months_arr_tr[date_tr.getMonth()];
+                        var day_tr = date_tr.getDate();
+                        var driverLicenseExp = month_tr+'/'+day_tr+'/'+year_tr;
+                    var driverBalance =RestoreResult.driver[i].driver[j].driverBalance;
+                        if(driverBalance == null){driverBalance="-";}
+                    var deleteStatus =RestoreResult.driver[i].driver[j].deleteStatus;
+
+                    if (deleteStatus == "Yes" || deleteStatus == "YES" || deleteStatus == "yes") 
+                    {
+                        var R_str = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                            "<td data-field='no'><input type='checkbox' name='checkDriverOne[]' class='checkedIdsOneBranch' style='height: 15px;' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                            "<td >" + name + "</td>" +
+                            "<td>" + driverEmail + "</td>" +
+                            "<td >" + driverLocation + "</td>" +
+                            "<td >" + driverSocial + "</td>" +
+                            "<td>" + dateOfbirth + "</td>" +
+                            "<td >" + dateOfHire + "</td>" +
+                            "<td>" + driverLicenseNo + "</td>" +
+                            "<td >" + driverLicenseIssue + "</td>" +
+                            "<td>" + driverLicenseExp + "</td>" +
+                            "<td>" + driverBalance + "</td>" +
+                        $("#RestoreDriverTable").append(R_str);
+                        no++;
+                    }
+                }
+            }
+            else
+            {
+                var R_str = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+                $("#RestoreDriverTable").append(R_str);
+            }                  
+        }
+    }
+    else
+    {
+        var R_str = "<tr data-id=" + i + ">" +
+        "<td align='center' colspan='4'>No record found.</td>" +
+        "</tr>";
+        $("#RestoreDriverTable").append(R_str);
+    }
+}
+$(document).on("change", ".Driver_all_ids", function() 
+{
+    if(this.checked) {
+        $('.checkedIdsOneBranch:checkbox').each(function() 
+        {
+            this.checked = true;
+            DriverCheckboxRestore();
+        });
+    } 
+    else 
+    {
+        $('.checkedIdsOneBranch:checkbox').each(function() {
+            this.checked = false;
+        });
+    }
+});
+$('body').on('click','.checkedIdsOneBranch',function(){
+    DriverCheckboxRestore();
+});
+function DriverCheckboxRestore()
+{
+    var Driver = [];
+    var companyIds=[]
+        $.each($("input[name='checkDriverOne[]']:checked"), function(){
+            Driver.push($(this).val());
+            companyIds.push($(this).attr("data-comId"));
+        });
+        // console.log(Driver);
+        var braOffIds =JSON.stringify(Driver);
+        $('#checked_Driver').val(braOffIds);
+       
+        var companyCheckedIds =JSON.stringify(companyIds);
+        $('#checked_Driver_company_ids').val(companyCheckedIds);
+
+        if(Driver.length > 0)
+        {
+            $('#restore_DriverData').removeAttr('disabled');
+        }
+        else
+        {
+            $('#restore_DriverData').attr('disabled',true);
+        }
+}
+$('body').on('click','.restore_DriverData',function(){
+   
+    var all_ids=$('#checked_Driver').val();
+    //alert(all_ids);
+    var custID=$("#checked_Driver_company_ids").val();
+    $.ajax({
+        type:"post",
+        data:{
+            _token:$("#drivercsrf").val(),
+            all_ids:all_ids,
+            custID:custID
+        },
+        url: base_path+"/admin/restoreDriver",
+        success: function(response) {               
+            swal.fire("Driver Restored successfully");
+            $("#RestoreDriverModal").modal("hide");
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/driver",
+                async: false,
+                success: function(text) {
+                    createDriverRows(text);
+                    driverResponse = text;
+                }
+            });
+            $("#driverModal").modal("show");
+        }
+    });
+});
+// ---------------------------------------------end restore  ---------------------------------------------
 
 
 
@@ -1250,7 +1412,6 @@ $('#addDriver').click(function(){
             var hazmatExpiry = $('#hazmatExpiry').val();
             var rate = $('#rate').val();
             var currency = $('#currency').val();
-            // console.log(currency);
             var recurrencePlus = $('#recurrencePlus').val();
             var recurrenceMin = $('#recurrenceMin').val();
             var terminationDate = $('#terminationDate').val();
@@ -1843,7 +2004,6 @@ function drivermodal()
                     }
 
                     $array2=dataResult.recurrenceSubtract;
-                    console.log($array2);
                     if($array2){
                         $("#up_TextBoxContainer3").empty();
                         $.each($array2, function(index,value) {
@@ -1950,7 +2110,6 @@ $('body').on('click','.driverPlusRecurrence',function(){
         
         if (Result != null) {
             Len = Result.RecurrenceCategory.length;
-            console.log(Len) ;
         }
         if (Len > 0) {
             for (var j = 0; j < Len; j++) {  
@@ -1961,7 +2120,6 @@ $('body').on('click','.driverPlusRecurrence',function(){
                     // $(".currencyList").html('');
                     for (var i = 0; i < Length; i++) {  
                         var fixPayType =Result.RecurrenceCategory[j].fixPay[i].fixPayType;
-                        console.log(fixPayType);
                         var fixPayTypeList = "<option id='PlusRecurrence'  value='"+ fixPayType +"'>"                   
                     $(".driverPlusRecurrence").append(fixPayTypeList);
                     }
@@ -2828,7 +2986,9 @@ $(document).ready(function() {
 
 
 
+$(document).ready(function(){
 
+});
 
 
 
