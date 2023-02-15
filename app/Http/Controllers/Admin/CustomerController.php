@@ -23,9 +23,9 @@ class CustomerController extends Controller
     {
         $companyID=(int)Auth::user()->companyID;
         $customer = Customer::where('companyID',$companyID )->first();
-         $CustomerArray=$customer->customer;
-        $customer= (array_chunk($CustomerArray,2));
-         dd($customer);
+        //  $CustomerArray=$customer->customer;
+        // $customer= (array_chunk($CustomerArray,2));
+        //  dd($customer);
         return response()->json($customer, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }

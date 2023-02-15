@@ -3,9 +3,12 @@ $(document).ready(function() {
 // ==========================start view ===================================
 
     $('.FactoringCompanyModalClose').click(function(){
+        removePagi();
          $('#FacoringCompanyModal').modal('hide');
      });
-
+     $("#FacoringCompanyModal").on("shown.bs.modal",function(){
+        $(this).hide().show(); 
+     });
     $('#AddFactoringCompany').click(function(){
         $('#addFactoringCompanyModal').modal('show');
     });
@@ -41,8 +44,10 @@ $(document).ready(function() {
             success: function(text) {
                 createFactoringCompanyRows(text);
                 factoringCompanyResult = text;
+               
              }
         });
+        // $('#nav').empty();
         $('#FacoringCompanyModal').modal('show');
    
         
@@ -52,12 +57,16 @@ $(document).ready(function() {
         var consigneelen = 0;
         if (factoringCompanyResult != null) 
         {
+            $("#paginate").html();
+            // var items=0;'
+            var lentData=[];
             consigneelen = factoringCompanyResult.FactCompany.length;
             if (consigneelen > 0)
             {
                 var no=1; 
                 for (var j=0;j<consigneelen;j++) 
                 {  
+                    var page=j;
                     var data= factoringCompanyResult.FactCompany[j];
                     $.each(data, function(i, v) { 
                         var id =factoringCompanyResult.FactCompany[j][i]._id;
@@ -218,8 +227,14 @@ $(document).ready(function() {
                         }
                         if(deleteStatus == 'NO' )
                         {
-
-
+                            // $("#fact_search").keyup(function(){
+                            //     var serachData=$(this).val();
+                            //     var search = new RegExp(serachData , 'i'); // prepare a regex object
+                            //     let b = factoringCompanyname.filter(serachData => search.test(serachData));
+                            //     console.log(b);
+                            //     // console.log(serachData);
+                            // });
+                            lentData.push(i);
                             var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                             //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
                                 "<td data-field='no'>" + no + "</td>" +
@@ -248,9 +263,14 @@ $(document).ready(function() {
 
                             $("#factCompTable").append(factComStr);
                             no++;
+                           
                         } 
+                       
                     });
+                    
                 }
+                var items=lentData.length;
+                Paginator(items);
             } 
             else 
             {
@@ -263,6 +283,45 @@ $(document).ready(function() {
         }
          
     }
+    function removePagi()
+    {
+        $('#nav').remove();
+        var startItem=0;
+        var endItem=10;
+        $('#factoring_table_pagination tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+        css('display','table-row').animate({opacity:1}, 300); 
+    }
+    function Paginator(items) 
+    {
+
+        $('#factoring_table_pagination').after ('<div id="nav"></div>');  
+        var rowsShown = 10;  
+        var rowsTotal = items;  
+        // console.log(items + " , " + page + " , " + per_page)
+        var numPages = rowsTotal/rowsShown;
+        numPages= ~~numPages;
+        // console.log("numPages = " + numPages);
+        // $('#nav').empty();
+        for (i = 0;i < numPages;i++) {  
+            var pageNum = i + 1;  
+            // console.log(pageNum);
+            $('#nav').append ('<a href="#" rel="'+i+'">'+pageNum+'</a> ');  
+        }  
+        $('#factoring_table_pagination tbody tr').hide();  
+        $('#factoring_table_pagination tbody tr').slice (0, rowsShown).show();  
+        $('#nav a:first').addClass('active');  
+        $('#nav a').bind('click', function() {  
+        $('#nav a').removeClass('active');  
+       $(this).addClass('active');  
+            var currPage = $(this).attr('rel');  
+            var startItem = currPage * rowsShown;  
+            var endItem = startItem + rowsShown;  
+            $('#factoring_table_pagination tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+            css('display','table-row').animate({opacity:1}, 300);   
+        }); 
+    }
+   
+    
 
     //====================== end view =====================================
 
@@ -564,68 +623,218 @@ $(document).ready(function() {
         $('#RestoreFacoringCompanyModal').modal('show');
     });
     $(".RestoreFactoringCompanyModalClose").click(function(){
+        restoreremovePagi();
         $('#RestoreFacoringCompanyModal').modal('hide');
     });
     function RestoreFactoringCompanyRows(factoringCompanyResult)
     {
         var consigneelen = 0;
         if (factoringCompanyResult != null) {
-            consigneelen = factoringCompanyResult.factoring.length;
             $("#RestorefactCompTable").html('');
-
-            if (consigneelen > 0) {
+            var lentData=[];
+            consigneelen = factoringCompanyResult.FactCompany.length;
+            if (consigneelen > 0)
+            {
                 var no=1; 
-                for (var i = consigneelen-1; i >= 0; i--) {  
-                    var custID=factoringCompanyResult.companyID;
-                    var id =factoringCompanyResult.factoring[i]._id;
-                    var factoringCompanyname =factoringCompanyResult.factoring[i].factoringCompanyname;
-                    var address =factoringCompanyResult.factoring[i].address;
-                    var location=factoringCompanyResult.factoring[i].location;
-                    var zip=factoringCompanyResult.factoring[i].zip;
-                    var primaryContact=factoringCompanyResult.factoring[i].primaryContact;
-                    var telephone=factoringCompanyResult.factoring[i].telephone;
-                    var extFactoring =factoringCompanyResult.factoring[i].extFactoring;
-                    var fax =factoringCompanyResult.factoring[i].fax;
-                    var tollFree=factoringCompanyResult.factoring[i].tollFree;
-                    var ContactEmail=factoringCompanyResult.factoring[i].email;
-                    var secondaryContact =factoringCompanyResult.factoring[i].secondaryContact;
-                    var factoringtelephone =factoringCompanyResult.factoring[i].factoringtelephone;
-                    var ext =factoringCompanyResult.factoring[i].ext;
-                    var currencySetting =factoringCompanyResult.factoring[i].currencySetting;
-                    var paymentTerms =factoringCompanyResult.factoring[i].paymentTerms;
-                    var  taxID=factoringCompanyResult.factoring[i].taxID;
-                    var internalNote =factoringCompanyResult.factoring[i].internalNote;
-                    var deleteStatus =factoringCompanyResult.factoring[i].deleteStatus;
+                for (var j=0;j<consigneelen;j++) 
+                {  
+                    var page=j;
+                    var data= factoringCompanyResult.FactCompany[j];
+                    $.each(data, function(i, v) { 
+                      
+                        var custID=factoringCompanyResult.companyId;
+                        var id =factoringCompanyResult.FactCompany[j][i]._id;
+                        var factoringCompanyname =factoringCompanyResult.FactCompany[j][i].factoringCompanyname;
+                       
+                        var address =factoringCompanyResult.FactCompany[j][i].address;
+                        var location=factoringCompanyResult.FactCompany[j][i].location;
+                        var zip=factoringCompanyResult.FactCompany[j][i].zip;
+                        var primaryContact=factoringCompanyResult.FactCompany[j][i].primaryContact;
+                        var telephone=factoringCompanyResult.FactCompany[j][i].telephone;
+                        var extFactoring =factoringCompanyResult.FactCompany[j][i].extFactoring;
+                        var fax =factoringCompanyResult.FactCompany[j][i].fax;
+                        var tollFree=factoringCompanyResult.FactCompany[j][i].tollFree;
+                        var ContactEmail=factoringCompanyResult.FactCompany[j][i].email;
+                        var secondaryContact =factoringCompanyResult.FactCompany[j][i].secondaryContact;
+                        var factoringtelephone =factoringCompanyResult.FactCompany[j][i].factoringtelephone;
+                        var ext =factoringCompanyResult.FactCompany[j][i].ext;
+                        var currencySetting =factoringCompanyResult.FactCompany[j][i].currencySetting;
+                        var paymentTerms =factoringCompanyResult.FactCompany[j][i].paymentTerms;
+                        var  taxID=factoringCompanyResult.FactCompany[j][i].taxID;
+                        var internalNote =factoringCompanyResult.FactCompany[j][i].internalNote;
+                        var deleteStatus =factoringCompanyResult.FactCompany[j][i].deleteStatus;
+                        if(factoringCompanyname !="" && factoringCompanyname!= null)
+                        {
+                            factoringCompanyname=factoringCompanyname;
+                        }
+                        else
+                        {
+                            factoringCompanyname="-----";
+                        }
+                        if(address !="" && address!= null)
+                        {
+                            address=address;
+                        }
+                        else
+                        {
+                            address="-----";
+                        }
+                        if(location !="" && location!= null)
+                        {
+                            location=location;
+                        }
+                        else
+                        {
+                            location="-----";
+                        }
+                        if(zip !="" && zip!= null)
+                        {
+                            zip=zip;
+                        }
+                        else
+                        {
+                            zip="-----";
+                        }
+                        if(primaryContact !="" && primaryContact!= null)
+                        {
+                            primaryContact=primaryContact;
+                        }
+                        else
+                        {
+                            primaryContact="-----";
+                        }
+                        if(telephone !="" && telephone!= null)
+                        {
+                            telephone=telephone;
+                        }
+                        else
+                        {
+                            telephone="-----";
+                        }
+                        if(extFactoring !="" && extFactoring!= null)
+                        {
+                            extFactoring=extFactoring;
+                        }
+                        else
+                        {
+                            extFactoring="-----";
+                        }
+                        if(fax !="" && fax!= null)
+                        {
+                            fax=fax;
+                        }
+                        else
+                        {
+                            fax="-----";
+                        }
+                        if(tollFree !="" && tollFree!= null)
+                        {
+                            tollFree=tollFree;
+                        }
+                        else
+                        {
+                            tollFree="-----";
+                        }
+                        if(ContactEmail !="" && ContactEmail!= null)
+                        {
+                            ContactEmail=ContactEmail;
+                        }
+                        else
+                        {
+                            ContactEmail="-----";
+                        }
+                        if(secondaryContact !="" && secondaryContact!= null)
+                        {
+                            secondaryContact=secondaryContact;
+                        }
+                        else
+                        {
+                            secondaryContact="-----";
+                        }
+                        if(factoringtelephone !="" && factoringtelephone!= null)
+                        {
+                            factoringtelephone=factoringtelephone;
+                        }
+                        else
+                        {
+                            factoringtelephone="-----";
+                        }
+                        if(ext !="" && ext!= null)
+                        {
+                            ext=ext;
+                        }
+                        else
+                        {
+                            ext="-----";
+                        }
+                        if(currencySetting !="" && currencySetting!= null)
+                        {
+                            currencySetting=currencySetting;
+                        }
+                        else
+                        {
+                            currencySetting="-----";
+                        }
+                        if(paymentTerms !="" && paymentTerms!= null)
+                        {
+                            paymentTerms=paymentTerms;
+                        }
+                        else
+                        {
+                            paymentTerms="-----";
+                        }
+                        if(taxID !="" && taxID!= null)
+                        {
+                            taxID=taxID;
+                        }
+                        else
+                        {
+                            taxID="-----";
+                        }
+                        if(internalNote !="" && internalNote!= null)
+                        {
+                            internalNote=internalNote;
+                        }
+                        else
+                        {
+                            internalNote="-----";
+                        }
                 
-                    if(deleteStatus == 'YES' ){
+                        if(deleteStatus == 'YES' )
+                        {
 
-                        var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                        //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-                        "<td data-field='no'><input type='checkbox' class='check_FactrCom_one' name='checkedFactComp_ids[]' data-id=" + id + " date-cusId=" + custID + "  value=" + id + "></td>" +
-                        "<td data-field='factoringCompanyname' >" + factoringCompanyname + "</td>" +
-                        "<td data-field='address' >" + address + "</td>" +
-                        "<td data-field='location' >" + location + "</td>" +
-                        "<td data-field='zip' >" + zip + "</td>" +
-                        "<td data-field='primaryContact' >" + primaryContact + "</td>" +
-                        "<td data-field='telephone' >" + telephone + "</td>" +
-                        "<td data-field='extFactoring' >" + extFactoring + "</td>" +
-                        "<td data-field='fax' >" + fax + "</td>" +
-                        "<td data-field='tollFree' >" + tollFree + "</td>" +
-                        "<td data-field='ContactEmail' >" + ContactEmail + "</td>" +
-                        "<td data-field='secondaryContact' >" + secondaryContact + "</td>" +
-                        "<td data-field='factoringtelephone' >" + factoringtelephone + "</td>" +
-                        "<td data-field='ext' >" + ext + "</td>" +
-                        "<td data-field='currencySetting' >" + currencySetting + "</td>" +
-                        "<td data-field='paymentTerms' >" + paymentTerms + "</td>" +
-                        "<td data-field='taxID' >" + taxID + "</td>" +
-                        "<td data-field='internalNote' >" + internalNote + "</td></tr>";
+                            // console.log(factoringCompanyname);
+                            lentData.push(i);
+                            // console.log(lentData);
+                            var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                            //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
+                            "<td data-field='no'><input type='checkbox' class='check_FactrCom_one' name='checkedFactComp_ids[]' data-id=" + id + " date-cusId=" + custID + "  value=" + id + "></td>" +
+                            "<td data-field='factoringCompanyname' >" + factoringCompanyname + "</td>" +
+                            "<td data-field='address' >" + address + "</td>" +
+                            "<td data-field='location' >" + location + "</td>" +
+                            "<td data-field='zip' >" + zip + "</td>" +
+                            "<td data-field='primaryContact' >" + primaryContact + "</td>" +
+                            "<td data-field='telephone' >" + telephone + "</td>" +
+                            "<td data-field='extFactoring' >" + extFactoring + "</td>" +
+                            "<td data-field='fax' >" + fax + "</td>" +
+                            "<td data-field='tollFree' >" + tollFree + "</td>" +
+                            "<td data-field='ContactEmail' >" + ContactEmail + "</td>" +
+                            "<td data-field='secondaryContact' >" + secondaryContact + "</td>" +
+                            "<td data-field='factoringtelephone' >" + factoringtelephone + "</td>" +
+                            "<td data-field='ext' >" + ext + "</td>" +
+                            "<td data-field='currencySetting' >" + currencySetting + "</td>" +
+                            "<td data-field='paymentTerms' >" + paymentTerms + "</td>" +
+                            "<td data-field='taxID' >" + taxID + "</td>" +
+                            "<td data-field='internalNote' >" + internalNote + "</td></tr>";
 
-                        $("#RestorefactCompTable").append(factComStr);
-                        no++;
-                    } 
-
+                            $("#RestorefactCompTable").append(factComStr);
+                            no++;
+                        } 
+                    });
                 }
-            } 
+                var items=lentData.length;
+                RestorePaginator(items);
+            }
         }
         else {
             var tr_str1 = "<tr data-id=" + i + ">" +
@@ -634,6 +843,39 @@ $(document).ready(function() {
 
             $("#RestorefactCompTable").append(tr_str1);
         }
+    }
+    function RestorePaginator(items) 
+    {
+
+        $('#restore_factoringCompanyTable').after ('<div id="nav"></div>');  
+        var rowsShown = 10;  
+        var rowsTotal = items;  
+        var numPages = rowsTotal/rowsShown;
+        numPages= ~~numPages;
+        for (i = 0;i < numPages;i++) {  
+            var pageNum = i + 1;  
+            $('#nav').append ('<a href="#" rel="'+i+'">'+pageNum+'</a> ');  
+        }  
+        $('#restore_factoringCompanyTable tbody tr').hide();  
+        $('#restore_factoringCompanyTable tbody tr').slice (0, rowsShown).show();  
+        $('#nav a:first').addClass('active');  
+        $('#nav a').bind('click', function() {  
+        $('#nav a').removeClass('active');  
+       $(this).addClass('active');  
+            var currPage = $(this).attr('rel');  
+            var startItem = currPage * rowsShown;  
+            var endItem = startItem + rowsShown;  
+            $('#restore_factoringCompanyTable tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+            css('display','table-row').animate({opacity:1}, 300);   
+        }); 
+    } 
+    function restoreremovePagi()
+    {
+        $('#nav').remove();
+        var startItem=0;
+        var endItem=10;
+        $('#restore_factoringCompanyTable tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+        css('display','table-row').animate({opacity:1}, 300); 
     }
 
     $(document).on("change", ".checked_FactringIds", function () {
