@@ -18,15 +18,19 @@ class CustomerController extends Controller
     
     
     public function getCustomerData(Request $request){
-        $companyID=(int)67;
-        $customer = Customer::where('companyID',$companyID )->first();
+        $companyID=Auth::user()->companyID;
+        $customer = Customer::where('companyID',$companyID)->first();
         return response()->json($customer, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
+    }
+    public function getLBCustomerData(Request $request){
+        $customer = Customer::select('customer.custName','customer._id','customer.deleteStatus')->where('companyID',1)->get();
+        return response()->json(['customer'=>$customer], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
     public function getCustomerCurrency(Request $request){
         
-        $companyIDForCustomer=1;
+        $companyIDForCustomer=Auth::user()->companyID;
         $customerCurr = Currency_add::where('companyID',$companyIDForCustomer)->first();
        // dd($customerCurr);
         return response()->json($customerCurr, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -36,7 +40,7 @@ class CustomerController extends Controller
          //dd($request);
         //$customerAdd = Customer::all();
    
-        $companyIDForCurrency=1;
+        $companyIDForCurrency=Auth::user()->companyID;
         $totalCurrencyArray=0;
         $getCompanyForCurrency = Currency_add::where('companyID',$companyIDForCurrency)->first();
 
@@ -85,7 +89,7 @@ class CustomerController extends Controller
     }
 
     public function getCustomerPaymentTerms(Request $request){
-        $companyIDForCustomer=1;
+        $companyIDForCustomer=Auth::user()->companyID;
         $customerPaymentterms = Payment_terms::where('companyID',$companyIDForCustomer)->first();
        // dd($customerCurr);
         return response()->json($customerPaymentterms, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -93,11 +97,11 @@ class CustomerController extends Controller
 
     public function addCustomerPaymentTerms(Request $request){
         //dd($request);
-       $companyIDForPaymentTerms=1;
+       $companyIDForPaymentTerms=Auth::user()->companyID;
 
        //$customerAdd = Customer::all();
   
-       $companyIDForPaymentTerms=1;
+       $companyIDForPaymentTerms=Auth::user()->companyID;
        $totalPaymentTermsArray=0;
        $getCompanyForPaymentTerms = Payment_terms::where('companyID',$companyIDForPaymentTerms)->first();
 
@@ -254,7 +258,7 @@ class CustomerController extends Controller
         
         // $customerAdd = Customer::all();
    
-        $companyIDForCustomer=67;
+        $companyIDForCustomer=Auth::user()->companyID;
         $totalCustomerArray=0;
         $getCompanyForCustomer = Customer::where('companyID',$companyIDForCustomer)->first();
 
@@ -378,7 +382,7 @@ class CustomerController extends Controller
         $id=$request->id;
         // dd($id);
         $email=$request->email;
-        $companyID=(int)67;
+        $companyID=Auth::user()->companyID;
         $customerData=Customer::where("companyID",$companyID)->first();
         $cusomerArray=$customerData->customer;
         $arrayLength=count($cusomerArray);
@@ -416,7 +420,7 @@ class CustomerController extends Controller
           
         ]);
 
-        $companyID=(int)67;
+        $companyID=Auth::user()->companyID;
         $id=$request->id;
 
         $customerData = Customer::where('companyID',$companyID )->first();

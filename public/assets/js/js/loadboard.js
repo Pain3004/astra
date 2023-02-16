@@ -21,34 +21,7 @@ $(document).ready(function() {
   })
 //-- -------------------------------------------------------------------------    -- -------------------------------------------------------------------------
 
-// var table = document.getElementById("myTable");
-// var rows = table.rows;
-// var data = [];
-// for (var i = 1; i < rows.length; i++) {
-//   data.push([]);
-//   var cells = rows[i].cells;
-//   for (var j = 0; j < cells.length; j++) {
-//     data[i-1].push(cells[j].innerHTML);
-//   }
-// }
-
-// data.sort(function(a, b) {
-//   return a[1] > b[1];
-// });
-
-// for (var i = 1; i < rows.length; i++) {
-//   table.deleteRow(1);
-// }
-// for (var i = 0; i < data.length; i++) {
-//   var row = table.insertRow(-1);
-//   for (var j = 0; j < data[i].length; j++) {
-//     var cell = row.insertCell(-1);
-//     cell.innerHTML = data[i][j];
-//   }
-// }
-
-
-//-- -------------------------------------------------------------------------  Get  -- -------------------------------------------------------------------------
+//-- -------------------------------------------------------------------------  Get loaboard data -- -------------------------------------------------------------------------
   $.ajax({
       type: "GET",
       url: base_path+"/admin/getLoadboardData",
@@ -59,8 +32,7 @@ $(document).ready(function() {
           createLoadBoardRows(text);
         }
   });
-// <!-- -------------------------------------------------------------------------over Get fuelReceipt  ------------------------------------------------------------------------- --> 
-// <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
+// <!-- function   --> 
   
 // get
   function createLoadBoardRows(Result) {
@@ -323,22 +295,11 @@ $(document).ready(function() {
         "</tr>";
       }
   }
+// <!-- over function    -->  
+// <!-- -------------------------------------------------------------------------over Get   ------------------------------------------------------------------------- --> 
 
-// $('.btn_menu').click(function(){
-//   $('.btn_menu').html();
-//   $(this).append($('.gen_menu').html());
-// });
-
-// $('.invoice_btn').click(function(){
-
-//       $('.invoice_btn').find('.invoice_menu_inner').remove();
-//       $(this).append($(".invoice_menu").html());
-    
-//    });
-
-// <!-- -------------------------------------------------------------------------over function   ------------------------------------------------------------------------- -->  
 // <!-- -------------------------------------------------------------------------change status   ------------------------------------------------------------------------- -->  
-$('.loadStatus').click(function() {
+  $('.loadStatus').click(function() {
   var oldSelectedValue = this.value;
   $('body').on('change','.loadStatus', function (e) {
     var valueSelected = this.value;
@@ -378,9 +339,145 @@ $('.loadStatus').click(function() {
       });
     });
    });
- }); 
-
-
+  }); 
 // <!-- -------------------------------------------------------------------------over change status   ------------------------------------------------------------------------- -->  
+// <!-- -------------------------------------------------------------------------get company for add new loadboard ------------------------------------------------------------------------- -->  
+$('.closeAddNewLoadBoard').click(function(){
+  $('#addLoadBoardModal').modal('hide');
+});
+$('#addLoadBoard').click(function(){
+    // $('.companyListSet').focus(function(){
+      $.ajax({
+          type: "GET",
+          url: base_path+"/admin/lbcompany",
+          async: false,
+          success: function(Result) { 
+            console.log(Result);                    
+              createcompanyList(Result);
+          }
+      });
+    // });
+    $('#addLoadBoardModal').modal('show');
+  }); 
+
+  function createcompanyList(Result) {           
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.company.length;
+          console.log(Length);
+      }
+
+      if (Length > 0) {
+          // var no=1;
+          $(".companyListSet").html('');
+          for (var i = 0; i < Length; i++) { 
+              var companyLength =Result.company[i].company.length;
+              for (var j = 0; j < companyLength; j++) {  
+                var company =Result.company[i].company[j].companyName;
+                var id =Result.company[i].company[j]._id;
+                var deleteStatus =Result.company[i].company[j].deleteStatus;
+
+                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id='customerCurrency' data-id='"+id+"' value='"+ company +"'>"                   
+                  $(".companyListSet").append(List);
+                }
+              }
+            }
+      }
+      
+  }
+// <!-- -------------------------------------------------------------------------over get company  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get customer for add new loadboard ------------------------------------------------------------------------- -->  
+  $('.customerListSet').focus(function(){
+    console.log("helo"); 
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/getLBCustomerData",
+        async: false,
+        success: function(Result) { 
+          console.log(Result);                    
+          createcustomerList(Result);
+        }
+    });
+  });
+
+  function createcustomerList(Result) {           
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.customer.length;
+          console.log(Length);
+      }
+
+      if (Length > 0) {
+          // var no=1;
+          $(".customerListSet").html('');
+          for (var i = 0; i < Length; i++) { 
+              var customerLength =Result.customer[i].customer.length;
+              for (var j = 0; j < customerLength; j++) {  
+                var customer =Result.customer[i].customer[j].custName;
+                var id =Result.customer[i].customer[j]._id;
+                var deleteStatus =Result.customer[i].customer[j].deleteStatus;
+
+                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id='customerCurrency' data-id='"+id+"' value='"+ customer +"'>"                   
+                  $(".customerListSet").append(List);
+                }
+              }
+            }
+      }
+      
+  }
+
+  $("#LBCustomerPlus").click(function(){
+    $("#addLoadBoardModal").css("z-index","-1");
+    // $("#addLoadBoardModal").modal("hide");
+    $("#addCustomerModal").modal("show");
+    
+});
+// <!-- -------------------------------------------------------------------------over get customer  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get Dispatcher for add new loadboard ------------------------------------------------------------------------- -->  
+$('.DispatcherListSet').focus(function(){
+  console.log("helo"); 
+  $.ajax({
+      type: "GET",
+      url: base_path+"/admin/user",
+      async: false,
+      success: function(Result) { 
+        // console.log(Result);                    
+        createDispatcherList(Result);
+      }
+  });
+});
+
+function createDispatcherList(Result) {           
+    var Length = 0;    
+    
+    if (Result != null) {
+        Length = Result.length;
+        console.log(Length);
+    }
+
+    if (Length > 0) {
+        $(".DispatcherListSet").html('');
+        for (var i = 0; i < Length; i++) { 
+            // var DispatcherLength =Result[i].Dispatcher.length;
+            // for (var j = 0; j < DispatcherLength; j++) {  
+              var id =Result[i]._id;
+              var userFirstName =Result[i].userFirstName;
+              var userLastName =Result[i].userLastName;
+              // var deleteStatus =Result[i].Dispatcher[j].deleteStatus;
+
+              // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                var List = "<option id='Dispatcher' data-value='"+id+"' value='"+ userFirstName +" "+ userLastName +"'>"                   
+                $(".DispatcherListSet").append(List);
+              // }
+            // }
+          }
+    }
+    
+}
+// <!-- -------------------------------------------------------------------------over get Dispatcher  ------------------------------------------------------------------------- -->
 
 });

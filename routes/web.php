@@ -118,6 +118,7 @@ Route::post('admin/restoreDriver', [DriverController::class, 'restoreDriver']);
 
 //customer
 Route::get('admin/customer', [CustomerController::class, 'getCustomerData']);
+Route::get('admin/getLBCustomerData', [CustomerController::class, 'getLBCustomerData']);
 Route::post('admin/addCustomer', [CustomerController::class, 'addCustomerData']);
 Route::get('admin/edit_customer', [CustomerController::class, 'edit_customer']);
 Route::post('admin/update_customer', [CustomerController::class, 'update_customer']);
@@ -150,6 +151,7 @@ Route::post('admin/restoreFactCompany', [factCompanyController::class, 'restoreF
 
 //company
 Route::get('admin/company', [CompanyController::class, 'getCompanyData']);
+Route::get('admin/lbcompany', [CompanyController::class, 'getlbcompanyData']);
 Route::post('admin/addCompany', [CompanyController::class, 'addCompanyData']);
 Route::get('admin/editCompany', [CompanyController::class, 'editCompanyData']);
 Route::post('admin/updateCompany', [CompanyController::class, 'updateCompanyData']);

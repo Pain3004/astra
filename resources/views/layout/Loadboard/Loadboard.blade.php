@@ -51,7 +51,9 @@
 													<a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
 												</div> -->
                                                 <div class="col-2 btn-group submitter-group">
-                                                    <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
+                                                    <!-- <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a> -->
+                                                    <a href="#"  id="addLoadBoard" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
+
                                                 </div>
 												<div class="col-1">
 												</div>
@@ -149,7 +151,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add New LoadBoard</h4>
-                    <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+                    <button type="button" class="button-24 closeAddNewLoadBoard">&times;</button>
                 </div>
 
                 <!-- Modal body -->
@@ -167,36 +169,25 @@
                                                 @csrf
                                                 <div class="form-row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="CompanyName">Select Your Company <span
-                                                                style="color:#ff0000">*</span> </label>
-                                                        <input list="companyname" class="form-control"
-                                                            placeholder="--Select--" id="CompanyName"
-                                                            name="CompanyName" autocomplete="off">
-                                                        <datalist id="companyname">
-                                                            <option value="AL">
-                                                            <option value="AK">
-                                                        </datalist>
+                                                        <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span> </label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control companyListSet" list="companyListSet" name="" id="">
+                                                            <datalist id="companyListSet" class="companyListSet"></datalist>    
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label>Customer &nbsp; 
-                                                        <span herf="#addCustomerModal2" data-target="#addCustomerModal2" class="glyphicon glyphicon-plus-sign"  data-toggle="modal"  style="cursor:pointer;" ></span>
-                                                        </label>
-                                                            <div class="dropdown show">
-                                                            <select  class="form-control set_company_name" name="company_name" id="inputCompanyName">
-                                                                    <option>Select Here</option>
-                                                                </select>
-                                                            </div>
+                                                        <label>Customer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCustomerPlus" style='color:blue !important'></i></label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control customerListSet" list="customerListSet" name="" id="">
+                                                            <datalist id="customerListSet" class="customerListSet"></datalist>    
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="Dispatcher">Dispatcher <span
-                                                                style="color:#ff0000">*</span> </label>
-                                                        <input list="dispatcher" class="form-control"
-                                                            placeholder="--Select--" id="Dispatcher"
-                                                            name="Dispatcher" autocomplete="off">
-                                                        <datalist id="dispatcher">
-                                                            <option value="AL">
-                                                            <option value="AK">
-                                                        </datalist>
+                                                        <label for="Dispatcher">Dispatcher <span style="color:#ff0000">*</span> </label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control DispatcherListSet" list="DispatcherListSet" name="" id="">
+                                                            <datalist id="DispatcherListSet" class="DispatcherListSet"></datalist>    
+                                                        </div>  
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="CN">CN No.<span
@@ -380,10 +371,7 @@
 
                                                 <div class="form-row">
                                                     <h6>
-                                                        <a class="btn btn-primary" onclick="add_fields();" data-toggle="tooltip"
-                                                            data-placement="top" title="Click here to add more shippers.">ADD
-                                                            SHIPPER
-</a>
+                                                        <a class="btn btn-primary" onclick="add_fields();" data-toggle="tooltip" data-placement="top" title="Click here to add more shippers.">ADD SHIPPER</a>
                                                         <i class="mdi mdi-plus-circle plus-xs" id="add_shipper_modal"></i>
                                                     </h6>
                                                     <div class="card m-b-30 shadow" id="sc-card">
@@ -521,7 +509,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="button-29 driverDataSubmit">Submit</button>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-29  closeAddNewLoadBoard">Close</button>
                 </div>
 
             </div>
@@ -592,9 +580,9 @@ function add_fields() {
     '" role="tabpanel" aria-labelledby="home-tab' +
     room +
     '"><div class="row m-2">\n' +
-    '                                            <div class="form-group col-md-3">\n' +
-    "                                                <label>Name*</label>\n" +
-    '                                                 <input list="shipper' +
+    '<div class="form-group col-md-3">\n' +
+    "<label>Name*</label>\n" +
+    ' <input list="shipper' +
     room +
     '" class="form-control" placeholder="Search here..." id="shipperlist' +
     room +
@@ -605,15 +593,15 @@ function add_fields() {
     "," +
     room +
     '); "  autocomplete="off">\n' +
-    '                                                 <datalist id="shipper' +
+    '<datalist id="shipper' +
     room +
     '" name="shipper">\n' +
-    "                                                 </datalist>\n" +
-    "                                            </div>\n" +
-    '                                            <div class="form-group col-md-2">\n' +
-    "                                                <label>Address*</label>\n" +
-    "                                                <div>\n" +
-    '                                                    <input class="form-control" id = "shipperaddress' +
+    "</datalist>\n" +
+    "  </div>\n" +
+    ' <div class="form-group col-md-2">\n' +
+    " <label>Address*</label>\n" +
+    "  <div>\n" +
+    ' <input class="form-control" id = "shipperaddress' +
     room +
     '" name="shipperaddress" placeholder="Address *" type="text"\n' +
     "                                                           >\n" +
@@ -819,7 +807,6 @@ function removeTab(mainid, contentid) {
     });
   }
 }
-
 
 </script>
 

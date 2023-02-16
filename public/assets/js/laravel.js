@@ -573,6 +573,9 @@ $(document).ready(function() {
                 // var no=1;
                 //$(".customerCurrencySet").html('');
                 $(".set_company_name").html('');
+
+                // var companyDetailsList = "<option  value=''>Select here.... </option>"  
+                // $(".set_company_name").append(companyDetailsList);
                 for (var i=0; i<companyDetailLength; i++) 
                 {  
                     var companyName =companyDetails.company[i].companyName;
@@ -2775,16 +2778,16 @@ function GetDynamicRecurrence(value) {
         '" name="rec_PlusRecurrence[]" ' +
         ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
         '<td width="150">' +
-        '<input class="form-control" value = "' + value +
+        '<input class="form-control rec_installmentType" value = "' + value +
         '" name="rec_installmentType[]" list="instatype1" autocomplete="off"/></td>' +
         '<td width="100">' +
-        '<input name="rec_amount[]" type="number" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_amount[]" type="number" value = "' + value + '" class="form-control rec_amount" /></td>' +
         '<td width="100">' +
-        '<input name="rec_installment[]" type="number" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100"><input name="rec_startNo[]" type="number" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="10"><input name="rec_startDate[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_installment[]" type="number" value = "' + value + '" class="form-control rec_installment" /></td>' +
+        '<td width="100"><input name="rec_startNo[]" type="number" value = "' + value + '" class="form-control rec_startNo" /></td>' +
+        '<td width="10"><input name="rec_startDate[]" type="date" value = "' + value + '" class="form-control rec_startDate" /></td>' +
         '<td width="250"><textarea rows="1" cols="30" value = "' + value +
-        '" class="form-control" type="textarea" name="rec_internalNote[]"></textarea></td>' +
+        '" class="form-control rec_internalNote" type="textarea" name="rec_internalNote[]"></textarea></td>' +
         '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
 }
 // <!-- ------------------------------------------------------------------------- End of Add Recurrence ------------------------------------------------------------------------- -->

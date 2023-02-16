@@ -430,6 +430,68 @@ function createPlusRecurrence(Result) {
 }
 
 $('#saveDriverAddRecurrence').click(function(){
+    var Category= $('.driverPlusRecurrence').val();
+    if(Category == ''){
+        swal.fire({title: 'Please Select Fix Pay Category',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $(".driverPlusRecurrence").focus();
+        return false;
+    }
+
+    
+        // var Category= $('.driverPlusRecurrence').val();
+        // if(Category == ''){
+        //     $('.driverPlusRecurrence').each(function(){
+        //         swal.fire({title: 'Please Select Fix Pay Category',text: 'Redirecting...',timer: 3000,buttons: false,})
+        //         $(".driverPlusRecurrence").focus();
+        //         return false;
+        //     });
+        // }
+    
+
+    var rec_installmentType= $('.rec_installmentType').val();
+    if(rec_installmentType == ''){
+        swal.fire({title: 'Please Select installment Type',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $(".rec_installmentType").focus();
+        return false;
+    }
+
+    var rec_amount= $('.rec_amount').val();
+    if(rec_amount == ''){
+        swal.fire({title: 'Please Enter amount',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $(".rec_amount").focus();
+        return false;
+    }
+
+    var rec_installment= $('.rec_installment').val();
+    if(rec_installment == ''){
+        swal.fire({title: 'Please Enter Installment',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $(".rec_installment").focus();
+        return false;
+    }
+
+    var rec_startNo= $('.rec_startNo').val();
+    if(rec_startNo == ''){
+        swal.fire({title: 'Please Enter Start No',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $(".rec_startNo").focus();
+        return false;
+    }
+
+    var rec_startDate= $('.rec_startDate').val();
+    if(rec_startDate == ''){
+        swal.fire({title: 'Please Enter Start Date',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $(".rec_startDate").focus();
+        return false;
+    }
+
+    var rec_internalNote= $('.rec_internalNote').val();
+    if(rec_internalNote == ''){
+        swal.fire({title: 'Please Enter internal Note',text: 'Redirecting...',timer: 3000,buttons: false,})
+        $(".rec_internalNote").focus();
+        return false;
+    }
+
+    
+
     var data=$('#adddriverRecurrenceForm').serialize()
     $('#addRecurrence').modal('hide');
 });
