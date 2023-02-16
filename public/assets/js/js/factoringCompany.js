@@ -227,13 +227,7 @@ $(document).ready(function() {
                         }
                         if(deleteStatus == 'NO' )
                         {
-                            // $("#fact_search").keyup(function(){
-                            //     var serachData=$(this).val();
-                            //     var search = new RegExp(serachData , 'i'); // prepare a regex object
-                            //     let b = factoringCompanyname.filter(serachData => search.test(serachData));
-                            //     console.log(b);
-                            //     // console.log(serachData);
-                            // });
+                           
                             lentData.push(i);
                             var factComStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
                             //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
@@ -283,6 +277,15 @@ $(document).ready(function() {
         }
          
     }
+
+
+    // $("#fact_search").on("keyup", function() {
+    //     var value = $(this).val().toLowerCase();
+    //     $("#factoring_table_pagination td").filter(function() {
+    //       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    //     });
+    //   });
+
     function removePagi()
     {
         $('#nav').remove();

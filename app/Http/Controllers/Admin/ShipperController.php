@@ -22,8 +22,15 @@ class ShipperController extends Controller
         $shipper = Shipper::where('companyID',$companyId)->first();
         $consignee = Consignee::where('companyID',$companyId)->first();
 
-        //dd($shipper);
-       return response()->json(['shipper'=>$shipper,'consignee'=>$consignee], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        // $consignee = Consignee::where('companyID',$companyId)->where('consignee.consignee[0]._id',$companyId)->first();
+
+        $shipper=collect($shipper->shipper);
+        $shipper = $shipper->chunk(10);
+        // dd($shipper);
+        $consignee=collect($consignee->consignee);
+        $consignee = $consignee->chunk(10);
+        // dd($consignee);
+       return response()->json(['shipper'=>$shipper,'consignee'=>$consignee,'companyId'=>$companyId], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
     public function storeShipper(Request $request)
@@ -36,6 +43,8 @@ class ShipperController extends Controller
             {
                 if($Shipper_data)
                 {
+                    // $shipper=collect($shipper->shipper);
+                    // $shipper = $shipper->chunk(10);
                     $ShipperArray=$Shipper_data->shipper;
                     $ids=array();
                     foreach( $ShipperArray as $key=> $getFuelCard_data)
