@@ -19,8 +19,38 @@ class CustomerController extends Controller
     
     public function getCustomerData(Request $request){
         $companyID=(int)67;
-        $customer = Customer::where('companyID',$companyID )->first();
-        return response()->json($customer, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $total_records = 0;
+        $cursor = Customer::where('companyID',$companyID)->raw(function($collection)
+        {
+            return $collection->aggregate([
+                ['$match' => ['companyID' => 67]],
+                ['$project' => ['size' => ['$size' => ['$customer']],
+                ]]
+            ]);
+        });
+ 
+        $totalarray = $cursor;
+        $docarray = array();
+        foreach ($cursor as $v) {
+            $docarray[] = array("size" => $v['size'], "id" => $v['_id']);
+            $total_records += (int)$v['size'];
+        }
+        $completedata = array();
+        $partialdata = array();
+        $paginate = $helper->paginate($docarray);
+        if (!empty($paginate[0][0][0])) {
+            for ($i = 0; $i < sizeof($paginate[0][0][0]); $i++) {
+                $partialdata[] = $this->getData($db, $companyID, $paginate[0][0][0][$i]['doc'], $paginate[0][0][0][$i]['end'], $paginate[0][0][0][$i]['start']);
+            }
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $paginate;
+        $completedata[] = $total_records;
+      
+
+        
+        
+        return response()->json($completedata, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
        
     }
 
