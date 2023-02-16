@@ -25,6 +25,7 @@ $('.closeDriverModal').click(function(){
     $('#driverModal').modal('hide');
 });
 $('.closeAddDriverModal').click(function(){
+    $("#addLoadBoardModal").css("z-index","100000000000");
     $('#RecurrenceCategoryModal').modal('hide');
     $('#addDriverModal').modal('hide');
 });
@@ -1498,7 +1499,9 @@ $('#addDriver').click(function(){
             cache: false,
             success: function(resp){
                 if(resp.success == true){
-                    swal.fire("Done!", resp.message, "success");
+                    swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                    // swal.fire("Done!", resp.message, "success");
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $("#addDriverModal").modal('hide');
                     $("#addDriverModal form").trigger("reset");
                     $.ajax({

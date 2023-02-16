@@ -16,6 +16,7 @@ $(document).ready(function() {
     });
 
     $('.addLoadTypeClose').click(function(){
+        $("#addLoadBoardModal").css("z-index","100000000000");
         $('#addLoadTypeModal').modal('hide');
     });
 
@@ -124,8 +125,8 @@ $(document).ready(function() {
             success: function(Result){
                 console.log(Result);
                 if(Result){
-                    swal.fire( "Added successfully.");
-                    // alert("Equipment Type added successfully.");
+                    swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $("#addLoadTypeModal").modal("hide");
                     $("#addLoadTypeModal form").trigger('reset');
                     $.ajax({

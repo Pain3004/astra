@@ -23,6 +23,12 @@ class TrailerAdminAddController extends Controller
         return response()->json(['trailer'=>$traileradd,'trailer_type'=>$TrailerAdminAdd], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
         
     }
+    public function Trailer() {
+        $companyId=(int)Auth::user()->companyID;
+        $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$companyId)->get();
+        return response()->json(['trailer'=>$TrailerAdminAdd], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        
+    }
     public function addTrailerData(Request $request)
     {
         request()->validate([

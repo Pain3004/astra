@@ -264,6 +264,7 @@ Route::post('admin/restoreBranchOffice', [BranchOfficeController::class, 'restor
 
 //Trailer
 Route::get('admin/getTrailer', [TrailerAdminAddController::class, 'getTrailer']);
+Route::get('admin/Trailer', [TrailerAdminAddController::class, 'Trailer']);
 Route::post('admin/addTrailer', [TrailerAdminAddController::class, 'addTrailerData']);
 Route::get('admin/trailer_getTrailertype', [TrailerAdminAddController::class, 'trailer_getTrailertype']);
 Route::post('admin/trailer_addTrailertype', [TrailerAdminAddController::class, 'trailer_addTrailertype']);

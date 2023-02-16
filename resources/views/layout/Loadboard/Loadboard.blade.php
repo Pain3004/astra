@@ -190,14 +190,11 @@
                                                         </div>  
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="CN">CN No.<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="CN"
-                                                            placeholder="CN">
+                                                        <label for="CN">CN No.<span style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="CN" placeholder="CN">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label for="Status">Status <span style="color:#ff0000">*</span>
-                                                        </label>
+                                                        <label for="Status">Status <span style="color:#ff0000">*</span> </label>
                                                         <select class="form-control" id="status">
                                                             <option value="Open" selected="">0) Open</option>
                                                             <option value="Dispatched" disabled="">1) Dispatched</option>
@@ -216,14 +213,11 @@
 
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
-                                                        <label>Active Type</label>
-                                                        <span herf="#addActiveTypeModal" data-target="#addActiveTypeModal" class="glyphicon glyphicon-plus-sign"  data-toggle="modal"  style="cursor:pointer;" ></span>
-                                                        
-                                                            <div class="dropdown show">
-                                                            <select  class="form-control set_company_name" name="company_name" id="inputCompanyName">
-                                                                    <option>Select Here</option>
-                                                                </select>
-                                                            </div>
+                                                        <label>Active Type &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBLoadTypePlus" style='color:blue !important'></i></label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control LoadTypeListSet" list="LoadTypeListSet" name="" id="">
+                                                            <datalist id="LoadTypeListSet" class="LoadTypeListSet"></datalist>    
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-md-1">
                                                         <label for="rateAmount">Rate <span
@@ -264,14 +258,11 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label>Equipment Type</label>
-                                                        <span herf="#addEquipmentTypeModal" data-target="#addEquipmentTypeModal" class="glyphicon glyphicon-plus-sign"  data-toggle="modal"  style="cursor:pointer;" ></span>
-                                                        
-                                                            <div class="dropdown show">
-                                                            <select  class="form-control set_company_name" name="EquipmentType" id="inputEquipmentType">
-                                                                    <option>Select Here</option>
-                                                                </select>
-                                                            </div>
+                                                        <label>Equipment Type &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBEquipmentTypePlus" style='color:blue !important'></i></label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control EquipmentTypeListSet" list="EquipmentTypeListSet" name="" id="">
+                                                            <datalist id="EquipmentTypeListSet" class="EquipmentTypeListSet"></datalist>    
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -287,15 +278,13 @@
                                                         </div>
                                                     </div>
                                                     <div id="showdrivername" style="visibility:hidden" class="form-group col-md-2">
-                                                        
-                                                        <label for="DriverName">Driver Name<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="DriverName"
-                                                            placeholder="DriverName">
-
+                                                        <label>Driver Name &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control DriverListSet" list="DriverListSet" name="" id="">
+                                                            <datalist id="DriverListSet" class="DriverListSet"></datalist>    
+                                                        </div>
                                                     </div>
                                                     <div id="showowneroperator" style="visibility:hidden" class="form-group col-md-2">
-                                                        
                                                         <label for="OwnerOperator">OwnerOperator<span
                                                                 style="color:#ff0000">*</span></label>
                                                         <input type="text" class="form-control" id="OwnerOperator"
@@ -312,10 +301,11 @@
                                                     </div>
                                                     <div id="showtrailer" style="visibility:hidden" class="form-group col-md-1">
                                                         
-                                                        <label for="Trailer">Trailer<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="Trailer"
-                                                            placeholder="Trailer">
+                                                        <label>Trailer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus" style='color:blue !important'></i></label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control TrailerListSet" list="TrailerListSet" name="" id="">
+                                                            <datalist id="TrailerListSet" class="TrailerListSet"></datalist>    
+                                                        </div>
 
                                                     </div>
                                                     <div id="showloadedmiles" style="visibility:hidden" class="form-group col-md-1">
@@ -368,7 +358,7 @@
                                                     </div>
                                                     
                                                 </div>
-
+<!-- 
                                                 <div class="form-row">
                                                     <h6>
                                                         <a class="btn btn-primary" onclick="add_fields();" data-toggle="tooltip" data-placement="top" title="Click here to add more shippers.">ADD SHIPPER</a>
@@ -493,7 +483,7 @@
 
 
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                             </form>
 

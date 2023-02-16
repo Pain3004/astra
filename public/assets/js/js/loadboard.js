@@ -226,28 +226,28 @@ $(document).ready(function() {
                         var load_notes=Result1[i].load[j].load_notes;
                         if (load_notes) { var notes = load_notes != "" ? true : false; }
                         if (notes == true) { var chatIcon="<span class='mdi mdi-comment-processing extra5'></span> "; }else{ var chatIcon=''; }
-                          
-                        
+                        //---------------------------------- 
+                        //show first 5 charecter of orderId
+                        var order_id = orderId;
+                        if( order_id.length >= 5 ) {
+                          order_id = order_id.substr(0,5);
+                          order_id = order_id+"..."
+                        }
+                        //----------------------------------
+                        //show first 3 trailer of orderId
+                        var _trailer = trailer;
+                        if( _trailer.length >= 3 ) {
+                          _trailer = _trailer.substr(0,3)+"...";
+                          // _trailer = _trailer+"..."
+                        }
+                        //----------------------------------
 
                           $('#loadStatus option:selected').eq(status).prop('selected', true);
                           
                           var Str = "<tr style='z-index: 5;position: relative;' class='tr' data-id=" + (i + 1) + ">" +
                           "<td data-field='no' data-toggle='tooltip' data-placement='top' title='"+info+"'><i class='mdi mdi-restore-clock' style='font-size:24px'></i><br>" + no + "</td>" +
                           "<td data-field='invoice' class='modal-trigger invoice_btn' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+" <div class='rrrrr' style='position: absolute;z-index: 22222;height: 64px; display:none;'><ul><li><a href='#'>Menu 1</a></li><li><a href='#'>Menu 2</a></li><li><a href='#'>Menu 3</a></li></ul></div></td>" +
-                          // "<td data-field='orderId'>"+
-                          //   "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' >" +
-                          //     "<option value='" + status +"'  selected='' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+"</option>" +
-                          //     "<option value='Open'>Open</option>" +
-                          //     "<option value='Dispatched'>Dispatched</option>" +
-                          //     "<option value='Arrived Shipper'>Arrived Shipper</option>" +
-                          //     "<option value='Loaded'>Loaded</option>" +
-                          //     "<option value='On Route'>On Route</option>" +
-                          //     "<option value='Arrived Consignee'>Arrived Consignee</option>" +
-                          //     "<option value='Delivered'>Delivered</option>" +
-                          //     "<option value='Break Down'>Break Down</option>" +
-                          //   "</select>" +
-                          // "</td>" +
-                          "<td data-field='orderId'>" + orderId + "</td>" +
+                          "<td data-field='orderId' class='orderId' title='" + orderId + "'>" + order_id + "</td>" +
                           "<td data-field='status' style='color:black;'>" + 
                             "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
                               "<option value='" + status +"'  selected='' >" + status +"</option>" +
@@ -268,7 +268,7 @@ $(document).ready(function() {
                           "<td data-field='origin'>" + origin + "</td>" +
                           "<td data-field='destibation'>" + destibation + "</td>" +
                           "<td data-field='truck'>" + truck + "</td>" +
-                          "<td data-field='trailer'>" + trailer + "</td>" +
+                          "<td data-field='trailer' title='" + trailer + "'>" + _trailer + "</td>" +
                           "<td data-field='loadPay'>$" + loadPay + "</td>" +
                           "<td data-field='carrierPay_driverPay'>$" + carrierPay_driverPay + "</td>" +
                           "</tr>";
@@ -390,18 +390,17 @@ $('#addLoadBoard').click(function(){
 // <!-- -------------------------------------------------------------------------over get company  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get customer for add new loadboard ------------------------------------------------------------------------- -->  
   $('.customerListSet').focus(function(){
-    console.log("helo"); 
+    // console.log("helo"); 
     $.ajax({
         type: "GET",
         url: base_path+"/admin/getLBCustomerData",
         async: false,
         success: function(Result) { 
-          console.log(Result);                    
+          // console.log(Result);                    
           createcustomerList(Result);
         }
     });
   });
-
   function createcustomerList(Result) {           
       var Length = 0;    
       
@@ -432,52 +431,234 @@ $('#addLoadBoard').click(function(){
 
   $("#LBCustomerPlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
-    // $("#addLoadBoardModal").modal("hide");
     $("#addCustomerModal").modal("show");
     
-});
+  });
 // <!-- -------------------------------------------------------------------------over get customer  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Dispatcher for add new loadboard ------------------------------------------------------------------------- -->  
-$('.DispatcherListSet').focus(function(){
-  console.log("helo"); 
-  $.ajax({
-      type: "GET",
-      url: base_path+"/admin/user",
-      async: false,
-      success: function(Result) { 
-        // console.log(Result);                    
-        createDispatcherList(Result);
-      }
+  $('.DispatcherListSet').focus(function(){
+    console.log("helo"); 
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/user",
+        async: false,
+        success: function(Result) { 
+          // console.log(Result);                    
+          createDispatcherList(Result);
+        }
+    });
   });
-});
+  function createDispatcherList(Result) {           
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.length;
+          console.log(Length);
+      }
 
-function createDispatcherList(Result) {           
-    var Length = 0;    
-    
-    if (Result != null) {
-        Length = Result.length;
-        console.log(Length);
-    }
+      if (Length > 0) {
+          $(".DispatcherListSet").html('');
+          for (var i = 0; i < Length; i++) { 
+              // var DispatcherLength =Result[i].Dispatcher.length;
+              // for (var j = 0; j < DispatcherLength; j++) {  
+                var id =Result[i]._id;
+                var userFirstName =Result[i].userFirstName;
+                var userLastName =Result[i].userLastName;
+                // var deleteStatus =Result[i].Dispatcher[j].deleteStatus;
 
-    if (Length > 0) {
-        $(".DispatcherListSet").html('');
-        for (var i = 0; i < Length; i++) { 
-            // var DispatcherLength =Result[i].Dispatcher.length;
-            // for (var j = 0; j < DispatcherLength; j++) {  
-              var id =Result[i]._id;
-              var userFirstName =Result[i].userFirstName;
-              var userLastName =Result[i].userLastName;
-              // var deleteStatus =Result[i].Dispatcher[j].deleteStatus;
-
-              // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                var List = "<option id='Dispatcher' data-value='"+id+"' value='"+ userFirstName +" "+ userLastName +"'>"                   
-                $(".DispatcherListSet").append(List);
+                // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id='Dispatcher' data-value='"+id+"' value='"+ userFirstName +" "+ userLastName +"'>"                   
+                  $(".DispatcherListSet").append(List);
+                // }
               // }
-            // }
-          }
-    }
-    
-}
+            }
+      }
+      
+  }
 // <!-- -------------------------------------------------------------------------over get Dispatcher  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get Active Type for add new loadboard ------------------------------------------------------------------------- -->  
+  $('.LoadTypeListSet').focus(function(){
+    $('#LoadModal').modal('hide');
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/getLoadType",
+        async: false,
+        success: function(Result) { 
+          // console.log(Result);                    
+          createLoadTypeList(Result);
+        }
+    });
+  });
+  function createLoadTypeList(Result) {           
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.Load_type.length;
+          console.log(Length);
+      }
+
+      if (Length > 0) {
+          // var no=1;
+          $(".LoadTypeListSet").html('');
+          for (var i = 0; i < Length; i++) { 
+              var LoadTypeLength =Result.Load_type[i].loadType.length;
+              for (var j = 0; j < LoadTypeLength; j++) {  
+                var loadName =Result.Load_type[i].loadType[j].loadName;
+                var id =Result.Load_type[i].loadType[j]._id;
+                var deleteStatus =Result.Load_type[i].loadType[j].deleteStatus;
+
+                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id='' data-id='"+id+"' value='"+ loadName +"'>"                   
+                  $(".LoadTypeListSet").append(List);
+                }
+              }
+            }
+      }
+      
+  }
+
+  $("#LBLoadTypePlus").click(function(){
+    $("#addLoadBoardModal").css("z-index","-1");
+    $("#addLoadTypeModal").modal("show");
+    
+  });
+// <!-- -------------------------------------------------------------------------over get Active Type  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get Equipment Type for add new loadboard ------------------------------------------------------------------------- -->  
+  $('.EquipmentTypeListSet').focus(function(){
+    $('#EquipmentTypeModal').modal('hide');
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/getEquipmentType",
+        async: false,
+        success: function(Result) { 
+          createEquipmentTypeList(Result);
+        }
+    });
+  });
+  function createEquipmentTypeList(Result) {           
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.EquipmentType.length;
+          console.log(Length);
+      }
+
+      if (Length > 0) {
+          // var no=1;
+          $(".EquipmentTypeListSet").html('');
+          for (var i = 0; i < Length; i++) { 
+              var EquipmentTypeLength =Result.EquipmentType[i].equipment.length;
+              for (var j = 0; j < EquipmentTypeLength; j++) {  
+                var equipmentType =Result.EquipmentType[i].equipment[j].equipmentType;
+                var id =Result.EquipmentType[i].equipment[j]._id;
+                var deleteStatus =Result.EquipmentType[i].equipment[j].deleteStatus;
+
+                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id='' data-id='"+id+"' value='"+ equipmentType +"'>"                   
+                  $(".EquipmentTypeListSet").append(List);
+                }
+              }
+            }
+      }
+      
+  }
+
+  $("#LBEquipmentTypePlus").click(function(){
+    $("#addLoadBoardModal").css("z-index","-1");
+    $("#addEquipmentTypeModal").modal("show");
+    
+  });
+// <!-- -------------------------------------------------------------------------over get Equipment Type  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get driver for add new loadboard ------------------------------------------------------------------------- -->  
+  $('.DriverListSet').focus(function(){
+    $('#driverModal').modal('hide');
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/getDriver",
+        async: false,
+        success: function(Result) { 
+          createDriverList(Result);
+        }
+    });
+  });
+  function createDriverList(Result) {           
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.driver.length;
+          console.log(Length);
+      }
+
+      if (Length > 0) {
+          // var no=1;
+          $(".DriverListSet").html('');
+          for (var i = 0; i < Length; i++) { 
+              var DriverLength =Result.driver[i].driver.length;
+              for (var j = 0; j < DriverLength; j++) {  
+                var driverName =Result.driver[i].driver[j].driverName;
+                var id =Result.driver[i].driver[j]._id;
+                var deleteStatus =Result.driver[i].driver[j].deleteStatus;
+
+                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id='' data-id='"+id+"' value='"+ driverName +"'>"                   
+                  $(".DriverListSet").append(List);
+                }
+              }
+            }
+      }
+      
+  }
+
+  $("#LBDriverPlus").click(function(){
+    $("#addLoadBoardModal").css("z-index","-1");
+    $("#addDriverModal").modal("show");
+    
+  });
+// <!-- -------------------------------------------------------------------------over get driver  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get Trailer for add new loadboard ------------------------------------------------------------------------- -->  
+  $('.TrailerListSet').focus(function(){
+    $('#TrailerModal').modal('hide');
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/Trailer",
+        async: false,
+        success: function(Result) { 
+          createTrailerList(Result);
+        }
+    });
+  });
+  function createTrailerList(Result) {           
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.trailer.length;
+      }
+
+      if (Length > 0) {
+          // var no=1;
+          $(".TrailerListSet").html('');
+          for (var i = 0; i < Length; i++) { 
+              var TrailerLength =Result.trailer[i].trailer.length;
+              for (var j = 0; j < TrailerLength; j++) {  
+                var trailerNumber =Result.trailer[i].trailer[j].trailerNumber;
+                var id =Result.trailer[i].trailer[j]._id;
+                var deleteStatus =Result.trailer[i].trailer[j].deleteStatus;
+
+                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id='' data-id='"+id+"' value='"+ trailerNumber +"'>"                   
+                  $(".TrailerListSet").append(List);
+                }
+              }
+            }
+      }
+      
+  }
+
+  $("#LBTrailerPlus").click(function(){
+    $("#addLoadBoardModal").css("z-index","-1");
+    $("#addTrailerModal").modal("show");
+    
+  });
+// <!-- -------------------------------------------------------------------------over get driver  ------------------------------------------------------------------------- -->
 
 });
