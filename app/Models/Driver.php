@@ -42,4 +42,8 @@ class Driver extends Model implements
     // {
     //     return $this->userPassword;
     // }
+    public function driver()
+    {
+        return $this->hasMany('driver');
+    }
 }

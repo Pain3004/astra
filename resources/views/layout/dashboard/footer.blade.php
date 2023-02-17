@@ -16,8 +16,8 @@
 <a href="#top" id="back-to-top"><i class="fa fa-long-arrow-up"></i></a>
 
 <!-- JQUERY JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- <script src="{{URL::to('/')}}/assets/js/jquery.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+    <script src="{{URL::to('/')}}/assets/js/jquery.min.js"></script>
 
 <!-- BOOTSTRAP JS -->
 <script src="{{URL::to('/')}}/assets/plugins/bootstrap/js/popper.min.js"></script>
@@ -30,8 +30,8 @@
 <script src="{{URL::to('/')}}/assets/js/apexcharts.js"></script>
 
 <!-- INTERNAL SELECT2 JS -->
-<script src="{{URL::to('/')}}/assets/plugins/select2/select2.full.min.js"></script>
-
+<!-- <script src="{{URL::to('/')}}/assets/plugins/select2/select2.full.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <!-- CHART-CIRCLE JS-->
 <script src="{{URL::to('/')}}/assets/js/circle-progress.min.js"></script>
 
@@ -127,9 +127,8 @@
 <script sr="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="{{URL::to('/')}}/assets/js/jquery.mask.min.js"></script>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.5.0/pagination.min.js" integrity="sha512-To905O3HNAHQVrN6xCie4dwDWV0OO3lwZl4rqtCvf+4lfkbx9XlyLmSiLosdi1WWBcW+VMy4Lmu/M10R+FsOPA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 

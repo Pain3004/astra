@@ -18,7 +18,7 @@ $(document).ready(function() {
             //dataType:JSON,
             success: function(text) {
                 //alert();
-                console.log(text);
+                // console.log(text);
                 createFuelCardRows(text);
                 FuelCardResult = text;
              }
@@ -124,11 +124,6 @@ $(document).ready(function() {
     $('#AddFuelCard').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
     });
-    // $(function() {
-    //     $('.selectpicker').selectpicker();
-    //   });
-    // $('.card_vendor_type').picker({search : true});
-    // $(".card_vendor_type").focus(function(){
         $.ajax({
             type: "GET",
             url: base_path + "/admin/getFuelVendor",
@@ -139,24 +134,45 @@ $(document).ready(function() {
                 if (text != null) {
                     fuelVendorlen = text.fuelCard.length;
                     $(".card_vendor_type").html();
-                    var html = "<select class=' form-control select2-style1  add_Fuel_Card_Type'  data-live-search='true' name='fuelCardType' required>"
+                    var html = "<option value='unselected' selected>---select-----</option>"
                     if (fuelVendorlen > 0) {
                         for (var i = fuelVendorlen - 1; i >= 0; i--) {
                             var fuelVendorId = text.fuelCard[i]._id;
                             var fuelCardType = text.fuelCard[i].fuelCardType;
                              html+="<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>"
-                            // $(".card_vendor_type").append(html);
-                            // $(".card_vendor_type").append("<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>");
                         }
                         
                     }
-                    html+="</select>"
                     $(".card_vendor_type").append(html);
-                    // console.log(html);
                 }
             }
         });
     // })
+
+
+    // select 2 function =========================
+            // var s2 = $("#fuelCardVendorType").select2({
+            //     placeholder: "Choose event type",
+            //     tags: true
+            // });
+            
+            // var vals = [];
+            
+            // vals.forEach(function(e){
+            // if(!s2.find('option:contains(' + e + ')').length) 
+            //   s2.append($('<option>').text(e));
+            // });
+            
+            // s2.val(vals).trigger("change"); 
+
+            // $('select').select2({
+            //     matcher: function(term, text, option) {
+            //       return text.toUpperCase().indexOf(term.toUpperCase())>=0 || option.val().toUpperCase().indexOf(term.toUpperCase())>=0;
+            //     }
+            // });           
+        
+
+    // end  ===============================================
    
     $.ajax({
         type: "GET",
@@ -165,13 +181,14 @@ $(document).ready(function() {
         success: function (text) {
             var len2 = text.driver.length;
             $('.cardHolderName').html();
-            var html = "";
+            var html = "<option value='unselected' selected>----select-----</option>";
             for (var j = 0; j < len2; j++) {
                 var driverId = text.driver[j]._id;
                 var name = text.driver[j].driverName;
-                var html = "<option value='" + driverId + "'  data_driver_name_for_recepits='"+name+"'>" + name + " </option>";
-                $(".cardHolderName").append(html);
+                 html+= "<option value='" + driverId + "'  data_driver_name_for_recepits='"+name+"'>" + name + " </option>";
+               
             }
+            $(".cardHolderName").append(html);
         }
     });
     $(".AddFuelCardFormModal").click(function () {
@@ -189,7 +206,8 @@ $(document).ready(function() {
         var employeeNo = $('.addFuelCard_employe').val();
         var iftaCardNo = $('.add_IFTA_Card_Number').val();
         var cardType = $(".add_Fuel_Card_Type").val();
-        if (cardHolderName == '') {
+        // alert(cardType);
+        if (cardHolderName == 'unselected') {
             swal.fire("'Select holder name");
             $('.addFuel_Card_holder_name').focus();
             return false;
@@ -200,7 +218,7 @@ $(document).ready(function() {
             $('.add_IFTA_Card_Number').focus();
             return false;
         }
-        if (cardType == '') {
+        if (cardType == "unselected" ) {
             swal.fire("'select card type");
             $('.add_Fuel_Card_Type').focus();
             return false;
@@ -273,7 +291,7 @@ $(document).ready(function() {
         var employeeNo = $('.updateFuelCard_employe').val();
         var iftaCardNo = $('.update_IFTA_Card_Number').val();
         var cardType = $(".update_Fuel_Card_Type").val();
-        if (cardHolderName == '') {
+        if (cardHolderName == 'unselected') {
             swal.fire("'Select holder name");
             $('.updateFuel_Card_holder_name').focus();
             return false;
@@ -284,7 +302,7 @@ $(document).ready(function() {
             $('.update_IFTA_Card_Number').focus();
             return false;
         }
-        if (cardType == '') {
+        if (cardType == 'unselected') {
             swal.fire("'select card type");
             $('.update_Fuel_Card_Type').focus();
             return false;

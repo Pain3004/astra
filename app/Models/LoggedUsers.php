@@ -23,8 +23,7 @@ class LoggedUsers extends Model
     protected $connection = 'mongodb';
     protected $collection = 'logged_users';
     protected $keyType = 'integer';
-
-  
+    protected $primarykey = "_id";
 
     protected $guarded = [];
     /**
