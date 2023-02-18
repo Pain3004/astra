@@ -63,7 +63,7 @@ class LoadBoardController extends Controller
         $id=(int)$request->id;
         $oldStatus=$request->oldSelectedValue;
         $newStatus=$request->valueSelected;
-//get old Collection
+    //get old Collection
         if($oldStatus == 'Open'){
             $oldCollection = Open::where('companyID',$com_id)->first();
         }elseif($oldStatus == 'Dispatched'){
@@ -81,7 +81,7 @@ class LoadBoardController extends Controller
         }elseif($oldStatus == 'Break Down'){
             $oldCollection = BreakDown::where('companyID',$com_id)->first();
         }
-//get old Collection object
+    //get old Collection object
         $loadUp=$oldCollection->load;
         $arrayLength=count($loadUp);
         $j=0;
@@ -95,7 +95,7 @@ class LoadBoardController extends Controller
                 break;
             }
         }
-//update status with new status in old Collection        
+    //update status with new status in old Collection        
         $oldCollectionResult=$oldCollection->load[$k];
         $loadUp[$k]['status']=$newStatus;
         $loadUp[$k]['edit_by']=Auth::user()->_id;
@@ -104,7 +104,7 @@ class LoadBoardController extends Controller
         $oldCollectionResult=$oldCollection->load[$k];
        
         
-// remove from collection
+    // remove from collection
         $oldCollection_load=$oldCollection->load;
         unset($oldCollection_load[$k]);
         $oldCollection_load = array_values($oldCollection_load);
@@ -130,7 +130,7 @@ class LoadBoardController extends Controller
         }elseif($oldStatus == 'Break Down'){
             BreakDown::where(['companyID' =>$com_id ])->update($oldCollection_load_update);
         }
-//get new Collection
+    //get new Collection
         if($newStatus == 'Open'){
             $newCollection = Open::where('companyID',$com_id)->first();
         }elseif($newStatus == 'Dispatched'){
@@ -149,7 +149,7 @@ class LoadBoardController extends Controller
             $newCollection = BreakDown::where('companyID',$com_id)->first();
         }
 
-//add data in new Collection        
+    //add data in new Collection        
         $oldstatusData=array($oldCollectionResult);
         try{
             if($newCollection){
@@ -219,5 +219,111 @@ class LoadBoardController extends Controller
        
     }
 
+    // public function addLoadBoard(Request $request){
+    //     $obj_size=11;
+    //     $companyID=Auth::user()->companyID;
+    //     $totalArray=0;
+    //     $getCompany = Open::where('companyID',$companyID)->get();
+    //     $totalCompany=count($getCompany);
+    //     //dd($getCompany->load);
+    //     $loaddata=((object)[
+    //         'customername'=>$request->customername,
+    //         'loadername'=>$request->loadername,
+    //         'loadertruck'=>$request->loadertruck,
+    //         'loadertrailer'=>$request->loadertrailer,
+    //         'shippername'=>'',
+    //         'consigneename'=>'',
+    //         'loadertotal'=>$request->loadertotal,
+    //     ]); 
+    //     $loads_allCompany=0;
+    //     // $Data[]=array(    
+    //     //     '_id' => $getCompany['counter']+1,
+    //     //     'loaddata' => $loaddata,
+    //     //     );
+        
+    //     //dd($getCompany[1]->load);
+    //     if($getCompany){
+    //         for($j=0; $j<$totalCompany; $j++){
+    //             $total_load=count($getCompany[$j]->load);
+    //             $loads_allCompany=$loads_allCompany+$total_load;
+    //         }
+            
+    //                 if($Array==0){
+    //                     $_id=$getCompany[$j-1]->counter+1;
+    //                 }else{
+    //                     $_id=$getCompany[$j]->counter+1;
+    //                 }
+    //         $Avr_loads_allCompany=$loads_allCompany/$obj_size;
+    //        // dd($Avr_loads_allCompany);
+    //         if(is_float($Avr_loads_allCompany)){
+    //             for($i=0; $i<$totalCompany; $i++){
+    //                 // $total_load=count($getCompany[$i]->load);
+    //                 // $loads_allCompany=$loads_allCompany+$total_load;
+    //                 //dd($loads_allCompany);
+    //                 if($total_load<$obj_size){
+    //                     $Array=$getCompany[$i]->load;
+    //                     // if($Array==0){
+    //                     //     $_id=$getCompany[$i-1]->counter+1;
+    //                     // }else{
+    //                     //     $_id=$getCompany[$i]->counter+1;
+    //                     // }
     
+    //                     $Data[]=array(    
+    //                         '_id' => $_id,
+    //                         'loaddata' => $loaddata,
+    //                         );
+    //                     Open::where(['companyID' => $companyID])->where(['_id' => $getCompany[$i]->_id])->update([
+    //                         '_id' => $_id,
+    //                         'counter'=> $_id,
+    //                         'load' =>array_merge($Array,$Data) ,
+    //                     ]);
+            
+    //                     $arrr = array('status' => 'success', 'message' => 'Load  added successfully.'); 
+    //                     return json_encode($arrr);
+    //                 }
+                    
+    //             }
+    //         }else{
+    //             try{
+    //                 if(Open::create([
+    //                     // 'companyID' => (int)$_SESSION['companyId'],
+    //                     '_id' => 0,
+    //                     'companyID' => $companyID,
+    //                     'counter' => 1,
+    //                     'load' => $Data[]=array(    
+    //                                 '_id' => 1,
+    //                                 'loaddata' => $loaddata,
+    //                             ),
+    //                 ])) {
+    //                     $arrr = array('status' => 'success', 'message' => 'Load Type added successfully.'); 
+    //                     return json_encode($arrr);
+    //                 }
+    //             }
+    //             catch(\Exception $error){
+    //                 return $error->getMessage();
+    //             }
+    //         }
+    //     }  
+    //     else{
+    //         try{
+    //             if(Open::create([
+    //                 // 'companyID' => (int)$_SESSION['companyId'],
+    //                 '_id' => 0,
+    //                 'companyID' => $companyID,
+    //                 'counter' => 1,
+    //                 'load' => $Data[]=array(    
+    //                             '_id' => 1,
+    //                             'loaddata' => $loaddata,
+    //                         ),
+    //             ])) {
+    //                 $arrr = array('status' => 'success', 'message' => 'Load Type added successfully.'); 
+    //                 return json_encode($arrr);
+    //             }
+    //         }
+    //         catch(\Exception $error){
+    //             return $error->getMessage();
+    //         }
+    //     } 
+
+    // }
 }

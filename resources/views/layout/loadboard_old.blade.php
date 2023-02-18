@@ -1,114 +1,3 @@
-<style>
-
-.navtabs_2{
-    
-    
-    width: 100%;
-    /* padding: 20px 10px;  */
-    font-size:12px
-    
-  }
-  .nav-tab-list{
-      margin-bottom: 0px;
-  }
-  
-    .custom_tab-list{
-      background-color: #056d92;
-      padding: 15px;
-      border: 1px solid black;
-      border-width: 100%;
-      
-    }
-    .tab{
-      border: 1px black;
-      background-color: rgb(244, 240, 240);
-      border-radius: 5px;
-      padding: 5px;
-      color: black;
-      font-weight: bold;
-      margin: 2px;
-    }
-  
-  
-  
-      .tab-content{
-      /* border: 1px black; */
-      border-bottom: 1px solid;
-    border-left: 1px solid;
-    border-right: 1px solid;
-      background-color: rgb(245, 239, 239);
-      padding: 20px 20px;
-      /* border-radius: 20px; */
-      border-bottom-left-radius:20px ;
-    border-bottom-right-radius: 20px;
-      
-       color: black; 
-      font-weight: bold;
-      text-decoration: none;
-    } 
-    
-    .container1{
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
-    .container2{
-      
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
-    
-  .name1
-  {
-      display: flex;
-      flex-direction: column;
-  }
-  
-   
-  .name1 input
-  {
-      width: 139px;
-  }
-  
-  .custom_tab-list{
-      display: flex;
-      
-      
-  }
-
-
-  .tab_style{
-        /* border: 1px black; */
-        border-bottom: 1px solid;
-    border-left: 1px solid;
-    border-right: 1px solid;
-    background-color: rgb(245, 239, 239);
-    padding: 20px 20px;
-    /* border-radius: 20px; */
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  .nav-item-custom{
-    background-color: #fff;
-    padding-left: 10;
-    color: #000;
-    margin-right: 5px;
-    border-radius: 15px;
-  }
-
-  .active1{
-    background-color: #fff;
-    color: #000;
-  }
-
-</style>
-
-
 @include('layout.dashboard.header')
 
 @include('layout.loader')
@@ -162,7 +51,9 @@
 													<a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
 												</div> -->
                                                 <div class="col-2 btn-group submitter-group">
-                                                    <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
+                                                    <!-- <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a> -->
+                                                    <a href="#"  id="addLoadBoard" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
+
                                                 </div>
 												<div class="col-1">
 												</div>
@@ -260,7 +151,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add New LoadBoard</h4>
-                    <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+                    <button type="button" class="button-24 closeAddNewLoadBoard">&times;</button>
                 </div>
 
                 <!-- Modal body -->
@@ -273,34 +164,34 @@
                                 <div class="card">
 
                                     <div class="card-body">
-                                        <div class="export-table">
+                                        <div class="table-responsive export-table">
                                             <form>
                                                 @csrf
                                                 <div class="form-row">
                                                     <div class="form-group col-md-3">
                                                         <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span> </label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control companyListSet" list="companyListSet" name="" id="lb_Company">
+                                                            <input class="form-control companyListSet" list="companyListSet" name="" id="">
                                                             <datalist id="companyListSet" class="companyListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label>Customer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCustomerPlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control customerListSet" list="customerListSet" name="" id="LB_Customer">
+                                                            <input class="form-control customerListSet" list="customerListSet" name="" id="">
                                                             <datalist id="customerListSet" class="customerListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="Dispatcher">Dispatcher <span style="color:#ff0000">*</span> </label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control DispatcherListSet" list="DispatcherListSet" name="" id="lb_Dispatcher">
+                                                            <input class="form-control DispatcherListSet" list="DispatcherListSet" name="" id="">
                                                             <datalist id="DispatcherListSet" class="DispatcherListSet"></datalist>    
                                                         </div>  
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="CN">CN No.<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="lbCN_No" placeholder="CN">
+                                                        <input type="text" class="form-control" id="CN" placeholder="CN">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="Status">Status <span style="color:#ff0000">*</span> </label>
@@ -389,71 +280,97 @@
                                                     <div id="showdrivername" style="visibility:hidden" class="form-group col-md-2">
                                                         <label>Driver Name &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet" name="" id="LB_Driver">
+                                                            <input class="form-control DriverListSet" list="DriverListSet" name="" id="">
                                                             <datalist id="DriverListSet" class="DriverListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div id="showowneroperator" style="visibility:hidden" class="form-group col-md-2">
-                                                        <label for="OwnerOperator">OwnerOperator<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="OwnerOperator" placeholder="OwnerOperator">
+                                                        <label for="OwnerOperator">OwnerOperator<span
+                                                                style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="OwnerOperator"
+                                                            placeholder="OwnerOperator">
+
                                                     </div>
                                                     <div id="showtruck" style="visibility:hidden" class="form-group col-md-1">
-                                                        <label for="Truck">Truck<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="LB_Truck" placeholder="Truck">
+                                                        
+                                                        <label for="Truck">Truck<span
+                                                                style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="Truck"
+                                                            placeholder="Truck">
+
                                                     </div>
                                                     <div id="showtrailer" style="visibility:hidden" class="form-group col-md-1">
+                                                        
                                                         <label>Trailer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control TrailerListSet" list="TrailerListSet" name="" id="LB_Trailer">
+                                                            <input class="form-control TrailerListSet" list="TrailerListSet" name="" id="">
                                                             <datalist id="TrailerListSet" class="TrailerListSet"></datalist>    
                                                         </div>
+
                                                     </div>
                                                     <div id="showloadedmiles" style="visibility:hidden" class="form-group col-md-1">
+                                                        
                                                         <label for="LoadedMiles">Loaded Mi<span
                                                                 style="color:#ff0000">*</span></label>
                                                         <input type="text" class="form-control" id="LoadedMiles"
                                                             placeholder="LoadedMiles">
+
                                                     </div>
                                                     <div id="showemptymiles" style="visibility:hidden" class="form-group col-md-1">
+                                                        
                                                         <label for="EmptyMiles">Empty Mi<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="EmptyMiles" placeholder="EmptyMiles">
+                                                        <input type="text" class="form-control" id="EmptyMiles"
+                                                            placeholder="EmptyMiles">
+
                                                     </div>
                                                     <div id="showother" style="visibility:hidden" class="form-group col-md-1">
+                                                        
                                                         <label for="Other">Other<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="Other" placeholder="Other">
+                                                        <input type="text" class="form-control" id="Other"
+                                                            placeholder="Other">
+
                                                     </div>
                                                     <div id="showtarp" style="visibility:hidden" class="form-group col-md-1">
-                                                        <label for="Tarp">Tarp<span  style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="Tarp"  placeholder="Tarp">
+                                                        
+                                                        <label for="Tarp">Tarp<span
+                                                                style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="Tarp"
+                                                            placeholder="Tarp">
+
                                                     </div>
                                                     <div id="showflat" style="visibility:hidden" class="form-group col-md-1">
-                                                        <label for="Flat">Flat<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="Flat" placeholder="Flat">
+                                                        
+                                                        <label for="Flat">Flat<span
+                                                                style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="Flat"
+                                                            placeholder="Flat">
+
                                                     </div>
                                                     <div id="showtotal" style="visibility:hidden" class="form-group col-md-1">
-                                                        <label for="Total">Total<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="LB_loadertotal" placeholder="Total">
-                                                    </div>
-                                                </div>
+                                                        
+                                                        <label for="Total">Total<span
+                                                                style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="Total"
+                                                            placeholder="Total">
 
-                                              <!-- add shipper   -->
+                                                    </div>
+                                                    
+                                                </div>
+<!-- 
                                                 <div class="form-row">
-                                                    <div class="navtabs_2">
                                                     <h6>
-                                                        <a class="button-29" onclick="add_fields();" data-toggle="tooltip"
-                                                            data-placement="top" title="Click here to add more shippers." style="color: #ffffff;">ADD SHIPPER</a>
+                                                        <a class="btn btn-primary" onclick="add_fields();" data-toggle="tooltip" data-placement="top" title="Click here to add more shippers.">ADD SHIPPER</a>
                                                         <i class="mdi mdi-plus-circle plus-xs" id="add_shipper_modal"></i>
                                                     </h6>
-                                                    <div class="card m-b-30" id="sc-card">
-                                                        <div class="custom_tab-list cardbg">
-                                                            <ul class="nav nav-tabs main-tabs" id="myTab" role="tablist" style="border-bottom: none;">
-                                                                <li class="nav-item-custom nav-item list-item" id="home-title^0">
-                                                                    <button class="nav-tab-list active" id="home-tab0" data-toggle="tab"href="#home0" role="tab" aria-controls="home" aria-selected="true" style="">
-                                                                        Shipper 1</button>
-                                                                        <button type="button" class="button-25" onclick="removeTab('home-title^0','home0')">×</button>
-                                                                        <!-- <a type="button" class="button-25" onclick="removeTab('home-title^0','home0')" aria-hidden="true"></a> -->
+                                                    <div class="card m-b-30 shadow" id="sc-card">
+                                                        <div class="card-header cardbg">
+                                                            <ul class="nav nav-tabs main-tabs" id="myTab" role="tablist">
+                                                                <li class="nav-item list-item" id="home-title^0">
+                                                                    <a class="nav-link active shipper list-anchors" id="home-tab0" data-toggle="tab"href="#home0" role="tab" aria-controls="home" aria-selected="true" style="background: #000;">
+                                                                        Shipper 1</a>
+                                                                        <i class="mdi mdi-window-close ico" onclick="removeTab('home-title^0','home0')" aria-hidden="true"></i>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -472,17 +389,21 @@
                                                                     <div class="form-group col-md-2">
                                                                         <label>Address*</label>
                                                                         <div>
-                                                                            <input class="form-control" placeholder="Address *" type="text" id="shipperaddress0" name="shipperaddress">
+                                                                            <input class="form-control" placeholder="Address *" type="text"
+                                                                                id="shipperaddress0" name="shipperaddress">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-2">
                                                                         <label>Location *</label>
                                                                         <div>
-                                                                            <input class="form-control" placeholder="Enter a location" type="text" id="activeshipper0" name="activeshipper">
+                                                                            <input class="form-control" placeholder="Enter a location" type="text"
+                                                                                 id="activeshipper0"
+                                                                                name="activeshipper">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-2">
                                                                         <label>Pickup Date</label>
+
                                                                         <div>
                                                                             <input class="form-control" type="date" id="shipperdate" name="shipperdate">
                                                                         </div>
@@ -497,11 +418,14 @@
                                                                         <label>Type*</label>
                                                                         <div class="row">
                                                                             <div class="custom-control custom-radio custom-control-inline">
-                                                                                <input type="radio" class="custom-control-input" id="tl0" name="tl0" value="TL" checked>
+                                                                                <input type="radio" class="custom-control-input" id="tl0" name="tl0"
+                                                                                    value="TL" checked>
                                                                                 <label class="custom-control-label" for="tl0">TL</label>
                                                                             </div>
                                                                             <div class="custom-control custom-radio custom-control-inline">
-                                                                                <input type="radio" class="custom-control-input" id="ltl0" value="LTL" name="tl0">
+
+                                                                                <input type="radio" class="custom-control-input" id="ltl0" value="LTL"
+                                                                                    name="tl0">
                                                                                 <label class="custom-control-label" for="ltl0">LTL</label>
                                                                             </div>
                                                                         </div>
@@ -509,39 +433,49 @@
                                                                     <div class="form-group col-md-2">
                                                                         <label>Commodity</label>
                                                                         <div>
-                                                                            <input class="form-control" type="text" placeholder="Commodity" id="shippercommodity" name="shippercommodity">
+                                                                            <input class="form-control" type="text" placeholder="Commodity"
+                                                                                id="shippercommodity" name="shippercommodity">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-1 ">
                                                                         <label>Qty</label>
                                                                         <div>
-                                                                            <input class="form-control" placeholder="Qty" id="shipperqty"  name="shipperqty" type="text">
+                                                                            <input class="form-control" placeholder="Qty" id="shipperqty"
+                                                                                name="shipperqty" type="text">
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="form-group col-md-2 ">
                                                                         <label>Weight</label>
                                                                         <div>
-                                                                            <input class="form-control" type="text" placeholder="Weight"  id="shipperweight" name="shipperweight">
+                                                                            <input class="form-control" type="text" placeholder="Weight"
+                                                                                id="shipperweight" name="shipperweight">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-2">
                                                                         <label>Pickup #</label>
                                                                         <div>
-                                                                            <input class="form-control" placeholder="Pickup #" type="text" id="shipperpickup" name="shipperpickup">
+                                                                            <input class="form-control" placeholder="Pickup #" type="text"
+                                                                                id="shipperpickup" name="shipperpickup">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-1">
                                                                         <label>Sr#</label>
                                                                         <div>
-                                                                            <input class="form-control" placeholder="Sr#" type="number" id="shipseq0" name="shipseq" value="0">
+                                                                            <input class="form-control" placeholder="Sr#" type="number" id="shipseq0"
+                                                                                name="shipseq" value="0">
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label>Pickup Notes</label>
                                                                         <div>
-                                                                            <textarea rows="1" cols="30" class="form-control" type="textarea" id="shippernotes" name="shippernotes"></textarea>
+                                                                            <textarea rows="1" cols="30" class="form-control" type="textarea"
+                                                                                id="shippernotes" name="shippernotes"></textarea>
                                                                         </div>
                                                                     </div>
+
+
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -549,8 +483,7 @@
 
 
                                                     </div>
-                                                    </div>
-                                                </div>
+                                                </div> -->
 
                                             </form>
 
@@ -565,8 +498,8 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="button-29" id="addLBSubmit">Submit</button>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    <button type="submit" class="button-29 driverDataSubmit">Submit</button>
+                    <button type="button" class="button-29  closeAddNewLoadBoard">Close</button>
                 </div>
 
             </div>
@@ -608,50 +541,6 @@
 
 }
 
-"use strict";
-var companyid = $("#companyid").val();
-var privilege = $("#privilege").val();
-var room = 0;
-var count = 0;
-var otherDescription = [""];
-var otherCharges = ["0"];
-var carrierotherDescription = [""];
-var carrierotherCharges = ["0"];
-var carrierotherAdvances = ["0"];
-var driverotherDescription = [""];
-var driverotherCharges = ["0"];
-var ownerotherDescription = [""];
-var ownerotherCharges = ["0"];
-var startLocation = "";
-var endLocation = "";
-var loadedHour = "";
-var EmptyHour = "";
-var isIfta = 0;
-var tarp = 0;
-var distance = 0;
-var total = 0;
-var pickrate = 0;
-var pickafter = 0;
-var droprate = 0;
-var dropafter = 0;
-var driverRate = "mile";
-var customeremail = "";
-var emailcustomer2 = "";
-var emailcustomer3 = "";
-var carrieremail = "";
-var email2 = "";
-var email3 = "";
-var companyid = $("#companyid").val();
-var is_unit_on = "off";
-var carrier_parent = "";
-var customer_parent = "";
-var driver_parent = "";
-var owner_parent = "";
-var percentage = "";
-var isbroker = "off";
-var customerName = "";
-var response = [];
-
 
 function add_fields() {
   room = document.getElementById("myTab").getElementsByTagName("li").length;
@@ -660,31 +549,30 @@ function add_fields() {
   var contentID = "'home" + room + "'";
   var objTo = document.getElementById("myTab");
   var divtest =
-    '<li class="nav-item-custom nav-item list-item" id = "home-title^' +
+    '<li class="nav-item list-item" id = "home-title^' +
     room +
-    '"><button class = "nav-tab-list shipper list-anchors LBshipper" id = "home-tab' +
+    '"><a class = "nav-link shipper list-anchors" id = "home-tab' +
     room +
     '" data-toggle="tab" href="#home' +
     room +
-    '" role="tab" aria-controls="home" aria-selected="false">Shipper</button><button type="button" class="button-25" onclick="removeTab('+
+    '" role="tab" aria-controls="home" aria-selected="false">Shipper</a><i class="mdi mdi-window-close ico" onclick="removeTab(' +
     mainID +
     "," +
     contentID +
-    ')" >×</button></li>';
+    ')" aria-hidden="true"></i></li>';
   objTo.innerHTML += divtest;
   document.getElementById("sc-card").classList.add("shadow");
   //var contentTo = document.getElementById("myTabContent");
   var contentTo = $("#myTabContent");
-
   var contenttest =
     '<div class="tab-pane fade" id="home' +
     room +
     '" role="tabpanel" aria-labelledby="home-tab' +
     room +
     '"><div class="row m-2">\n' +
-    '                                            <div class="form-group col-md-3">\n' +
-    "                                                <label>Name*</label>\n" +
-    '                                                 <input list="shipper' +
+    '<div class="form-group col-md-3">\n' +
+    "<label>Name*</label>\n" +
+    ' <input list="shipper' +
     room +
     '" class="form-control" placeholder="Search here..." id="shipperlist' +
     room +
@@ -695,15 +583,15 @@ function add_fields() {
     "," +
     room +
     '); "  autocomplete="off">\n' +
-    '                                                 <datalist id="shipper' +
+    '<datalist id="shipper' +
     room +
     '" name="shipper">\n' +
-    "                                                 </datalist>\n" +
-    "                                            </div>\n" +
-    '                                            <div class="form-group col-md-2">\n' +
-    "                                                <label>Address*</label>\n" +
-    "                                                <div>\n" +
-    '                                                    <input class="form-control" id = "shipperaddress' +
+    "</datalist>\n" +
+    "  </div>\n" +
+    ' <div class="form-group col-md-2">\n' +
+    " <label>Address*</label>\n" +
+    "  <div>\n" +
+    ' <input class="form-control" id = "shipperaddress' +
     room +
     '" name="shipperaddress" placeholder="Address *" type="text"\n' +
     "                                                           >\n" +
@@ -805,44 +693,37 @@ function add_fields() {
     "                                        </div></div>";
   //contentTo.innerHTML += contenttest;
   $(contentTo).append(contenttest);
-  renameShipper();
-  makeActive();
+  
  
 }
-
-
-var mainID = "'home-title^" + room + "'";
-  var contentID = "'home" + room + "'";
-
 
 function makeActive() {
   for (var i = 0; i < room; i++) {
     var component = document.getElementById("home-tab" + i);
     var component1 = document.getElementById("home" + i);
     if (component && component1) {
-      component.classList.remove("active1");
+      component.classList.remove("active");
       component1.classList.remove("show");
-      component1.classList.remove("active1");
+      component1.classList.remove("active");
       component.setAttribute("aria-selected", false);
     }
   }
   var newcomponent = document.getElementById("home-tab" + i);
   var newcomponent1 = document.getElementById("home" + i);
-  newcomponent.classList.add("active1");
+  newcomponent.classList.add("active");
   newcomponent1.classList.add("show");
   newcomponent1.classList.add("active");
   newcomponent.setAttribute("aria-selected", true);
 }
 
 function renameShipper() {
-    console.log("rename function");
   var shippers = document.getElementsByClassName("shipper");
   for (
     var i = 0;
     i < document.getElementById("myTab").getElementsByTagName("li").length;
     i++
   ) {
-    shippers[i].innerHTML = "Shipper " + (i + 2);
+    shippers[i].innerHTML = "Shipper " + (i + 1);
   }
 }
 
@@ -917,9 +798,6 @@ function removeTab(mainid, contentid) {
   }
 }
 
-$('.LBshipper').click(function(){
-   alert(); 
-});
 </script>
 
 <!-------------------------------------------------------------------End modal------------------------------------------------------------------->		

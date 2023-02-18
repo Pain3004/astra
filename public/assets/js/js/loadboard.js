@@ -20,6 +20,17 @@ $(document).ready(function() {
     dataTable.column(7).search(status).draw();
   })
 //-- -------------------------------------------------------------------------    -- -------------------------------------------------------------------------
+// $('.nav-item-custom').click(function(){
+  
+//   if ($('.shipper, .list-anchors').hasClass('active')) {
+//     console.log('aa');
+//     $('.nav-item-custom').css('color','blue');
+//     }
+//     else {
+//       $('.nav-item-custom').css('color','white');
+    
+//     }
+// });
 
 //-- -------------------------------------------------------------------------  Get loaboard data -- -------------------------------------------------------------------------
   $.ajax({
@@ -342,23 +353,24 @@ $(document).ready(function() {
   }); 
 // <!-- -------------------------------------------------------------------------over change status   ------------------------------------------------------------------------- -->  
 // <!-- -------------------------------------------------------------------------get company for add new loadboard ------------------------------------------------------------------------- -->  
-$('.closeAddNewLoadBoard').click(function(){
-  $('#addLoadBoardModal').modal('hide');
-});
-$('#addLoadBoard').click(function(){
-    // $('.companyListSet').focus(function(){
-      $.ajax({
-          type: "GET",
-          url: base_path+"/admin/lbcompany",
-          async: false,
-          success: function(Result) { 
-            console.log(Result);                    
-              createcompanyList(Result);
-          }
-      });
-    // });
+  $('.closeAddNewLoadBoard').click(function(){
+    $('#addLoadBoardModal').modal('hide');
+  });
+  $('#addLoadBoard').click(function(){
+ 
     $('#addLoadBoardModal').modal('show');
   }); 
+     $('.companyListSet').focus(function(){
+      $.ajax({
+        type: "GET",
+        url: base_path+"/admin/lbcompany",
+        async: false,
+        success: function(Result) { 
+          console.log(Result);                    
+            createcompanyList(Result);
+        }
+    });
+  });
 
   function createcompanyList(Result) {           
       var Length = 0;    
@@ -657,8 +669,175 @@ $('#addLoadBoard').click(function(){
   $("#LBTrailerPlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
     $("#addTrailerModal").modal("show");
-    
   });
 // <!-- -------------------------------------------------------------------------over get driver  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
+  $("#addLBSubmit").click(function(){
+    var company=$('#lbCompany').val();
+
+
+    var customerName=$('#LB_Customer').val();
+    var loadername=$('#LB_Driver').val();
+    var loadertruck=$('#LB_Truck').val();
+    var loadertrailer=$('#LB_Trailer').val();
+    // var loadershipper=$('#').val();
+    // var loaderconsignee=$('#').val();
+    var loadertotal=$('#LB_loadertotal').val();
+   
+    // var =$('#').val();
+    // var =$('#').val();
+    // var =$('#').val();
+    // var =$('#').val();
+    // var =$('#').val();
+    // var =$('#').val();
+    // var =$('#').val();
+
+
+    $.ajax({
+        url: base_path+"/admin/addLoadBoard",
+        type: "POST",
+        datatype:"JSON",
+        data: {
+            _token: $("#tokenLoadboard").val(),
+            customername: customerName,
+            loadername: loadername,
+            loadertruck: loadertruck,
+            loadertrailer: loadertrailer,
+            // shippername: loadershipper,
+            // consigneename: loaderconsignee,
+            loadertotal: loadertotal,
+            
+              // company: company,
+              // customer: customer,
+              // dispatcher: dispatcher,
+              // cnno: cnno,
+              // status: status,
+              // active_type: loadtype,
+              // rate: rate,
+              // noofunits: noofunits,
+              // fsc: fsc,
+              // fsc_percentage: fsccheck,
+              // other_charges: otherCharges,
+              //     other_description: otherDescription,
+              //     other_charges_total: otherchargestotal,
+              // setTotalRate: totalamount,
+              // equipment_type: equiptype,
+              // typeofLoader: typeofloader,
+              // carrier_name: carriername,
+              // flat_rate: carrierflat,
+              // isIfta: isIfta,
+              // advance_charges: carrierother,
+              //     carrier_other_description: carrierotherDescription,
+              //     carrier_other_advance: carrierotherAdvances,
+              //     carrier_other_charges: carrierotherCharges,
+              // carrier_total: carrierTotal,
+              // currency: currency,
+              // driver_name: drivername,
+              // truck: truck,
+              // trailer: trailer,
+              // loaded_mile: loadedmile,
+              // empty_mile: emptymile,
+              // driver_other: driverother,
+              //     driver_other_description: driverotherDescription,
+              //     driver_other_charges: driverotherCharges,
+              // tarp: tarp,
+              // flat: flat,
+              // driver_total: drivertotal,
+              // owner_name: owner,
+              // owner_percentage: ownerpay,
+              // owner_truck: ownertruck,
+              // owner_trailer: ownertrailer,
+              // owner_other: ownerother,
+              //     owner_other_description: ownerotherDescription,
+              //     owner_other_charges: ownerotherCharges,
+              // owner_total: ownertotal,
+              // startlocation: startLocation,
+              // endlocation: endLocation,
+              // // shippertab: shippertab....,
+              //     shipper_name: shippername,
+              //     shipper_address: shipperaddress,
+              //     shipper_location: shipperlocation,
+              //     shipper_pickup: shipperpickup,
+              //     shipper_picktime: shipperpicktime,
+              //     shipper_load_type: shipperloadtype,
+              //     shipper_commodity: shippercommodity,
+              //     shipper_qty: shipperqty,
+              //     shipper_weight: shipperweight,
+              //     shipper_pickup_number: shipperpickupnumber,
+              //     shipper_seq: shipperseq,
+              //     shipper_notes: shippernotes,
+              //     shipper_parent: shipperparent,
+              // // consigneetab: consigneetab...,
+              //     consignee_name: consigneename,
+              //     consignee_address: consigneeaddress,
+              //     consignee_location: consigneelocation,
+              //     consignee_pickup: consigneepickup,
+              //     consignee_picktime: consigneepicktime,
+              //     consignee_load_type: consigneeloadtype,
+              //     consignee_commodity: consigneecommodity,
+              //     consignee_qty: consigneeqty,
+              //     consignee_weight: consigneeweight,
+              //     consignee_delivery_number: consigneedropnumber,
+              //     consignee_seq: consigneeseq,
+              //     consignee_notes: consigneenotes,
+              //     consignee_parent: consigneeparent,
+              // tarp_select: tarpselect,
+              // loaded_miles_value: loadedMilesValue,
+              // empty_miles_value: emptymilesvalue,
+              // driver_miles_value: drivermilesvalue,
+
+              // load_notes: loadnotes,
+              //     carrier_email: carrieremail,
+              //     email2: email2,
+              //     email3: email3,
+
+              //     customer_email: customeremail,
+              //     emailcustomer2: emailcustomer2,
+              //     emailcustomer3: emailcustomer3,
+              // brokerdriver: brokerdriver,
+              // brokerdrivercontact: brokerdrivercontact,
+              // broker_truck: brokertruck,
+              // broker_trailer: brokertrailer,
+              // is_unit_on: is_unit_on,
+              // carrier_parent: carrier_parent,
+              // customer_parent: customer_parent,
+              // driver_parent: driver_parent,
+              // owner_parent: owner_parent,
+              // edit: edit,
+              // loadid: loadid,
+              // createdate: createDate,
+              // companyId: companyid,
+              // privilege: privilege,
+              // isbroker: isbroker,
+              // loadParent: loadParent,
+              // custdays: custdays,
+              // cardays: cardays,
+        },
+        cache: false,
+        success: function(Result){
+            // console.log(Result);
+            // if(Result){
+            //     swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+            //     $("#addLoadBoardModal").css("z-index","100000000000");
+            //     $("#addLoadTypeModal").modal("hide");
+            //     $("#addLoadTypeModal form").trigger('reset');
+            //     $.ajax({
+            //         type: "GET",
+            //         url: base_path+"/admin/getLoadType",
+            //         async: false,
+            //         success: function(text) {
+            //             console.log(text);
+            //             createLoad_typeRows(text);
+            //           }
+            //     });
+            //     $('#LoadModal').modal('show');
+            // }else{
+            //     swal.fire(" Not Added successfully.");
+            // }
+        }
+    });
+
+  });
+// <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 
 });

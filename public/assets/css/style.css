@@ -221,6 +221,13 @@ body {
     background-color: #f7f8f9;
 }
 
+.selectedpriviladge {
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    color: white;
+    border-radius: 20px;
+    width: 140px;
+}
+
 .number-font {
     font-weight: 600;
 }
@@ -112544,6 +112551,17 @@ textarea.form-control {
 .deleteAction{
     color:red;
 }
+
+a.active {
+    background-color: #5689ff;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+/* .nav-item-custom{
+    background-color: #ad5555;
+} */
+
 /* .invalid-feedback{
     color: #d12c47;
     display: none;

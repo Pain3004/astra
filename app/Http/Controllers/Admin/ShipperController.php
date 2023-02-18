@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 class ShipperController extends Controller
 {
     public function getShipper(){
-        $companyId=(int)65;
+        $companyId=Auth::user()->companyID;
         // $companyId=(int)1;
         // dd($companyId);
         // $shipper=  Shipper::aggregate([
@@ -36,7 +36,7 @@ class ShipperController extends Controller
     public function storeShipper(Request $request)
     {
         // $companyID=(int)1;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         // dd($request->addressType);
         if($request->addressType=="shipper")
         {
@@ -204,7 +204,7 @@ class ShipperController extends Controller
     public function editShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         // dd($Shipper );
         $ShipperArray=$Shipper->shipper;
@@ -233,7 +233,7 @@ class ShipperController extends Controller
     public function updateShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -277,7 +277,7 @@ class ShipperController extends Controller
     public function deleteShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);

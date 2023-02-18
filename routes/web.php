@@ -67,6 +67,7 @@ Auth::routes();
 //Loadboard
 Route::get('admin/getLoadboardData', [LoadBoardController::class, 'getLoadboardData']);
 Route::post('admin/changeStatus', [LoadBoardController::class, 'changeStatus'])->name('changeStatus');;
+Route::post('admin/addLoadBoard', [LoadBoardController::class, 'addLoadBoard']);
 // User
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);
