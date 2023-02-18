@@ -66,7 +66,7 @@ $(document).ready(function() {
                       for (var j = sub_len-1; j >= 0; j--) { 
                         
                           var com_id =Result1[i].companyID;
-                          
+                          var main_id =Result1[i]._id;
                           var invoice =Result1[i].load[j]._id;
                           var orderId =Result1[i].load[j].cnno;
                           var status =Result1[i].load[j].status;
@@ -260,7 +260,7 @@ $(document).ready(function() {
                           "<td data-field='invoice' class='modal-trigger invoice_btn' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+" <div class='rrrrr' style='position: absolute;z-index: 22222;height: 64px; display:none;'><ul><li><a href='#'>Menu 1</a></li><li><a href='#'>Menu 2</a></li><li><a href='#'>Menu 3</a></li></ul></div></td>" +
                           "<td data-field='orderId' class='orderId' title='" + orderId + "'>" + order_id + "</td>" +
                           "<td data-field='status' style='color:black;'>" + 
-                            "<select class='form-control loadStatus' id='loadStatus' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
+                            "<select class='form-control loadStatus' id='loadStatus' data-main_id='"+main_id+"' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
                               "<option value='" + status +"'  selected='' >" + status +"</option>" +
                               "<option value='Open'>Open</option>" +
                               "<option value='Dispatched'>Dispatched</option>" +
@@ -314,6 +314,7 @@ $(document).ready(function() {
   var oldSelectedValue = this.value;
   $('body').on('change','.loadStatus', function (e) {
     var valueSelected = this.value;
+    var main_id = $(this).attr('data-main_id');
     var com_id = $(this).attr('data-com_id');
     var id = $(this).attr('data-invoiceId');
     swal.fire({
@@ -391,8 +392,9 @@ $(document).ready(function() {
                 var deleteStatus =Result.company[i].company[j].deleteStatus;
 
                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='customerCurrency' data-id='"+id+"' value='"+ company +"'>"                   
+                  var List = "<option id='customerCurrency' data-id='"+id+"' >"+ id +"-"+ company +"</option>"   +
                   $(".companyListSet").append(List);
+                  
                 }
               }
             }
@@ -432,7 +434,7 @@ $(document).ready(function() {
                 var deleteStatus =Result.customer[i].customer[j].deleteStatus;
 
                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='customerCurrency' data-id='"+id+"' value='"+ customer +"'>"                   
+                  var List = "<option id='customerCurrency' data-id='"+id+"' value='"+id+"-"+ customer +"'>"                   
                   $(".customerListSet").append(List);
                 }
               }
@@ -479,7 +481,7 @@ $(document).ready(function() {
                 // var deleteStatus =Result[i].Dispatcher[j].deleteStatus;
 
                 // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='Dispatcher' data-value='"+id+"' value='"+ userFirstName +" "+ userLastName +"'>"                   
+                  var List = "<option id='Dispatcher' data-value='"+id+"' value='"+id+"-"+ userFirstName +" "+ userLastName +"'>"                   
                   $(".DispatcherListSet").append(List);
                 // }
               // }
@@ -520,7 +522,7 @@ $(document).ready(function() {
                 var deleteStatus =Result.Load_type[i].loadType[j].deleteStatus;
 
                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+ loadName +"'>"                   
+                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ loadName +"'>"                   
                   $(".LoadTypeListSet").append(List);
                 }
               }
@@ -566,7 +568,7 @@ $(document).ready(function() {
                 var deleteStatus =Result.EquipmentType[i].equipment[j].deleteStatus;
 
                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+ equipmentType +"'>"                   
+                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ equipmentType +"'>"                   
                   $(".EquipmentTypeListSet").append(List);
                 }
               }
@@ -675,17 +677,20 @@ $(document).ready(function() {
   $("#addLBSubmit").click(function(){
     var company=$('#lbCompany').val();
 
-
-    var customerName=$('#LB_Customer').val();
+    var LB_Customer=$('#LB_Customer').val().split('-');
+    var customerName=LB_Customer[1];
     var loadername=$('#LB_Driver').val();
     var loadertruck=$('#LB_Truck').val();
     var loadertrailer=$('#LB_Trailer').val();
     // var loadershipper=$('#').val();
     // var loaderconsignee=$('#').val();
     var loadertotal=$('#LB_loadertotal').val();
-   
-    // var =$('#').val();
-    // var =$('#').val();
+    var company=$('#lb_Company').val().split('-');
+    var company=company[0];
+    var customer=LB_Customer[0];
+    // var company=$('#lb_Company').val().split('-');
+    // var company=company[0];
+    // // var =$('#').val();
     // var =$('#').val();
     // var =$('#').val();
     // var =$('#').val();
@@ -706,9 +711,8 @@ $(document).ready(function() {
             // shippername: loadershipper,
             // consigneename: loaderconsignee,
             loadertotal: loadertotal,
-            
-              // company: company,
-              // customer: customer,
+              company: company,
+              customer: customer,
               // dispatcher: dispatcher,
               // cnno: cnno,
               // status: status,

@@ -280,7 +280,8 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span> </label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control companyListSet" list="companyListSet" name="" id="lb_Company">
+                                                            <input class="form-control companyListSet" list="companyListSet" name="" id="lb_Company" >
+                                                            <input type="hidden" class=" companyListSetId" list="companyListSet" name="" id="lb_Company_id" >
                                                             <datalist id="companyListSet" class="companyListSet"></datalist>    
                                                         </div>
                                                     </div>

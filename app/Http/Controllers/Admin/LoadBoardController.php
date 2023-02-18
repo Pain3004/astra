@@ -58,7 +58,7 @@ class LoadBoardController extends Controller
     }
 
     public function changeStatus(Request $request){
-        
+        dd( $request);
         $com_id=(int)$request->com_id;
         $id=(int)$request->id;
         $oldStatus=$request->oldSelectedValue;
@@ -219,111 +219,171 @@ class LoadBoardController extends Controller
        
     }
 
-    // public function addLoadBoard(Request $request){
-    //     $obj_size=11;
-    //     $companyID=Auth::user()->companyID;
-    //     $totalArray=0;
-    //     $getCompany = Open::where('companyID',$companyID)->get();
-    //     $totalCompany=count($getCompany);
-    //     //dd($getCompany->load);
-    //     $loaddata=((object)[
-    //         'customername'=>$request->customername,
-    //         'loadername'=>$request->loadername,
-    //         'loadertruck'=>$request->loadertruck,
-    //         'loadertrailer'=>$request->loadertrailer,
-    //         'shippername'=>'',
-    //         'consigneename'=>'',
-    //         'loadertotal'=>$request->loadertotal,
-    //     ]); 
-    //     $loads_allCompany=0;
-    //     // $Data[]=array(    
-    //     //     '_id' => $getCompany['counter']+1,
-    //     //     'loaddata' => $loaddata,
-    //     //     );
+    public function addLoadBoard(Request $request){
+        die;
+        $obj_size=3500;
+        $companyID=Auth::user()->companyID;
+        $totalArray=0;
+        $getCompany = Open::where('companyID',$companyID)->get();
+        $totalCompany=count($getCompany);
         
-    //     //dd($getCompany[1]->load);
-    //     if($getCompany){
-    //         for($j=0; $j<$totalCompany; $j++){
-    //             $total_load=count($getCompany[$j]->load);
-    //             $loads_allCompany=$loads_allCompany+$total_load;
-    //         }
-            
-    //                 if($Array==0){
-    //                     $_id=$getCompany[$j-1]->counter+1;
-    //                 }else{
-    //                     $_id=$getCompany[$j]->counter+1;
-    //                 }
-    //         $Avr_loads_allCompany=$loads_allCompany/$obj_size;
-    //        // dd($Avr_loads_allCompany);
-    //         if(is_float($Avr_loads_allCompany)){
-    //             for($i=0; $i<$totalCompany; $i++){
-    //                 // $total_load=count($getCompany[$i]->load);
-    //                 // $loads_allCompany=$loads_allCompany+$total_load;
-    //                 //dd($loads_allCompany);
-    //                 if($total_load<$obj_size){
-    //                     $Array=$getCompany[$i]->load;
-    //                     // if($Array==0){
-    //                     //     $_id=$getCompany[$i-1]->counter+1;
-    //                     // }else{
-    //                     //     $_id=$getCompany[$i]->counter+1;
-    //                     // }
-    
-    //                     $Data[]=array(    
-    //                         '_id' => $_id,
-    //                         'loaddata' => $loaddata,
-    //                         );
-    //                     Open::where(['companyID' => $companyID])->where(['_id' => $getCompany[$i]->_id])->update([
-    //                         '_id' => $_id,
-    //                         'counter'=> $_id,
-    //                         'load' =>array_merge($Array,$Data) ,
-    //                     ]);
-            
-    //                     $arrr = array('status' => 'success', 'message' => 'Load  added successfully.'); 
-    //                     return json_encode($arrr);
-    //                 }
-                    
-    //             }
-    //         }else{
-    //             try{
-    //                 if(Open::create([
-    //                     // 'companyID' => (int)$_SESSION['companyId'],
-    //                     '_id' => 0,
-    //                     'companyID' => $companyID,
-    //                     'counter' => 1,
-    //                     'load' => $Data[]=array(    
-    //                                 '_id' => 1,
-    //                                 'loaddata' => $loaddata,
-    //                             ),
-    //                 ])) {
-    //                     $arrr = array('status' => 'success', 'message' => 'Load Type added successfully.'); 
-    //                     return json_encode($arrr);
-    //                 }
-    //             }
-    //             catch(\Exception $error){
-    //                 return $error->getMessage();
-    //             }
-    //         }
-    //     }  
-    //     else{
-    //         try{
-    //             if(Open::create([
-    //                 // 'companyID' => (int)$_SESSION['companyId'],
-    //                 '_id' => 0,
-    //                 'companyID' => $companyID,
-    //                 'counter' => 1,
-    //                 'load' => $Data[]=array(    
-    //                             '_id' => 1,
-    //                             'loaddata' => $loaddata,
-    //                         ),
-    //             ])) {
-    //                 $arrr = array('status' => 'success', 'message' => 'Load Type added successfully.'); 
-    //                 return json_encode($arrr);
-    //             }
-    //         }
-    //         catch(\Exception $error){
-    //             return $error->getMessage();
-    //         }
-    //     } 
+        $Data[]=array(    
+            '_id' => 1,
+            'loaddata' => $loaddata=((object)[
+                'customername'=>$request->customername,
+                'loadername'=>$request->loadername,
+                'loadertruck'=>$request->loadertruck,
+                'loadertrailer'=>$request->loadertrailer,
+                'shippername'=>'',
+                'consigneename'=>'',
+                'loadertotal'=>$request->loadertotal,
+            ]),
+            'company' => $this->company,
+            'customer' => $this->customer,
+            'dispatcher' => $this->dispatcher,
+            'cnno' => $this->cnno,
+            'status' => $this->status,
+            'active_type' => $this->active_type,
+            'rate' => $this->rate,
+            'units' => $this->units,
+            'fsc' => $this->fsc,
+            'fsc_percentage' => $this->fsc_percentage,
+            'other_charges' => $this->other_charges,
+            'other_charges_modal' => $this->other_charges_modal,
+            'total_rate' => $this->total_rate,
+            // 'equipment_type' => $this->equipment_type,
+            // 'typeofloader' => $this->typeofLoader,
+            // 'carrier_name' => $this->carrier_name,
+            // 'flat_rate' => $this->flat_rate,
+            // 'isIfta'=> $this->isIfta,
+            // 'advance_charges' => $this->advance_charges,
+            // 'carrier_other_modal' => $this->carrier_other_modal,
+            // 'carrier_total' => $this->carrier_total,
+            // 'currency' => $this->currency,
+            // 'driver_name' => $this->driver_name,
+            // 'truck' => $this->truck,
+            // 'trailer' => $this->trailer,
+            // 'loaded_mile' => $this->loaded_mile,
+            // 'empty_mile' => $this->empty_mile,
+            // 'driver_other' => $this->driver_other,
+            // 'driver_other_modal' => $this->driver_other_modal,
+            // 'tarp' => $this->tarp,
+            // 'flat' => $this->flat,
+            // 'driver_total' => $this->driver_total,
+            // 'owner_name' => $this->owner_name,
+            // 'owner_percentage' => $this->owner_percentage,
+            // 'owner_truck' => $this->owner_truck,
+            // 'owner_trailer' => $this->owner_trailer,
+            // 'owner_other' => $this->owner_other,
+            // 'owner_other_modal' => $this->owner_other_modal,
+            // 'owner_total' => $this->owner_total,
+            // 'start_location' => $this->start_location,
+            // 'end_location' => $this->end_location,
+            // 'shipper' => $this->shipper,
+            // 'consignee' => $this->consignee,
+            // 'tarp_select' => $this->tarp_select,
+            // 'loaded_miles_value' => $this->loaded_miles_value,
+            // 'empty_miles_value' => $this->empty_miles_value,
+            // 'driver_miles_value' => $this->driver_miles_value,
+            // 'file' => $this->file,
+            // 'load_notes' => $this->load_notes,
+            // 'carrier_email' => $this->carrier_email,
+            // 'customer_email' => $this->customer_email,
+            // 'created_user' => $_SESSION['userId'],
+            // 'created_at' => time(),
+            // 'updated_at' => time(),
+            // 'shipper_pickup' => $this->shipper[0]['shipper_pickup'],
+            // 'consignee_pickup' => $this->consignee[0]['consignee_pickup'],
+            // 'status_BreakDown_time' => $this->status_Break_Down_time,
+            // 'status_Loaded_time' => $this->status_Loaded_time,
+            // 'status_ArrivedConsignee_time' => $this->status_Arrived_Consignee_time,
+            // 'status_ArrivedShipper_time' => $this->status_Arrived_Shipper_time,
+            // 'status_Paid_time' => $this->status_Paid_time,
+            // 'status_Open_time' => $this->status_Open_time,
+            // 'status_OnRoute_time' => $this->status_On_Route_time,
+            // 'status_Dispatched_time' => $this->status_Dispatched_time,
+            // 'status_Delivered_time' => $this->status_Delivered_time,
+            // 'status_Completed_time' => $this->status_Completed_time,
+            // 'status_Invoiced_time' => $this->status_Invoiced_time,
+            // 'status_change_user' => array("Open" => $_SESSION['userId'],"Dispatched" => "", "Arrived Shipper" => "", "Loaded" => "", "On Route" => "","Arrived Consignee" => "","Delivered" => "", "Completed" => "", "Invoiced" => "", "Break Down" => "","Cancelled" => ""),
+            // 'broker_driver' => $this->broker_driver,
+            // 'broker_driver_contact' => $this->broker_driver_contact,
+            // 'broker_truck' => $this->broker_truck,
+            // 'broker_trailer' => $this->broker_trailer,
+            // 'is_unit_on' => $this->is_unit_on,
+            // 'carrier_parent' => $this->carrier_parent,
+            // 'customer_parent' => $this->customer_parent,
+            // 'driver_parent' => $this->driver_parent,
+            // 'owner_parent' => $this->owner_parent,
+            // 'isBroker' => $this->isBroker,
+            // 'isIftaVerified' => "no",
+            // 'receipt_status' => 0,
+                );
+        $loads_allCompany=0;
+        
+        if($getCompany){
+            for($j=0; $j<$totalCompany; $j++){
+                $total_load=count($getCompany[$j]->load);
+                $loads_allCompany=$loads_allCompany+$total_load;
+            }
+                   
+            $Avr_loads_allCompany=$loads_allCompany/$obj_size;
+            if(is_float($Avr_loads_allCompany)){
+                for($i=0; $i<$totalCompany; $i++){
+                    $total_load=count($getCompany[$i]->load);
+                    if($total_load<$obj_size){
+                        $Array=$getCompany[$i]->load;
+                        $_id=$getCompany[$i]->counter+1;
 
-    // }
+                        $Data[0]['_id']=$_id;
+
+
+                        Open::where(['companyID' => $companyID])->where(['_id' => $getCompany[$i]->_id])->update([
+                            'counter'=> $_id,
+                            'load' =>array_merge($Array,$Data) ,
+                        ]);
+            
+                        $arrr = array('status' => 'success', 'message' => 'Load  added successfully.'); 
+                        return json_encode($arrr);
+                    }
+                    
+                }
+            }else{
+                $_id=$getCompany[$j-1]->counter+1;
+                $Data[0]['_id']=$_id;
+                try{
+                    if(Open::create([
+                        '_id' => (string)2,
+                        'companyID' => $companyID,
+                        'counter' => $_id,
+                        'load' =>$Data,
+                    ])) {
+                        $arrr = array('status' => 'success', 'message' => 'Load Type added successfully.'); 
+                        return json_encode($arrr);
+                    }
+                }
+                catch(\Exception $error){
+                    return $error->getMessage();
+                }
+            }
+        }  
+        else{
+            try{
+
+                if(Open::create([
+                    '_id' => 0,
+                    'companyID' => $companyID,
+                    'counter' => 1,
+                    'load' => $Data,
+                ])) {
+                    $arrr = array('status' => 'success', 'message' => 'Load Type added successfully.'); 
+                    return json_encode($arrr);
+                }
+            }
+            catch(\Exception $error){
+                return $error->getMessage();
+            }
+        } 
+
+    }
 }
