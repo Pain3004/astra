@@ -42,7 +42,7 @@
                             <div class="col-lg-12">
 
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                    <table id="FuelVendorDataTable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                             <tr class="tr">
                                                 <th>NO</th>
@@ -191,7 +191,7 @@
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                    <table id="RestoreFuelVendorDataTable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                             <tr class="tr">
                                                 <th><input type="checkbox" name="all_ids[]" class="fuel_all_ids"></th>

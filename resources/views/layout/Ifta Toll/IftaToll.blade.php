@@ -29,7 +29,7 @@
                     <a href="#" class="button-57_alt restoreIftaTollData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
                     <input type="hidden" name="checked_id" id="delete_checked_ifta_toll_ids" value="">
                     <input type="hidden" name="company_id" id="delete_checked_iftaToll_company_ids" value="">
-                    <button id="delete_IftaTollData_btn"  class="button-57_alt delete_IftaTollData_btn" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete fuel vendor</span></button>
+                    <a href="#" id="delete_IftaTollData_btn"  class="button-57_alt delete_IftaTollData_btn" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete fuel vendor</span></a>
 
                 @endif
                     <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
@@ -48,7 +48,7 @@
                             <div class="col-lg-12">
 
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                    <table id="IftaTollDetaillsTable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                         <tr class="tr">
                                            
@@ -130,9 +130,11 @@
                                                 
                                                 <div class="form-group col-md-4">
                                                     <label >Invoice No</label>
-                                                    <select class="form-control createIftaTollNo fuel_recepit_invoice_no_list" name="invoiceNo "> 
-                                                        <option>select one </option>
-                                                    </select>
+                                                    <input type="text" class="form-control createIftaTollNo " list ="fuel_recepit_invoice_no_list"  name="invoiceNo ">
+                                                    <datalist class="fuel_recepit_invoice_no_list" id="fuel_recepit_invoice_no_list">
+                                                    </datalist> 
+                                                        <!-- <option>select one </option> -->
+                                                    <!-- </select> -->
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Date<span style="color:#ff0000">*</span></label>
@@ -148,12 +150,14 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location  <span style="color:#ff0000">*</span></label>
-                                                    <input type="text" class="form-control createIftaTollLocationName" name="location" required > 
+                                                    <input type="text" class="form-control createIftaTollLocationName  location_view" data-location="createIftaTollLocationName"  id="createIftaTollLocationName" name="location" required > 
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label>Truck Number<span style="color:#ff0000">*</span>
                                                         </label>
-                                                    <input type="text" class="form-control createIftaTollTruckNumber"  name="truckno" required>
+                                                    <input type="text" class="form-control createIftaTollTruckNumber" list=" truck_nummberIftaToll" name="truckno" required>
+                                                    <datalist id=" truck_nummberIftaToll">
+                                                    </datalist>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label>Transponder     </label>
@@ -215,9 +219,11 @@
                                                 
                                                 <div class="form-group col-md-4">
                                                     <label >Invoice No</label>
-                                                    <select class="form-control updateIftaTollNo fuel_recepit_invoice_no_list" name="invoiceNo "> 
-                                                        <option>select one </option>
-                                                    </select>
+                                                    <input type="text" class="form-control updateIftaTollNo " list="fuel_recepit_invoice_no_list" name="invoiceNo "> 
+                                                    <datalist class="fuel_recepit_invoice_no_list" id="fuel_recepit_invoice_no_list">
+                                                    </datalist> 
+                                                        <!-- <option>select one </option>
+                                                    </select> -->
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Date<span style="color:#ff0000">*</span></label>
@@ -233,12 +239,14 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location  <span style="color:#ff0000">*</span></label>
-                                                    <input type="text" class="form-control updateIftaTollLocationName" name="location" required > 
+                                                    <input type="text" class="form-control updateIftaTollLocationName  location_view" data-location="updateIftaTollLocationName" id="updateIftaTollLocationName" name="location" required > 
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label>Truck Number<span style="color:#ff0000">*</span>
                                                         </label>
-                                                    <input type="text" class="form-control updateIftaTollTruckNumber"  name="truckno" required>
+                                                    <input type="text" class="form-control updateIftaTollTruckNumber"  list=" truck_nummberIftaToll" name="truckno" required >
+                                                    <datalist id=" truck_nummberIftaToll">
+                                                    </datalist>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label>Transponder     </label>
@@ -304,7 +312,7 @@
                             <div class="col-lg-12">
 
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                    <table id="RestoreIftaTollDetaillsTable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                         <tr  class="tr">
                                             <th ><input type="checkbox" name="all_ids[]" class="all_checked_ids"></th>

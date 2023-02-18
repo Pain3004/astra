@@ -16,79 +16,81 @@ use Illuminate\Database\Eloquent\Collection;
 
 class FuelReceiptController extends Controller
 {
-    public function getFuelReceipt(Request $request){
-        $companyId=67;
-        $FuelReceipt = FuelReceipt::where('companyID',$companyId)->first();
-       return response()->json($FuelReceipt, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    public function getFuelReceipt(Request $request)
+    {
+        $companyId=(int)Auth::user()->companyID;
+        $FuelReceipt = FuelReceipt::where('companyID',$companyId)->get();
+        foreach($FuelReceipt as $row)
+        {
+            $FuelReceipt=collect($row->fuel_receipt);
+            $FuelReceipt = $FuelReceipt->chunk(10);
+            $FuelReceipt= $FuelReceipt->toArray();
+        }
+        // dd($FuelReceipt);
+       
+        return response()->json(['FuelReceipt'=>$FuelReceipt,'companyId'=>$companyId], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function createFuelReceipt(Request $request)
     {
-        $companyId=(int)67;
+        $companyId=(int)Auth::user()->companyID;
         $FuelReceipt = FuelReceipt::where('companyID',$companyId)->get();
         return response()->json($FuelReceipt, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function saveFuelReceipt(Request $request)
     {
-        // dd($request->driverName);
-        
-        request()->validate([
-       
-        ]);
-        
-        // $FuelReceipt = FuelReceipt::all();
-   
-        $companyId=(int)67;
+        $companyId=(int)Auth::user()->companyID;
         $totalFuelReceiptArray=0;
-        $getFuelReceipt = FuelReceipt::where('companyID',$companyId)->first();
-
-        if($getFuelReceipt){
-            $FuelReceiptArray=$getFuelReceipt->fuel_receipt;
-            $totalFuelReceiptArray=count($FuelReceiptArray)+ 1;
-            $ids_trip=array();
-            foreach( $FuelReceiptArray as $ids)
+        $getFuelReceipt = FuelReceipt::where('companyID',$companyId)->get();
+        foreach($getFuelReceipt as $getFuelReceipt)
+        {
+            if($getFuelReceipt)
             {
-                // dd($ids);
-                $ids_trip[]=$ids['_id'];
-            }
-            // dd($ids_trip);
-            $ids_trip=max($ids_trip);
-            // dd($ids_trip);
-        }
-        $date=$request->date;
-        $date = strtotime($date);
-        $FuelReceiptData[]=array(    
-                        '_id' => $ids_trip+1 ,
-                        // 'counter' => 0,
-                        'driverName' => $request->driverName,
-                        'driverNumber' => $request->driverNo,
-                        'cardNo' => $request->cardNumber,
-                        'paymentType'=>$request->paymentType,
-                        'category' => $request->fuelVendor,
-                        'fuelType' => $request->fuelType,
-                        'truckNumber' => $request->truckNumber,
-                        'transactionDate'=>$date,
-                        'transactionTime' => $request->transactionTime,
-                        'locationName' => $request->locationName,
-                        'locationCity' => $request->locationCity,
-                        'locationState' => $request->locationState,
-                        'quantity' => $request->quantity,
-                        'amount' => $request->amount,
-                        'totalAmount' => $request->totalAmount,
-                        'transactionDiscount' => $request->transactionDiscount,
-                        'transactionFee' => $request->transactionFee,
-                        'transactionGross' => $request->transactionGross,
-                        'invoiceNo' => $request->invoiceNo,
-                        'insertedTime' => '' ,
-                        'insertedUserId' => '' ,
-                        'deleteStatus' => 'NO' ,
-                        'deleteUser' => '' ,
-                        'deleteTime' => '' ,
-                        'averagedays' =>'' ,
-                        'totalloads' => '' ,
-
-                        );
            
-            if($getFuelReceipt){
+                $FuelReceiptArray=$getFuelReceipt->fuel_receipt;
+                $totalFuelReceiptArray=count($FuelReceiptArray)+ 1;
+                $ids_trip=array();
+                foreach( $FuelReceiptArray as $ids)
+                {
+                    $ids_trip[]=$ids['_id'];
+                }
+                $ids_trip=max($ids_trip);
+            }
+            $date=$request->date;
+            $date = strtotime($date);
+            $FuelReceiptData[]=array(    
+                '_id' => $ids_trip+1 ,
+                'counter' => $ids_trip+1,
+                'driverName' => $request->driverName,
+                'driverNumber' => $request->driverNo,
+                'cardNo' => $request->cardNumber,
+                'paymentType'=>$request->paymentType,
+                'category' => $request->fuelVendor,
+                'fuelType' => $request->fuelType,
+                'truckNumber' => $request->truckNumber,
+                'transactionDate'=>$date,
+                'transactionTime' => $request->transactionTime,
+                'locationName' => $request->locationName,
+                'locationCity' => $request->locationCity,
+                'locationState' => $request->locationState,
+                'quantity' => $request->quantity,
+                'amount' => $request->amount,
+                'totalAmount' => $request->totalAmount,
+                'transactionDiscount' => $request->transactionDiscount,
+                'transactionFee' => $request->transactionFee,
+                'transactionGross' => $request->transactionGross,
+                'invoiceNo' => $request->invoiceNo,
+                'insertedTime' => '' ,
+                'insertedUserId' => '' ,
+                'deleteStatus' => 'NO' ,
+                'deleteUser' => '' ,
+                'deleteTime' => '' ,
+                'averagedays' =>'' ,
+                'totalloads' => '' ,
+
+            );
+               
+            if($getFuelReceipt)
+            {
                 FuelReceipt::where(['companyID' =>$companyId])->update([
                     'counter'=> $totalFuelReceiptArray,
                     'fuel_receipt' =>array_merge($FuelReceiptArray,$FuelReceiptData) ,
@@ -98,13 +100,12 @@ class FuelReceiptController extends Controller
                 $arrCustome = array('status' => 'success', 'message' => 'Fuel Receipt added successfully.'); 
                 return json_encode($arrCustome);
             }
-           
+        }           
     }
     public function editFuelReceipt(Request $request)
     {
         $id=$request->id;
         $companyID=(int)$request->companyID;
-        // dd($companyID);
         $FuelReceipt=FuelReceipt::where("companyID",$companyID)->first();
         $FuelReceiptArray=$FuelReceipt->fuel_receipt;
         $FuelReceiptLenght=count($FuelReceiptArray);
@@ -127,9 +128,9 @@ class FuelReceiptController extends Controller
     }
     public function updateFuelReceipt(Request $request)
     {
+        // dd($request->driverName);
         $id=$request->id;
         $companyID=(int)$request->comId;
-        // DD($request->invoiceNo);
         $fuelReceipt=FuelReceipt::where('companyID',$companyID)->first();
         $fuelReceiptArray=$fuelReceipt->fuel_receipt;
         $arrayLength=count($fuelReceiptArray);
@@ -253,15 +254,20 @@ class FuelReceiptController extends Controller
     }
    public function getInvoicedNumber(Request $request)
    {
-        $companyId=1;
-        $Invoiced = Invoiced::where('companyID',$companyId)->first();
-       //$Invoiced=null;
+        $companyId=(int)Auth::user()->companyID;
+        $Invoiced = Invoiced::where('companyID',$companyId)->get();
+        foreach($Invoiced as $row)
+        {
+            $Invoiced=collect($row->load);
+            $Invoiced = $Invoiced->chunk(10);
+            $Invoiced= $Invoiced->toArray();
+        }
+        // dd($Invoiced);
         return response()->json($Invoiced, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
    }
    public function deleteMulFuelReceipt(Request $request)
    {
     $fuelReceIds=$request->all_ids;
-    // dd($fuelReceIds);
     $custID=(array)$request->custID;
     foreach($custID as $fuel_re_id)
     {

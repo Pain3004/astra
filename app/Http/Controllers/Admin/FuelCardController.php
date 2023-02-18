@@ -20,9 +20,9 @@ class FuelCardController extends Controller
 {
     public function getFuelCard(Request $request){
         $companyId=(int)Auth::user()->companyID;
-        // $FuelCard = FuelCard::where('companyID',$companyId)->first();
-        // $FuelVendor = FuelVendor::where('companyID',$companyId)->first();
-        // $driver = Driver::where('companyID',$companyId )->first();
+        $FuelCard = FuelCard::where('companyID',$companyId)->first();
+        $FuelVendor = FuelVendor::where('companyID',$companyId)->first();
+        $driver = Driver::where('companyID',$companyId )->first();
 
 
         //     $FactCompany=collect($FactCompany->factoring);
@@ -56,29 +56,29 @@ class FuelCardController extends Controller
 
 
 
-    $result = FuelCard::where('companyID',$companyId)->raw(function($collection) {
-        return $collection->aggregate(array(
-          array( '$lookup' => array(
-            'from' => 'drivers',
-            'localField' => 'driver.driver._id',
-            'foreignField' => '_id',
-            'as' => 'driver'
-          )),
-          array( '$unwind' => array( 
-            'path' => '$driver', 'preserveNullAndEmptyArrays' => True
-          )),
-        //   array( '$match' => array(
-        //     '$or' => array(
-        //       array( 'invoice_number' => array( '$regex' => $search ) ),
-        //       array( 'payment_type' => array( '$regex' => $search ) ),
-        //       array( 'txid' => array( '$regex' => $search ) ),
-        //       array( 'user.usrEmail' => array( '$regex' => $search ) )
-        //     )
-        //   )),
-        //   array( '$skip' => $start ),
-        //   array( '$limit' => $limit )
-        ));
-     });
+//     $result = FuelCard::where('companyID',$companyId)->raw(function($collection) {
+//         return $collection->aggregate(array(
+//           array( '$lookup' => array(
+//             'from' => 'drivers',
+//             'localField' => 'driver.driver._id',
+//             'foreignField' => '_id',
+//             'as' => 'driver'
+//           )),
+//           array( '$unwind' => array( 
+//             'path' => '$driver', 'preserveNullAndEmptyArrays' => True
+//           )),
+//         //   array( '$match' => array(
+//         //     '$or' => array(
+//         //       array( 'invoice_number' => array( '$regex' => $search ) ),
+//         //       array( 'payment_type' => array( '$regex' => $search ) ),
+//         //       array( 'txid' => array( '$regex' => $search ) ),
+//         //       array( 'user.usrEmail' => array( '$regex' => $search ) )
+//         //     )
+//         //   )),
+//         //   array( '$skip' => $start ),
+//         //   array( '$limit' => $limit )
+//         ));
+//      });
 
 // dd($result);
 
@@ -211,40 +211,40 @@ class FuelCardController extends Controller
     }
     public function deleteFuelCard(Request $request)
     {
-        $id=$request->id;
-        $companyID=(int)$request->comId;
+        // $id=$request->id;
+        // $companyID=(int)$request->comId;
 
-        $card_cat = new FuelCard();
-        $card_cat->setId($id);
-        $card_cat->deleteIftaCard($card_cat, $companyID);
-        if($card_cat->save())
+        // $card_cat = new FuelCard();
+        // $card_cat->setId($id);
+        // $card_cat->deleteIftaCard($card_cat, $companyID);
+        // if($card_cat->save())
+        // {
+        //     $arr = array('status' => 'success', 'message' => 'fuel receipt Deleted successfully.','statusCode' => 200); 
+        //  return json_encode($arr);
+        // }
+
+        $FuelCard=FuelCard::where('companyID',$companyID)->first();
+        $FuelCardArray=$FuelCard->ifta_card;
+        $arrayLength=count($FuelCardArray);
+        $i=0;
+        $v=0;
+       for ($i=0; $i<$arrayLength; $i++){
+            $ids=$FuelCard->ifta_card[$i]['_id'];
+            $ids=(array)$ids;
+            foreach ($ids as $value){
+                if($value==$id)
+                {
+                    $v=$i;
+                }
+            }
+        }
+        $FuelCardArray[$v]['deleteStatus'] = "YES";
+        $FuelCard->ifta_card= $FuelCardArray;
+        if($FuelCard->save())
         {
-            $arr = array('status' => 'success', 'message' => 'fuel receipt Deleted successfully.','statusCode' => 200); 
+         $arr = array('status' => 'success', 'message' => 'fuel receipt Deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
         }
-
-    //     $FuelCard=FuelCard::where('companyID',$companyID)->first();
-    //     $FuelCardArray=$FuelCard->ifta_card;
-    //     $arrayLength=count($FuelCardArray);
-    //     $i=0;
-    //     $v=0;
-    //    for ($i=0; $i<$arrayLength; $i++){
-    //         $ids=$FuelCard->ifta_card[$i]['_id'];
-    //         $ids=(array)$ids;
-    //         foreach ($ids as $value){
-    //             if($value==$id)
-    //             {
-    //                 $v=$i;
-    //             }
-    //         }
-    //     }
-    //     $FuelCardArray[$v]['deleteStatus'] = "YES";
-    //     $FuelCard->ifta_card= $FuelCardArray;
-    //     if($FuelCard->save())
-    //     {
-    //      $arr = array('status' => 'success', 'message' => 'fuel receipt Deleted successfully.','statusCode' => 200); 
-    //      return json_encode($arr);
-    //     }
     }
     public function restoreFuelCard(Request $request)
     {
