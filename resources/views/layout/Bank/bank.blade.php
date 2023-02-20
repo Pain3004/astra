@@ -4,8 +4,6 @@
     <div class="modal fade" data-backdrop="static" id="bankModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
             <div class="modal-content">
-
-                <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Bank</h4>
                     <button type="button" class="button-24 bankClose" >&times;</button>
@@ -19,16 +17,9 @@
                     <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a> -->
                     <div class="searchbar" style="float: right; margin-right: 15px;">
                         <input type="text" placeholder="search" />
-                        <!-- <div class="symbol">
-                            
-                            <svg class="lens">
-                            <use xlink:href="#lens" />
-                            </svg>
-                        </div> -->
                     </div>
 
                 </div>
-                <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
                     <!-- Row -->
                     <div class="row">
@@ -36,7 +27,7 @@
                             <div class="col-lg-12">
 
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                    <table id="bankDataTablePagi" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                         <tr class="tr">
 

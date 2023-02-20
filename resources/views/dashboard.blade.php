@@ -1,20 +1,19 @@
 @include('layout.dashboard.header')
-
 @include('layout.loader')
-
-	<!-- PAGE -->
 	<div class="page">
 		<div class="page-main">
-@include('layout.dashboard.navigation')
-
-@include('layout.dashboard.sidebar')
-		
-
+			@include('layout.dashboard.navigation')
+			@include('layout.dashboard.sidebar')
+			<div class="loading" style="display:none" id="dashboardloader">
+				<div class='uil-ring-css' style='transform:scale(0.79);'>
+					<div></div>
+				</div>
+			</div>
 			<!--app-content open-->
 			<div class="app-content main-content mt-0">
 				<div class="side-app">
-					 <!-- CONTAINER -->
-					 <div class="main-container container-fluid">
+					<!-- CONTAINER -->
+					<div class="main-container container-fluid">
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
@@ -28,22 +27,21 @@
 							</div>
 						</div>
 						<!-- PAGE-HEADER END -->
-
 						<!-- ROW-1 -->
 						<div class="row">
 							<div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
 								<div class="card overflow-hidden">
 									<div class="card-body">
 										<div class="row">
-											<div class="col">
-												<h3 class="mb-2 fw-semibold">1,12,324</h3>
+											<div class="col" id="dashcomrev">
+												<!-- <h3 class="mb-2 fw-semibold">1,12,324</h3>
 												<p class="text-muted fs-13 mb-0">Daily Visitors</p>
 												<p class="text-muted mb-0 mt-2 fs-12">
 													<span class="icn-box text-success fw-semibold fs-13 me-1">
 														<i class='fa fa-long-arrow-up'></i>
 														42%</span>
 													since last month
-												</p>
+												</p> -->
 											</div>
 											<div class="col col-auto top-icn dash">
 												<div class="counter-icon bg-primary dash ms-auto box-shadow-primary">

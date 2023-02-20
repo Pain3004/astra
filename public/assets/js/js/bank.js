@@ -3,9 +3,9 @@ $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
     $('.bankClose').click(function(){
+        removePagi();
         $('#bankModal').modal('hide');
     });
-
 
 // <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
    
@@ -29,7 +29,7 @@ $(document).ready(function() {
             //dataType:JSON,
             success: function(text) {
                 //alert();
-                console.log(text);
+                // console.log(text);
                 createBankRows(text);
                 bankResult = text;
              }
@@ -40,139 +40,126 @@ $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------over Get fuelReceipt  ------------------------------------------------------------------------- --> 
 // <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
-    
-// get truck
     function createBankRows(bankResult) {
         var banklen = 0;
         var no=1;
-        //alert(FuelVendorResult);
-            if (bankResult != null) {
-                $("#bankTable").html('');
-                banklen = bankResult.length;
-                // alert(banklen);
-                if (banklen > 0) {
-                    for (var i = banklen-1; i >= 0; i--) { 
-                        
-                        bankAdminlen = bankResult[i].admin_bank.length;
-                        var Id =bankResult[i]._id;
-                        var com_Id =bankResult[i].companyID;
-                        //alert(bankAdminlen);
-                        if (bankAdminlen > 0) {
-                            for (var j = bankAdminlen-1; j >= 0; j--) {
-                                
-                                var openingBale=bankResult[i].admin_bank[j].openingBalDate;
-                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-                                var date = new Date(openingBale*1000);
-                                var year = date.getFullYear();
-                                var month = months_arr[date.getMonth()];
-                                var day = date.getDate();
-                                var openingBalDate = month+'/'+day+'/'+year;
+        if (bankResult != null) 
+        {
+            $("#bankTable").html('');
+            banklen = bankResult.bankData.length;
+            if (banklen > 0) 
+            {
+                var lentData=[];
+                for (var j = banklen-1; j >= 0; j--) 
+                {                     
+                    data = bankResult.bankData[j];
+                    $.each(data, function(i, v) { 
+                    var openingBale=bankResult.bankData[j][i].openingBalDate;
+                    var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                    var date = new Date(openingBale*1000);
+                    var year = date.getFullYear();
+                    var month = months_arr[date.getMonth()];
+                    var day = date.getDate();
+                    var openingBalDate = month+'/'+day+'/'+year;
 
-                                var CompID=bankResult[i].companyID;
-                                var admin_bank_Id =bankResult[i].admin_bank[j]._id;
-                                var bankName =bankResult[i].admin_bank[j].bankName;
-                                var bankAddresss =bankResult[i].admin_bank[j].bankAddresss;
-                                var accountHolder =bankResult[i].admin_bank[j].accountHolder;
-                                var accountNo =bankResult[i].admin_bank[j].accountNo;
-                                var routingNo =bankResult[i].admin_bank[j].routingNo;
-                                // var openingBalDate =bankResult[i].admin_bank[j].openingBalDate;
-                                var openingBalance =bankResult[i].admin_bank[j].openingBalance;
-                               var openingBalance=parseFloat(openingBalance).toFixed(2);
-                                var currentBalance =bankResult[i].admin_bank[j].currentBalance;
-                                var currentBalance=parseFloat(currentBalance).toFixed(2);
-                                var deleteStatus =bankResult[i].admin_bank[j].deleteStatus;
-
-                                if(deleteStatus == "NO"){
-                                        //alert("ff");
-                                        var bankStr = "<tr data-id=" + (i + 1) + ">" +
-                                        "<td data-field='no'>" + no + "</td>" +
-                                        "<td data-field='bankName' >" + bankName + "</td>" +
-                                        "<td data-field='bankAddresss' >" + bankAddresss + "</td>" +
-                                        "<td data-field='accountHolder' >" + accountHolder + "</td>" +
-                                        "<td data-field='accountNo' >" + accountNo + "</td>" +
-                                        "<td data-field='routingNo' >" + routingNo + "</td>" +
-                                        "<td data-field='openingBalDate' >" + openingBalDate + "</td>" +
-                                        "<td data-field='openingBalance' >$ " + openingBalance + "</td>" +
-                                        
-                                        "<td data-field='currentBalance' >$ " + currentBalance + "</td>" +
-                                       
-                                        "<td style='text-align:center'>"+
-                                        "<a class='mt-2 button-29 fs-14 text-white Edit_bank_details_m'  title='Edit1' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-
-                                        "<a class='mt-2 button-29 fs-14 text-white delete_bank_details'  title='delete' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-trash'></i></a>&nbsp"+
-
-                                        // "<a class='mt-2 button-29 fs-14 text-white upload_bank_details'  title='delete' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-upload'></i></a>&nbsp"+
-                                        "</td></tr>";
-            
-                                    $("#bankTable").append(bankStr);
-                                    no++;
-                                }
-                            }
-                        }
+                    var CompID=bankResult.companyId;
+                    var admin_bank_Id =bankResult.bankData[j][i]._id;
+                    var bankName =bankResult.bankData[j][i].bankName;
+                    var bankAddresss =bankResult.bankData[j][i].bankAddresss;
+                    var accountHolder =bankResult.bankData[j][i].accountHolder;
+                    if(accountHolder !="" || accountHolder != null)
+                    {
+                        accountHolder=accountHolder;
                     }
+                    else
+                    {
+                        accountHolder="------";
+                    }
+                    var accountNo =bankResult.bankData[j][i].accountNo;
+                    var routingNo =bankResult.bankData[j][i].routingNo;
+                    // var openingBalDate =bankResult.bankData[j][i].openingBalDate;
+                    var openingBalance =bankResult.bankData[j][i].openingBalance;
+                    var openingBalance=parseFloat(openingBalance).toFixed(2);
+                    var currentBalance =bankResult.bankData[j][i].currentBalance;
+                    var currentBalance=parseFloat(currentBalance).toFixed(2);
+                    var deleteStatus =bankResult.bankData[j][i].deleteStatus;
+
+                    if(deleteStatus == "NO")
+                    {
+                        lentData.push(i);
+                                var bankStr = "<tr data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'>" + no + "</td>" +
+                                "<td data-field='bankName' >" + bankName + "</td>" +
+                                "<td data-field='bankAddresss' >" + bankAddresss + "</td>" +
+                                "<td data-field='accountHolder' >" + accountHolder + "</td>" +
+                                "<td data-field='accountNo' >" + accountNo + "</td>" +
+                                "<td data-field='routingNo' >" + routingNo + "</td>" +
+                                "<td data-field='openingBalDate' >" + openingBalDate + "</td>" +
+                                "<td data-field='openingBalance' >$ " + openingBalance + "</td>" +
+                                
+                                "<td data-field='currentBalance' >$ " + currentBalance + "</td>" +
+                                
+                                "<td style='text-align:center'>"+
+                                "<a class='mt-2 button-29 fs-14 text-white Edit_bank_details_m'  title='Edit1' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+
+                                "<a class='mt-2 button-29 fs-14 text-white delete_bank_details'  title='delete' data-bankID='"+admin_bank_Id+"' data-compID='"+CompID+"' ><i class='fe fe-trash'></i></a>&nbsp"+
+                                "</td></tr>";
+    
+                            $("#bankTable").append(bankStr);
+                            no++;
+                        }
+                       
+                    });
                 }
-            //     $("#iftaTollTable").html('');
-
-            //     if (IftaTolllen > 0) {
-                   
-            //         var no=1;
-            //         for (var i = IftaTolllen-1; i >= 0; i--) {  
-                  
-            //             var IftaTollId =IftaTollResult.tolls[i]._id;
-            //             var transectionDate =IftaTollResult.tolls[i].tollDate;
-            //             var transType =IftaTollResult.tolls[i].transType;
-            //             var location =IftaTollResult.tolls[i].location;
-            //             var transponder =IftaTollResult.tolls[i].transponder;
-            //             var licensePlate =IftaTollResult.tolls[i].licensePlate;
-            //             var amount =IftaTollResult.tolls[i].amount;
-            //             var truckNo =IftaTollResult.tolls[i].truckNo;
-            //             var invoiceNo =IftaTollResult.tolls[i].invoiceNumber;
-                       
-            //             var deleteStatus =IftaTollResult.tolls[i].deleteStatus;
-            //   //alert(fuelCardId);
-             
-
-            //             if(deleteStatus == "NO"){
-            //                 //alert("ff");
-            //                 var IftaTollStr = "<tr data-id=" + (i + 1) + ">" +
-            //                 "<td data-field=''><input type='checkbox' id='check_sigle_toll' class='check'></td>" +
-            //                 "<td data-field='no'>" + no + "</td>" +
-            //                 "<td data-field='transectionDate' >" + transectionDate + "</td>" +
-            //                 "<td data-field='transType' >" + transType + "</td>" +
-            //                 "<td data-field='location' >" + location + "</td>" +
-            //                 "<td data-field='transponder' >" + transponder + "</td>" +
-            //                 "<td data-field='licensePlate' >" + licensePlate + "</td>" +
-            //                 "<td data-field='amount' ><i class='fa fa-usd'> " + amount + "</i></td>" +
-            //                 "<td data-field='truckNo' >" + truckNo + "</td>" +
-            //                 "<td data-field='invoiceNo' >" + invoiceNo + "</td>" +
-                       
-            //                 "<td style='text-align:center'>"+
-            //                     "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+IftaTollId+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
-            //                 "</td></tr>";
-
-            //             $("#iftaTollTable").append(IftaTollStr);
-            //             no++;
-            //             }
-            //         }
-            //     } else {
-            //         var IftaTollStr = "<tr data-id=" + i + ">" +
-            //             "<td align='center' colspan='4'>No record found.</td>" +
-            //             "</tr>";
+            }
+            var items=lentData.length;
+            Paginator(items);
         
-            //         $("#iftaTollTable").append(IftaTollStr);
-            //     }
-            }else {
+        }
+        else 
+        {
             var IftaTollStr = "<tr data-id=" + i + ">" +
-                "<td align='center' colspan='4'>No record found.</td>" +
-                "</tr>";
-
+            "<td align='center' colspan='4'>No record found.</td>" +
+            "</tr>";
             $("#iftaTollTable").append(IftaTollStr);
         }
     }
+    function removePagi()
+    {
+        $('#nav').remove();
+        var startItem=0;
+        var endItem=10;
+        $('#bankDataTablePagi tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+        css('display','table-row').animate({opacity:1}, 300); 
+    }
+    function Paginator(items) 
+    {
 
+        $('#bankDataTablePagi').after ('<div id="nav"></div>');  
+        var rowsShown = 10;  
+        var rowsTotal = items;  
+        var numPages = rowsTotal/rowsShown;
+        numPages= ~~numPages;
+        for (i = 0;i < numPages;i++) {  
+            var pageNum = i + 1; 
+            $('#nav').append ('<a href="#" rel="'+i+'">'+pageNum+'</a> ');  
+        }  
+        $('#bankDataTablePagi tbody tr').hide();  
+        $('#bankDataTablePagi tbody tr').slice (0, rowsShown).show();  
+        $('#nav a:first').addClass('active');  
+        $('#nav a').bind('click', function() {  
+        $('#nav a').removeClass('active');  
+       $(this).addClass('active');  
+            var currPage = $(this).attr('rel');  
+            var startItem = currPage * rowsShown;  
+            var endItem = startItem + rowsShown;  
+            $('#bankDataTablePagi tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+            css('display','table-row').animate({opacity:1}, 300);   
+        }); 
+    } 
    
 
-    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // ================End============================================  
     // ==================== ====store bank data ==============================================
     $(".createBankModalStore").click(function(){
         $('#BankModalStoreData').modal("show");
@@ -267,14 +254,16 @@ $(document).ready(function() {
         var companyLength=comapnyRes.company.length;
         var companyL=comapnyRes.company;  
         $(".listCompanyNames").html(); 
+        var html="<option>----select----</option>"
         for(var j=0; j<companyLength;j++)
         {
             var id=companyL[j]._id;
             var name=companyL[j].companyName;
-            var html="<option value='"+id+"'>"+name+"</option>";
+             html+="<option value='"+id+"'>"+name+"</option>";
             // $(".addbankCompany").val(id);
-            $(".listCompanyNames").append(html);
+          
         }   
+        $(".listCompanyNames").append(html);
     }
     $(".CreateCompanyHolderName").click(function(){
         $("#CompanyCreateModal").modal("show");
@@ -534,7 +523,7 @@ $(document).ready(function() {
             url: base_path+"/admin/getCompanyHolder",
             async: false,
             success: function(text) {
-                console.log(text);
+                // console.log(text);
                 RestoreCompanyName(text);
                 comapnyRes = text;
              }
@@ -549,35 +538,33 @@ $(document).ready(function() {
         if (bankResult != null) 
         {
             $("#restorebankTable").html('');
-            banklen = bankResult.length;
+            banklen = bankResult.bankData.length;
             if (banklen > 0) 
             {
-                for (var i = banklen-1; i >= 0; i--) 
+                var lentData=[];
+                for (var j = banklen-1; j >= 0; j--) 
                 { 
-                    bankAdminlen = bankResult[i].admin_bank.length;
-                    var Id =bankResult[i]._id;
-                    var com_Id =bankResult[i].companyID;
-                    //alert(bankAdminlen);
-                    if (bankAdminlen > 0) 
+                    var data = bankResult.bankData[j];
+                    if (data > 0) 
                     {
-                        for (var j = bankAdminlen-1; j >= 0; j--) 
-                        {    
-                            var CompID=bankResult[i].companyID;
-                            var admin_bank_Id =bankResult[i].admin_bank[j]._id;
-                            var bankName =bankResult[i].admin_bank[j].bankName;
-                            var bankAddresss =bankResult[i].admin_bank[j].bankAddresss;
-                            var accountHolder =bankResult[i].admin_bank[j].accountHolder;
-                            var accountNo =bankResult[i].admin_bank[j].accountNo;
-                            var routingNo =bankResult[i].admin_bank[j].routingNo;
-                            var openingBalDate =bankResult[i].admin_bank[j].openingBalDate;
-                            var openingBalance =bankResult[i].admin_bank[j].openingBalance;
+                        $.each(data, function(i, v) {   
+                            var CompID=bankResult.companyId;
+                            var admin_bank_Id =bankResult.bankData[j][i]._id;
+                            var bankName =bankResult.bankData[j][i].bankName;
+                            var bankAddresss =bankResult.bankData[j][i].bankAddresss;
+                            var accountHolder =bankResult.bankData[j][i].accountHolder;
+                            var accountNo =bankResult.bankData[j][i].accountNo;
+                            var routingNo =bankResult.bankData[j][i].routingNo;
+                            var openingBalDate =bankResult.bankData[j][i].openingBalDate;
+                            var openingBalance =bankResult.bankData[j][i].openingBalance;
                             var openingBalance=parseFloat(openingBalance).toFixed(2);
-                            var currentBalance =bankResult[i].admin_bank[j].currentBalance;
+                            var currentBalance =bankResult.bankData[j][i].currentBalance;
                             var currentBalance=parseFloat(currentBalance).toFixed(2);
-                            var deleteStatus =bankResult[i].admin_bank[j].deleteStatus;
+                            var deleteStatus =bankResult.bankData[j][i].deleteStatus;
 
                             if(deleteStatus == "YES")
                             {
+                                lentData.push(i);
                                 var bankStr = "<tr data-id=" + (i + 1) + ">" +
                                 "<td data-field='no'><input type='checkbox' class='check_BankDetails_one' name='all_BankDetails_id[]' data-BankDetails=" + admin_bank_Id+ " date-compID="+CompID+"  value="+admin_bank_Id+"></td>" +
                                 "<td data-field='bankName' >" + bankName + "</td>" +
@@ -590,9 +577,11 @@ $(document).ready(function() {
                                 "<td data-field='openingBalance' >$ " + currentBalance + "</td></tr>" 
                                 $("#restorebankTable").append(bankStr);
                             }
-                        }
+                        });
                     }
                 }
+                // var items=lentData.length;
+                // Paginator(items);
                 
             }
             else 
