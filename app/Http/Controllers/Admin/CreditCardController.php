@@ -18,7 +18,7 @@ class CreditCardController extends Controller
 {
     public function getcreditCard(Request $request){
         $companyId=(int)1;
-        $creditCard = CreditCard::where('companyID',$companyId)->get();
+        $creditCard = CreditCardAdmin::where('companyID',$companyId)->get();
        //dd($bankData);
        return response()->json($creditCard, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
@@ -32,7 +32,7 @@ class CreditCardController extends Controller
             'openingBalance' => 'required',
         ]);
         $companyID=(int)1;
-        $CreditCard = CreditCard::where('companyID',$companyID)->get();
+        $CreditCard = CreditCardAdmin::where('companyID',$companyID)->get();
         foreach( $CreditCard as  $CreditCard_data)
         {
             if($CreditCard_data)
@@ -71,7 +71,7 @@ class CreditCardController extends Controller
             ); 
             if($CreditCard_data)
             {                
-                CreditCard::where(['companyID' =>$companyID])->update([
+                CreditCardAdmin::where(['companyID' =>$companyID])->update([
                 'counter'=> $totalCreditCardArray+1,
                 'admin_credit' =>array_merge($CreditCardArray,$CreditCardData) ,
                 ]);
@@ -82,7 +82,7 @@ class CreditCardController extends Controller
             {
                 try
                 {
-                    if(CreditCard::create([
+                    if(CreditCardAdmin::create([
                         '_id' => 1,
                         'companyID' => $companyID,
                         'counter' => 1,
@@ -104,7 +104,7 @@ class CreditCardController extends Controller
     {
        $id=$request->id;
        $companyID=(int)$request->comId;
-       $CreditCard = CreditCard::where('companyID',$companyID)->first();
+       $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
     //    dd($CreditCard);
         $CreditCardArray=$CreditCard->admin_credit;
         $cardLength=count($CreditCardArray);
@@ -133,7 +133,7 @@ class CreditCardController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        $CreditCard = CreditCard::where('companyID',$companyID)->first();
+        $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
         $CreditCardArray=$CreditCard->admin_credit;
         $cardLength=count($CreditCardArray);
         $i=0;
@@ -174,7 +174,7 @@ class CreditCardController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        $CreditCard = CreditCard::where('companyID',$companyID)->first();
+        $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
         $CreditCardArray=$CreditCard->admin_credit;
         $cardLength=count($CreditCardArray);
         $i=0;
@@ -207,7 +207,7 @@ class CreditCardController extends Controller
             $company_id=str_replace( array( '\'', '"',
             ',' , ' " " ', '[', ']' ), ' ', $company_id);
             $company_id=(int)$company_id;
-            $CreditCard = CreditCard::where('companyID',$company_id )->first();
+            $CreditCard = CreditCardAdmin::where('companyID',$company_id )->first();
             $CreditCardArray=$CreditCard->admin_credit;
             $arrayLength=count($CreditCardArray);         
             $i=0;

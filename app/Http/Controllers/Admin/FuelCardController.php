@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\FuelCard;
-use App\Models\FuelVendor;
+use App\Models\IftaCardCategory;
 use App\Models\Driver;
 use File;
 use Image;
@@ -20,7 +20,7 @@ class FuelCardController extends Controller
 {
     public function getFuelCard(Request $request){
         $companyId=(int)Auth::user()->companyID;
-        $FuelCard = FuelCard::where('companyID',$companyId)->first();
+        $FuelCard = IftaCardCategory::where('companyID',$companyId)->first();
         $FuelVendor = FuelVendor::where('companyID',$companyId)->first();
         $driver = Driver::where('companyID',$companyId )->first();
 
@@ -31,7 +31,7 @@ class FuelCardController extends Controller
         //    $FactCompany= $FactCompany->toArray();
 
 
-        // $data=FuelCard::where('companyID',$companyId)->aggregate([
+        // $data=IftaCardCategory::where('companyID',$companyId)->aggregate([
         // {
         //         $lookup:{
         //             from: "driver",       // other table name
@@ -56,7 +56,7 @@ class FuelCardController extends Controller
 
 
 
-//     $result = FuelCard::where('companyID',$companyId)->raw(function($collection) {
+//     $result = IftaCardCategory::where('companyID',$companyId)->raw(function($collection) {
 //         return $collection->aggregate(array(
 //           array( '$lookup' => array(
 //             'from' => 'drivers',
@@ -95,7 +95,7 @@ class FuelCardController extends Controller
         ]);       
         $companyId=(int)Auth::user()->companyID;
         $totalFuelCardArray=0;
-        $getFuelCard = FuelCard::where('companyID',$companyId)->first();
+        $getFuelCard = IftaCardCategory::where('companyID',$companyId)->first();
         $FuelCardArray= $getFuelCard->ifta_card;
         $ids=array();
         foreach( $FuelCardArray as $key=> $getFuelCard_data)
@@ -124,7 +124,7 @@ class FuelCardController extends Controller
            
             // if($totalFuelCardArray<4){
             if($getFuelCard){
-                FuelCard::where(['companyID' =>$companyId])->update([
+                IftaCardCategory::where(['companyID' =>$companyId])->update([
                     'counter'=> $totalFuelCardArray,
                     'ifta_card' =>array_merge($FuelCardArray,$FuelCardData) ,
                     
@@ -136,7 +136,7 @@ class FuelCardController extends Controller
             // else
             // {
                
-            //     FuelCard::create([
+            //     IftaCardCategory::create([
             //         '_id' =>4,
             //         'companyID'=>1,
             //         'ifta_card' => $FuelCardData,
@@ -151,7 +151,7 @@ class FuelCardController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        $FuelReceipt=FuelCard::where("companyID",$companyID)->first();
+        $FuelReceipt=IftaCardCategory::where("companyID",$companyID)->first();
         $FuelReceiptArray=$FuelReceipt->ifta_card;
         $FuelReceiptLenght=count($FuelReceiptArray);
         $i=0;
@@ -175,7 +175,7 @@ class FuelCardController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        $FuelCard=FuelCard::where('companyID',$companyID)->first();
+        $FuelCard=IftaCardCategory::where('companyID',$companyID)->first();
         $FuelCardArray=$FuelCard->ifta_card;
         $arrayLength=count($FuelCardArray);
         $i=0;
@@ -223,7 +223,7 @@ class FuelCardController extends Controller
         //  return json_encode($arr);
         // }
 
-        $FuelCard=FuelCard::where('companyID',$companyID)->first();
+        $FuelCard=IftaCardCategory::where('companyID',$companyID)->first();
         $FuelCardArray=$FuelCard->ifta_card;
         $arrayLength=count($FuelCardArray);
         $i=0;
@@ -255,7 +255,7 @@ class FuelCardController extends Controller
             $fuel_re_id=str_replace( array( '\'', '"',
             ',' , ' " " ', '[', ']' ), ' ', $fuel_re_id);
             $fuel_re_id=(int)$fuel_re_id;
-            $FuelCard = FuelCard::where('companyID',$fuel_re_id )->first();
+            $FuelCard = IftaCardCategory::where('companyID',$fuel_re_id )->first();
             $FuelCardArray=$FuelCard->ifta_card;
             $arrayLength=count($FuelCardArray);            
             $i=0;

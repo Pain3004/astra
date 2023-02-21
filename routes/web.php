@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\IftaTripController;
 use App\Http\Controllers\Admin\PaymentReceiptController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ExternalCarrierController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -292,3 +293,8 @@ Route::get('admin/editExternalCarrier', [ExternalCarrierController::class, 'edit
 Route::post('admin/updateExternalCarrier', [ExternalCarrierController::class, 'updateExternalCarrier']);
 Route::post('admin/deleteExternalCarrier', [ExternalCarrierController::class, 'deleteExternalCarrier']);
 Route::post('admin/restoreExternalCarrier', [ExternalCarrierController::class, 'restoreExternalCarrier']);
+
+
+// DashboardController ==============================================================
+
+Route::get('/dashboard-customerdata', [DashboardController::class, 'customerdata']);

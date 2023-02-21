@@ -19,10 +19,10 @@ class SubCreditCardController extends Controller
 {
     public function getsubCreditCard(Request $request){
         $companyId=1;
-        $SubCreditCard = SubCreditCard::where('companyID',$companyId)->get();  //only for company id one
-        $CreditCard = CreditCard::where('companyID',$companyId)->get();  //only for company id one
-        // $SubCreditCard = SubCreditCard::get();
-        // $CreditCard = CreditCard::get();
+        $SubCreditCard = SubCreditCardAdmin::where('companyID',$companyId)->get();  //only for company id one
+        $CreditCard = CreditCardAdmin::where('companyID',$companyId)->get();  //only for company id one
+        // $SubCreditCard = SubCreditCardAdmin::get();
+        // $CreditCard = CreditCardAdmin::get();
        //dd($bankData);
        return response()->json(['SubCreditCard'=>$SubCreditCard, 'CreditCard'=>$CreditCard], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
@@ -34,7 +34,7 @@ class SubCreditCardController extends Controller
             'cardHolderName' => 'required',
         ]);
         $companyID=(int)1;
-        $SubCreditCard = SubCreditCard::where('companyID',$companyID)->get();
+        $SubCreditCard = SubCreditCardAdmin::where('companyID',$companyID)->get();
         foreach( $SubCreditCard as  $SubCreditCard_data)
         {
             if($SubCreditCard_data)
@@ -68,7 +68,7 @@ class SubCreditCardController extends Controller
             ); 
             if($SubCreditCard_data)
             {                
-                SubCreditCard::where(['companyID' =>$companyID])->update([
+                SubCreditCardAdmin::where(['companyID' =>$companyID])->update([
                 'counter'=> $totalSubCreditCardArray+1,
                 'sub_credit' =>array_merge($SubCreditCardArray,$SubCreditCardData) ,
                 ]);
@@ -79,7 +79,7 @@ class SubCreditCardController extends Controller
             {
                 try
                 {
-                    if(SubCreditCard::create([
+                    if(SubCreditCardAdmin::create([
                         '_id' => 1,
                         'companyID' => $companyID,
                         'counter' => 1,
@@ -101,7 +101,7 @@ class SubCreditCardController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        $SubCreditCard = SubCreditCard::where('companyID',$companyID)->first();
+        $SubCreditCard = SubCreditCardAdmin::where('companyID',$companyID)->first();
      //    dd($SubCreditCard);
          $SubCreditCardArray=$SubCreditCard->sub_credit;
          $cardLength=count($SubCreditCardArray);
@@ -130,7 +130,7 @@ class SubCreditCardController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        $SubCreditCard = SubCreditCard::where('companyID',$companyID)->first();
+        $SubCreditCard = SubCreditCardAdmin::where('companyID',$companyID)->first();
         $SubCreditCardArray=$SubCreditCard->sub_credit;
         $cardLength=count($SubCreditCardArray);
         $i=0;
@@ -166,7 +166,7 @@ class SubCreditCardController extends Controller
     {
         $id=$request->id;
         $companyID=(int)$request->comId;
-        $SubCreditCard = SubCreditCard::where('companyID',$companyID)->first();
+        $SubCreditCard = SubCreditCardAdmin::where('companyID',$companyID)->first();
         $SubCreditCardArray=$SubCreditCard->sub_credit;
         $cardLength=count($SubCreditCardArray);
         $i=0;
@@ -199,7 +199,7 @@ class SubCreditCardController extends Controller
             $company_id=str_replace( array( '\'', '"',
             ',' , ' " " ', '[', ']' ), ' ', $company_id);
             $company_id=(int)$company_id;
-            $SubCreditCard = SubCreditCard::where('companyID',$company_id )->first();
+            $SubCreditCard = SubCreditCardAdmin::where('companyID',$company_id )->first();
             $SubCreditCardArray=$SubCreditCard->sub_credit;
             $arrayLength=count($SubCreditCardArray);         
             $i=0;
