@@ -31,6 +31,17 @@ $(document).ready(function() {
 //     }
 // });
 
+$('#addLoadBoard').click(function(){
+  $.ajax({
+    type: "GET",
+    url: base_path+"/admin/Shipper",
+    async: false,
+    success: function(Result) { 
+      createshipperList(Result);
+    }
+});
+  $('#addLoadBoardModal').modal('show');
+});
 //-- -------------------------------------------------------------------------  Get loaboard data -- -------------------------------------------------------------------------
   $.ajax({
       type: "GET",
@@ -658,7 +669,99 @@ $(document).ready(function() {
     $("#addLoadBoardModal").css("z-index","-1");
     $("#addTrailerModal").modal("show");
   });
-// <!-- -------------------------------------------------------------------------over get driver  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------over get Trailer  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get Truck for add new loadboard ------------------------------------------------------------------------- -->  
+$('.TruckListSet').focus(function(){
+  $.ajax({
+      type: "GET",
+      url: base_path+"/admin/Truck",
+      async: false,
+      success: function(Result) { 
+        createTruckList(Result);
+      }
+  });
+});
+function createTruckList(Result) {           
+    var Length = 0;    
+    
+    if (Result != null) {
+        Length = Result.truck.length;
+    }
+
+    if (Length > 0) {
+        // var no=1;
+        $(".TruckListSet").html('');
+        for (var i = 0; i < Length; i++) { 
+            var truckLength =Result.truck[i].truck.length;
+            for (var j = 0; j < truckLength; j++) {  
+              var truckNumber =Result.truck[i].truck[j].truckNumber;
+              var id =Result.truck[i].truck[j]._id;
+              var deleteStatus =Result.truck[i].truck[j].deleteStatus;
+
+              if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ truckNumber +"'>"                   
+                $(".TruckListSet").append(List);
+              }
+            }
+          }
+    }
+    
+}
+
+
+// <!-- -------------------------------------------------------------------------over get Truck  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get shipper for add new loadboard ------------------------------------------------------------------------- -->  
+// $('.ShipperListSet').focus(function(){
+//   $.ajax({
+//       type: "GET",
+//       url: base_path+"/admin/Shipper",
+//       async: false,
+//       success: function(Result) { 
+//         createshipperList(Result);
+//       }
+//   });
+// });
+function createshipperList(Result) {           
+    var Length = 0;    
+    if (Result != null) {
+        Length = Result.shipper.length;
+    }
+
+    if (Length > 0) {
+        // var no=1;
+        $(".ShipperListSet").html('');
+        for (var i = 0; i < Length; i++) { 
+            var shipperLength =Result.shipper[i].shipper.length;
+            for (var j = 0; j < shipperLength; j++) {  
+              var id =Result.shipper[i].shipper[j]._id;
+              var shipperName =Result.shipper[i].shipper[j].shipperName;
+              var shipperAddress =Result.shipper[i].shipper[j].shipperAddress;
+              var shipperLocation =Result.shipper[i].shipper[j].shipperLocation;
+              // var shipperNumber =Result.shipper[i].shipper[j].shipperNumber;
+              var deleteStatus =Result.shipper[i].shipper[j].deleteStatus;
+
+              // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                var List = "<option id='' data-id='"+id+"'>"+id+"-"+ shipperName +"</option>"                   
+                $(".ShipperListSet").append(List);
+                // $(".shipper").append(List);
+                // $("#shipperaddress0").val(shipperAddress);
+                // $("#activeshipper0").val(shipperLocation);
+              // }
+            }
+          }
+    }
+    
+}
+$("#LB_Shipper").keyup(function(){
+  alert();
+  //var id=$("#LB_Shipper").val();
+  var id=$('#LB_Shipper').val().split('-');
+  id=id[0];
+  $("#shipperaddress0").val(id);
+});
+
+// <!-- -------------------------------------------------------------------------over shipper Truck  ------------------------------------------------------------------------- -->
+
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 $("#fsc_percentage").click(function(){
   var rate=parseInt($('#rateAmount').val());

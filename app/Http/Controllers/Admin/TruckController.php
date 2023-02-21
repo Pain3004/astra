@@ -24,6 +24,12 @@ class TruckController extends Controller
         $truck_type = Truck_type::where('companyID',$companyId)->first();
        return response()->json(['truck'=>$truck,'truck_type'=>$truck_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
+    public function Truck() {
+        $companyId=(int)Auth::user()->companyID;
+        $truck = Truckadd::where('companyID',$companyId)->get();
+        return response()->json(['truck'=>$truck], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        
+    }
 
     public function truck_getTrucktype(Request $request)
     {

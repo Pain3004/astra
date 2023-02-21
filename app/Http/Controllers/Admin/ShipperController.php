@@ -19,19 +19,17 @@ class ShipperController extends Controller
 {
     public function getShipper(){
         $companyId=Auth::user()->companyID;
-        // $companyId=(int)1;
-        // dd($companyId);
-        // $shipper=  Shipper::aggregate([
-        //     ['$match' => ['companyID' => $companyId]],
-        //     ['$project' => ['size' => ['$size' => ['$shipper']]]]
-        // ]);
-        // dd($shipper);
         $shipper = Shipper::where('companyID',$companyId)->first();
         $consignee = Consignee::where('companyID',$companyId)->first();
-
         //dd($shipper);
        return response()->json(['shipper'=>$shipper,'consignee'=>$consignee], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-       
+    }
+    public function Shipper(){
+        $companyId=Auth::user()->companyID;
+        $shipper = Shipper::select('shipper.shipperName','shipper._id','shipper.shipperAddress','shipper.shipperLocation')->where('companyID',$companyId)->get();
+        
+        //dd($shipper);
+       return response()->json(['shipper'=>$shipper], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function storeShipper(Request $request)
     {

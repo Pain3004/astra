@@ -162,7 +162,9 @@
 													<a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
 												</div> -->
                                                 <div class="col-2 btn-group submitter-group">
-                                                    <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
+                                                    <!-- <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a> -->
+                                                    <a href="#" id="addLoadBoard" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
+
                                                 </div>
 												<div class="col-1">
 												</div>
@@ -395,7 +397,10 @@
                                                     </div>
                                                     <div id="showtruck" style="visibility:hidden" class="form-group col-md-1">
                                                         <label for="Truck">Truck<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="LB_Truck" placeholder="Truck" placeholder="Search Here">
+                                                        <div class="dropdown show">
+                                                            <input class="form-control TruckListSet" list="TruckListSet" name="" id="LB_Truck" placeholder="Search Here">
+                                                            <datalist id="TruckListSet" class="TruckListSet"></datalist>    
+                                                        </div>
                                                     </div>
                                                     <div id="showtrailer" style="visibility:hidden" class="form-group col-md-1">
                                                         <label>Trailer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus" style='color:blue !important'></i></label>
@@ -456,12 +461,17 @@
                                                                 <div class="row m-2">
                                                                     <div class="form-group col-md-3">
                                                                         <label>Name*</label>
-                                                                        <input list="shipper" class="form-control" placeholder="--Select--"
-                                                                            id="shipperlist" name="shipperlist" onchange="getShipper(this.value,0); ">
-                                                                        <datalist id="shipper" name="shipper">
-                                                                         
-                                                                                                    
-                                                                        </datalist>
+                                                                        <!-- <div class="dropdown show">
+                                                                            <input class="form-control shipperlist" list="shipperlist" name="" id="LB_shipper" placeholder="Search Here">
+                                                                            <datalist id="shipperlist" class="shipperlist"></datalist>    
+                                                                        </div>
+                                                                        <label for="Truck">Truck<span style="color:#ff0000">*</span></label> -->
+                                                                        <div class="dropdown show">
+                                                                            <input class="form-control ShipperListSet" list="ShipperListSet" name="" id="LB_Shipper" placeholder="Search Here">
+                                                                            <datalist id="ShipperListSet" class="ShipperListSet"></datalist>    
+                                                                        </div>
+                                                                        
+                                                             
                                                                     </div>
                                                                     <div class="form-group col-md-2">
                                                                         <label>Address*</label>
@@ -683,11 +693,11 @@ function add_fields() {
     '" role="tabpanel" aria-labelledby="home-tab' +
     room +
     '"><div class="row m-2">\n' +
-    '                                            <div class="form-group col-md-3">\n' +
-    "                                                <label>Name*</label>\n" +
-    '                                                 <input list="shipper' +
+    ' <div class="form-group col-md-3">\n' +
+    "<label>Name1*</label>\n" +
+    '<input list="shipper' +
     room +
-    '" class="form-control" placeholder="Search here..." id="shipperlist' +
+    '" class="form-control ShipperListSet"  list="ShipperListSet" placeholder="Search here..." id="shipperlist' +
     room +
     '" name="shipperlist" onchange="getShipper(this.value,' +
     room +
@@ -696,7 +706,7 @@ function add_fields() {
     "," +
     room +
     '); "  autocomplete="off">\n' +
-    '                                                 <datalist id="shipper' +
+    '<datalist  id="ShipperListSet" class="ShipperListSet"' +
     room +
     '" name="shipper">\n' +
     "                                                 </datalist>\n" +
@@ -843,7 +853,7 @@ function renameShipper() {
     i < document.getElementById("myTab").getElementsByTagName("li").length;
     i++
   ) {
-    shippers[i].innerHTML = "Shipper " + (i + 2);
+    shippers[i].innerHTML = "Shipper " + (i + 1);
   }
 }
 
