@@ -280,22 +280,21 @@
                                                     <div class="form-group col-md-3">
                                                         <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span> </label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control companyListSet" list="companyListSet" name="" id="lb_Company" >
-                                                            <input type="hidden" class=" companyListSetId" list="companyListSet" name="" id="lb_Company_id" >
+                                                            <input class="form-control companyListSet" list="companyListSet" name="" id="lb_Company" placeholder="Search Here">
                                                             <datalist id="companyListSet" class="companyListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label>Customer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCustomerPlus" style='color:blue !important'></i></label>
+                                                        <label>Customer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCustomerPlus" style='color:blue !important' ></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control customerListSet" list="customerListSet" name="" id="LB_Customer">
+                                                            <input class="form-control customerListSet" list="customerListSet" name="" id="LB_Customer" placeholder="Search Here">
                                                             <datalist id="customerListSet" class="customerListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="Dispatcher">Dispatcher <span style="color:#ff0000">*</span> </label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control DispatcherListSet" list="DispatcherListSet" name="" id="lb_Dispatcher">
+                                                            <input class="form-control DispatcherListSet" list="DispatcherListSet" name="" id="lb_Dispatcher" placeholder="Search Here">
                                                             <datalist id="DispatcherListSet" class="DispatcherListSet"></datalist>    
                                                         </div>  
                                                     </div>
@@ -305,7 +304,7 @@
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="Status">Status <span style="color:#ff0000">*</span> </label>
-                                                        <select class="form-control" id="status">
+                                                        <select class="form-control" id="lb_status">
                                                             <option value="Open" selected="">0) Open</option>
                                                             <option value="Dispatched" disabled="">1) Dispatched</option>
                                                             <option value="Arrived Shipper" disabled="">2) Arrived Shipper</option>
@@ -325,30 +324,26 @@
                                                     <div class="form-group col-md-2">
                                                         <label>Active Type &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBLoadTypePlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control LoadTypeListSet" list="LoadTypeListSet" name="" id="">
+                                                            <input class="form-control LoadTypeListSet" list="LoadTypeListSet"  id="lb_load" placeholder="Search Here">
                                                             <datalist id="LoadTypeListSet" class="LoadTypeListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1">
                                                         <label for="rateAmount">Rate <span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input class="form-control" placeholder="Rate" type="number" id="rateAmount" name="rateAmount" value="" >
+                                                        <input class="form-control" placeholder="Rate" type="number" id="rateAmount"  value="" >
                                                     </div>
                                                     <div class="form-group col-md-1">
                                                         <label for="units"># of Units</label>
                                                         <input type="text" class="form-control telephone4"
                                                             id="units" placeholder="Units">
                                                     </div>
-                                                    <div class="form-group col-md-1">
-                                                        <label for="rateAmount">Rate <span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input class="form-control" placeholder="Rate" type="number" id="rateAmount" name="rateAmount" value="" >
-                                                    </div>
+
                                                     <div class="form-group col-md-2">
                                                         <label style="display:inline">F.S.C.</label>
                                                         <div style="display:inline" class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="customCheck1" data-parsley-multiple="groups" data-parsley-mincheck="2" onclick="getTotal()">
-                                                            <label class="custom-control-label" for="customCheck1">Rate%</label>
+                                                            <input type="checkbox" class="custom-control-input" id="fsc_percentage" data-parsley-multiple="groups" data-parsley-mincheck="2" onclick="getTotal()">
+                                                            <label class="custom-control-label" for="fsc_percentage">Rate%</label>
                                                         </div>
                                                         <div>
                                                             <input class="form-control mt-2" placeholder="F.S.C." type="number" id="fsc" name="fsc" value="" onkeyup="getTotal()">
@@ -370,7 +365,7 @@
                                                     <div class="form-group col-md-2">
                                                         <label>Equipment Type &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBEquipmentTypePlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control EquipmentTypeListSet" list="EquipmentTypeListSet" name="" id="">
+                                                            <input class="form-control EquipmentTypeListSet" list="EquipmentTypeListSet" name="" id="lb_EquipmentType">
                                                             <datalist id="EquipmentTypeListSet" class="EquipmentTypeListSet"></datalist>    
                                                         </div>
                                                     </div>
@@ -390,35 +385,33 @@
                                                     <div id="showdrivername" style="visibility:hidden" class="form-group col-md-2">
                                                         <label>Driver Name &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet" name="" id="LB_Driver">
+                                                            <input class="form-control DriverListSet" list="DriverListSet" name="" id="LB_Driver" placeholder="Search Here">
                                                             <datalist id="DriverListSet" class="DriverListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div id="showowneroperator" style="visibility:hidden" class="form-group col-md-2">
                                                         <label for="OwnerOperator">OwnerOperator<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="OwnerOperator" placeholder="OwnerOperator">
+                                                        <input type="text" class="form-control" id="lb_OwnerOperator" placeholder="OwnerOperator">
                                                     </div>
                                                     <div id="showtruck" style="visibility:hidden" class="form-group col-md-1">
                                                         <label for="Truck">Truck<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="LB_Truck" placeholder="Truck">
+                                                        <input type="text" class="form-control" id="LB_Truck" placeholder="Truck" placeholder="Search Here">
                                                     </div>
                                                     <div id="showtrailer" style="visibility:hidden" class="form-group col-md-1">
                                                         <label>Trailer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control TrailerListSet" list="TrailerListSet" name="" id="LB_Trailer">
+                                                            <input class="form-control TrailerListSet" list="TrailerListSet" name="" id="LB_Trailer" placeholder="Search Here">
                                                             <datalist id="TrailerListSet" class="TrailerListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div id="showloadedmiles" style="visibility:hidden" class="form-group col-md-1">
-                                                        <label for="LoadedMiles">Loaded Mi<span
-                                                                style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="LoadedMiles"
-                                                            placeholder="LoadedMiles">
+                                                        <label for="LoadedMiles">Loaded Mi<span style="color:#ff0000">*</span></label>
+                                                        <input type="text" class="form-control" id="lb_LoadedMiles" placeholder="LoadedMiles">
                                                     </div>
                                                     <div id="showemptymiles" style="visibility:hidden" class="form-group col-md-1">
                                                         <label for="EmptyMiles">Empty Mi<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="EmptyMiles" placeholder="EmptyMiles">
+                                                        <input type="text" class="form-control" id="lb_EmptyMiles" placeholder="EmptyMiles">
                                                     </div>
                                                     <div id="showother" style="visibility:hidden" class="form-group col-md-1">
                                                         <label for="Other">Other<span
@@ -427,11 +420,11 @@
                                                     </div>
                                                     <div id="showtarp" style="visibility:hidden" class="form-group col-md-1">
                                                         <label for="Tarp">Tarp<span  style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="Tarp"  placeholder="Tarp">
+                                                        <input type="text" class="form-control" id="lb_Tarp"  placeholder="Tarp">
                                                     </div>
                                                     <div id="showflat" style="visibility:hidden" class="form-group col-md-1">
                                                         <label for="Flat">Flat<span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="Flat" placeholder="Flat">
+                                                        <input type="text" class="form-control" id="lb_Flat" placeholder="Flat">
                                                     </div>
                                                     <div id="showtotal" style="visibility:hidden" class="form-group col-md-1">
                                                         <label for="Total">Total<span style="color:#ff0000">*</span></label>
@@ -577,7 +570,13 @@
 
 
 <script>
+    $(document).ready(function() {
+        $('#showdriver').prop('checked',true);
+        $('#showowner').prop('checked',false);
+        showCheck();
+    });
     function showCheck() {
+        // $('#showowner').prop('checked',false);
     if (document.getElementById('showdriver').checked) {
         document.getElementById('showdrivername').style.visibility = 'visible';
         document.getElementById('showtruck').style.visibility = 'visible';
@@ -590,6 +589,7 @@
         document.getElementById('showtotal').style.visibility = 'visible';
     }
     else {
+        $('#showdriver').prop('checked',false);
         document.getElementById('showdrivername').style.visibility = 'hidden';
         document.getElementById('showtruck').style.visibility = 'hidden';
         document.getElementById('showtrailer').style.visibility = 'hidden';

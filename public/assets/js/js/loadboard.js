@@ -15,7 +15,6 @@ $(document).ready(function() {
   $('.status-dropdown').on('change', function(e){
     var status = $(this).val();
     $('.status-dropdown').val(status)
-    console.log(status)
     //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
     dataTable.column(7).search(status).draw();
   })
@@ -39,7 +38,6 @@ $(document).ready(function() {
       async: false,
       //dataType:JSON,
       success: function(text) {
-         //console.log(text);
           createLoadBoardRows(text);
         }
   });
@@ -125,12 +123,11 @@ $(document).ready(function() {
                           if(carrierPay_driverPay=="" || carrierPay_driverPay==null){carrierPay_driverPay="0.00" }else{ carrierPay_driverPay=parseFloat(carrierPay_driverPay).toFixed(2); }
 
                           //set broker
-                                                    
                           if (isBroker == "on") {
                             var customer =customer+"<h6 class='extra4'>Broker</h6>`";
                           }
-                          //set Carrier/Driver/Owner Operator
 
+                          //set Carrier/Driver/Owner Operator
                           if (typeofloader == "Carrier") {
                             var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra1'>Carrier</h6>`";
                           }else if (typeofloader == "Driver") {
@@ -138,7 +135,6 @@ $(document).ready(function() {
                           }else if (typeofloader == "Owner Operator") {
                             var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra3'>Owner Operator</h6>`";
                           }
-
                           
                          //set tooltip
                           if( len2>0){
@@ -172,9 +168,8 @@ $(document).ready(function() {
                             }
                           }
 
-                          // var status_change_user1=Result1[i].load[j].status_change_user;
-                          // console.log(status_change_user1);
-                          // var status_change_user=0;
+                        
+                          //  status change
                           if(status == 'Open'){
                             var status_change_user=Result1[i].load[j].status_change_user.Open;
                           }else if(status == 'Dispatched'){
@@ -205,7 +200,6 @@ $(document).ready(function() {
                           +'\n Dispatcher: '+dispatcher;//
                           
                         //set dropdown in invoice
-                          
                           //truck icon
                           var isCompany = company != "" ? false : true;
                           var isShipper = shippername != "" ? false : true;
@@ -219,7 +213,6 @@ $(document).ready(function() {
 
                           //folder icon        
                           var load_notes=false;
-
                           var File=Result1[i].load[j].file;
                           var fileLen=File.length;
                          
@@ -367,7 +360,6 @@ $(document).ready(function() {
         url: base_path+"/admin/lbcompany",
         async: false,
         success: function(Result) { 
-          console.log(Result);                    
             createcompanyList(Result);
         }
     });
@@ -420,7 +412,6 @@ $(document).ready(function() {
       
       if (Result != null) {
           Length = Result.customer.length;
-          console.log(Length);
       }
 
       if (Length > 0) {
@@ -451,7 +442,6 @@ $(document).ready(function() {
 // <!-- -------------------------------------------------------------------------over get customer  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Dispatcher for add new loadboard ------------------------------------------------------------------------- -->  
   $('.DispatcherListSet').focus(function(){
-    console.log("helo"); 
     $.ajax({
         type: "GET",
         url: base_path+"/admin/user",
@@ -467,7 +457,6 @@ $(document).ready(function() {
       
       if (Result != null) {
           Length = Result.length;
-          console.log(Length);
       }
 
       if (Length > 0) {
@@ -508,7 +497,6 @@ $(document).ready(function() {
       
       if (Result != null) {
           Length = Result.Load_type.length;
-          console.log(Length);
       }
 
       if (Length > 0) {
@@ -554,7 +542,6 @@ $(document).ready(function() {
       
       if (Result != null) {
           Length = Result.EquipmentType.length;
-          console.log(Length);
       }
 
       if (Length > 0) {
@@ -600,7 +587,6 @@ $(document).ready(function() {
       
       if (Result != null) {
           Length = Result.driver.length;
-          console.log(Length);
       }
 
       if (Length > 0) {
@@ -614,7 +600,7 @@ $(document).ready(function() {
                 var deleteStatus =Result.driver[i].driver[j].deleteStatus;
 
                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+ driverName +"'>"                   
+                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ driverName +"'>"                   
                   $(".DriverListSet").append(List);
                 }
               }
@@ -659,7 +645,7 @@ $(document).ready(function() {
                 var deleteStatus =Result.trailer[i].trailer[j].deleteStatus;
 
                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+ trailerNumber +"'>"                   
+                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ trailerNumber +"'>"                   
                   $(".TrailerListSet").append(List);
                 }
               }
@@ -674,29 +660,95 @@ $(document).ready(function() {
   });
 // <!-- -------------------------------------------------------------------------over get driver  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
-  $("#addLBSubmit").click(function(){
-    var company=$('#lbCompany').val();
+$("#fsc_percentage").click(function(){
+  var rate=parseInt($('#rateAmount').val());
+  var fsc=parseInt($('#fsc').val());
+  if ($("#fsc_percentage").is(":checked")) 
+    {
+      var percen = parseFloat(rate+((rate * fsc) / 100)).toFixed(2);
+      $('#totalAmount').val(percen);
+    }else{
+      var percen = rate + fsc;
+      $('#totalAmount').val(percen);
+    }
+});
 
+$("#addLBSubmit").click(function(){
+
+    var noofunits='';
+    var drivername='';
+    var truck='';
+    var trailer='';
+    var loadedmile='';
+    var emptymile='';
+    var tarp='';
+    var flat='';
+    var owner='';
+    var ownerpay='';
+    var ownertruck='';
+    var ownertrailer='';
+    
+    var totalAmount='';
+
+    var company=$('#lbCompany').val();
     var LB_Customer=$('#LB_Customer').val().split('-');
     var customerName=LB_Customer[1];
-    var loadername=$('#LB_Driver').val();
-    var loadertruck=$('#LB_Truck').val();
-    var loadertrailer=$('#LB_Trailer').val();
+    var LB_Driver=$('#LB_Driver').val().split('-');
+    var loadername=LB_Driver[1];
+    var LB_Truck=$('#LB_Truck').val().split('-');
+    var loadertruck=LB_Truck[1];
+    var LB_Trailer=$('#LB_Trailer').val().split('-');
+    var loadertrailer=LB_Trailer[1];
     // var loadershipper=$('#').val();
     // var loaderconsignee=$('#').val();
     var loadertotal=$('#LB_loadertotal').val();
+
     var company=$('#lb_Company').val().split('-');
     var company=company[0];
     var customer=LB_Customer[0];
-    // var company=$('#lb_Company').val().split('-');
-    // var company=company[0];
-    // // var =$('#').val();
-    // var =$('#').val();
-    // var =$('#').val();
-    // var =$('#').val();
-    // var =$('#').val();
-    // var =$('#').val();
 
+    var lb_Dispatcher=$('#lb_Dispatcher').val().split('-');
+    var dispatcher=lb_Dispatcher[0];
+    var cnno=$('#lbCN_No').val();
+    var status=$('#lb_status').val();
+
+    var lb_load=$('#lb_load').val().split('-');
+    var loadtype=lb_load[0];
+
+    var rate=$('#rateAmount').val();
+    var noofunits=$('#units').val();
+    var fsc=$('#fsc').val();
+   
+    var lb_EquipmentType=$('#lb_EquipmentType').val().split('-');
+    var equiptype=lb_EquipmentType[0];
+   
+    if ($("#showdriver").is(":checked")) 
+    {
+      // console.log('driver');
+        var typeofloader = 'Driver';
+        var drivername=LB_Driver[0];
+        var truck=LB_Truck[0];
+        var trailer=LB_Trailer[0];
+        var loadedmile=$('#lb_LoadedMiles').val();
+        var emptymile=$('#lb_EmptyMiles').val();
+        var tarp=$('#lb_Tarp').val();
+        var flat=$('#lb_Flat').val();
+    } 
+    if($("#showowner").is(":checked")) 
+    {
+      // console.log('oprDriver');
+        var typeofloader = 'Owner Operator';
+        // var owner=$('#lb_OwnerOperator').val();
+        // var ownerpay=$('#lb_Ownerpercentage').val();
+        var ownertruck=LB_Truck[0];
+        var ownertrailer=LB_Trailer[0];
+        
+    }
+    if ($("#fsc_percentage").is(":checked")) 
+    { var fsc_percentage='on'; }
+    else{ var  fsc_percentage='off'; }
+    // var fsc=$('#').val();
+    //var totalAmount=$('#totalAmount').val();
 
     $.ajax({
         url: base_path+"/admin/addLoadBoard",
@@ -713,20 +765,20 @@ $(document).ready(function() {
             loadertotal: loadertotal,
               company: company,
               customer: customer,
-              // dispatcher: dispatcher,
-              // cnno: cnno,
-              // status: status,
-              // active_type: loadtype,
-              // rate: rate,
-              // noofunits: noofunits,
-              // fsc: fsc,
-              // fsc_percentage: fsccheck,
+              dispatcher: dispatcher,
+              cnno: cnno,
+              status: status,
+              active_type: loadtype,
+              rate: rate,
+              noofunits: noofunits,
+              fsc: fsc,
+              fsc_percentage: fsc_percentage,
               // other_charges: otherCharges,
               //     other_description: otherDescription,
               //     other_charges_total: otherchargestotal,
-              // setTotalRate: totalamount,
-              // equipment_type: equiptype,
-              // typeofLoader: typeofloader,
+              setTotalRate: totalAmount,
+              equipment_type: equiptype,
+              typeofLoader: typeofloader,
               // carrier_name: carriername,
               // flat_rate: carrierflat,
               // isIfta: isIfta,
@@ -736,21 +788,21 @@ $(document).ready(function() {
               //     carrier_other_charges: carrierotherCharges,
               // carrier_total: carrierTotal,
               // currency: currency,
-              // driver_name: drivername,
-              // truck: truck,
-              // trailer: trailer,
-              // loaded_mile: loadedmile,
-              // empty_mile: emptymile,
+              driver_name: drivername,
+              truck: truck,
+              trailer: trailer,
+              loaded_mile: loadedmile,
+              empty_mile: emptymile,
               // driver_other: driverother,
               //     driver_other_description: driverotherDescription,
               //     driver_other_charges: driverotherCharges,
-              // tarp: tarp,
-              // flat: flat,
-              // driver_total: drivertotal,
-              // owner_name: owner,
-              // owner_percentage: ownerpay,
-              // owner_truck: ownertruck,
-              // owner_trailer: ownertrailer,
+              tarp: tarp,
+              flat: flat,
+              driver_total: loadertotal,
+              owner_name: owner,
+              owner_percentage: ownerpay,
+              owner_truck: ownertruck,
+              owner_trailer: ownertrailer,
               // owner_other: ownerother,
               //     owner_other_description: ownerotherDescription,
               //     owner_other_charges: ownerotherCharges,
@@ -819,7 +871,6 @@ $(document).ready(function() {
         },
         cache: false,
         success: function(Result){
-            // console.log(Result);
             // if(Result){
             //     swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
             //     $("#addLoadBoardModal").css("z-index","100000000000");
