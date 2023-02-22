@@ -1,3 +1,104 @@
+// $(document).ready(function(){
+//   var counter = 2; // Starting form number
+//   $('#add-tab').click(function(){
+//     var tabTitle = "Form " + counter;
+//     var tabContent = '<div class="tab-pane" id="tab-'+counter+'"><form>'+
+//     '<div class="tab-content" id="myTabContent">'+
+//         '<div class="tab-pane fade show active" id="home0" role="tabpanel"aria-labelledby="home-tab">'+
+//             '<div class="row m-2">'+
+//                 '<div class="form-group col-md-3">'+
+//                     '<label>Name*</label>'+
+//                     '<input   type="hidden" id="shipperId" name="shipperId">'+
+//                     '<div class="form-group">'+
+//                         '<select class="form-control select2-show-search form-select" id="lb_shipperName">'+
+//                             '<option>Select Here </option>'+
+//                         '</select>'+
+//                     '</div>'+
+//                 '</div>'+
+//                 {/* <div class="form-group col-md-2">
+//                     <label>Address*</label>
+//                     <div>
+//                         <input class="form-control" placeholder="Address *" type="text" id="shipperaddress0" name="shipperaddress">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-2">
+//                     <label>Location *</label>
+//                     <div>
+//                         <input class="form-control" placeholder="Enter a location" type="text" id="activeshipper0" name="activeshipper">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-2">
+//                     <label>Pickup Date</label>
+//                     <div>
+//                         <input class="form-control" type="date" id="shipperdate" name="shipperdate">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-2">
+//                     <label>Pickup Time</label>
+//                     <div>
+//                         <input class="form-control" type="time" id="shippertime" name="shippertime">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-1">
+//                     <label>Type*</label>
+//                     <div class="row">
+//                         <div class="custom-control custom-radio custom-control-inline">
+//                             <input type="radio" class="custom-control-input" id="tl0" name="tl0" value="TL" checked>
+//                             <label class="custom-control-label" for="tl0">TL</label>
+//                         </div>
+//                         <div class="custom-control custom-radio custom-control-inline">
+//                             <input type="radio" class="custom-control-input" id="ltl0" value="LTL" name="tl0">
+//                             <label class="custom-control-label" for="ltl0">LTL</label>
+//                         </div>
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-2">
+//                     <label>Commodity</label>
+//                     <div>
+//                         <input class="form-control" type="text" placeholder="Commodity" id="shippercommodity" name="shippercommodity">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-1 ">
+//                     <label>Qty</label>
+//                     <div>
+//                         <input class="form-control" placeholder="Qty" id="shipperqty"  name="shipperqty" type="text">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-2 ">
+//                     <label>Weight</label>
+//                     <div>
+//                         <input class="form-control" type="text" placeholder="Weight"  id="shipperweight" name="shipperweight">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-2">
+//                     <label>Pickup #</label>
+//                     <div>
+//                         <input class="form-control" placeholder="Pickup #" type="text" id="shipperpickup" name="shipperpickup">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-1">
+//                     <label>Sr#</label>
+//                     <div>
+//                         <input class="form-control" placeholder="Sr#" type="number" id="shipseq0" name="shipseq" value="0">
+//                     </div>
+//                 </div>
+//                 <div class="form-group col-md-4">
+//                     <label>Pickup Notes</label>
+//                     <div>
+//                         <textarea rows="1" cols="30" class="form-control" type="textarea" id="shippernotes" name="shippernotes"></textarea>
+//                     </div>
+//                 </div> */}
+//             '</div>'+
+//         '</div>'+
+//     '</div>'+
+//     '</form></div>';
+
+//     $('.nav-tabs').append('<li><a href="#tab-'+counter+'" data-toggle="tab">'+tabTitle+'</a></li>');
+//     $('.tab-content').append(tabContent);
+//     counter++;
+//   });
+// });
+
 $(document).ready(function() {
   dataTable = $("#example").DataTable({
   });
@@ -30,7 +131,12 @@ $(document).ready(function() {
     
 //     }
 // });
-
+$("#lb_shipperName").select2({
+  placeholder: "Select a programming language",
+  allowClear: true,
+  dropdownParent: $('#addLoadBoardModal')
+  });
+ 
 $('#addLoadBoard').click(function(){
   $.ajax({
     type: "GET",
@@ -43,7 +149,11 @@ $('#addLoadBoard').click(function(){
   $('#addLoadBoardModal').modal('show');
 });
 //-- -------------------------------------------------------------------------  Get loaboard data -- -------------------------------------------------------------------------
-  $.ajax({
+$('.closeAddNewLoadBoard').click(function(){
+  $('#addLoadBoardModal').modal('hide');
+});
+
+$.ajax({
       type: "GET",
       url: base_path+"/admin/getLoadboardData",
       async: false,
@@ -593,6 +703,8 @@ $('#addLoadBoard').click(function(){
         }
     });
   });
+ 
+
   function createDriverList(Result) {           
       var Length = 0;    
       
@@ -681,6 +793,7 @@ $('.TruckListSet').focus(function(){
       }
   });
 });
+
 function createTruckList(Result) {           
     var Length = 0;    
     
@@ -721,6 +834,16 @@ function createTruckList(Result) {
 //       }
 //   });
 // });
+$("#lb1_shipperName").change(function(){
+  alert();
+  //var id=$("#LB_Shipper").val();
+  var Shipper=$('#lb_shipperName').val().split('-');
+  
+  $("#shipperId").val(Shipper[0]);
+  $("#shipperaddress").val(Shipper[1]);
+  $("#activeshipper").val(Shipper[2]);
+  
+});
 function createshipperList(Result) {           
     var Length = 0;    
     if (Result != null) {
@@ -741,25 +864,28 @@ function createshipperList(Result) {
               var deleteStatus =Result.shipper[i].shipper[j].deleteStatus;
 
               // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                var List = "<option id='' data-id='"+id+"'>"+id+"-"+ shipperName +"</option>"                   
-                $(".ShipperListSet").append(List);
-                // $(".shipper").append(List);
-                // $("#shipperaddress0").val(shipperAddress);
-                // $("#activeshipper0").val(shipperLocation);
+                var List = "<option class='LB_Shipper' value='"+id+"-"+shipperAddress+"-"+shipperLocation+"'>"+shipperName+"</option>"                   
+                $("#lb_shipperName").append(List);
+                // $(".lb1_shipperName").append(List);
               // }
             }
           }
     }
     
 }
-$("#LB_Shipper").keyup(function(){
-  alert();
+$("#lb_shipperName").change(function(){
   //var id=$("#LB_Shipper").val();
-  var id=$('#LB_Shipper').val().split('-');
-  id=id[0];
-  $("#shipperaddress0").val(id);
+  var Shipper=$('#lb_shipperName').val().split('-');
+ 
+  $("#shipperId").val(Shipper[0]);
+  $("#shipperaddress0").val(Shipper[1]);
+  $("#activeshipper0").val(Shipper[2]);
+
 });
 
+
+
+  
 // <!-- -------------------------------------------------------------------------over shipper Truck  ------------------------------------------------------------------------- -->
 
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  

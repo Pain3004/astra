@@ -25,10 +25,15 @@ class ShipperController extends Controller
        return response()->json(['shipper'=>$shipper,'consignee'=>$consignee], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function Shipper(){
-        $companyId=Auth::user()->companyID;
-        $shipper = Shipper::select('shipper.shipperName','shipper._id','shipper.shipperAddress','shipper.shipperLocation')->where('companyID',$companyId)->get();
-        
-        //dd($shipper);
+        // $companyId=Auth::user()->companyID;
+        // $shipper = Shipper::select('shipper.shipperName','shipper._id','shipper.shipperAddress','shipper.shipperLocation')->where('companyID',$companyId)->get();
+        $collection = Company::raw();
+            $company_status = $collection->aggregate([
+            ['$match' => ['companyID' => $companyID]],['$unwind' => '$company'],
+            ['$match' => ['company.status' => "Yes"]],
+            ['$project' => ['company.paytype' => 1,'company.paydate' => 1]]
+            ],['allowDiskUse' => true]);
+                    //dd($shipper);
        return response()->json(['shipper'=>$shipper], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function storeShipper(Request $request)

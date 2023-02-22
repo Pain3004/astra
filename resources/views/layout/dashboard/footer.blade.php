@@ -97,6 +97,8 @@
 
 <!-- FORMVALIDATION JS -->
 <script src="{{URL::to('/')}}/assets/js/form-validation.js"></script>
+<!-- Select2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <!-- CUSTOM JS -->
 <script src="{{URL::to('/')}}/assets/js/custom.js"></script>

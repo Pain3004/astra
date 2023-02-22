@@ -262,7 +262,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add New LoadBoard</h4>
-                    <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+                    <button type="button" class="button-24 closeAddNewLoadBoard">&times;</button>
                 </div>
 
                 <!-- Modal body -->
@@ -436,13 +436,41 @@
                                                         <input type="text" class="form-control" id="LB_loadertotal" placeholder="Total">
                                                     </div>
                                                 </div>
+                                                <!-- <div class="form-row">
+                                                    <button id="add-tab">Add Form</button>
+                                                    <div class="tab-container">
+                                                    <ul class="nav nav-tabs">
+                                                        <li class="active"><a href="#tab-1" data-toggle="tab">Form 1</a></li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="tab-1">
+                                                        <form>
+                                                        <div class="tab-content" id="myTabContent">
+                                                            <div class="tab-pane fade show active" id="home0" role="tabpanel"aria-labelledby="home-tab">
+                                                                <div class="row m-2">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label>Name*</label>
+                                                                        <input   type="hidden" id="shipperId" name="shipperId">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control select2-show-search form-select" id="lb_shipperName">
+                                                                               <option>Select Here </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                   
 
+                                                </div> -->
                                               <!-- add shipper   -->
                                                 <div class="form-row">
                                                     <div class="navtabs_2">
                                                     <h6>
-                                                        <a class="button-29" onclick="add_fields();" data-toggle="tooltip"
-                                                            data-placement="top" title="Click here to add more shippers." style="color: #ffffff;">ADD SHIPPER</a>
+                                                        <a class="button-29 shipperName" onclick="add_fields();" data-toggle="tooltip" data-placement="top" title="Click here to add more shippers." style="color: #ffffff;">ADD SHIPPER</a>
                                                         <i class="mdi mdi-plus-circle plus-xs" id="add_shipper_modal"></i>
                                                     </h6>
                                                     <div class="card m-b-30" id="sc-card">
@@ -461,17 +489,12 @@
                                                                 <div class="row m-2">
                                                                     <div class="form-group col-md-3">
                                                                         <label>Name*</label>
-                                                                        <!-- <div class="dropdown show">
-                                                                            <input class="form-control shipperlist" list="shipperlist" name="" id="LB_shipper" placeholder="Search Here">
-                                                                            <datalist id="shipperlist" class="shipperlist"></datalist>    
+                                                                        <input   type="hidden" id="shipperId" name="shipperId">
+                                                                        <div class="form-group">
+                                                                            <select class="form-control select2-show-search form-select lb_shipperName" id="lb_shipperName">
+                                                                               <option>Select Here </option>
+                                                                            </select>
                                                                         </div>
-                                                                        <label for="Truck">Truck<span style="color:#ff0000">*</span></label> -->
-                                                                        <div class="dropdown show">
-                                                                            <input class="form-control ShipperListSet" list="ShipperListSet" name="" id="LB_Shipper" placeholder="Search Here">
-                                                                            <datalist id="ShipperListSet" class="ShipperListSet"></datalist>    
-                                                                        </div>
-                                                                        
-                                                             
                                                                     </div>
                                                                     <div class="form-group col-md-2">
                                                                         <label>Address*</label>
@@ -665,6 +688,9 @@ var response = [];
 
 
 function add_fields() {
+
+   
+   
   room = document.getElementById("myTab").getElementsByTagName("li").length;
 
   var mainID = "'home-title^" + room + "'";
@@ -695,26 +721,27 @@ function add_fields() {
     '"><div class="row m-2">\n' +
     ' <div class="form-group col-md-3">\n' +
     "<label>Name1*</label>\n" +
-    '<input list="shipper' +
-    room +
-    '" class="form-control ShipperListSet"  list="ShipperListSet" placeholder="Search here..." id="shipperlist' +
-    room +
-    '" name="shipperlist" onchange="getShipper(this.value,' +
-    room +
-    '); " onkeyup="doSearch(this.value,' +
-    "'searchActiveShipper'" +
-    "," +
-    room +
-    '); "  autocomplete="off">\n' +
-    '<datalist  id="ShipperListSet" class="ShipperListSet"' +
-    room +
-    '" name="shipper">\n' +
-    "                                                 </datalist>\n" +
+    '<select class="form-control select2-show-search form-select lb1_shipperName" id="lb1_shipperName"> <option>Select Here </option> </select>'+
+    // '<input list="shipper' +
+    // room +
+    // '" class="form-control ShipperListSet"  list="ShipperListSet" placeholder="Search here..." id="shipperlist' +
+    // room +
+    // '" name="shipperlist" onchange="getShipper(this.value,' +
+    // room +
+    // '); " onkeyup="doSearch(this.value,' +
+    // "'searchActiveShipper'" +
+    // "," +
+    // room +
+    // '); "  autocomplete="off">\n' +
+    // '<datalist  id="ShipperListSet" class="ShipperListSet"' +
+    // room +
+    // '" name="shipper">\n' +
+    // "                                                 </datalist>\n" +
     "                                            </div>\n" +
     '                                            <div class="form-group col-md-2">\n' +
     "                                                <label>Address*</label>\n" +
     "                                                <div>\n" +
-    '                                                    <input class="form-control" id = "shipperaddress' +
+    '                                                    <input class="form-control shipperaddress" id = "shipperaddress' +
     room +
     '" name="shipperaddress" placeholder="Address *" type="text"\n' +
     "                                                           >\n" +
@@ -723,7 +750,7 @@ function add_fields() {
     '                                            <div class="form-group col-md-2">\n' +
     "                                                <label>Location *</label>\n" +
     "                                                <div>\n" +
-    '                                                    <input class="form-control" placeholder="Enter a location"\n' +
+    '                                                    <input class="form-control shipperLocation" placeholder="Enter a location"\n' +
     '                                                           type="text" id = "activeshipper' +
     room +
     '" onkeydown="getLocation(this.id)"  name="activeshipper">\n' +
@@ -818,13 +845,73 @@ function add_fields() {
   $(contentTo).append(contenttest);
   renameShipper();
   makeActive();
+//   $("#lb1_shipperName"+room).change(function(){
+//     // $(document).on('change','.lb1_shipperName', function(){
+//   //var id=$("#LB_Shipper").val();
+//   var Shipper=$('.lb1_shipperName'+room).val().split('-');
  
+// //   $("#shipperId").val(Shipper[0]);
+//   $("#shipperaddress"+room).val(Shipper[1]);
+//   $("#shipperLocation"+room).val(Shipper[2]);
+
+// }); 
 }
 
 
 var mainID = "'home-title^" + room + "'";
   var contentID = "'home" + room + "'";
 
+
+   
+  $(document).on('click','.shipperName', function(){
+    $(".lb1_shipperName").select2({
+    placeholder: "Select a programming language",
+    allowClear: true,
+    dropdownParent: $('#addLoadBoardModal')
+    });
+    // alert();
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/Shipper",
+        async: false,
+        success: function(Result) { 
+        createshipperList(Result);
+        }
+    });
+    function createshipperList(Result) {           
+        var Length = 0;    
+        if (Result != null) {
+            Length = Result.shipper.length;
+        }
+
+        if (Length > 0) {
+            // var no=1;
+            // $(".ShipperListSet").html('');
+            for (var i = 0; i < Length; i++) { 
+                var shipperLength =Result.shipper[i].shipper.length;
+                for (var j = 0; j < shipperLength; j++) {  
+                var id =Result.shipper[i].shipper[j]._id;
+                var shipperName =Result.shipper[i].shipper[j].shipperName;
+                var shipperAddress =Result.shipper[i].shipper[j].shipperAddress;
+                var shipperLocation =Result.shipper[i].shipper[j].shipperLocation;
+                // var shipperNumber =Result.shipper[i].shipper[j].shipperNumber;
+                var deleteStatus =Result.shipper[i].shipper[j].deleteStatus;
+
+                // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                    var List = "<option class='LB_Shipper' value='"+id+"-"+shipperAddress+"-"+shipperLocation+"'>"+shipperName+"</option>"                   
+                    // $("#lb_shipperName").append(List);
+                    $(".lb1_shipperName").append(List);
+                // }
+                }
+            }
+        }
+        
+    }
+
+})
+ 
+
+    
 
 function makeActive() {
   for (var i = 0; i < room; i++) {
