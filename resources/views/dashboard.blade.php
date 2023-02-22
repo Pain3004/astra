@@ -56,15 +56,15 @@
 								<div class="card overflow-hidden">
 									<div class="card-body">
 										<div class="row">
-											<div class="col">
-												<h3 class="mb-2 fw-semibold">12,563</h3>
+											<div class="col" id="dashcomexpence">
+												<!-- <h3 class="mb-2 fw-semibold">12,563</h3>
 												<p class="text-muted fs-13 mb-0">Total Orders</p>
 												<p class="text-muted mb-0 mt-2 fs-12">
 													<span class="icn-box text-danger fw-semibold fs-13 me-1">
 														<i class='fa fa-long-arrow-down'></i>
 														12%</span>
 													since last month
-												</p>
+												</p> -->
 											</div>
 											<div class="col col-auto top-icn dash">
 												<div class="counter-icon bg-secondary dash ms-auto box-shadow-secondary">

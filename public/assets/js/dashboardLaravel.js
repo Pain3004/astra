@@ -1,5 +1,5 @@
 var base_path = $("#url").val();
-$("#dashboardloader").css("display", "block");
+// $("#dashboardloader").css("display", "block");
 // var usertheme = document.getElementById('theme').value;
 // if (usertheme == "day") {
 //     var daytheme = '';
@@ -33,39 +33,39 @@ var truck_table = [];
 var company_table = [];
 var mapselectedstate = [];
 var carrier_table = [];
-// var currentloadtotal = 0;
-// var prevloadtotal = 0;
-// var currentamounttotal = 0;
-// var prevamounttotal = 0;
-// var drivercurrentloadtotal = 0;
-// var driverprevloadtotal = 0;
-// var drivercurrentamounttotal = 0;
-// var driverprevamounttotal = 0;
-// var truckcurrmiles = 0;
-// var truckprevmiles = 0;
-// var dispatchcurrentamounttotal = 0;
-// var companyprevloadtotal = 0;
-// var carrierprevloadtotal = 0;
-// var companycurrloadtotal = 0;
-// var carriercurrloadtotal = 0;
-// var carriercurramounttotal = 0;
-// var companycurramounttotal = 0;
-// var companyprevamounttotal = 0;
-// var carrierprevamounttotal = 0;
-// var dispatchprevamounttotal = 0;
-// var bankreceipttotal = 0;
-// var bankoutstanding = 0;
-// var truckcurravg = 0;
-// var truckprevavg = 0;
-// var alldrivercurramounttotal = 0;
-// var alldriverprevamounttotal = 0;
-// var equipmentcurrloadtotal = 0;
-// var equipmentcurramounttotal = 0;
-// var equipmentprevloadtotal = 0;
-// var equipmentprevamounttotal = 0;
-// var carrierarra = [];
-// var res = '';
-// var loads = '';
+var currentloadtotal = 0;
+var prevloadtotal = 0;
+var currentamounttotal = 0;
+var prevamounttotal = 0;
+var drivercurrentloadtotal = 0;
+var driverprevloadtotal = 0;
+var drivercurrentamounttotal = 0;
+var driverprevamounttotal = 0;
+var truckcurrmiles = 0;
+var truckprevmiles = 0;
+var dispatchcurrentamounttotal = 0;
+var companyprevloadtotal = 0;
+var carrierprevloadtotal = 0;
+var companycurrloadtotal = 0;
+var carriercurrloadtotal = 0;
+var carriercurramounttotal = 0;
+var companycurramounttotal = 0;
+var companyprevamounttotal = 0;
+var carrierprevamounttotal = 0;
+var dispatchprevamounttotal = 0;
+var bankreceipttotal = 0;
+var bankoutstanding = 0;
+var truckcurravg = 0;
+var truckprevavg = 0;
+var alldrivercurramounttotal = 0;
+var alldriverprevamounttotal = 0;
+var equipmentcurrloadtotal = 0;
+var equipmentcurramounttotal = 0;
+var equipmentprevloadtotal = 0;
+var equipmentprevamounttotal = 0;
+var carrierarra = [];
+var res = '';
+var loads = '';
 
 
 var custdaycurrmonth = {
@@ -1086,14 +1086,14 @@ function prepairDashBoardData(dashDaterange)
     } 
 //--------------Global Variable End -----------------
 
-    // var datewisefilter = dashDaterange == undefined ? "ship_date" : dashDaterange;
-    // //Hide Show Field
-    // var bartitle = "Customer";
-    // var linetitledata = "Revenue";
-    // $(".bartitle").html(bartitle);
-    // $(".linetitledata").html(linetitledata);
-    // $(".avg-label-2").html(linetitledata);
-    // $("#ranking_table").html("Customer Ranking");
+    var datewisefilter = dashDaterange == undefined ? "ship_date" : dashDaterange;
+    //Hide Show Field
+    var bartitle = "Customer";
+    var linetitledata = "Revenue";
+    $(".bartitle").html(bartitle);
+    $(".linetitledata").html(linetitledata);
+    $(".avg-label-2").html(linetitledata);
+    $("#ranking_table").html("Customer Ranking");
     // $(".bar-hide").css("display", "inline-block");
     // $(".piedash").css("display", "none");
     // $(".donutdash").css("display", "none");
@@ -1109,7 +1109,7 @@ function prepairDashBoardData(dashDaterange)
     // $("#recrep").css("display", "block");
     // $("#recvreport").css("display", "block");
 
-    //company privilege and id
+    // company privilege and id
     // var data = {
     //     companyId: companyId,
     //     datewisefilter:datewisefilter,
@@ -1120,10 +1120,7 @@ function prepairDashBoardData(dashDaterange)
         url: base_path+"/dashboard-customerdata",
         method: "get",
         success: function (response) {
-            //Main Array
-            console.log(response);
             res = JSON.parse(response);
-            console.log(res);
             var week_first = res[0].estdrvpayfirstdate;
             var week_last = res[0].estdrvpaylastdate;
             estimated_driverpay_statement(week_first, week_last);
@@ -1618,7 +1615,10 @@ function prepairDashBoardData(dashDaterange)
                         companydaytotal[month_type][onlyDate].loads += 1;
                         companycurrloadtotal += 1;
                         companycurramounttotal += parseFloat(isNaN(total_rate) == true ? 0 : total_rate);
-                    } else {
+                    console.log(companycurramounttotal);
+                    } 
+                    else 
+                    {
                         var companyindex = 0;
                         companyindex = currcompanyindex[company_index];
                         company_table[companyindex] = { "name": res[0].allcompany[company_index], "loads": company_table[companyindex]['loads'] + 1, "total": parseFloat(company_table[companyindex]['total'] + (total_rate)), "Margin": parseFloat(company_table[companyindex]['Margin']) + parseFloat(total_rate - loadertotal), "loadertotal": company_table[companyindex]['loadertotal'] + loadertotal, "id": company_index };
@@ -1682,7 +1682,9 @@ function prepairDashBoardData(dashDaterange)
                         equipmentdaytotal[month_type][onlyDate].loads += 1;
                         equipmentcurrloadtotal += 1;
                         equipmentcurramounttotal += parseFloat(total_rate);
-                    } else {
+                    } 
+                    else 
+                    {
                         var equipmentindex = 0;
                         equipmentindex = currequipmentindex[equipment_index];
                         equip_table[equipmentindex] = { "name": res[0].allequipment[equipment_index], "loads": equip_table[equipmentindex]['loads'] + 1, "total": parseFloat(equip_table[equipmentindex]['total'] + (total_rate)), "Margin": parseFloat(equip_table[equipmentindex]['Margin']) + parseFloat(total_rate - loadertotal), "miles": parseFloat(equip_table[equipmentindex]['miles']) + parseFloat(equipment_miles), "id": equipment_index };
@@ -1699,7 +1701,8 @@ function prepairDashBoardData(dashDaterange)
 
                     //-------------------Carrier Start-------------------//
 
-                    if (isCarrier) {
+                    if (isCarrier) 
+                    {
                         if (!currcarrierindex.hasOwnProperty(carr_index)) {
                             var carrirmonth = {
                                 "1": { "loads": 0, "amount": 0 },
@@ -1767,7 +1770,9 @@ function prepairDashBoardData(dashDaterange)
                     //---------Condition For Current Month Data End------------
 
                     //---------Condition For Previous Month Data Start------------
-                } else {
+                } 
+                else 
+                {
                     if (!prevcustindex.hasOwnProperty(cust_index)) {
                         var ind_cust = {};
                         var month = {
@@ -2146,13 +2151,13 @@ function prepairDashBoardData(dashDaterange)
             }
 
             //--------Sort All Ranking Table-------------
-            cust_table.sort(sortByProperty("total"));
-            dispatch_table.sort(sortByProperty("total"));
-            driver_table.sort(sortByProperty("total"));
-            truck_table.sort(sortByProperty("total"));
-            company_table.sort(sortByProperty("total"));
-            carrier_table.sort(sortByProperty("total"));
-            equip_table.sort(sortByProperty("total"));
+            // cust_table.sort(SortFilterData("total"));
+            // dispatch_table.sort(SortFilterData("total"));
+            // driver_table.sort(SortFilterData("total"));
+            // truck_table.sort(SortFilterData("total"));
+            // company_table.sort(SortFilterData("total"));
+            // carrier_table.sort(SortFilterData("total"));
+            // equip_table.sort(SortFilterData("total"));
 
             //console.log(JSON.stringify(loads));
             //----------Ranking Table Start-------------
@@ -2202,10 +2207,12 @@ function prepairDashBoardData(dashDaterange)
 
             //----------Company Revenue Stat---------------
             var dashcomrev = '';
+            console.log(companycurramounttotal);
             if (companycurramounttotal == NaN && companyprevamounttotal == NaN) {
                 companycurramounttotal = 0;
                 companyprevamounttotal = 0;
             }
+            console.log(companycurramounttotal);
             if (companycurramounttotal > companyprevamounttotal) {
                 var companyamountdiff = Math.abs(companycurramounttotal - companyprevamounttotal);
 
@@ -4202,90 +4209,90 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
         daterangeto: daterangeto
     }
 
-    $.ajax({
-        url: './Master.php',
-        type: 'POST',
-        data: {
-            main: "ifta",
-            sub: "driverpaystatement",
-            data: data,
-        },
-        success: function (data) {
+    // $.ajax({
+    //     url: './Master.php',
+    //     type: 'POST',
+    //     data: {
+    //         main: "ifta",
+    //         sub: "driverpaystatement",
+    //         data: data,
+    //     },
+    //     success: function (data) {
 
-            var estarr = JSON.parse(data);
+    //         var estarr = JSON.parse(data);
 
-            var estcountarr = Object.keys(estarr).length;
+    //         var estcountarr = Object.keys(estarr).length;
 
-            if (estcountarr >= 1) {
-                var lastindex = estcountarr - 1;
-                var alldrivertab = estarr[lastindex].alldrivertable.length;
+    //         if (estcountarr >= 1) {
+    //             var lastindex = estcountarr - 1;
+    //             var alldrivertab = estarr[lastindex].alldrivertable.length;
 
-                var driverloadtotal = 0;
-                var driveradvancetotal = 0;
-                var final_drtotal = 0;
-                var recurrsub = 0;
-                var recurradd = 0;
-                var oorecurrsub = 0;
-                var totalnetdrp = 0;
-                for (var b = 0; b < alldrivertab; b++) {
-                    driverloadtotal += estarr[lastindex].alldrivertable[b].driverload;
-                    driveradvancetotal += estarr[lastindex].alldrivertable[b].driveradvance;
-                    final_drtotal += parseFloat(estarr[lastindex].alldrivertable[b].totalearning);
-                    var shrecurrsub = 0;
-                    var ooshrecurrsub = 0;
-                    var shrecurradd = 0;
+    //             var driverloadtotal = 0;
+    //             var driveradvancetotal = 0;
+    //             var final_drtotal = 0;
+    //             var recurrsub = 0;
+    //             var recurradd = 0;
+    //             var oorecurrsub = 0;
+    //             var totalnetdrp = 0;
+    //             for (var b = 0; b < alldrivertab; b++) {
+    //                 driverloadtotal += estarr[lastindex].alldrivertable[b].driverload;
+    //                 driveradvancetotal += estarr[lastindex].alldrivertable[b].driveradvance;
+    //                 final_drtotal += parseFloat(estarr[lastindex].alldrivertable[b].totalearning);
+    //                 var shrecurrsub = 0;
+    //                 var ooshrecurrsub = 0;
+    //                 var shrecurradd = 0;
 
-                    for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) {
-                        if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) {
-                            recurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
-                            shrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
-                        }
-                    }
+    //                 for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) {
+    //                     if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) {
+    //                         recurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
+    //                         shrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
+    //                     }
+    //                 }
 
-                    for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) {
-                        if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) {
-                            oorecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
-                            ooshrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
-                        }
-                    }
+    //                 for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) {
+    //                     if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) {
+    //                         oorecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
+    //                         ooshrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
+    //                     }
+    //                 }
 
-                    for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) {
-                        if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) {
-                            recurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
-                            shrecurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
-                        }
-                    }
-                    var recurrdata = (shrecurradd) - (shrecurrsub) - (ooshrecurrsub);
-                    var calfinalrecurrdata = Math.sign(recurrdata) == -1 ? estarr[lastindex].alldrivertable[b].totalearning - Math.abs(recurrdata) : parseFloat(estarr[lastindex].alldrivertable[b].totalearning + recurrdata);
+    //                 for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) {
+    //                     if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) {
+    //                         recurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
+    //                         shrecurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
+    //                     }
+    //                 }
+    //                 var recurrdata = (shrecurradd) - (shrecurrsub) - (ooshrecurrsub);
+    //                 var calfinalrecurrdata = Math.sign(recurrdata) == -1 ? estarr[lastindex].alldrivertable[b].totalearning - Math.abs(recurrdata) : parseFloat(estarr[lastindex].alldrivertable[b].totalearning + recurrdata);
 
-                    var nerdrvpaybal = estarr[lastindex].alldrivertable[b].driverBalance;
-                    totalnetdrp += (nerdrvpaybal) + (calfinalrecurrdata);
-                }
-                var totalrecurramount = (recurradd) - (recurrsub) - (oorecurrsub);
-                var finalestdrv = Math.sign(totalrecurramount) == -1 ? parseFloat(final_drtotal - Math.abs(totalrecurramount)) : parseFloat(final_drtotal + totalrecurramount);
-                var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)))) + ")" : abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)));
+    //                 var nerdrvpaybal = estarr[lastindex].alldrivertable[b].driverBalance;
+    //                 totalnetdrp += (nerdrvpaybal) + (calfinalrecurrdata);
+    //             }
+    //             var totalrecurramount = (recurradd) - (recurrsub) - (oorecurrsub);
+    //             var finalestdrv = Math.sign(totalrecurramount) == -1 ? parseFloat(final_drtotal - Math.abs(totalrecurramount)) : parseFloat(final_drtotal + totalrecurramount);
+    //             var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)))) + ")" : abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)));
 
-                $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(totalnetdrp.toFixed(2)) + ")" : parseFloat(totalnetdrp.toFixed(2))));
-                $("#estdrvpay").html("$" + findatadrv);
+    //             $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(totalnetdrp.toFixed(2)) + ")" : parseFloat(totalnetdrp.toFixed(2))));
+    //             $("#estdrvpay").html("$" + findatadrv);
                 
 
-            }
+    //         }
 
-            if (estcountarr < 1) {
-                $("#toolestdrvpay").html("$0.00");
-                $("#estdrvpay").html("$0.00");
-            }
+    //         if (estcountarr < 1) {
+    //             $("#toolestdrvpay").html("$0.00");
+    //             $("#estdrvpay").html("$0.00");
+    //         }
 
-            $("#estdp").html("Estimated Driver Pay");
-            $("#driveredp").css("display", "none");
-        }
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-        // Request failed. Show error message to user. 
-        // errorThrown has error message.
-        //console.log(jqXHR, textStatus, errorThrown);
-        swal("Something want wrong");
-    });
+    //         $("#estdp").html("Estimated Driver Pay");
+    //         $("#driveredp").css("display", "none");
+    //     }
+    // })
+    // .fail(function (jqXHR, textStatus, errorThrown) {
+    //     // Request failed. Show error message to user. 
+    //     // errorThrown has error message.
+    //     //console.log(jqXHR, textStatus, errorThrown);
+    //     swal.fire("Something want wrong");
+    // });
 }
 //-----------------function for estimated driver pay End----------
 
@@ -4296,117 +4303,117 @@ function dashGraphBarLine(curloads, preloads, curramount, prevamount) {
 
 
 //-------------------Bar Graph Start------------------
-    const chart = new Highcharts.Chart({
-    chart: {
-        renderTo: 'bar-chart',
-        backgroundColor: daytheme,
-        type: 'column',
-        options3d: {
-            enabled: true,
-            alpha: 0,
-            beta: 0,
-            depth: 100,
-            viewDistance: 25
-        }
-    },
-    title: {
-        text: ''
-    },
+//     const chart = new Highcharts.Chart({
+//     chart: {
+//         renderTo: 'bar-chart',
+//         backgroundColor: daytheme,
+//         type: 'column',
+//         options3d: {
+//             enabled: true,
+//             alpha: 0,
+//             beta: 0,
+//             depth: 100,
+//             viewDistance: 25
+//         }
+//     },
+//     title: {
+//         text: ''
+//     },
     
-    plotOptions: {
-        column: {
-            depth: 25
-        }
-    },
-    tooltip : {
-        valueSuffix: ' Loads',
-    },
-    series: [{
-        name: 'Current Month ', data: curloads
-    },{
-        name: 'Previous Month', data: preloads
-    }],
-    xAxis: {
-            title: {
-                text: 'Number Of Days'
-            },
-            categories: [1,2,3],
-            tickInterval: 1,
-        },
-    yAxis: {
-            title: {
-                text: 'Number Of Loads'
-            },
-            tickInterval: 1
-        },
-        colors: ['#5C1AC3', '#FFBB44']
-});
+//     plotOptions: {
+//         column: {
+//             depth: 25
+//         }
+//     },
+//     tooltip : {
+//         valueSuffix: ' Loads',
+//     },
+//     series: [{
+//         name: 'Current Month ', data: curloads
+//     },{
+//         name: 'Previous Month', data: preloads
+//     }],
+//     xAxis: {
+//             title: {
+//                 text: 'Number Of Days'
+//             },
+//             categories: [1,2,3],
+//             tickInterval: 1,
+//         },
+//     yAxis: {
+//             title: {
+//                 text: 'Number Of Loads'
+//             },
+//             tickInterval: 1
+//         },
+//         colors: ['#5C1AC3', '#FFBB44']
+// });
 
 function showValues() {
-    document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
-    document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
-    document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
+    // document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
+    // document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
+    // document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
 }
 
 // Activate the sliders
-document.querySelectorAll('#sliders input').forEach(input => input.addEventListener('input', e => {
-    chart.options.chart.options3d[e.target.id] = parseFloat(e.target.value);
-    showValues();
-    chart.redraw(false);
-}));
+// document.querySelectorAll('#sliders input').forEach(input => input.addEventListener('input', e => {
+//     chart.options.chart.options3d[e.target.id] = parseFloat(e.target.value);
+//     showValues();
+//     chart.redraw(false);
+// }));
 
-showValues();
+// showValues();
 //------------------------Bar Graph END------------------------
 
 
 
 
 //----------------------Line Graph Start------------------------
-        Highcharts.chart('line-chart', {
-    chart: {
-        type: 'spline',
-        backgroundColor: daytheme,
-    },
-    title: {
-        text: ''
-    },
+    // Highcharts.chart('line-chart', {
+    // chart: {
+    //     type: 'spline',
+    //     backgroundColor: daytheme,
+    // },
+    // title: {
+    //     text: ''
+    // },
     
-    xAxis: {
-        title: {
-                text: 'Number Of Days'
-            },
-            categories: [1,2,3],
-            tickInterval: 1
-    },
-    yAxis: {
-        title: {
-            text: 'Load Pay'
-        },
-    },
-    tooltip: {
-        valueDecimals:2,
-        valuePrefix: '$',
-        crosshairs: true,
-        shared: true
-    },
-    plotOptions: {
-        spline: {
-            marker: {
-                radius: 4,
-                lineColor: '#666666',
-                lineWidth: 1
-            }
-        }
-    },
-    series: [{
-        name: 'Current Month',
-            data: curramount
-    },{
-            name: 'Previous Month',
-            data: prevamount
-        }],
-        colors: ['#00B5FD', '#C0D64A'],
-});
+    // xAxis: {
+    //     title: {
+    //             text: 'Number Of Days'
+    //         },
+    //         categories: [1,2,3],
+    //         tickInterval: 1
+    // },
+    // yAxis: {
+    //     title: {
+    //         text: 'Load Pay'
+    //     },
+    // },
+    // tooltip: {
+    //     valueDecimals:2,
+    //     valuePrefix: '$',
+    //     crosshairs: true,
+    //     shared: true
+    // },
+    // plotOptions: {
+    //     spline: {
+    //         marker: {
+    //             radius: 4,
+    //             lineColor: '#666666',
+    //             lineWidth: 1
+    //         }
+    //     }
+    // },
+    // series: [{
+    //     name: 'Current Month',
+    //         data: curramount
+    // },{
+    //         name: 'Previous Month',
+    //         data: prevamount
+    //     }],
+    //     colors: ['#00B5FD', '#C0D64A'],
+// });
         
 //----------------------Line Graph End-----------------------------------------
 $(".highcharts-credits").empty();
@@ -4415,36 +4422,36 @@ $(".highcharts-credits").empty();
 
 
 //---------------------------Pandding Table Start----------------------------------
-function panddingAmount() {
+// function panddingAmount() {
             
-            var panddingarsize = pandingAmounArr.length;
-            var panddingTable = '';
-            var pdt = 1;
-            var totalPanddingAmount = 0;
-            for (var fd = 0; fd < panddingarsize; fd++) {
+//             var panddingarsize = pandingAmounArr.length;
+//             var panddingTable = '';
+//             var pdt = 1;
+//             var totalPanddingAmount = 0;
+//             for (var fd = 0; fd < panddingarsize; fd++) {
 
-                panddingTable += `<tr>
-                    <td class = "first-row">${pdt}</td>
-                    <td>${pandingAmounArr[fd].InvoiceNo}</td>
-                    <td>${pandingAmounArr[fd].customer}</td>
-                    <td>${convertTimeZone(pandingAmounArr[fd].invoicetime,'date')}</td>
-                    <td>$${numberWithCommas(parseFloat(pandingAmounArr[fd].rate).toFixed(2))}</td>
-                    <td>${pandingAmounArr[fd].note}</td>
-                </tr>`;
-                totalPanddingAmount += parseFloat(pandingAmounArr[fd].rate);
+//                 panddingTable += `<tr>
+//                     <td class = "first-row">${pdt}</td>
+//                     <td>${pandingAmounArr[fd].InvoiceNo}</td>
+//                     <td>${pandingAmounArr[fd].customer}</td>
+//                     <td>${convertTimeZone(pandingAmounArr[fd].invoicetime,'date')}</td>
+//                     <td>$${numberWithCommas(parseFloat(pandingAmounArr[fd].rate).toFixed(2))}</td>
+//                     <td>${pandingAmounArr[fd].note}</td>
+//                 </tr>`;
+//                 totalPanddingAmount += parseFloat(pandingAmounArr[fd].rate);
 
-                pdt++;
+//                 pdt++;
 
-            }
+//             }
 
-            $('#penddingAmountdata').html(panddingTable);
-            $('#penddingAmountTotal').html('$' + numberWithCommas(parseFloat(totalPanddingAmount).toFixed(2)));
-}
+//             $('#penddingAmountdata').html(panddingTable);
+//             $('#penddingAmountTotal').html('$' + numberWithCommas(parseFloat(totalPanddingAmount).toFixed(2)));
+// }
 //---------------------------Pandding Table End----------------------------------
 
 
 //----------------------function for date wise dashboard data---------------------
 
-function dateWiseDashData(dashvaluedatewise) {
-    prepairDashBoardData(dashvaluedatewise);
-}
+// function dateWiseDashData(dashvaluedatewise) {
+//     prepairDashBoardData(dashvaluedatewise);
+// }

@@ -124,55 +124,44 @@ $(document).ready(function() {
     $('#AddFuelCard').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
     });
-        $.ajax({
-            type: "GET",
-            url: base_path + "/admin/getFuelVendor",
-            async: false,
-            success: function (text) {
-    
-                var fuelVendorlen = 0;
-                if (text != null) {
-                    fuelVendorlen = text.fuelCard.length;
-                    $(".card_vendor_type").html();
-                    var html = "<option value='unselected' selected>---select-----</option>"
-                    if (fuelVendorlen > 0) {
-                        for (var i = fuelVendorlen - 1; i >= 0; i--) {
-                            var fuelVendorId = text.fuelCard[i]._id;
-                            var fuelCardType = text.fuelCard[i].fuelCardType;
-                             html+="<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>"
-                        }
-                        
+    $.ajax({
+        type: "GET",
+        url: base_path + "/admin/getFuelVendor",
+        async: false,
+        success: function (text) {
+
+            var fuelVendorlen = 0;
+            if (text != null) {
+                fuelVendorlen = text.FuelVendor.length;
+                $(".card_vendor_type").html();
+                var html = "<option value='unselected' selected>---select-----</option>"
+                if (fuelVendorlen > 0) {
+                    for (var i = fuelVendorlen - 1; i >= 0; i--) {
+                        var fuelVendorId = text.FuelVendor[i]._id;
+                        var FuelVendorType = text.FuelVendor[i].FuelVendorType;
+                            html+="<option value='" + fuelVendorId + "'> " + FuelVendorType + "</option>"
                     }
-                    $(".card_vendor_type").append(html);
+                    console.log(html);
                 }
+                $(".card_vendor_type").append(html);
             }
-        });
+        }
+    });
     // })
 
 
     // select 2 function =========================
-            // var s2 = $("#fuelCardVendorType").select2({
-            //     placeholder: "Choose event type",
-            //     tags: true
-            // });
-            
-            // var vals = [];
-            
-            // vals.forEach(function(e){
-            // if(!s2.find('option:contains(' + e + ')').length) 
-            //   s2.append($('<option>').text(e));
-            // });
-            
-            // s2.val(vals).trigger("change"); 
-
-            // $('select').select2({
-            //     matcher: function(term, text, option) {
-            //       return text.toUpperCase().indexOf(term.toUpperCase())>=0 || option.val().toUpperCase().indexOf(term.toUpperCase())>=0;
-            //     }
-            // });           
-        
-
-    // end  ===============================================
+  
+    $("#single").select2({
+        placeholder: "Select a programming language",
+        allowClear: true,
+        dropdownParent: $('#AddFuelCard')
+    });
+    $(".card_vendor_type").select2({
+        placeholder: "Select a programming language",
+        allowClear: true,
+        dropdownParent: $('#AddFuelCard')
+    });
    
     $.ajax({
         type: "GET",

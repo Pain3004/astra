@@ -123,7 +123,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form  >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_createIftaToll" value="{{ csrf_token() }}" />
                                             <div class="form-row">
@@ -210,7 +210,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form  >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_updateIftaToll" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="iftaTollId" class="updateiftaTollId" >

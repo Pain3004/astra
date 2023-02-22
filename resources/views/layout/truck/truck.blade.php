@@ -41,7 +41,7 @@
 
                                             
 
-                                            <table id="" class="table" >
+                                            <table  class="table" >
 
                                                 <thead class="thead_th">
                                                     <tr class="tr">

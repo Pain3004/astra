@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\FuelCard;
 use App\Models\IftaCardCategory;
+use App\Models\FuelVendor;
 use App\Models\Driver;
 use File;
 use Image;
@@ -28,7 +29,7 @@ class FuelCardController extends Controller
         //     $FactCompany=collect($FactCompany->factoring);
         //     $FactCompany = $FactCompany->chunk(10);
             
-        //    $FactCompany= $FactCompany->toArray();
+        //    $FactCompany=$FactCompany->toArray();
 
 
         // $data=IftaCardCategory::where('companyID',$companyId)->aggregate([

@@ -84,7 +84,7 @@
 
 </div>
  <!-- ================= start add fuelCard ========================================= -->
- <div class="modal fade" id="AddFuelCard"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="AddFuelCard"   role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,7 +100,7 @@
                     <div class="form-group col-md-12">
                         <label>Card Holder Name<span style="color:#ff0000">*</span></label>
                         <div class="card_holder_js_select">
-                        <select class='form-control fuel_drive_change cardHolderName addFuel_Card_holder_name ' name="cardHolderName" > 
+                        <select  class='form-control fuel_drive_change cardHolderName addFuel_Card_holder_name ' name="cardHolderName" id='single'> 
                         </select>
                         </div>
                         <label>Employee No<span style="color:#ff0000">*</span></label>
