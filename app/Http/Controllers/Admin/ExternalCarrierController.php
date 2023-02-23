@@ -18,8 +18,8 @@ class ExternalCarrierController extends Controller
 {
     public function getExternalCarrier(Request $request)
     {
-        // $companyId=(int)Auth::user()->companyID;
-        $companyId=(int)25;
+        $companyId=(int)Auth::user()->companyID;
+        // $companyId=(int)25;
         $Carrier = Carrier::where('companyID',$companyId)->get();
     //     $Carrier=collect($Carrier->carrier);
     //     $Carrier = $Carrier->chunk(4);
@@ -294,28 +294,39 @@ class ExternalCarrierController extends Controller
     {
         $id=$request->id;
         $companyId=(int)$request->comId;
-        $Carrier = Carrier::where('companyID',$companyId)->first();
-        // dd($Carrier);
-        $CarrierArray=$Carrier->carrier;
-        $cardLength=count($CarrierArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$cardLength; $i++)
+        // $Carrier = Carrier::where('companyID',$companyId)->first();
+        // // dd($Carrier);
+        // $CarrierArray=$Carrier->carrier;
+        // $cardLength=count($CarrierArray);
+        // $i=0;
+        // $v=0;
+        // for($i=0; $i<$cardLength; $i++)
+        // {
+        //     $ids=$Carrier->carrier[$i];
+        //     foreach($ids as $value)
+        //     {
+        //         if($value==$id)
+        //         {
+        //             $v=$i;
+        //         }
+        //     }
+        // }  
+        // $CarrierArray[$v]['deleteStatus']="YES";
+        // $Carrier->carrier=$CarrierArray;
+        // if($Carrier->save())
+        // {
+        //  $arr = array('status' => 'success', 'message' => 'External Carrier delete successfully.','statusCode' => 200); 
+        //  return json_encode($arr);
+        // } 
+
+        
+        $Bank=Carrier::raw()->updateOne(['companyID' => $companyId,'carrier._id' => $id], 
+        ['$set' => ['carrier.$.deleteStatus' => 'YES','carrier.$.deleteUser' => Auth::user()->userName,'carrier.$.deleteTime' => time()]]
+        );
+        // dd($Bank);
+         if($Bank==true)
         {
-            $ids=$Carrier->carrier[$i];
-            foreach($ids as $value)
-            {
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }  
-        $CarrierArray[$v]['deleteStatus']="YES";
-        $Carrier->carrier=$CarrierArray;
-        if($Carrier->save())
-        {
-         $arr = array('status' => 'success', 'message' => 'External Carrier delete successfully.','statusCode' => 200); 
+         $arr = array('status' => 'success', 'message' => 'External carrier Deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
         } 
     }
