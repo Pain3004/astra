@@ -220,13 +220,46 @@ class LoadBoardController extends Controller
     }
 
     public function addLoadBoard(Request $request){
+        // $unserializeData = [];
+        // parse_str($request->data,$unserializeData);
+        // $shipper_load_type=$unserializeData['shipperName'];
+        // $shipper_name=explode('-',$shipper_load_type[1]);
+        // dd($shipper_name[0]);
         //die;
         $obj_size=3500;
         $companyID=Auth::user()->companyID;
         $totalArray=0;
         $getCompany = Open::where('companyID',$companyID)->get();
         $totalCompany=count($getCompany);
+
+        $unserializeData = [];
+        parse_str($request->data,$unserializeData);
         
+        if(isset($unserializeData['shipperName'])){
+        foreach($unserializeData['shipperName'] as $key => $val){
+        
+            $shipper[]=((object)[
+                $shipper_name=explode('-',$unserializeData['shipperName'][$key]),
+                'shipper_name'=>$shipper_name[0],
+                'shipper_address'=>$unserializeData['shipperaddress'][$key],
+                'shipper_location'=>$unserializeData['shipperLocation'][$key],
+                'shipper_pickup'=>strtotime($unserializeData['shipperdate'][$key]),
+                'shipper_picktime'=>$unserializeData['shippertime'][$key],
+                'shipper_load_type'=>$unserializeData['loadType'][$key],
+                'shipper_commodity'=>$unserializeData['shippercommodity'][$key],
+                'shipper_qty'=>$unserializeData['shipperqty'][$key],
+                'shipper_weight'=>$unserializeData['shipperweight'][$key],
+                'shipper_pickup_number'=>$unserializeData['shipperpickup'][$key],
+                'shipper_seq'=>$unserializeData['shipseq'][$key],
+                'shipper_notes'=>$unserializeData['shippernotes'][$key],
+                // 'shipperparent'=>$unserializeData[''][$key],
+                'shipperparent'=>'0',
+            ]);        
+        }
+    }else{
+        $shipper=array();
+    }
+
         $Data[]=array(    
             '_id' => 1,
             'loaddata' => $loaddata=((object)[
@@ -279,7 +312,7 @@ class LoadBoardController extends Controller
             // 'owner_total' => $request->owner_total,
             // 'start_location' => $request->start_location,
             // 'end_location' => $request->end_location,
-            // 'shipper' => $request->shipper,
+            'shipper' => $shipper,
             // 'consignee' => $request->consignee,
             // 'tarp_select' => $request->tarp_select,
             // 'loaded_miles_value' => $request->loaded_miles_value,
@@ -290,8 +323,8 @@ class LoadBoardController extends Controller
             // 'carrier_email' => $request->carrier_email,
             // 'customer_email' => $request->customer_email,
             // 'created_user' => $_SESSION['userId'],
-            // 'created_at' => time(),
-            // 'updated_at' => time(),
+            // 'created_at' => strtotime(date('Y-m-d H:i:s')),
+            // 'updated_at' => strtotime(date('Y-m-d H:i:s')),
             // 'shipper_pickup' => $request->shipper[0]['shipper_pickup'],
             // 'consignee_pickup' => $request->consignee[0]['consignee_pickup'],
             // 'status_BreakDown_time' => $request->status_Break_Down_time,

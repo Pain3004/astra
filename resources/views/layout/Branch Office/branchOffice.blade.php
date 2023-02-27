@@ -15,7 +15,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Branch Office</h4>
+                    <h4 class="modal-title" style="cursor:none !important;">Branch Office</h4>
                     <button type="button" class="button-24 branchOfficeClose" data-dismiss="modal">&times;</button>
                 </div>
 

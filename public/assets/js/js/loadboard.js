@@ -1,3 +1,4 @@
+
 // $(document).ready(function(){
 //   var counter = 2; // Starting form number
 //   $('#add-tab').click(function(){
@@ -152,7 +153,9 @@ $('#addLoadBoard').click(function(){
 $('.closeAddNewLoadBoard').click(function(){
   $('#addLoadBoardModal').modal('hide');
 });
-
+// $('.shipperName').click(function(){
+//   $('#page-loader').style('dispaly','inline-flex');
+// });
 $.ajax({
       type: "GET",
       url: base_path+"/admin/getLoadboardData",
@@ -370,10 +373,10 @@ $.ajax({
                           $('#loadStatus option:selected').eq(status).prop('selected', true);
                           
                           var Str = "<tr style='z-index: 5;position: relative;' class='tr' data-id=" + (i + 1) + ">" +
-                          "<td data-field='no' data-toggle='tooltip' data-placement='top' title='"+info+"'><i class='mdi mdi-restore-clock' style='font-size:24px'></i><br>" + no + "</td>" +
-                          "<td data-field='invoice' class='modal-trigger invoice_btn' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+" <div class='rrrrr' style='position: absolute;z-index: 22222;height: 64px; display:none;'><ul><li><a href='#'>Menu 1</a></li><li><a href='#'>Menu 2</a></li><li><a href='#'>Menu 3</a></li></ul></div></td>" +
-                          "<td data-field='orderId' class='orderId' title='" + orderId + "'>" + order_id + "</td>" +
-                          "<td data-field='status' style='color:black;'>" + 
+                          "<td class='td_new' data-field='no' data-toggle='tooltip' data-placement='top' title='"+info+"'><i class='mdi mdi-restore-clock' style='font-size:24px'></i><br>" + no + "</td>" +
+                          "<td data-field='invoice' class='td_new modal-trigger invoice_btn' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+" <div class='rrrrr' style='position: absolute;z-index: 22222;height: 64px; display:none;'><ul><li><a href='#'>Menu 1</a></li><li><a href='#'>Menu 2</a></li><li><a href='#'>Menu 3</a></li></ul></div></td>" +
+                          "<td data-field='orderId' class='orderId td_new' title='" + orderId + "'>" + order_id + "</td>" +
+                          "<td class='td_new' data-field='status' style='color:black;'>" + 
                             "<select class='form-control loadStatus' id='loadStatus' data-main_id='"+main_id+"' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
                               "<option value='" + status +"'  selected='' >" + status +"</option>" +
                               "<option value='Open'>Open</option>" +
@@ -386,16 +389,16 @@ $.ajax({
                               "<option value='Break Down'>Break Down</option>" +
                             "</select>" +
                           "</td>" +
-                          "<td data-field='shipDate'>" + shipDate + "</td>" +
-                          "<td data-field='delDate'>" + delDate + "</td>" +
-                          "<td data-field='customer' class='LBcustomer' >" + customer +"</td>" +
-                          "<td data-field='carrier_driver_ownerOperator'>" + carrier_driver_ownerOperator + "</td>" +
-                          "<td data-field='origin'>" + origin + "</td>" +
-                          "<td data-field='destibation'>" + destibation + "</td>" +
-                          "<td data-field='truck'>" + truck + "</td>" +
-                          "<td data-field='trailer' title='" + trailer + "'>" + _trailer + "</td>" +
-                          "<td data-field='loadPay'>$" + loadPay + "</td>" +
-                          "<td data-field='carrierPay_driverPay'>$" + carrierPay_driverPay + "</td>" +
+                          "<td class='td_new' data-field='shipDate'>" + shipDate + "</td>" +
+                          "<td class='td_new' data-field='delDate'>" + delDate + "</td>" +
+                          "<td data-field='customer' class='LBcustomer td_new' >" + customer +"</td>" +
+                          "<td class='td_new' data-field='carrier_driver_ownerOperator'>" + carrier_driver_ownerOperator + "</td>" +
+                          "<td class='td_new' data-field='origin'>" + origin + "</td>" +
+                          "<td class='td_new' data-field='destibation'>" + destibation + "</td>" +
+                          "<td class='td_new' data-field='truck'>" + truck + "</td>" +
+                          "<td class='td_new' data-field='trailer' title='" + trailer + "'>" + _trailer + "</td>" +
+                          "<td class='td_new' data-field='loadPay'>$" + loadPay + "</td>" +
+                          "<td class='td_new' data-field='carrierPay_driverPay'>$" + carrierPay_driverPay + "</td>" +
                           "</tr>";
                       $("#LoadBoardTable").append(Str);
                       no++;
@@ -984,6 +987,7 @@ $("#addLBSubmit").click(function(){
         type: "POST",
         datatype:"JSON",
         data: {
+            data:$('#shipperForm').serialize(),
             _token: $("#tokenLoadboard").val(),
             customername: customerName,
             loadername: loadername,
