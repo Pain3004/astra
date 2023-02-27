@@ -30763,7 +30763,7 @@ body.fixed-header .header {
     .horizontal .hor-header .container,
     .horizontal .horizontal-main .container,
     .horizontal .main-content.hor-content .container {
-        max-width: 85% !important;
+        max-width: 94% !important;
         padding: 0;
     }
 

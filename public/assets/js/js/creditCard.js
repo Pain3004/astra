@@ -1,24 +1,19 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
 
-// <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
+    //====== start ======================================================= 
     $('.creditCardClose').click(function(){
         $('#creditCardModal').modal('hide');
     });
 
-
-// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
+    //============= Get fuelReceipt =====================================
    
     $('#creditCard_navbar').click(function(){
-        //alert();
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getcreditCard",
             async: false,
-            //dataType:JSON,
             success: function(text) {
-                //alert();
-                //console.log(text);
                 createCreditCardRows(text);
                 creditCardResult = text;
               }
@@ -27,25 +22,20 @@ $(document).ready(function() {
     });
 
 
-// <!-- -------------------------------------------------------------------------over Get fuelReceipt  ------------------------------------------------------------------------- --> 
-// <!-- -------------------------------------------------------------------------function  ------------------------------------------------------------------------- --> 
-    
-// get truck
+    // =============== over Get fuelReceipt  =============================
+    //========================== function =================================
     function createCreditCardRows(creditCardResult) {
         var creditCardlen = 0;
         var no=1;
-        //alert(FuelVendorResult);
             if (creditCardResult != null) {
                 $("#creditCardTable").html('');
                 creditCardlen = creditCardResult.length;
-                    // alert(creditCardlen);
                 if (creditCardlen > 0) {
                     for (var i = creditCardlen-1; i >= 0; i--) { 
                         
                         admin_credit_len = creditCardResult[i].admin_credit.length;
                         var Id =creditCardResult[i]._id;
                         var com_Id =creditCardResult[i].companyID;
-                        //alert(bankAdminlen);
                         if (admin_credit_len > 0) {
                             for (var j = admin_credit_len-1; j >= 0; j--) {
                                 var comId=creditCardResult[i].companyID;
@@ -60,7 +50,75 @@ $(document).ready(function() {
                                 var  openingBalance=creditCardResult[i].admin_credit[j].openingBalance;
                                 // var openingBalance=parseFloat(openingBalance).toFixed(2);
                                 var deleteStatus =creditCardResult[i].admin_credit[j].deleteStatus;
-
+                                if(Name !="" || Name != null)
+                                {
+                                    Name=Name;
+                                }
+                                else
+                                {
+                                    Name="-------";
+                                }
+                                if(displayName !="" || displayName != null)
+                                {
+                                    displayName=displayName;
+                                }
+                                else
+                                {
+                                    displayName="-------";
+                                }
+                                if(cardType !="" || cardType != null)
+                                {
+                                    cardType=cardType;
+                                }
+                                else
+                                {
+                                    cardType="-------";
+                                }
+                                if(cardHolderName !="" || cardHolderName != null)
+                                {
+                                    cardHolderName=cardHolderName;
+                                }
+                                else
+                                {
+                                    cardHolderName="-------";
+                                }
+                                if(cardNo !="" || cardNo != null)
+                                {
+                                    cardNo=cardNo;
+                                }
+                                else
+                                {
+                                    cardNo="-------";
+                                }
+                                if(cardLimit !="" || cardLimit != null)
+                                {
+                                    cardLimit=cardLimit;
+                                }
+                                else
+                                {
+                                    cardLimit="-------";
+                                }
+                                if(openingBalance !="" || openingBalance != null)
+                                {
+                                    openingBalance=openingBalance;
+                                }
+                                else
+                                {
+                                    openingBalance="-------";
+                                }
+                                if(openingBalanceDt !== false && openingBalanceDt !="")
+                                {
+                                    var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                                    var date_openingBalanceDt = new Date(openingBalanceDt*1000);
+                                    var year_openingBalanceDt = date_openingBalanceDt.getFullYear();
+                                    var month_openingBalanceDt = months_arr[date_openingBalanceDt.getMonth()];
+                                    var day = date_openingBalanceDt.getDate();
+                                    var openingBalanceDt = month_openingBalanceDt+'/'+day+'/'+year_openingBalanceDt;
+                                }
+                                else
+                                {
+                                    openingBalanceDt="-----";
+                                }
                                 if(deleteStatus == "NO"){
                                         //alert("ff");
                                         var creditCardStr = "<tr data-id=" + (i + 1) + ">" +
@@ -202,6 +260,23 @@ $(document).ready(function() {
             url:base_path+"/admin/editcreditCard",
             data:{id:id,comId:comId},
             success:function(res){
+                var openingBalanceDt=res.openingBalanceDt;
+                var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                var date_openingBalanceDt = new Date(openingBalanceDt*1000);
+                var year_openingBalanceDt = date_openingBalanceDt.getFullYear();
+                var month_openingBalanceDt = months_arr[date_openingBalanceDt.getMonth()];
+                var day_openingBalanceDt = date_openingBalanceDt.getDate();
+                if(openingBalanceDt !== false)
+                {
+                    if(day_openingBalanceDt <=9 )
+                    {
+                        var openingBalanceDt = year_openingBalanceDt+'-0'+day_openingBalanceDt+'-'+month_openingBalanceDt;
+                    }
+                    else
+                    {
+                        var openingBalanceDt = year_openingBalanceDt+'-'+month_openingBalanceDt+'-'+day_openingBalanceDt;
+                    }
+                }
                 $('.comIdCreditcardUpdate').val(res.companyID);
                 $('.CreditCardIdUpdate').val(res._id);
                 $(".updateCreditCardName").val(res.Name);
@@ -209,7 +284,7 @@ $(document).ready(function() {
                 $(".updateCreditCardcardType").val(res.cardType);
                 $(".updateCreditCardcardHolderName").val(res.cardHolderName);
                 $(".updateCreditCardcardNo").val(res.cardNo);
-                $(".updateCreditCardopeningBalanceDt").val(res.openingBalanceDt);
+                $(".updateCreditCardopeningBalanceDt").val(openingBalanceDt);
                 $(".updateCreditCardcardLimit").val(res.cardLimit);
                 $(".updateCreditCardopeningBalance").val(res.openingBalance);
             }
@@ -389,6 +464,75 @@ $(document).ready(function() {
                             var  cardLimit=creditCardResult[i].admin_credit[j].cardLimit;
                             var  openingBalance=creditCardResult[i].admin_credit[j].openingBalance;
                             var deleteStatus =creditCardResult[i].admin_credit[j].deleteStatus;
+                            if(Name !="" || Name != null)
+                            {
+                                Name=Name;
+                            }
+                            else
+                            {
+                                Name="-------";
+                            }
+                            if(displayName !="" || displayName != null)
+                            {
+                                displayName=displayName;
+                            }
+                            else
+                            {
+                                displayName="-------";
+                            }
+                            if(cardType !="" || cardType != null)
+                            {
+                                cardType=cardType;
+                            }
+                            else
+                            {
+                                cardType="-------";
+                            }
+                            if(cardHolderName !="" || cardHolderName != null)
+                            {
+                                cardHolderName=cardHolderName;
+                            }
+                            else
+                            {
+                                cardHolderName="-------";
+                            }
+                            if(cardNo !="" || cardNo != null)
+                            {
+                                cardNo=cardNo;
+                            }
+                            else
+                            {
+                                cardNo="-------";
+                            }
+                            if(cardLimit !="" || cardLimit != null)
+                            {
+                                cardLimit=cardLimit;
+                            }
+                            else
+                            {
+                                cardLimit="-------";
+                            }
+                            if(openingBalance !="" || openingBalance != null)
+                            {
+                                openingBalance=openingBalance;
+                            }
+                            else
+                            {
+                                openingBalance="-------";
+                            }
+                            if(openingBalanceDt !== false && openingBalanceDt !="")
+                            {
+                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date_openingBalanceDt = new Date(openingBalanceDt*1000);
+                                var year_openingBalanceDt = date_openingBalanceDt.getFullYear();
+                                var month_openingBalanceDt = months_arr[date_openingBalanceDt.getMonth()];
+                                var day = date_openingBalanceDt.getDate();
+                                var openingBalanceDt = month_openingBalanceDt+'/'+day+'/'+year_openingBalanceDt;
+                            }
+                            else
+                            {
+                                openingBalanceDt="-----";
+                            }
                             if(deleteStatus == "YES")
                             {
 
@@ -496,4 +640,17 @@ $(document).ready(function() {
         });
     });
     //================================= end restore card ====================================
+
+    // export caredit card =============================================
+    $("#exportCreditCard").click(function(){
+        $.ajax({
+            type:"post",
+            data:{_token:$("#_tokenUpdate_creditCard").val()},
+            url: base_path+"/admin/export_Bank_Credit",
+            success: function(response) {               
+                // swal.fire("Done!", "Credit Card E successfully", "success");
+            }
+        });
+    });
+    // end export =====================================================
 });

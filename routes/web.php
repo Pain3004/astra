@@ -229,6 +229,7 @@ Route::get('admin/editcreditCard', [CreditCardController::class, 'editcreditCard
 Route::post('admin/updatecreditCard', [CreditCardController::class, 'updatecreditCard']);
 Route::post('admin/deletecreditCard', [CreditCardController::class, 'deletecreditCard']);
 Route::post('admin/restorecreditCard', [CreditCardController::class, 'restorecreditCard']);
+Route::post('admin/export_Bank_Credit', [CreditCardController::class, 'export_Bank_Credit']);
 
 //sub Credit Card
 Route::get('admin/getsubCreditCard', [SubCreditCardController::class, 'getsubCreditCard']);

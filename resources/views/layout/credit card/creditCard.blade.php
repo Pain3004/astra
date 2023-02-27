@@ -4,7 +4,6 @@
     <div class="modal fade" data-backdrop="static" id="creditCardModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
             <div class="modal-content">
-
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Credit Card</h4>
@@ -36,7 +35,7 @@
                             <div class="col-lg-12">
 
                                 <div class="table-responsive export-table">
-                                    <table  class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable editable-file-datatable">
+                                    <table  class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable ">
                                         <thead class="thead_th">
                                             <tr class="tr">
                                                 <th >No</th>
@@ -80,6 +79,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    <button class="button-29" style="vertical-align:middle" id="exportCreditCard"><span>Export</span></button>
                     <button type="button" class="button-29 creditCardClose">Close</button>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         <label>Card Type<span style="color:#ff0000">*</span></label>
                         <div>
                             <select  class="form-control addCreditCardcardType " type="text" name="cardType" >
-                                <option>---select card type---</option>
+                                <option selected>---select card type---</option>
                                 <option value="master">master</option>
                                 <option value="visa">visa</option>
                                 <option value="other">other</option>
@@ -127,7 +127,7 @@
                         </div>
                         <label>Card #</label>
                         <div>
-                            <input  class="form-control addCreditCardcardNo " type="text"  name="cardNo" required />
+                            <input  class="form-control addCreditCardcardNo " type="number"  name="cardNo" required />
                         </div>
                         <label>Opening Bal Dt<span style="color:#ff0000">*</span></label>
                         <div>
@@ -135,11 +135,11 @@
                         </div>
                         <label>Card Limit<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control addCreditCardcardLimit " type="text"  name="cardLimit" required />
+                            <input  class="form-control addCreditCardcardLimit " type="number"  name="cardLimit" required />
                         </div>
                         <label>Opening Balance<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control addCreditCardopeningBalance " type="text"  name="openingBalance" required />
+                            <input  class="form-control addCreditCardopeningBalance " type="number"  name="openingBalance" required />
                         </div>
                     </div>
                 </form>
@@ -181,7 +181,7 @@
                         <label>Card Type<span style="color:#ff0000">*</span></label>
                         <div>
                             <select  class="form-control updateCreditCardcardType " type="text" name="cardType" >
-                                <option>---select card type---</option>
+                                <option >---select card type---</option>
                                 <option value="master">master</option>
                                 <option value="visa">visa</option>
                                 <option value="other">other</option>
@@ -193,7 +193,7 @@
                         </div>
                         <label>Card #</label>
                         <div>
-                            <input  class="form-control updateCreditCardcardNo " type="text"  name="cardNo" required />
+                            <input  class="form-control updateCreditCardcardNo " type="number"  name="cardNo" required />
                         </div>
                         <label>Opening Bal Dt<span style="color:#ff0000">*</span></label>
                         <div>
@@ -201,11 +201,11 @@
                         </div>
                         <label>Card Limit<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control updateCreditCardcardLimit " type="text"  name="cardLimit" required />
+                            <input  class="form-control updateCreditCardcardLimit " type="number"  name="cardLimit" required />
                         </div>
                         <label>Opening Balance<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control updateCreditCardopeningBalance " type="text"  name="openingBalance" required />
+                            <input  class="form-control updateCreditCardopeningBalance " type="number"  name="openingBalance" required />
                         </div>
                     </div>
                 </form>
@@ -283,6 +283,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                       
                     <button type="button" class="button-29 restorecreditCardClose">Close</button>
                 </div>
             </div>

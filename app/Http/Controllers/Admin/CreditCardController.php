@@ -5,19 +5,21 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\CreditCard;
+use App\Models\CreditCardAdmin;
+use App\Models\excels\CreditCardExport;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
 use Auth;
 use PDF;
+use Excel;
 
 use Illuminate\Database\Eloquent\Collection;
 
 class CreditCardController extends Controller
 {
     public function getcreditCard(Request $request){
-        $companyId=(int)1;
+        $companyId=(int)Auth::user()->companyID;
         $creditCard = CreditCardAdmin::where('companyID',$companyId)->get();
        //dd($bankData);
        return response()->json($creditCard, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -31,7 +33,7 @@ class CreditCardController extends Controller
             'cardHolderName' => 'required',
             'openingBalance' => 'required',
         ]);
-        $companyID=(int)1;
+        $companyID=(int)Auth::user()->companyID;
         $CreditCard = CreditCardAdmin::where('companyID',$companyID)->get();
         foreach( $CreditCard as  $CreditCard_data)
         {
@@ -131,72 +133,97 @@ class CreditCardController extends Controller
     }
     public function updatecreditCard(Request $request)
     {
-        $id=$request->id;
+        $id=(int)$request->id;
         $companyID=(int)$request->comId;
-        $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
-        $CreditCardArray=$CreditCard->admin_credit;
-        $cardLength=count($CreditCardArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$cardLength; $i++)
-        {
-            $ids=$CreditCard->admin_credit[$i];
-            foreach($ids as $value)
-            {
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }  
-        $CreditCardArray[$v]['Name' ]= $request->Name;
-        $CreditCardArray[$v]['displayName' ]= $request->displayName;
-        $CreditCardArray[$v]['cardType' ]= $request->cardType;
-        $CreditCardArray[$v]['cardHolderName' ]= $request->cardHolderName;
-        $CreditCardArray[$v]['cardNo' ]= $request->cardNo;
-        $CreditCardArray[$v]['openingBalanceDt' ]= $request->openingBalanceDt;
-        $CreditCardArray[$v]['cardLimit' ]= $request->cardLimit;
-        $CreditCardArray[$v]['openingBalance' ]= $request->openingBalance;
-        $CreditCardArray[$v]['currentBalance' ]= '';
-        $CreditCardArray[$v]['created_by' ]= Auth::user()->userFirstName;
-        $CreditCardArray[$v]['created_time' ]= date('d-m-y h:i:s');
-        $CreditCardArray[$v]['edit_by' ]=Auth::user()->userName;
-        $CreditCardArray[$v]['edit_time' ]=time();
-        $CreditCardArray[$v]['deleteStatus' ]="NO"; 
-        $CreditCard->admin_credit=$CreditCardArray;
-        if($CreditCard->save())
-        {
-         $arr = array('status' => 'success', 'message' => 'Credit Card Updated successfully.','statusCode' => 200); 
-         return json_encode($arr);
-        } 
+        // $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
+        // $CreditCardArray=$CreditCard->admin_credit;
+        // $cardLength=count($CreditCardArray);
+        // $i=0;
+        // $v=0;
+        // for($i=0; $i<$cardLength; $i++)
+        // {
+        //     $ids=$CreditCard->admin_credit[$i];
+        //     foreach($ids as $value)
+        //     {
+        //         if($value==$id)
+        //         {
+        //             $v=$i;
+        //         }
+        //     }
+        // }  
+        // $CreditCardArray[$v]['Name' ]= $request->Name;
+        // $CreditCardArray[$v]['displayName' ]= $request->displayName;
+        // $CreditCardArray[$v]['cardType' ]= $request->cardType;
+        // $CreditCardArray[$v]['cardHolderName' ]= $request->cardHolderName;
+        // $CreditCardArray[$v]['cardNo' ]= $request->cardNo;
+        // $CreditCardArray[$v]['openingBalanceDt' ]= $request->openingBalanceDt;
+        // $CreditCardArray[$v]['cardLimit' ]= $request->cardLimit;
+        // $CreditCardArray[$v]['openingBalance' ]= $request->openingBalance;
+        // $CreditCardArray[$v]['currentBalance' ]= '';
+        // $CreditCardArray[$v]['created_by' ]= Auth::user()->userFirstName;
+        // $CreditCardArray[$v]['created_time' ]= date('d-m-y h:i:s');
+        // $CreditCardArray[$v]['edit_by' ]=Auth::user()->userName;
+        // $CreditCardArray[$v]['edit_time' ]=time();
+        // $CreditCardArray[$v]['deleteStatus' ]="NO"; 
+        // $CreditCard->admin_credit=$CreditCardArray;
+        // if($CreditCard->save())
+        // {
+        //  $arr = array('status' => 'success', 'message' => 'Credit Card Updated successfully.','statusCode' => 200); 
+        //  return json_encode($arr);
+        // } 
+        $CreditCardAdmin= CreditCardAdmin::raw()->updateOne(['companyID' => $companyID,'admin_credit._id' => $id], 
+        ['$set' => 
+        ['admin_credit.$.Name' => $request->Name,
+        'admin_credit.$.displayName' => $request->displayName,
+        'admin_credit.$.cardType' => $request->cardType,
+        'admin_credit.$.cardHolderName' => $request->cardHolderName,
+        'admin_credit.$.cardNo' => $request->cardNo,
+        'admin_credit.$.openingBalanceDt' => strtotime($request->openingBalanceDt),
+        'admin_credit.$.cardLimit' => $request->cardLimit,
+        'admin_credit.$.openingBalance' => $request->openingBalance,
+        'admin_credit.$.currentBalance' => $request->openingBalance,
+        'admin_credit.$.edit_by' => Auth::user()->userName,
+        'admin_credit.$.Name' => $request->Name,
+        'admin_credit.$.deleteTime' => time()]]
+        );
     }
     public function deletecreditCard(Request $request)
     {
-        $id=$request->id;
+        $id=(int)$request->id;
         $companyID=(int)$request->comId;
-        $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
-        $CreditCardArray=$CreditCard->admin_credit;
-        $cardLength=count($CreditCardArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$cardLength; $i++)
+        // $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
+        // $CreditCardArray=$CreditCard->admin_credit;
+        // $cardLength=count($CreditCardArray);
+        // $i=0;
+        // $v=0;
+        // for($i=0; $i<$cardLength; $i++)
+        // {
+        //     $ids=$CreditCard->admin_credit[$i];
+        //     foreach($ids as $value)
+        //     {
+        //         if($value==$id)
+        //         {
+        //             $v=$i;
+        //         }
+        //     }
+        // }  
+        // $CreditCardArray[$v]['deleteStatus']="YES";
+        // $CreditCard->admin_credit=$CreditCardArray;
+           // if($CreditCard->save())
+        // {
+        //  $arr = array('status' => 'success', 'message' => 'Credit Card delete successfully.','statusCode' => 200); 
+        //  return json_encode($arr);
+        // } 
+       $CreditCardAdmin= CreditCardAdmin::raw()->updateOne(['companyID' => $companyID,'admin_credit._id' => $id], 
+        ['$set' => ['admin_credit.$.deleteStatus' => 'YES','admin_credit.$.deleteUser' => Auth::user()->userName,'admin_credit.$.deleteTime' => time()]]
+        );
+
+         if($CreditCardAdmin==true)
         {
-            $ids=$CreditCard->admin_credit[$i];
-            foreach($ids as $value)
-            {
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }  
-        $CreditCardArray[$v]['deleteStatus']="YES";
-        $CreditCard->admin_credit=$CreditCardArray;
-        if($CreditCard->save())
-        {
-         $arr = array('status' => 'success', 'message' => 'Credit Card delete successfully.','statusCode' => 200); 
+         $arr = array('status' => 'success', 'message' => 'Credit Card  Deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
         } 
+     
     }
     public function restorecreditCard(Request $request)
     {
@@ -247,7 +274,42 @@ class CreditCardController extends Controller
         }
       
     }
-
+    public function export_Bank_Credit(Request $request){
+        $companyID=(int)Auth::user()->companyID;
+        // $p[] = array("Name of Bank: *","Name To Display *","Card Type *","Card Holder Name *","Card #","Opening Bal Dt *","Card Limit *","Opening Balance *");
+           
+        // $b_credit = CreditCardAdmin::raw()->find(['companyID' => (int)Auth::user()->companyID]);
+        // foreach ($b_credit as $bdebit) {
+        //         $bank_credit = $bdebit['admin_credit'];
+             
+        //    foreach ($bank_credit as $test) {
+        //         if($test['openingBalanceDt'] != null){
+        //             $openingBalanceDt = date('m-d-Y',$test['openingBalanceDt']);
+        //         }else{
+        //             $openingBalanceDt = "Not Mention";
+        //         }
+        //         $p[] = array(
+        //             $test['Name'],
+        //             $test['displayName'],
+        //             $test['cardType'],
+        //             $test['cardHolderName'],
+        //             $test['cardNo'],
+        //              $openingBalanceDt,
+        //             $test['cardLimit'],
+        //             $test['openingBalance'],
+        //        );
+        //     }
+        // }
+        $fetchLiaat = new CreditCardExport($companyID);
+        return Excel::download($fetchLiaat,'CreditCardReport.xlsx');
+    //    if (sizeof($p) > 1) {
+    //         echo json_encode($p);
+    //    }else{
+    //         unset($p);
+    //         $p = "";
+    //         echo json_encode($p);
+    //    }
+    }
    
 
     
