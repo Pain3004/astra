@@ -15,6 +15,7 @@ $(document).ready(function() {
             async: false,
             success: function(text) {
                 createCreditCardRows(text);
+                // processCreditCardTable(text);
                 creditCardResult = text;
               }
         });
@@ -29,119 +30,113 @@ $(document).ready(function() {
         var no=1;
             if (creditCardResult != null) {
                 $("#creditCardTable").html('');
-                creditCardlen = creditCardResult.length;
+                creditCardlen = creditCardResult.arrData1.admin_credit.length;
+                // console.log(creditCardlen);
                 if (creditCardlen > 0) {
                     for (var i = creditCardlen-1; i >= 0; i--) { 
-                        
-                        admin_credit_len = creditCardResult[i].admin_credit.length;
-                        var Id =creditCardResult[i]._id;
-                        var com_Id =creditCardResult[i].companyID;
-                        if (admin_credit_len > 0) {
-                            for (var j = admin_credit_len-1; j >= 0; j--) {
-                                var comId=creditCardResult[i].companyID;
-                                var admin_bank_Id =creditCardResult[i].admin_credit[j]._id;
-                                var  Name=creditCardResult[i].admin_credit[j].Name;
-                                var  displayName=creditCardResult[i].admin_credit[j].displayName;
-                                var  cardType=creditCardResult[i].admin_credit[j].cardType;
-                                var  cardHolderName=creditCardResult[i].admin_credit[j].cardHolderName;
-                                var  cardNo=creditCardResult[i].admin_credit[j].cardNo;
-                                var  openingBalanceDt=creditCardResult[i].admin_credit[j].openingBalanceDt;
-                                var  cardLimit=creditCardResult[i].admin_credit[j].cardLimit;
-                                var  openingBalance=creditCardResult[i].admin_credit[j].openingBalance;
-                                // var openingBalance=parseFloat(openingBalance).toFixed(2);
-                                var deleteStatus =creditCardResult[i].admin_credit[j].deleteStatus;
-                                if(Name !="" || Name != null)
-                                {
-                                    Name=Name;
-                                }
-                                else
-                                {
-                                    Name="-------";
-                                }
-                                if(displayName !="" || displayName != null)
-                                {
-                                    displayName=displayName;
-                                }
-                                else
-                                {
-                                    displayName="-------";
-                                }
-                                if(cardType !="" || cardType != null)
-                                {
-                                    cardType=cardType;
-                                }
-                                else
-                                {
-                                    cardType="-------";
-                                }
-                                if(cardHolderName !="" || cardHolderName != null)
-                                {
-                                    cardHolderName=cardHolderName;
-                                }
-                                else
-                                {
-                                    cardHolderName="-------";
-                                }
-                                if(cardNo !="" || cardNo != null)
-                                {
-                                    cardNo=cardNo;
-                                }
-                                else
-                                {
-                                    cardNo="-------";
-                                }
-                                if(cardLimit !="" || cardLimit != null)
-                                {
-                                    cardLimit=cardLimit;
-                                }
-                                else
-                                {
-                                    cardLimit="-------";
-                                }
-                                if(openingBalance !="" || openingBalance != null)
-                                {
-                                    openingBalance=openingBalance;
-                                }
-                                else
-                                {
-                                    openingBalance="-------";
-                                }
-                                if(openingBalanceDt !== false && openingBalanceDt !="")
-                                {
-                                    var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-                                    var date_openingBalanceDt = new Date(openingBalanceDt*1000);
-                                    var year_openingBalanceDt = date_openingBalanceDt.getFullYear();
-                                    var month_openingBalanceDt = months_arr[date_openingBalanceDt.getMonth()];
-                                    var day = date_openingBalanceDt.getDate();
-                                    var openingBalanceDt = month_openingBalanceDt+'/'+day+'/'+year_openingBalanceDt;
-                                }
-                                else
-                                {
-                                    openingBalanceDt="-----";
-                                }
-                                if(deleteStatus == "NO"){
-                                        //alert("ff");
-                                        var creditCardStr = "<tr data-id=" + (i + 1) + ">" +
-                                        "<td data-field='no'>" + no + "</td>" +
-                                        "<td data-field='Name' >" + Name + "</td>" +
-                                        "<td data-field='displayName' >" + displayName + "</td>" +
-                                        "<td data-field='cardType' >" + cardType + "</td>" +
-                                        "<td data-field='cardHolderName' >" + cardHolderName + "</td>" +
-                                        "<td data-field='cardNo' >" + cardNo + "</td>" +
-                                        "<td data-field='openingBalanceDt' >" + openingBalanceDt + "</td>" +
-                                        "<td data-field='cardLimit' >" + cardLimit + "</td>" +
-                                        "<td data-field='openingBalance' >" + openingBalance + "</td>" +
-                                       
-                                        "<td style='text-align:center'>"+
-                                        "<a class='mt-2 button-29 fs-14 text-white edit_modalCreditCard'  title='Edit1' data-creditCardId='"+admin_bank_Id+"' data-compID='"+comId+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                        var comId=creditCardResult.arrData1.companyID;
+                        var admin_bank_Id =creditCardResult.arrData1.admin_credit[i]._id;
+                        var  Name=creditCardResult.arrData1.admin_credit[i].Name;
+                        var  displayName=creditCardResult.arrData1.admin_credit[i].displayName;
+                        var  cardType=creditCardResult.arrData1.admin_credit[i].cardType;
+                        var  cardHolderName=creditCardResult.arrData1.admin_credit[i].cardHolderName;
+                        var  cardNo=creditCardResult.arrData1.admin_credit[i].cardNo;
+                        var  openingBalanceDt=creditCardResult.arrData1.admin_credit[i].openingBalanceDt;
+                        var  cardLimit=creditCardResult.arrData1.admin_credit[i].cardLimit;
+                        var  openingBalance=creditCardResult.arrData1.admin_credit[i].openingBalance;
+                        // var openingBalance=parseFloat(openingBalance).toFixed(2);
+                        var deleteStatus =creditCardResult.arrData1.admin_credit[i].deleteStatus;
+                        if(Name !="" || Name != null)
+                        {
+                            Name=Name;
+                        }
+                        else
+                        {
+                            Name="-------";
+                        }
+                        if(displayName !="" || displayName != null)
+                        {
+                            displayName=displayName;
+                        }
+                        else
+                        {
+                            displayName="-------";
+                        }
+                        if(cardType !="" || cardType != null)
+                        {
+                            cardType=cardType;
+                        }
+                        else
+                        {
+                            cardType="-------";
+                        }
+                        if(cardHolderName !="" || cardHolderName != null)
+                        {
+                            cardHolderName=cardHolderName;
+                        }
+                        else
+                        {
+                            cardHolderName="-------";
+                        }
+                        if(cardNo !="" || cardNo != null)
+                        {
+                            cardNo=cardNo;
+                        }
+                        else
+                        {
+                            cardNo="-------";
+                        }
+                        if(cardLimit !="" || cardLimit != null)
+                        {
+                            cardLimit= "$"+parseInt(cardLimit).toLocaleString();;
+                        }
+                        else
+                        {
+                            cardLimit="-------";
+                        }
+                        if(openingBalance !="" || openingBalance != null)
+                        {
+                            
+                            openingBalance= "$"+parseInt(openingBalance).toLocaleString();
+                        }
+                        else
+                        {
+                            openingBalance="-------";
+                        }
+                        if(openingBalanceDt !== false && openingBalanceDt !="")
+                        {
+                            var months_arr = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+                            var date_openingBalanceDt = new Date(openingBalanceDt*1000);
+                            var year_openingBalanceDt = date_openingBalanceDt.getFullYear();
+                            var month_openingBalanceDt = months_arr[date_openingBalanceDt.getMonth()];
+                            var day = date_openingBalanceDt.getDate();
+                            var openingBalanceDt = month_openingBalanceDt+'/'+day+'/'+year_openingBalanceDt;
+                        }
+                        else
+                        {
+                            openingBalanceDt="-----";
+                        }
+                        if(deleteStatus == "NO"){
+                                //alert("ff");
+                                var creditCardStr = "<tr data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'>" + no + "</td>" +
+                                "<td data-field='Name' >" + Name + "</td>" +
+                                "<td data-field='displayName' >" + displayName + "</td>" +
+                                "<td data-field='cardType' >" + cardType + "</td>" +
+                                "<td data-field='cardHolderName' >" + cardHolderName + "</td>" +
+                                "<td data-field='cardNo' >" + cardNo + "</td>" +
+                                "<td data-field='openingBalanceDt' >" + openingBalanceDt + "</td>" +
+                                "<td data-field='cardLimit' >" + cardLimit + "</td>" +
+                                "<td data-field='openingBalance' >" + openingBalance + "</td>" +
+                                
+                                "<td style='text-align:center'>"+
+                                "<a class='mt-2 button-29 fs-14 text-white edit_modalCreditCard'  title='Edit1' data-creditCardId='"+admin_bank_Id+"' data-compID='"+comId+"' ><i class='fe fe-edit'></i></a>&nbsp"+
 
-                                        "<a class='mt-2 button-29 fs-14 text-white delete_modalCreditCard'  title='delete' data-creditCardId='"+admin_bank_Id+"' data-compID='"+comId+"' ><i class='fe fe-trash'></i></a>&nbsp"+
-                                        "</td></tr>";
-            
-                                    $("#creditCardTable").append(creditCardStr);
-                                    no++;
-                                }
-                            }
+                                "<a class='mt-2 button-29 fs-14 text-white delete_modalCreditCard'  title='delete' data-creditCardId='"+admin_bank_Id+"' data-compID='"+comId+"' ><i class='fe fe-trash'></i></a>&nbsp"+
+                                "</td></tr>";
+    
+                            $("#creditCardTable").append(creditCardStr);
+                            no++;
                         }
                     }
                     
@@ -161,6 +156,13 @@ $(document).ready(function() {
             $("#creditCardTable").append(creditCardStr);
         }
     }
+
+    // function processCreditCardTable(creditCardResult) {
+    //     // var privdata = JSON.parse(privilege);
+    //     var masterID = creditCardResult[0]["arrData1"]._id;
+    //     var res = creditCardResult[0]["arrData1"].admin_credit
+    //     $("#CreditbankBody").html(processCreditCardRows(res,masterID));
+    // }
 
    
 
@@ -442,28 +444,26 @@ $(document).ready(function() {
         var no=1;
         if (creditCardResult != null) {
             $("#restorecreditCardTable").html('');
-            creditCardlen = creditCardResult.length;
+            creditCardlen = creditCardResult.arrData1.admin_credit.length;
             if(creditCardlen > 0) 
             {
                 for (var i = creditCardlen-1; i >= 0; i--) {                         
-                    admin_credit_len = creditCardResult[i].admin_credit.length;
-                    var Id =creditCardResult[i]._id;
-                    var com_Id =creditCardResult[i].companyID;
-                    if (admin_credit_len > 0) 
-                    {
-                        for (var j = admin_credit_len-1; j >= 0; j--) 
-                        {
-                            var comId=creditCardResult[i].companyID;
-                            var admin_bank_Id =creditCardResult[i].admin_credit[j]._id;
-                            var  Name=creditCardResult[i].admin_credit[j].Name;
-                            var  displayName=creditCardResult[i].admin_credit[j].displayName;
-                            var  cardType=creditCardResult[i].admin_credit[j].cardType;
-                            var  cardHolderName=creditCardResult[i].admin_credit[j].cardHolderName;
-                            var  cardNo=creditCardResult[i].admin_credit[j].cardNo;
-                            var  openingBalanceDt=creditCardResult[i].admin_credit[j].openingBalanceDt;
-                            var  cardLimit=creditCardResult[i].admin_credit[j].cardLimit;
-                            var  openingBalance=creditCardResult[i].admin_credit[j].openingBalance;
-                            var deleteStatus =creditCardResult[i].admin_credit[j].deleteStatus;
+                    // admin_credit_len = creditCardResult.admin_credit.length;
+                    // if (admin_credit_len > 0) 
+                    // {
+                    //     for (var j = admin_credit_len-1; j >= 0; j--) 
+                    //     {
+                            var comId=creditCardResult.arrData1.companyID;
+                            var admin_bank_Id =creditCardResult.arrData1.admin_credit[i]._id;
+                            var  Name=creditCardResult.arrData1.admin_credit[i].Name;
+                            var  displayName=creditCardResult.arrData1.admin_credit[i].displayName;
+                            var  cardType=creditCardResult.arrData1.admin_credit[i].cardType;
+                            var  cardHolderName=creditCardResult.arrData1.admin_credit[i].cardHolderName;
+                            var  cardNo=creditCardResult.arrData1.admin_credit[i].cardNo;
+                            var  openingBalanceDt=creditCardResult.arrData1.admin_credit[i].openingBalanceDt;
+                            var  cardLimit=creditCardResult.arrData1.admin_credit[i].cardLimit;
+                            var  openingBalance=creditCardResult.arrData1.admin_credit[i].openingBalance;
+                            var deleteStatus =creditCardResult.arrData1.admin_credit[i].deleteStatus;
                             if(Name !="" || Name != null)
                             {
                                 Name=Name;
@@ -550,8 +550,8 @@ $(document).ready(function() {
                                 $("#restorecreditCardTable").append(creditCardStr);
                             }
                         }
-                    }
-                }
+                //     }
+                // }
                 
             }
             else 
@@ -586,6 +586,7 @@ $(document).ready(function() {
         {
             $('.check_CreditCard_one:checkbox').each(function() {
                 this.checked = false;
+                CreditCardCheckboxRestore();
             });
         }
     });
@@ -647,7 +648,10 @@ $(document).ready(function() {
             type:"post",
             data:{_token:$("#_tokenUpdate_creditCard").val()},
             url: base_path+"/admin/export_Bank_Credit",
-            success: function(response) {               
+            success: function(data) {   
+                var rows = JSON.parse(data);
+                // console.log(rows);
+            JSONToCSVConvertor(rows, "CreditCard Report", true);            
                 // swal.fire("Done!", "Credit Card E successfully", "success");
             }
         });

@@ -11,14 +11,14 @@ class CreditCardExport implements FromCollection, WithMapping, WithHeadings
     protected $ids,$proHeadingPush;
     function __construct($ids) {
         $this->ids = $ids;
+        // dd((int)Auth::user()->companyID);
       }
 
     public function collection()
 
     {
 
-        $b_credit = CreditCardAdmin::raw()->find(['companyID' => (int)Auth::user()->companyID]);
-
+        $b_credit = CreditCardAdmin::raw()->find(['companyID' =>$this->ids]);
         return $b_credit;
 
     }
@@ -50,15 +50,15 @@ class CreditCardExport implements FromCollection, WithMapping, WithHeadings
 
     /**
 
-    * @var bCredit $b_credit
+    * @var b_credit $b_credit
 
     */
 
-    public function map($bCredit): array
+    public function map($b_credit): array
 
     {
-        dd($bCredit);
-        foreach ($bCredit as $bdebit) 
+        dd($b_credit);
+        foreach ($b_credit as $bdebit) 
         {
             dd($bCredit);
             $bank_credit = $bdebit['admin_credit'];                

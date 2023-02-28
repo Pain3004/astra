@@ -6,7 +6,11 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CreditCardAdmin;
-use App\Models\excels\CreditCardExport;
+// use App\Models\excels\CreditCardExport;
+use App\Models\Company;
+use App\Models\Bank;
+use App\Models\BankDebitCategory;
+use App\Models\SubCreditCard;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
@@ -18,11 +22,76 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CreditCardController extends Controller
 {
-    public function getcreditCard(Request $request){
-        $companyId=(int)Auth::user()->companyID;
-        $creditCard = CreditCardAdmin::where('companyID',$companyId)->get();
-       //dd($bankData);
-       return response()->json($creditCard, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    public function getcreditCard(Request $request)
+    {
+        $companyID=(int)Auth::user()->companyID;
+        $total_records = 0;
+        $cursor = CreditCardAdmin::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['size' => ['$size' => ['$admin_credit']],
+            ]]
+        ]);
+        foreach ($cursor as $v) 
+        {
+            $total_records += (int)$v['size'];
+        }
+        $completedata = array();
+        $partialdata = array();
+        if(!empty($total_records))
+        {
+            $show1 =  CreditCardAdmin::raw()->find(array('companyID' => $companyID));
+            $c = 0;
+            $arrData1 = "";
+            foreach ($show1 as $arrData11) 
+            {
+                $arrData1 = $arrData11;
+            }
+            return $arrData1 = array(
+                'arrData1' => $arrData1,
+            );
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $total_records;
+        echo json_encode($completedata);
+
+
+
+
+
+
+
+
+        //     $search_value=$request->searchValue;
+        // $datasearch = new MongoDB\BSON\Regex('^' . $search_value, 'i');
+        // $search_by=$request->search_by;
+        // if ($search_by == 'displayName') {
+        //     $search_data = ['$match' => ["admin_credit.displayName" => $datasearch]];
+        // }
+        // if (empty($search_value)) {
+        //     $this->getTable($db,$data,$helper);
+        // } else {
+        //     $show = CreditCardAdmin::raw()->aggregate([
+        //         ['$match' => ["companyID" => $companyID]],
+        //         ['$unwind' => '$credit_card_admin'],
+        //         $search_data,
+        //         ['$limit' => 100]
+        //     ]);
+        //     $completedata = array();
+        //     $shiptdata = array();
+        //     $arrData1 = array();
+        //     foreach ($show as $rw) {
+        //         $main = $rw['_id'];
+        //         $arrData1[] = $rw['credit_card_admin'];
+        //     }
+        //     if(!empty($main) && !empty($arrData1)){
+        //         $shiptdata = array('_id' => $main, 'credit_card_admin' => $arrData1);
+        //         $arrData1 = array('arrData1' => $shiptdata);
+        //     }
+        //     $completedata[][] = $arrData1;
+        //     dd($completedata);
+        //     echo json_encode($completedata);
+        // }
+
     }
     public function storecreditCard(Request $request)
     {
@@ -135,42 +204,6 @@ class CreditCardController extends Controller
     {
         $id=(int)$request->id;
         $companyID=(int)$request->comId;
-        // $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
-        // $CreditCardArray=$CreditCard->admin_credit;
-        // $cardLength=count($CreditCardArray);
-        // $i=0;
-        // $v=0;
-        // for($i=0; $i<$cardLength; $i++)
-        // {
-        //     $ids=$CreditCard->admin_credit[$i];
-        //     foreach($ids as $value)
-        //     {
-        //         if($value==$id)
-        //         {
-        //             $v=$i;
-        //         }
-        //     }
-        // }  
-        // $CreditCardArray[$v]['Name' ]= $request->Name;
-        // $CreditCardArray[$v]['displayName' ]= $request->displayName;
-        // $CreditCardArray[$v]['cardType' ]= $request->cardType;
-        // $CreditCardArray[$v]['cardHolderName' ]= $request->cardHolderName;
-        // $CreditCardArray[$v]['cardNo' ]= $request->cardNo;
-        // $CreditCardArray[$v]['openingBalanceDt' ]= $request->openingBalanceDt;
-        // $CreditCardArray[$v]['cardLimit' ]= $request->cardLimit;
-        // $CreditCardArray[$v]['openingBalance' ]= $request->openingBalance;
-        // $CreditCardArray[$v]['currentBalance' ]= '';
-        // $CreditCardArray[$v]['created_by' ]= Auth::user()->userFirstName;
-        // $CreditCardArray[$v]['created_time' ]= date('d-m-y h:i:s');
-        // $CreditCardArray[$v]['edit_by' ]=Auth::user()->userName;
-        // $CreditCardArray[$v]['edit_time' ]=time();
-        // $CreditCardArray[$v]['deleteStatus' ]="NO"; 
-        // $CreditCard->admin_credit=$CreditCardArray;
-        // if($CreditCard->save())
-        // {
-        //  $arr = array('status' => 'success', 'message' => 'Credit Card Updated successfully.','statusCode' => 200); 
-        //  return json_encode($arr);
-        // } 
         $CreditCardAdmin= CreditCardAdmin::raw()->updateOne(['companyID' => $companyID,'admin_credit._id' => $id], 
         ['$set' => 
         ['admin_credit.$.Name' => $request->Name,
@@ -191,29 +224,6 @@ class CreditCardController extends Controller
     {
         $id=(int)$request->id;
         $companyID=(int)$request->comId;
-        // $CreditCard = CreditCardAdmin::where('companyID',$companyID)->first();
-        // $CreditCardArray=$CreditCard->admin_credit;
-        // $cardLength=count($CreditCardArray);
-        // $i=0;
-        // $v=0;
-        // for($i=0; $i<$cardLength; $i++)
-        // {
-        //     $ids=$CreditCard->admin_credit[$i];
-        //     foreach($ids as $value)
-        //     {
-        //         if($value==$id)
-        //         {
-        //             $v=$i;
-        //         }
-        //     }
-        // }  
-        // $CreditCardArray[$v]['deleteStatus']="YES";
-        // $CreditCard->admin_credit=$CreditCardArray;
-           // if($CreditCard->save())
-        // {
-        //  $arr = array('status' => 'success', 'message' => 'Credit Card delete successfully.','statusCode' => 200); 
-        //  return json_encode($arr);
-        // } 
        $CreditCardAdmin= CreditCardAdmin::raw()->updateOne(['companyID' => $companyID,'admin_credit._id' => $id], 
         ['$set' => ['admin_credit.$.deleteStatus' => 'YES','admin_credit.$.deleteUser' => Auth::user()->userName,'admin_credit.$.deleteTime' => time()]]
         );
@@ -229,6 +239,7 @@ class CreditCardController extends Controller
     {
         $cardIds=$request->all_ids;
         $custID=(array)$request->custID;
+        // dd($custID);
         foreach($custID as $company_id)
         {
             $company_id=str_replace( array( '\'', '"',
@@ -259,8 +270,6 @@ class CreditCardController extends Controller
                     }
                 }
             }
-            //
-            // dd($data);
             foreach($data as $row)
             {
                 $CreditCardArray[$row]['deleteStatus'] = "NO";
@@ -274,42 +283,155 @@ class CreditCardController extends Controller
         }
       
     }
-    public function export_Bank_Credit(Request $request){
+    public function export_Bank_Credit(Request $request)
+    {
         $companyID=(int)Auth::user()->companyID;
-        // $p[] = array("Name of Bank: *","Name To Display *","Card Type *","Card Holder Name *","Card #","Opening Bal Dt *","Card Limit *","Opening Balance *");
-           
-        // $b_credit = CreditCardAdmin::raw()->find(['companyID' => (int)Auth::user()->companyID]);
-        // foreach ($b_credit as $bdebit) {
-        //         $bank_credit = $bdebit['admin_credit'];
-             
-        //    foreach ($bank_credit as $test) {
-        //         if($test['openingBalanceDt'] != null){
-        //             $openingBalanceDt = date('m-d-Y',$test['openingBalanceDt']);
-        //         }else{
-        //             $openingBalanceDt = "Not Mention";
-        //         }
-        //         $p[] = array(
-        //             $test['Name'],
-        //             $test['displayName'],
-        //             $test['cardType'],
-        //             $test['cardHolderName'],
-        //             $test['cardNo'],
-        //              $openingBalanceDt,
-        //             $test['cardLimit'],
-        //             $test['openingBalance'],
-        //        );
-        //     }
-        // }
-        $fetchLiaat = new CreditCardExport($companyID);
-        return Excel::download($fetchLiaat,'CreditCardReport.xlsx');
-    //    if (sizeof($p) > 1) {
-    //         echo json_encode($p);
-    //    }else{
-    //         unset($p);
-    //         $p = "";
-    //         echo json_encode($p);
-    //    }
+
+        $p[] = array("Name of Bank","Name To Display ","Card Type ","Card Holder Name ","Card #","Opening Bal Dt ","Card Limit ","Opening Balance ");
+                
+        $b_credit = CreditCardAdmin::raw()->find(['companyID' => $companyID]);
+        foreach ($b_credit as $bdebit) 
+        {
+            $bank_credit = $bdebit['admin_credit'];
+            
+            foreach ($bank_credit as $test) 
+            {
+                if($test['openingBalanceDt'] != null)
+                {
+                    $openingBalanceDt = date('m-d-Y',$test['openingBalanceDt']);
+                }
+                else
+                {
+                    $openingBalanceDt = "Not Mention";
+                }
+                $p[] = array(
+                    $test['Name'],
+                    $test['displayName'],
+                    $test['cardType'],
+                    $test['cardHolderName'],
+                    $test['cardNo'],
+                    $openingBalanceDt,
+                    $test['cardLimit'],
+                    $test['openingBalance'],
+                    // $test['transacBalance'],
+                );
+            }
+        }
+
+        if (sizeof($p) > 1) 
+        {
+            echo json_encode($p);
+        }
+        else
+        {
+            unset($p);
+            $p = "";
+            echo json_encode($p);
+        }
     }
+    // public function searchCreditCard($db, $data, $helper)
+    // {
+    //     $companyID = (int)$_SESSION['companyId'];
+    //     $search_by = $data['shipper_fields'];
+    //     $search_value = $data['getoption'];
+    //     $datasearch = new MongoDB\BSON\Regex('^' . $search_value, 'i');
+    //     if ($search_by == 'shipperName') {
+    //         $search_data = ['$match' => ["shipper.shipperName" => $datasearch]];
+    //     } 
+    //     // else if ($search_by == 'shipperAddress') {
+    //     //     $search_data = ['$match' => ["shipper.shipperAddress" => $datasearch]];
+    //     // } else if ($search_by == 'shipperLocation') {
+    //     //     $search_data = ['$match' => ["shipper.shipperLocation" => $datasearch]];
+    //     // } else if ($search_by == 'shipperPostal') {
+    //     //     $search_data = ['$match' => ["shipper.shipperPostal" => $datasearch]];
+    //     // } else if ($search_by == 'shipperContact') {
+    //     //     $search_data = ['$match' => ["shipper.shipperContact" => $datasearch]];
+    //     // } else if ($search_by == 'shipperEmail') {
+    //     //     $search_data = ['$match' => ["shipper.shipperEmail" => $datasearch]];
+    //     // } else if ($search_by == 'shipperTelephone') {
+    //     //     $search_data = ['$match' => ["shipper.shipperTelephone" => $datasearch]];
+    //     // } else if ($search_by == 'shipperExt') {
+    //     //     $search_data = ['$match' => ["shipper.shipperExt" => $datasearch]];
+    //     // } else if ($search_by == 'shipperTollFree') {
+    //     //     $search_data = ['$match' => ["shipper.shipperTollFree" => $datasearch]];
+    //     // } else if ($search_by == 'shipperFax') {
+    //     //     $search_data = ['$match' => ["shipper.shipperFax" => $datasearch]];
+    //     // } else if ($search_by == 'shipperShippingHours') {
+    //     //     $search_data = ['$match' => ["shipper.shipperShippingHours" => $datasearch]];
+    //     // } else if ($search_by == 'shipperAppointments') {
+    //     //     $search_data = ['$match' => ["shipper.shipperAppointments" => $datasearch]];
+    //     // } else if ($search_by == 'shipperIntersaction') {
+    //     //     $search_data = ['$match' => ["shipper.shipperIntersaction" => $datasearch]];
+    //     // } else if ($search_by == 'shipperStatus') {
+    //     //     $search_data = ['$match' => ["shipper.shipperStatus" => $datasearch]];
+    //     // } else if ($search_by == 'shippingNotes') {
+    //     //     $search_data = ['$match' => ["shipper.shippingNotes" => $datasearch]];
+    //     // } else if ($search_by == 'shipperAppointments') {
+    //     //     $search_data = ['$match' => ["shipper.shipperAppointments" => $datasearch]];
+    //     // }
+    //     if (empty($search_value)) {
+    //         $this->getTable($db,$data,$helper);
+    //     } else {
+    //         $show = $db->shipper->aggregate([
+    //             ['$match' => ["companyID" => $companyID]],
+    //             ['$unwind' => '$shipper'],
+    //             $search_data,
+    //             ['$limit' => 100]
+    //         ]);
+    //         $completedata = array();
+    //         $shiptdata = array();
+    //         $arrData1 = array();
+    //         foreach ($show as $rw) {
+    //             $main = $rw['_id'];
+    //             $arrData1[] = $rw['shipper'];
+    //         }
+    //         if(!empty($main) && !empty($arrData1)){
+    //             $shiptdata = array('_id' => $main, 'shipper' => $arrData1);
+    //             $arrData1 = array('arrData1' => $shiptdata);
+    //         }
+    //         $completedata[][] = $arrData1;
+    //         echo json_encode($completedata);
+    //     }
+    // }
+    // // public function paginateShipper($db, $data)
+    // // {
+    // //     $privileges = json_decode($data['privilege']);
+    // //     $companyID = (int)$data['companyId'];
+    // //     $arr = json_decode($data['arr'],true);
+    // //     $page_no = $data['page_no'];
+    // //     $completedata = array();
+    // //     $partialdata = array();
+    // //     for($i = 0; $i < sizeof($arr); $i++){
+    // //         $partialdata[] = $this->getData($db, $companyID,$arr[$i]['doc'],$arr[$i]['end'],$arr[$i]['start']);
+    // //     }
+    // //     $completedata[] = $partialdata;
+    // //     $completedata[] = $page_no;
+    // //     echo json_encode($completedata);
+    // // }
+    // public function CreditCardList($db, $data)
+    // {
+    //     $para = '^' . $data;
+    //     $datasearch = new MongoDB\BSON\Regex($para, 'i');
+    //     $show = $db->shipper->aggregate([
+    //         ['$match' => ["companyID" => (int)$_SESSION['companyId']]],
+    //         ['$unwind' => '$shipper'],
+    //         ['$match' => ['shipper.shipperName' => $datasearch, 'shipper.shipperStatus' => "Active","shipper.deleteStatus"=>"NO"]],
+    //         ['$project' => ['shipper._id' => 1, 'shipper.shipperName' => 1, 'shipper.shipperLocation' => 1, 'companyID' => (int)$_SESSION['companyId']]],
+    //         ['$limit' => 100]
+    //     ]);
+    //     $shipper = array();
+    //     $shipperList = array();
+    //     foreach ($show as $s) {
+    //         $q = 0;
+    //         $shipper[$q] = $s['shipper'];
+    //         $parent = $s['_id'];
+    //         $q++;
+    //         foreach ($shipper as $sr) {
+    //             $shipperList[] = array("id" => $sr['_id'], "value" => $sr['shipperName'], "location" => $sr['shipperLocation'], "parent" => $parent);
+    //         }
+    //     }
+    //     echo json_encode($shipperList);
+    // } 
    
 
     
