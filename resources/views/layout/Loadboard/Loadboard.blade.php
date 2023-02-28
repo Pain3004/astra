@@ -382,88 +382,77 @@
                                                     <div class="form-group col-md-1 Driverlist">
                                                         <label>Loaded Mi</label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet"  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="DriverListSet" class="DriverListSet"></datalist>    
+                                                            <input type="text" class="form-control" id="lb_LoadedMiles" placeholder="LoadedMiles">   
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 Driverlist">
                                                         <label>Empty Mi</label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet"  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="DriverListSet" class="DriverListSet"></datalist>    
+                                                        <div>
+                                                            <input type="text" class="form-control" id="lb_EmptyMiles" placeholder="EmptyMiles">   
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 Driverlist">
                                                         <label>Other &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet" readonly=""  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="DriverListSet" class="DriverListSet"></datalist>    
+                                                        <div >
+                                                            <input type="text" class="form-control" id="lb_driver_Other" placeholder="Other" readonly="">   
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 Driverlist">
                                                         <label>Trap</label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet"  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="DriverListSet" class="DriverListSet"></datalist>    
+                                                        <div >
+                                                            <input type="text" class="form-control" id="lb_Tarp"  placeholder="Tarp">    
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 Driverlist">
                                                         <label>Flat</label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet"  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="DriverListSet" class="DriverListSet"></datalist>    
+                                                        <div >
+                                                            <input type="text" class="form-control" id="lb_Flat" placeholder="Flat"> 
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 Driverlist">
                                                         <label>Total</label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control DriverListSet" list="DriverListSet"  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="DriverListSet" class="DriverListSet"></datalist>    
+                                                        <div>
+                                                            <input type="text" class="form-control" id="LB_loadertotal" placeholder="Total">   
                                                         </div>
                                                     </div>
                                                     <!-- --------------end of driver radio list------------ -->
-
                                                     <!-- --------------Owner Operator radio list------------ -->
                                                     <div class="form-group col-md-2 OwnerOperatorlist">
                                                         <label>Owner Operator&nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist"  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="OwnerOperatorlist" class="OwnerOperatorlist"></datalist>    
+                                                            <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist"  id="lb_owner" placeholder="Search Here">
+                                                              
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2 OwnerOperatorlist">
                                                         <label>Pay Percentage</label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control OwnerOperatorlist" readonly="" list="OwnerOperatorlist"  id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="OwnerOperatorlist" class="OwnerOperatorlist"></datalist>    
+                                                            <input class="form-control OwnerOperatorlist" readonly="" list="OwnerOperatorlist"  id="lb_owner_percentage" placeholder="Search Here">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 OwnerOperatorlist">
                                                         <label>Truck</label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist"   id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="OwnerOperatorlist" class="OwnerOperatorlist"></datalist>    
+                                                        <input class="form-control TruckListSet" list="TruckListSet"  id="lb_owner_truck" placeholder="Search Here">
+                                                            <datalist id="TruckListSet" class="TruckListSet"></datalist>       
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 OwnerOperatorlist">
-                                                        <label>Trailer &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist"   id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="OwnerOperatorlist" class="OwnerOperatorlist"></datalist>    
+                                                    <label>Trailer &nbsp;<i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus" style='color:blue !important'></i></label>                                                        <div class="dropdown show">
+                                                        <input class="form-control TrailerListSet" list="TrailerListSet"  id="lb_owner_trailer" placeholder="Search Here">
+                                                            <datalist id="TrailerListSet" class="TrailerListSet"></datalist>    
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2 OwnerOperatorlist">
                                                         <label>Other &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist"   readonly="" id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="OwnerOperatorlist" class="OwnerOperatorlist"></datalist>    
+                                                        <div >
+                                                            <input class="form-control " readonly="" id="lb_owner_other" placeholder="Other">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2 OwnerOperatorlist">
                                                         <label>Total</label>
                                                         <div class="dropdown show">
-                                                            <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist"   id="LB_Driver" placeholder="Search Here">
-                                                            <datalist id="OwnerOperatorlist" class="OwnerOperatorlist"></datalist>    
+                                                            <input class="form-control OwnerOperatorlist"  id="lb_owner_total" placeholder="$ Total">
                                                         </div>
                                                     </div>
                                                     <!-- --------------End Of Owner Operator radio list------------ -->
@@ -633,64 +622,51 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
+                                                    <form id="consigneeForm">
                                                         <div class="tab-content" id="consigneeContent">
                                                             <div class="tab-pane fade show active" id="consig0" role="tabpanel" aria-labelledby="consig-tab0">
                                                                 <div class="row m-2">
                                                                     <div class="form-group col-md-3">
                                                                         <label>Name*</label>
                                                                         <div class="dropdown show">
-                                                                            <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist" placeholder="Search Here">
+                                                                            <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here">
                                                                             <datalist id="consigneee" name="consignee[]"></datalist>    
                                                                         </div>
-                                                                        <!-- <label for="Truck">Truck<span style="color:#ff0000">*</span></label> -->
-                                                                        <!-- <div class="dropdown show">
-                                                                            <input class="form-control consigneeListSet" list="consigneeListSet"   id="LB_consignee" placeholder="Search Here">
-                                                                            <datalist id="consigneeListSet" class="consigneeListSet" name="consignee"></datalist>    
-                                                                        </div> -->
-                                                                        
-                                                            
                                                                     </div>
                                                                     <div class="form-group col-md-2">
                                                                         <label>Address*</label>
                                                                         <div>
-                                                                        <input class="form-control" placeholder="Address *" type="text"
-                                                                                    id="consigneeaddress0" name="consigneeaddress[]">
+                                                                        <input class="form-control" placeholder="Address *" type="text" id="consigneeaddress0" name="consigneeaddress[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
                                                                             <label>Location *</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Enter a location" type="text"
-                                                                                    onkeydown="getLocation('activeconsignee0')" id="activeconsignee0"
-                                                                                    name="activeconsignee[]">
+                                                                                <input class="form-control" placeholder="Enter a location" type="text" onkeydown="getLocation('activeconsignee0')" id="activeconsignee0" name="activeconsignee[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
                                                                             <label>Delivery Date</label>
                                                                             <div>
-                                                                                <input class="form-control" type="date" id="consigneepickdate"
-                                                                                    name="consigneepickdate[]">
+                                                                                <input class="form-control" type="date" id="consigneepickdate" name="consigneepickdate[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
                                                                             <label>Delivery Time</label>
                                                                             <div>
-                                                                                <input class="form-control" type="time" id="consigneepicktime"
-                                                                                    name="consigneepicktime[]">
+                                                                                <input class="form-control" type="time" id="consigneepicktime" name="consigneepicktime[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-1">
                                                                             <label>Type*</label>
                                                                             <div class="row">
                                                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                                                    <input type="radio" class="custom-control-input" id="ctl0"
-                                                                                        name="ctl0[]" value="TL" checked>
-                                                                                    <label class="custom-control-label" for="ctl0">TL</label>
+                                                                                    <input type="radio" class="custom-control-input" id="ctl0" name="ctl[]" value="TL" checked>
+                                                                                    <label class="custom-control-label" for="ctl">TL</label>
                                                                                 </div>
                                                                                 <div class="custom-control custom-radio custom-control-inline">
 
-                                                                                    <input type="radio" class="custom-control-input" id="cltl0"
-                                                                                        value="LTL" name="ctl0[]">
+                                                                                    <input type="radio" class="custom-control-input" id="cltl0" value="LTL" name="ctl[]">
                                                                                     <label class="custom-control-label" for="cltl0">LTL</label>
                                                                                 </div>
                                                                             </div>
@@ -698,51 +674,44 @@
                                                                         <div class="form-group col-md-2">
                                                                             <label>Commodity</label>
                                                                             <div>
-                                                                                <input class="form-control" type="text" placeholder="Commodity"
-                                                                                    id="consigneecommodity" name="consigneecommodity[]">
+                                                                                <input class="form-control" type="text" placeholder="Commodity" id="consigneecommodity" name="consigneecommodity[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-1 ">
                                                                             <label>Qty</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Qty" type="text"
-                                                                                    id="consigneeqty" name="consigneeqty[]">
+                                                                                <input class="form-control" placeholder="Qty" type="text"  id="consigneeqty" name="consigneeqty[]">
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="form-group col-md-2 ">
                                                                             <label>Weight</label>
                                                                             <div>
-                                                                                <input class="form-control" type="text" placeholder="Weight"
-                                                                                    id="consigneeweight" name="consigneeweight[]">
+                                                                                <input class="form-control" type="text" placeholder="Weight" id="consigneeweight" name="consigneeweight[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
                                                                             <label>Delivery #</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Delivery #" type="text"
-                                                                                    id="consigneedelivery" name="consigneedelivery[]">
+                                                                                <input class="form-control" placeholder="Delivery #" type="text" id="consigneedelivery" name="consigneedelivery[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-1">
                                                                             <label>Sr#</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Sr#" type="number"
-                                                                                    id="consigseq0" name="consigseq[]" value="0">
+                                                                                <input class="form-control" placeholder="Sr#" type="number" id="consigseq0" name="consigseq[]" value="0">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-4">
                                                                             <label>Delivery Notes</label>
                                                                             <div>
-                                                                                <textarea rows="1" cols="30" placeholder="Delivery Notes"
-                                                                                    class="form-control" type="textarea" id="deliverynotes"
-                                                                                    name="deliverynotes[]"></textarea>
+                                                                                <textarea rows="1" cols="30" placeholder="Delivery Notes" class="form-control" type="textarea" id="deliverynotes" name="deliverynotes[]"></textarea>
                                                                             </div>
                                                                         </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
+                                                    </form>
 
 
                                                     </div>
@@ -856,39 +825,39 @@
     //     $('#showowner').prop('checked',false);
     //     showCheck();
     // });
-    function showCheck() {
-        // $('#showowner').prop('checked',false);
-    if (document.getElementById('showdriver').checked) {
-        document.getElementById('showdrivername').style.visibility = 'visible';
-        document.getElementById('showtruck').style.visibility = 'visible';
-        document.getElementById('showtrailer').style.visibility = 'visible';
-        document.getElementById('showloadedmiles').style.visibility = 'visible';
-        document.getElementById('showemptymiles').style.visibility = 'visible';
-        document.getElementById('showother').style.visibility = 'visible';
-        document.getElementById('showtarp').style.visibility = 'visible';
-        document.getElementById('showflat').style.visibility = 'visible';
-        document.getElementById('showtotal').style.visibility = 'visible';
-    }
-    else {
-        $('#showdriver').prop('checked',false);
-        document.getElementById('showdrivername').style.visibility = 'hidden';
-        document.getElementById('showtruck').style.visibility = 'hidden';
-        document.getElementById('showtrailer').style.visibility = 'hidden';
-        document.getElementById('showloadedmiles').style.visibility = 'hidden';
-        document.getElementById('showemptymiles').style.visibility = 'hidden';
-        document.getElementById('showother').style.visibility = 'hidden';
-        document.getElementById('showtarp').style.visibility = 'hidden';
-        document.getElementById('showflat').style.visibility = 'hidden';
-        document.getElementById('showtotal').style.visibility = 'hidden';
-    }
-    if (document.getElementById('showowner').checked) {
-        document.getElementById('showowneroperator').style.visibility = 'visible';
-    }
-    else {
-        document.getElementById('showowneroperator').style.visibility = 'hidden';
-    }
+    // function showCheck() {
+    //     // $('#showowner').prop('checked',false);
+    // if (document.getElementById('showdriver').checked) {
+    //     document.getElementById('showdrivername').style.visibility = 'visible';
+    //     document.getElementById('showtruck').style.visibility = 'visible';
+    //     document.getElementById('showtrailer').style.visibility = 'visible';
+    //     document.getElementById('showloadedmiles').style.visibility = 'visible';
+    //     document.getElementById('showemptymiles').style.visibility = 'visible';
+    //     document.getElementById('showother').style.visibility = 'visible';
+    //     document.getElementById('showtarp').style.visibility = 'visible';
+    //     document.getElementById('showflat').style.visibility = 'visible';
+    //     document.getElementById('showtotal').style.visibility = 'visible';
+    // }
+    // else {
+    //     $('#showdriver').prop('checked',false);
+    //     document.getElementById('showdrivername').style.visibility = 'hidden';
+    //     document.getElementById('showtruck').style.visibility = 'hidden';
+    //     document.getElementById('showtrailer').style.visibility = 'hidden';
+    //     document.getElementById('showloadedmiles').style.visibility = 'hidden';
+    //     document.getElementById('showemptymiles').style.visibility = 'hidden';
+    //     document.getElementById('showother').style.visibility = 'hidden';
+    //     document.getElementById('showtarp').style.visibility = 'hidden';
+    //     document.getElementById('showflat').style.visibility = 'hidden';
+    //     document.getElementById('showtotal').style.visibility = 'hidden';
+    // }
+    // if (document.getElementById('showowner').checked) {
+    //     document.getElementById('showowneroperator').style.visibility = 'visible';
+    // }
+    // else {
+    //     document.getElementById('showowneroperator').style.visibility = 'hidden';
+    // }
 
-}
+// }
 
 "use strict";
 var companyid = $("#companyid").val();
@@ -1299,7 +1268,7 @@ function add_consignee() {
         count +
         '" class="form-control" placeholder="Search here..." id="consigneelist' +
         count +
-        '" name="consigneelist" onchange="getConsignee(this.value,' +
+        '" name="consigneelist[]" onchange="getConsignee(this.value,' +
         count +
         '); " onkeyup="doSearch(this.value,' +
         "'searchActiveConsignee'" +
@@ -1309,37 +1278,37 @@ function add_consignee() {
         '<datalist  id="consigneee' +
         count +
         '" name="consignee">\n' +
-        "                                                 </datalist>\n" +
-        "                                            </div>\n" +
-        '                                            <div class="form-group col-md-2">\n' +
-        "                                                <label>Address*</label>\n" +
-        "                                                <div>\n" +
-        '                                                    <input class="form-control" name="consigneeaddress" id="consigneeaddress' +
+        "</datalist>\n" +
+        "</div>\n" +
+        '<div class="form-group col-md-2">\n' +
+        "<label>Address*</label>\n" +
+        " <div>\n" +
+        ' <input class="form-control" name="consigneeaddress[]" id="consigneeaddress' +
         count +
         '" placeholder="Address *" type="text"\n' +
-        "                                                           >\n" +
-        "                                                </div>\n" +
-        "                                            </div>\n" +
-        '                                            <div class="form-group col-md-2">\n' +
-        "                                                <label>Location *</label>\n" +
-        "                                                <div>\n" +
-        '                                                    <input class="form-control" placeholder="Enter a location"\n' +
-        '                                                           type="text" onkeydown="getLocation(this.id)" id="activeconsignee' +
+        " >\n" +
+        " </div>\n" +
+        "  </div>\n" +
+        ' <div class="form-group col-md-2">\n' +
+        " <label>Location *</label>\n" +
+        " <div>\n" +
+        ' <input class="form-control" placeholder="Enter a location"\n' +
+        ' type="text" onkeydown="getLocation(this.id)" id="activeconsignee' +
         count +
-        '"name="activeconsignee">\n' +
+        '"name="activeconsignee[]">\n' +
         "                                                </div>\n" +
         "                                            </div>\n" +
         '                                            <div class="form-group col-md-2">\n' +
         "                                                <label>Delivery Date</label>\n" +
         "                                                <div>\n" +
-        '                                                    <input class="form-control"  name="consigneepickdate" type="date"\n' +
+        '                                                    <input class="form-control"  name="consigneepickdate[]" type="date"\n' +
         "                                                           >\n" +
         "                                                </div>\n" +
         "                                            </div>\n" +
         '                                            <div class="form-group col-md-2">\n' +
         "                                                <label>Delivery Time</label>\n" +
         "                                                <div>\n" +
-        '                                                    <input class="form-control" name="consigneepicktime" type="time"\n' +
+        '                                                    <input class="form-control" name="consigneepicktime[]" type="time"\n' +
         "                                                           >\n" +
         "                                                </div>\n" +
         "                                            </div>\n" +
@@ -1347,10 +1316,10 @@ function add_consignee() {
         "                                                <label>Type*</label>\n" +
         '                                                <div class="row">\n' +
         '                                                    <div class="custom-control custom-radio custom-control-inline">\n' +
-        '                                                        <input type="radio" class="custom-control-input consigneeloadtype"\n' +
+        '                                                      <input type="radio" class="custom-control-input consigneeloadtype"\n' +
         '                                                               id="ctl' +
         count +
-        '" name="ctl' +
+        '" name="ctl[]' +
         count +
         '"\n' +
         '                                                                value = "TL" checked>\n' +
@@ -1363,7 +1332,7 @@ function add_consignee() {
         '                                                        <input type="radio" class="custom-control-input"\n' +
         '                                                               id="cltl' +
         count +
-        '"  value = "CLTL" name="ctl' +
+        '"  value = "CLTL" name="ctl[]' +
         count +
         '">\n' +
         '                                                        <label class="custom-control-label" for="cltl' +
@@ -1375,26 +1344,26 @@ function add_consignee() {
         '                                            <div class="form-group col-md-2">\n' +
         "                                                <label>Commodity</label>\n" +
         "                                                <div>\n" +
-        '                                                    <input class="form-control" name="consigneecommodity" type="text"\n' +
+        '                                                    <input class="form-control" name="consigneecommodity[]" type="text"\n' +
         '                                                           placeholder="Commodity" " >\n' +
         "                                                </div>\n" +
         "                                            </div>\n" +
         '<div class="form-group col-md-1 ">\n' +
         "                                                <label>Qty</label>\n" +
         "                                                <div>\n" +
-        '                                                    <input class="form-control" placeholder="Qty" name="consigneeqty" type="text" >\n' +
+        '                                                    <input class="form-control" placeholder="Qty" name="consigneeqty[]" type="text" >\n' +
         "                                                </div>\n" +
         "                                            </div>\n" +
         '                                            <div class="form-group col-md-2 ">\n' +
         "                                                <label>Weight</label>\n" +
         "                                                <div>\n" +
-        '                                                    <input class="form-control" type="text" name="consigneeweight" placeholder="Weight">\n' +
+        '                                                    <input class="form-control" type="text" name="consigneeweight[]" placeholder="Weight">\n' +
         "                                                </div>\n" +
         "                                            </div>\n" +
         '                                            <div class="form-group col-md-2">\n' +
         "                                                <label>Delivery #</label>\n" +
         "                                                <div>\n" +
-        '                                                    <input class="form-control" name="consigneedelivery" placeholder="Delivery #" type="text"\n' +
+        '                                                    <input class="form-control" name="consigneedelivery[]" placeholder="Delivery #" type="text"\n' +
         "                                                           >\n" +
         "                                                </div>\n" +
         "                                            </div>\n" +
@@ -1403,13 +1372,13 @@ function add_consignee() {
         "                                                <div>\n" +
         '                                                <input class="form-control" placeholder="Sr#" type="number" id="consigseq' +
         count +
-        '" name="consigseq" value="0">\n' +
+        '" name="consigseq[]" value="0">\n' +
         "                                                </div>\n" +
         "                                            </div>\n" +
         '                                            <div class="form-group col-md-4">\n' +
         "                                                <label>Delivery Notes</label>\n" +
         "                                                <div>\n" +
-        '                                                    <textarea rows="1" cols="30" class="form-control" placeholder="Delivery Notes" name="deliverynotes" type="textarea"\n' +
+        '                                                    <textarea rows="1" cols="30" class="form-control" placeholder="Delivery Notes" name="deliverynotes[]" type="textarea"\n' +
         "                                                              ></textarea>\n" +
         "                                                </div>\n" +
         "                                            </div>\n" +

@@ -232,34 +232,137 @@ class LoadBoardController extends Controller
         $getCompany = Open::where('companyID',$companyID)->get();
         $totalCompany=count($getCompany);
 
+        //shipper
         $unserializeData = [];
-        parse_str($request->data,$unserializeData);
+        parse_str($request->data_shipper,$unserializeData);
         
         if(isset($unserializeData['shipperName'])){
-        foreach($unserializeData['shipperName'] as $key => $val){
-        
-            $shipper[]=((object)[
-                $shipper_name=explode('-',$unserializeData['shipperName'][$key]),
-                'shipper_name'=>$shipper_name[0],
-                'shipper_address'=>$unserializeData['shipperaddress'][$key],
-                'shipper_location'=>$unserializeData['shipperLocation'][$key],
-                'shipper_pickup'=>strtotime($unserializeData['shipperdate'][$key]),
-                'shipper_picktime'=>$unserializeData['shippertime'][$key],
-                'shipper_load_type'=>$unserializeData['loadType'][$key],
-                'shipper_commodity'=>$unserializeData['shippercommodity'][$key],
-                'shipper_qty'=>$unserializeData['shipperqty'][$key],
-                'shipper_weight'=>$unserializeData['shipperweight'][$key],
-                'shipper_pickup_number'=>$unserializeData['shipperpickup'][$key],
-                'shipper_seq'=>$unserializeData['shipseq'][$key],
-                'shipper_notes'=>$unserializeData['shippernotes'][$key],
-                // 'shipperparent'=>$unserializeData[''][$key],
-                'shipperparent'=>'0',
-            ]);        
+            foreach($unserializeData['shipperName'] as $key => $val){
+                $shipper_name=explode('-',$unserializeData['shipperName'][$key]);
+                $shipper[]=((object)[
+                    'shipper_name'=>$shipper_name[0],
+                    'shipper_address'=>$unserializeData['shipperaddress'][$key],
+                    'shipper_location'=>$unserializeData['shipperLocation'][$key],
+                    'shipper_pickup'=>strtotime($unserializeData['shipperdate'][$key]),
+                    'shipper_picktime'=>$unserializeData['shippertime'][$key],
+                    'shipper_load_type'=>$unserializeData['loadType'][$key],
+                    'shipper_commodity'=>$unserializeData['shippercommodity'][$key],
+                    'shipper_qty'=>$unserializeData['shipperqty'][$key],
+                    'shipper_weight'=>$unserializeData['shipperweight'][$key],
+                    'shipper_pickup_number'=>$unserializeData['shipperpickup'][$key],
+                    'shipper_seq'=>$unserializeData['shipseq'][$key],
+                    'shipper_notes'=>$unserializeData['shippernotes'][$key],
+                    // 'shipperparent'=>$unserializeData[''][$key],
+                    'shipperparent'=>'0',
+                ]);        
+            }
+        }else{
+            $shipper=array();
         }
-    }else{
-        $shipper=array();
-    }
+        //consignee
+        $unserializeData1 = [];
+        parse_str($request->data_consignee,$unserializeData1);
+        
+        if(isset($unserializeData1['consigneelist'])){
+            foreach($unserializeData1['consigneelist'] as $key => $val){
+                $consignee_name=explode('-',$unserializeData1['consigneelist'][$key]);
+                $consignee[]=((object)[
+                    'consignee_name'=>$consignee_name[0],
+                    'consignee_address'=>$unserializeData1['consigneeaddress'][$key],
+                    'consignee_location'=>$unserializeData1['activeconsignee'][$key],
+                    'consignee_pickup'=>strtotime($unserializeData1['consigneepickdate'][$key]),
+                    'consignee_picktime'=>$unserializeData1['consigneepicktime'][$key],
+                    'consignee_load_type'=>$unserializeData1['ctl'][$key],
+                    'consignee_commodity'=>$unserializeData1['consigneecommodity'][$key],
+                    'consignee_qty'=>$unserializeData1['consigneeqty'][$key],
+                    'consignee_weight'=>$unserializeData1['consigneeweight'][$key],
+                    'consignee_delivery_number'=>$unserializeData1['consigneedelivery'][$key],
+                    'consignee_seq'=>$unserializeData1['consigseq'][$key],
+                    'consignee_notes'=>$unserializeData1['deliverynotes'][$key],
+                    // 'consigneeparent'=>$unserializeData[''][$key],
+                    
+                ]);        
+            }
+        }else{
+            $consignee=array();
+        }
+        //other_charges_modal
+        $unserializeData2 = [];
+        if(isset($request->data_other_charges)){
+            parse_str($request->data_other_charges,$unserializeData2);
+        }
+        if(isset($unserializeData2['description'])){
+            foreach($unserializeData2['description'] as $key => $val){
+                $other_charges_modal[]=((object)[
+                    'description'=>$unserializeData2['description'][$key],
+                    'amount'=>$unserializeData2['amount'][$key],
+                ]);        
+            }
+        }else{
+            $other_charges_modal=array();
+        }
+        //carrier_other_modal
+        $unserializeData3 = [];
+        if(isset($request->data_carrier_other_modal)){
+            parse_str($request->data_carrier_other_modal,$unserializeData3);
+        }
+        if(isset($unserializeData3['description'])){
+            foreach($unserializeData3['description'] as $key => $val){
+                $carrier_other_modal[]=((object)[
+                    'description'=>$unserializeData3['description'][$key],
+                    'advance'=>$unserializeData3['advance'][$key],
+                    'amount'=>$unserializeData3['amount'][$key],
 
+                ]);        
+            }
+        }else{
+            $carrier_other_modal=array();
+        }
+
+        //driver_other_modal
+        $unserializeData4 = [];
+        if(isset($request->data_driver_other_modal)){
+            parse_str($request->data_driver_other_modal,$unserializeData4);
+        }
+        if(isset($unserializeData4['description'])){
+            foreach($unserializeData4['description'] as $key => $val){
+                $driver_other_modal[]=((object)[
+                    'description'=>$unserializeData4['description'][$key],
+                    'amount'=>$unserializeData4['amount'][$key],
+                ]);        
+            }
+        }else{
+            $driver_other_modal=array();
+        }
+        //owner_other_modal
+        $unserializeData5 = [];
+        if(isset($request->data_owner_other_modal)){
+            parse_str($request->data_owner_other_modal,$unserializeData5);
+        }
+        if(isset($unserializeData5['description'])){
+            foreach($unserializeData5['description'] as $key => $val){
+                $owner_other_modal[]=((object)[
+                    'description'=>$unserializeData5['description'][$key],
+                    'amount'=>$unserializeData5['amount'][$key],
+                ]);        
+            }
+        }else{
+            $owner_other_modal=array();
+        }
+        //owner_other_modal
+        $unserializeData6 = [];
+        if(isset($request->data_file)){
+            parse_str($request->data_file,$unserializeData6);
+        }
+        if(isset($unserializeData6['file'])){
+            foreach($unserializeData6['file'] as $key => $val){
+                $file[]=((object)[
+                    'file'=>$unserializeData6['file'][$key],
+                ]);        
+            }
+        }else{
+            $file=array();
+        }
         $Data[]=array(    
             '_id' => 1,
             'loaddata' => $loaddata=((object)[
@@ -278,28 +381,28 @@ class LoadBoardController extends Controller
             'status' => $request->status,
             'active_type' => $request->active_type,
             'rate' => $request->rate,
-            'units' => $request->units,
+            'units' => $request->noofunits,
             'fsc' => $request->fsc,
             'fsc_percentage' => $request->fsc_percentage,
-            // 'other_charges' => $request->other_charges,
-            // 'other_charges_modal' => $request->other_charges_modal,
-            'total_rate' => $request->total_rate,
+            'other_charges' =>$request->other_charges,
+            'other_charges_modal' => $other_charges_modal, //array
+            'total_rate' => $request->setTotalRate,
             'equipment_type' => $request->equipment_type,
             'typeofloader' => $request->typeofLoader,
-            // 'carrier_name' => $request->carrier_name,
-            // 'flat_rate' => $request->flat_rate,
-            // 'isIfta'=> $request->isIfta,
-            // 'advance_charges' => $request->advance_charges,
-            // 'carrier_other_modal' => $request->carrier_other_modal,
-            // 'carrier_total' => $request->carrier_total,
-            // 'currency' => $request->currency,
+            'carrier_name' => $request->carrier_name,
+            'flat_rate' => $request->flat_rate,
+            'isIfta'=> $request->isIfta,
+            'advance_charges' => $request->advance_charges,
+            'carrier_other_modal' => $carrier_other_modal,//array
+            'carrier_total' => $request->carrier_total,
+            'currency' => $request->currency,
             'driver_name' => $request->driver_name,
             'truck' => $request->truck,
             'trailer' => $request->trailer,
             'loaded_mile' => $request->loaded_mile,
             'empty_mile' => $request->empty_mile,
-            // 'driver_other' => $request->driver_other,
-            // 'driver_other_modal' => $request->driver_other_modal,
+            'driver_other' => $request->driver_other,
+            'driver_other_modal' => $driver_other_modal,//array
             'tarp' => $request->tarp,
             'flat' => $request->flat,
             'driver_total' => $request->driver_total,
@@ -307,50 +410,61 @@ class LoadBoardController extends Controller
             'owner_percentage' => $request->owner_percentage,
             'owner_truck' => $request->owner_truck,
             'owner_trailer' => $request->owner_trailer,
-            // 'owner_other' => $request->owner_other,
-            // 'owner_other_modal' => $request->owner_other_modal,
-            // 'owner_total' => $request->owner_total,
-            // 'start_location' => $request->start_location,
-            // 'end_location' => $request->end_location,
-            'shipper' => $shipper,
-            // 'consignee' => $request->consignee,
-            // 'tarp_select' => $request->tarp_select,
-            // 'loaded_miles_value' => $request->loaded_miles_value,
-            // 'empty_miles_value' => $request->empty_miles_value,
-            // 'driver_miles_value' => $request->driver_miles_value,
-            // 'file' => $request->file,
-            // 'load_notes' => $request->load_notes,
-            // 'carrier_email' => $request->carrier_email,
-            // 'customer_email' => $request->customer_email,
-            // 'created_user' => $_SESSION['userId'],
-            // 'created_at' => strtotime(date('Y-m-d H:i:s')),
-            // 'updated_at' => strtotime(date('Y-m-d H:i:s')),
-            // 'shipper_pickup' => $request->shipper[0]['shipper_pickup'],
-            // 'consignee_pickup' => $request->consignee[0]['consignee_pickup'],
-            // 'status_BreakDown_time' => $request->status_Break_Down_time,
-            // 'status_Loaded_time' => $request->status_Loaded_time,
-            // 'status_ArrivedConsignee_time' => $request->status_Arrived_Consignee_time,
-            // 'status_ArrivedShipper_time' => $request->status_Arrived_Shipper_time,
-            // 'status_Paid_time' => $request->status_Paid_time,
-            // 'status_Open_time' => $request->status_Open_time,
-            // 'status_OnRoute_time' => $request->status_On_Route_time,
-            // 'status_Dispatched_time' => $request->status_Dispatched_time,
-            // 'status_Delivered_time' => $request->status_Delivered_time,
-            // 'status_Completed_time' => $request->status_Completed_time,
-            // 'status_Invoiced_time' => $request->status_Invoiced_time,
-            // 'status_change_user' => array("Open" => $_SESSION['userId'],"Dispatched" => "", "Arrived Shipper" => "", "Loaded" => "", "On Route" => "","Arrived Consignee" => "","Delivered" => "", "Completed" => "", "Invoiced" => "", "Break Down" => "","Cancelled" => ""),
-            // 'broker_driver' => $request->broker_driver,
-            // 'broker_driver_contact' => $request->broker_driver_contact,
-            // 'broker_truck' => $request->broker_truck,
-            // 'broker_trailer' => $request->broker_trailer,
-            // 'is_unit_on' => $request->is_unit_on,
-            // 'carrier_parent' => $request->carrier_parent,
-            // 'customer_parent' => $request->customer_parent,
-            // 'driver_parent' => $request->driver_parent,
-            // 'owner_parent' => $request->owner_parent,
-            // 'isBroker' => $request->isBroker,
-            // 'isIftaVerified' => "no",
-            // 'receipt_status' => 0,
+            'owner_other' => $request->owner_other,
+            'owner_other_modal' => $owner_other_modal,//array
+            'owner_total' => $request->owner_total,
+            'start_location' => $request->startlocation,
+            'end_location' => $request->endlocation,
+            'shipper' => $shipper,//array
+            'consignee' => $consignee,//array
+            'tarp_select' => $request->tarp_select,
+            'loaded_miles_value' => $request->loaded_miles_value,
+            'empty_miles_value' => $request->empty_miles_value,
+            'driver_miles_value' => $request->driver_miles_value,
+            'file' => $file,//array
+            'load_notes' => $request->load_notes,
+            'carrier_email' => $carrier_email[]=((object)[
+                'CarrierEmail'=>$request->CarrierEmail,
+                'email2'=>$request->email2,
+                'email3'=>$request->email3,
+            ]),
+            'customer_email' => $customer_email[]=((object)[
+                'CustomerEmail'=>$request->CustomerEmail,
+                'emailcustomer2'=>$request->emailcustomer2,
+                'emailcustomer3'=>$request->emailcustomer3,
+            ]),
+            'created_user' => Auth::User()->_id,
+            'created_at' => strtotime(date('Y-m-d H:i:s')),
+            'updated_at' => '',
+            'shipper_pickup' => strtotime($unserializeData['shipperdate'][0]),
+            'consignee_pickup' => strtotime($unserializeData1['consigneepickdate'][0]),
+            'status_BreakDown_time' =>0 ,
+            'status_Loaded_time' => 0,
+            'status_ArrivedConsignee_time' => 0,
+            'status_ArrivedShipper_time' => 0,
+            'status_Paid_time' => 0,
+            'status_Open_time' => strtotime(date('Y-m-d H:i:s')),
+            'status_OnRoute_time' => 0,
+            'status_Dispatched_time' => 0,
+            'status_Delivered_time' => 0,
+            'status_Completed_time' => 0,
+            'status_Invoiced_time' => 0,
+            'status_change_user' => array("Open" => Auth::User()->_id,"Dispatched" => "", "Arrived Shipper" => "", "Loaded" => "", "On Route" => "","Arrived Consignee" => "","Delivered" => "", "Completed" => "", "Invoiced" => "", "Break Down" => "","Cancelled" => ""),
+            'broker_driver' => $request->broker_driver,
+            'broker_driver_contact' => $request->broker_driver_contact,
+            'broker_truck' => $request->broker_truck,
+            'broker_trailer' => $request->broker_trailer,
+            'is_unit_on' => $request->is_unit_on,
+            'carrier_parent' => $request->carrier_parent,
+            'customer_parent' => $request->customer_parent,
+            'driver_parent' => $request->driver_parent,
+            'owner_parent' => $request->owner_parent,
+            'isBroker' => $request->isBroker,
+            'isIftaVerified' => "no",
+            'receipt_status' => 0,
+            'cardays' => $request->custdays,
+            'carDays' => $request->cardays,
+            'edit_by' =>'',
                 );
         $loads_allCompany=0;
         
