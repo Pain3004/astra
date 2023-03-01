@@ -2527,33 +2527,7 @@ function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel)
 }
 
 // search function =============================================================
-function searchCreditCard(searchValue) 
-{
-    var search_by="displayName";
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getcreditCard",
-        async: false,
-        data:{'search_by':search_by,"searchValue":searchValue},
-        success: function(text) {
-          }
-    });
-}
-function doSearch(dom, funname, val)
-{
-    var func=funname
-    var searchValue=$("#search").val();
-    // console.log(dom +" , " + funname + " , " + val);
-    clearTimeout(timeoutid);
-    // }
-    timeoutid = setTimeout(function () {
-        //===================== ACCOUNT ================================
-        if (func == 'search_creditCard ') {
-            searchCreditCard(searchValue);
-        }
-        
-    }, 600); 
-}
+
 
 
     

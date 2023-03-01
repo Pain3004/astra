@@ -30,8 +30,9 @@ $(document).ready(function() {
         var no=1;
             if (creditCardResult != null) {
                 $("#creditCardTable").html('');
+                console.log(creditCardResult);
                 creditCardlen = creditCardResult.arrData1.admin_credit.length;
-                // console.log(creditCardlen);
+                console.log(creditCardlen);
                 if (creditCardlen > 0) {
                     for (var i = creditCardlen-1; i >= 0; i--) { 
                         var comId=creditCardResult.arrData1.companyID;
@@ -657,4 +658,39 @@ $(document).ready(function() {
         });
     });
     // end export =====================================================
+
+    // search ==================================================
+    function searchCreditCard(searchValue) 
+    {
+        var search_by="displayName";
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getcreditCard",
+            async: false,
+            data:{search_by:search_by,searchValue:searchValue},
+            success: function(text) {
+                creditCardResult=text;
+                createCreditCardRows(creditCardResult);
+            }
+        });
+    }
+    $("#search").keyup(function(){
+        var searchValue=$("#search").val();
+        searchCreditCard(searchValue);
+    })
+    // function doSearch(dom, funname, val)
+    // {
+    //     var func=funname
+    //     var searchValue=$("#search").val();
+    //     console.log(searchValue +" , " + func );
+    //     // clearTimeout(timeoutid);
+    //     // }
+    //     // timeoutid = setTimeout(function () {
+    //         //===================== ACCOUNT ================================
+    //         if (func == 'search_creditCard') {
+    //             searchCreditCard(searchValue);
+    //         }
+            
+    //     // }, 600); 
+    // }
 });

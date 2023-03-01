@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CreditCardAdmin;
+use MongoDB\BSON\Regex;
 // use App\Models\excels\CreditCardExport;
 use App\Models\Company;
 use App\Models\Bank;
@@ -24,73 +25,91 @@ class CreditCardController extends Controller
 {
     public function getcreditCard(Request $request)
     {
+        $search_value="";
+        $search_by="";
+        if(isset($request->searchValue))
+        {
+            $search_value=$request->searchValue;
+        }
+        if(isset($request->search_by))
+        {
+            $search_by=$request->search_by;
+        }
+        // dd($search_by);
         $companyID=(int)Auth::user()->companyID;
         $total_records = 0;
-        $cursor = CreditCardAdmin::raw()->aggregate([
-            ['$match' => ['companyID' => $companyID]],
-            ['$project' => ['size' => ['$size' => ['$admin_credit']],
-            ]]
-        ]);
-        foreach ($cursor as $v) 
+        if($search_value !="")
         {
-            $total_records += (int)$v['size'];
+            $datasearch = new Regex('^' . $search_value, 'i');
+            $search_data = ['$match' => ["admin_credit.displayName" => $datasearch]];
+            $cursor = CreditCardAdmin::raw()->aggregate([
+                        ['$match' => ["companyID" => $companyID]],
+                        ['$unwind' => '$admin_credit'],
+                        $search_data,
+                        ['$limit' => 100]
+                    ]);  
+            // dd($cursor);
+                 $completedata = array();
+            $creditcardData = array();
+            $arrData1 = array();
+            // foreach ($cursor as $rw) {
+                // $main = $rw['_id'];
+                // $comId = $rw['companyID'];
+                // $arrData1[] = $rw['admin_credit'];
+                 $arrData1 = "";
+                foreach ($cursor as $arrData11) 
+                {
+                    $arrData1 = $arrData11;
+                }
+                return $arrData1 = array(
+                    'arrData1' => $arrData1,
+                );
+                
+            // }
+            // dd($arrData1);
+            // if(!empty($main) && !empty($arrData1)){
+            //     $creditcardData = array('_id' => $main,'companyID'=>$comId, 'admin_credit' => $arrData1);
+            //     $arrData1 = array('arrData1' => $creditcardData);
+            // }
+            $completedata = (object)$arrData1;
+            echo json_encode($completedata);
         }
-        $completedata = array();
-        $partialdata = array();
-        if(!empty($total_records))
+        else
         {
-            $show1 =  CreditCardAdmin::raw()->find(array('companyID' => $companyID));
-            $c = 0;
-            $arrData1 = "";
-            foreach ($show1 as $arrData11) 
+            $cursor = CreditCardAdmin::raw()->aggregate([
+                ['$match' => ['companyID' => $companyID]],
+                ['$project' => ['size' => ['$size' => ['$admin_credit']],
+                ]]
+            ]);
+            // dd($cursor);
+            foreach ($cursor as $v) 
             {
-                $arrData1 = $arrData11;
+                $total_records += (int)$v['size'];
             }
-            return $arrData1 = array(
-                'arrData1' => $arrData1,
-            );
+        // dd($total_records);
+            $completedata = array();
+            $partialdata = array();
+            if(!empty($total_records))
+            {
+                // dd($total_records);
+                $show1 =  CreditCardAdmin::raw()->find(array('companyID' => $companyID));
+                $c = 0;
+                $arrData1 = "";
+                foreach ($show1 as $arrData11) 
+                {
+                    $arrData1 = $arrData11;
+                }
+                // dd($arrData1);
+                return $arrData1 = array(
+                    'arrData1' => $arrData1,
+                );
+            }
+            // dd($arrData1);
+            $completedata[] = $partialdata;
+            $completedata[] = $total_records;
+            dd(gettype($completedata));
+            echo json_encode($completedata);
         }
-        $completedata[] = $partialdata;
-        $completedata[] = $total_records;
-        echo json_encode($completedata);
-
-
-
-
-
-
-
-
-        //     $search_value=$request->searchValue;
-        // $datasearch = new MongoDB\BSON\Regex('^' . $search_value, 'i');
-        // $search_by=$request->search_by;
-        // if ($search_by == 'displayName') {
-        //     $search_data = ['$match' => ["admin_credit.displayName" => $datasearch]];
-        // }
-        // if (empty($search_value)) {
-        //     $this->getTable($db,$data,$helper);
-        // } else {
-        //     $show = CreditCardAdmin::raw()->aggregate([
-        //         ['$match' => ["companyID" => $companyID]],
-        //         ['$unwind' => '$credit_card_admin'],
-        //         $search_data,
-        //         ['$limit' => 100]
-        //     ]);
-        //     $completedata = array();
-        //     $shiptdata = array();
-        //     $arrData1 = array();
-        //     foreach ($show as $rw) {
-        //         $main = $rw['_id'];
-        //         $arrData1[] = $rw['credit_card_admin'];
-        //     }
-        //     if(!empty($main) && !empty($arrData1)){
-        //         $shiptdata = array('_id' => $main, 'credit_card_admin' => $arrData1);
-        //         $arrData1 = array('arrData1' => $shiptdata);
-        //     }
-        //     $completedata[][] = $arrData1;
-        //     dd($completedata);
-        //     echo json_encode($completedata);
-        // }
 
     }
     public function storecreditCard(Request $request)

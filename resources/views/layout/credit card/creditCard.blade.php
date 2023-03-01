@@ -14,7 +14,7 @@
                     <a href="#" class="button-57 createCreaditCardBtn" data-toggle="modal"data-target="#"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
                     <a href="#" class="button-57_alt restoreCreditCartBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>
                     <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" data-name="cus_search"
-                        type="text" id="search" onkeyup="doSearch(this, 'search_creditCard')" placeholder="search"
+                        type="text" id="search"  placeholder="search"
                         style="margin-left: 5px;">
 
                 </div>
