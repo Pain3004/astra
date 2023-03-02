@@ -220,7 +220,7 @@ Route::post('admin/deleteBankData', [BankController::class, 'deleteBankData']);
 Route::get('admin/getCompanyHolder', [BankController::class, 'getCompanyHolder']);
 Route::post('admin/CreateCompany', [BankController::class, 'CreateCompany']);
 Route::post('admin/restoreBankData', [BankController::class, 'restoreBankData']);
-Route::get('admin/export_Bank_A', [BankController::class, 'export_Bank_A']);
+Route::post('admin/export_Bank_A', [BankController::class, 'export_Bank_A']);
 
 //credit Card
 Route::get('admin/getcreditCard', [CreditCardController::class, 'getcreditCard']);

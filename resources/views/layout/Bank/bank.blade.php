@@ -12,12 +12,7 @@
                 <div style="margin-top: 15px; margin-left: 15px;">
                     <a href="#" class="button-57 createBankModalStore" data-toggle="modal"data-target="#"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
                     <a href="#" class="button-57_alt restoreBankBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>
-                    <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
-                    <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a> -->
-                    <div class="searchbar" style="float: right; margin-right: 15px;">
-                        <input type="text" placeholder="search" />
-                    </div>
+                    <!-- <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" data-name="cus_search" type="text" id="search_bank"  placeholder="search" style="margin-left: 5px;">  -->
 
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
@@ -73,13 +68,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    
-                    <button type="button" data-name="admin_bank_export"
-                        id="admin_bank_export"
-                        class="btn btn-primary waves-effect waves-light float-left mr-1">
-                        <span class="spinner-border spinner-border-sm loader1 Eshipper"></span><i
-                            class="mdi mdi-file-export"></i> Export
-                    </button>
+                    <button class="button-29" style="vertical-align:middle" id="exportBankDetails"><span>Export</span></button>
                     <button type="button" class="button-29 bankClose">Close</button>
                 </div>
             </div>

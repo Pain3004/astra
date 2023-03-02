@@ -107,7 +107,7 @@ class CreditCardController extends Controller
             // dd($arrData1);
             $completedata[] = $partialdata;
             $completedata[] = $total_records;
-            dd(gettype($completedata));
+            // dd(gettype($completedata));
             echo json_encode($completedata);
         }
 
@@ -148,7 +148,7 @@ class CreditCardController extends Controller
                 'cardType' => $request->cardType,
                 'cardHolderName' => $request->cardHolderName,
                 'cardNo' => $request->cardNo,
-                'openingBalanceDt' => $request->openingBalanceDt,
+                'openingBalanceDt' => strtotime($request->openingBalanceDt),
                 'cardLimit' => $request->cardLimit,
                 'openingBalance' => $request->openingBalance,
                 'currentBalance' => '',
@@ -348,109 +348,7 @@ class CreditCardController extends Controller
             echo json_encode($p);
         }
     }
-    // public function searchCreditCard($db, $data, $helper)
-    // {
-    //     $companyID = (int)$_SESSION['companyId'];
-    //     $search_by = $data['shipper_fields'];
-    //     $search_value = $data['getoption'];
-    //     $datasearch = new MongoDB\BSON\Regex('^' . $search_value, 'i');
-    //     if ($search_by == 'shipperName') {
-    //         $search_data = ['$match' => ["shipper.shipperName" => $datasearch]];
-    //     } 
-    //     // else if ($search_by == 'shipperAddress') {
-    //     //     $search_data = ['$match' => ["shipper.shipperAddress" => $datasearch]];
-    //     // } else if ($search_by == 'shipperLocation') {
-    //     //     $search_data = ['$match' => ["shipper.shipperLocation" => $datasearch]];
-    //     // } else if ($search_by == 'shipperPostal') {
-    //     //     $search_data = ['$match' => ["shipper.shipperPostal" => $datasearch]];
-    //     // } else if ($search_by == 'shipperContact') {
-    //     //     $search_data = ['$match' => ["shipper.shipperContact" => $datasearch]];
-    //     // } else if ($search_by == 'shipperEmail') {
-    //     //     $search_data = ['$match' => ["shipper.shipperEmail" => $datasearch]];
-    //     // } else if ($search_by == 'shipperTelephone') {
-    //     //     $search_data = ['$match' => ["shipper.shipperTelephone" => $datasearch]];
-    //     // } else if ($search_by == 'shipperExt') {
-    //     //     $search_data = ['$match' => ["shipper.shipperExt" => $datasearch]];
-    //     // } else if ($search_by == 'shipperTollFree') {
-    //     //     $search_data = ['$match' => ["shipper.shipperTollFree" => $datasearch]];
-    //     // } else if ($search_by == 'shipperFax') {
-    //     //     $search_data = ['$match' => ["shipper.shipperFax" => $datasearch]];
-    //     // } else if ($search_by == 'shipperShippingHours') {
-    //     //     $search_data = ['$match' => ["shipper.shipperShippingHours" => $datasearch]];
-    //     // } else if ($search_by == 'shipperAppointments') {
-    //     //     $search_data = ['$match' => ["shipper.shipperAppointments" => $datasearch]];
-    //     // } else if ($search_by == 'shipperIntersaction') {
-    //     //     $search_data = ['$match' => ["shipper.shipperIntersaction" => $datasearch]];
-    //     // } else if ($search_by == 'shipperStatus') {
-    //     //     $search_data = ['$match' => ["shipper.shipperStatus" => $datasearch]];
-    //     // } else if ($search_by == 'shippingNotes') {
-    //     //     $search_data = ['$match' => ["shipper.shippingNotes" => $datasearch]];
-    //     // } else if ($search_by == 'shipperAppointments') {
-    //     //     $search_data = ['$match' => ["shipper.shipperAppointments" => $datasearch]];
-    //     // }
-    //     if (empty($search_value)) {
-    //         $this->getTable($db,$data,$helper);
-    //     } else {
-    //         $show = $db->shipper->aggregate([
-    //             ['$match' => ["companyID" => $companyID]],
-    //             ['$unwind' => '$shipper'],
-    //             $search_data,
-    //             ['$limit' => 100]
-    //         ]);
-    //         $completedata = array();
-    //         $shiptdata = array();
-    //         $arrData1 = array();
-    //         foreach ($show as $rw) {
-    //             $main = $rw['_id'];
-    //             $arrData1[] = $rw['shipper'];
-    //         }
-    //         if(!empty($main) && !empty($arrData1)){
-    //             $shiptdata = array('_id' => $main, 'shipper' => $arrData1);
-    //             $arrData1 = array('arrData1' => $shiptdata);
-    //         }
-    //         $completedata[][] = $arrData1;
-    //         echo json_encode($completedata);
-    //     }
-    // }
-    // // public function paginateShipper($db, $data)
-    // // {
-    // //     $privileges = json_decode($data['privilege']);
-    // //     $companyID = (int)$data['companyId'];
-    // //     $arr = json_decode($data['arr'],true);
-    // //     $page_no = $data['page_no'];
-    // //     $completedata = array();
-    // //     $partialdata = array();
-    // //     for($i = 0; $i < sizeof($arr); $i++){
-    // //         $partialdata[] = $this->getData($db, $companyID,$arr[$i]['doc'],$arr[$i]['end'],$arr[$i]['start']);
-    // //     }
-    // //     $completedata[] = $partialdata;
-    // //     $completedata[] = $page_no;
-    // //     echo json_encode($completedata);
-    // // }
-    // public function CreditCardList($db, $data)
-    // {
-    //     $para = '^' . $data;
-    //     $datasearch = new MongoDB\BSON\Regex($para, 'i');
-    //     $show = $db->shipper->aggregate([
-    //         ['$match' => ["companyID" => (int)$_SESSION['companyId']]],
-    //         ['$unwind' => '$shipper'],
-    //         ['$match' => ['shipper.shipperName' => $datasearch, 'shipper.shipperStatus' => "Active","shipper.deleteStatus"=>"NO"]],
-    //         ['$project' => ['shipper._id' => 1, 'shipper.shipperName' => 1, 'shipper.shipperLocation' => 1, 'companyID' => (int)$_SESSION['companyId']]],
-    //         ['$limit' => 100]
-    //     ]);
-    //     $shipper = array();
-    //     $shipperList = array();
-    //     foreach ($show as $s) {
-    //         $q = 0;
-    //         $shipper[$q] = $s['shipper'];
-    //         $parent = $s['_id'];
-    //         $q++;
-    //         foreach ($shipper as $sr) {
-    //             $shipperList[] = array("id" => $sr['_id'], "value" => $sr['shipperName'], "location" => $sr['shipperLocation'], "parent" => $parent);
-    //         }
-    //     }
-    //     echo json_encode($shipperList);
-    // } 
+   
    
 
     

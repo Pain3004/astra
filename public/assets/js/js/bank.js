@@ -531,12 +531,12 @@ $(document).ready(function() {
     $(".restoreBankBtn").click(function(){
         $.ajax({
             type: "GET",
-            url: base_path+"/admin/getCompanyHolder",
+            url: base_path+"/admin/getBankData",
             async: false,
             success: function(text) {
                 // console.log(text);
                 RestoreCompanyName(text);
-                comapnyRes = text;
+                bankResult = text;
              }
         });
         $("#restorebankModal").modal("show");
@@ -544,66 +544,69 @@ $(document).ready(function() {
     $(".restorebankClose").click(function(){
         $("#restorebankModal").modal("hide");
     });
-    function RestoreCompanyName(creditCardResult) {
+    function RestoreCompanyName(bankResult) {
         var banklen = 0;
-        if (bankResult != null) 
+        var no=1;
+        $("#restorebankTable").html('');
+        banklen = bankResult.bankData.length;
+        if (banklen > 0) 
         {
-            $("#restorebankTable").html('');
-            banklen = bankResult.bankData.length;
-            if (banklen > 0) 
-            {
-                var lentData=[];
-                for (var j = banklen-1; j >= 0; j--) 
-                { 
-                    var data = bankResult.bankData[j];
-                    if (data > 0) 
-                    {
-                        $.each(data, function(i, v) {   
-                            var CompID=bankResult.companyId;
-                            var admin_bank_Id =bankResult.bankData[j][i]._id;
-                            var bankName =bankResult.bankData[j][i].bankName;
-                            var bankAddresss =bankResult.bankData[j][i].bankAddresss;
-                            var accountHolder =bankResult.bankData[j][i].accountHolder;
-                            var accountNo =bankResult.bankData[j][i].accountNo;
-                            var routingNo =bankResult.bankData[j][i].routingNo;
-                            var openingBalDate =bankResult.bankData[j][i].openingBalDate;
-                            var openingBalance =bankResult.bankData[j][i].openingBalance;
-                            var openingBalance=parseFloat(openingBalance).toFixed(2);
-                            var currentBalance =bankResult.bankData[j][i].currentBalance;
-                            var currentBalance=parseFloat(currentBalance).toFixed(2);
-                            var deleteStatus =bankResult.bankData[j][i].deleteStatus;
+            var lentData=[];
+            for (var j = banklen-1; j >= 0; j--) 
+            {                     
+                data = bankResult.bankData[j];
+                $.each(data, function(i, v) { 
+                var openingBale=bankResult.bankData[j][i].openingBalDate;
+                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                var date = new Date(openingBale*1000);
+                var year = date.getFullYear();
+                var month = months_arr[date.getMonth()];
+                var day = date.getDate();
+                var openingBalDate = month+'/'+day+'/'+year;
 
-                            if(deleteStatus == "YES")
-                            {
-                                lentData.push(i);
-                                var bankStr = "<tr data-id=" + (i + 1) + ">" +
-                                "<td data-field='no'><input type='checkbox' class='check_BankDetails_one' name='all_BankDetails_id[]' data-BankDetails=" + admin_bank_Id+ " date-compID="+CompID+"  value="+admin_bank_Id+"></td>" +
-                                "<td data-field='bankName' >" + bankName + "</td>" +
-                                "<td data-field='bankAddresss' >" + bankAddresss + "</td>" +
-                                "<td data-field='accountHolder' >" + accountHolder + "</td>" +
-                                "<td data-field='accountNo' >" + accountNo + "</td>" +
-                                "<td data-field='routingNo' >" + routingNo + "</td>" +
-                                "<td data-field='openingBalDate' >" + openingBalDate + "</td>" +
-                                "<td data-field='openingBalance' >$ " + openingBalance + "</td>"+
-                                "<td data-field='openingBalance' >$ " + currentBalance + "</td></tr>" 
-                                $("#restorebankTable").append(bankStr);
-                            }
-                        });
-                    }
+                var CompID=bankResult.companyId;
+                var admin_bank_Id =bankResult.bankData[j][i]._id;
+                var bankName =bankResult.bankData[j][i].bankName;
+                var bankAddresss =bankResult.bankData[j][i].bankAddresss;
+                var accountHolder =bankResult.bankData[j][i].accountHolder;
+                if(accountHolder !="" || accountHolder != null)
+                {
+                    accountHolder=accountHolder;
                 }
-                // var items=lentData.length;
-                // Paginator(items);
-                
+                else
+                {
+                    accountHolder="------";
+                }
+                var accountNo =bankResult.bankData[j][i].accountNo;
+                var routingNo =bankResult.bankData[j][i].routingNo;
+                // var openingBalDate =bankResult.bankData[j][i].openingBalDate;
+                var openingBalance =bankResult.bankData[j][i].openingBalance;
+                var openingBalance=parseFloat(openingBalance).toFixed(2);
+                var currentBalance =bankResult.bankData[j][i].currentBalance;
+                var currentBalance=parseFloat(currentBalance).toFixed(2);
+                var deleteStatus =bankResult.bankData[j][i].deleteStatus;
+
+                if(deleteStatus == "YES")
+                {
+                    lentData.push(i);
+                            var bankStr = "<tr data-id=" + (i + 1) + ">" +
+                            "<td data-field='no'><input type='checkbox' class='check_BankDetails_one' name='all_BankDetails_id[]'  date-compID="+CompID+"  value="+admin_bank_Id+"></td>" +
+                            "<td data-field='bankName' >" + bankName + "</td>" +
+                            "<td data-field='bankAddresss' >" + bankAddresss + "</td>" +
+                            "<td data-field='accountHolder' >" + accountHolder + "</td>" +
+                            "<td data-field='accountNo' >" + accountNo + "</td>" +
+                            "<td data-field='routingNo' >" + routingNo + "</td>" +
+                            "<td data-field='openingBalDate' >" + openingBalDate + "</td>" +
+                            "<td data-field='openingBalance' >$ " + openingBalance + "</td>" +
+                            
+                            "<td data-field='currentBalance' >$ " + currentBalance + "</td></tr>";
+
+                        $("#restorebankTable").append(bankStr);
+                        no++;
+                    }
+                   
+                });
             }
-            else 
-            {
-                var bankStr = "<tr data-id=" + i + ">" +
-                    "<td align='center' colspan='4'>No record found.</td>" +
-                    "</tr>";
-            
-                    $("#restorebankTable").append(bankStr);
-            }
-        
         }
         else 
         {
@@ -627,6 +630,7 @@ $(document).ready(function() {
         {
             $('.check_BankDetails_one:checkbox').each(function() {
                 this.checked = false;
+                 BankDetailsCheckboxRestore();
             });
         }
     });
@@ -685,29 +689,36 @@ $(document).ready(function() {
     });
     //-=========================  end restore bank =====================================
     //================== export data ===================================
-    $("#admin_bank_export").click(function(){
+    $("#exportBankDetails").click(function(){
         $.ajax({
-            type: "GET",
+            type:"post",
+            data:{_token:$("#_tokenAdd_update_bank_data").val()},
             url: base_path+"/admin/export_Bank_A",
-            async: false,
-            success: function(text) 
-            {
+            success: function(data) {   
                 var rows = JSON.parse(data);
-                JSONToCSVConvertor(rows, "AdminBank Report", false);
-                // $("#bankDataTablePagi").table2excel({
-                //     exclude:".noExl",
-            
-                //     name:"Worksheet Name",
-         
-                //     filename:"SomeFile",//do not include extension
-           
-                //     fileext:".xls" // file extension
-                
-                //   });
+            JSONToCSVConvertor(rows, "AdminBank Report", true);
             }
         });
-       
-            
     });
     //===================== end export ===================================
+
+    // search ==================================================
+    // function searchCreditCard(searchValue) 
+    // {
+    //     var search_by="displayName";
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path+"/admin/getcreditCard",
+    //         async: false,
+    //         data:{search_by:search_by,searchValue:searchValue},
+    //         success: function(text) {
+    //             creditCardResult=text;
+    //             createCreditCardRows(creditCardResult);
+    //         }
+    //     });
+    // }
+    // $("#search").keyup(function(){
+    //     var searchValue=$("#search").val();
+    //     searchCreditCard(searchValue);
+    // });
 });

@@ -13,9 +13,8 @@
                 <div style="margin-top: 15px; margin-left: 15px;">
                     <a href="#" class="button-57 createCreaditCardBtn" data-toggle="modal"data-target="#"><i class="fa fa-plus" aria-hidden="true"></i><span>Add</span></a>
                     <a href="#" class="button-57_alt restoreCreditCartBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>
-                    <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" data-name="cus_search"
-                        type="text" id="search"  placeholder="search"
-                        style="margin-left: 5px;">
+                    
+                    <!-- <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" data-name="cus_search" type="text" id="search"  placeholder="search" style="margin-left: 5px;"> -->
 
                 </div>
                 <!-- Modal body -->
