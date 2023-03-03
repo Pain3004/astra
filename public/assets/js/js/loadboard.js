@@ -121,18 +121,8 @@ $(document).ready(function() {
     dataTable.column(7).search(status).draw();
   })
 //-- -------------------------------------------------------------------------    -- -------------------------------------------------------------------------
-// $('.nav-item-custom').click(function(){
-  
-//   if ($('.shipper, .list-anchors').hasClass('active')) {
-//     console.log('aa');
-//     $('.nav-item-custom').css('color','blue');
-//     }
-//     else {
-//       $('.nav-item-custom').css('color','white');
-    
-//     }
-// });
-$("#lb_shipperName").select2({
+
+$("#lb_shipperName, #lb_Company").select2({
   placeholder: "Select a programming language",
   allowClear: true,
   dropdownParent: $('#addLoadBoardModal')
@@ -253,11 +243,11 @@ $.ajax({
 
                           //set Carrier/Driver/Owner Operator
                           if (typeofloader == "Carrier") {
-                            var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra1'>Carrier</h6>`";
+                            var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra1'>Carrier</h6>";
                           }else if (typeofloader == "Driver") {
-                            var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra2'>Driver</h6>`";
+                            var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra2'>Driver</h6>";
                           }else if (typeofloader == "Owner Operator") {
-                            var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra3'>Owner Operator</h6>`";
+                            var carrier_driver_ownerOperator =carrier_driver_ownerOperator+"<h6 class='extra3'>Owner Operator</h6>";
                           }
                           
                          //set tooltip
@@ -357,10 +347,12 @@ $.ajax({
                         //---------------------------------- 
                         //show first 5 charecter of orderId
                         var order_id = orderId;
-                        if( order_id.length >= 5 ) {
-                          order_id = order_id.substr(0,5);
-                          order_id = order_id+"..."
-                        }
+                        // if(isset(order_id)){
+                          if( order_id.length >= 5 ) {
+                            order_id = order_id.substr(0,5);
+                            order_id = order_id+"..."
+                          }
+                        // }
                         //----------------------------------
                         //show first 3 trailer of orderId
                         var _trailer = trailer;
@@ -478,7 +470,13 @@ $.ajax({
  
     $('#addLoadBoardModal').modal('show');
   }); 
-     $('.companyListSet').focus(function(){
+  $("#lb_Company").select2({
+    placeholder: "Select a programming language",
+    allowClear: true,
+    dropdownParent: $('#addLoadBoardModal')
+  });
+  $('#lb_Company').on('click', function(event){
+      alert();
       $.ajax({
         type: "GET",
         url: base_path+"/admin/lbcompany",
@@ -494,7 +492,6 @@ $.ajax({
       
       if (Result != null) {
           Length = Result.company.length;
-          console.log(Length);
       }
 
       if (Length > 0) {
@@ -780,24 +777,28 @@ $.ajax({
       
   }
 
-  $("#LBTrailerPlus").click(function(){
+  $("#LBTrailerPlus1").click(function(){
+    $("#addLoadBoardModal").css("z-index","-1");
+    $("#addTrailerModal").modal("show");
+  });
+  $("#LBTrailerPlus2").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
     $("#addTrailerModal").modal("show");
   });
 // <!-- -------------------------------------------------------------------------over get Trailer  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Truck for add new loadboard ------------------------------------------------------------------------- -->  
-$('.TruckListSet').focus(function(){
-  $.ajax({
-      type: "GET",
-      url: base_path+"/admin/Truck",
-      async: false,
-      success: function(Result) { 
-        createTruckList(Result);
-      }
+  $('.TruckListSet').focus(function(){
+    $.ajax({
+        type: "GET",
+        url: base_path+"/admin/Truck",
+        async: false,
+        success: function(Result) { 
+          createTruckList(Result);
+        }
+    });
   });
-});
 
-function createTruckList(Result) {           
+  function createTruckList(Result) {           
     var Length = 0;    
     
     if (Result != null) {
@@ -822,7 +823,7 @@ function createTruckList(Result) {
           }
     }
     
-}
+  }
 
 
 // <!-- -------------------------------------------------------------------------over get Truck  ------------------------------------------------------------------------- -->
@@ -838,7 +839,7 @@ function createTruckList(Result) {
 //   });
 // });
 $("#lb1_shipperName").change(function(){
-  alert();
+  // alert();
   //var id=$("#LB_Shipper").val();
   var Shipper=$('#lb_shipperName').val().split('-');
   
@@ -881,29 +882,25 @@ $("#lb_shipperName").change(function(){
   var Shipper=$('#lb_shipperName').val().split('-');
  
   $("#shipperId").val(Shipper[0]);
-  $("#shipperaddress0").val(Shipper[1]);
-  $("#activeshipper0").val(Shipper[2]);
-
+  $("#shipperaddress").val(Shipper[1]);
+  $("#activeshipper").val(Shipper[2]);
+  
 });
 
 
-
+$("#consigneelist").change(function(){
+  //var id=$("#LB_Shipper").val();
+  var Shipper=$('#consigneelist').val().split('-');
+ 
+  //$("#shipperId").val(Shipper[0]);
+  $("#consigneeaddress").val(Shipper[1]);
+  $("#activeconsignee").val(Shipper[2]);
+  
+});
   
 // <!-- -------------------------------------------------------------------------over shipper Truck  ------------------------------------------------------------------------- -->
 
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
-$("#fsc_percentage").click(function(){
-  var rate=parseInt($('#rateAmount').val());
-  var fsc=parseInt($('#fsc').val());
-  if ($("#fsc_percentage").is(":checked")) 
-    {
-      var percen = parseFloat(rate+((rate * fsc) / 100)).toFixed(2);
-      $('#totalAmount').val(percen);
-    }else{
-      var percen = rate + fsc;
-      $('#totalAmount').val(percen);
-    }
-});
 
 $("#addLBSubmit").click(function(){
 
@@ -920,6 +917,7 @@ $("#addLBSubmit").click(function(){
     var ownertruck='';
     var ownertrailer='';
     var totalAmount='';
+    var cnno='';
 
     var company=$('#lbCompany').val();
     var LB_Customer=$('#LB_Customer').val().split('-');
@@ -961,8 +959,10 @@ $("#addLBSubmit").click(function(){
    
     if ($("#Driver").is(":checked")){
         var typeofloader = 'Driver';
-    }else{
+    } else if($("#OwnerOperator").is(":checked")){
       var typeofloader = 'Owner Operator';
+    }else{
+      var typeofloader = ' ';
     } 
     //carrier
     var carrier_name='';
@@ -1116,28 +1116,70 @@ $("#addLBSubmit").click(function(){
         },
         cache: false,
         success: function(Result){
-            // if(Result){
-            //     swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
-            //     $("#addLoadBoardModal").css("z-index","100000000000");
-            //     $("#addLoadTypeModal").modal("hide");
-            //     $("#addLoadTypeModal form").trigger('reset');
-            //     $.ajax({
-            //         type: "GET",
-            //         url: base_path+"/admin/getLoadType",
-            //         async: false,
-            //         success: function(text) {
-            //             console.log(text);
-            //             createLoad_typeRows(text);
-            //           }
-            //     });
-            //     $('#LoadModal').modal('show');
-            // }else{
-            //     swal.fire(" Not Added successfully.");
-            // }
+            if(Result){
+                swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                // $("#addLoadBoardModal").css("z-index","100000000000");
+                $("#addLoadBoardModal").modal("hide");
+                $("#addLoadBoardModal form").trigger('reset');
+                  $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/getLoadboardData",
+                    async: false,
+                    //dataType:JSON,
+                    success: function(text) {
+                        createLoadBoardRows(text);
+                      }
+                  });
+                // $('#LoadModal').modal('show');
+            }else{
+                swal.fire(" Not Added successfully.");
+            }
         }
     });
 
   });
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 
+
+  $('.OwnerOperatorlist').hide();
+  $('.Carrierlist').hide();
+  
+  $('.Driverlist').hide();
+  
+  $('input:radio[name="country"]').change(
+    function() {
+    
+    if ($(this).is(':checked') && $(this).val() == 'Driver')
+    {
+      $('.Carrierlist').hide();
+      $('.Driverlist').show();
+      $('.OwnerOperatorlist').hide();
+    }
+    
+    else if ($(this).is(':checked') && $(this).val() == 'OwnerOperator')
+    {
+      $('.Carrierlist').hide();
+      $('.Driverlist').hide();
+      $('.OwnerOperatorlist').show();
+    }
+    
+    else if ($(this).is(':checked') && $(this).val() == 'Carrier')
+    {
+      $('.Carrierlist').show();
+      $('.Driverlist').hide();
+      $('.OwnerOperatorlist').hide();
+    }
+    
+    else {
+      $('.Carrierlist').hide();
+      $('.Driverlist').hide();
+      $('.OwnerOperatorlist').hide();
+    }
+    
+    }
+  );
+  
+  
+  
+  
 });

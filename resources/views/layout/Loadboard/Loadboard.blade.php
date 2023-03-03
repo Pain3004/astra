@@ -251,10 +251,18 @@
                                                 @csrf
                                                 <div class="form-row">
                                                     <div class="form-group col-md-3">
+
                                                         <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span> </label>
-                                                        <div class="dropdown show">
+                                                        <!-- <div class="dropdown show">
                                                             <input class="form-control companyListSet" list="companyListSet"   id="lb_Company" placeholder="Search Here">
-                                                            <datalist id="companyListSet" class="companyListSet"></datalist>    
+                                                            <datalist id="companyListSet" class="companyListSet"></datalist>  
+                                                        </div> -->
+
+                                                        <!-- <input   type="hidden" id="shipperId" name="shipperId"> -->
+                                                        <div class="form-group">
+                                                            <select class="form-control select2-show-search form-select companyListSet" list="companyListSet" id="lb_Company" >
+                                                            <option>Select Here </option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -304,12 +312,11 @@
                                                     <div class="form-group col-md-1">
                                                         <label for="rateAmount">Rate <span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input class="form-control" placeholder="Rate" type="number" id="rateAmount"  value="" >
+                                                        <input class="form-control" placeholder="Rate" type="number" id="rateAmount"  value="" onkeyup="getTotal()">
                                                     </div>
                                                     <div class="form-group col-md-1">
                                                         <label for="units"># of Units</label>
-                                                        <input type="text" class="form-control telephone4"
-                                                            id="units" placeholder="Units">
+                                                        <input type="text" class="form-control telephone4" id="units" placeholder="Units" onkeyup="getTotal()">
                                                     </div>
 
                                                     <div class="form-group col-md-2">
@@ -347,7 +354,7 @@
                                                 <!-- -------------------- Radio Buttons ------------------- -->
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
-                                                        <div>
+                                                        <!-- <div>
                                                             <input type="radio" name="radio_buttons" value="Driver" id="Driver">
                                                             <label for="Driver">Driver</label>
                                                         </div>
@@ -356,7 +363,59 @@
                                                             <label for="OwnerOperator">OwnerOperator</label>
                                                         </div>
                                                     </div>
-                                                    
+                                                    <div> -->
+                                                        <div>
+                                                            <input type="radio" name="country" value="Carrier" id="Carrier">
+                                                            <label for="Carrier">Carrier</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="radio" name="country" value="Driver" id="Driver">
+                                                            <label for="Driver">Driver</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="radio" name="country" value="OwnerOperator" id="OwnerOperator">
+                                                            <label for="OwnerOperator">OwnerOperator</label>
+                                                        </div>
+                                                    </div>
+                                                    <!-- --------------carrier radio list------------ -->
+
+                                                    <div class="form-group col-md-2 Carrierlist">
+                                                        <label>Carrier Name   <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCarrierPlus" style='color:blue !important'></i>
+                                                        </label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control CarrierListSet" list="CarrierListSet" name="" id="LB_Carrier" placeholder="Search Here">
+                                                            <datalist id="CarrierListSet" class="CarrierListSet"></datalist>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-2 Carrierlist">
+                                                        <label>Flat Rate</label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control CarrierListSet" list="CarrierListSet" name="" id="LB_Carrier" placeholder="Search Here">
+                                                            <datalist id="CarrierListSet" class="CarrierListSet"></datalist>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-2 Carrierlist">
+                                                        <label>Advance Charges   <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCarrierPlus" style='color:blue !important'></i>
+                                                        </label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control CarrierListSet" list="CarrierListSet" name="" id="LB_Carrier" placeholder="Search Here">
+                                                            <datalist id="CarrierListSet" class="CarrierListSet"></datalist>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-2 Carrierlist">
+                                                        <label>Total</label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control CarrierListSet" list="CarrierListSet" name="" id="LB_Carrier" placeholder="Search Here">
+                                                            <datalist id="CarrierListSet" class="CarrierListSet"></datalist>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-2 Carrierlist">
+                                                        <label>Currency</label>
+                                                        <div class="dropdown show">
+                                                            <input class="form-control CarrierListSet" list="CarrierListSet" name="" id="LB_Carrier" placeholder="Search Here">
+                                                            <datalist id="CarrierListSet" class="CarrierListSet"></datalist>
+                                                        </div>
+                                                    </div>
                                                     <!-- --------------driver radio list------------ -->
                                                     <div class="form-group col-md-2 Driverlist">
                                                             <label>Driver Name &nbsp;<i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i></label>
@@ -374,7 +433,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 Driverlist">
-                                                    <label>Trailer &nbsp;<i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus" style='color:blue !important'></i></label>                                                        <div class="dropdown show">
+                                                    <label>Trailer &nbsp;<i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus1" style='color:blue !important'></i></label>                                                        <div class="dropdown show">
                                                         <input class="form-control TrailerListSet" list="TrailerListSet"  id="LB_Trailer" placeholder="Search Here">
                                                             <datalist id="TrailerListSet" class="TrailerListSet"></datalist>    
                                                         </div>
@@ -438,7 +497,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 OwnerOperatorlist">
-                                                    <label>Trailer &nbsp;<i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus" style='color:blue !important'></i></label>                                                        <div class="dropdown show">
+                                                    <label>Trailer &nbsp;<i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus2" style='color:blue !important'></i></label>                                                        <div class="dropdown show">
                                                         <input class="form-control TrailerListSet" list="TrailerListSet"  id="lb_owner_trailer" placeholder="Search Here">
                                                             <datalist id="TrailerListSet" class="TrailerListSet"></datalist>    
                                                         </div>
@@ -512,7 +571,7 @@
                                                                     <div class="row m-2">
                                                                         <div class="form-group col-md-3">
                                                                             <label>Name*</label>
-                                                                            <!-- <input   type="hidden" id="shipperId" name="shipperId"> -->
+                                                                            <input   type="hidden" id="shipperId" name="shipperId">
                                                                             <div class="form-group">
                                                                                 <select class="form-control select2-show-search form-select lb_shipperName" id="lb_shipperName" name="shipperName[]">
                                                                                 <option>Select Here </option>
@@ -522,13 +581,13 @@
                                                                         <div class="form-group col-md-2">
                                                                             <label>Address*</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Address *" type="text" id="shipperaddress0" name="shipperaddress[]">
+                                                                                <input class="form-control" placeholder="Address *" type="text" id="shipperaddress" name="shipperaddress[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
                                                                             <label>Location *</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Enter a location" type="text" id="activeshipper0" name="shipperLocation[]">
+                                                                                <input class="form-control" placeholder="Enter a location" type="text" id="activeshipper" name="shipperLocation[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
@@ -583,7 +642,7 @@
                                                                         <div class="form-group col-md-1">
                                                                             <label>Sr#</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Sr#" type="number" id="shipseq0" name="shipseq[]" value="0">
+                                                                                <input class="form-control" placeholder="Sr#" type="number" id="shipseq" name="shipseq[]" value="0">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-4">
@@ -629,20 +688,23 @@
                                                                     <div class="form-group col-md-3">
                                                                         <label>Name*</label>
                                                                         <div class="dropdown show">
-                                                                            <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here">
-                                                                            <datalist id="consigneee" name="consignee[]"></datalist>    
+                                                                            <!-- <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here">
+                                                                            <datalist id="consigneee" name="consignee[]"></datalist>  -->
+                                                                            <select class="form-control select2-show-search form-select  lb_shipperName" id="consigneelist" name="shipperName[]">
+                                                                                <option>Select Here </option>
+                                                                            </select>  
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group col-md-2">
                                                                         <label>Address*</label>
                                                                         <div>
-                                                                        <input class="form-control" placeholder="Address *" type="text" id="consigneeaddress0" name="consigneeaddress[]">
+                                                                        <input class="form-control" placeholder="Address *" type="text" id="consigneeaddress" name="consigneeaddress[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
                                                                             <label>Location *</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Enter a location" type="text" onkeydown="getLocation('activeconsignee0')" id="activeconsignee0" name="activeconsignee[]">
+                                                                                <input class="form-control" placeholder="Enter a location" type="text" onkeydown="getLocation('activeconsignee')" id="activeconsignee" name="activeconsignee[]">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-2">
@@ -699,7 +761,7 @@
                                                                         <div class="form-group col-md-1">
                                                                             <label>Sr#</label>
                                                                             <div>
-                                                                                <input class="form-control" placeholder="Sr#" type="number" id="consigseq0" name="consigseq[]" value="0">
+                                                                                <input class="form-control" placeholder="Sr#" type="number" id="consigseq" name="consigseq[]" value="0">
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group col-md-4">
@@ -730,9 +792,8 @@
                                                         <div class="form-group col-md-2 ">
                                                             <label>Calculate Miles</label>
                                                             <div>
-                                                                <button id="calcmiles" class="button-29" type="button">
-                                                                    <span class="spinner-border spinner-border-sm loader1" role="status"
-                                                                        style="display:none"></span>
+                                                                <button id="calcmiles" class="button-29" type="button" onclick="calculateMiles()">
+                                                                    <span class="spinner-border spinner-border-sm loader1" role="status" style="display:none"></span>
                                                                     Calculate Miles
                                                                 </button>
                                                             </div>
@@ -755,21 +816,49 @@
                                                                 <input class="form-control" placeholder="Driver Miles" type="text" id="drivermiles" value="0">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group col-md-2 carrier">
-                                                            <label>Driver Name</label>
-                                                            <div>
-                                                                <input class="form-control" placeholder="Driver Name" type="text" id="brokerdrivername">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-2 carrier">
+                                                                <label>Driver Name</label>
+                                                                <div>
+                                                                    <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-2 carrier">
+                                                                <label>Driver Name</label>
+                                                                <div>
+                                                                    <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-2 carrier">
+                                                                <label>Driver Name</label>
+                                                                <div>
+                                                                    <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-2 carrier">
+                                                                <label>Trailer</label>
+                                                                <div>
+                                                                    <input class="form-control" placeholder="Trailer" type="text" id="">
+                                                                </div>
+                                                            </div>
+                                                        <!-- </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
                                                             <label>Load Notes</label>
                                                             <div>
                                                                 <input class="form-control" placeholder="Load Notes" type="text" id="loadnotes">
                                                             </div>
                                                         </div>
+                                                            </div> -->
+                                                            <div class="form-group col-md-6">
+                                                                <label>Load Notes</label>
+                                                                <div>
+                                                                    <input class="form-control" placeholder="Load Notes" type="text" id="loadnotes">
+                                                                </div>
+                                                            </div>
 
+                                                        </div>
                                                     </div>
-                                                </div>
 
                                                 <div class="form-row">
                                                     <div class="upload-button carrier">
@@ -1170,7 +1259,7 @@ function removeTab(mainid, contentid) {
   var newcomponent;
   var newcomponent1;
   if (mainid == "home-title^0") {
-    swal({
+    swal.fire({
       title: "First Shipper Cannot be removed!!",
       type: "warning",
       type: "info",
@@ -1217,7 +1306,7 @@ function removeTab(mainid, contentid) {
     newcomponent1.classList.add("active");
     renameShipper();
   } else {
-    swal({
+    swal.fire({
       title: "First Shipper Cannot be removed!!",
       type: "warning",
       type: "info",
@@ -1427,7 +1516,7 @@ function removeConsignee(mainid, contentid) {
   var newcomponent;
   var newcomponent1;
   if (mainid == "consig-title^0") {
-    swal({
+    swal.fire({
       title: "First Consignee Cannot be removed!!",
       type: "warning",
       type: "info",
@@ -1476,7 +1565,7 @@ function removeConsignee(mainid, contentid) {
     newcomponent1.classList.add("active");
     renameConsignee();
   } else {
-    swal({
+    swal.fire({
       title: "First Consignee Cannot be removed!!",
       type: "warning",
       type: "info",
@@ -1495,6 +1584,193 @@ function removeConsignee(mainid, contentid) {
 $('.LBshipper').click(function(){
    alert(); 
 });
+//-----------------------total-----------------
+function getTotal() {
+    var rateAmount = document.getElementById('rateAmount').value;
+    var noOfUnits = document.getElementById('units').value;
+    var fsc = document.getElementById('fsc').value;
+    var totalAmount = document.getElementById('totalAmount');
+    var ratePercentage = document.getElementById('fsc_percentage');
+    var otherCharges = document.getElementById('MainOtherCharges').value;
+
+    if (rateAmount != "" && noOfUnits == "" && fsc == "" && otherCharges == "") {
+        totalAmount.value = parseFloat(rateAmount).toFixed(2);
+       //$('#totalAmount').val(totalAmountvalue);
+    }
+
+    if (noOfUnits != "" && fsc == "") {
+        if (rateAmount != "") {
+            totalAmount.value = parseFloat(rateAmount * noOfUnits).toFixed(2);
+            //$('#totalAmount').val(totalAmountvalue);
+        } else {
+            swal.fire({
+                title: 'Warning!',
+                text: "Rate cannot be empty",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonClass: 'btn btn-danger ml-2',
+            });
+
+        }
+    }
+    if (fsc != "" && otherCharges == "") {
+        if (ratePercentage.checked == true) {
+            if (rateAmount != "") {
+                var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(rateAmount * fsc) / 100 : parseFloat(parseFloat(rateAmount * noOfUnits) + (parseFloat(rateAmount * noOfUnits * fsc) / 100));
+                totalAmount.value = total.toFixed(2);
+                //$('#totalAmount').val(totalAmountvalue);
+            } else {
+                swal.fire({
+                    title: 'Warning!',
+                    text: "Rate cannot be empty",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                });
+            }
+        } else {
+            if (rateAmount != "") {
+                if (typeof (rateAmount) == 'number') {
+                    var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseInt(rateAmount * noOfUnits) + parseInt(fsc);
+                    totalAmount.value = total.toFixed(2);
+                    //$('#totalAmount').val(totalAmountvalue);
+                } else {
+                    var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseFloat(rateAmount * noOfUnits) + parseFloat(fsc);
+                    totalAmount.value = total.toFixed(2);
+                    //$('#totalAmount').val(totalAmountvalue);
+                }
+            } else {
+                swal.fire({
+                    title: 'Warning!',
+                    text: "Rate cannot be empty",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                });
+            }
+        }
+    }
+
+    if (otherCharges != "") {
+        if (ratePercentage.checked == true) {
+            if (rateAmount != "") {
+                var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(rateAmount * fsc) / 100 + parseFloat(otherCharges) : parseFloat(parseFloat(rateAmount * noOfUnits) + (parseFloat(rateAmount * noOfUnits * fsc) / 100) + parseFloat(otherCharges));
+                totalAmount.value = total.toFixed(2);
+                //$('#totalAmount').val(totalAmountvalue);
+            } else {
+                swal.fire({
+                    title: 'Warning!',
+                    text: "Rate cannot be empty",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                });
+            }
+        } else {
+            if (rateAmount != "") {
+                var total = noOfUnits == "" ? parseFloat(rateAmount) + getFSC(fsc) + parseFloat(otherCharges) : parseInt(rateAmount * noOfUnits) + getFSC(fsc) + parseFloat(otherCharges);
+                totalAmount.value = total.toFixed(2);
+                ////$('#totalAmount').val(totalAmountvalue);
+
+            } else {
+                swal.fire({
+                    title: 'Warning!',
+                    text: "Rate cannot be empty",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                });
+            }
+        }
+    }
+}
+//-----------------------end total-----------------
+//-----------------------calculateMiles-----------------
+function calculateMiles() {
+  $(".loader1").css("display", "inline-block");
+  document.getElementById("drivermiles").value = 0;
+  document.getElementById("loadedmiles").value = 0;
+  document.getElementById("emptymiles").value = 0;
+  var shipLoc = document.getElementsByName("activeshipper");
+  var shipseq = document.getElementsByName("shipseq");
+  var consigLoc = document.getElementsByName("activeconsignee");
+  var consigseq = document.getElementsByName("consigseq");
+  var locations = [];
+  var startFlag = 0;
+  var endflag = 0;
+  if (startLocation != "") {
+    locations.push({ seq: "0", location: startLocation });
+    startFlag = 1;
+  }
+  for (var i = 0; i < shipLoc.length; i++) {
+    if (shipLoc[i].value == "") {
+      swal.fire({
+        title:
+          "<h5>One of the shipper's location is empty. Please fill it to continue</h5>",
+        type: "warning",
+        type: "info",
+        html: "",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Continue!",
+        cancelButtonText: "No, cancel!",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger ml-2",
+        buttonsStyling: false,
+      });
+      $(".loader1").css("display", "none");
+      return;
+    }
+    locations.push({ seq: shipseq[i].value, location: shipLoc[i].value });
+  }
+  for (var i = 0; i < consigLoc.length; i++) {
+    if (consigLoc[i].value == "") {
+      swal.fire({
+        title:
+          "<h5>One of the consignees's location is empty. Please fill it to continue</h5>",
+        type: "warning",
+        type: "info",
+        html: "",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Continue!",
+        cancelButtonText: "No, cancel!",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger ml-2",
+        buttonsStyling: false,
+      });
+      $(".loader1").css("display", "none");
+      return;
+    }
+    locations.push({ seq: consigseq[i].value, location: consigLoc[i].value });
+  }
+
+  if (endLocation != "") {
+    locations.push({ seq: "300", location: endLocation });
+    endflag = 1;
+  }
+
+  if (locations.length <= 1) {
+    swal.fire({
+      title: "<h5>There should be atleast one shipper and one consignee</h5>",
+      type: "warning",
+      type: "info",
+      html: "",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Continue!",
+      cancelButtonText: "No, cancel!",
+      confirmButtonClass: "btn btn-success",
+      cancelButtonClass: "btn btn-danger ml-2",
+      buttonsStyling: false,
+    });
+    return;
+  }
+  locations.sort(compare);
+  var waypts = [];
+  for (var i = 0; i < locations.length; i++) {
+    waypts.push({ location: locations[i].location, stopover: true });
+  }
+  calcRoute(waypts, startFlag, endflag);
+}
+//-----------------------end calculateMiles-----------------
 </script>
 
 <!-------------------------------------------------------------------End modal------------------------------------------------------------------->		
