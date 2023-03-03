@@ -19,29 +19,23 @@ $(document).ready(function() {
                 $(".creditCardTypeAll").html();
                 if (text != null) {
                     $(".creditCardTypeAll").html();
-                    creditCardlen = text.length;
+                    creditCardlen = text.arrData1.admin_credit.length;
                     if (creditCardlen > 0) {
                         for (var i = creditCardlen-1; i >= 0; i--) { 
-                            admin_credit_len = text[i].admin_credit.length;
-                            if (admin_credit_len > 0) {
-                                for (var j = admin_credit_len-1; j >= 0; j--) {
-                                    var admin_bank_Id =text[i].admin_credit[j]._id;
-                                    var  Name=text[i].admin_credit[j].displayName;
-                                    var deleteStatus =text[i].admin_credit[j].deleteStatus;
-    
-                                    if(deleteStatus == "NO")
-                                    {
-                                        var html="<option value='"+admin_bank_Id+"'>"+Name+"</option>";
-                                        $(".creditCardTypeAll").append(html);
-                                    }
-                                }
+                            // admin_credit_len = text[i].admin_credit.length;
+                            var admin_bank_Id =text.arrData1.admin_credit[i]._id;
+                            var  Name=text.arrData1.admin_credit[i].Name;
+                            var deleteStatus=text.arrData1.admin_credit[i].deleteStatus;
+                            if(deleteStatus == "NO")
+                            {
+                                var html="<option value='"+admin_bank_Id+"'>"+Name+"</option>";
+                                $(".creditCardTypeAll").append(html);
                             }
                         }
                     }
                 }    
             }
         });
-
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getsubCreditCard",
@@ -49,7 +43,7 @@ $(document).ready(function() {
             //dataType:JSON,
             success: function(text) {
                 //alert();
-                console.log(text);
+                // console.log(text);
                 createSubCreditCardRows(text);
                 subCreditCardResult = text;
               }
@@ -68,13 +62,14 @@ $(document).ready(function() {
         //alert(FuelVendorResult);
             if (subCreditCardResult != null) {
                 $("#subCreditCardTable").html('');
-                subCreditCardlen = subCreditCardResult.SubCreditCard.length;
-                CreditCardlen = subCreditCardResult.CreditCard.length;
+                console.log(subCreditCardResult);
+                subCreditCardlen = subCreditCardResult[0]["mainID"].sub_credit;
+                // console.log(subCreditCardlen);
+                // subCreditCardlen = subCreditCardResult.CreditCard.length;
                 if (subCreditCardlen > 0) {
                     for (var i = subCreditCardlen-1; i >= 0; i--) { 
                         
-                        sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
-                        //alert(sub_credit_len);
+                       var sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
                         var Id =subCreditCardResult.SubCreditCard[i]._id;
                         var sub_cred_com_Id =subCreditCardResult.SubCreditCard[i].companyID;
 

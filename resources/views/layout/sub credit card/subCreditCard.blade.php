@@ -16,9 +16,8 @@
                     <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
                     <a href="#" class=" contract_categoryModal button-57_alt" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a> -->
                     <div class="searchbar" style="float: right; margin-right: 15px;">
-                        <input type="text" placeholder="search" />
-                        <!-- <div class="symbol">
-                            
+                        <!-- <input type="text" placeholder="search" /> -->
+                        <!-- <div class="symbol">                            
                             <svg class="lens">
                             <use xlink:href="#lens" />
                             </svg>

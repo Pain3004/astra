@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SubCreditCardAdmin;
+use App\Models\SubCreditCard;
 use App\Models\CreditCard;
+use App\Models\CreditCardAdmin;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
@@ -19,139 +20,46 @@ class SubCreditCardController extends Controller
 {
     public function getsubCreditCard(Request $request){
         $companyID=(int)Auth::user()->companyID;
-    //     $SubCreditCard = SubCreditCardAdmin::where('companyID',$companyId)->get(); 
-    //     $CreditCard = CreditCardAdmin::where('companyID',$companyId)->get();  
-    //    return response()->json(['SubCreditCard'=>$SubCreditCard, 'CreditCard'=>$CreditCard], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-
-
-
-
-        // $collection = $db->driver;
-        $show1 = SubCreditCardAdmin::raw()->aggregate([
-            ['$lookup' => [
-                'from' => 'credit_card_admin',
-                'localField' => 'companyID',
-                'foreignField' => 'companyID',
-                'as' => 'subCreditCardDetails'
-            ]],
+        $total_records = 0;
+        $cursor = SubCreditCard::raw()->aggregate([
             ['$match' => ['companyID' => $companyID]],
-            ['$unwind' => '$driver'],
-            ['$match' => ['sub_credit.mainCard' => 'admin_credit._id']],
+            ['$project' => ['size' => ['$size' => ['$sub_credit']],
+            ]]
         ]);
-    
-        foreach ($show1 as $row) {
-            $id = $row['_id'];
-            dd($id);
-            $sub_credit_card[$id] = $row['sub_credit'];
-            $driverDetails = $row['DriverDetail'];
-            foreach ($driverDetails as $row3) {
-                $currency = $row3['currency'];
-                $currencyType = array();
-                foreach ($currency as $c) {
-                    $currencyId = $c['_id'];
-                    $currencyType[$currencyId] = $c['currencyType'];
-                }
-            }
-            foreach ($driver as $row2) {
-                $row2['masterID'] = $id;
-                if (empty($row2['dateOfbirth'])) {
-                    $row2['dateOfbirth'] = '';
-                } else {
-                    $row2['dateOfbirth'] = date("Y-m-d", $row2['dateOfbirth']);
-                }
-
-                if (empty($row2['dateOfhire'])) {
-                    $row2['dateOfhire'] = '';
-                } else {
-                    $row2['dateOfhire'] = date("Y-m-d", $row2['dateOfhire']);
-                }
-
-                if (empty($row2['driverLicenseExp'])) {
-                    $row2['driverLicenseExp'] = '';
-                } else {
-                    $row2['driverLicenseExp'] = date("Y-m-d", $row2['driverLicenseExp']);
-                }
-
-                if (empty($row2['driverLastMedical'])) {
-                    $row2['driverLastMedical'] = '';
-                } else {
-                    $row2['driverLastMedical'] = date("Y-m-d", $row2['driverLastMedical']);
-                }
-
-                if (empty($row2['driverNextMedical'])) {
-                    $row2['driverNextMedical'] = '';
-                } else {
-                    $row2['driverNextMedical'] = date("Y-m-d", $row2['driverNextMedical']);
-                }
-
-                if (empty($row2['driverLastDrugTest'])) {
-                    $row2['driverLastDrugTest'] = '';
-                } else {
-                    $row2['driverLastDrugTest'] = date("Y-m-d", $row2['driverLastDrugTest']);
-                }
-
-                if (empty($row2['driverNextDrugTest'])) {
-                    $row2['driverNextDrugTest'] = '';
-                } else {
-                    $row2['driverNextDrugTest'] = date("Y-m-d", $row2['driverNextDrugTest']);
-                }
-
-                if (empty($row2['passportExpiry'])) {
-                    $row2['passportExpiry'] = '';
-                } else {
-                    $row2['passportExpiry'] = date("Y-m-d", $row2['passportExpiry']);
-                }
-
-                if (empty($row2['fastCardExpiry'])) {
-                    $row2['fastCardExpiry'] = '';
-                } else {
-                    $row2['fastCardExpiry'] = date("Y-m-d", $row2['fastCardExpiry']);
-                }
-
-                if (empty($row2['hazmatExpiry'])) {
-                    $row2['hazmatExpiry'] = '';
-                } else {
-                    $row2['hazmatExpiry'] = date("Y-m-d", $row2['hazmatExpiry']);
-                }
-
-                if (empty($row2['terminationDate'])) {
-                    $row2['terminationDate'] = '';
-                } else {
-                    $row2['terminationDate'] = date("Y-m-d", $row2['terminationDate']);
-                }
-                $row2['currencyID'] = $row2['currency'];
-                $row2['currency'] = $currencyType[$row2['currency']];
-                $i = 0;
-                $j = 0;
-                foreach ($row2['recurrenceSubtract'] as $subRecArr) {
-                    $row2['installmentSub'][] = $subRecArr['installmentCategoryStore'];
-                    $row2['installmentTypSub'][] = $subRecArr['installmentTypeStore'];
-                    $row2['amountStoSub'][] = $subRecArr['amountStore'];
-                    $row2['installmentStoSub'][] = $subRecArr['installmentStore'];
-                    $row2['startNoStoSub'][] = $subRecArr['startNoStore'];
-                    $row2['startDateStoSub'][] = date("Y-m-d",$subRecArr['startDateStore']);
-                    $row2['internalNoteStoSub'][] = $subRecArr['internalNoteStore'];
-                    $j++;
-                }
-                $row2['subRecLength'] = $j;
-
-                foreach ($row2['recurrenceAdd'] as $addRecArr) {
-                    $row2['installmentAdd'][] = $addRecArr['installmentCategoryStore'];
-                    $row2['installmentTypAdd'][] = $addRecArr['installmentTypeStore'];
-                    $row2['amountStoAdd'][] = $addRecArr['amountStore'];
-                    $row2['installmentStoAdd'][] = $addRecArr['installmentStore'];
-                    $row2['startNoStoAdd'][] = $addRecArr['startNoStore'];
-                    $row2['startDateStoAdd'][] = date("Y-m-d",$addRecArr['startDateStore']);
-                    $row2['internalNoteStoAdd'][] = $addRecArr['internalNoteStore'];
-                    $i++;
-                }
-                $row2['addRecLength'] = $i;
-
-                // send data to main function
-                $r = $row2;
-            }
+        foreach ($cursor as $v) {
+            $total_records += (int)$v['size'];
         }
-        echo json_encode($r);
+        $completedata = array();
+        $partialdata = array();
+        if(!empty($total_records)){
+
+            $sub_one = CreditCardAdmin::raw()->aggregate([
+                ['$match' => ['companyID' => $companyID]],
+                ['$project' => ['admin_credit._id' => 1,'admin_credit.displayName'=>1]]
+            ]);
+            $cardHolder_Name = array();
+            foreach ($sub_one as $value_1) {
+                $bank = $value_1['admin_credit'];
+                foreach ($bank as $row9) {
+                    $company_id = $row9['_id'];
+                    $cardHolder_Name[$company_id] = $row9['displayName'];
+                }
+            }
+            $show1 =SubCreditCard::raw()->find(array('companyID' => $companyID));
+            $c = 0;
+            $arrData1 = "";
+            foreach ($show1 as $row) {
+                $mainID = $row;
+            }
+            $arrData1 = array(
+                'mainID' => $mainID,
+                'creditcard' => $cardHolder_Name,
+            );
+            $partialdata[]= $arrData1;
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $total_records;
+        echo json_encode($completedata);
     }
     public function storesubCreditCard(Request $request)
     {
