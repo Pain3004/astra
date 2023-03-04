@@ -12,6 +12,7 @@ use Image;
 use MongoDB\BSON\ObjectId;
 use Auth;
 use PDF;
+use Excel;
 
 use Illuminate\Database\Eloquent\Collection;
 
@@ -28,6 +29,35 @@ class BankController extends Controller
             $bankData= $bankData->toArray();
         }
        return response()->json(['bankData'=>$bankData,'companyId'=>$companyId], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+
+
+
+
+        // return new ArrayIterator(
+        //     array('_id'=> $this->id,
+        //         'companyID'=>$companyId,
+        //         'counter' => 1,
+        //         'admin_bank' => array([
+        //             '_id' => 0,
+        //             'counter' => 0,
+        //             'bankName'=>$this->bankName,
+        //             'bankAddresss'=>$this->bankAddresss,
+        //             'accountHolder'=>$this->accountHolder,
+        //             'accountNo'=>$this->accountNo,
+        //             'routingNo'=>$this->routingNo,
+        //             'openingBalDate'=>$this->openingBalDate,
+        //             'openingBalance'=>$this->openingBalance,
+        //             'currentcheqNo'=>$this->currentcheqNo,
+        //             'transacBalance'=>$this->transacBalance,
+        //             'currentBalance'=>$this->openingBalance,
+        //             'deleteStatus' => "NO",
+        //             'deleteUser' => "",
+        //             'deleteTime' => "",
+        //             'insertedTime' => time(),
+        //             'insertedUser' => (int)Auth::user()->userName
+        //         ])
+        //     )
+        // );
     }
     public function createBankData(Request $request)
     {
@@ -178,33 +208,31 @@ class BankController extends Controller
          $arr = array('status' => 'success', 'message' => 'Company Updated successfully.','statusCode' => 200); 
          return json_encode($arr);
         } 
+
+
+        // $Bank=Bank::raw()->updateOne(['companyID' => $companyID,'admin_bank._id' => $id], 
+        // ['$set' => ['admin_bank.$.bankName' => $request->bankName,'admin_bank.$.bankAddresss' => $request->bankAddresss,'admin_bank.$.accountHolder' => $request->accountHolder,'admin_bank.$.accountNo' => $request->accountNo,'admin_bank.$.routingNo' => $request->routingNo,'admin_bank.$.openingBalDate' => strtotime($request->openingBalDate),'admin_bank.$.openingBalance' => $request->openingBalance,'admin_bank.$.currentcheqNo' =>$request->currentcheqNo,'admin_bank.$.currentBalance' => $request->currentcheqNo,'admin_bank.$.deleteStatus' => 'NO','admin_bank.$.edit_by' => Auth::user()->userName,'admin_bank.$.deleteTime' => time()]]
+        // );
+        // // dd($Bank);
+        //  if($Bank==true)
+        // {
+        //  $arr = array('status' => 'success', 'message' => 'Bank Updated successfully.','statusCode' => 200); 
+        //  return json_encode($arr);
+        // } 
         
     }
     public function deleteBankData(Request $request)
     {
-        $id=$request->id;
+        $id=(int)$request->id;
         $companyID=(int)$request->compID;
-        $Bank = Bank::where('companyID',$companyID)->first();
-        $BankArray=$Bank->admin_bank;
-        $fuelLength=count($BankArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$fuelLength; $i++)
+
+        $Bank=Bank::raw()->updateOne(['companyID' => $companyID,'admin_bank._id' => $id], 
+        ['$set' => ['admin_bank.$.deleteStatus' => 'YES','admin_bank.$.deleteUser' => Auth::user()->userName,'admin_bank.$.deleteTime' => time()]]
+        );
+        // dd($Bank);
+         if($Bank==true)
         {
-            $ids=$Bank->admin_bank[$i];
-            foreach($ids as $value)
-            {
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }  
-        $BankArray[$v]['deleteStatus']="YES";
-        $Bank->admin_bank=$BankArray;
-        if($Bank->save())
-        {
-         $arr = array('status' => 'success', 'message' => 'Company Updated successfully.','statusCode' => 200); 
+         $arr = array('status' => 'success', 'message' => 'Bank Deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
         } 
     }
@@ -372,7 +400,49 @@ class BankController extends Controller
             }
         }
     }
+    public function export_Bank_A(Request $request)
+    {
+        $companyID=(int)Auth::user()->companyID;
+        $companydata = Company::raw()->find(['companyID' => (int)Auth::user()->companyID]);
+        foreach ($companydata as $cn) {
+            $company = $cn['company'];
+            $companyName = array();
+            foreach ($company as $cd) {
+                $companyid = $cd['_id'];
+                $companyName[$companyid] = $cd['companyName'];
+            }
+        }
+        $p[] = array("Name of Bank: *","Address / Branch","Account Holder Name *","Bank Account *","Bank Routing: *","Opening Bal Dt *","Opening Balance *","Cheque no");
+         
+        $b_admin =Bank::raw()->find(['companyID' => (int)Auth::user()->companyID]);
+        foreach ($b_admin as $bdebit) {
+                $bank_debit = $bdebit['admin_bank'];   
+             foreach ($bank_debit as $test) {
+                $p[] = array(
+                    $test['bankName'],
+                    $test['bankAddresss'],
+                    $companyName[$test['accountHolder']],
+                    $test['accountNo'],
+                    $test['routingNo'],
+                    date('m-d-Y',$test['openingBalDate']),
+                    $test['openingBalance'],
+                    $test['currentcheqNo'],
+                );
+            }
+        }
+        if (sizeof($p) > 1) {
+            echo json_encode($p);
+       }else{
+            unset($p);
+            $p = "";
+            echo json_encode($p);
+       }
 
+    //    $fetchLiaat = new BankExport($companyID);
+    // //    $dt = new \DateTime();
+    // //    $curntDate = $dt->format('m-d-Y');
+      return Excel::download('bankData.xlsx');
+    }
    
 
     

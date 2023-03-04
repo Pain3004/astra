@@ -379,9 +379,47 @@ $(document).ready(function() {
                             customerResponse = customerResult;
                         }
                     });
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getLBCustomerData",
+                        async: false,
+                        success: function(Result) { 
+                          // console.log(Result);                    
+                          createcustomerList(Result);
+                        }
+                    });
                 }
             });
         });
+        function createcustomerList(Result) {           
+            var Length = 0;    
+            
+            if (Result != null) {
+                Length = Result.customer.length;
+            }
+      
+            if (Length > 0) {
+                // var no=1;
+                $(".customerListSet").html('');
+                for (var i = Length-1; i >= 0; i--) { 
+                  // for (var i = 0; i < Length; i++) { 
+                    var customerLength =Result.customer[i].customer.length;
+                    // for (var j = 0; j < customerLength; j++) {
+                    for (var j = customerLength-1; j >= 0; j--) {   
+                      var customer =Result.customer[i].customer[j].custName;
+                      var id =Result.customer[i].customer[j]._id;
+                      var deleteStatus =Result.customer[i].customer[j].deleteStatus;
+      
+                      if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                        var List = "<option id='customerCurrency'  value='"+id+"-"+ customer +"'>" + customer +"<option>";                  
+                        $(".customerListSet").append(List);
+                      }
+                    }
+                  }
+            }
+            
+        }
+      
     // <!-- -------------------------------------------------------------------------get customer currency ------------------------------------------------------------------------- -->  
    // $('.list select').selectpicker();   
     $('.customerCurrencySet').focus(function(){

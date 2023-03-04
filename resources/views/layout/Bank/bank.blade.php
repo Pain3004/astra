@@ -73,6 +73,13 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    
+                    <button type="button" data-name="admin_bank_export"
+                        id="admin_bank_export"
+                        class="btn btn-primary waves-effect waves-light float-left mr-1">
+                        <span class="spinner-border spinner-border-sm loader1 Eshipper"></span><i
+                            class="mdi mdi-file-export"></i> Export
+                    </button>
                     <button type="button" class="button-29 bankClose">Close</button>
                 </div>
             </div>
@@ -106,7 +113,7 @@
                         <label>Account Holder Name <span class="glyphicon glyphicon-plus-sign  CreateCompanyHolderName "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
                             <!-- <input  class="form-control accountHolder" type="text"  name="accountHolder" required /> -->
-                            <select class="form-control listCompanyNames addaccountHolder"  name="accountHolder" required ></select>
+                            <select class="form-control listCompanyNames addaccountHolder" id="bankAddAccouHolNameSelect" name="accountHolder" required ></select>
                         </div>
                         <label>Bank Account<span style="color:#ff0000">*</span></label>
                         <div>
@@ -164,11 +171,11 @@
                         </div>
                         <label>Telephone No<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control addtelephoneNo " type="number"  name="telephoneNo" placeholder="(999) 999-9999" required />
+                            <input  class="form-control addtelephoneNo " type="number"  name="telephoneNo" placeholder="(999) 999-9999" data-mask="(999) 999-9999" required />
                         </div>
                         <label>Fax No</label>
                         <div>
-                            <input  class="form-control addBankfaxNo " type="text"  name="faxNo" Placeholder="Fax No" />
+                            <input  class="form-control addBankfaxNo " type="text"  name="faxNo" Placeholder="Fax No" placeholder="(999) 999-9999" data-mask="(999) 999-9999" />
                         </div>
                         <label>M.C. No</label>
                         <div>
@@ -235,7 +242,7 @@
                         <label>Account Holder Name<span style="color:#ff0000">*</span>  <span class="glyphicon glyphicon-plus-sign  CreateCompanyHolderName "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
                             <!-- <input  class="form-control accountHolder" type="text"  name="accountHolder" required /> -->
-                            <select class="form-control listCompanyNames updateaccountHolder"  name="accountHolder" required ></select>
+                            <select class="form-control listCompanyNames updateaccountHolder" id="bankUpdateAccouHolNameSelect"  name="accountHolder" required ></select>
                         </div>
                         <label>Bank Account<span style="color:#ff0000">*</span></label>
                         <div>

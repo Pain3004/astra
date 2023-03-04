@@ -17,14 +17,23 @@ use App\Models\User;
 // use App\Models\;
 use File;
 use Image;
-use MongoDB\BSON\ObjectId;
+
 use Auth;
 use PDF;
+// use MongoDB\BSON\ObjectId;
+new \MongoDB\BSON\ObjectID;
 
 use Illuminate\Database\Eloquent\Collection;
 
 class LoadBoardController extends Controller
 {
+
+    public function index(Request $request){
+        $companyId=Auth::user()->companyID;
+        $Carrier = \App\Models\Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();
+       
+        return view('layout.Loadboard.Loadboard',['carrier'=>$Carrier]);
+    }
     public function getLoadboardData(Request $request){
         $companyId=auth::user()->companyID;
         $mergedArray = [];
@@ -226,7 +235,7 @@ class LoadBoardController extends Controller
         // $shipper_load_type=$unserializeData['shipperName'];
         // $shipper_name=explode('-',$shipper_load_type[1]);
         // dd($shipper_name[0]);
-        //die;
+        die;
         $obj_size=3500;
         $companyID=Auth::user()->companyID;
         $totalArray=0;

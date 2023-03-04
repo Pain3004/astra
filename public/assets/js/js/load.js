@@ -139,12 +139,49 @@ $(document).ready(function() {
                           }
                     });
                     $('#LoadModal').modal('show');
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getLoadType",
+                        async: false,
+                        success: function(Result) { 
+                          // console.log(Result);                    
+                          createLoadTypeList(Result);
+                        }
+                    });
                 }else{
                     swal.fire(" Not Added successfully.");
                 }
             }
         });
     });
+    function createLoadTypeList(Result) {           
+        var Length = 0;    
+        
+        if (Result != null) {
+            Length = Result.Load_type.length;
+        }
+  
+        if (Length > 0) {
+            // var no=1;
+            $(".LoadTypeListSet").html('');
+            // for (var i = 0; i < Length; i++) { 
+              for (var i = Length-1; i >=0; i--) { 
+                var LoadTypeLength =Result.Load_type[i].loadType.length;
+                // for (var j = 0; j < LoadTypeLength; j++) {  
+                for (var j = LoadTypeLength-1; j >=0; j--) {
+                  var loadName =Result.Load_type[i].loadType[j].loadName;
+                  var id =Result.Load_type[i].loadType[j]._id;
+                  var deleteStatus =Result.Load_type[i].loadType[j].deleteStatus;
+  
+                  if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                    var List = "<option id=''  value='"+id+"-"+ loadName +"'>"+loadName+ " <option>";                   
+                    $(".LoadTypeListSet").append(List);
+                  }
+                }
+              }
+        }
+        
+    }
 // - -------------------------------------------------------------------------over add    ------------------------------------------------------------------------- -- 
    //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
    $("body").on('click','.editLoad', function(){

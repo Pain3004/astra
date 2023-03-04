@@ -56,9 +56,11 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     Route::get('/admin/driverApplication', function () {
         return view('driver_application_form');
     });
-    Route::get('/admin/Loadboard', function () {
-        return view('layout.Loadboard.Loadboard');
-    })->name('admin_loadboard');
+    // Route::get('/admin/Loadboard', function () {
+    //     return view('layout.Loadboard.Loadboard');
+    // })->name('admin_loadboard');
+
+    Route::get('/admin/Loadboard', [LoadBoardController::class, 'index'])->name('admin_loadboard');
     // Route::get('profile', function () {
     //     return view('profile');
     // });
@@ -317,6 +319,7 @@ Route::post('admin/restoreLoad', [LoadController::class, 'restoreLoad']);
 
 //ExternalCarrierController
 Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);
+Route::get('admin/getCarrier', [ExternalCarrierController::class, 'getCarrier']);
 Route::post('admin/storeExternalCarrier', [ExternalCarrierController::class, 'storeExternalCarrier']);
 Route::get('admin/editExternalCarrier', [ExternalCarrierController::class, 'editExternalCarrier']);
 Route::post('admin/updateExternalCarrier', [ExternalCarrierController::class, 'updateExternalCarrier']);

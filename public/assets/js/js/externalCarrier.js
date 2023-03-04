@@ -339,6 +339,7 @@ $(document).ready(function () {
         $("#AddExternalCarrier").modal("show");
     });
     $(".closeAddExternalCarreirModal").click(function(){
+        $("#addLoadBoardModal").css("z-index","100000000000");
         $('.step_1').addClass("form-stepper-active");
         $(".step_1").removeClass("form-stepper-completed");
         $('.step_2').addClass("form-stepper-unfinished ");
@@ -425,6 +426,10 @@ $(document).ready(function () {
         var id=$(".update_external_carrier_id").val();
         var comID=$(".update_external_carrier_Comid").val();
         var name =$('#carrierName').val();
+
+        var List = "<option id=''  value='"+id+"-"+ name +"'>"+name+ " <option>"; 
+        $(".CarrierListSet").append(List); 
+
         var address =$('#carrierAddress').val();
         var location =$('#carrierLocation').val();
         var zip =$('#carrierZip').val();
@@ -620,8 +625,10 @@ $(document).ready(function () {
                 processData: false,
                 data:formData,
                 success: function(data) {
-                    // console.log(data)                    
-                    swal.fire("Done!", "External Carrier added successfully", "success");
+                    // console.log(data)
+                                       
+                    swal.fire({title: 'External Carrier added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $('#AddExternalCarrier').modal('hide');
                     $('.step_1').addClass("form-stepper-active");
                     $(".step_1").removeClass("form-stepper-completed");
@@ -638,6 +645,7 @@ $(document).ready(function () {
                     $("#step-2").addClass("d-none");
                     $("#step-3").addClass("d-none");
                     $("#step-4").addClass("d-none");
+                    $("#AddExternalCarrier form").trigger('reset');
                     $.ajax({
                         type: "GET",
                         url: base_path + "/admin/getExternalCarrier",
@@ -664,6 +672,7 @@ $(document).ready(function () {
                 success: function(data) {
                     // console.log(data)                    
                     swal.fire("Done!", "External Carrier Update successfully", "success");
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $('.step_1').addClass("form-stepper-active");
                     $(".step_1").removeClass("form-stepper-completed");
                     $('.step_2').addClass("form-stepper-unfinished ");

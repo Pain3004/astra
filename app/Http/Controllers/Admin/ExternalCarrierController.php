@@ -19,7 +19,7 @@ class ExternalCarrierController extends Controller
     public function getExternalCarrier(Request $request)
     {
         // $companyId=(int)Auth::user()->companyID;
-        $companyId=(int)25;
+        $companyId=auth::user()->companyID;
         $Carrier = Carrier::where('companyID',$companyId)->get();
     //     $Carrier=collect($Carrier->carrier);
     //     $Carrier = $Carrier->chunk(4);
@@ -27,10 +27,15 @@ class ExternalCarrierController extends Controller
     //    dd($Carrier);       
         return response()->json($Carrier, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
+    public function getCarrier(Request $request){
+        $companyId=Auth::user()->companyID;
+        $Carrier = Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();
+        return response()->json(['carrier'=>$Carrier], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
     public function storeExternalCarrier(Request $request)
     {
-        // $companyId=(int)Auth::user()->companyID;
-        $companyId=(int)25;
+        $companyId=(int)Auth::user()->companyID;
+        // $companyId=(int)25;
         $quantity=$request->quantity;
         $equipment=$request->equipment;
         $quantity=explode(',',$quantity);
