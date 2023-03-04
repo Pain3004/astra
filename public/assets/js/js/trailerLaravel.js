@@ -237,7 +237,8 @@ $(document).ready(function() {
     });
     
     $('.closeAddTrailerModal').click(function(){
-       $('#addTrailerModal').modal('hide');
+        $("#addLoadBoardModal").css("z-index","100000000000");
+        $('#addTrailerModal').modal('hide');
     });
     
     $('.addTrailerModal').click(function(){
@@ -370,9 +371,11 @@ $(document).ready(function() {
             processData: false,
             data:formData,
             success: function(data) {
-                console.log(data)                    
-                swal.fire("Done!", "Trailer added successfully", "success");
+                swal.fire({title: 'Trailer added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                $("#addLoadBoardModal").css("z-index","100000000000");
                 $('#addTrailerModal').modal('hide');
+                $("#addTrailerModal form").trigger("reset");
+               
                 $.ajax({
                     type: "GET",
                     url: base_path+"/admin/getTrailer",

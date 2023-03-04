@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Bank;
 use App\Models\Company;
+use App\Models\Bank;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
@@ -18,15 +18,20 @@ use Illuminate\Database\Eloquent\Collection;
 class BankController extends Controller
 {
     public function getBankData(Request $request){
-        $companyId=(int)1;
+        $companyId=(int)Auth::user()->companyID;
         //$bankData = Bank::where('deleteStatus','NO')->get();
         $bankData = Bank::where('companyID',$companyId)->get();
-       //dd($bankData);
-       return response()->json($bankData, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        foreach($bankData as $row)
+        {
+            $bankData=collect($row->admin_bank);
+            $bankData = $bankData->chunk(10);
+            $bankData= $bankData->toArray();
+        }
+       return response()->json(['bankData'=>$bankData,'companyId'=>$companyId], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function createBankData(Request $request)
     {
-        $companyId=(int)1;
+        $companyId=(int)Auth::user()->companyID;
         $bankData=Bank::where('companyID',$companyId)->get();
         // dd($bankData);
         foreach( $bankData as  $bankData_data)
@@ -205,7 +210,7 @@ class BankController extends Controller
     }
     public function getCompanyHolder(Request $request)
     {
-        $companyId=(int)1;
+        $companyId=(int)Auth::user()->companyID;
         $Company=Company::where('companyID',$companyId)->first();    
         return response()->json($Company, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
@@ -246,7 +251,7 @@ class BankController extends Controller
           } 
             
         try{
-            $companyID=(int)1;
+            $companyID=(int)Auth::user()->companyID;
             $getCompanyData = Company::where('companyID',$companyID)->first();
                 if($getCompanyData){
                     $CompanyArray=$getCompanyData->company;
@@ -367,6 +372,7 @@ class BankController extends Controller
             }
         }
     }
+
    
 
     

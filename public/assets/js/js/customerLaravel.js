@@ -226,12 +226,13 @@ $(document).ready(function() {
             $("#addCustomerModal").modal("show");
         });
         $(".closeaddCustomerModal").click(function(){
+            $("#addLoadBoardModal").css("z-index","100000000000");
             $('#addAdvanceCustomerTab').removeClass('active show'); 
             $('#addCustomerTab').addClass('active show');           
             $("#addCustomerModal").modal("hide");
         });
         $(".customerDataSubmit").click(function(){
-
+           
            
             var customerName= $('#customerName1').val();
             var customerAddress= $('#customerAddress').val();
@@ -314,14 +315,9 @@ $(document).ready(function() {
                     return false;
                 } 
             }
-            // if(customerWebsiteURL !== "")
-            // {
-            //     if(isUrlValid()== false)
-            //     {
-            //         swal.fire("Please enter valid url");
-            //         return false;
-            //     }
-            // }
+
+          
+           
             var formData = new FormData();
             formData.append('_token',$("#_tokenCustomer").val());
              formData.append(' customerName', customerName);
@@ -369,7 +365,8 @@ $(document).ready(function() {
                 processData: false,
                 data:formData,
                 success: function(dataCustomerResult) {                   
-                    swal.fire("Done!", "Customer added successfully", "success");
+                    swal.fire({title: 'Customer added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $("#addCustomerModal").modal("hide");
                     $.ajax({
                         type: "GET",
@@ -1356,7 +1353,7 @@ $(document).ready(function() {
             var custEmail = RecustomerResponse.customer[j].custEmail;
             var delete_status = RecustomerResponse.customer[j].deleteStatus;
             if(delete_status=="YES"){
-                var customerStr = "<tr data-id=" + (i + 1) + ">" +
+                var customerStr = "<tr data-id=" + (j + 1) + ">" +
                 "<td data-field='no'><input type='checkbox' class='check_cust_one' name='all_cst_id[]' data-id=" + customerId+ " date-cusId="+companyID+"  value="+customerId+"> </td>" +
                 "<td data-field='customerName' >" + custName + "</td>" +
                 "<td data-field='customerLocation'>" + custLocation + "</td>" +

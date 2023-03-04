@@ -29,7 +29,7 @@
                     @endif 
                     
                     @if($deleteUser== 1)  
-                        <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore Customer</span></a>
+                        <a href="#" class="button-57_alt" id="restoreDriver"><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore Customer</span></a>
                     @endif
                     <a href="#setupDriverModal" class="button-57" data-toggle="modal" data-target="#setupDriverModal"><i class="fa fa-sliders" aria-hidden="true"></i></span><span>Setup<br>Driver</span></a>
                     <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>View Driver Contract</span></a>
@@ -169,11 +169,13 @@
                                                
                                                     <div class="form-group col-md-2">
                                                         <label for="location">Location <span style="color:#ff0000">*</span> </label>
-                                                        <input type="text" class="form-control" id="location" placeholder="Location">
+                                                        <!-- <input type="text" class="form-control" id="location" placeholder="Location"> -->
+                                                        <input type="text" class="form-control location_view" data-location="customerBillingLocation" id="location"placeholder="Enter Location">
+
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="zip">Zip <span  style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="zip"  placeholder="Zip">
+                                                        <input type="number" class="form-control" id="zip"  placeholder="Zip">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="status">Status</label>
@@ -188,7 +190,7 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="socialSecurityNo">Social Security No </label>
-                                                        <input type="text" class="form-control" id="socialSecurityNo" placeholder="Social Security No">
+                                                        <input type="number" class="form-control" id="socialSecurityNo" placeholder="Social Security No">
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="dateOfBirth">Date of Birth </label>
@@ -203,7 +205,7 @@
                                                     <div class="form-group col-md-2">
                                                         <label for="licenseNo">License No.<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="licenseNo" placeholder="License No">
+                                                        <input type="number" class="form-control" id="licenseNo" placeholder="License No">
                                                     </div>
 
                                                     <div class="form-group col-md-2">
@@ -306,11 +308,12 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="driverBalance ">Driver Balance </label>
-                                                        <input type="text" class="form-control" id="driverBalance" placeholder="Driver Balance ">
+                                                        <input type="number" class="form-control" id="driverBalance" placeholder="Driver Balance ">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="internalNotes">Internal Notes </label>
-                                                        <input type="text" class="form-control" id="internalNotes" placeholder="Notes">
+                                                        <!-- <input type="text" class="form-control" id="internalNotes" placeholder="Notes"> -->
+                                                        <textarea type="text" class="form-control" id="internalNotes" placeholder="Notes"></textarea>
                                                     </div>
                                                     </div>
 
@@ -618,7 +621,8 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="up_currency">Currency <span style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control" id="up_currency">
+                                                        <input type="text" class="form-control" id="up_currency" value="USD"  disabled>
+                                                        
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="up_rate">Rate <span style="color:#ff0000">*</span>
@@ -644,7 +648,7 @@
                                                         <label>Driver Pay Info</label><br>
                                                         <a href="#" class="button-57" id="driverPayInfo">Open Pay Info</a>
                                                     </div> -->
-                                                    <div class="form-group col-md-3 ml-6" id="dHourlyEdit" style="display: none">
+                                                    <div class="form-group col-md-2 ml-6" id="dHourlyEdit" style="display: none">
                                                         <label>Driver Pay Info</label><br>
                                                         <a href="#" class="button-57"  id="driverPayInfoEdit">Open Pay Info</a>
                                                     </div>
@@ -998,7 +1002,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label class="form-label" for="ssnMask-cvv">Select Truck<span style="color:#ff0000">*</span></label>
-                                            <input list="truckSet" class="form-control" placeholder="search here..." id="up_ownerTruckNo" name="truckNo" autocomplete="off">
+                                            <input list="truckSet" class="form-control truckSet" placeholder="search here..." id="up_ownerTruckNo" name="truckNo" autocomplete="off">
                                                 <datalist id="truckSet">
                                                 </datalist>
                                         </div>
@@ -1006,56 +1010,12 @@
                                     <br>
                                     <br>
                                     <div class="up_optionBox">
-                                        <!-- <div class="block">
-                                            <div class="row row-sm">
-                                                    <div class="col-sm-3">
-                                                        <label class="form-label" for="">Category</label>
-                                                        <input type="text" class="form-control" name="installmentCategory1[]" list="fixpaycat" placeholder=" Search here..." autocomplete="off" />
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <label class="form-label" for="">Installment Type</label>
-                                                            <select name="installmentType[]" class="form-control">
-                                                                <option value="">Select type</option>
-                                                                <option value="Weekly">Weekly</option>
-                                                                <option value="Monthly">Monthly</option>
-                                                                <option value="yearly">Yearly</option>
-                                                                <option value="Quarterly">Quarterly</option>
-                                                            </select>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <label class="form-label" for="">Amount</label>
-                                                        <input name="amount[]" type="text" class="form-control" id="amount"/>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <label class="form-label" for="">Installment</label>
-                                                        <input name="installment[]" type="text" class="form-control" id="installment" />
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <label class="form-label" for="">start#</label>
-                                                        <input name="startNo[]" type="text" class="form-control" id="startNo" />
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <label class="form-label" for="e">start Date</label>
-                                                        <input name="startDate[]" type="date" class="form-control" id="startDate"/>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <label class="form-label" for="">Internal Note</label>
-                                                        <textarea rows="1" cols="20" class="form-control" type="textarea" name="internalNote[]"></textarea>
-                                                    </div>
-                                                    <div class="col-sm-1">
-                                                        <label class="form-label" for="">Delete</label>
-                                                        
-                                                    
-                                                        </button>
-                                                    </div>
-                                                    <button type="button" class="btn btn-danger remove"><spanaria-hidden="true">&times;</span>
-                                            </div>
-                                        </div> -->
-                                        </div>
-                                            
-                                        <div class="block">
-                                            <button id="up_btnAdd1" type="button" class="button-23 add" data-toggle="tooltip" data-original-title="Add more controls" style="margin-top: 5px;"><i class="mdi mdi-gamepad-down"></i> ADD </button>
-                                        </div>
+                                        
+                                    </div>
+                                        
+                                    <div class="block">
+                                        <button id="up_btnAdd1" type="button" class="button-23 add" data-toggle="tooltip" data-original-title="Add more controls" style="margin-top: 5px;"><i class="mdi mdi-gamepad-down"></i> ADD </button>
+                                    </div>
                                     
                                 </div>  
                             </form>
@@ -1071,3 +1031,57 @@
                 </div><!-- modal-dialog -->
             </div><!-- modal -->
 <!-------------------------------------------------------------------over driver Application modal------------------------------------------------------------------->
+<!------------------------------------------------------------------- start restore ------------------------------------------------------------------->
+<div class="container">
+    <div class="modal fade" data-backdrop="static" id="RestoreDriverModal">
+        <div class="modal-dialog custom_modal_small2 modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Restore Driver</h4>
+                    <button type="button" class="button-24 restoreDriverclose" data-dismiss="modal">&times;</button>
+                </div>
+                <div style="margin-top: 15px; margin-left: 15px;">
+                    <input type="hidden" name="checked_id" id="checked_Driver" value="">
+                    <input type="hidden" name="company_id" id="checked_Driver_company_ids" value="">
+                    <button id="restore_DriverData"  class="button-57_alt restore_DriverData" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore </span></button>
+                </div>
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="table-responsive export-table">
+                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                            <tr class="tr">
+                                                <th scope="col"><input type="checkbox" name="all_ids[]" class="Driver_all_ids" style="height: 15px;"></th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Location</th>
+                                                        <th>Social Security No</th>
+                                                        <th>Date of Birth</th>
+                                                        <th>Date of Hire</th>
+                                                        <th>License No</th>
+                                                        <th>LIS</th>
+                                                        <th>License Exp.Date</th>
+                                                        <th>Driver Balance</th>
+                                                        
+                                            </tr>
+                                        </thead>
+                                        <tbody id="RestoreDriverTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button-29 restoreDriverclose" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------------- End restore ------------------------------------------------------------------->

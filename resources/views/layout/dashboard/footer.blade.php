@@ -95,6 +95,10 @@
 <!-- INTERNAL DATATABLES JS -->
 <script src="{{URL::to('/')}}/assets/js/table-editable.js"></script>
 
+<!-- FORMVALIDATION JS -->
+<script src="{{URL::to('/')}}/assets/js/form-validation.js"></script>
+<!-- Select2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <!-- CUSTOM JS -->
 <script src="{{URL::to('/')}}/assets/js/custom.js"></script>
@@ -126,7 +130,7 @@
 <script src="{{URL::to('/')}}/assets/js/js/load.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/loadboard.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
-
+<script src="{{URL::to('/')}}/assets/js/js/script.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
 </body>
 

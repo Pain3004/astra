@@ -17,15 +17,19 @@ use Illuminate\Database\Eloquent\Collection;
 class IftaTollController extends Controller
 {
     public function getIftaToll(Request $request){
-        $companyId=1;
-        $iftaToll = iftaToll::where('companyID',$companyId)->first();
-        //$iftaToll = iftaToll::where('companyID',$companyId)->get();
-       
-       return response()->json($iftaToll, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $companyId=(int)Auth::user()->companyID;
+        $iftaToll = iftaToll::where('companyID',$companyId)->get();
+        foreach($iftaToll as $row)
+        {
+            $iftaToll=collect($row->tolls);
+            $iftaToll = $iftaToll->chunk(10);
+            $iftaToll= $iftaToll->toArray();
+        }
+       return response()->json(['iftaToll'=>$iftaToll,'companyId'=>$companyId], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function createIftaToll(Request $request)
     {
-        $companyID=(int)1;
+        $companyID=(int)Auth::user()->companyID;
         $iftaToll = iftaToll::where('companyID',$companyID)->get();
         foreach( $iftaToll as  $iftaToll_data)
         {

@@ -25,6 +25,7 @@ $('.closeDriverModal').click(function(){
     $('#driverModal').modal('hide');
 });
 $('.closeAddDriverModal').click(function(){
+    $("#addLoadBoardModal").css("z-index","100000000000");
     $('#RecurrenceCategoryModal').modal('hide');
     $('#addDriverModal').modal('hide');
 });
@@ -573,6 +574,9 @@ $(document).ready(function() {
                 // var no=1;
                 //$(".customerCurrencySet").html('');
                 $(".set_company_name").html('');
+
+                // var companyDetailsList = "<option  value=''>Select here.... </option>"  
+                // $(".set_company_name").append(companyDetailsList);
                 for (var i=0; i<companyDetailLength; i++) 
                 {  
                     var companyName =companyDetails.company[i].companyName;
@@ -680,43 +684,26 @@ $(document).ready(function() {
     
 
 // <!-- -------------------------------------------------------------------------Get driver ajax ------------------------------------------------------------------------- -->    
-$('#Driver_navbar').click(function(){ 
-    var driverResponse = '';
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/driver",
-        async: false,
-        success: function(text) {
-            createDriverRows(text);
-            driverResponse = text;
-        }
+    $('#Driver_navbar').click(function(){ 
+        var driverResponse = '';
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/driver",
+            async: false,
+            success: function(text) {
+                createDriverRows(text);
+                driverResponse = text;
+            }
+        });
+        $("#driverModal").modal("show");
     });
-    $("#driverModal").modal("show");
-});
     function createDriverRows(driverResponse) {
-        // console.log(driverResponse);
-//Privilege 
-    // var edit=$('#updateUser').val();
-    // var delet =$('#deleteUser').val();
-
-    // if(edit == 1){
-    //    var editPrivilege=''; 
-    // }else{
-    //     var editPrivilege='privilege';
-    // }
-    // if(delet == 1){
-    //     var delPrivilege=''; 
-    //  }else{
-    //      var delPrivilege='privilege';
-    //  }
-
         var len1 = 0;
         
         $('#driverTable').empty(); 
         // if (driverResponse != null) {
         //     len1 = driverResponse.length;
         // }
-// alert(len1);
         // if (len1 > 0) {
            var no=1;
                 // for (var i = 0; i < len1; i++) {  
@@ -739,8 +726,7 @@ $('#Driver_navbar').click(function(){
                             var month_tr = months_arr_tr[date_tr.getMonth()];
                             var day_tr = date_tr.getDate();
                             var date_of_birth = month_tr+'/'+day_tr+'/'+year_tr;
-                        var date_of_hire = driverResponse.driver[j].dateOfHire;
-                        console.log(date_of_hire);
+                            var date_of_hire = driverResponse.driver[j].dateOfHire;
                         if(date_of_hire == null ){date_of_hire="-";}
                             var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                             var date_tr = new Date(date_of_hire*1000);
@@ -748,7 +734,6 @@ $('#Driver_navbar').click(function(){
                             var month_tr = months_arr_tr[date_tr.getMonth()];
                             var day_tr = date_tr.getDate();
                             var date_of_hire = month_tr+'/'+day_tr+'/'+year_tr;
-                            console.log(date_of_hire);
                         var license_no = driverResponse.driver[j].driverLicenseNo;
                         var lis = driverResponse.driver[j].driverLicenseIssue;
                         var license_exp_date = driverResponse.driver[j].driverLicenseExp;
@@ -851,10 +836,191 @@ $('#Driver_navbar').click(function(){
         var driver_id =$(this).data('id');
         $('#driverid').val(driver_id);
     
-        // console.log(atob(name));
         $('#addDriverOwnerModal').modal('show');  
     });
 
+//------------------------------ start restore  ---------------------------------------------
+$('.restoreDriverclose').click(function(){
+    $('#RestoreDriverModal').modal('hide');
+});
+
+$("#restoreDriver").click(function(){
+    $.ajax({
+        type: "GET",
+        url: base_path + "/admin/getDriver",
+        async: false,
+        success: function (RestoreResult) {
+            // console.log(RestoreResult);
+           RestoreDriver(RestoreResult);
+        }
+    });
+    $('#RestoreDriverModal').modal('show');
+});
+
+function RestoreDriver(RestoreResult)
+{
+    
+    var R_Len = 0;
+    if (RestoreResult) {
+        //console.log(RestoreResult);
+        $("#RestoreDriverTable").html('');
+        var data=RestoreResult.driver.length;
+        // Driverlen = DriverResult.driver.length;
+        console.log(data);
+        for(var i=0; i<data; i++)
+        {
+            R_Len = RestoreResult.driver[i].driver.length;
+            console.log(R_Len);
+            if(R_Len != null)
+            {
+                var no=1;
+                for(var j=R_Len-1; j>=0; j--)
+                {
+                    var com_Id=RestoreResult.driver[i].companyID;
+                    var id=RestoreResult.driver[i].driver[j]._id;
+                    var name =RestoreResult.driver[i].driver[j].driverName;
+                    var driverEmail =RestoreResult.driver[i].driver[j].driverEmail;
+                    var driverLocation =RestoreResult.driver[i].driver[j].driverLocation;
+                    var driverSocial =RestoreResult.driver[i].driver[j].driverSocial;
+                        if(driverSocial == null){driverSocial="-";}
+                    var dateOfbirth =RestoreResult.driver[i].driver[j].dateOfbirth;
+                        if(dateOfbirth == null || dateOfbirth == false){dateOfbirth="-";}
+                        var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date_tr = new Date(dateOfbirth*1000);
+                        var year_tr = date_tr.getFullYear();
+                        var month_tr = months_arr_tr[date_tr.getMonth()];
+                        var day_tr = date_tr.getDate();
+                        var dateOfbirth = month_tr+'/'+day_tr+'/'+year_tr;
+                    var dateOfHire =RestoreResult.driver[i].driver[j].dateOfHire;
+                    if(dateOfHire == null ){dateOfHire="-";}
+                        var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date_tr = new Date(dateOfHire*1000);
+                        var year_tr = date_tr.getFullYear();
+                        var month_tr = months_arr_tr[date_tr.getMonth()];
+                        var day_tr = date_tr.getDate();
+                        var dateOfHire = month_tr+'/'+day_tr+'/'+year_tr;
+                    var driverLicenseNo =RestoreResult.driver[i].driver[j].driverLicenseNo;
+                    var driverLicenseIssue =RestoreResult.driver[i].driver[j].driverLicenseIssue;
+                    var driverLicenseExp =RestoreResult.driver[i].driver[j].driverLicenseExp;
+                        var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                        var date_tr = new Date(driverLicenseExp*1000);
+                        var year_tr = date_tr.getFullYear();
+                        var month_tr = months_arr_tr[date_tr.getMonth()];
+                        var day_tr = date_tr.getDate();
+                        var driverLicenseExp = month_tr+'/'+day_tr+'/'+year_tr;
+                    var driverBalance =RestoreResult.driver[i].driver[j].driverBalance;
+                        if(driverBalance == null){driverBalance="-";}
+                    var deleteStatus =RestoreResult.driver[i].driver[j].deleteStatus;
+
+                    if (deleteStatus == "Yes" || deleteStatus == "YES" || deleteStatus == "yes") 
+                    {
+                        var R_str = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                            "<td data-field='no'><input type='checkbox' name='checkDriverOne[]' class='checkedIdsOneBranch' style='height: 15px;' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
+                            "<td >" + name + "</td>" +
+                            "<td>" + driverEmail + "</td>" +
+                            "<td >" + driverLocation + "</td>" +
+                            "<td >" + driverSocial + "</td>" +
+                            "<td>" + dateOfbirth + "</td>" +
+                            "<td >" + dateOfHire + "</td>" +
+                            "<td>" + driverLicenseNo + "</td>" +
+                            "<td >" + driverLicenseIssue + "</td>" +
+                            "<td>" + driverLicenseExp + "</td>" +
+                            "<td>" + driverBalance + "</td>" +
+                        $("#RestoreDriverTable").append(R_str);
+                        no++;
+                    }
+                }
+            }
+            else
+            {
+                var R_str = "<tr data-id=" + i + ">" +
+                "<td align='center' colspan='4'>No record found.</td>" +
+                "</tr>";
+                $("#RestoreDriverTable").append(R_str);
+            }                  
+        }
+    }
+    else
+    {
+        var R_str = "<tr data-id=" + i + ">" +
+        "<td align='center' colspan='4'>No record found.</td>" +
+        "</tr>";
+        $("#RestoreDriverTable").append(R_str);
+    }
+}
+$(document).on("change", ".Driver_all_ids", function() 
+{
+    if(this.checked) {
+        $('.checkedIdsOneBranch:checkbox').each(function() 
+        {
+            this.checked = true;
+            DriverCheckboxRestore();
+        });
+    } 
+    else 
+    {
+        $('.checkedIdsOneBranch:checkbox').each(function() {
+            this.checked = false;
+        });
+    }
+});
+$('body').on('click','.checkedIdsOneBranch',function(){
+    DriverCheckboxRestore();
+});
+function DriverCheckboxRestore()
+{
+    var Driver = [];
+    var companyIds=[]
+        $.each($("input[name='checkDriverOne[]']:checked"), function(){
+            Driver.push($(this).val());
+            companyIds.push($(this).attr("data-comId"));
+        });
+        // console.log(Driver);
+        var braOffIds =JSON.stringify(Driver);
+        $('#checked_Driver').val(braOffIds);
+       
+        var companyCheckedIds =JSON.stringify(companyIds);
+        $('#checked_Driver_company_ids').val(companyCheckedIds);
+
+        if(Driver.length > 0)
+        {
+            $('#restore_DriverData').removeAttr('disabled');
+        }
+        else
+        {
+            $('#restore_DriverData').attr('disabled',true);
+        }
+}
+$('body').on('click','.restore_DriverData',function(){
+   
+    var all_ids=$('#checked_Driver').val();
+    //alert(all_ids);
+    var custID=$("#checked_Driver_company_ids").val();
+    $.ajax({
+        type:"post",
+        data:{
+            _token:$("#drivercsrf").val(),
+            all_ids:all_ids,
+            custID:custID
+        },
+        url: base_path+"/admin/restoreDriver",
+        success: function(response) {               
+            swal.fire("Driver Restored successfully");
+            $("#RestoreDriverModal").modal("hide");
+            $.ajax({
+                type: "GET",
+                url: base_path+"/admin/driver",
+                async: false,
+                success: function(text) {
+                    createDriverRows(text);
+                    driverResponse = text;
+                }
+            });
+            $("#driverModal").modal("show");
+        }
+    });
+});
+// ---------------------------------------------end restore  ---------------------------------------------
 
 
 
@@ -1250,7 +1416,6 @@ $('#addDriver').click(function(){
             var hazmatExpiry = $('#hazmatExpiry').val();
             var rate = $('#rate').val();
             var currency = $('#currency').val();
-            // console.log(currency);
             var recurrencePlus = $('#recurrencePlus').val();
             var recurrenceMin = $('#recurrenceMin').val();
             var terminationDate = $('#terminationDate').val();
@@ -1334,7 +1499,9 @@ $('#addDriver').click(function(){
             cache: false,
             success: function(resp){
                 if(resp.success == true){
-                    swal.fire("Done!", resp.message, "success");
+                    swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                    // swal.fire("Done!", resp.message, "success");
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $("#addDriverModal").modal('hide');
                     $("#addDriverModal form").trigger("reset");
                     $.ajax({
@@ -1547,12 +1714,16 @@ $('.driverDataUpdate').click(function(){
     var updatedropStart = $('#dropstartedit').val();   
     var updatedriverTarp = $('#driverTarpedit').val();   
     var updatepercentage = $('#dPercentageEdit').val();
+    var addRecurrence =$('#up_adddriverRecurrenceForm').serialize();
+    var subRecurrence =$('#up_subdriverRecurrenceForm').serialize();
 
     $.ajax({
         url:base_path+"/admin/updateDriver" ,
         type:'post',
         data:{
             _token:$("#drivercsrf").val(),
+            data:addRecurrence,
+            data1:subRecurrence,
             updateComId:updateComId,
             updateEmailDriver:updateEmailDriver,
             updateDriverName: updateDriverName,
@@ -1596,6 +1767,7 @@ $('.driverDataUpdate').click(function(){
         success: function(response){
             var responsenew = JSON.parse(response);
             if(responsenew.statusCode===200){
+                $('#editDriverModal').modal('hide');
                 swal.fire("Done!", responsenew.message, "success");
                 $.ajax({
                     type: "GET",
@@ -1604,7 +1776,8 @@ $('.driverDataUpdate').click(function(){
                         createDriverRows(text);
                         response = text;
                     }
-                });			
+                });	
+                $('#driverModal').modal('show');		
             }
           },
           error: function(data){
@@ -1633,7 +1806,8 @@ function drivermodal()
                 data: {_token: $("#drivercsrf").val(),driver_id: driver_id,com_id: com_id,email: email},
                 cache: false,
                 success: function(dataResult){
-
+                    // var aa = dataResult.recurrenceAdd;
+                   
                     $('#up_comId').val(com_id);
                     $('#emaildriver').val(email);
                     $('#up_name').val(dataResult.driverName);
@@ -1749,12 +1923,217 @@ function drivermodal()
                     $('#droprateedit').val(dataResult.dropRate);
                     $('#dropstartedit').val(dataResult.dropAfter);
                     $('#driverTarpedit').val(dataResult.tarp);
-                   
+                    
+                    $array=dataResult.recurrenceAdd;
+                    if($array){
+                        $("#up_TextBoxContainer2").empty();
+                        $.each($array, function(index,value) {
+                            
+                            var _id =$array[index]['_id'];
+                            var installmentCategory =$array[index]['installmentCategoryStore'];
+                            var installmentTypeStore =$array[index]['installmentTypeStore'];
+                            var amount =$array[index]['amountStore'];
+                            var installment =$array[index]['installmentStore'];
+                            var startNo =$array[index]['startNoStore'];
+                            var up_rec_internalNote =$array[index]['internalNoteStore'];
+                            var startDate =$array[index]['startDateStore'];
+                            var date = new Date(startDate*1000);
+                            var year = date.getFullYear();
+                            var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                            var day = date.getDate();
+                            if(day <=9 ){ var startDate = year+'-0'+day+'-'+month;} 
+                            else{ var startDate = year+'-'+month+'-'+day; } 
+
+                           
+
+                            //$("#up_TextBoxContainer2").empty();
+                            $("#up_TextBoxContainer2").append('<tr>'+
+                                        '<td width="150">'+
+                                            '<input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" name="up_rec_PlusRecurrence[]" id="rec_PlusRecurrence" placeholder="Search here..." autocomplete="off" value="'+installmentCategory +'">'+
+                                            '<datalist id="driverPlusRecurrence" class="driverPlusRecurrence"> </datalist>'+
+                                            '</td>'+
+                                        '<td width="150">'+
+                                            '<input class="form-control" name="up_rec_installmentType[]" list="instatype1" autocomplete="off" value="'+installmentTypeStore +'"/>'+
+                                        '</td>'+
+                                        '<td width="100">'+
+                                            '<input name="up_rec_amount[]" type="number" class="form-control" value="'+amount +'"/>'+
+                                        '</td>'+
+                                        '<td width="100">'+
+                                            '<input name="up_rec_installment[]" type="number" class="form-control" value="'+installment +'"/>'+
+                                        '</td>'+
+                                        '<td width="100">'+
+                                            '<input name="up_rec_startNo[]" type="number" class="form-control" value="'+startNo +'"/>'+
+                                        '</td>'+
+                                        '<td width="10">'+
+                                            '<input name="up_rec_startDate[]" type="date" class="form-control" value="'+startDate +'"/>'+
+                                        '</td>'+
+                                        '<td width="250">'+
+                                            // '<textarea rows="1" cols="20" class="form-control" type="textarea" name="up_rec_internalNote[]" value="'+up_rec_internalNote +'"></textarea>'+
+                                            '<input name="up_rec_internalNote[]" type="text" class="form-control"  title="'+up_rec_internalNote+'" value="'+up_rec_internalNote +'"/>'+
+                                        '</td>'+
+                                        '<td>'+
+                                            '<button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span> </button>'+
+                                        '</td>'+
+                                        '<tr>'
+                            );
+                        });
+                    }else{
+                        $("#up_TextBoxContainer2").empty();
+                        $("#up_TextBoxContainer2").append('<tr>'+
+                            '<td width="150">'+
+                                '<input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" placeholder="Search here..." name="up_rec_PlusRecurrence[]" id="rec_PlusRecurrence" autocomplete="off" >'+
+                                '<datalist id="driverPlusRecurrence" class="driverPlusRecurrence"> </datalist>'+
+                                '</td>'+
+                            '<td width="150">'+
+                                '<input class="form-control" name="up_rec_installmentType[]" list="instatype1" autocomplete="off" />'+
+                            '</td>'+
+                            '<td width="100">'+
+                                '<input name="up_rec_amount[]" type="number" class="form-control" />'+
+                            '</td>'+
+                            '<td width="100">'+
+                                '<input name="up_rec_installment[]" type="number" class="form-control" />'+
+                            '</td>'+
+                            '<td width="100">'+
+                                '<input name="up_rec_startNo[]" type="number" class="form-control" />'+
+                            '</td>'+
+                            '<td width="10">'+
+                                '<input name="up_rec_startDate[]" type="date" class="form-control"/>'+
+                            '</td>'+
+                            '<td width="250">'+
+                                '<textarea rows="1" cols="20" class="form-control" type="textarea" name="up_rec_internalNote[]" ></textarea>'+
+                            '</td>'+
+                            '<td>'+
+                                '<button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span> </button>'+
+                            '</td>'+
+                            '<tr>'
+                        );
+                    }
+
+                    $array2=dataResult.recurrenceSubtract;
+                    if($array2){
+                        $("#up_TextBoxContainer3").empty();
+                        $.each($array2, function(index,value) {
+                            
+                            var _id =$array2[index]['_id'];
+                            var installmentCategory =$array2[index]['installmentCategoryStore'];
+                            var installmentTypeStore =$array2[index]['installmentTypeStore'];
+                            var amount =$array2[index]['amountStore'];
+                            var installment =$array2[index]['installmentStore'];
+                            var startNo =$array2[index]['startNoStore'];
+                            var up_rec_internalNote =$array2[index]['internalNoteStore'];
+                            var startDate =$array2[index]['startDateStore'];
+                            var date = new Date(startDate*1000);
+                            var year = date.getFullYear();
+                            var month = ['01','02','03','04','05','06','07','08','09','10','11','12'][date.getMonth()];
+                            var day = date.getDate();
+                            if(day <=9 ){ var startDate = year+'-0'+day+'-'+month;} 
+                            else{ var startDate = year+'-'+month+'-'+day; } 
+                           
+                            //$("#up_TextBoxContainer2").empty();
+                            $("#up_TextBoxContainer3").append('<tr>'+
+                                        '<td width="150">'+
+                                            '<input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" name="up_rec_PlusRecurrence_sub[]" id="rec_PlusRecurrence" placeholder="Search here..." autocomplete="off" value="'+installmentCategory +'">'+
+                                            '<datalist id="driverPlusRecurrence" class="driverPlusRecurrence"> </datalist>'+
+                                            '</td>'+
+                                        '<td width="150">'+
+                                            '<input class="form-control" name="up_rec_installmentType_sub[]" list="instatype1" autocomplete="off" value="'+installmentTypeStore +'"/>'+
+                                        '</td>'+
+                                        '<td width="100">'+
+                                            '<input name="up_rec_amount_sub[]" type="number" class="form-control" value="'+amount +'"/>'+
+                                        '</td>'+
+                                        '<td width="100">'+
+                                            '<input name="up_rec_installment_sub[]" type="number" class="form-control" value="'+installment +'"/>'+
+                                        '</td>'+
+                                        '<td width="100">'+
+                                            '<input name="up_rec_startNo_sub[]" type="number" class="form-control" value="'+startNo +'"/>'+
+                                        '</td>'+
+                                        '<td width="10">'+
+                                            '<input name="up_rec_startDate_sub[]" type="date" class="form-control" value="'+startDate +'"/>'+
+                                        '</td>'+
+                                        '<td width="250">'+
+                                            // '<textarea rows="1" cols="20" class="form-control" type="textarea" name="up_rec_internalNote[]" value="'+up_rec_internalNote +'"></textarea>'+
+                                            '<input name="up_rec_internalNote_sub[]" type="text" class="form-control"  title="'+up_rec_internalNote+'" value="'+up_rec_internalNote +'"/>'+
+                                        '</td>'+
+                                        '<td>'+
+                                            '<button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span> </button>'+
+                                        '</td>'+
+                                        '<tr>'
+                            );
+                        });
+                    }else{
+                        $("#up_TextBoxContainer3").empty();
+                        $("#up_TextBoxContainer3").append('<tr>'+
+                            '<td width="150">'+
+                                '<input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" name="up_rec_PlusRecurrence_sub[]" id="rec_PlusRecurrence" autocomplete="off" placeholder="Search here..." >'+
+                                '<datalist id="driverPlusRecurrence" class="driverPlusRecurrence"> </datalist>'+
+                                '</td>'+
+                            '<td width="150">'+
+                                '<input class="form-control" name="up_rec_installmentType_sub[]" list="instatype1" autocomplete="off" />'+
+                            '</td>'+
+                            '<td width="100">'+
+                                '<input name="up_rec_amount_sub[]" type="number" class="form-control" />'+
+                            '</td>'+
+                            '<td width="100">'+
+                                '<input name="up_rec_installment_sub[]" type="number" class="form-control" />'+
+                            '</td>'+
+                            '<td width="100">'+
+                                '<input name="up_rec_startNo_sub[]" type="number" class="form-control" />'+
+                            '</td>'+
+                            '<td width="10">'+
+                                '<input name="up_rec_startDate_sub[]" type="date" class="form-control"/>'+
+                            '</td>'+
+                            '<td width="250">'+
+                                '<textarea rows="1" cols="20" class="form-control" type="textarea" name="up_rec_internalNote_sub[]" ></textarea>'+
+                            '</td>'+
+                            '<td>'+
+                                '<button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span> </button>'+
+                            '</td>'+
+                            '<tr>'
+                        );
+                    }
                     $('#editDriverModal').modal('show'); 
                 }
             });
         });
     });
+
+// ---------------------------------------------plus Recurrence   ---------------------------------------------
+$('body').on('click','.driverPlusRecurrence',function(){
+         $.ajax({
+             type: "GET",
+             url: base_path+"/admin/getRecurrenceCategory",
+             async: false,
+             //dataType:JSON,
+             success: function(Result) {                    
+                 createPlusRecurrence(Result);
+             }
+         });
+    });
+     
+    function createPlusRecurrence(Result) { 
+                
+        var Length = 0;    
+        
+        if (Result != null) {
+            Len = Result.RecurrenceCategory.length;
+        }
+        if (Len > 0) {
+            for (var j = 0; j < Len; j++) {  
+            Length = Result.RecurrenceCategory[j].fixPay.length;
+             
+                if (Length > 0) {
+                    $(".driverPlusRecurrence").html('');
+                    // $(".currencyList").html('');
+                    for (var i = 0; i < Length; i++) {  
+                        var fixPayType =Result.RecurrenceCategory[j].fixPay[i].fixPayType;
+                        var fixPayTypeList = "<option id='PlusRecurrence'  value='"+ fixPayType +"'>"                   
+                    $(".driverPlusRecurrence").append(fixPayTypeList);
+                    }
+                }
+            }
+        }
+    }
+// ---------------------------------------------end plus Recurrence  ---------------------------------------------
 // ------------------------------------------------------------------delete driver-------------------------------------------------------------------------    
     $(".deleteDriver").on("click", function(){
         var rowToDelete = $(this).closest('tr');
@@ -2402,16 +2781,16 @@ function GetDynamicRecurrence(value) {
         '" name="rec_PlusRecurrence[]" ' +
         ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
         '<td width="150">' +
-        '<input class="form-control" value = "' + value +
+        '<input class="form-control rec_installmentType" value = "' + value +
         '" name="rec_installmentType[]" list="instatype1" autocomplete="off"/></td>' +
         '<td width="100">' +
-        '<input name="rec_amount[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_amount[]" type="number" value = "' + value + '" class="form-control rec_amount" /></td>' +
         '<td width="100">' +
-        '<input name="rec_installment[]" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100"><input name="rec_startNo[]" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="10"><input name="rec_startDate[]" type="date" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="rec_installment[]" type="number" value = "' + value + '" class="form-control rec_installment" /></td>' +
+        '<td width="100"><input name="rec_startNo[]" type="number" value = "' + value + '" class="form-control rec_startNo" /></td>' +
+        '<td width="10"><input name="rec_startDate[]" type="date" value = "' + value + '" class="form-control rec_startDate" /></td>' +
         '<td width="250"><textarea rows="1" cols="30" value = "' + value +
-        '" class="form-control" type="textarea" name="rec_internalNote[]"></textarea></td>' +
+        '" class="form-control rec_internalNote" type="textarea" name="rec_internalNote[]"></textarea></td>' +
         '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>';
 }
 // <!-- ------------------------------------------------------------------------- End of Add Recurrence ------------------------------------------------------------------------- -->
@@ -2419,7 +2798,7 @@ function GetDynamicRecurrence(value) {
 $(function() {
     $("#up_btnAdd2").bind("click", function() {
         var div = $("<tr />");
-        div.html(GetDynamicRecurrence(""));
+        div.html(up_GetDynamicRecurrence(""));
         $("#up_TextBoxContainer2").append(div);
     });
     $("body").on("click", ".remove", function() {
@@ -2443,19 +2822,19 @@ function removeRowRecurrence(index) {
     up_rec_internalNote.splice(index, 1);
 }
 
-function GetDynamicRecurrence(value) {
+function up_GetDynamicRecurrence(value) {
     return '<td width="150">' +
         '<input class="form-control driverPlusRecurrence" value = "' + value +
-        '" name="up_rec_PlusRecurrence[]" ' +
+        '" name="up_rec_PlusRecurrence[]" placeholder="Search here..."' +
         ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
         '<td width="150">' +
         '<input class="form-control" value = "' + value +
         '" name="up_rec_installmentType[]" list="instatype1" autocomplete="off"/></td>' +
         '<td width="100">' +
-        '<input name="up_rec_amount[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="up_rec_amount[]" type="number" value = "' + value + '" class="form-control" /></td>' +
         '<td width="100">' +
-        '<input name="up_rec_installment[]" type="text" value = "' + value + '" class="form-control" /></td>' +
-        '<td width="100"><input name="up_rec_startNo[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+        '<input name="up_rec_installment[]" type="number" value = "' + value + '" class="form-control" /></td>' +
+        '<td width="100"><input name="up_rec_startNo[]" type="number" value = "' + value + '" class="form-control" /></td>' +
         '<td width="10"><input name="up_rec_startDate[]" type="date" value = "' + value + '" class="form-control" /></td>' +
         '<td width="250"><textarea rows="1" cols="30" value = "' + value +
         '" class="form-control" type="textarea" name="up_rec_internalNote[]"></textarea></td>' +
@@ -2499,10 +2878,10 @@ function GetDynamicRecurrencesubstract(value) {
     '<input class="form-control" value = "' + value +
     '" name="rec_installmentType_sub[]" list="instatype1" autocomplete="off"/></td>' +
     '<td width="100">' +
-    '<input name="rec_amount_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<input name="rec_amount_sub[]" type="number" value = "' + value + '" class="form-control" /></td>' +
     '<td width="100">' +
-    '<input name="rec_installment_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
-    '<td width="100"><input name="rec_startNo_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<input name="rec_installment_sub[]" type="number" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100"><input name="rec_startNo_sub[]" type="number" value = "' + value + '" class="form-control" /></td>' +
     '<td width="10"><input name="rec_startDate_sub[]" type="date" value = "' + value + '" class="form-control" /></td>' +
     '<td width="250"><textarea rows="1" cols="30" value = "' + value +
     '" class="form-control" type="textarea" name="rec_internalNote_sub[]"></textarea></td>' +
@@ -2513,7 +2892,7 @@ function GetDynamicRecurrencesubstract(value) {
 $(function() {
     $("#up_btnAdd3").bind("click", function() {
         var div = $("<tr />");
-        div.html(GetDynamicRecurrencesubstract(""));
+        div.html(up_GetDynamicRecurrencesubstract(""));
         $("#up_TextBoxContainer3").append(div);
     });
     $("body").on("click", ".remove", function() {
@@ -2536,19 +2915,19 @@ function recurrence_substract(index) {
     up_rec_internalNote.splice(index, 1);
 }
 
-function GetDynamicRecurrencesubstract(value) {
+function up_GetDynamicRecurrencesubstract(value) {
     return '<td width="150">' +
     '<input class="form-control driverPlusRecurrence" value = "' + value +
-    '" name="up_rec_PlusRecurrence_sub[]" ' +
+    '" name="up_rec_PlusRecurrence_sub[]" placeholder="Search here..." ' +
     ')" list="driverPlusRecurrence" autocomplete="off"/></td>' +
     '<td width="150">' +
     '<input class="form-control" value = "' + value +
     '" name="up_rec_installmentType_sub[]" list="instatype1" autocomplete="off"/></td>' +
     '<td width="100">' +
-    '<input name="up_rec_amount_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<input name="up_rec_amount_sub[]" type="number" value = "' + value + '" class="form-control" /></td>' +
     '<td width="100">' +
-    '<input name="up_rec_installment_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
-    '<td width="100"><input name="up_rec_startNo_sub[]" type="text" value = "' + value + '" class="form-control" /></td>' +
+    '<input name="up_rec_installment_sub[]" type="number" value = "' + value + '" class="form-control" /></td>' +
+    '<td width="100"><input name="up_rec_startNo_sub[]" type="number" value = "' + value + '" class="form-control" /></td>' +
     '<td width="10"><input name="up_rec_startDate_sub[]" type="date" value = "' + value + '" class="form-control" /></td>' +
     '<td width="250"><textarea rows="1" cols="30" value = "' + value +
     '" class="form-control" type="textarea" name="up_rec_internalNote_sub[]"></textarea></td>' +
@@ -2613,7 +2992,9 @@ $(document).ready(function() {
 
 
 
+$(document).ready(function(){
 
+});
 
 
 
@@ -2704,5 +3085,94 @@ $('body').on('click','.putValue',function(){
     document.getElementById(id).style.display = "none";
 });
 
-
+// dashboard function
+function abbreviateNumber(value) {
+    let newValue = value;
+    const suffixes = ["", "K", "M", "B", "T"];
+    let suffixNum = 0;
+    while (newValue >= 1000) {
+    newValue /= 1000;
+    suffixNum++;
+    }
+    
+    newValue = newValue.toPrecision(3);
+    
+    newValue += suffixes[suffixNum];
+    return newValue;
+    }
+    function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
    
+    // excel =======================================================by bhagvati
+function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel)
+{
+if (!Array.isArray(JSONData))
+{
+swal.fire('There are no entries to export');
+// $(".Eshipper").css("display", "none");
+return false;
+}
+
+//If JSONData is not an object then JSON.parse will parse the JSON string in an Object
+var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+
+var CSV = '';
+//This condition will generate the Label/Header
+if (ShowLabel)
+{
+var row = "";
+//This loop will extract the label from 1st index of on array
+for (var index in arrData[0])
+{
+//Now convert each value to string and comma-seprated
+row += index + ',';
+}
+row = row.slice(0, -1);
+//append Label row with line break
+CSV += row + '\r\n';
+}
+//1st loop is to extract each row
+for (var i = 0; i < arrData.length; i++)
+{
+var row = "";
+//2nd loop will extract each column and convert it in string comma-seprated
+for (var index in arrData[i])
+{
+row += '"' + arrData[i][index] + '",';
+}
+row.slice(0, row.length - 1);
+//add a line break after each row
+CSV += row + '\r\n';
+}
+
+if (CSV == '')
+{
+alert("Invalid data");
+return;
+}
+//this will remove the blank-spaces from the title and replace it with an underscore
+ReportTitle.replace(/ /g, "_");
+//Initialize file format you want csv or xls
+var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+// Now the little tricky part.
+// you can use either>> window.open(uri);
+// but this will not work in some browsers
+// or you will not get the correct file extension
+
+//this trick will generate a temp <a /> tag
+var link = document.createElement("a");
+link.href = uri;
+
+//set the visibility hidden so it will not effect on your web-layout
+link.style = "visibility:hidden";
+link.download = ReportTitle + ".csv";
+
+//this part will append the anchor tag and remove it after automatic click
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+$(".Eshipper").css("display", "none");
+}

@@ -1,6 +1,10 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
-
+   
+        // get the view model element
+    
+      $('#branchOfficeModal').off('click');
+   
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
     $('#branchOfficeModal, #addBranchOfficeModal, #editBranchOfficeModal, #RestoreBranchOfficeModal').modal({
         backdrop: 'static',

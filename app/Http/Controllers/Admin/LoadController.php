@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 class LoadController extends Controller
 {
     public function getLoadType(Request $request){
-        $companyId=1;
+        $companyId=Auth::user()->companyID;
         $Load_type = Load_type::where('companyID',$companyId)->get();  //only for company id one
     //    $Load_type = Load_type::get();
        return response()->json(['Load_type'=>$Load_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
@@ -26,7 +26,7 @@ class LoadController extends Controller
 
     public function addLoadType(Request $request){
 
-        $companyID=1;
+        $companyID=Auth::user()->companyID;
         $totalArray=0;
         $getCompany = Load_type::where('companyID',$companyID)->first();
         

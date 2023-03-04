@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('#EquipmentTypeModal').modal('hide');
     });
     $('.addEquipmentTypeClose').click(function(){
+        $("#addLoadBoardModal").css("z-index","100000000000");
         $('#addEquipmentTypeModal').modal('hide');
     });
     $('#addEquipmentType').click(function(){
@@ -121,9 +122,10 @@ $(document).ready(function() {
             success: function(Result){
                 console.log(Result);
                 if(Result){
-                    swal.fire( "Equipment Type added successfully.");
-                    // alert("Equipment Type added successfully.");
+                    swal.fire({title: 'Equipment Type added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $("#addEquipmentTypeModal").modal("hide");
+                    $("#addEquipmentTypeModal form").trigger("reset");
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/getEquipmentType",

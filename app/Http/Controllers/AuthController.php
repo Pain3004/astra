@@ -96,6 +96,7 @@ class AuthController extends Controller
 
     public function submitForgetPasswordForm(Request $request)
     {
+        //dd($request);
         // $request->validate([
         //     'email' => 'required|email|exists:user',
         // ]);
@@ -113,6 +114,7 @@ class AuthController extends Controller
                 $message->to($request->email);
                 $message->subject('Reset Password');
             });
+            
             return redirect('login')->with('message', 'We have e-mailed you your new password');
         }     
         return back()->with('message', 'This email does not exist. Please try with a registered email');

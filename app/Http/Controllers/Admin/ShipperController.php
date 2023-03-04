@@ -18,25 +18,28 @@ use Illuminate\Database\Eloquent\Collection;
 class ShipperController extends Controller
 {
     public function getShipper(){
-        $companyId=(int)65;
-        // $companyId=(int)1;
-        // dd($companyId);
-        // $shipper=  Shipper::aggregate([
-        //     ['$match' => ['companyID' => $companyId]],
-        //     ['$project' => ['size' => ['$size' => ['$shipper']]]]
-        // ]);
-        // dd($shipper);
+        $companyId=Auth::user()->companyID;
         $shipper = Shipper::where('companyID',$companyId)->first();
         $consignee = Consignee::where('companyID',$companyId)->first();
-
         //dd($shipper);
        return response()->json(['shipper'=>$shipper,'consignee'=>$consignee], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-       
+    }
+    public function Shipper(){
+        $companyId=Auth::user()->companyID;
+        $shipper = Shipper::select('shipper.shipperName','shipper._id','shipper.shipperAddress','shipper.shipperLocation')->where('companyID',$companyId)->get();
+        // $collection = Company::raw();
+        //     $company_status = $collection->aggregate([
+        //     ['$match' => ['companyID' => $companyID]],['$unwind' => '$company'],
+        //     ['$match' => ['company.status' => "Yes"]],
+        //     ['$project' => ['company.paytype' => 1,'company.paydate' => 1]]
+        //     ],['allowDiskUse' => true]);
+                    //dd($shipper);
+       return response()->json(['shipper'=>$shipper], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function storeShipper(Request $request)
     {
         // $companyID=(int)1;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         // dd($request->addressType);
         if($request->addressType=="shipper")
         {
@@ -204,7 +207,7 @@ class ShipperController extends Controller
     public function editShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         // dd($Shipper );
         $ShipperArray=$Shipper->shipper;
@@ -233,7 +236,7 @@ class ShipperController extends Controller
     public function updateShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);
@@ -277,7 +280,7 @@ class ShipperController extends Controller
     public function deleteShipper(Request $request)
     {
         $id=$request->id;
-        $companyID=(int)65;
+        $companyID=Auth::user()->companyID;
         $Shipper = Shipper::where('companyID',$companyID)->first();
         $ShipperArray=$Shipper->shipper;
         $fuelLength=count($ShipperArray);

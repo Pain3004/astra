@@ -3,6 +3,7 @@ $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
     $('.fuelVendorClose').click(function(){
+        removePagi();
         $('#FuelVendorModal').modal('hide');
     });
 
@@ -14,10 +15,7 @@ $(document).ready(function() {
             type: "GET",
             url: base_path+"/admin/getFuelVendor",
             async: false,
-            //dataType:JSON,
             success: function(text) {
-                //alert();
-                console.log(text);
                 createFuelVendorRows(text);
                 FuelVendorResult = text;
              }
@@ -32,56 +30,79 @@ $(document).ready(function() {
 // get truck
     function createFuelVendorRows(FuelVendorResult) {
         var fuelVendorlen = 0;
-        //alert(FuelVendorResult);
-            if (FuelVendorResult != null) {
-                
-                fuelVendorlen = FuelVendorResult.fuelCard.length;
+            if (FuelVendorResult != null) 
+            { 
+                fuelVendorlen = FuelVendorResult.FuelVendor.length;
 
                 $("#FuelVendorTable").html('');
-
+                var lentData=[];
                 if (fuelVendorlen > 0) {
                    
                     var no=1;
-                    for (var i = fuelVendorlen-1; i >= 0; i--) {  
-                        var CompID =FuelVendorResult.companyID;
-                        var fuelVendorId =FuelVendorResult.fuelCard[i]._id;
-                        var fuelCardType =FuelVendorResult.fuelCard[i].fuelCardType;
-                        // var openingDate =new Date(FuelVendorResult.fuelCard[i].openingDate);
-                        if(FuelVendorResult.fuelCard[i].openingDate != null)
-                        {
-                            var openingBale=FuelVendorResult.fuelCard[i].openingDate;
-                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-                            var date = new Date(openingBale*1000);
-                            var year = date.getFullYear();
-                            var month = months_arr[date.getMonth()];
-                            var day = date.getDate();
-                            var openingDate = month+'/'+day+'/'+year;
-                        }
-                        else
-                        {
-                            openingDate="----";
-                        }
-                        // var openingDate =FuelVendorResult.fuelCard[i].openingDate;
-                        var openingBalance =FuelVendorResult.fuelCard[i].openingBalance;
-                        var currentBalance =FuelVendorResult.fuelCard[i].currentBalance;
-                        var deleteStatus =FuelVendorResult.fuelCard[i].deleteStatus;
-              //alert(fuelVendorId);
-                        if(deleteStatus == "NO"){
-                            //alert("ff");
-                            var fuelVendorStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                            "<td data-field='no'>" + no + "</td>" +
-                            "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
-                            "<td data-field='openingDate' >" +openingDate  + "</td>" +
-                            "<td data-field='openingBalance' >" + openingBalance + "</td>" +
-                            "<td data-field='currentBalance' >" + currentBalance + "</td>" +
-                            "<td style='text-align:center'>"+
-                                "<a class='"+editPrivilege+" button-23  edit_modal_fuel_vendor'  title='Edit1' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                "<a class='"+delPrivilege+" button-23 delete_modal_fuel_vendor'  title='delete' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-delete'></i></a>&nbsp"+
-                            "</td></tr>";
+                    for (var j = fuelVendorlen-1; j >= 0; j--) {  
+                        var CompID =FuelVendorResult.companyId;
+                        var data=FuelVendorResult.FuelVendor[j];
+                        $.each(data, function(i, v) { 
+                            var fuelVendorId =FuelVendorResult.FuelVendor[j][i]._id;
+                            var fuelCardType =FuelVendorResult.FuelVendor[j][i].fuelCardType;
+                            if(FuelVendorResult.FuelVendor[j][i].openingDate != null || FuelVendorResult.FuelVendor[j][i].openingDate != false)
+                            {
+                                var openingBale=FuelVendorResult.FuelVendor[j][i].openingDate;
+                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date = new Date(openingBale*1000);
+                                var year = date.getFullYear();
+                                var month = months_arr[date.getMonth()];
+                                var day = date.getDate();
+                                var openingDate = month+'/'+day+'/'+year;
+                            }
+                            else
+                            {
+                                openingDate="----";
+                            }
+                            var openingBalance =FuelVendorResult.FuelVendor[j][i].openingBalance;
+                            var currentBalance =FuelVendorResult.FuelVendor[j][i].currentBalance;
+                            var deleteStatus =FuelVendorResult.FuelVendor[j][i].deleteStatus;
+                            if(openingBalance !="" || openingBalance != null)
+                            {
+                                openingBalance=openingBalance;
+                            }
+                            else
+                            {
+                                openingBalance="-----";
+                            }
+                            if(currentBalance != "" || currentBalance != null)
+                            {
+                                currentBalance=currentBalance;
+                            }
+                            else
+                            {
+                                currentBalance="-----";
+                            }
+                            if(fuelVendorId !=""| fuelVendorId !=null)
+                            {
+                                fuelVendorId=fuelVendorId;
+                            }
+                            else
+                            {
+                                fuelVendorId="-----";
+                            }
+                            if(deleteStatus == "NO"){
+                                lentData.push(i);
+                                var fuelVendorStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'>" + no + "</td>" +
+                                "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
+                                "<td data-field='openingDate' >" +openingDate  + "</td>" +
+                                "<td data-field='openingBalance' >" + openingBalance + "</td>" +
+                                "<td data-field='currentBalance' >" + currentBalance + "</td>" +
+                                "<td style='text-align:center'>"+
+                                    "<a class=' button-23  edit_modal_fuel_vendor'  title='Edit1' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+                                    "<a class='button-23 delete_modal_fuel_vendor'  title='delete' data-fuelCard='"+fuelVendorId+"' data-compID='"+CompID+"' ><i class='fe fe-delete'></i></a>&nbsp"+
+                                "</td></tr>";
 
-                        $("#FuelVendorTable").append(fuelVendorStr);
-                        no++;
-                        }
+                                $("#FuelVendorTable").append(fuelVendorStr);
+                                no++;
+                            }
+                        });
                     }
                 } else {
                     var fuelVendorStr = "<tr data-id=" + i + ">" +
@@ -90,6 +111,8 @@ $(document).ready(function() {
         
                     $("#FuelVendorTable").append(fuelVendorStr);
                 }
+                var items=lentData.length;
+                Paginator(items);
             }else {
             var fuelVendorStr = "<tr data-id=" + i + ">" +
                 "<td align='center' colspan='4'>No record found.</td>" +
@@ -101,7 +124,77 @@ $(document).ready(function() {
 
    
 
-// <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
+    // pagination ==============================================
+    function removePagi()
+    {
+        $('#nav').remove();
+        var startItem=0;
+        var endItem=10;
+        $('#FuelVendorDataTable tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+        css('display','table-row').animate({opacity:1}, 300); 
+    }
+    function Paginator(items) 
+    {
+
+        $('#FuelVendorDataTable').after ('<div id="nav"></div>');  
+        var rowsShown = 10;  
+        var rowsTotal = items;  
+        var numPages = rowsTotal/rowsShown;
+        numPages= ~~numPages;
+        for (i = 0;i < numPages;i++) {  
+            var pageNum = i + 1; 
+            $('#nav').append ('<a href="#" rel="'+i+'">'+pageNum+'</a> ');  
+        }  
+        $('#FuelVendorDataTable tbody tr').hide();  
+        $('#FuelVendorDataTable tbody tr').slice (0, rowsShown).show();  
+        $('#nav a:first').addClass('active');  
+        $('#nav a').bind('click', function() {  
+        $('#nav a').removeClass('active');  
+       $(this).addClass('active');  
+            var currPage = $(this).attr('rel');  
+            var startItem = currPage * rowsShown;  
+            var endItem = startItem + rowsShown;  
+            $('#FuelVendorDataTable tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+            css('display','table-row').animate({opacity:1}, 300);   
+        }); 
+    }
+
+
+    function RestoreremovePagi()
+    {
+        $('#nav').remove();
+        var startItem=0;
+        var endItem=10;
+        $('#RestoreFuelVendorDataTable tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+        css('display','table-row').animate({opacity:1}, 300); 
+    }
+    function restorePaginator(items) 
+    {
+
+        $('#RestoreFuelVendorDataTable').after ('<div id="nav"></div>');  
+        var rowsShown = 10;  
+        var rowsTotal = items;  
+        var numPages = rowsTotal/rowsShown;
+        numPages= ~~numPages;
+        for (i = 0;i < numPages;i++) {  
+            var pageNum = i + 1; 
+            $('#nav').append ('<a href="#" rel="'+i+'">'+pageNum+'</a> ');  
+        }  
+        $('#RestoreFuelVendorDataTable tbody tr').hide();  
+        $('#RestoreFuelVendorDataTable tbody tr').slice (0, rowsShown).show();  
+        $('#nav a:first').addClass('active');  
+        $('#nav a').bind('click', function() {  
+        $('#nav a').removeClass('active');  
+       $(this).addClass('active');  
+            var currPage = $(this).attr('rel');  
+            var startItem = currPage * rowsShown;  
+            var endItem = startItem + rowsShown;  
+            $('#RestoreFuelVendorDataTable tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).  
+            css('display','table-row').animate({opacity:1}, 300);   
+        }); 
+    }
+    // end ==================================================
 
 //====================================== start add fuel vendor ==================================
     $(".closeAddFuelVendor").click(function(){
@@ -109,6 +202,9 @@ $(document).ready(function() {
     });
     $(".create_fuel_vendor_model").click(function(){
         $("#AddFuelVendor").modal("show");
+    });
+    $('#AddFuelVendor').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
     });
     $(".FuelVendorSavebutton").click(function(){
         // alert("DGfdgfg");
@@ -168,7 +264,20 @@ $(document).ready(function() {
                     //dataType:JSON,
                     success: function(text) {
                         //alert();
-                        console.log(text);
+                        var fuelVendorlen = 0;
+                        if (text != null) {
+                            fuelVendorlen = text.fuelCard.length;
+                            $(".card_vendor_type").html();
+                            if (fuelVendorlen > 0) {
+                                for (var i = fuelVendorlen - 1; i >= 0; i--) {
+                                    var fuelVendorId = text.FuelVendor[j][i]._id;
+                                    var fuelCardType = text.FuelVendor[j][i].fuelCardType;
+                                    var html = "<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>";
+                                    $(".card_vendor_type").append(html);
+                                }
+                            }
+                        }
+                        // console.log(text);
                         createFuelVendorRows(text);
                         FuelVendorResult = text;
                      }
@@ -182,6 +291,9 @@ $(document).ready(function() {
      $(".closeFuelVendorUpdatebutton").click(function(){
         $("#UpdateFuelVendor").modal("hide");
      });
+     $('#UpdateFuelVendor').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
      $("body").on('click','.edit_modal_fuel_vendor', function(){
         var fuelCard=$(this).attr("data-fuelCard");
         var compID=$(this).attr("data-compID");
@@ -212,8 +324,8 @@ $(document).ready(function() {
                 $('.fuel_id').val(text._id);
                 $('.comp_id').val(text.companyID);
                 $('#update_OpeningDate').val(openingDate);
-                $('#update_Opening_Amount').val(text.openingBalance);
-                $("#update_currentBalance").val(text.currentBalance);
+                // $('#update_Opening_Amount').val(text.openingBalance);
+                // $("#update_currentBalance").val(text.currentBalance);
              }
         });
 
@@ -225,8 +337,8 @@ $(document).ready(function() {
         var fuel_id =$('.fuel_id').val();
         // alert(fuelCardType);
         var openingDate =$('#update_OpeningDate').val();
-        var openingBalance =$('#update_Opening_Amount').val();
-        var currentBalance=$("#update_currentBalance").val();
+        // var openingBalance =$('#update_Opening_Amount').val();
+        // var currentBalance=$("#update_currentBalance").val();
         if(fuelCardType=='')
         {
             swal.fire( "'Enter Fuel Card Type");
@@ -239,27 +351,27 @@ $(document).ready(function() {
             $('#update_OpeningDate').focus();
             return false;
         }
-        if(openingBalance=='')
-        {
-            swal.fire( "'Enter Opening Amount");
-            $('#update_Opening_Amount').focus();
-            return false;
-        }
-        if(currentBalance=="")
-        {
-            swal.fire(" Enter Current Blance");
-            $("#update_currentBalance").focus();
-            return false;
-        }
+        // if(openingBalance=='')
+        // {
+        //     swal.fire( "'Enter Opening Amount");
+        //     $('#update_Opening_Amount').focus();
+        //     return false;
+        // }
+        // if(currentBalance=="")
+        // {
+        //     swal.fire(" Enter Current Blance");
+        //     $("#update_currentBalance").focus();
+        //     return false;
+        // }
       
         var formData = new FormData();
         formData.append('_token',$("#_tokenAdd_fuel_vendor").val());
         formData.append('fuelCardType',fuelCardType);
         formData.append('compID',compID);
         formData.append('fuel_id',fuel_id);
-        formData.append('currentBalance',currentBalance);
+        // formData.append('currentBalance',currentBalance);
         formData.append('openingDate',openingDate);
-        formData.append('openingBalance',openingBalance);  
+        // formData.append('openingBalance',openingBalance);  
         $.ajax({
             type: "POST",
             url: base_path+"/admin/updateFuelVendor",
@@ -359,31 +471,73 @@ $(document).ready(function() {
                 fuelVendorlen = restoreFuelVendorResult.fuelCard.length;
 
                 $("#restoreFuelVendorTable").html('');
-
+                var lentData=[];
                 if (fuelVendorlen > 0) {
                    
                     var no=1;
-                    for (var i = fuelVendorlen-1; i >= 0; i--) {  
-                        var CompID =restoreFuelVendorResult.companyID;
-                        var fuelVendorId =restoreFuelVendorResult.fuelCard[i]._id;
-                        var fuelCardType =restoreFuelVendorResult.fuelCard[i].fuelCardType;
-                        var openingDate =restoreFuelVendorResult.fuelCard[i].openingDate;
-                        var openingBalance =restoreFuelVendorResult.fuelCard[i].openingBalance;
-                        var currentBalance =restoreFuelVendorResult.fuelCard[i].currentBalance;
-                        var deleteStatus =restoreFuelVendorResult.fuelCard[i].deleteStatus;
-              //alert(fuelVendorId);
-                        if(deleteStatus == "YES"){
-                            //alert("ff");
-                            var fuelVendorStr = "<tr data-id=" + (i + 1) + ">" +
-                            "<td data-field='no'><input type='checkbox' class='check_fuelCard_one' name='all_fuelCard_id[]' data-fuelCard=" + fuelVendorId+ " date-compID="+CompID+"  value="+fuelVendorId+"></td>" +
-                            "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
-                            "<td data-field='openingDate' >" +openingDate  + "</td>" +
-                            "<td data-field='openingBalance' >" + openingBalance + "</td>" +
-                            "<td data-field='currentBalance' >" + currentBalance + "</td></tr>";
+                    for (var j = fuelVendorlen-1; j >= 0; j--) 
+                    { 
+                        var data=restoreFuelVendorResult.FuelVendor[j];
+                        $.each(data, function(i, v) { 
+                            var CompID =restoreFuelVendorResult.companyId;
+                            var fuelVendorId =restoreFuelVendorResult.FuelVendor[j][i]._id;
+                            var fuelCardType =restoreFuelVendorResult.FuelVendor[j][i].fuelCardType;
+                            var openingDate =restoreFuelVendorResult.FuelVendor[j][i].openingDate;
+                            var openingBalance =restoreFuelVendorResult.FuelVendor[j][i].openingBalance;
+                            var currentBalance =restoreFuelVendorResult.FuelVendor[j][i].currentBalance;
+                            var deleteStatus =restoreFuelVendorResult.FuelVendor[j][i].deleteStatus;
+                            if(openingBalance !="" || openingBalance != null)
+                            {
+                                openingBalance=openingBalance;
+                            }
+                            else
+                            {
+                                openingBalance="-----";
+                            }
+                            if(currentBalance != "" || currentBalance != null)
+                            {
+                                currentBalance=currentBalance;
+                            }
+                            else
+                            {
+                                currentBalance="-----";
+                            }
+                            if(fuelVendorId !=""| fuelVendorId !=null)
+                            {
+                                fuelVendorId=fuelVendorId;
+                            }
+                            else
+                            {
+                                fuelVendorId="-----";
+                            }
+                            if(FuelVendorResult.FuelVendor[j][i].openingDate != null || FuelVendorResult.FuelVendor[j][i].openingDate != false)
+                            {
+                                var openingBale=FuelVendorResult.FuelVendor[j][i].openingDate;
+                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                                var date = new Date(openingBale*1000);
+                                var year = date.getFullYear();
+                                var month = months_arr[date.getMonth()];
+                                var day = date.getDate();
+                                var openingDate = month+'/'+day+'/'+year;
+                            }
+                            else
+                            {
+                                openingDate="----";
+                            }
+                            if(deleteStatus == "YES"){
+                                lentData.push(i);
+                                //alert("ff");
+                                var fuelVendorStr = "<tr data-id=" + (i + 1) + ">" +
+                                "<td data-field='no'><input type='checkbox' class='check_fuelCard_one' name='all_fuelCard_id[]' data-fuelCard=" + fuelVendorId+ " date-compID="+CompID+"  value="+fuelVendorId+"></td>" +
+                                "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
+                                "<td data-field='openingDate' >" +openingDate  + "</td>" +
+                                "<td data-field='openingBalance' >" + openingBalance + "</td>" +
+                                "<td data-field='currentBalance' >" + currentBalance + "</td></tr>";
 
-                        $("#restoreFuelVendorTable").append(fuelVendorStr);
-                        no++;
-                        }
+                                $("#restoreFuelVendorTable").append(fuelVendorStr);
+                                no++;
+                            }
+                        });
                     }
                 } else {
                     var fuelVendorStr = "<tr data-id=" + i + ">" +
@@ -392,6 +546,8 @@ $(document).ready(function() {
         
                     $("#restoreFuelVendorTable").append(fuelVendorStr);
                 }
+                var items=lentData.length;
+                restorePaginator(items);
             }else {
             var fuelVendorStr = "<tr data-id=" + i + ">" +
                 "<td align='center' colspan='4'>No record found.</td>" +
