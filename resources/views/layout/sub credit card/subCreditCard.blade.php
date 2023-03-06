@@ -41,7 +41,6 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-
                                         <tbody id="subCreditCardTable">
 
                                         </tbody>
@@ -92,7 +91,7 @@
                         </div>
                         <label>Main Card<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign createCreaditCardBtn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
-                            <select  class="form-control addSubCreditCardmainCard  creditCardTypeAll" type="text"  name="mainCard" >
+                            <select  class="form-control addSubCreditCardmainCard  creditCardTypeAll" type="text"  name="mainCard" id="addSubCreditCardmainCard" >
                                 <option>---select card type---</option>
                             </select>
                         </div>
@@ -102,7 +101,7 @@
                         </div>
                         <label>Card No #</label>
                         <div>
-                            <input  class="form-control addSubCreditCardcardNo " type="text"  name="cardNo" required />
+                            <input  class="form-control addSubCreditCardcardNo " type="number"  name="cardNo" required />
                         </div>
                        
                     </div>
@@ -141,7 +140,7 @@
                         </div>
                         <label>Main Card<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign createCreaditCardBtn "  data-toggle="modal"  style="cursor:pointer;"></span></label>
                         <div>
-                            <select  class="form-control updateSubCreditCardmainCard  creditCardTypeAll" type="text"  name="mainCard" >
+                            <select  class="form-control updateSubCreditCardmainCard  creditCardTypeAll" type="text"  name="mainCard" id="updateSubCreditCardmainCard">
                                 <option>---select card type---</option>
                             </select>
                         </div>
@@ -151,7 +150,7 @@
                         </div>
                         <label>Card No #</label>
                         <div>
-                            <input  class="form-control updateSubCreditCardcardNo " type="text"  name="cardNo" required />
+                            <input  class="form-control updateSubCreditCardcardNo " type="number"  name="cardNo" required />
                         </div>
                        
                     </div>

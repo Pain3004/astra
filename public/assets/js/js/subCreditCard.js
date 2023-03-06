@@ -7,7 +7,17 @@ $(document).ready(function() {
     });
 
 
-// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
+// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- --> 
+$("#addSubCreditCardmainCard").select2({
+    placeholder: "Select a programming language",
+    allowClear: true,
+    dropdownParent: $('#AddSubCreditCardModal')
+    }); 
+    $("#updateSubCreditCardmainCard").select2({
+        placeholder: "Select a programming language",
+        allowClear: true,
+        dropdownParent: $('#UpdateSubCreditCardModal')
+        }); 
    
     $('#subCreditCard_navbar').click(function(){
         $.ajax({
@@ -62,10 +72,8 @@ $(document).ready(function() {
         //alert(FuelVendorResult);
             if (subCreditCardResult != null) {
                 $("#subCreditCardTable").html('');
-                console.log(subCreditCardResult);
-                subCreditCardlen = subCreditCardResult[0]["mainID"].sub_credit;
-                // console.log(subCreditCardlen);
-                // subCreditCardlen = subCreditCardResult.CreditCard.length;
+                subCreditCardlen = subCreditCardResult.SubCreditCard.length;
+               var CreditCardlen = subCreditCardResult.CreditCard.length;
                 if (subCreditCardlen > 0) {
                     for (var i = subCreditCardlen-1; i >= 0; i--) { 
                         
@@ -126,8 +134,7 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                    }
-                    
+                    }                    
                 }else {
                             var subCreditCardStr = "<tr data-id=" + i + ">" +
                                 "<td align='center' colspan='4'>No record found.</td>" +
@@ -361,7 +368,7 @@ $(document).ready(function() {
             {
                 for (var i = subCreditCardlen-1; i >= 0; i--) 
                 {    
-                    sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
+                   var sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
                     var Id =subCreditCardResult.SubCreditCard[i]._id;
                     var sub_cred_com_Id =subCreditCardResult.SubCreditCard[i].companyID;
                     if (sub_credit_len > 0) 
@@ -448,6 +455,8 @@ $(document).ready(function() {
         {
             $('.check_SubCreditCard_one:checkbox').each(function() {
                 this.checked = false;
+                SubCreditCardCheckboxRestore();
+                
             });
         }
     });

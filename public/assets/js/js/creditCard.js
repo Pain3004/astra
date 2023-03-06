@@ -169,6 +169,7 @@ $(document).ready(function() {
 
     // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
     $(".createCreaditCardBtn").click(function(){
+        $("#AddCreditCardModal").css("z-index","10000000000");
         $("#AddCreditCardModal").modal("show");
     });
     $(".closeAddCreditCardModal").click(function(){

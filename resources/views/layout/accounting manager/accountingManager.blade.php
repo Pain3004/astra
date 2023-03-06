@@ -24,7 +24,7 @@
                     </div> -->
                     <div class="col-md-2">
                     </div>
-                    <div class="col-md-3" style="">
+                    <!-- <div class="col-md-3" style="">
                         <div style="margin-top: 15px; float:right;">
                             <button type="button" class="btn btn-outline-info btn-pill dropdown-toggle" data-bs-toggle="dropdown">
                                 Action <span class="caret"></span>
@@ -47,7 +47,7 @@
                         <div style="margin-top: 15px;">
                             <input class="form-control" placeholder="Search for results..." type="search">
                         </div>
-                    </div>
+                    </div> -->
                 </div>                    						
                 <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
 
@@ -57,7 +57,7 @@
                                 <div class="tab-pane active " id="tab_Delivered">
                                     <input type="hidden" name="_token" id="_tokenChangeAccountStatus" value="{{ csrf_token() }}"  >
                                     <caption>Delivered Table</caption>
-                                    <table id="delivered_table_pagination" class="table">
+                                    <table  class="table">
                                         
                                         <thead class="thead_th">
                                             <tr class="tr">
@@ -189,11 +189,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                <button class="button-29" style="vertical-align:middle" id="invoiceExport"><span>Export</span></button>
+                    <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
                         <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
-                    </form>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    </form> -->
+                    <button type="button" class="button-29 colseAccountMangerModal" data-dismiss="modal" >Close</button>
                     <!-- <button class="btn btnclose" style="background-color:red;" data-bs-dismiss="modal">Close</button> -->
                 </div>
             </div>

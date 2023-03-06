@@ -245,6 +245,7 @@ Route::get('admin/getAccountInvoiceValue', [AccountManagerController::class, 'ge
 Route::get('admin/getAccountCompletedValue', [AccountManagerController::class, 'getAccountCompletedValue']);
 Route::post('admin/accountChangeStatus', [AccountManagerController::class, 'accountChangeStatus']);
 Route::post('admin/DeleteaccountManger', [AccountManagerController::class, 'DeleteaccountManger']);
+Route::post('admin/exportInvoices', [AccountManagerController::class, 'exportInvoices']);
 
 //Branch Office
 Route::get('admin/getBranchOffice', [BranchOfficeController::class, 'getBranchOffice']);

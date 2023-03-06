@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
-    $('.accManagClose').click(function(){
+    $('.colseAccountMangerModal').click(function(){
         $('#accManagModal').modal('hide');
     });
 
@@ -32,6 +32,7 @@ $(document).ready(function() {
    
 $('.Invoiced_tab').click(function(){
     //alert();
+    $("#invoiceExport").show();
     $.ajax({
         type: "GET",
         url: base_path+"/admin/getAccountInvoiceValue",
@@ -123,9 +124,9 @@ $('.Completed_tab').click(function(){
                                         "</td>" +
                                         "<td data-field='load_notes' >" + load_notes + "</td>" +
                                         "<td style='text-align:center'>"+
-                                        "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-data_status_account='Invoiced' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
+                                        // "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-data_status_account='Invoiced' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
 
-                                        "<a class='mt-2 button-23 fs-14 text-white delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Delivered' data-compID='' ><i class='fe fe-trash'></i></a>"+
+                                        "<a class=' button-23 delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Delivered' data-compID='' ><i class='fe fe-trash'></i></a>"+
                                         // "<td style='text-align:center'>"+
                                         //     "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+AccMana_load_Id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
                                         // "</td>"+
@@ -217,9 +218,9 @@ $('.Completed_tab').click(function(){
                                          + "</td>" +
                                         "<td data-field='load_notes' >" + load_notes + "</td>" +
                                         "<td style='text-align:center'>"+
-                                        "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-edit'></i></a>"+
+                                        // "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-edit'></i></a>"+
 
-                                        "<a class='mt-2 button-23 fs-14 text-white delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-trash'></i></a>"+
+                                        "<a class='mt-2 button-23 fs-14 delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-trash'></i></a>"+
                                         // "<td style='text-align:center'>"+
                                         //     "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+AccMana_load_Id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
                                         // "</td>"+"
@@ -294,9 +295,9 @@ function createAccManaCompletedRows(AccManaCompleteResult) {
                                     // "<td data-field='PayDate' >" + PayDate + "</td>" +
                                     "<td data-field='load_notes' >" + load_notes + "</td>" +
                                     "<td style='text-align:center'>"+
-                                        "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
+                                        // "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
 
-                                        "<a class='mt-2 button-23 fs-14 text-white delete_AccountManager_details'  title='delete'  data-data_status_account='Complate' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-trash'></i></a>"+
+                                        "<a class='mt-2 button-23 fs-14 delete_AccountManager_details'  title='delete'  data-data_status_account='Complate' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-trash'></i></a>"+
                                 
                                     // "<td style='text-align:center'>"+
                                     //     "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+AccMana_load_Id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
@@ -421,4 +422,20 @@ $("body").on('click', '.delete_AccountManager_details',function(){
     // alert(id);
 })
 //================= end delete deliveried ================================
+
+
+    //================== export data =====================================
+    $("#invoiceExport").hide();
+    $("#invoiceExport").click(function(){
+        $.ajax({
+            type:"post",
+            data:{_token:$("#_tokenChangeAccountStatus").val()},
+            url: base_path+"/admin/exportInvoices",
+            success: function(data) {   
+                var rows = JSON.parse(data);
+            JSONToCSVConvertor(rows, "Invoice Report", true);
+            }
+        });
+    })
+    //========= end export data ===========================================
 });
