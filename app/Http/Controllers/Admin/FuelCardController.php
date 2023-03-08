@@ -19,76 +19,66 @@ use Illuminate\Database\Eloquent\Collection;
 
 class FuelCardController extends Controller
 {
-    public function getFuelCard(Request $request){
-        $companyId=(int)Auth::user()->companyID;
-        $FuelCard = IftaCardCategory::where('companyID',$companyId)->first();
-        $FuelVendor = FuelVendor::where('companyID',$companyId)->first();
-        $driver = Driver::where('companyID',$companyId )->first();
+    public function getFuelCard(Request $request)
+    {
+        $companyID=(int)Auth::user()->companyID;
+        // $FuelCard = IftaCardCategory::where('companyID',$companyID)->first();
+        // $FuelVendor = FuelVendor::where('companyID',$companyID)->first();
+        // $driver = Driver::where('companyID',$companyID )->first();
+        //  return response()->json(['FuelCard'=>$FuelCard, 'FuelVendor'=>$FuelVendor, 'driver'=>$driver], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
 
-
-        //     $FactCompany=collect($FactCompany->factoring);
-        //     $FactCompany = $FactCompany->chunk(10);
-            
-        //    $FactCompany=$FactCompany->toArray();
-
-
-        // $data=IftaCardCategory::where('companyID',$companyId)->aggregate([
-        // {
-        //         $lookup:{
-        //             from: "driver",       // other table name
-        //             localField: "ifta_card.cardHolderName",   // name of users table field
-        //             foreignField: "driver.driver._id", // name of userinfo table field
-        //             as: "driver"         // alias for userinfo table
-        //         }
-        //     }
-        // ]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     $result = IftaCardCategory::where('companyID',$companyId)->raw(function($collection) {
-//         return $collection->aggregate(array(
-//           array( '$lookup' => array(
-//             'from' => 'drivers',
-//             'localField' => 'driver.driver._id',
-//             'foreignField' => '_id',
-//             'as' => 'driver'
-//           )),
-//           array( '$unwind' => array( 
-//             'path' => '$driver', 'preserveNullAndEmptyArrays' => True
-//           )),
-//         //   array( '$match' => array(
-//         //     '$or' => array(
-//         //       array( 'invoice_number' => array( '$regex' => $search ) ),
-//         //       array( 'payment_type' => array( '$regex' => $search ) ),
-//         //       array( 'txid' => array( '$regex' => $search ) ),
-//         //       array( 'user.usrEmail' => array( '$regex' => $search ) )
-//         //     )
-//         //   )),
-//         //   array( '$skip' => $start ),
-//         //   array( '$limit' => $limit )
-//         ));
-//      });
-
-// dd($result);
-
-
-
-
-
-
-       return response()->json(['FuelCard'=>$FuelCard, 'FuelVendor'=>$FuelVendor, 'driver'=>$driver], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $total_records = 0;
+        $cursor = IftaCardCategory::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['size' => ['$size' => ['$ifta_card']],
+            ]]
+        ]);
+        foreach ($cursor as $v) {
+            $total_records += (int)$v['size'];
+        }
+        $completedata = array();
+        $partialdata = array();
+        if(!empty($total_records)){
+            $collection = Driver::raw();
+        $cldriver = $collection->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['driver._id' => 1,'driver.driverName'=>1]]
+        ]);
+        $driverName = array();
+        foreach ($cldriver as $dr) {
+            $driver_array = $dr['driver'];
+            foreach ($driver_array as $da) {
+                $driver_id = $da['_id'];
+                $driverName[$driver_id] = $da['driverName'];
+            }
+        }
+        $collection = FuelVendor::raw();
+        $card = $collection->find(["companyID" => $companyID]);
+        $fuelCardType = array();
+        foreach ($card as $dr) {
+            $card_array = $dr['fuelCard'];
+            foreach ($card_array as $da) {
+                $card_id = $da['_id'];
+                $fuelCardType[$card_id] = $da['fuelCardType'];
+            }
+        }
+        $collection = IftaCardCategory::raw();
+        $show1 = $collection->find(array('companyID' => $companyID));
+        $arrData1 = "";
+        foreach ($show1 as $row) {
+            $mainID = $row;
+        }
+        $arrData1 = array(
+            'mainID' => $mainID,
+            'driverName' => $driverName,
+            'fuelCardType' => $fuelCardType,
+        );
+        $partialdata[]= $arrData1;
+        // $partialdata[] = $this->getData($db, $companyID);
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $total_records;
+        echo json_encode($completedata);
     }
     public function createFuelCard(Request $request)
     {

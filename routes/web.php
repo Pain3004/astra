@@ -175,6 +175,7 @@ Route::get('admin/editFuelVendor', [FuelVendorController::class, 'editFuelVendor
 Route::post('admin/updateFuelVendor', [FuelVendorController::class, 'updateFuelVendor']);
 Route::post('admin/deleteFuelVendor', [FuelVendorController::class, 'deleteFuelVendor']);
 Route::post('admin/restoreFuelVendor', [FuelVendorController::class, 'restoreFuelVendor']);
+Route::post('admin/export_fuelVendor', [FuelVendorController::class, 'export_fuelVendor']);
 
 //fuel card
 Route::get('admin/getFuelCard', [FuelCardController::class, 'getFuelCard']);
