@@ -132,6 +132,9 @@
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/script.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js.map"></script>
 </body>
 
 </html>

@@ -684,7 +684,7 @@
                                     <div class="form-group col-md-2">
                                       <label>Location *</label>
                                       <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" id="activeshipper" name="shipperLocation[]">
+                                        <input class="form-control" placeholder="Enter a location" type="text" data-location="activeshipper0" id="activeshipper0" onkeydown="getLocation('activeshipper0')" name="shipperLocation[]">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -811,7 +811,7 @@
                                     <div class="form-group col-md-2">
                                       <label>Location *</label>
                                       <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" onkeydown="getLocation('activeconsignee')" id="activeconsignee" name="activeconsignee[]">
+                                        <input class="form-control" placeholder="Enter a location" type="text" data-location="activeconsignee0" id="activeconsignee0" onkeydown="getLocation(this.name)" name="activeconsignee[]">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -2113,6 +2113,8 @@ function getTotal() {
 }
 //-----------------------end total-----------------
 //-----------------------calculateMiles-----------------
+
+
 function calculateMiles() {
   $(".loader1").css("display", "inline-block");
   document.getElementById("drivermiles").value = 0;
@@ -2125,6 +2127,9 @@ function calculateMiles() {
   var locations = [];
   var startFlag = 0;
   var endflag = 0;
+  var startLocation = 'AKRON, OH';
+  var endLocation = 'ADDISON, TX';
+ // alert(startLocation);
   if (startLocation != "") {
     locations.push({ seq: "0", location: startLocation });
     startFlag = 1;
@@ -2174,7 +2179,7 @@ function calculateMiles() {
     locations.push({ seq: "300", location: endLocation });
     endflag = 1;
   }
-
+alert(locations.length);
   if (locations.length <= 1) {
     swal.fire({
       title: "<h5>There should be atleast one shipper and one consignee</h5>",
@@ -2196,6 +2201,106 @@ function calculateMiles() {
     waypts.push({ location: locations[i].location, stopover: true });
   }
   calcRoute(waypts, startFlag, endflag);
+}
+function compare(a, b) {
+  const seqA = a.seq;
+  const seqB = b.seq;
+
+  let comparison = 0;
+  if (seqA > seqB) {
+    comparison = 1;
+  } else if (seqA < seqB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+function calcRoute(waypts, startFlag, endflag) {
+  EmptyHour = 0;
+  loadedHour = 0;
+  var request = {
+    origin: waypts[0].location,
+    destination: waypts[waypts.length - 1].location,
+    waypoints: waypts,
+    optimizeWaypoints: true,
+    travelMode: google.maps.DirectionsTravelMode.DRIVING,
+    unitSystem: google.maps.DirectionsUnitSystem.METRIC,
+  };
+
+  directionsService.route(request, function (response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      var distance = 0;
+      var time_taken = 0;
+      var empty_km = 0;
+      for (var i = 0; i < response.routes[0].legs.length; i++) {
+        if (startFlag == 0 && endflag == 0) {
+          distance += response.routes[0].legs[i].distance.value;
+          loadedHour += response.routes[0].legs[i].duration.value;
+          time_taken += response.routes[0].legs[i].duration.value;
+        } else if (startFlag == 1 && endflag == 0) {
+          if (i == 1) {
+            empty_km += response.routes[0].legs[i].distance.value;
+            EmptyHour += response.routes[0].legs[i].duration.value;
+          } else {
+            distance += response.routes[0].legs[i].distance.value;
+            loadedHour += response.routes[0].legs[i].duration.value;
+            time_taken += response.routes[0].legs[i].duration.value;
+          }
+        } else if (startFlag == 0 && endflag == 1) {
+          if (i == response.routes[0].legs.length - 2) {
+            empty_km += response.routes[0].legs[i].distance.value;
+            EmptyHour += response.routes[0].legs[i].duration.value;
+          } else {
+            distance += response.routes[0].legs[i].distance.value;
+            loadedHour += response.routes[0].legs[i].duration.value;
+            time_taken += response.routes[0].legs[i].duration.value;
+          }
+        } else if (startFlag == 1 && endflag == 1) {
+          if (i == 1) {
+            empty_km += response.routes[0].legs[i].distance.value;
+            EmptyHour += response.routes[0].legs[i].duration.value;
+          } else if (i == response.routes[0].legs.length - 2) {
+            empty_km += response.routes[0].legs[i].distance.value;
+            EmptyHour += response.routes[0].legs[i].duration.value;
+          } else {
+            distance += response.routes[0].legs[i].distance.value;
+            loadedHour += response.routes[0].legs[i].duration.value;
+            time_taken += response.routes[0].legs[i].duration.value;
+          }
+        }
+      }
+
+      //alert("loaded hour = "+loadedHour + "Empty hour = "+EmptyHour);
+      var calc_distance = distance;
+
+      function roundNumber(numbr, decimalPlaces) {
+        var placeSetter = Math.pow(10, decimalPlaces);
+        numbr = Math.round(numbr * placeSetter) / placeSetter;
+        return numbr;
+      }
+
+      var mi = calc_distance / 1.609;
+      mi = mi / 1000;
+      mi = roundNumber(mi, 2);
+
+      var empty_mi = empty_km / 1.609;
+      empty_mi = empty_mi / 1000;
+      empty_mi = roundNumber(empty_mi, 2);
+
+      //alert("Total miles  = "+mi + "Empty miles = "+empty_mi);
+      $("#drivermiles").val((empty_mi + mi).toFixed(2));
+      $("#loadedmiles").val(Math.abs(mi).toFixed(2));
+      $("#emptymiles").val(empty_mi);
+      var type = document.getElementsByName("typeofloder");
+      var checked = getTypeOfLoader(type);
+      if (checked == "driver") {
+        getDriverTotal();
+      }
+      $(".loader1").css("display", "none");
+    } else {
+      $(".loader1").css("display", "none");
+      alert("Unable to find route!!!");
+    }
+  });
 }
 //-----------------------end calculateMiles-----------------
 // //-----------------------get owner truck and per-----------------select2-lb_owner-container

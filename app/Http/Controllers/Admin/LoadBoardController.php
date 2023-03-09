@@ -78,6 +78,7 @@ class LoadBoardController extends Controller
         return response()->json(['data'=>$data,'user'=>$user]);
     }
 
+ 
     public function changeStatus(Request $request){
         dd( $request);
         $com_id=(int)$request->com_id;
