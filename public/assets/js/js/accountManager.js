@@ -2,7 +2,7 @@ var base_path = $("#url").val();
 $(document).ready(function() {
 
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
-    $('.accManagClose').click(function(){
+    $('.colseAccountMangerModal').click(function(){
         $('#accManagModal').modal('hide');
     });
 
@@ -32,6 +32,7 @@ $(document).ready(function() {
    
 $('.Invoiced_tab').click(function(){
     //alert();
+    $("#invoiceExport").show();
     $.ajax({
         type: "GET",
         url: base_path+"/admin/getAccountInvoiceValue",
@@ -78,7 +79,7 @@ $('.Completed_tab').click(function(){
                 $("#AccManaDeliveredTable").html('');
                 AccManalen = AccManaResult.AccountingManager.length;
                 //CreditCardlen = subCreditCardResult.CreditCard.length;
-//alert(CreditCardlen);
+                //alert(CreditCardlen);
                 if (AccManalen > 0) {
                     for (var i = AccManalen-1; i >= 0; i--) { 
                         
@@ -104,7 +105,7 @@ $('.Completed_tab').click(function(){
                                 var deleteStatus=AccManaResult.AccountingManager[i].load[j].deleteStatus;
 
                                 var data =JSON.stringify(AccManaResult.AccountingManager[i].load[j]);
-
+                                // console.log(data);
                               
                                 //if(deleteStatus == "NO"){
                                         //alert("ff");
@@ -117,16 +118,15 @@ $('.Completed_tab').click(function(){
                                         "<td data-field='rate' >" + rate + "</td>" +
                                         "<td data-field='loadername' >" + loadername + "</td>" +
                                         "<td data-field='loadertotal' >" + loadertotal + "</td>" +
-                                        "<td data-field='status' >"+"<select class='form-control change_status_account'>"+
-                                        "<option value='Delivered' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Delivered'>Delivered</option><option value='Invoiced' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Delivered'>Invoiced</option><option value='Complate' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Delivered'>Complate</option>"+
-                                    "</select></td>" +
+                                        "<td data-field='status' >" +"<select class='form-control change_status_account'>"+
+                                            "<option value='Delivered' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Delivered'>Delivered</option><option value='Invoiced' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Delivered'>Invoiced</option><option value='Complate' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Delivered'>Complate</option>"+
+                                        "</select>"+
+                                        "</td>" +
                                         "<td data-field='load_notes' >" + load_notes + "</td>" +
-
                                         "<td style='text-align:center'>"+
-                                        "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-data_status_account='Delivered' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
+                                        // "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-data_status_account='Invoiced' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
 
-                                        "<a class='mt-2 button-23 fs-14 text-white delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Delivered' data-compID='' ><i class='fe fe-trash'></i></a>"+
-                                       
+                                        "<a class=' button-23 delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Delivered' data-compID='' ><i class='fe fe-trash'></i></a>"+
                                         // "<td style='text-align:center'>"+
                                         //     "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+AccMana_load_Id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
                                         // "</td>"+
@@ -155,8 +155,8 @@ $('.Completed_tab').click(function(){
             $("#AccManaDeliveredTable").append(AccManaDeleStr);
         }
     }
-// <!-- -------------------------------------------------------------------------End getAccount Deliverd------------------------------------------------------------------------ -->  
-// <!-- -------------------------------------------------------------------------function getAccount Invoice ------------------------------------------------------------------------- --> 
+    // <!-- -------------------------------------------------------------------------End getAccount Deliverd------------------------------------------------------------------------ -->  
+    // <!-- -------------------------------------------------------------------------function getAccount Invoice ------------------------------------------------------------------------- --> 
     function createAccManaInvoiceRows(AccManaInvoiceResult) {
         var AccManaInvoicelen = 0;
         var no=1;
@@ -165,13 +165,13 @@ $('.Completed_tab').click(function(){
                 $("#AccManaInvoicedTable").html('');
                 AccManaInvoicelen = AccManaInvoiceResult.AccountingManagerInvoice.length;
                 //CreditCardlen = subCreditCardResult.CreditCard.length;
-    //alert(CreditCardlen);
+                //alert(CreditCardlen);
                 if (AccManaInvoicelen > 0) {
                     for (var i = AccManaInvoicelen-1; i >= 0; i--) { 
                         
                         load_len = AccManaInvoiceResult.AccountingManagerInvoice[i].load.length;
                         //alert(sub_credit_len);
-                        varAccManaInvoice_Id =AccManaInvoiceResult.AccountingManagerInvoice[i]._id;
+                        var AccManaInvoice_Id=AccManaInvoiceResult.AccountingManagerInvoice[i]._id;
                         var AccManaInvoice_com_Id =AccManaInvoiceResult.AccountingManagerInvoice[i].companyID;
 
                         //alert(bankAdminlen);
@@ -193,7 +193,7 @@ $('.Completed_tab').click(function(){
 
                                 var  status=AccManaInvoiceResult.AccountingManagerInvoice[i].load[j].status;
                                 var  load_notes=AccManaInvoiceResult.AccountingManagerInvoice[i].load[j].load_notes;
-                                var data=JSON.stringify(AccManaInvoiceResult.AccountingManagerInvoice[i].load[j]);
+                        var data=JSON.stringify(AccManaInvoiceResult.AccountingManagerInvoice[i].load[j]);
 
                                 //if(deleteStatus == "NO"){
                                         //alert("ff");
@@ -208,24 +208,23 @@ $('.Completed_tab').click(function(){
                                         "<td data-field='loadertotal' >" + loadertotal + "</td>" +
                                         "<td data-field='invoicetime' >" + invoicetime + "</td>" +
                                         "<td data-field='duedate' >" + duedate + "</td>" +
-                                        "<td data-field='invoiceReceiptDate' >" + invoiceReceiptDate + "</td>" +
+                                        "<td data-field='invoiceReceiptDate' >" + invoiceReceiptDate 
+                                        + "</td>" +
                                         "<td data-field='payduedate' >" + payduedate + "</td>" +
                                         "<td data-field='status' >" 
                                                 +"<select class='form-control change_status_account'>"+
                                                 "<option value='Invoiced' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Invoiced'>Invoiced</option><option value='Delivered' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Invoiced'>Delivered</option><option value='Complate' data-id_data='"+AccMana_load_Id+"' data-allData='"+data+"' data-sendFrom='Invoiced'>Complate</option>"+
                                             "</select>"
-                                         + "</td>"  +
+                                         + "</td>" +
                                         "<td data-field='load_notes' >" + load_notes + "</td>" +
-
                                         "<td style='text-align:center'>"+
-                                        "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-edit'></i></a>"+
+                                        // "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-edit'></i></a>"+
 
-                                        "<a class='mt-2 button-23 fs-14 text-white delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-trash'></i></a></td>"+
-                                    
+                                        "<a class='mt-2 button-23 fs-14 delete_AccountManager_details'  title='delete' data-AccountManagerID='"+AccMana_load_Id+"' data-data_status_account='Invoiced'  data-compID='' ><i class='fe fe-trash'></i></a>"+
                                         // "<td style='text-align:center'>"+
                                         //     "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+AccMana_load_Id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
                                         // "</td>"+"
-                                        "</tr>";
+                                        "</td></tr>";
             
                                     $("#AccManaInvoicedTable").append(AccManaInviceStr);
                                     no++;
@@ -295,17 +294,15 @@ function createAccManaCompletedRows(AccManaCompleteResult) {
                                     // "<td data-field='ReceiptDate' >" + ReceiptDate + "</td>" +
                                     // "<td data-field='PayDate' >" + PayDate + "</td>" +
                                     "<td data-field='load_notes' >" + load_notes + "</td>" +
-
                                     "<td style='text-align:center'>"+
-                                    "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-data_status_account='Complate'  data-AccountManagerID='"+Invoice+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
+                                        // "<a class='mt-2 button-23 fs-14 text-white Edit_AccountManager_details_m'  title='Edit1' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-edit'></i></a>"+
 
-                                    "<a class='mt-2 button-23 fs-14 text-white delete_AccountManager_details'  title='delete'  data-data_status_account='Complate' data-AccountManagerID='"+Invoice+"' data-compID='' ><i class='fe fe-trash'></i></a> </td>"+
-                            
+                                        "<a class='mt-2 button-23 fs-14 delete_AccountManager_details'  title='delete'  data-data_status_account='Complate' data-AccountManagerID='"+AccMana_load_Id+"' data-compID='' ><i class='fe fe-trash'></i></a>"+
                                 
                                     // "<td style='text-align:center'>"+
                                     //     "<a class='mt-2 btn btn-primary fs-14 text-white editCurrency'  title='Edit1' data-Id='"+AccMana_load_Id+"' data-truckType='' ><i class='fe fe-edit'></i></a>&nbsp"+
                                     // "</td>"+"
-                                    "</tr>";
+                                    "</td></tr>";
         
                                 $("#AccManaCompleteTable").append(AccManaCompleteStr);
                                 no++;
@@ -332,13 +329,59 @@ function createAccManaCompletedRows(AccManaCompleteResult) {
 }
 // <!-- -------------------------------------------------------------------------End getAccount Completed------------------------------------------------------------------------- -->  
 
+
 //============= start update status of deleverd ==========================
-$('body').on('change',".change_status_account", function(){
-    var status=$(this).val();
-    var id=$(this).find(':selected').attr("data-id_data");;
-    var data=$(this).find(':selected').attr("data-allData");
-    // alert(id);
-    var sendFrom= $(this).find(':selected').attr("data-sendFrom");
+    $('body').on('change',".change_status_account", function(){
+        var status=$(this).val();
+        var id=$(this).find(':selected').attr("data-id_data");;
+        var data=$(this).find(':selected').attr("data-allData");
+        // alert(id);
+        var sendFrom= $(this).find(':selected').attr("data-sendFrom");
+        swal.fire({
+            title: "Status?",
+            text: "Are you sure Change Status !",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: !0
+        }).then(function (e) {
+            if (e.value === true) 
+            {
+                $.ajax({
+                    type: 'post',
+                    url: base_path+"/admin/accountChangeStatus",
+                    data: { _token: $("#_tokenChangeAccountStatus").val(), status: status,id:id,data:data,sendFrom:sendFrom},
+                    success: function(resp){
+                        swal.fire("Done!", "Changed Status In  Successfully", "success");
+                        $.ajax({
+                            type: "GET",
+                            url: base_path+"/admin/getAccountDeliverdValue",
+                            async: false,
+                            //dataType:JSON,
+                            success: function(text) {
+                                //alert();
+                                console.log(text);
+                                createAccManaRows(text);
+                                subCreditCardResult = text;
+                              }
+                        });
+
+                    },
+                    error: function (resp) {
+                        swal.fire("Error!", 'Something went wrong.', "error");
+                    }
+                });
+            } 
+        });
+        // alert(status);
+    });
+//===================== end update status ================================
+
+///================ start delete deliveried ==============================
+$("body").on('click', '.delete_AccountManager_details',function(){
+    var id= $(this).attr("data-AccountManagerID");
+    var status= $(this).attr("data-data_status_account");
     swal.fire({
         title: "Status?",
         text: "Are you sure Change Status !",
@@ -352,10 +395,10 @@ $('body').on('change',".change_status_account", function(){
         {
             $.ajax({
                 type: 'post',
-                url: base_path+"/admin/accountChangeStatus",
-                data: { _token: $("#_tokenChangeAccountStatus").val(), status: status,id:id,data:data,sendFrom:sendFrom},
+                url: base_path+"/admin/DeleteaccountManger",
+                data: { _token: $("#_tokenChangeAccountStatus").val(), status: status,id:id},
                 success: function(resp){
-                    swal.fire("Done!", "Changed Status In  Successfully", "success");
+                    swal.fire("Done!", "Deleted Deliverid successfully", "success");
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/getAccountDeliverdValue",
@@ -376,53 +419,23 @@ $('body').on('change',".change_status_account", function(){
             });
         } 
     });
-    // alert(status);
-});
-//===================== end update status ================================
-
-///================ start delete deliveried ==============================
-$("body").on('click', '.delete_AccountManager_details',function(){
-var id= $(this).attr("data-AccountManagerID");
-var status= $(this).attr("data-data_status_account");
-swal.fire({
-    title: "Status?",
-    text: "Are you sure Change Status !",
-    type: "warning",
-    showCancelButton: !0,
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel!",
-    reverseButtons: !0
-}).then(function (e) {
-    if (e.value === true) 
-    {
-        $.ajax({
-            type: 'post',
-            url: base_path+"/admin/DeleteaccountManger",
-            data: { _token: $("#_tokenChangeAccountStatus").val(), status: status,id:id},
-            success: function(resp){
-                swal.fire("Done!", "Deleted Deliverid successfully", "success");
-                $.ajax({
-                    type: "GET",
-                    url: base_path+"/admin/getAccountDeliverdValue",
-                    async: false,
-                    //dataType:JSON,
-                    success: function(text) {
-                        //alert();
-                        console.log(text);
-                        createAccManaRows(text);
-                        subCreditCardResult = text;
-                      }
-                });
-
-            },
-            error: function (resp) {
-                swal.fire("Error!", 'Something went wrong.', "error");
-            }
-        });
-    } 
-});
-// alert(id);
+    // alert(id);
 })
 //================= end delete deliveried ================================
 
+
+    //================== export data =====================================
+    $("#invoiceExport").hide();
+    $("#invoiceExport").click(function(){
+        $.ajax({
+            type:"post",
+            data:{_token:$("#_tokenChangeAccountStatus").val()},
+            url: base_path+"/admin/exportInvoices",
+            success: function(data) {   
+                var rows = JSON.parse(data);
+            JSONToCSVConvertor(rows, "Invoice Report", true);
+            }
+        });
+    })
+    //========= end export data ===========================================
 });

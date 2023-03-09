@@ -326,3 +326,6 @@ Route::get('admin/editExternalCarrier', [ExternalCarrierController::class, 'edit
 Route::post('admin/updateExternalCarrier', [ExternalCarrierController::class, 'updateExternalCarrier']);
 Route::post('admin/deleteExternalCarrier', [ExternalCarrierController::class, 'deleteExternalCarrier']);
 Route::post('admin/restoreExternalCarrier', [ExternalCarrierController::class, 'restoreExternalCarrier']);
+
+
+Route::post('admin/export_fuelVendor', [FuelVendorController::class, 'export_fuelVendor']);

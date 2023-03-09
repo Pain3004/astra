@@ -7,7 +7,17 @@ $(document).ready(function() {
     });
 
 
-// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- -->  
+// <!-- -------------------------------------------------------------------------Get fuelReceipt  ------------------------------------------------------------------------- --> 
+$("#addSubCreditCardmainCard").select2({
+    placeholder: "Select a programming language",
+    allowClear: true,
+    dropdownParent: $('#AddSubCreditCardModal')
+    }); 
+    $("#updateSubCreditCardmainCard").select2({
+        placeholder: "Select a programming language",
+        allowClear: true,
+        dropdownParent: $('#UpdateSubCreditCardModal')
+        }); 
    
     $('#subCreditCard_navbar').click(function(){
         $.ajax({
@@ -19,29 +29,23 @@ $(document).ready(function() {
                 $(".creditCardTypeAll").html();
                 if (text != null) {
                     $(".creditCardTypeAll").html();
-                    creditCardlen = text.length;
+                    creditCardlen = text.arrData1.admin_credit.length;
                     if (creditCardlen > 0) {
                         for (var i = creditCardlen-1; i >= 0; i--) { 
-                            admin_credit_len = text[i].admin_credit.length;
-                            if (admin_credit_len > 0) {
-                                for (var j = admin_credit_len-1; j >= 0; j--) {
-                                    var admin_bank_Id =text[i].admin_credit[j]._id;
-                                    var  Name=text[i].admin_credit[j].displayName;
-                                    var deleteStatus =text[i].admin_credit[j].deleteStatus;
-    
-                                    if(deleteStatus == "NO")
-                                    {
-                                        var html="<option value='"+admin_bank_Id+"'>"+Name+"</option>";
-                                        $(".creditCardTypeAll").append(html);
-                                    }
-                                }
+                            // admin_credit_len = text[i].admin_credit.length;
+                            var admin_bank_Id =text.arrData1.admin_credit[i]._id;
+                            var  Name=text.arrData1.admin_credit[i].Name;
+                            var deleteStatus=text.arrData1.admin_credit[i].deleteStatus;
+                            if(deleteStatus == "NO")
+                            {
+                                var html="<option value='"+admin_bank_Id+"'>"+Name+"</option>";
+                                $(".creditCardTypeAll").append(html);
                             }
                         }
                     }
                 }    
             }
         });
-        //alert();
         $.ajax({
             type: "GET",
             url: base_path+"/admin/getsubCreditCard",
@@ -49,7 +53,7 @@ $(document).ready(function() {
             //dataType:JSON,
             success: function(text) {
                 //alert();
-                console.log(text);
+                // console.log(text);
                 createSubCreditCardRows(text);
                 subCreditCardResult = text;
               }
@@ -69,20 +73,18 @@ $(document).ready(function() {
             if (subCreditCardResult != null) {
                 $("#subCreditCardTable").html('');
                 subCreditCardlen = subCreditCardResult.SubCreditCard.length;
-                CreditCardlen = subCreditCardResult.CreditCard.length;
-//alert(CreditCardlen);
+               var CreditCardlen = subCreditCardResult.CreditCard.length;
                 if (subCreditCardlen > 0) {
                     for (var i = subCreditCardlen-1; i >= 0; i--) { 
                         
-                        sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
-                        //alert(sub_credit_len);
+                       var sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
                         var Id =subCreditCardResult.SubCreditCard[i]._id;
                         var sub_cred_com_Id =subCreditCardResult.SubCreditCard[i].companyID;
 
                         //alert(bankAdminlen);
                         if (sub_credit_len > 0) {
                             for (var j = sub_credit_len-1; j >= 0; j--) {
-
+                                var comId=subCreditCardResult.SubCreditCard[i].companyID;
                                 var sub_credit_Id =subCreditCardResult.SubCreditCard[i].sub_credit[j]._id;
                                 var  displayName=subCreditCardResult.SubCreditCard[i].sub_credit[j].displayName;
                                 var  mainCardId=subCreditCardResult.SubCreditCard[i].sub_credit[j].mainCard;
@@ -122,8 +124,9 @@ $(document).ready(function() {
                                        
                                        
                                         "<td style='text-align:center'>"+
-                                            "<a class=' edit_modalSubCreditCard button-23  "+editPrivilege+"'  title='Edit1' data-SubcreditCardId='"+sub_credit_Id+"' data-compID='"+sub_cred_com_Id+"'><i class='fe fe-edit'></i></a>&nbsp"+
-                                            "</a> <a class='delete_modalSubCreditCard delete1 button-23 "+delPrivilege+"' data-SubcreditCardId='"+sub_credit_Id+"' data-compID='"+sub_cred_com_Id+"'  title='Delete'><i class='fe fe-delete'></i></a>"+
+                                        "<a class='mt-2 button-29 fs-14 text-white edit_modalSubCreditCard'  title='Edit1' data-SubcreditCardId='"+sub_credit_Id+"' data-compID='"+comId+"' ><i class='fe fe-edit'></i></a>&nbsp"+
+
+                                        "<a class='mt-2 button-29 fs-14 text-white delete_modalSubCreditCard'  title='delete' data-SubcreditCardId='"+sub_credit_Id+"' data-compID='"+comId+"' ><i class='fe fe-trash'></i></a>&nbsp"+
                                         "</td></tr>";
             
                                     $("#subCreditCardTable").append(subCreditCardStr);
@@ -131,8 +134,7 @@ $(document).ready(function() {
                                 }
                             }
                         }
-                    }
-                    
+                    }                    
                 }else {
                             var subCreditCardStr = "<tr data-id=" + i + ">" +
                                 "<td align='center' colspan='4'>No record found.</td>" +
@@ -152,8 +154,7 @@ $(document).ready(function() {
 
    
 
-    // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
-
+// <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- --> 
 
     //========================================== start insert data ==================================
     $(".StoreSubCreditBtn").click(function(){
@@ -367,7 +368,7 @@ $(document).ready(function() {
             {
                 for (var i = subCreditCardlen-1; i >= 0; i--) 
                 {    
-                    sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
+                   var sub_credit_len = subCreditCardResult.SubCreditCard[i].sub_credit.length;
                     var Id =subCreditCardResult.SubCreditCard[i]._id;
                     var sub_cred_com_Id =subCreditCardResult.SubCreditCard[i].companyID;
                     if (sub_credit_len > 0) 
@@ -454,6 +455,8 @@ $(document).ready(function() {
         {
             $('.check_SubCreditCard_one:checkbox').each(function() {
                 this.checked = false;
+                SubCreditCardCheckboxRestore();
+                
             });
         }
     });

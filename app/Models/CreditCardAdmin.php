@@ -10,7 +10,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 
-class CreditCard extends Model 
+class CreditCardAdmin extends Model 
 {
     use Notifiable, Authenticatable;
     use HasFactory;
@@ -21,7 +21,7 @@ class CreditCard extends Model
      */
 
     protected $connection = 'mongodb';
-    protected $collection = 'credit_card';
+    protected $collection = 'credit_card_admin';
 
   
 

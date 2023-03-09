@@ -1,6 +1,5 @@
 var base_path = $("#url").val();
 $(document).ready(function() {
-
 // <!-- -------------------------------------------------------------------------start ------------------------------------------------------------------------- -->  
     $('.fuelVendorClose').click(function(){
         removePagi();
@@ -32,7 +31,7 @@ $(document).ready(function() {
         var fuelVendorlen = 0;
             if (FuelVendorResult != null) 
             { 
-                fuelVendorlen = FuelVendorResult.FuelVendor.length;
+                fuelVendorlen = FuelVendorResult.arrData1.fuelCard.length;
 
                 $("#FuelVendorTable").html('');
                 var lentData=[];
@@ -40,14 +39,13 @@ $(document).ready(function() {
                    
                     var no=1;
                     for (var j = fuelVendorlen-1; j >= 0; j--) {  
-                        var CompID =FuelVendorResult.companyId;
-                        var data=FuelVendorResult.FuelVendor[j];
-                        $.each(data, function(i, v) { 
-                            var fuelVendorId =FuelVendorResult.FuelVendor[j][i]._id;
-                            var fuelCardType =FuelVendorResult.FuelVendor[j][i].fuelCardType;
-                            if(FuelVendorResult.FuelVendor[j][i].openingDate != null || FuelVendorResult.FuelVendor[j][i].openingDate != false)
+                        var CompID =FuelVendorResult.arrData1.companyID;
+                        // var data=FuelVendorResult.arrData1.fuelCard;
+                            var fuelVendorId =FuelVendorResult.arrData1.fuelCard[j]._id;
+                            var fuelCardType =FuelVendorResult.arrData1.fuelCard[j].fuelCardType;
+                            if(FuelVendorResult.arrData1.fuelCard[j].openingDate != null || FuelVendorResult.arrData1.fuelCard[j].openingDate != false)
                             {
-                                var openingBale=FuelVendorResult.FuelVendor[j][i].openingDate;
+                                var openingBale=FuelVendorResult.arrData1.fuelCard[j].openingDate;
                                 var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                                 var date = new Date(openingBale*1000);
                                 var year = date.getFullYear();
@@ -59,9 +57,9 @@ $(document).ready(function() {
                             {
                                 openingDate="----";
                             }
-                            var openingBalance =FuelVendorResult.FuelVendor[j][i].openingBalance;
-                            var currentBalance =FuelVendorResult.FuelVendor[j][i].currentBalance;
-                            var deleteStatus =FuelVendorResult.FuelVendor[j][i].deleteStatus;
+                            var openingBalance =FuelVendorResult.arrData1.fuelCard[j].openingBalance;
+                            var currentBalance =FuelVendorResult.arrData1.fuelCard[j].currentBalance;
+                            var deleteStatus =FuelVendorResult.arrData1.fuelCard[j].deleteStatus;
                             if(openingBalance !="" || openingBalance != null)
                             {
                                 openingBalance=openingBalance;
@@ -87,8 +85,8 @@ $(document).ready(function() {
                                 fuelVendorId="-----";
                             }
                             if(deleteStatus == "NO"){
-                                lentData.push(i);
-                                var fuelVendorStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
+                                // lentData.push(i);
+                                var fuelVendorStr = "<tr class='tr' data-id=" + (j + 1) + ">" +
                                 "<td data-field='no'>" + no + "</td>" +
                                 "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
                                 "<td data-field='openingDate' >" +openingDate  + "</td>" +
@@ -102,7 +100,6 @@ $(document).ready(function() {
                                 $("#FuelVendorTable").append(fuelVendorStr);
                                 no++;
                             }
-                        });
                     }
                 } else {
                     var fuelVendorStr = "<tr data-id=" + i + ">" +
@@ -254,7 +251,7 @@ $(document).ready(function() {
             processData: false,
             data:formData,
             success: function(data) {
-                console.log(data)                    
+                // console.log(data)                    
                 swal.fire("Done!", "Fuel Vendor added successfully", "success");
                 $('#AddFuelVendor').modal('hide');
                 $.ajax({
@@ -263,23 +260,24 @@ $(document).ready(function() {
                     async: false,
                     //dataType:JSON,
                     success: function(text) {
-                        //alert();
+                        createFuelVendorRows(text);
+                        FuelVendorResult = text;
                         var fuelVendorlen = 0;
                         if (text != null) {
                             fuelVendorlen = text.fuelCard.length;
                             $(".card_vendor_type").html();
                             if (fuelVendorlen > 0) {
                                 for (var i = fuelVendorlen - 1; i >= 0; i--) {
-                                    var fuelVendorId = text.FuelVendor[j][i]._id;
-                                    var fuelCardType = text.FuelVendor[j][i].fuelCardType;
+                                    var fuelVendorId = text.arrData1.fuelCard[j]._id;
+                                    var fuelCardType = text.arrData1.fuelCard[j].fuelCardType;
                                     var html = "<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>";
                                     $(".card_vendor_type").append(html);
                                 }
                             }
                         }
-                        // console.log(text);
-                        createFuelVendorRows(text);
-                        FuelVendorResult = text;
+                        // // console.log(text);
+                        // createFuelVendorRows(text);
+                        // FuelVendorResult = text;
                      }
                 });
             }
@@ -381,7 +379,7 @@ $(document).ready(function() {
             processData: false,
             data:formData,
             success: function(data) {
-                console.log(data)                    
+                // console.log(data)                    
                 swal.fire("Done!", "Fuel Vendor updated successfully", "success");
                 $('#UpdateFuelVendor').modal('hide');
                 $.ajax({
@@ -389,7 +387,7 @@ $(document).ready(function() {
                     url: base_path+"/admin/getFuelVendor",
                     async: false,
                     success: function(text) {
-                        console.log(text);
+                        // console.log(text);
                         createFuelVendorRows(text);
                         FuelVendorResult = text;
                      }
@@ -455,7 +453,7 @@ $(document).ready(function() {
             success: function(text) {
                 console.log(text);
                 RestoreFuelVendorRows(text);
-                restoreFuelVendorResult = text;
+                FuelVendorResult = text;
              }
         });
         $("#restore_fuel_vendor_list").modal("show");
@@ -463,72 +461,67 @@ $(document).ready(function() {
     $(".restorefuelVendorClose").click(function(){
         $("#restore_fuel_vendor_list").modal("hide");
     });
-    function RestoreFuelVendorRows(restoreFuelVendorResult) {
+    function RestoreFuelVendorRows(FuelVendorResult) {
         var fuelVendorlen = 0;
-        //alert(restoreFuelVendorResult);
-            if (restoreFuelVendorResult != null) {
-                
-                fuelVendorlen = restoreFuelVendorResult.fuelCard.length;
+        if (FuelVendorResult != null) 
+        { 
+            fuelVendorlen = FuelVendorResult.arrData1.fuelCard.length;
 
-                $("#restoreFuelVendorTable").html('');
-                var lentData=[];
-                if (fuelVendorlen > 0) {
-                   
-                    var no=1;
-                    for (var j = fuelVendorlen-1; j >= 0; j--) 
-                    { 
-                        var data=restoreFuelVendorResult.FuelVendor[j];
-                        $.each(data, function(i, v) { 
-                            var CompID =restoreFuelVendorResult.companyId;
-                            var fuelVendorId =restoreFuelVendorResult.FuelVendor[j][i]._id;
-                            var fuelCardType =restoreFuelVendorResult.FuelVendor[j][i].fuelCardType;
-                            var openingDate =restoreFuelVendorResult.FuelVendor[j][i].openingDate;
-                            var openingBalance =restoreFuelVendorResult.FuelVendor[j][i].openingBalance;
-                            var currentBalance =restoreFuelVendorResult.FuelVendor[j][i].currentBalance;
-                            var deleteStatus =restoreFuelVendorResult.FuelVendor[j][i].deleteStatus;
-                            if(openingBalance !="" || openingBalance != null)
-                            {
-                                openingBalance=openingBalance;
-                            }
-                            else
-                            {
-                                openingBalance="-----";
-                            }
-                            if(currentBalance != "" || currentBalance != null)
-                            {
-                                currentBalance=currentBalance;
-                            }
-                            else
-                            {
-                                currentBalance="-----";
-                            }
-                            if(fuelVendorId !=""| fuelVendorId !=null)
-                            {
-                                fuelVendorId=fuelVendorId;
-                            }
-                            else
-                            {
-                                fuelVendorId="-----";
-                            }
-                            if(FuelVendorResult.FuelVendor[j][i].openingDate != null || FuelVendorResult.FuelVendor[j][i].openingDate != false)
-                            {
-                                var openingBale=FuelVendorResult.FuelVendor[j][i].openingDate;
-                                var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-                                var date = new Date(openingBale*1000);
-                                var year = date.getFullYear();
-                                var month = months_arr[date.getMonth()];
-                                var day = date.getDate();
-                                var openingDate = month+'/'+day+'/'+year;
-                            }
-                            else
-                            {
-                                openingDate="----";
-                            }
-                            if(deleteStatus == "YES"){
-                                lentData.push(i);
-                                //alert("ff");
-                                var fuelVendorStr = "<tr data-id=" + (i + 1) + ">" +
-                                "<td data-field='no'><input type='checkbox' class='check_fuelCard_one' name='all_fuelCard_id[]' data-fuelCard=" + fuelVendorId+ " date-compID="+CompID+"  value="+fuelVendorId+"></td>" +
+            $("#restoreFuelVendorTable").html('');
+            var lentData=[];
+            if (fuelVendorlen > 0) 
+            {
+               
+                var no=1;
+                for (var j = fuelVendorlen-1; j >= 0; j--) {  
+                    var CompID =FuelVendorResult.arrData1.companyID;
+                    // var data=FuelVendorResult.arrData1.fuelCard;
+                        var fuelVendorId =FuelVendorResult.arrData1.fuelCard[j]._id;
+                        var fuelCardType =FuelVendorResult.arrData1.fuelCard[j].fuelCardType;
+                        if(FuelVendorResult.arrData1.fuelCard[j].openingDate != null || FuelVendorResult.arrData1.fuelCard[j].openingDate != false)
+                        {
+                            var openingBale=FuelVendorResult.arrData1.fuelCard[j].openingDate;
+                            var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+                            var date = new Date(openingBale*1000);
+                            var year = date.getFullYear();
+                            var month = months_arr[date.getMonth()];
+                            var day = date.getDate();
+                            var openingDate = month+'/'+day+'/'+year;
+                        }
+                        else
+                        {
+                            openingDate="----";
+                        }
+                        var openingBalance =FuelVendorResult.arrData1.fuelCard[j].openingBalance;
+                        var currentBalance =FuelVendorResult.arrData1.fuelCard[j].currentBalance;
+                        var deleteStatus =FuelVendorResult.arrData1.fuelCard[j].deleteStatus;
+                        if(openingBalance !="" || openingBalance != null)
+                        {
+                            openingBalance=openingBalance;
+                        }
+                        else
+                        {
+                            openingBalance="-----";
+                        }
+                        if(currentBalance != "" || currentBalance != null)
+                        {
+                            currentBalance=currentBalance;
+                        }
+                        else
+                        {
+                            currentBalance="-----";
+                        }
+                        if(fuelVendorId !=""| fuelVendorId !=null)
+                        {
+                            fuelVendorId=fuelVendorId;
+                        }
+                        else
+                        {
+                            fuelVendorId="-----";
+                        }
+                        if(deleteStatus == "YES"){
+                                var fuelVendorStr = "<tr data-id=" + (j + 1) + ">" +
+                                "<td data-field='no'><input type='checkbox' class='check_fuelCardVendor_one' name='all_fuelCard_id[]' data-fuelCard=" + fuelVendorId+ " date-compID="+CompID+"  value="+fuelVendorId+"></td>" +
                                 "<td data-field='fuelCardType' >" + fuelCardType + "</td>" +
                                 "<td data-field='openingDate' >" +openingDate  + "</td>" +
                                 "<td data-field='openingBalance' >" + openingBalance + "</td>" +
@@ -537,7 +530,6 @@ $(document).ready(function() {
                                 $("#restoreFuelVendorTable").append(fuelVendorStr);
                                 no++;
                             }
-                        });
                     }
                 } else {
                     var fuelVendorStr = "<tr data-id=" + i + ">" +
@@ -546,8 +538,8 @@ $(document).ready(function() {
         
                     $("#restoreFuelVendorTable").append(fuelVendorStr);
                 }
-                var items=lentData.length;
-                restorePaginator(items);
+                // var items=lentData.length;
+                // restorePaginator(items);
             }else {
             var fuelVendorStr = "<tr data-id=" + i + ">" +
                 "<td align='center' colspan='4'>No record found.</td>" +
@@ -559,7 +551,7 @@ $(document).ready(function() {
     $(document).on("change", ".fuel_all_ids", function() 
     {
         if(this.checked) {
-            $('.check_fuelCard_one:checkbox').each(function() 
+            $('.check_fuelCardVendor_one:checkbox').each(function() 
             {
                 this.checked = true;
                 fuelVendorCheckboxRestore();
@@ -567,12 +559,13 @@ $(document).ready(function() {
         } 
         else 
         {
-            $('.check_fuelCard_one:checkbox').each(function() {
+            $('.check_fuelCardVendor_one:checkbox').each(function() {
                 this.checked = false;
+                fuelVendorCheckboxRestore();
             });
         }
     });
-    $('body').on('click','.check_fuelCard_one',function(){
+    $('body').on('click','.check_fuelCardVendor_one',function(){
         fuelVendorCheckboxRestore();
     });
     function fuelVendorCheckboxRestore()
@@ -583,11 +576,12 @@ $(document).ready(function() {
 				fuleVendorIds.push($(this).val());
                 companyIds.push($(this).attr("date-compID"));
 			});
-			console.log(fuleVendorIds);
+			// console.log(fuleVendorIds);
 			var TruckCheckedIds =JSON.stringify(fuleVendorIds);
 			$('#checked_fuelVendor_ids').val(TruckCheckedIds);
            
 			var companyCheckedIds =JSON.stringify(companyIds);
+            // console.log(companyCheckedIds);
 			$('#checked_fuel_vendor_company_ids').val(companyCheckedIds);
 
 
@@ -603,6 +597,7 @@ $(document).ready(function() {
     $('body').on('click','.restore_fuelVendor_data',function(){
         var all_ids=$('#checked_fuelVendor_ids').val();
         var custID=$("#checked_fuel_vendor_company_ids").val();
+        // console.log('all_ids'+all_ids + " , company id=" +custID );
         $.ajax({
             type:"post",
             data:{_token:$("#_tokenEditTruck").val(),all_ids:all_ids,custID:custID},
@@ -623,5 +618,18 @@ $(document).ready(function() {
             }
         });
     });
-    //======================= end restore fuel vendor ======================
+    //======================= end restore fuel vendor ===================
+      //================== export data ===================================
+      $("#exportFuelVendorDetails").click(function(){
+        $.ajax({
+            type:"post",
+            data:{_token:$("#_tokenEditTruck").val()},
+            url: base_path+"/admin/export_fuelVendor",
+            success: function(data) {   
+                var rows = JSON.parse(data);
+            JSONToCSVConvertor(rows, "Fuel Card Report", true);
+            }
+        });
+    });
+    //===================== end export ===================================
 });

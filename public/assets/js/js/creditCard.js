@@ -30,9 +30,9 @@ $(document).ready(function() {
         var no=1;
             if (creditCardResult != null) {
                 $("#creditCardTable").html('');
-                console.log(creditCardResult);
+                // console.log(creditCardResult);
                 creditCardlen = creditCardResult.arrData1.admin_credit.length;
-                console.log(creditCardlen);
+                // console.log(creditCardlen);
                 if (creditCardlen > 0) {
                     for (var i = creditCardlen-1; i >= 0; i--) { 
                         var comId=creditCardResult.arrData1.companyID;
@@ -169,6 +169,7 @@ $(document).ready(function() {
 
     // <!-- -------------------------------------------------------------------------End------------------------------------------------------------------------- -->  
     $(".createCreaditCardBtn").click(function(){
+        $("#AddCreditCardModal").css("z-index","10000000000");
         $("#AddCreditCardModal").modal("show");
     });
     $(".closeAddCreditCardModal").click(function(){
