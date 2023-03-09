@@ -261,7 +261,18 @@
                             <div class="form-group">
                                 <select class="form-control select2-show-search form-select companyListSet" list="companyListSet" id="lb_Company">
                                 <option>Select Here </option>
-                                </select>
+                                <?php
+                                foreach($company as $single){                              
+                                  foreach($single['company'] as $i_s){
+                                    $i_s_name=$i_s['companyName'];              
+                                    $i_s_id=$i_s['_id'];              
+                                    ?>
+                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                             </div>
                             </div>
                             <div class="form-group col-md-3">
@@ -269,7 +280,8 @@
                                 </label>
                             <div class="dropdown show">
                                 <select class="form-control select2-show-search form-select customerListSet" list="customerListSet" id="LB_Customer" placeholder>
-                                </select>
+                                                                              
+                            </select>
                             </div>
                         </div>
                         <div class="form-group col-md-2">
@@ -277,6 +289,16 @@
                           </label>
                           <div class="dropdown show">
                             <select class="form-control select2-show-search form-select DispatcherListSet" list="DispatcherListSet" id="lb_Dispatcher" placeholder>
+                            <?php
+                                foreach($user as $user){                              
+                                    $userFirstName=$user['userFirstName'];
+                                    $userLastName=$user['userLastName'];              
+                                    $_id=$user['_id'];              
+                                    ?>
+                                      <option value="{{$_id}}">{{$userFirstName}} {{$userLastName}}</option>
+                                    <?php
+                                }
+                            ?>                                                          
                             </select>
                           </div>
                         </div>
@@ -309,6 +331,17 @@
                           </label>
                           <div class="dropdown show">
                             <select class="form-control select2-show-search form-select LoadTypeListSet" list="LoadTypeListSet" id="lb_load" placeholder>
+                            <?php
+                                foreach($Load_type as $single){                              
+                                  foreach($single['loadType'] as $i_s){
+                                    $i_s_name=$i_s['loadName'];              
+                                    $i_s_id=$i_s['_id'];              
+                                    ?>
+                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
                             </select>
                           </div>
                         </div>
@@ -346,7 +379,19 @@
                           <label>Equipment Type &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBEquipmentTypePlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select EquipmentTypeListSet" list="EquipmentTypeListSet" id="lb_EquipmentType" placeholder> </select>
+                            <select class="form-control select2-show-search form-select EquipmentTypeListSet" list="EquipmentTypeListSet" id="lb_EquipmentType" placeholder>
+                            <?php
+                                foreach($EquipmentType as $single){                              
+                                  foreach($single['equipment'] as $i_s){
+                                    $equipmentType=$i_s['equipmentType'];              
+                                    $id=$i_s['_id'];              
+                                    ?>
+                                      <option value="{{$id}}">{{$equipmentType}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -375,7 +420,7 @@
                           </label>
                           <div class="dropdown show">
                             <select class="form-control select2-show-search form-select CarrierListSet" list="CarrierListSet" id="LB_Carrier" placeholder>
-                            <option value="">Select Here</option>
+                            <!-- <option value="">Select Here</option> -->
                         <?php
                             foreach($carrier as $single_carrier){                              
                               foreach($single_carrier['carrier'] as $i_c){
@@ -421,23 +466,59 @@
                           <label>Driver Name &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <input class="form-control DriverListSet" list="DriverListSet" id="LB_Driver" placeholder="Search Here">
-                            <datalist id="DriverListSet" class="DriverListSet"></datalist>
+                            <select class="form-control select2-show-search form-select DriverListSet" list="DriverListSet" id="LB_Driver" placeholder>
+                            <?php
+                                foreach($driver as $single){                              
+                                  foreach($single['driver'] as $i_c){
+                                    $name=$i_c['driverName'];              
+                                    $id=$i_c['_id'];              
+                                    ?>
+                                      <option value="{{$id}}">{{$name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                           </div>
                         </div>
                         <div class="form-group col-md-1 Driverlist">
                           <label>Truck</label>
                           <div class="dropdown show">
-                            <input class="form-control TruckListSet" list="TruckListSet" id="LB_Truck" placeholder="Search Here">
-                            <datalist id="TruckListSet" class="TruckListSet"></datalist>
+                            <!-- <input class="form-control TruckListSet" list="TruckListSet" id="LB_Truck" placeholder="Search Here"> -->
+                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="LB_Truck" placeholder>
+                            <option value="">Select Here</option>
+                            <?php
+                                foreach($truck as $single_Truck){                              
+                                  foreach($single_Truck['truck'] as $i_s){
+                                    $i_s_name=$i_s['truckNumber'];              
+                                    $i_s_id=$i_s['_id'];              
+                                    ?>
+                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                           </div>
                         </div>
                         <div class="form-group col-md-1 Driverlist">
                           <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus1" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <input class="form-control TrailerListSet" list="TrailerListSet" id="LB_Trailer" placeholder="Search Here">
-                            <datalist id="TrailerListSet" class="TrailerListSet"></datalist>
+                            <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="LB_Trailer" placeholder>
+                            <option value="">Select Here</option>
+                            <?php
+                                foreach($trailer as $single){                              
+                                  foreach($single['trailer'] as $i_s){
+                                    $name=$i_s['trailerNumber'];              
+                                    $id=$i_s['_id'];              
+                                    ?>
+                                      <option value="{{$id}}-{{$name}}">{{$name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                           </div>
                         </div>
                         <div class="form-group col-md-1 Driverlist">
@@ -483,28 +564,68 @@
                           <label>Owner Operator&nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist" id="lb_owner" placeholder="Search Here">
+                            <!-- <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist" id="lb_owner" placeholder="Search Here"> -->
+                            <select class="form-control select2-show-search form-select " id="lb_owner" placeholder onkeyup="OwnerOperator(this.id)">
+                            <?php
+                                foreach($driver as $single){                              
+                                  foreach($single['driver'] as $i_c){
+                                    $name=$i_c['driverName'];
+                                    $ownerOperator=$i_c['ownerOperatorStatus'];              
+                                    $id=$i_c['_id']; 
+                                    if($ownerOperator=="YES") {            
+                                    ?>
+                                      <option value="{{$id}}">{{$name}}</option>
+                                    <?php
+                                    }
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                           </div>
                         </div>
                         <div class="form-group col-md-2 OwnerOperatorlist">
                           <label>Pay Percentage</label>
                           <div class="dropdown show">
-                            <input class="form-control OwnerOperatorlist" readonly="" list="OwnerOperatorlist" id="lb_owner_percentage" placeholder="Search Here">
+                            <input class="form-control " readonly=""  id="lb_owner_percentage" placeholder="Pay Percentage ">
                           </div>
                         </div>
                         <div class="form-group col-md-1 OwnerOperatorlist">
                           <label>Truck</label>
-                          <div class="dropdown show">
-                            <input class="form-control TruckListSet" list="TruckListSet" id="lb_owner_truck" placeholder="Search Here">
-                            <datalist id="TruckListSet" class="TruckListSet"></datalist>
+                          <div class="dropdown show" id="lbownertruck">
+                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="lb_owner_truck" placeholder name=mySelect2>
+                            
+                            <?php
+                                foreach($truck as $single_Truck){                              
+                                  foreach($single_Truck['truck'] as $i_s){
+                                    $i_s_name=$i_s['truckNumber'];              
+                                    $i_s_id=$i_s['_id'];              
+                                    ?>
+                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                           </div>
                         </div>
                         <div class="form-group col-md-1 OwnerOperatorlist">
                           <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus2" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <input class="form-control TrailerListSet" list="TrailerListSet" id="lb_owner_trailer" placeholder="Search Here">
-                            <datalist id="TrailerListSet" class="TrailerListSet"></datalist>
+                            <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="lb_owner_trailer" placeholder>
+                            <option value="">Select Here</option>
+                            <?php
+                                foreach($trailer as $single){                              
+                                  foreach($single['trailer'] as $i_s){
+                                    $name=$i_s['trailerNumber'];              
+                                    $id=$i_s['_id'];              
+                                    ?>
+                                      <option value="{{$id}}-{{$name}}">{{$name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                            </select>
                           </div>
                         </div>
                         <div class="form-group col-md-2 OwnerOperatorlist">
@@ -659,9 +780,26 @@
                                       <label>Name*</label>
                                       <div class="dropdown show">
                                         <!-- <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here"><datalist id="consigneee" name="consignee[]"></datalist>  -->
-                                        <select class="form-control select2-show-search form-select  lb_shipperName" id="consigneelist" name="shipperName[]">
-                                          <option>Select Here </option>
-                                        </select>
+                                        <!-- <select class="form-control select2-show-search form-select  lb_shipperName" id="consigneelist" name="shipperName[]"> -->
+                                        <select class="form-control select2-show-search form-select lb_shipperName" list="consigneelist" id="lb_consignee" placeholder name="shipperName[]">
+                                            <option value="">Select Here</option>
+                                            <?php
+                                                foreach($Consignee as $single){                              
+                                                  foreach($single['consignee'] as $i_s){
+                                                    $id=$i_s['_id']; 
+                                                    $consigneeName=$i_s['consigneeName']; 
+                                                    $consigneeAddress=$i_s['consigneeAddress']; 
+                                                    $consigneeLocation=$i_s['consigneeLocation']; 
+                                                    $deleteStatus=$i_s['deleteStatus']; 
+                                                    if($deleteStatus == "NO"){             
+                                                      ?>
+                                                        <option value="{{$id}}-{{$consigneeAddress}}-{{$consigneeLocation}}">{{$consigneeName}}</option>
+                                                      <?php
+                                                    }
+                                                  }
+                                                }
+                                            ?>                                                          
+                                          </select>
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -858,7 +996,7 @@
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Accessorial</h4>
-            <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+            <button type="button" class="button-24 closeAcc">&times;</button>
           </div>
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
@@ -887,7 +1025,7 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="submit" class="button-29" id="addLBSubmit">Submit</button>
-            <button type="button" class="button-29" data-dismiss="modal">Close</button>
+            <button type="button" class="button-29 closeAcc">Close</button>
           </div>
         </div>
       </div>
@@ -895,13 +1033,13 @@
   </div>
   <div class="container">
     <!-- The Modal -->
-    <div class="modal fade" data-backdrop="static" id="AccessorialModal_carrier">
+    <div class="modal fade" data-backdrop="static" id="AccessorialModal_carrier" style="z-index:1000000000">
       <div class="modal-dialog modal-dialog-scrollable custom_modal_small_7">
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Accessorial</h4>
-            <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+            <button type="button" class="button-24 closeAccCarrier">&times;</button>
           </div>
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
@@ -936,7 +1074,7 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="submit" class="button-29" id="addLBSubmit">Submit</button>
-            <button type="button" class="button-29" data-dismiss="modal">Close</button>
+            <button type="button" class="button-29 closeAccCarrier">Close</button>
           </div>
         </div>
       </div>
@@ -950,7 +1088,7 @@
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Accessorial</h4>
-            <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+            <button type="button" class="button-24 closeAccdriver">&times;</button>
           </div>
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
@@ -979,7 +1117,7 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="submit" class="button-29" id="addLBSubmit">Submit</button>
-            <button type="button" class="button-29" data-dismiss="modal">Close</button>
+            <button type="button" class="button-29 closeAccdriver">Close</button>
           </div>
         </div>
       </div>
@@ -993,7 +1131,7 @@
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 class="modal-title">Accessorial</h4>
-            <button type="button" class="button-24" data-dismiss="modal">&times;</button>
+            <button type="button" class="button-24 closeAccowneroperator">&times;</button>
           </div>
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
@@ -1022,7 +1160,7 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="submit" class="button-29" id="addLBSubmit">Submit</button>
-            <button type="button" class="button-29" data-dismiss="modal">Close</button>
+            <button type="button" class="button-29 closeAccowneroperator">Close</button>
           </div>
         </div>
       </div>
@@ -1622,21 +1760,41 @@ function add_consignee() {
         '"><div class="row m-2">\n' +
         ' <div class="form-group col-md-3">\n' +
         "<label>Name1*</label>\n" +
-        '<input list="consigneee' +
+
+
+        
+        '<select list="consigneee' +
         count +
-        '" class="form-control" placeholder="Search here..." id="consigneelist' +
+        '" class="form-control select2-show-search form-select consigneee"  placeholder id="lb_consignee' +
         count +
-        '" name="consigneelist[]" onchange="getConsignee(this.value,' +
+        '" name="consigneelist[]" autocomplete="off">\n' +
+        // count +
+        // ');"'  +
+        // count +
+        // '); "  autocomplete="off">\n' +
+        '<option>Select Here</option>' +
         count +
-        '); " onkeyup="doSearch(this.value,' +
-        "'searchActiveConsignee'" +
-        "," +
-        count +
-        '); "  autocomplete="off">\n' +
-        '<datalist  id="consigneee' +
-        count +
-        '" name="consignee">\n' +
-        "</datalist>\n" +
+        // '" name="consignee">\n' +
+        // "</datalist>\n" +
+        <?php
+            foreach($Consignee as $single){                              
+              foreach($single['consignee'] as $i_s){
+                $id=$i_s['_id']; 
+                $consigneeName=$i_s['consigneeName']; 
+                $consigneeAddress=$i_s['consigneeAddress']; 
+                $consigneeLocation=$i_s['consigneeLocation']; 
+                $deleteStatus=$i_s['deleteStatus']; 
+                if($deleteStatus == "NO"){             
+                  ?>
+                    '<option value="{{$id}}-{{$consigneeAddress}}-{{$consigneeLocation}}">{{$consigneeName}}</option>' +
+                  <?php
+                }
+              }
+            }
+        ?>                                                          
+      "</select>\n" +
+     
+
         "</div>\n" +
         '<div class="form-group col-md-2">\n' +
         "<label>Address*</label>\n" +
@@ -2040,6 +2198,21 @@ function calculateMiles() {
   calcRoute(waypts, startFlag, endflag);
 }
 //-----------------------end calculateMiles-----------------
+// //-----------------------get owner truck and per-----------------select2-lb_owner-container
+// $('#lb_owner').change(function() {
+//   var id=$('#lb_owner').val();
+//   $.ajax({
+//     type: "get",
+//     url: base_path+"/admin/owner",
+//     // data: {id:id},
+//     success: function(Result) {
+//       console.log(Result); 
+//       // createshipperList(Result);
+//     }
+//   });
+// });
+// //-----------------------end owner truck and per-----------------
+
 </script>
 
 <!-------------------------------------------------------------------End modal------------------------------------------------------------------->		

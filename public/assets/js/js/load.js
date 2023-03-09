@@ -123,7 +123,6 @@ $(document).ready(function() {
             },
             cache: false,
             success: function(Result){
-                console.log(Result);
                 if(Result){
                     swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
                     $("#addLoadBoardModal").css("z-index","100000000000");
@@ -134,27 +133,19 @@ $(document).ready(function() {
                         url: base_path+"/admin/getLoadType",
                         async: false,
                         success: function(text) {
-                            console.log(text);
+                            createLoadTypeList(text);
                             createLoad_typeRows(text);
+                            
                           }
                     });
                     $('#LoadModal').modal('show');
-                    $.ajax({
-                        type: "GET",
-                        url: base_path+"/admin/getLoadType",
-                        async: false,
-                        success: function(Result) { 
-                          // console.log(Result);                    
-                          createLoadTypeList(Result);
-                        }
-                    });
                 }else{
                     swal.fire(" Not Added successfully.");
                 }
             }
         });
     });
-    function createLoadTypeList(Result) {           
+    function createLoadTypeList(Result) {  
         var Length = 0;    
         
         if (Result != null) {

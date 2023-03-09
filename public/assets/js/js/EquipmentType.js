@@ -100,6 +100,7 @@ $(document).ready(function() {
  // <!-- -------------------------------------------------------------------------over Get Equipment Type  ------------------------------------------------------------------------- -->  
  // <!-- -------------------------------------------------------------------------add Equipment Type   ------------------------------------------------------------------------- -->  
     $("#saveEquipmentType").click(function(){
+       
         var EquipmentType_name=$('#EquipmentType_name').val();
         if(EquipmentType_name=='')
         {
@@ -120,7 +121,6 @@ $(document).ready(function() {
             },
             cache: false,
             success: function(Result){
-                console.log(Result);
                 if(Result){
                     swal.fire({title: 'Equipment Type added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
                     $("#addLoadBoardModal").css("z-index","100000000000");
@@ -131,32 +131,24 @@ $(document).ready(function() {
                         url: base_path+"/admin/getEquipmentType",
                         async: false,
                         success: function(text) {
-                            // console.log(text);
+                            createEquipmentTypeList(text);
                             createEquipmentTypeRows(text);
                           }
                     });
                     $('#EquipmentTypeModal').modal('show');
-                    $.ajax({
-                        type: "GET",
-                        url: base_path+"/admin/getEquipmentType",
-                        async: false,
-                        success: function(Result) { 
-                          createEquipmentTypeList(Result);
-                        }
-                    });
                 }else{
                     swal.fire("Equipment Type not added successfully.");
                 }
             }
         });
     });
-    function createEquipmentTypeList(Result) {           
+    function createEquipmentTypeList(Result) { 
         var Length = 0;    
         
         if (Result != null) {
             Length = Result.EquipmentType.length;
         }
-  
+        $("#lb_EquipmentType").html('');
         if (Length > 0) {
             for (var i = Length-1; i >=0 ; i--) { 
                 var EquipmentTypeLength =Result.EquipmentType[i].equipment.length;
@@ -167,7 +159,7 @@ $(document).ready(function() {
   
                   if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
                     var List = "<option id=''  value='"+id+"-"+ equipmentType +"'>" + equipmentType +"</option>"                  
-                    $(".EquipmentTypeListSet").append(List);
+                    $("#lb_EquipmentType").append(List);
                   }
                 }
               }

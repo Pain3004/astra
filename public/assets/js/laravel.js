@@ -1513,8 +1513,16 @@ $('#addDriver').click(function(){
                             driverResponse = text;
                         }
                     });
-                    
+                    $.ajax({
+                        type: "GET",
+                        url: base_path+"/admin/getDriver",
+                        async: false,
+                        success: function(Result) { 
+                        createDriverList(Result);
+                        }
+                    });
                     $("#driverModal").modal('show');
+                   
                 } 
               },
               error: function(data){
@@ -1525,6 +1533,33 @@ $('#addDriver').click(function(){
         });
         
     });
+    function createDriverList(Result) {           
+      var Length = 0;    
+      alert();
+      
+      if (Result != null) {
+          Length = Result.driver.length;
+      }
+
+      if (Length > 0) {
+          // var no=1;
+          $("#LB_Driver").html('');
+          for (var i = Length-1; i >=0; i--) { 
+              var DriverLength =Result.driver[i].driver.length;
+              for (var j = DriverLength-1; j >=0; j--) {  
+                var driverName =Result.driver[i].driver[j].driverName;
+                var id =Result.driver[i].driver[j]._id;
+                var deleteStatus =Result.driver[i].driver[j].deleteStatus;
+
+                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                  var List = "<option id=''  value='"+id+"-"+ driverName +"'>" + driverName +  "<option>";                
+                  $("#LB_Driver").append(List);
+                }
+              }
+            }
+      }
+      
+    }
 // <!-- ------------------------------------------------------------------------- end of add driver  ------------------------------------------------------------------------- -->
 
 $('.setupDriverSubmit').click(function(){    

@@ -122,12 +122,12 @@ $(document).ready(function() {
   })
 //-- -------------------------------------------------------------------------    -- -------------------------------------------------------------------------
 
-$("#lb_shipperName, #lb_Company,#LB_Customer, #lb_Dispatcher, #lb_load, #lb_EquipmentType, #LB_Carrier").select2({
+$("#consigneelist,#lb_consignee,#lb_owner, #lb_shipperName, #lb_Company,#LB_Customer, #lb_Dispatcher, #lb_load, #lb_EquipmentType, #LB_Carrier, #LB_Driver, #LB_Truck, #LB_Trailer, #lb_owner_truck, #lb_owner_trailer").select2({
   placeholder: "Select Here",
   allowClear: true,
   dropdownParent: $('#addLoadBoardModal')
   });
- 
+
 $('#addLoadBoard').click(function(){
   $.ajax({
     type: "GET",
@@ -465,7 +465,7 @@ $.ajax({
    });
   }); 
 // <!-- -------------------------------------------------------------------------over change status   ------------------------------------------------------------------------- -->  
-// <!-- -------------------------------------------------------------------------get company for add new loadboard ------------------------------------------------------------------------- -->  
+// <!-- ------------------------------------------------------------------------- loadboard ------------------------------------------------------------------------- -->  
   $('.closeAddNewLoadBoard').click(function(){
     $('#addLoadBoardModal').modal('hide');
   });
@@ -473,47 +473,52 @@ $.ajax({
  
     $('#addLoadBoardModal').modal('show');
   }); 
- 
-  $('#select2-lb_Company-container').one('click', function(event){
-      $.ajax({
-        type: "GET",
-        url: base_path+"/admin/lbcompany",
-        async: false,
-        success: function(Result) { 
-            createcompanyList(Result);
-        }
-    });
+  $('#lb_owner, #LB_Driver,#select2-lb_EquipmentType-container, #select2-lb_load-container, #LBEquipmentTypePlus, #LBCustomerPlus, #LBLoadTypePlus').click(function(){
+    $('#EquipmentTypeModal').modal('hide');
+    $('#LoadModal').modal('hide');
+    $('#driverModal').modal('hide');
   });
+// <!-- -------------------------------------------------------------------------get company for add new loadboard ------------------------------------------------------------------------- -->  
+// $('#select2-lb_Company-container').one('click', function(event){
+//       $.ajax({
+//         type: "GET",
+//         url: base_path+"/admin/lbcompany",
+//         async: false,
+//         success: function(Result) { 
+//             createcompanyList(Result);
+//         }
+//     });
+//   });
 
-  function createcompanyList(Result) {           
-      var Length = 0;    
+//   function createcompanyList(Result) {           
+//       var Length = 0;    
       
-      if (Result != null) {
-          Length = Result.company.length;
-      }
+//       if (Result != null) {
+//           Length = Result.company.length;
+//       }
 
-      if (Length > 0) {
-          // var no=1;
-          // $(".companyListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var companyLength =Result.company[i].company.length;
-              for (var j = 0; j < companyLength; j++) {  
-                var company =Result.company[i].company[j].companyName;
-                var id =Result.company[i].company[j]._id;
-                var deleteStatus =Result.company[i].company[j].deleteStatus;
+//       if (Length > 0) {
+//           // var no=1;
+//           // $(".companyListSet").html('');
+//           for (var i = 0; i < Length; i++) { 
+//               var companyLength =Result.company[i].company.length;
+//               for (var j = 0; j < companyLength; j++) {  
+//                 var company =Result.company[i].company[j].companyName;
+//                 var id =Result.company[i].company[j]._id;
+//                 var deleteStatus =Result.company[i].company[j].deleteStatus;
                
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  // var List = "<option id='customerCurrency' data-id='"+id+"' >"+ id +"-"+ company +"</option>"   +
-                  var List = "<option id='customerCurrency' value='"+id+"' >"+ company +"</option>"   +
+//                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+//                   // var List = "<option id='customerCurrency' data-id='"+id+"' >"+ id +"-"+ company +"</option>"   +
+//                   var List = "<option id='customerCurrency' value='"+id+"' >"+ company +"</option>"   +
 
-                  $(".companyListSet").append(List);
+//                   $(".companyListSet").append(List);
                   
-                }
-              }
-            }
-      }
+//                 }
+//               }
+//             }
+//       }
       
-  }
+//   }
 // <!-- -------------------------------------------------------------------------over get company  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get customer for add new loadboard ------------------------------------------------------------------------- -->  
   $('#select2-LB_Customer-container').one('click', function(event){
@@ -564,85 +569,8 @@ $.ajax({
     
   });
 // <!-- -------------------------------------------------------------------------over get customer  ------------------------------------------------------------------------- -->
-// <!-- -------------------------------------------------------------------------get Dispatcher for add new loadboard ------------------------------------------------------------------------- -->  
-  $('#select2-lb_Dispatcher-container').one('click', function(event){
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/user",
-        async: false,
-        success: function(Result) { 
-          // console.log(Result);                    
-          createDispatcherList(Result);
-        }
-    });
-  });
-  function createDispatcherList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.length;
-      }
-
-      if (Length > 0) {
-            for (var i = Length-1; i >=0; i--) { 
-              // var DispatcherLength =Result[i].Dispatcher.length;
-              // for (var j = 0; j < DispatcherLength; j++) {  
-                var id =Result[i]._id;
-                var userFirstName =Result[i].userFirstName;
-                var userLastName =Result[i].userLastName;
-                // var deleteStatus =Result[i].Dispatcher[j].deleteStatus;
-
-                // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='Dispatcher'  value='"+id+"-"+ userFirstName +" "+ userLastName +"'>"+ userFirstName +" "+ userLastName +" <option>";                 
-                  $(".DispatcherListSet").append(List);
-                // }
-              // }
-            }
-      }
-      
-  }
-// <!-- -------------------------------------------------------------------------over get Dispatcher  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Active Type for add new loadboard ------------------------------------------------------------------------- -->  
-$('#select2-lb_load-container').one('click', function(event){
-    $('#LoadModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getLoadType",
-        async: false,
-        success: function(Result) { 
-          // console.log(Result);                    
-          createLoadTypeList(Result);
-        }
-    });
-  });
-  function createLoadTypeList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.Load_type.length;
-      }
 
-      if (Length > 0) {
-          // var no=1;
-          $(".LoadTypeListSet").html('');
-          // for (var i = 0; i < Length; i++) { 
-            for (var i = Length-1; i >=0; i--) { 
-              var LoadTypeLength =Result.Load_type[i].loadType.length;
-              // for (var j = 0; j < LoadTypeLength; j++) {  
-              for (var j = LoadTypeLength-1; j >=0; j--) {
-                var loadName =Result.Load_type[i].loadType[j].loadName;
-                var id =Result.Load_type[i].loadType[j]._id;
-                var deleteStatus =Result.Load_type[i].loadType[j].deleteStatus;
-
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id=''  value='"+id+"-"+ loadName +"'>"+loadName+ " <option>";                   
-                  $(".LoadTypeListSet").append(List);
-                }
-              }
-            }
-      }
-      
-  }
 
   $("#LBLoadTypePlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -651,40 +579,9 @@ $('#select2-lb_load-container').one('click', function(event){
   });
 // <!-- -------------------------------------------------------------------------over get Active Type  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Equipment Type for add new loadboard ------------------------------------------------------------------------- -->  
-$('#select2-lb_EquipmentType-container').one('click', function(event){
+$('#select2-lb_EquipmentType-container').on('click', function(event){
     $('#EquipmentTypeModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getEquipmentType",
-        async: false,
-        success: function(Result) { 
-          createEquipmentTypeList(Result);
-        }
-    });
   });
-  function createEquipmentTypeList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.EquipmentType.length;
-      }
-
-      if (Length > 0) {
-          for (var i = Length-1; i >=0 ; i--) { 
-              var EquipmentTypeLength =Result.EquipmentType[i].equipment.length;
-              for (var j = EquipmentTypeLength-1; j >=0; j--) {  
-                var equipmentType =Result.EquipmentType[i].equipment[j].equipmentType;
-                var id =Result.EquipmentType[i].equipment[j]._id;
-                var deleteStatus =Result.EquipmentType[i].equipment[j].deleteStatus;
-
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id=''  value='"+id+"-"+ equipmentType +"'>" + equipmentType +"</option>"                  
-                  $(".EquipmentTypeListSet").append(List);
-                }
-              }
-            }
-      }
-  }
 
   $("#LBEquipmentTypePlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -693,46 +590,6 @@ $('#select2-lb_EquipmentType-container').one('click', function(event){
   });
 // <!-- -------------------------------------------------------------------------over get Equipment Type  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Carrier for add new loadboard ------------------------------------------------------------------------- -->  
-//$('#select2-LB_Carrier-container').one('click', function(event){
-  // $('#LoadModal').modal('hide');
-  // $.ajax({
-  //     type: "GET",
-  //     url: base_path+"/admin/getCarrier",
-  //     async: false,
-  //     success: function(Result) { 
-  //       console.log(Result);                    
-  //       createCarrierList(Result);
-  //     }
-  // });
-//});
-// function createCarrierList(Result) {           
-//     var Length = 0;    
-    
-//     if (Result != null) {
-//         Length = Result.carrier.length;
-//         // Length = Result.length;
-//         console.log(Length);
-//     }
-
-//     if (Length > 0) {
-//         // var no=1;
-//       //  $(".CarrierListSet").html('');
-//           for (var i = Length-1; i >=0; i--) { 
-//             var Length =Result.carrier[i].carrier.length;
-//             for (var j = Length-1; j >=0; j--) {
-//               var Name =Result.carrier[i].carrier[j].name;
-//               var id =Result.carrier[i].carrier[j]._id;
-//               var deleteStatus =Result.carrier[i].carrier[j].deleteStatus;
-//               console.log(id);
-//               if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-//                 var List = "<option id=''  value='"+id+"-"+ Name +"'>"+Name+ " <option>";                   
-//                 $(".CarrierListSet").append(List);
-//               }
-//             }
-//           }
-//     }
-    
-// }
 
 $("#LBCarrierPlus").click(function(){
   $("#addLoadBoardModal").css("z-index","-1");
@@ -742,45 +599,37 @@ $("#LBCarrierPlus").click(function(){
 // <!-- -------------------------------------------------------------------------over get Carrier  ------------------------------------------------------------------------- -->
 
 // <!-- -------------------------------------------------------------------------get driver for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.DriverListSet').focus(function(){
-    $('#driverModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getDriver",
-        async: false,
-        success: function(Result) { 
-          createDriverList(Result);
-        }
-    });
-  });
+  // $('#select2-LB_Driver-container').one('click', function(event){
+  //   $('#driverModal').modal('hide');
+  // });
  
 
-  function createDriverList(Result) {           
-      var Length = 0;    
+  // function createDriverList(Result) {           
+  //     var Length = 0;    
       
-      if (Result != null) {
-          Length = Result.driver.length;
-      }
+  //     if (Result != null) {
+  //         Length = Result.driver.length;
+  //     }
 
-      if (Length > 0) {
-          // var no=1;
-          $(".DriverListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var DriverLength =Result.driver[i].driver.length;
-              for (var j = 0; j < DriverLength; j++) {  
-                var driverName =Result.driver[i].driver[j].driverName;
-                var id =Result.driver[i].driver[j]._id;
-                var deleteStatus =Result.driver[i].driver[j].deleteStatus;
+  //     if (Length > 0) {
+  //         // var no=1;
+  //         $(".DriverListSet").html('');
+  //         for (var i = 0; i < Length; i++) { 
+  //             var DriverLength =Result.driver[i].driver.length;
+  //             for (var j = 0; j < DriverLength; j++) {  
+  //               var driverName =Result.driver[i].driver[j].driverName;
+  //               var id =Result.driver[i].driver[j]._id;
+  //               var deleteStatus =Result.driver[i].driver[j].deleteStatus;
 
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ driverName +"'>"                   
-                  $(".DriverListSet").append(List);
-                }
-              }
-            }
-      }
+  //               if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+  //                 var List = "<option id=''  value='"+id+"-"+ driverName +"'>" + driverName +  "<option>";                
+  //                 $(".DriverListSet").append(List);
+  //               }
+  //             }
+  //           }
+  //     }
       
-  }
+  // }
 
   $("#LBDriverPlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -791,41 +640,7 @@ $("#LBCarrierPlus").click(function(){
 // <!-- -------------------------------------------------------------------------get Trailer for add new loadboard ------------------------------------------------------------------------- -->  
   $('.TrailerListSet').focus(function(){
     $('#TrailerModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/Trailer",
-        async: false,
-        success: function(Result) { 
-          createTrailerList(Result);
-        }
-    });
   });
-  function createTrailerList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.trailer.length;
-      }
-
-      if (Length > 0) {
-          // var no=1;
-          $(".TrailerListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var TrailerLength =Result.trailer[i].trailer.length;
-              for (var j = 0; j < TrailerLength; j++) {  
-                var trailerNumber =Result.trailer[i].trailer[j].trailerNumber;
-                var id =Result.trailer[i].trailer[j]._id;
-                var deleteStatus =Result.trailer[i].trailer[j].deleteStatus;
-
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ trailerNumber +"'>"                   
-                  $(".TrailerListSet").append(List);
-                }
-              }
-            }
-      }
-      
-  }
 
   $("#LBTrailerPlus1").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -836,47 +651,58 @@ $("#LBCarrierPlus").click(function(){
     $("#addTrailerModal").modal("show");
   });
 // <!-- -------------------------------------------------------------------------over get Trailer  ------------------------------------------------------------------------- -->
-// <!-- -------------------------------------------------------------------------get Truck for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.TruckListSet').focus(function(){
+//-----------------------get owner truck and per-----------------select2-lb_owner-container
+  $('#lb_owner').change(function() {
+    var id=$('#lb_owner').val();
     $.ajax({
-        type: "GET",
-        url: base_path+"/admin/Truck",
-        async: false,
-        success: function(Result) { 
-          createTruckList(Result);
-        }
+      type: "get",
+      url: base_path+"/admin/owner",
+      // data: {id:id},
+      success: function(Result) {
+        console.log(Result); 
+        setOwnerPerTruck(Result);
+      }
     });
   });
 
-  function createTruckList(Result) {           
-    var Length = 0;    
-    
-    if (Result != null) {
-        Length = Result.truck.length;
-    }
+  function setOwnerPerTruck(Result) {
+    var id=$('#lb_owner').val();            
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.Owner.length;
+      }
 
-    if (Length > 0) {
-        // var no=1;
-        $(".TruckListSet").html('');
-        for (var i = 0; i < Length; i++) { 
-            var truckLength =Result.truck[i].truck.length;
-            for (var j = 0; j < truckLength; j++) {  
-              var truckNumber =Result.truck[i].truck[j].truckNumber;
-              var id =Result.truck[i].truck[j]._id;
-              var deleteStatus =Result.truck[i].truck[j].deleteStatus;
-
-              if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ truckNumber +"'>"                   
-                $(".TruckListSet").append(List);
+      if (Length > 0) {
+          // var no=1;
+          for (var i = 0; i < Length; i++) { 
+              var Length1 =Result.Owner[i].ownerOperator.length;
+              console.log(Length1);
+              for (var j = 0; j < Length1; j++) {  
+                var percentage =Result.Owner[i].ownerOperator[j].percentage;
+                var truckNo =Result.Owner[i].ownerOperator[j].truckNo;
+                var driverId =Result.Owner[i].ownerOperator[j].driverId;
+                if(driverId == id){
+                  $('#lb_owner_percentage').val(percentage+"%");
+                  
+                  $("#lb_owner_truck option").each(function()
+                  {
+                       var no= $(this).val() ;
+                       if(truckNo == no){
+                        $('#lb_owner_truck').select2('val',truckNo);
+                      }
+                  });
+  
+                  break;
+                }
+                
               }
             }
-          }
-    }
-    
+      }
+      
   }
+//-----------------------end owner truck and per-----------------
 
-
-// <!-- -------------------------------------------------------------------------over get Truck  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get shipper for add new loadboard ------------------------------------------------------------------------- -->  
 // $('.ShipperListSet').focus(function(){
 //   $.ajax({
@@ -949,7 +775,20 @@ $("#consigneelist").change(function(){
 });
   
 // <!-- -------------------------------------------------------------------------over shipper Truck  ------------------------------------------------------------------------- -->
-
+// <!-- -------------------------------------------------------------------------AccessorialModal_carrier ------------------------------------------------------------------------- -->
+$(".closeAccCarrier").click(function(){
+  $("#AccessorialModal_carrier").modal("hide");
+});
+$(".closeAccdriver").click(function(){
+  $("#AccessorialModal_driver").modal("hide");
+});
+$(".closeAccowneroperator").click(function(){
+  $("#AccessorialModal_owneroperator").modal("hide");
+});
+$(".closeAcc").click(function(){
+  $("#AccessorialModal").modal("hide");
+});
+// <!-- -------------------------------------------------------------------------end AccessorialModal_carrier ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 $("#select2-lb_Company-container").click(function(){
   $("#select2-lb_Company-container").css("border", "2px solid #ced4da");

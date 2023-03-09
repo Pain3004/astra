@@ -315,7 +315,11 @@ class DriverController extends Controller
         $driver = Driver::where('companyID',$companyID )->get();
         return response()->json(['driver'=>$driver], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
-
+    public function getowner(Request $request){
+        $companyID=Auth::user()->companyID;
+        $Owner =\App\Models\Owner_operator_driver::where('companyID',$companyID )->get();
+        return response()->json(['Owner'=>$Owner], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
     
     
 //add by Reena

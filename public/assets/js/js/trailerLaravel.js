@@ -46,7 +46,6 @@ $(document).ready(function() {
                         if(trailerTypeid == trailer_Type_id)
                         {
                           var  trailerType=TrailerResult.trailer.trailer[j].trailerType;
-                            console.log(trailerType);
                             break;
                         }
                         else
@@ -384,10 +383,45 @@ $(document).ready(function() {
                         TrailerResult = response;
                         }
                 });
+                $.ajax({
+                    type: "GET",
+                    url: base_path+"/admin/Trailer",
+                    async: false,
+                    success: function(Result) { 
+                      createTrailerList(Result);
+                    }
+                });
             }
         });
     });
+    function createTrailerList(Result) {           
+        var Length = 0;    
+        
+        if (Result != null) {
+            Length = Result.trailer.length;
+        }
 
+        if (Length > 0) {
+            // var no=1;
+            $("#LB_Trailer").html('');
+            $("#lb_owner_trailer").html('');
+            for (var i = Length-1; i >=0; i--) { 
+                var TrailerLength =Result.trailer[i].trailer.length;
+                for (var j = TrailerLength-1; j >=0; j--) {  
+                  var trailerNumber =Result.trailer[i].trailer[j].trailerNumber;
+                  var id =Result.trailer[i].trailer[j]._id;
+                  var deleteStatus =Result.trailer[i].trailer[j].deleteStatus;
+  
+                  if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                    var List = "<option id=''  value='"+id+"-"+ trailerNumber +"'>"+ trailerNumber + "<option>";                  
+                    $("#LB_Trailer").append(List);
+                    $("#lb_owner_trailer").append(List);
+                  }
+                }
+              }
+        }
+        
+    }
     //======================= end save trailer model ======================
 
 
@@ -443,7 +477,6 @@ $(document).ready(function() {
               
                 var imgLength=response.trailerDoc.length;
                 $(".trailer_img").html();
-                // console.log(imgLength);
                 if(imgLength>=1)
                 {
                     for(var i=0; i<imgLength; i++)
@@ -451,7 +484,6 @@ $(document).ready(function() {
                         // alert(i);
                         var img_length= response.trailerDoc[i].length;
                         var trailerDoc=response.trailerDoc[i];
-                        console.log(trailerDoc);
                         // alert(img_length);
                         for(var v=0; v<img_length; v++)
                         {
@@ -643,7 +675,6 @@ $(document).ready(function() {
             data:formData,
             success: function(data) {
                 // alert("success !");
-                console.log(data)                    
                 swal.fire("Done!", "Trailer updated successfully", "success");
                 $(".trailer_img").html("<div></div>");
                 $('#editTrailerModal').modal('hide');
@@ -724,7 +755,6 @@ $(document).ready(function() {
             async: false,
             //dataType:JSON,
             success: function(data) {  
-                console.log(data)  ;               
                 RestoreTrailerTypeList(data);
                 TrailerResult = data;
             }
@@ -739,26 +769,20 @@ $(document).ready(function() {
         var Trailer1 = 0;
         if (TrailerResult != null) 
         {
-            // console.log(TrailerResult);
             Trailer1 = TrailerResult.trailer_type.trailer.length;
             // alert(Trailer1);
 
             $("#Restoretrailer_tbl").html('');
-            // console.log(Trailer1);
             if (Trailer1 > 0) 
             {
                 var no=1;
                 for (var i = Trailer1-1; i >=0; i--) {  
-                    // alert(i);
                     var  trailerId =TrailerResult.trailer_type.trailer[i]._id;
                     var trailerNumber =TrailerResult.trailer_type.trailer[i].trailerNumber;
                     var trailerTypeid =TrailerResult.trailer_type.trailer[i].trailerType;
-                        // console.log(trailerTypeid);
                     var trailerTypeLen = TrailerResult.trailer_type.trailer.length;
-                    // console.log(trailerTypeLen);
                     for (var j = 0; j < trailerTypeLen; j++) { 
                         var trailer_Type_id = TrailerResult.trailer_type.trailer[j]._id;
-                        // console.log(trailerTypeid);
                         if(trailerTypeid == trailer_Type_id)
                         {
                             trailerType=TrailerResult.trailer.trailer[j].trailerType;
