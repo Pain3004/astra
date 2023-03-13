@@ -18,17 +18,43 @@ class FuelReceiptController extends Controller
 {
     public function getFuelReceipt(Request $request)
     {
-        $companyId=(int)Auth::user()->companyID;
-        $FuelReceipt = FuelReceipt::where('companyID',$companyId)->get();
-        foreach($FuelReceipt as $row)
-        {
-            $FuelReceipt=collect($row->fuel_receipt);
-            $FuelReceipt = $FuelReceipt->chunk(10);
-            $FuelReceipt= $FuelReceipt->toArray();
+        $companyID=(int)Auth::user()->companyID;
+        // $FuelReceipt = FuelReceipt::where('companyID',$companyID)->get();
+        // foreach($FuelReceipt as $row)
+        // {
+        //     $FuelReceipt=collect($row->fuel_receipt);
+        //     $FuelReceipt = $FuelReceipt->chunk(10);
+        //     $FuelReceipt= $FuelReceipt->toArray();
+        // }
+        // return response()->json(['FuelReceipt'=>$FuelReceipt,'companyId'=>$companyID], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        // $companyID=(int)Auth::user()->companyID;
+
+        $total_records = 0;
+        $cursor = FuelReceipt::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['size' => ['$size' => ['$fuel_receipt']],
+            ]]
+        ]);
+        foreach ($cursor as $v) {
+            $total_records =$v['size'];
         }
-        // dd($FuelReceipt);
-       
-        return response()->json(['FuelReceipt'=>$FuelReceipt,'companyId'=>$companyId], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $completedata = array();
+        $partialdata = array();
+        if(!empty($total_records))
+        {
+            $show1 =FuelReceipt::raw()->find(['companyID' =>$companyID]);
+            $c = 0;
+            $arrData1 = "";
+            foreach ($show1 as $arrData11) {
+                $arrData1 = $arrData11;
+            }
+            return  $partialdata[] = array(
+                'arrData1' => $arrData1,
+            );
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $total_records;
+        echo json_encode($completedata);
     }
     public function createFuelReceipt(Request $request)
     {
@@ -39,68 +65,124 @@ class FuelReceiptController extends Controller
     public function saveFuelReceipt(Request $request)
     {
         $companyId=(int)Auth::user()->companyID;
-        $totalFuelReceiptArray=0;
-        $getFuelReceipt = FuelReceipt::where('companyID',$companyId)->get();
-        foreach($getFuelReceipt as $getFuelReceipt)
-        {
-            if($getFuelReceipt)
-            {
+        // $totalFuelReceiptArray=0;
+        // $getFuelReceipt = FuelReceipt::where('companyID',$companyId)->get();
+        // foreach($getFuelReceipt as $getFuelReceipt)
+        // {
+        //     if($getFuelReceipt)
+        //     {
            
-                $FuelReceiptArray=$getFuelReceipt->fuel_receipt;
-                $totalFuelReceiptArray=count($FuelReceiptArray)+ 1;
-                $ids_trip=array();
-                foreach( $FuelReceiptArray as $ids)
-                {
-                    $ids_trip[]=$ids['_id'];
-                }
-                $ids_trip=max($ids_trip);
-            }
-            $date=$request->date;
-            $date = strtotime($date);
-            $FuelReceiptData[]=array(    
-                '_id' => $ids_trip+1 ,
-                'counter' => $ids_trip+1,
-                'driverName' => $request->driverName,
-                'driverNumber' => $request->driverNo,
-                'cardNo' => $request->cardNumber,
-                'paymentType'=>$request->paymentType,
-                'category' => $request->fuelVendor,
-                'fuelType' => $request->fuelType,
-                'truckNumber' => $request->truckNumber,
-                'transactionDate'=>$date,
-                'transactionTime' => $request->transactionTime,
-                'locationName' => $request->locationName,
-                'locationCity' => $request->locationCity,
-                'locationState' => $request->locationState,
-                'quantity' => $request->quantity,
-                'amount' => $request->amount,
-                'totalAmount' => $request->totalAmount,
-                'transactionDiscount' => $request->transactionDiscount,
-                'transactionFee' => $request->transactionFee,
-                'transactionGross' => $request->transactionGross,
-                'invoiceNo' => $request->invoiceNo,
-                'insertedTime' => '' ,
-                'insertedUserId' => '' ,
-                'deleteStatus' => 'NO' ,
-                'deleteUser' => '' ,
-                'deleteTime' => '' ,
-                'averagedays' =>'' ,
-                'totalloads' => '' ,
+        //         $FuelReceiptArray=$getFuelReceipt->fuel_receipt;
+        //         $totalFuelReceiptArray=count($FuelReceiptArray)+ 1;
+        //         $ids_trip=array();
+        //         foreach( $FuelReceiptArray as $ids)
+        //         {
+        //             $ids_trip[]=$ids['_id'];
+        //         }
+        //         $ids_trip=max($ids_trip);
+        //     }
+        //     $date=$request->date;
+        //     $date = strtotime($date);
+        //     $FuelReceiptData[]=array(    
+        //         '_id' => $ids_trip+1 ,
+        //         'counter' => $ids_trip+1,
+        //         'driverName' => $request->driverName,
+        //         'driverNumber' => $request->driverNo,
+        //         'cardNo' => $request->cardNumber,
+        //         'paymentType'=>$request->paymentType,
+        //         'category' => $request->fuelVendor,
+        //         'fuelType' => $request->fuelType,
+        //         'truckNumber' => $request->truckNumber,
+        //         'transactionDate'=>$date,
+        //         'transactionTime' => $request->transactionTime,
+        //         'locationName' => $request->locationName,
+        //         'locationCity' => $request->locationCity,
+        //         'locationState' => $request->locationState,
+        //         'quantity' => $request->quantity,
+        //         'amount' => $request->amount,
+        //         'totalAmount' => $request->totalAmount,
+        //         'transactionDiscount' => $request->transactionDiscount,
+        //         'transactionFee' => $request->transactionFee,
+        //         'transactionGross' => $request->transactionGross,
+        //         'invoiceNo' => $request->invoiceNo,
+        //         'insertedTime' => '' ,
+        //         'insertedUserId' => '' ,
+        //         'deleteStatus' => 'NO' ,
+        //         'deleteUser' => '' ,
+        //         'deleteTime' => '' ,
+        //         'averagedays' =>'' ,
+        //         'totalloads' => '' ,
 
-            );
+        //     );
                
-            if($getFuelReceipt)
-            {
-                FuelReceipt::where(['companyID' =>$companyId])->update([
-                    'counter'=> $totalFuelReceiptArray,
-                    'fuel_receipt' =>array_merge($FuelReceiptArray,$FuelReceiptData) ,
+        //     if($getFuelReceipt)
+        //     {
+        //         FuelReceipt::where(['companyID' =>$companyId])->update([
+        //             'counter'=> $totalFuelReceiptArray,
+        //             'fuel_receipt' =>array_merge($FuelReceiptArray,$FuelReceiptData) ,
                     
-                ]);
+        //         ]);
 
-                $arrCustome = array('status' => 'success', 'message' => 'Fuel Receipt added successfully.'); 
-                return json_encode($arrCustome);
-            }
-        }           
+        //         $arrCustome = array('status' => 'success', 'message' => 'Fuel Receipt added successfully.'); 
+        //         return json_encode($arrCustome);
+        //     }
+        // }   
+        
+        
+        $maxLength = 6500;
+        $docAvailable = $helper->checkDoc(FuelReceipt::raw(),$companyId,$maxLength);
+        if($docAvailable != "No")
+        {
+            $info = (explode("^",$docAvailable));
+            $docId = $info[1];
+            $counter = $info[0];
+
+            $cons = array(
+                '_id'=>AppHelper::instance()->getAdminDocumentSequence($companyId,FuelReceipt::raw(),'fuel_receipt',(int)$docId),
+                'counter' => 0,
+                'driverName'=>$request->driverName,
+                'driverNumber'=>$request->driverNumber,
+                'cardNo'=>$request->cardNo,
+                'category'=>$request->category,
+                'fuelType' => $request->fuelType,
+                'fuelId' => $request->fuelId,
+                'truckNumber'=>$request->truckNumber,
+                'transactionDate'=>strtotime($request->transactionDate),
+                'transactionTime'=>$request->transactionTime,
+                'locationName'=>$request->locationName,
+                'locationCity'=>$request->locationCity,
+                'locationState'=>$request->locationState,
+                'quantity'=>$request->quantity,
+                'amount'=>$request->amount,
+                'totalAmount'=>$request->totalAmount,
+                'transactionDiscount'=>$request->transactionDiscount,
+                'transactionFee'=>$request->transactionFee,
+                'transactionGross'=>$request->transactionGross,
+                'invoiceNo'=>$request->invoiceNo,
+                'deleteStatus' => "NO",
+                'deleteUser' => "",
+                'deleteTime' => "",
+                'insertedUser' => Auth::user()->userName,
+                'insertedTime' => time(),
+                // 'duplicateID' => $request->duplicateID,
+                // 'fuelcardmain' => $request->fuelcardmain 
+            );
+
+            FuelReceipt::raw()->updateOne(['companyID' =>$companyId,'_id'=>(int)$docId],['$push'=>['fuel_receipt'=> $cons]]); 
+            $cons['masterID'] = $docId;
+            echo json_encode($cons);
+
+        }  
+        else
+        {
+            $id = AppHelper::instance()->getNextSequence("fuel_receipts_ifta", );
+            $request->setId($id);
+            $cons = iterator_to_array($category);
+            FuelReceipt::raw()->insertOne($cons);
+            $masterID = $cons['_id'];
+            $cons["fuel_receipt"][0]['masterID'] = $masterID;
+            echo json_encode($cons["fuel_receipt"][0]);
+        }
     }
     public function editFuelReceipt(Request $request)
     {
@@ -313,6 +395,49 @@ class FuelReceiptController extends Controller
         }
     }
    }
+   public function export_FuelReceipts(Request $request)
+   {
+        $companyId=(int)Auth::user()->companyID;
+        $p[] = array("Driver Name","Driver Number","Card Number","Fuel Vendor","Fuel Type","Transaction Date","Transaction Time","Location Name","Location City", "Location State","Quntity","Amount","Total Amount","Transaction Discount","Transaction Fees", "Transaction Gross", "Invoice No");
+       
+        $i_fuel = FuelReceipt::raw()->find(['companyID' => $companyId]);
+        foreach ($i_fuel as $bdebit) 
+        {
+            $fuel_R = $bdebit['fuel_receipt'];
+            foreach ($fuel_R as $test) 
+            {
+                $p[] = array(
+                    $test['driverName'],
+                    $test['driverNumber'],
+                    $test['cardNo'],
+                    $test['category'],
+                    $test['fuelType'],
+                    date('m/d/Y',$test['transactionDate']),
+                    $test['transactionTime'],
+                    $test['locationName'],
+                    str_replace(",","",$test['locationCity']),
+                    $test['locationState'],
+                    $test['quantity'],
+                    $test['amount'],
+                    $test['totalAmount'],
+                    $test['transactionDiscount'],
+                    $test['transactionFee'],
+                    $test['transactionGross'],
+                    $test['invoiceNo'],
+                );
+            }
+        }
+        if (sizeof($p) > 1) 
+        {
+            echo json_encode($p);
+        }
+        else
+        {
+            unset($p);
+            $p = "";
+            echo json_encode($p);
+        }
+    }
 
     
 }

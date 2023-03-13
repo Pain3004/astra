@@ -48,18 +48,15 @@ class AuthController extends Controller
             $count_data=LoggedUsers::all();
             $count=count($count_data);
             $emailArr=array();
-            // dd(Auth::user()->userEmail);
             foreach($count_data as $row)
             {
                 $emailArr[]=$row->userEmail;
             }
-            // dd($emailArr);
-                   $count=$count+1;
+                $count=$count+1;
             if(!in_array(Auth::user()->userEmail, $emailArr))
             {
-                // dd(intval($count));
                 LoggedUsers::create([
-                    '_id' =>intval($count),
+                    // '_id' =>(int)2,
                     'userId'=>Auth::user()->_id,
                     'userEmail' => Auth::user()->userEmail,
                     'userFirstName'=> Auth::user()->userFirstName,
@@ -71,12 +68,8 @@ class AuthController extends Controller
                 ]);
             }
             return view('dashboard',['driverData' => $driverData]);
-             
         }
-        
         return redirect("login")->withSuccess('Opps! You do not have access');
-
-        
     }
 
     public function logout() {

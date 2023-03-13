@@ -382,69 +382,69 @@ $(document).ready(function() {
     $('#Create_FuelReceiptsModal').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
     });
-    $(".cardHolderName").on('change',function(){
-        var val = $(this).val();
-            var name=$('option:selected', this).attr('data_driver_name_for_recepits');
-            // alert(name);
-            $(".driver_name_fuelReceipt").val(name);
-            $(".driver_name_fuelReceipt_edit").val(name);
-            $(".add_fuelReceiptDriverNumber").val(val);
-            $(".update_fuelReceiptDriverNumber").val(val);
+    // $(".cardHolderName").on('change',function(){
+    //     var val = $(this).val();
+    //         var name=$('option:selected', this).attr('data_driver_name_for_recepits');
+    //         // alert(name);
+    //         $(".driver_name_fuelReceipt").val(name);
+    //         $(".driver_name_fuelReceipt_edit").val(name);
+    //         $(".add_fuelReceiptDriverNumber").val(val);
+    //         $(".update_fuelReceiptDriverNumber").val(val);
         
-        $.ajax({
-            type: "GET",
-            url: base_path + "/admin/getFuelCard",
-            async: false,
-            success: function (text) {
-                // driverId=$('.cardHolderName').val();
-                var ifta_card=text.FuelCard.ifta_card.length;
-                var ifta_card_nu=text.FuelCard.ifta_card;
-                $(".total_cards_fuel_re").html();
-                var html="<option value='unselected'>----select----</option>"
-                for(var i=0;i<ifta_card;i++)
-                {
-                    if(val==ifta_Card_no==ifta_card_nu[i].cardHolderName)
-                    {
-                        var ifta_Card_no=ifta_card_nu[i].iftaCardNo;
-                        var vendor_type=ifta_card_nu[i].cardType;
-                        // alert(vendor_type);
-                        html+="<option data_att_vendor_id='"+vendor_type+"' value='"+ifta_Card_no+"'> "+ifta_Card_no+"</option>"
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path + "/admin/getFuelCard",
+    //         async: false,
+    //         success: function (text) {
+    //             // driverId=$('.cardHolderName').val();
+    //             var ifta_card=text.FuelCard.ifta_card.length;
+    //             var ifta_card_nu=text.FuelCard.ifta_card;
+    //             $(".total_cards_fuel_re").html();
+    //             var html="<option value='unselected'>----select----</option>"
+    //             for(var i=0;i<ifta_card;i++)
+    //             {
+    //                 if(val==ifta_Card_no==ifta_card_nu[i].cardHolderName)
+    //                 {
+    //                     var ifta_Card_no=ifta_card_nu[i].iftaCardNo;
+    //                     var vendor_type=ifta_card_nu[i].cardType;
+    //                     // alert(vendor_type);
+    //                     html+="<option data_att_vendor_id='"+vendor_type+"' value='"+ifta_Card_no+"'> "+ifta_Card_no+"</option>"
                         
                       
-                    }
-                }
-                $(".total_cards_fuel_re").append(html);
-            }
-        });
-    });
+    //                 }
+    //             }
+    //             $(".total_cards_fuel_re").append(html);
+    //         }
+    //     });
+    // });
 
-    $(".total_cards_fuel_re").on("change",function(){
-        var data = $('option:selected', this).attr('data_att_vendor_id');   
-        // alert(data);
-        $.ajax({
-            type: "GET",
-            url: base_path + "/admin/getFuelCard",
-            async: false,
-            success: function (text) {
-                var cardNumLeng=text.FuelVendor.fuelCard.length;
-                var cardType=text.FuelVendor.fuelCard;
-                // alert(cardNumLeng);
-                // alert(cardType);
-                for(var i=0;i<cardNumLeng;i++)
-                {
-                    var ifta_Card_no=cardType[i]._id;
-                    // alert(ifta_Card_no +" "+ data)
-                    if(data==ifta_Card_no)
-                    {
-                        var card_t=cardType[i].fuelCardType;
-                        // alert(card_t);
-                        $(".seleted_fuel_vend_type").val(card_t);
-                    }
+    // $(".total_cards_fuel_re").on("change",function(){
+    //     var data = $('option:selected', this).attr('data_att_vendor_id');   
+    //     // alert(data);
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path + "/admin/getFuelCard",
+    //         async: false,
+    //         success: function (text) {
+    //             var cardNumLeng=text.FuelVendor.fuelCard.length;
+    //             var cardType=text.FuelVendor.fuelCard;
+    //             // alert(cardNumLeng);
+    //             // alert(cardType);
+    //             for(var i=0;i<cardNumLeng;i++)
+    //             {
+    //                 var ifta_Card_no=cardType[i]._id;
+    //                 // alert(ifta_Card_no +" "+ data)
+    //                 if(data==ifta_Card_no)
+    //                 {
+    //                     var card_t=cardType[i].fuelCardType;
+    //                     // alert(card_t);
+    //                     $(".seleted_fuel_vend_type").val(card_t);
+    //                 }
                     
-                }
-            }
-        });
-    })
+    //             }
+    //         }
+    //     });
+    // });
     // ============== payment type logic==============================================
     $(".paymentType").on("change",function(){
         var paymentType=$(this).val();
@@ -593,6 +593,46 @@ $(document).ready(function() {
     //======================================= end create fuel receipts ========================
 
     //============================ update fuel receipts data ===================
+
+    function processIftaCardTable(res) 
+    {
+        var masterID = res[0]["mainID"]._id;
+        var data = res[0]["mainID"].ifta_card;
+        var companyID=res[0]["mainID"].companyID;
+        var fuelCardType = res[0]["fuelCardType"];
+        var driverName = res[0]["driverName"];
+        processIftaCardRows(data, masterID,fuelCardType,driverName,companyID);
+    }
+    function processIftaCardRows(data,masterID,fuelCardType,driverName,companyID) 
+    {
+        $(".total_cards_fuel_re").html();
+        var row = ``;
+        var no=data.length;
+        for (var i = 0; i < data.length; i++) 
+        {
+            var id = data[i]._id;
+            var iftaCardNo = data[i].iftaCardNo;
+            
+            if(deleteStatus =="NO")
+            {
+                                    if(res.fuel_receipt.driverName==ifta_Card_no==ifta_card_nu[i].cardHolderName)
+                                    {
+                                        var ifta_Card_no=ifta_card_nu[i].iftaCardNo;
+                                        var vendor_type=ifta_card_nu[i].cardType;
+                                        // alert(vendor_type);
+                                        html+="<option data_att_vendor_id='"+vendor_type+"' value='"+ifta_Card_no+"'> "+ifta_Card_no+"</option>";
+                                $(".total_cards_fuel_re").append(html);
+                                    }
+            }
+           
+           
+        }
+        $(".total_cards_fuel_re").append(html);
+        $("#FuelCardTable").html(row);
+    }
+
+
+
     $('body').on('click','.edit_fuel_receipts_form', function(){
         var id=$(this).attr('data-fuelReId');
         var companyID=$(this).attr('data-com_Id');
@@ -626,24 +666,28 @@ $(document).ready(function() {
                             url: base_path + "/admin/getFuelCard",
                             async: false,
                             success: function (text) {
-                                // driverId=$('.cardHolderName').val();
-                                var ifta_card=text.FuelCard.ifta_card.length;
-                                var ifta_card_nu=text.FuelCard.ifta_card;
-                                $(".total_cards_fuel_re").html();
-                                var html="<option value='unselected'>----select----</option>"
-                                for(var i=0;i<ifta_card;i++)
+                                var text = JSON.parse(text);
+                                if (text[0] != undefined && text[1] != 0) 
                                 {
-                                    if(res.fuel_receipt.driverName==ifta_Card_no==ifta_card_nu[i].cardHolderName)
-                                    {
-                                        var ifta_Card_no=ifta_card_nu[i].iftaCardNo;
-                                        var vendor_type=ifta_card_nu[i].cardType;
-                                        // alert(vendor_type);
-                                        html+="<option data_att_vendor_id='"+vendor_type+"' value='"+ifta_Card_no+"'> "+ifta_Card_no+"</option>"
+                                    processIftaCardTable(text[0]);
+                                }
+                                // var ifta_card=text.FuelCard.ifta_card.length;
+                                // var ifta_card_nu=text.FuelCard.ifta_card;
+                                // $(".total_cards_fuel_re").html();
+                                // var html="<option value='unselected'>----select----</option>"
+                                // for(var i=0;i<ifta_card;i++)
+                                // {
+                                //     if(res.fuel_receipt.driverName==ifta_Card_no==ifta_card_nu[i].cardHolderName)
+                                //     {
+                                //         var ifta_Card_no=ifta_card_nu[i].iftaCardNo;
+                                //         var vendor_type=ifta_card_nu[i].cardType;
+                                //         // alert(vendor_type);
+                                //         html+="<option data_att_vendor_id='"+vendor_type+"' value='"+ifta_Card_no+"'> "+ifta_Card_no+"</option>"
                                         
                                       
-                                    }
-                                }
-                                $(".total_cards_fuel_re").append(html);
+                                //     }
+                                // }
+                                // $(".total_cards_fuel_re").append(html);
                             }
                         }); 
                     }

@@ -195,6 +195,7 @@ Route::post('admin/deleteFuelReceipt', [FuelReceiptController::class, 'deleteFue
 Route::post('admin/restoreFuelReceipt', [FuelReceiptController::class, 'restoreFuelReceipt']);
 Route::post('admin/deleteMulFuelReceipt', [FuelReceiptController::class, 'deleteMulFuelReceipt']);
 Route::get('admin/getInvoicedNumber', [FuelReceiptController::class, 'getInvoicedNumber']);
+Route::post('admin/export_FuelReceipts', [FuelReceiptController::class, 'export_FuelReceipts']);
 
 //Ifta Toll
 Route::get('admin/getIftaToll', [IftaTollController::class, 'getIftaToll']);

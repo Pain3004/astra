@@ -20,16 +20,6 @@ class FuelVendorController extends Controller
     public function getFuelVendor(Request $request)
     {
         $companyID=(int)Auth::user()->companyID;
-        // $FuelVendor = FuelVendor::where('companyID',$companyID)->get();
-        // foreach($FuelVendor as $row)
-        // {
-        //     $FuelVendor=collect($row->fuelCard);
-        //     $FuelVendor = $FuelVendor->chunk(10);
-        //     $FuelVendor= $FuelVendor->toArray();
-        // }
-        // return response()->json(['FuelVendor'=>$FuelVendor,'companyId'=>$companyID], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-
-
 
         $total_records = 0;
         $cursor = FuelVendor::raw()->aggregate([

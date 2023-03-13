@@ -20,10 +20,7 @@ $(document).ready(function() {
                 var text = JSON.parse(text);
                 if (text[0] != undefined && text[1] != 0) {
                     processIftaCardTable(text[0]);
-                    // renameTableSeq("IftacardBody");
                 }
-                // createFuelCardRows(text);
-                // FuelCardResult = text;
              }
         });
         $('#FuelCardModal').modal('show');
@@ -32,178 +29,84 @@ $(document).ready(function() {
 
     //==================================== over Get truck ==================================== 
     //===================== function ==========================================================
-    // function createFuelCardRows(FuelCardResult) {
-    //     var fuelCardlen = 0;
-    //     if (FuelCardResult != null) 
-    //     {            
-    //         fuelCardlen = FuelCardResult.FuelCard.ifta_card.length;
-    //         $("#FuelCardTable").html('');
-    //         if (fuelCardlen > 0) 
-    //         {                
-    //             var no=1;
-    //             for (var i = fuelCardlen-1; i >= 0; i--) 
-    //             {  
-    //                 var custID = FuelCardResult.FuelCard.companyID;
-    //                 var fuelCardId =FuelCardResult.FuelCard.ifta_card[i]._id;
-    //                 var cardHolderNameID =FuelCardResult.FuelCard.ifta_card[i].cardHolderName;
-
-    //                 var driverLen = FuelCardResult.driver.driver.length;
-    //                 for (var k = 0; k < driverLen; k++) 
-    //                 { 
-    //                     var driver_id = FuelCardResult.driver.driver[k]._id;
-    //                     if(cardHolderNameID == driver_id)
-    //                     {
-    //                         var cardHolderName=FuelCardResult.driver.driver[k].driverName;
-    //                         break;
-    //                     }
-    //                     else
-    //                     {
-    //                         cardHolderName=''; 
-    //                     }
-    //                 }
-    //                 var iftaCardNo =FuelCardResult.FuelCard.ifta_card[i].iftaCardNo;
-    //                 var cardTypeId =FuelCardResult.FuelCard.ifta_card[i].cardType;
-
-    //                 var iftaCardLen = FuelCardResult.FuelVendor.fuelCard.length;
-    //                 for (var j = 0; j < iftaCardLen; j++) 
-    //                 { 
-    //                     var iftaCard_id = FuelCardResult.FuelVendor.fuelCard[j]._id;
-    //                     if(cardTypeId == iftaCard_id)
-    //                     {
-    //                        var cardType=FuelCardResult.FuelVendor.fuelCard[j].fuelCardType;
-    //                         break;
-    //                     }
-    //                 }
-    //                 var deleteStatus =FuelCardResult.FuelCard.ifta_card[i].deleteStatus;
-
-    //                 if(deleteStatus == "NO")
-    //                 {
-    //                     var fuelCardStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-    //                     "<td data-field='no'>" + no + "</td>" +
-    //                     "<td data-field='cardHolderName' >" + cardHolderName + "</td>" +
-    //                     "<td data-field='iftaCardNo' >" +iftaCardNo  + "</td>" +
-    //                     "<td data-field='cardType' >" + cardType + "</td>" +
-    //                     "<td style='text-align:center'>"+
-    //                         "<a class='button-23  edit_fuel_card_form'  title='Edit1'  data-fuelCard='" + fuelCardId + "' data-com_Id='" + custID + "'  ><i class='fe fe-edit'></i></a>&nbsp"+
-    //                         "</a> <a class=' button-23  delete_fuel_card_form'  data-fuelCard='" + fuelCardId + "' data-com_Id='" + custID + "'  title='Delete'><i class='fe fe-delete'></i></a>"+
-    //                     "</td></tr>";
-
-    //                     $("#FuelCardTable").append(fuelCardStr);
-    //                     no++;
-    //                 }
-    //             }
-    //         } 
-    //         else 
-    //         {
-    //             var fuelVendorStr = "<tr data-id=" + i + ">" +
-    //                 "<td align='center' colspan='4'>No record found.</td>" +
-    //                 "</tr>";
-    
-    //             $("#FuelCardTable").append(fuelCardStr);
-    //         }
-    //     }
-    //     else 
-    //     {
-    //         var fuelVendorStr = "<tr data-id=" + i + ">" +
-    //         "<td align='center' colspan='4'>No record found.</td>" +
-    //         "</tr>";
-
-    //         $("#FuelCardTable").append(fuelCardStr);
-    //     }
-    // }
-
-    function processIftaCardTable(res) {
+   
+    $(".cardHolderChangeCardtYPE").on('change',function(){
+        var val = $(this).val();
+            var name=$('option:selected', this).attr('data_driver_name_for_recepits');
+            // alert(name);
+            $(".driver_name_fuelReceipt").val(name);
+            $(".driver_name_fuelReceipt_edit").val(name);
+            $(".add_fuelReceiptDriverNumber").val(val);
+            $(".update_fuelReceiptDriverNumber").val(val);
+        
+        $.ajax({
+            type: "GET",
+            url: base_path + "/admin/getFuelCard",
+            async: false,
+            success: function (text) {
+                var text = JSON.parse(text);
+                if (text[0] != undefined && text[1] != 0) {
+                    processIftaCardTable(text[0]);
+                }
+            }
+        });
+    });
+  
+    function processIftaCardTable(res) 
+    {
         var masterID = res[0]["mainID"]._id;
         var data = res[0]["mainID"].ifta_card;
+        var companyID=res[0]["mainID"].companyID;
         var fuelCardType = res[0]["fuelCardType"];
         var driverName = res[0]["driverName"];
-        $("#IftacardBody").html(processIftaCardRows(data, masterID,fuelCardType,driverName));
+        $("#IftacardBody").html(processIftaCardRows(data, masterID,fuelCardType,driverName,companyID));
     }
-    function processIftaCardRows(data,masterID,fuelCardType,driverName) {
+    function processIftaCardRows(data,masterID,fuelCardType,driverName,companyID) 
+    {
+        $(".total_cards_fuel_re").html();
         var row = ``;
-        // var userType = document.getElementById("user_type").value;
-        for (var i = 0; i < data.length; i++) {
+        var no=data.length;
+        // console.log(data.length);
+        for (var i = 0; i < data.length; i++) 
+        {
             var id = data[i]._id;
             var iftaCardNo = data[i].iftaCardNo;
-            if (data[i].cardHolderName != "" && data[i].cardHolderName != null) {
+            if (data[i].cardHolderName != "" && data[i].cardHolderName != null) 
+            {
                 var cardHolderName = driverName[data[i].cardHolderName];
-            } else {
+            } 
+            else 
+            {
                 var cardHolderName = "Not Mention";
             }
-            if (data[i].cardType != "" && data[i].cardType != null) {
+            if(data[i].cardType != "" && data[i].cardType != null)
+            {
                 var cardType = fuelCardType[data[i].cardType];
             }
-            var cardId = data[i].cardType;
-            var cardHolderId = data[i].cardHolderName;
-            var counter = data[i].counter;
-            var created_by = data[i].insertedUserId;
-            var created_time = convertTimeZone(data[i].insertedTime);
-            var edit_by = data[i].edit_by;
-            var edit_time = convertTimeZone(data[i].edit_time);
-            var delete_status = data[i].deleteStatus;
-            var deleteUser = data[i].deleteUser;
-            var deleteTime = convertTimeZone(data[i].deleteTime);
-    
-            if(delete_status == "NO"){
-                var pencilid2 = "iftaCardNoPencil" + id;     
-            }else{
-                var pencilid2 = "";
+            var deleteStatus = data[i].deleteStatus;
+            // console.log(deleteStatus);
+            if(deleteStatus =="NO")
+            {
+                // console.log("NO="+deleteStatus);
+                var tr = `<tr>
+                <td>`+no+`</td>
+                <td> ` + cardHolderName + `</td>
+                <td>`+iftaCardNo+`</td>
+                <td> ` + cardType + ` </td>`+
+                `<td style='text-align:center'>`+  
+                    `<a class='button-23  edit_fuel_card_form'  title='Edit1'  data-fuelCard=' ` + id + `' data-com_Id='`+companyID+`'  ><i class='fe fe-edit'></i></a>&nbsp`+
+                    `</a> <a class=' button-23  delete_fuel_card_form'  data-fuelCard='` + id + `' data-com_Id='`+companyID+`'  title='Delete'><i class='fe fe-delete'></i></a></td>`;
+                tr += '</tr>';
+                var html="<option data_att_vendor_id='"+cardType+"' value='"+iftaCardNo+"'> "+iftaCardNo+"</option>";
+
+                no--;
+                row = tr + row;
             }
-            var delEn = delete_status == 'YES' ? 'disabled_load' : '';
-            var disable =  delete_status == 'YES' ? 'disabled' : '';
-    
            
-            var updateCardCat = "updateCardCat";
-            var column2 = "iftaCardNo";
-            var column1 = "cardHolderName";
-            var column3 = "cardType";
-            var type = "text";
-            var title2 = "IFTA Card No.";
-            var fueldriverlist1 = "fueldriverlist" + i;
-            var cardtypelist1 = "cardtypelist" + i;
-            var title_model = "fuelcard";
-            var mainID = id + ")" + masterID;
-            var tr = `<tr>
-                           <th data-id="${id}"></th>
-                           <td ${delEn}'>
-                           ` + cardHolderName + `
-                            </td>
-                            <td>${iftaCardNo}</td>
-                        <td> ` + cardType + ` </td>`;
-            tr += `<td class="${delEn}">`;
-            // if (privdata.deleteUser == '1') {
-                if (delete_status == "NO") {
-                    tr += `<a href='#' onclick='deleteCardCat("` + mainID + `")'><i class='mdi mdi-delete-sweep-outline delete-icone'></i></a>`;
-                } else {
-                    if(userType != "admin"){
-                        tr += `<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline delete-icone-disable'></i><a>`;
-                    }else{
-                        tr += `<a onclick='restoreEntry("`+ mainID +`","ifta_card_category","ifta_card");'><i class="mdi mdi-delete-restore delete-recover"></i></a>`; 
-                    }
-                }
-            // }
-            if(delete_status == "YES") {   
-                tr += `<div class="tooltip1"><i class='mdi mdi-information information'></i>
-                        <span class="tooltiptext">
-                        Deleted By : ${deleteUser}<br>Deleted Time : ${deleteTime}</span>
-                        </div>`;
-            }else{
-                if (edit_by != undefined && edit_time != undefined) {
-                    tr += `<div class="tooltip1"><i class='mdi mdi-information information'></i>
-                        <span class="tooltiptext">Created By : ${created_by}<br>Created Time : ${created_time}<br>Edit By : ${edit_by}<br>Edited Time : ${edit_time}</span>
-                        </div>`;
-                }else{
-                    tr += `<div class="tooltip1"><i class='mdi mdi-information information'></i>
-                    <span class="tooltiptext">Created By : ${created_by}<br>Created Time : ${created_time}</span>
-                    </div>`;
-                }
-            }
-            tr += '</td>';
-            tr += '</tr>';
-            row = tr + row;
+           
         }
-        $("#FuelCardTable").html(tr);
-        return row;
+        $(".total_cards_fuel_re").append(html);
+        $("#FuelCardTable").html(row);
     }
 
     // ==================================End=================================================
@@ -227,16 +130,16 @@ $(document).ready(function() {
 
             var fuelVendorlen = 0;
             if (text != null) {
-                fuelVendorlen = text.FuelVendor.length;
+                fuelVendorlen = text.arrData1.fuelCard.length;
                 $(".card_vendor_type").html();
                 var html = "<option value='unselected' selected>---select-----</option>"
                 if (fuelVendorlen > 0) {
-                    for (var i = fuelVendorlen - 1; i >= 0; i--) {
-                        var fuelVendorId = text.FuelVendor[i]._id;
-                        var FuelVendorType = text.FuelVendor[i].FuelVendorType;
-                            html+="<option value='" + fuelVendorId + "'> " + FuelVendorType + "</option>"
+                    for (var j = fuelVendorlen-1; j >= 0; j--) {  
+                            var fuelVendorId =text.arrData1.fuelCard[j]._id;
+                            var fuelCardType =text.arrData1.fuelCard[j].fuelCardType;
+                            html+="<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>"
                     }
-                    console.log(html);
+                    // console.log(html);
                 }
                 $(".card_vendor_type").append(html);
             }
@@ -247,15 +150,15 @@ $(document).ready(function() {
 
     // select 2 function =========================
   
-    $("#single").select2({
+    $(".single_selectFuelCard").select2({
         placeholder: "Select a programming language",
         allowClear: true,
         dropdownParent: $('#AddFuelCard')
     });
-    $(".card_vendor_type").select2({
+    $(".updateSingleFuelCard").select2({
         placeholder: "Select a programming language",
         allowClear: true,
-        dropdownParent: $('#AddFuelCard')
+        dropdownParent: $('#UpdateFuelCard')
     });
    
     $.ajax({
@@ -331,9 +234,10 @@ $(document).ready(function() {
                     url: base_path + "/admin/getFuelCard",
                     async: false,
                     success: function (text) {
-                        console.log(text);
-                        // createFuelCardRows(text);
-                        // FuelCardResult = text;
+                        var text = JSON.parse(text);
+                        if (text[0] != undefined && text[1] != 0) {
+                            processIftaCardTable(text[0]);
+                        }
                     }
                 });
             }
@@ -417,9 +321,10 @@ $(document).ready(function() {
                     url: base_path + "/admin/getFuelCard",
                     async: false,
                     success: function (text) {
-                        console.log(text);
-                        // createFuelCardRows(text);
-                        // FuelCardResult = text;
+                        var text = JSON.parse(text);
+                        if (text[0] != undefined && text[1] != 0) {
+                            processIftaCardTable(text[0]);
+                        }
                     }
                 });
             }
@@ -453,9 +358,10 @@ $(document).ready(function() {
                             url: base_path + "/admin/getFuelCard",
                             async: false,
                             success: function (text) {
-                                console.log(text);
-                                // createFuelCardRows(text);
-                                // FuelCardResult = text;
+                                var text = JSON.parse(text);
+                                if (text[0] != undefined && text[1] != 0) {
+                                    processIftaCardTable(text[0]);
+                                }
                             }
                         });
                         $('#FuelCardModal').modal('show');
@@ -477,9 +383,10 @@ $(document).ready(function() {
             url: base_path + "/admin/getFuelCard",
             async: false,
             success: function (text) {
-                console.log(text);
-                RestoreFuelCardRows(text);
-                restoreFuelCardResult = text;
+                var text = JSON.parse(text);
+                if (text[0] != undefined && text[1] != 0) {
+                    reprocessIftaCardTable(text[0]);
+                }
             }
         });
         $("#restore_fuel_card_modal").modal("show");
@@ -487,79 +394,53 @@ $(document).ready(function() {
     $(".restorefuelCardClose").click(function () {
         $("#restore_fuel_card_modal").modal("hide");
     });
-    function RestoreFuelCardRows(restoreFuelCardResult) {
-        var fuelCardlen = 0;
-        //alert(FuelVendorResult);
-        if (restoreFuelCardResult != null) {
-
-            fuelCardlen = restoreFuelCardResult.FuelCard.ifta_card.length;
-
-            $("#RestoreFuelCardTable").html('');
-
-            if (fuelCardlen > 0) {
-
-                var no = 1;
-                for (var i = fuelCardlen - 1; i >= 0; i--) {
-                    var custID = restoreFuelCardResult.FuelCard.companyID;
-                    var fuelCardId = restoreFuelCardResult.FuelCard.ifta_card[i]._id;
-                    var cardHolderNameID = restoreFuelCardResult.FuelCard.ifta_card[i].cardHolderName;
-
-                    var driverLen = restoreFuelCardResult.driver.driver.length;
-                    for (var k = 0; k < driverLen; k++) {
-                        var driver_id = restoreFuelCardResult.driver.driver[k]._id;
-                        if (cardHolderNameID == driver_id) {
-                            cardHolderName = restoreFuelCardResult.driver.driver[k].driverName;
-                            break;
-                        } else {
-                            cardHolderName = '';
-                        }
-                    }
-
-
-
-                    var iftaCardNo = restoreFuelCardResult.FuelCard.ifta_card[i].iftaCardNo;
-                    var cardTypeId = restoreFuelCardResult.FuelCard.ifta_card[i].cardType;
-
-                    var iftaCardLen = restoreFuelCardResult.FuelVendor.fuelCard.length;
-                    for (var j = 0; j < iftaCardLen; j++) {
-                        var iftaCard_id = restoreFuelCardResult.FuelVendor.fuelCard[j]._id;
-                        if (cardTypeId == iftaCard_id) {
-                            cardType = restoreFuelCardResult.FuelVendor.fuelCard[j].fuelCardType;
-                            break;
-                        }
-                    }
-
-
-
-                    var deleteStatus = restoreFuelCardResult.FuelCard.ifta_card[i].deleteStatus;
-                    //alert(fuelCardId);
-                    if (deleteStatus == "YES") {
-                        //alert("ff");
-                        var fuelCardStr = "<tr data-id=" + (i + 1) + ">" +
-                            "<td data-field='no'><input type='checkbox' class='check_fuelCard_one' name='checkedCard_ids[]' data-id=" + fuelCardId + " date-cusId=" + custID + "  value=" + fuelCardId + "></td>" +
-                            "<td data-field='cardHolderName' >" + cardHolderName + "</td>" +
-                            "<td data-field='iftaCardNo' >" + iftaCardNo + "</td>" +
-                            "<td data-field='cardType' >" + cardType + "</td>" +
-                            "<</tr>";
-
-                        $("#RestoreFuelCardTable").append(fuelCardStr);
-                        no++;
-                    }
-                }
-            } else {
-                var fuelVendorStr = "<tr data-id=" + i + ">" +
-                    "<td align='center' colspan='4'>No record found.</td>" +
-                    "</tr>";
-
-                $("#RestoreFuelCardTable").append(fuelCardStr);
+    function reprocessIftaCardTable(res) 
+    {
+        var masterID = res[0]["mainID"]._id;
+        var data = res[0]["mainID"].ifta_card;
+        var companyID=res[0]["mainID"].companyID;
+        var fuelCardType = res[0]["fuelCardType"];
+        var driverName = res[0]["driverName"];
+        RestoreprocessIftaCardTable(data, masterID,fuelCardType,driverName,companyID);
+    }
+    function RestoreprocessIftaCardTable(data,masterID,fuelCardType,driverName,companyID) 
+    {
+        var row = ``;
+        var no=data.length;
+        // console.log(data.length);
+        for (var i = 0; i < data.length; i++) 
+        {
+            var id = data[i]._id;
+            var iftaCardNo = data[i].iftaCardNo;
+            var deleteStatus = data[i].deleteStatus;
+            if (data[i].cardHolderName != "" && data[i].cardHolderName != null) 
+            {
+                var cardHolderName = driverName[data[i].cardHolderName];
+            } 
+            else 
+            {
+                var cardHolderName = "Not Mention";
             }
-        } else {
-            var fuelVendorStr = "<tr data-id=" + i + ">" +
-                "<td align='center' colspan='4'>No record found.</td>" +
-                "</tr>";
-
-            $("#RestoreFuelCardTable").append(fuelCardStr);
+            if(data[i].cardType != "" && data[i].cardType != null)
+            {
+                var cardType = fuelCardType[data[i].cardType];
+            }
+            if(deleteStatus=="YES")
+            {
+                var tr = `<tr>
+                            <td><input type='checkbox' class='check_fuelCard_one' name='checkedCard_ids[]' data-id='` + id + `' date-cusId=` + companyID + `  value=` + id + `></td>
+                            <td> ` + cardHolderName + `</td>
+                            <td>`+iftaCardNo+`</td>
+                            <td> ` + cardType + ` </td>`;
+                tr += '</tr>';
+            
+                no--;
+                row = tr + row;
+            }
+            
+           
         }
+        $("#RestoreFuelCardTable").html(row);
     }
     $(document).on("change", ".fuel_card_all_ids", function () {
         if (this.checked) {
@@ -571,6 +452,7 @@ $(document).ready(function() {
         else {
             $('.check_fuelCard_one:checkbox').each(function () {
                 this.checked = false;
+                fuelCardCheckboxRestore();
             });
         }
     });
@@ -614,9 +496,10 @@ $(document).ready(function() {
                     url: base_path + "/admin/getFuelCard",
                     async: false,
                     success: function (text) {
-                        console.log(text);
-                        // createFuelCardRows(text);
-                        // FuelCardResult = text;
+                        var text = JSON.parse(text);
+                        if (text[0] != undefined && text[1] != 0) {
+                            processIftaCardTable(text[0]);
+                        }
                     }
                 });
             }

@@ -162,7 +162,7 @@
                                                     </label>
                                                     <div>
                                                     <input type="hidden" class="form-control driver_name_fuelReceipt" name="driverName"> 
-                                                       <select class="form-control addFuelReceiptDriver_name cardHolderName" name="driverName"> 
+                                                       <select class="form-control addFuelReceiptDriver_name cardHolderName cardHolderChangeCardtYPE" name="driverName"> 
                                                          <option>select one </option>
                                                        </select>
                                                     </div>
@@ -314,7 +314,7 @@
                                                     </label>
                                                     <div>
                                                     <input type="hidden" class="form-control driver_name_fuelReceipt_edit" name="driverName"> 
-                                                       <select class="form-control updateFuelReceipt_Driver_name cardHolderName" name="driverName"> 
+                                                       <select class="form-control updateFuelReceipt_Driver_name cardHolderName cardHolderChangeCardtYPE" name="driverName"> 
                                                        </select>
                                                     </div>
                                                 </div>
