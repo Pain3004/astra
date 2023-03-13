@@ -777,7 +777,7 @@ $("#consigneelist").change(function(){
 });
   
 // <!-- -------------------------------------------------------------------------over shipper Truck  ------------------------------------------------------------------------- -->
-// <!-- -------------------------------------------------------------------------AccessorialModal_carrier ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------Accessorial ------------------------------------------------------------------------- -->
 $(".closeAccCarrier").click(function(){
   $("#AccessorialModal_carrier").modal("hide");
 });
@@ -790,7 +790,10 @@ $(".closeAccowneroperator").click(function(){
 $(".closeAcc").click(function(){
   $("#AccessorialModal").modal("hide");
 });
-// <!-- -------------------------------------------------------------------------end AccessorialModal_carrier ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------end Accessorial ------------------------------------------------------------------------- -->
+
+
+
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 $("#select2-lb_Company-container").click(function(){
   $("#select2-lb_Company-container").css("border", "2px solid #ced4da");
@@ -947,7 +950,7 @@ $("#addLBSubmit").click(function(){
      formData.append('fsc',fsc);
      formData.append('fsc_percentage',fsc_percentage);
      formData.append('other_charges',other_charges);
-     //formData.append('data_other_charges',$('#other_chargesForm').serialize() );
+     formData.append('data_other_charges',$('#AccessorialModalForm').serialize() );
      formData.append('setTotalRate',totalAmount);
      formData.append('equipment_type',equiptype);
      formData.append('typeofloader',typeofloader);
@@ -955,7 +958,7 @@ $("#addLBSubmit").click(function(){
      formData.append('flat_rate',flat_rate);
      formData.append('isIfta',isIfta);
      formData.append('advance_charges',advance_charges);
-     //formData.append('data_carrier_other_modal',$('#carrierOtherModalForm').serialize() );
+     formData.append('data_carrier_other_modal',$('#carrierOtherModalForm').serialize() );
      formData.append('carrier_total',carrier_total);
      formData.append('currency',currency);
      formData.append('driver_name',drivername);
@@ -964,7 +967,7 @@ $("#addLBSubmit").click(function(){
      formData.append('loaded_mile',loadedmile);
      formData.append('empty_mile',emptymile);
      formData.append('driver_other',driver_other);
-     //formData.append('data_driver_other_modal',$('#driver_other_modal').serialize() );
+     formData.append('data_driver_other_modal',$('#driver_other_modal').serialize() );
      formData.append('tarp',tarp);
      formData.append('flat',flat);
      formData.append('driver_total',loadertotal);
@@ -974,7 +977,7 @@ $("#addLBSubmit").click(function(){
      formData.append('owner_truck',owner_truck );
      formData.append('owner_trailer', owner_trailer);
      formData.append('owner_other',owner_other);
-     //formData.append('data_driver_other_modal',$('#driver_other_modal').serialize() );
+     formData.append('data_owneroperator_other_modal',$('#owneroperator_other_modal').serialize() );
      formData.append('owner_total',owner_total);
      formData.append('startlocation',start_location);
      formData.append('endlocation',end_location);

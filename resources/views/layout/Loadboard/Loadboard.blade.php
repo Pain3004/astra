@@ -368,11 +368,11 @@
                         <div class="form-group col-md-2">
                           <label style="display:inline">F.S.C.</label>
                           <div style="display:inline" class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="fsc_percentage" data-parsley-multiple="groups" data-parsley-mincheck="2" onclick="getTotal()">
+                            <input type="checkbox" class="custom-control-input" id="fsc_percentage" onclick="getTotal()" data-parsley-multiple="groups" data-parsley-mincheck="2" >
                             <label class="custom-control-label" for="fsc_percentage">Rate%</label>
                           </div>
                           <div>
-                            <input class="form-control mt-2" placeholder="F.S.C." type="number" id="fsc" value="" onkeyup="getTotal()">
+                            <input class="form-control mt-2" placeholder="F.S.C." type="number" id="fsc" name="fsc" value="" onkeyup="getTotal()">
                           </div>
                         </div>
                         <div class="form-group col-md-1">
@@ -383,7 +383,7 @@
                         <div class="form-group col-md-2">
                           <label>Total Rate</label>
                           <div>
-                            <input class="form-control" placeholder="Total Rate" type="number" id="totalAmount" value="">
+                            <input class="form-control" placeholder="Total Rate" type="number" id="totalAmount">
                           </div>
                         </div>
                         <div class="form-group col-md-2">
@@ -792,7 +792,7 @@
                                       <div class="dropdown show">
                                         <!-- <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here"><datalist id="consigneee" name="consignee[]"></datalist>  -->
                                         <!-- <select class="form-control select2-show-search form-select  lb_shipperName" id="consigneelist" name="shipperName[]"> -->
-                                        <select class="form-control select2-show-search form-select" list="consigneelist" id="lb_consignee" placeholder name="consigneeName[]">
+                                        <select class="form-control select2-show-search form-select" list="consigneelist" id="lb_consignee" placeholder name="consigneelist[]">
                                             <option value="">Select Here</option>
                                             <?php
                                                 foreach($Consignee as $single){                              
@@ -1018,30 +1018,32 @@
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
             <div class="export-table">
-              <div id="items" class="form-group">
+              <form id="AccessorialModalForm">
+                  <div id="items" class="form-group">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="Description">Description</label>
                     <div>
-                      <input type="text" class="form-control" name="Description">
+                      <input type="text" class="form-control" name="Description[]">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="Amount">Amount</label>
                     <div>
-                      <input type="number" class="form-control" name="Amount">
+                      <input type="number" class="form-control" name="Amount[]" id="amo">
                     </div>
                   </div>
                   <!-- <div class="form-group col-md-2"><label for="Amount">Amount</label><div><button type="button" name="Amount" class="delete_1 btn btn-danger"><span aria-hidden="true">&times;</span></button></div></div> -->
                 </div>
-              </div>
+                  </div>
+              </form>
               <button type="button" id="add_1" class="button-29" data-toggle="tooltip" data-original-title="Add more controls">
                 <i class="mdi mdi-gamepad-down"></i> ADD </button>
             </div>
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="submit" class="button-29" id="addLBSubmit">Submit</button>
+            <button type="button" class="button-29" id="AccLBSubmit" onclick="getvaluesTotal()">Submit</button>
             <button type="button" class="button-29 closeAcc">Close</button>
           </div>
         </div>
@@ -1061,29 +1063,31 @@
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
             <div class="export-table">
-              <div id="items_carrier" class="form-group">
-                <div class="form-row">
-                  <div class="form-group col-md-4">
-                    <label for="Description">Description</label>
-                    <div>
-                      <input type="text" class="form-control" name="Description">
+              <form id="carrierOtherModalForm">
+                  <div id="items_carrier" class="form-group">
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="Description">Description</label>
+                        <div>
+                          <input type="text" class="form-control" name="Description[]">
+                        </div>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="Advance">Advance</label>
+                        <div>
+                          <input type="number" class="form-control" name="Advance[]">
+                        </div>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="Charges">Charges</label>
+                        <div>
+                          <input type="number" class="form-control" name="Charges[]">
+                        </div>
+                      </div>
+                      <!-- <div class="form-group col-md-2"><label for="Amount">Amount</label><div><button type="button" name="Amount" class="delete_1 btn btn-danger"><span aria-hidden="true">&times;</span></button></div></div> -->
                     </div>
                   </div>
-                  <div class="form-group col-md-4">
-                    <label for="Advance">Advance</label>
-                    <div>
-                      <input type="number" class="form-control" name="Advance">
-                    </div>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="Charges">Charges</label>
-                    <div>
-                      <input type="number" class="form-control" name="Charges">
-                    </div>
-                  </div>
-                  <!-- <div class="form-group col-md-2"><label for="Amount">Amount</label><div><button type="button" name="Amount" class="delete_1 btn btn-danger"><span aria-hidden="true">&times;</span></button></div></div> -->
-                </div>
-              </div>
+              </form>
               <button type="button" id="add_1_carrier" class="button-29" data-toggle="tooltip" data-original-title="Add more controls">
                 <i class="mdi mdi-gamepad-down"></i> ADD </button>
             </div>
@@ -1110,23 +1114,25 @@
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
             <div class="export-table">
-              <div id="items_driver" class="form-group">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="Description">Description</label>
-                    <div>
-                      <input type="text" class="form-control" name="Description">
+              <form id="driver_other_modal">
+                  <div id="items_driver" class="form-group">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="Description">Description</label>
+                        <div>
+                          <input type="text" class="form-control" name="Description[]">
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="Advance">Amount</label>
+                        <div>
+                          <input type="number" class="form-control" name="Amount[]">
+                        </div>
+                      </div>
+                      <!-- <div class="form-group col-md-2"><label for="Amount">Amount</label><div><button type="button" name="Amount" class="delete_1 btn btn-danger"><span aria-hidden="true">&times;</span></button></div></div> -->
                     </div>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="Advance">Advance</label>
-                    <div>
-                      <input type="number" class="form-control" name="Advance">
-                    </div>
-                  </div>
-                  <!-- <div class="form-group col-md-2"><label for="Amount">Amount</label><div><button type="button" name="Amount" class="delete_1 btn btn-danger"><span aria-hidden="true">&times;</span></button></div></div> -->
-                </div>
-              </div>
+              </form>
               <button type="button" id="add_1_driver" class="button-29" data-toggle="tooltip" data-original-title="Add more controls">
                 <i class="mdi mdi-gamepad-down"></i> ADD </button>
             </div>
@@ -1153,23 +1159,25 @@
           <!-- Modal body -->
           <div class="modal-body" style="overflow-y: auto !important;">
             <div class="export-table">
-              <div id="items_owneroperator" class="form-group">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="Description">Description</label>
-                    <div>
-                      <input type="text" class="form-control" name="Description">
+                <form id="owneroperator_other_modal">
+                    <div id="items_owneroperator" class="form-group">
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="Description">Description</label>
+                          <div>
+                            <input type="text" class="form-control" name="Description[]">
+                          </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="Advance">Amount</label>
+                          <div>
+                            <input type="number" class="form-control" name="Amount[]">
+                          </div>
+                        </div>
+                        <!-- <div class="form-group col-md-2"><label for="Amount">Amount</label><div><button type="button" name="Amount" class="delete_1 btn btn-danger"><span aria-hidden="true">&times;</span></button></div></div> -->
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="Advance">Advance</label>
-                    <div>
-                      <input type="number" class="form-control" name="Advance">
-                    </div>
-                  </div>
-                  <!-- <div class="form-group col-md-2"><label for="Amount">Amount</label><div><button type="button" name="Amount" class="delete_1 btn btn-danger"><span aria-hidden="true">&times;</span></button></div></div> -->
-                </div>
-              </div>
+                </form>
               <button type="button" id="add_1_owneroperator" class="button-29" data-toggle="tooltip" data-original-title="Add more controls">
                 <i class="mdi mdi-gamepad-down"></i> ADD </button>
             </div>
@@ -1196,13 +1204,13 @@
           '<div class="form-group col-md-5">'+
           '<label for="Description">Description</label>'+
           '<div>'+
-          '<input type="text" class="form-control" name="Description">'+
+          '<input type="text" class="form-control" name="Description[]">'+
           '</div>'+
           '</div>'+
           '<div class="form-group col-md-5">'+
           '<label for="Amount">Amount</label>'+
           '<div>'+
-          '<input type="number" class="form-control" name="Amount">'+
+          '<input type="number" class="form-control" name="Amount[]">'+
           '</div>'+
           '</div>'+
           '<div class="form-group col-md-2">'+
@@ -1230,19 +1238,19 @@
         	'<div class="form-group col-md-3">'+
           		'<label for="Description">Description</label>'+
           		'<div>'+
-          			'<input type="text" class="form-control" name="Description">'+
+          			'<input type="text" class="form-control" name="Description[]">'+
           		'</div>'+
           	'</div>'+
           	'<div class="form-group col-md-3">'+
           		'<label for="Advance">Advance</label>'+
           		'<div>'+
-          			'<input type="number" class="form-control" name="Advance">'+
+          			'<input type="number" class="form-control" name="Advance[]">'+
           		'</div>'+
           	'</div>'+
 			'<div class="form-group col-md-3">'+
           		'<label for="Charges">Charges</label>'+
           		'<div>'+
-          			'<input type="number" class="form-control" name="Charges">'+
+          			'<input type="number" class="form-control" name="Charges[]">'+
           		'</div>'+
           	'</div>'+
           	'<div class="form-group col-md-2">'+
@@ -1270,13 +1278,13 @@
           '<div class="form-group col-md-5">'+
           '<label for="Description">Description</label>'+
           '<div>'+
-          '<input type="text" class="form-control" name="Description">'+
+          '<input type="text" class="form-control" name="Description[]">'+
           '</div>'+
           '</div>'+
           '<div class="form-group col-md-5">'+
           '<label for="Amount">Amount</label>'+
           '<div>'+
-          '<input type="number" class="form-control" name="Amount">'+
+          '<input type="number" class="form-control" name="Amount[]">'+
           '</div>'+
           '</div>'+
           '<div class="form-group col-md-2">'+
@@ -1304,13 +1312,13 @@
           '<div class="form-group col-md-5">'+
           '<label for="Description">Description</label>'+
           '<div>'+
-          '<input type="text" class="form-control" name="Description">'+
+          '<input type="text" class="form-control" name="Description[]">'+
           '</div>'+
           '</div>'+
           '<div class="form-group col-md-5">'+
           '<label for="Amount">Amount</label>'+
           '<div>'+
-          '<input type="number" class="form-control" name="Amount">'+
+          '<input type="number" class="form-control" name="Amount[]">'+
           '</div>'+
           '</div>'+
           '<div class="form-group col-md-2">'+
@@ -2028,8 +2036,26 @@ function removeConsignee(mainid, contentid) {
 $('.LBshipper').click(function(){
    alert(); 
 });
+
+
+// <!-- -------------------------------------------------------------------------AccessorialModal ------------------------------------------------------------------------- -->
+function getvaluesTotal(){
+  
+  var tagSelect = [];
+  var tot =parseFloat(0);
+  $('input[name^="Amount"]').each(function(oneTag){
+      var oneValue = $(this).val();
+      tot=parseFloat(tot)+parseFloat(oneValue);
+      $('#MainOtherCharges').val(tot);
+      $('#AccessorialModal').modal('hide');
+  });
+
+}
+// <!-- -------------------------------------------------------------------------end of AccessorialModal ------------------------------------------------------------------------- -->
+
 //-----------------------total-----------------
 function getTotal() {
+  
     var rateAmount = document.getElementById('rateAmount').value;
     var noOfUnits = document.getElementById('units').value;
     var fsc = document.getElementById('fsc').value;
@@ -2058,7 +2084,9 @@ function getTotal() {
         }
     }
     if (fsc != "" && otherCharges == "") {
-        if (ratePercentage.checked == true) {
+      if ($("#fsc_percentage").is(":checked")) { 
+        // if (ratePercentage.checked == true) {
+          alert('checked');
             if (rateAmount != "") {
                 var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(rateAmount * fsc) / 100 : parseFloat(parseFloat(rateAmount * noOfUnits) + (parseFloat(rateAmount * noOfUnits * fsc) / 100));
                 totalAmount.value = total.toFixed(2);
@@ -2073,6 +2101,7 @@ function getTotal() {
                 });
             }
         } else {
+          alert();
             if (rateAmount != "") {
                 if (typeof (rateAmount) == 'number') {
                     var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseInt(rateAmount * noOfUnits) + parseInt(fsc);
@@ -2128,7 +2157,16 @@ function getTotal() {
         }
     }
 }
+function getFSC(fsc) {
+  if (fsc == "") {
+    return 0;
+  } else {
+    return parseFloat(fsc);
+  }
+}
 //-----------------------end total-----------------
+
+
 //-----------------------calculateMiles-----------------
 
 
@@ -2196,7 +2234,7 @@ function calculateMiles() {
     locations.push({ seq: "300", location: endLocation });
     endflag = 1;
   }
-alert(locations.length);
+// alert(locations.length);
   if (locations.length <= 1) {
     swal.fire({
       title: "<h5>There should be atleast one shipper and one consignee</h5>",
@@ -2219,6 +2257,7 @@ alert(locations.length);
   }
   calcRoute(waypts, startFlag, endflag);
 }
+
 function compare(a, b) {
   const seqA = a.seq;
   const seqB = b.seq;
@@ -2340,6 +2379,7 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
 //   });
 // });
 // //-----------------------end owner truck and per-----------------
+
 
 </script>
 
