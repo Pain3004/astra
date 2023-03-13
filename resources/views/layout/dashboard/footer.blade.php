@@ -135,6 +135,7 @@
 <script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js.map"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>    
 </body>
 
 </html>

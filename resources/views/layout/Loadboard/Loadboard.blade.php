@@ -280,8 +280,19 @@
                                 </label>
                             <div class="dropdown show">
                                 <select class="form-control select2-show-search form-select customerListSet" list="customerListSet" id="LB_Customer" placeholder>
-                                                                              
-                            </select>
+                                <?php
+                                    foreach($customer as $customer){                              
+                                        $custName=$customer['custName'];
+                                        // $userLastName=$customer['userLastName']; 
+                                        // $userLastName=$customer['userLastName'];
+                                        // $userLastName=$customer['userLastName'];             
+                                        $_id=$customer['_id'];              
+                                        ?>
+                                          <option value="{{$_id}}-{{$custName}}">{{$custName}} </option>
+                                        <?php
+                                    }
+                                ?>                                                          
+                                </select>
                             </div>
                         </div>
                         <div class="form-group col-md-2">
@@ -781,7 +792,7 @@
                                       <div class="dropdown show">
                                         <!-- <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here"><datalist id="consigneee" name="consignee[]"></datalist>  -->
                                         <!-- <select class="form-control select2-show-search form-select  lb_shipperName" id="consigneelist" name="shipperName[]"> -->
-                                        <select class="form-control select2-show-search form-select lb_shipperName" list="consigneelist" id="lb_consignee" placeholder name="shipperName[]">
+                                        <select class="form-control select2-show-search form-select" list="consigneelist" id="lb_consignee" placeholder name="consigneeName[]">
                                             <option value="">Select Here</option>
                                             <?php
                                                 foreach($Consignee as $single){                              
@@ -950,27 +961,33 @@
                             </div>
                           </div>
                         </div>
-                        <div class="form-row">
-                          <div class="upload-button carrier">
-                            <label>Upload Files</label>
-                            <br>
-                            <button class="button-29">Upload a file</button>
-                            <input type="file" id="carrierfiles" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" />
-                          </div>
-                          <div class="form-group col-md-2 Carrierlist carrier">
-                            <label>Send carrier rate con</label>
-                            <div>
-                              <button id="carrierratecon" name="carrierratecon" class="button-29"> Add Email </button>
+                        <form id="carrierfilesForm">
+                          <div class="form-row">
+                            <div class="upload-button carrier">
+                              <label>Upload Files
+                              &nbsp; <i title="view Upload Files" class="mdi mdi-eye" id="view_Upload_Files" style='color:blue !important'></i>
+                                  </label>
+                              <br>
+                              <!-- <button class="button-29">Upload a file</button> -->
+                              <!-- <input type="file" id="carrierfiles" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" /> -->
+                              <input type="file" class="form-control" id="carrierfiles"  name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" >
+                              <!-- <div class="trailer_img">
+                              </div> -->
+                            </div>
+                            <div class="form-group col-md-2 Carrierlist carrier">
+                              <label>Send carrier rate con</label>
+                              <div>
+                                <button id="carrierratecon"  class="button-29"> Add Email </button>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-2 Carrierlist carrier">
+                              <label>Send customer rate con</label>
+                              <div>
+                                <button id="customerratecon"  class="button-29"> Add Email </button>
+                              </div>
                             </div>
                           </div>
-                          <div class="form-group col-md-2 Carrierlist carrier">
-                            <label>Send customer rate con</label>
-                            <div>
-                              <button id="customerratecon" name="customerratecon" class="button-29"> Add Email </button>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- </form> -->
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -2224,7 +2241,11 @@ function calcRoute(waypts, startFlag, endflag) {
     optimizeWaypoints: true,
     travelMode: google.maps.DirectionsTravelMode.DRIVING,
     unitSystem: google.maps.DirectionsUnitSystem.METRIC,
+
+
   };
+  var directionsService = new google.maps.DirectionsService();
+var directionsDisplay = new google.maps.DirectionsRenderer();
 
   directionsService.route(request, function (response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
@@ -2301,6 +2322,8 @@ function calcRoute(waypts, startFlag, endflag) {
       alert("Unable to find route!!!");
     }
   });
+
+  
 }
 //-----------------------end calculateMiles-----------------
 // //-----------------------get owner truck and per-----------------select2-lb_owner-container

@@ -52,6 +52,7 @@ $(document).ready(function() {
                         var com_Id =Result.Load_type[i].companyID;
 
                         if (len2 > 0) {
+                            console.log(len2);
                             for (var j = len2-1; j >= 0; j--) {
 
                                 var  id=Result.Load_type[i].loadType[j]._id;
@@ -61,7 +62,7 @@ $(document).ready(function() {
 
                                 if(deleteStatus == "NO" || deleteStatus == "No"){
                                         var Str = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                                        "<td data-field='no'>" + no + "</td>" +
+                                        "<td data-field='no'>" + no + "-"+id+"</td>" +
                                         "<td data-field='no' style='display:none'>" + no + "</td>" +
                                         "<td data-field='loadName'>" + loadName + "</td>" +
                                         "<td data-field='loadType'>" + loadType + "</td>" +
@@ -304,16 +305,17 @@ function RestoreLoad(RestoreResult)
         $("#RestoreLoadTable").html('');
         var data=RestoreResult.Load_type.length;
         // Loadlen = LoadResult.Load_type.length;
-        console.log(data);
+        // console.log(data);
         for(var i=0; i<data; i++)
         {
             R_Len = RestoreResult.Load_type[i].loadType.length;
-            console.log(R_Len);
+            // console.log(R_Len);
             if(R_Len != null)
             {
                 var no=1;
-                for(var j=R_Len-1; j>=0; j--)
+                for(var j=0; j<R_Len; j++)
                 {
+                    
                     var com_Id=RestoreResult.Load_type[i].companyID;
                     var id=RestoreResult.Load_type[i].loadType[j]._id;
                     var name =RestoreResult.Load_type[i].loadType[j].loadName;
@@ -322,6 +324,7 @@ function RestoreLoad(RestoreResult)
 
                     if (deleteStatus == "Yes" || deleteStatus == "YES" || deleteStatus == "yes") 
                     {
+                        console.log(j);
                         var R_str = "<tr data-id=" + (i + 1) + ">" +
                             "<td data-field='no'><input type='checkbox' name='checkLoadOne[]' class='checkedIdsOneBranch' style='height: 15px;' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
                             "<td >" + name + "</td>" +

@@ -14,14 +14,15 @@ use App\Models\ArrivedConsignee;
 use App\Models\Delivered;
 use App\Models\BreakDown;
 use App\Models\User;
+use Auth;
 // use App\Models\;
 use File;
 use Image;
 
-use Auth;
+
 use PDF;
 // use MongoDB\BSON\ObjectId;
-new \MongoDB\BSON\ObjectID;
+// new \MongoDB\BSON\ObjectID;
 
 use Illuminate\Database\Eloquent\Collection;
 
@@ -247,7 +248,8 @@ class LoadBoardController extends Controller
         // $shipper_load_type=$unserializeData['shipperName'];
         // $shipper_name=explode('-',$shipper_load_type[1]);
         // dd($shipper_name[0]);
-        die;
+        // dd($request->company);
+        // die;
         $obj_size=3500;
         $companyID=Auth::user()->companyID;
         $totalArray=0;
@@ -376,15 +378,48 @@ class LoadBoardController extends Controller
         if(isset($request->data_file)){
             parse_str($request->data_file,$unserializeData6);
         }
-        if(isset($unserializeData6['file'])){
-            foreach($unserializeData6['file'] as $key => $val){
-                $file[]=((object)[
-                    'file'=>$unserializeData6['file'][$key],
-                ]);        
-            }
-        }else{
-            $file=array();
+
+       
+        $path = public_path().'/CarrierFiles'; 
+          // dd($path);       
+        if(!File::exists($path)) {
+            
+        File::makeDirectory($path, $mode = 0777, true, true);
         }
+        try{
+            if ($files = $request->file('carrierfiles')) {
+                    foreach ($request->file('carrierfiles') as $file) {
+                    $name =  time().rand(0,1000).$file->getClientOriginalName();
+                    $filePath=$file->move($path, $name);
+                    $data[] = $name;
+                    $size = File::size($filePath);
+                    
+                        $Carr_file[]=array(
+                            '_id' => 0,
+                            'mainid' =>'' ,
+                            'filename' =>$name ,
+                            'originalname' => $file->getClientOriginalName(),
+                            'filesize' =>$size ,
+                            'targetfilepath' => "CarrierFiles/".$name,
+                            'index' =>0,
+                        );
+                        //   dd($trailerfile);
+                    }
+                }
+            }
+        
+        catch(\Exception $error){
+            return $error->getMessage();
+        }
+        // if(isset($unserializeData6['file'])){
+        //     foreach($unserializeData6['file'] as $key => $val){
+        //         $file[]=((object)[
+        //             'file'=>$unserializeData6['file'][$key],
+        //         ]);        
+        //     }
+        // }else{
+        //     $file=array();
+        // }
         $customer_email[]=((object)[
             'CustomerEmail'=>(string)$request->CustomerEmail,
             'emailcustomer2'=>(string)$request->emailcustomer2,
@@ -454,7 +489,7 @@ class LoadBoardController extends Controller
             'loaded_miles_value' =>(string) $request->loaded_miles_value,
             'empty_miles_value' =>(string) $request->empty_miles_value,
             'driver_miles_value' =>(string) $request->driver_miles_value,
-            'file' => $file,//array
+            'file' => $Carr_file,//array
             'load_notes' =>(string) $request->load_notes,
 
             'carrier_email' => $carrier_email,

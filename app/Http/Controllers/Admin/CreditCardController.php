@@ -35,7 +35,7 @@ class CreditCardController extends Controller
         {
             $search_by=$request->search_by;
         }
-        // dd($search_by);
+       // dd($search_by);
         $companyID=(int)Auth::user()->companyID;
         $total_records = 0;
         if($search_value !="")
@@ -48,7 +48,7 @@ class CreditCardController extends Controller
                         $search_data,
                         ['$limit' => 100]
                     ]);  
-            // dd($cursor);
+            dd($cursor);
                  $completedata = array();
             $creditcardData = array();
             $arrData1 = array();

@@ -812,6 +812,8 @@ $("#addLBSubmit").click(function(){
     var totalAmount='';
     var cnno='';
 
+    
+
     var company=$('#lb_Company').val();
     if(company == 'Select Here'){
       //swal.fire("Error!", "Enter Percentage", "error");
@@ -918,100 +920,111 @@ $("#addLBSubmit").click(function(){
     var CustomerEmail='';
     var emailcustomer2='';
     var emailcustomer3='';
+
+
+    var formData = new FormData();
+    $.each($("#carrierfiles")[0].files, function(i, file) {            
+      formData.append('carrierfiles[]',file);
+    });
+   
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('customername',customerName);
+    formData.append('loadername',loadername);
+    formData.append('loadertruck',loadertruck);
+   
+    formData.append('loadertrailer',loadertrailer);
+       //formData.append('shippername', loadershipper);
+    //formData.append('consigneename', loaderconsignee);
+    formData.append('loadertotal',loadertotal);
+     formData.append('company',company);
+     formData.append('customer',customer);
+     formData.append('dispatcher',dispatcher);
+     formData.append('cnno',cnno);
+      formData.append('status',status);
+     formData.append('active_type',loadtype);
+     formData.append('rate',rate);
+     formData.append('noofunits',noofunits);
+     formData.append('fsc',fsc);
+     formData.append('fsc_percentage',fsc_percentage);
+     formData.append('other_charges',other_charges);
+     //formData.append('data_other_charges',$('#other_chargesForm').serialize() );
+     formData.append('setTotalRate',totalAmount);
+     formData.append('equipment_type',equiptype);
+     formData.append('typeofloader',typeofloader);
+     formData.append('carrier_name',carrier_name);
+     formData.append('flat_rate',flat_rate);
+     formData.append('isIfta',isIfta);
+     formData.append('advance_charges',advance_charges);
+     //formData.append('data_carrier_other_modal',$('#carrierOtherModalForm').serialize() );
+     formData.append('carrier_total',carrier_total);
+     formData.append('currency',currency);
+     formData.append('driver_name',drivername);
+     formData.append('truck',truck);
+     formData.append('trailer',trailer);
+     formData.append('loaded_mile',loadedmile);
+     formData.append('empty_mile',emptymile);
+     formData.append('driver_other',driver_other);
+     //formData.append('data_driver_other_modal',$('#driver_other_modal').serialize() );
+     formData.append('tarp',tarp);
+     formData.append('flat',flat);
+     formData.append('driver_total',loadertotal);
+     //owner
+     formData.append('owner_name',owner_name);
+     formData.append('owner_percentage',owner_percentage);
+     formData.append('owner_truck',owner_truck );
+     formData.append('owner_trailer', owner_trailer);
+     formData.append('owner_other',owner_other);
+     //formData.append('data_driver_other_modal',$('#driver_other_modal').serialize() );
+     formData.append('owner_total',owner_total);
+     formData.append('startlocation',start_location);
+     formData.append('endlocation',end_location);
+     formData.append('data_shipper',$('#shipperForm').serialize());
+     formData.append('data_consignee',$('#consigneeForm').serialize());
+     formData.append('tarp_select',tarp_select);
+     formData.append('loaded_miles_value',loaded_miles_value);
+     formData.append('empty_miles_value',empty_miles_value);
+     formData.append('driver_miles_value',driver_miles_value);
+     //formData.append('file',);
+     formData.append('load_notes',load_notes);
+     //formData.append('data_CarrierEmail',$('#CarrierEmail').serialize() );
+     formData.append('CarrierEmail',CarrierEmail);
+     formData.append('email2',email2);
+     formData.append('email3',email3);
+     //formData.append('data_customerEmail',$('#customerEmail').serialize() );
+     formData.append('CustomerEmail',CustomerEmail);
+     formData.append('emailcustomer2',emailcustomer2);
+     formData.append('emailcustomer3',emailcustomer3);
+     formData.append('brokerdriver',broker_driver);
+     formData.append('brokerdrivercontact',broker_driver_contact);
+     formData.append('broker_truck',broker_truck);
+     formData.append('broker_trailer',broker_trailer);
+     formData.append('is_unit_on',is_unit_on);
+     formData.append('carrier_parent',carrier_parent);
+     formData.append('customer_parent',customer_parent);
+     formData.append('driver_parent',driver_parent);
+     
+     formData.append('owner_parent',owner_parent);
+     // edit: edit,
+     // loadid: loadid,
+     // createdate: createDate,
+     // companyId: companyid,
+     // privilege: privilege,
+     formData.append('isbroker',isbroker);
+     //formData.append('loadParent',loadParent );
+     formData.append('isIftaVerified',isIftaVerified);
+     formData.append('receipt_status',receipt_status);
+     formData.append('custdays',custDays);
+     formData.append('cardays',carDays);
+
+    //  console.log(formData);
+    //  return;
     $.ajax({
         url: base_path+"/admin/addLoadBoard",
         type: "POST",
         datatype:"JSON",
-        data: {
-            _token: $("#tokenLoadboard").val(),
-            customername: customerName,
-            loadername: loadername,
-            loadertruck: loadertruck,
-            loadertrailer: loadertrailer,
-          // shippername: loadershipper,
-          // consigneename: loaderconsignee,
-            loadertotal: loadertotal,
-            company: company,
-            customer: customer,
-            dispatcher: dispatcher,
-            cnno: cnno,
-            status: status,
-            active_type: loadtype,
-            rate: rate,
-            noofunits: noofunits,
-            fsc: fsc,
-            fsc_percentage: fsc_percentage,
-            other_charges: other_charges,
-            // data_other_charges:$('#other_chargesForm').serialize(),
-            setTotalRate: totalAmount,
-            equipment_type: equiptype,
-            typeofLoader: typeofloader,
-            carrier_name: carrier_name,
-            flat_rate: flat_rate,
-            isIfta: isIfta,
-            advance_charges: advance_charges,
-            // data_carrier_other_modal:$('#carrierOtherModalForm').serialize(),
-            carrier_total: carrier_total,
-            currency: currency,
-            driver_name: drivername,
-            truck: truck,
-            trailer: trailer,
-            loaded_mile: loadedmile,
-            empty_mile: emptymile,
-            driver_other: driver_other,
-            // data_driver_other_modal:$('#driver_other_modal').serialize(),
-            tarp: tarp,
-            flat: flat,
-            driver_total: loadertotal,
-            //owner
-            owner_name: owner_name,
-            owner_percentage: owner_percentage,
-            owner_truck: owner_truck,
-            owner_trailer: owner_trailer,
-            owner_other: owner_other,
-            // data_driver_other_modal:$('#driver_other_modal').serialize(),
-            owner_total: owner_total,
-            startlocation: start_location,
-            endlocation: end_location,
-            data_shipper:$('#shipperForm').serialize(),
-            data_consignee:$('#consigneeForm').serialize(),
-
-            tarp_select: tarp_select,
-            loaded_miles_value: loaded_miles_value,
-            empty_miles_value: empty_miles_value,
-            driver_miles_value: driver_miles_value,
-            // data_file:$('#file').serialize(),
-            load_notes: load_notes,
-            
-            // data_CarrierEmail:$('#CarrierEmail').serialize(),
-            CarrierEmail: CarrierEmail,
-            email2: email2,
-            email3: email3,
-            // data_customerEmail:$('#customerEmail').serialize(),
-            CustomerEmail: CustomerEmail,
-            emailcustomer2: emailcustomer2,
-            emailcustomer3: emailcustomer3,
-            brokerdriver: broker_driver,
-            brokerdrivercontact: broker_driver_contact,
-            broker_truck: broker_truck,
-            broker_trailer: broker_trailer,
-            is_unit_on: is_unit_on,
-            carrier_parent: carrier_parent,
-            customer_parent: customer_parent,
-            driver_parent: driver_parent,
-            owner_parent: owner_parent,
-            // edit: edit,
-            // loadid: loadid,
-            // createdate: createDate,
-            // companyId: companyid,
-            // privilege: privilege,
-            isbroker: isBroker,
-            // loadParent: loadParent,
-            isIftaVerified:isIftaVerified,
-            receipt_status:receipt_status,
-            custdays: custDays,
-            cardays: carDays,
-        },
+        contentType: false,
+        processData: false,
+        data:formData,
         cache: false,
         success: function(Result){
             if(Result){
