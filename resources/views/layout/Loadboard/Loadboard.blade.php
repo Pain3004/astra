@@ -114,110 +114,123 @@
 @include('layout.loader')
 
 
-@include('layout.dashboard.sidebar')
-		
-
-			<!--app-content open-->
-			<div class="app-content main-content mt-0" id="LB">
-				<div class="side-app">
-					 <!-- CONTAINER -->
-					 <div class="container-fluid">
-						<!-- PAGE-HEADER -->
-						<div class="page-header">
-							<div>
-								<h1 class="page-title">Loadboard</h1>
-							</div>
-							<div class="ms-auto pageheader-btn">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Loadboard</li>
-								</ol>
-							</div>
-							<!-- <div class="dropdown"> -->
-								
-								<!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" href="#">Action</a>
-									<a class="dropdown-item" href="#">Another action</a>
-									<a class="dropdown-item" href="#">Something else here</a>
-								</div> -->
-							<!-- </div> -->
-						</div>
-						<!-- PAGE-HEADER END -->
-
-                       
-
-						<!-- ROW-4 -->
-						<input type="hidden" id="tokenLoadboard" value="{{ csrf_token() }}" />
-
-						<div class="row">
-							<div class="col-12 col-sm-12">
-									<div class="card-body">
-											<div class="row">
-                                                <!-- <div class="col-2 btn-group submitter-group">
-													<a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
-												</div> -->
-                                                <div class="col-2">
-                                                    <!-- <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a> -->
-                                                    <a href="#" id="addLoadBoard" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a>
-
-                                                </div>
-												<div class="col-1">
-												</div>
-
-												<div class="col-8 submitter-group ">
-                                                    <input type="checkbox" data-name="Open" class="filter-checkbox checkbox_new" />
-                                                    <input type="checkbox" data-name="Dispatched" class="filter-checkbox checkbox_new" />
-                                                    <input type="checkbox" data-name="Arrived Shipper" class="checkbox_new_alt" />
-                                                    <input type="checkbox" data-name="Loaded" class="checkbox_new" />
-                                                    <input type="checkbox" data-name="On Route" class="checkbox_new_alt2" />
-                                                    <input type="checkbox" data-name="Arrived Consignee" class="checkbox_new_alt3" />
-                                                    <input type="checkbox" data-name="Delivered" class="checkbox_new" />
-                                                    <input type="checkbox" data-name="Break Down" class="checkbox_new_alt4" />
-                                                </div>
-                                                <div class="col-1">
-                                                    <button type="" class="button-70"><i class="fa fa-search" style="font-size: 11px;margin-left: -5px;margin-right: 5px;"></i>Filter</button>
-                                                </div>
-
-											</div>
-									</div>
-									<div class="card-body">
-										<input type="hidden" class="_id">
-                                           
-										<div class="table-responsive">
-                                            <table class="table dataTable no-footer" style="max-height: 100%;overflow: hidden;border-spacing: 4px;border-collapse: unset !important;">
-                                                <thead class="thead_th">
-                                                    <tr class="tr" >
-                                                        <th class="th_new">ID</th>
-                                                        <th class="th_new">Invoice</th>
-														<th class="th_new">Order Id</th>
-                                                        <th class="th_new">Status</th>
-                                                        <th class="th_new">Ship-Date</th>
-                                                        <th class="th_new">Del-Date</th>
-                                                        <th class="th_new">Customer</th> 
-                                                        <th class="th_new">Carrier/Driver/Owner Operator</th>
-                                                        <th class="th_new">Origin</th>
-                                                        <th class="th_new">Destination</th>
-                                                        <th class="th_new">Truck</th>
-                                                        <th class="th_new">Trailer</th>
-                                                        <th class="th_new">Load Pay</th>
-                                                        <th class="th_new">Carrier Pay/Driver Pay</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="LoadBoardTable">
-                                                   
-                                                </tbody>
-                                            </table>
-										</div>
-									</div>
-							</div><!-- COL END -->
-						</div>
-						<!-- ROW-4 END -->
-
-					</div>
-				</div>
-			</div>
-			<!-- CONTAINER END -->
-		</div>
+<div class="page-main">
+    @include('layout.dashboard.navigation')
+     @include('layout.dashboard.sidebar')
+  <!--app-content open-->
+  <div class="app-content main-content mt-0" id="LB">
+    <div class="side-app">
+      <!-- CONTAINER -->
+      <div class="main-container container-fluid">
+        <!-- PAGE-HEADER -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Loadboard</h1>
+          </div>
+          <div class="ms-auto pageheader-btn">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0);">Home</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">Loadboard</li>
+            </ul>
+          </div>
+          <!-- <div class="dropdown"> -->
+          <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div> -->
+          <!-- </div> -->
+        </div>
+        <!-- PAGE-HEADER END -->
+        <!-- ROW-4 -->
+        <input type="hidden" name="_token" id="tokenLoadboard" value="{{ csrf_token() }}" />
+        <div class="row">
+          <div class="col-12 col-sm-12">
+            <div class="card-body">
+              <div class="row">
+                <!-- <div class="col-2 btn-group submitter-group"><a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a></div> -->
+                <div class="col-2">
+                  <!-- <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a> -->
+                  <a href="#" id="addLoadBoard" class="button-57_alt">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <span>New Active Load</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- COL END -->
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12">
+            <div class="card-body">
+              <div class="row">
+                <!-- <div class="col-2 btn-group submitter-group"><a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a></div> -->
+                <div class="col-3">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-info">Action</button>
+                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="list-unstyled dropdown-menu dropdown-menu-lb" role="menu">
+                      <li>
+                        <label for="c1" style="display: block;">
+                          <input style="margin-right: 2px;" type="checkbox" id="c1" data-col="col-name" class="col-checkbox" />Name </label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-8 submitter-group ">
+                  <input type="checkbox" data-name="Open" class="filter-checkbox checkbox_new" />
+                  <input type="checkbox" data-name="Dispatched" class="filter-checkbox checkbox_new" />
+                  <input type="checkbox" data-name="Arrived Shipper" class="checkbox_new_alt" />
+                  <input type="checkbox" data-name="Loaded" class="checkbox_new" />
+                  <input type="checkbox" data-name="On Route" class="checkbox_new_alt2" />
+                  <input type="checkbox" data-name="Arrived Consignee" class="checkbox_new_alt3" />
+                  <input type="checkbox" data-name="Delivered" class="checkbox_new" />
+                  <input type="checkbox" data-name="Break Down" class="checkbox_new_alt4" />
+                </div>
+                <div class="col-1">
+                  <button type="" class="button-70">
+                    <i class="fa fa-search" style="font-size: 11px;margin-left: -5px;margin-right: 5px;"></i>Filter </button>
+                </div>
+                <!-- <div class="col-9 btn-group submitter-group "><ul class="filter-wrapper ks-cboxtags" ><li><input type="checkbox" class="filter-checkbox" id="checkboxOne" value="Open"><label for="checkboxOne">Open</label></li><li><input type="checkbox" class="filter-checkbox" id="checkboxTwo" value="Dispatched"><label for="checkboxTwo">Dispatched</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Shipper"><label for="">Arrived Shipper</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Loaded"><label for="">Loaded</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="On Route"><label for="">On Route</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Consignee"><label for="">Arrived Consignee</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Delivered"><label for="">Delivered</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Break Down"><label for="">Break Down</label></li></ul></div> -->
+              </div>
+            </div>
+            <div class="card-body">
+              <input type="hidden" class="_id">
+              <div class="table-responsive">
+                <table class="table dataTable no-footer" style="max-height: 100%;overflow: hidden;border-spacing: 4px;border-collapse: unset !important;">
+                  <thead class="thead_th">
+                    <tr class="tr">
+                      <th class="th_new">ID</th>
+                      <th class="th_new">Invoice</th>
+                      <th class="th_new">Order Id</th>
+                      <th class="th_new">Status</th>
+                      <th class="th_new">Ship-Date</th>
+                      <th class="th_new">Del-Date</th>
+                      <th class="th_new">Customer</th>
+                      <th class="th_new">Carrier/Driver/Owner Operator</th>
+                      <th class="th_new">Origin</th>
+                      <th class="th_new">Destination</th>
+                      <th class="th_new">Truck</th>
+                      <th class="th_new">Trailer</th>
+                      <th class="th_new">Load Pay</th>
+                      <th class="th_new">Carrier Pay/Driver Pay</th>
+                    </tr>
+                  </thead>
+                  <tbody id="LoadBoardTable"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- COL END -->
+        </div>
+        <!-- ROW-4 END -->
+      </div>
+    </div>
+  </div>
+  <!-- CONTAINER END -->
+</div>
 
 <!------------------------------------------------------------------- Add   modal ------------------------------------------------------------------->
 <div class="container">
