@@ -21,7 +21,7 @@ class CreditCard extends Model
      */
 
     protected $connection = 'mongodb';
-    protected $collection = 'credit_card_admin';
+    protected $collection = 'credit_card';
 
   
 

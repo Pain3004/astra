@@ -1,28 +1,17 @@
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-
+<!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
 <div class="container">
-    <!-- <h2>Large Modal</h2> -->
-    <!-- Button to Open the Modal -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            Open modal
-        </button> -->
-
-    <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="accManagModal" role="dialog">
         <div class="modal-dialog custom_modal modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Account</h5>
                     <button type="button" class="button-24" data-dismiss="modal">×</button>
-
                     </button>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div style="margin-top: 15px; margin-left: 15px;">
-                            <!-- Tabs -->
                             <nav class="nav d-sm-flex d-block">
-                            <input type="hidden" name="_token" id="_tokenChangeAccountStatus" value="{{ csrf_token() }}"  >
                                 <button class="button-57_alt2 Delivered_tab" data-bs-toggle="tab" href="#tab_Delivered"><i class="fas fa fa-truck" style='font-size:15px;' aria-hidden="true"></i><span><i class="fas fa fa-truck" style='color:white;' aria-hidden="true"></i><br>Delivered</span></button>
                                 
                                 <button class="button-57_alt2 Invoiced_tab" data-bs-toggle="tab" href="#tab_Invoiced"><i class="fa fa-usd" style='font-size:15px;' aria-hidden="true"></i><span><i class="fa fa-usd" style='color:white;' aria-hidden="true"></i><br>Invoiced</span></button>
@@ -35,7 +24,7 @@
                     </div> -->
                     <div class="col-md-2">
                     </div>
-                    <div class="col-md-3" style="">
+                    <!-- <div class="col-md-3" style="">
                         <div style="margin-top: 15px; float:right;">
                             <button type="button" class="btn btn-outline-info btn-pill dropdown-toggle" data-bs-toggle="dropdown">
                                 Action <span class="caret"></span>
@@ -58,20 +47,17 @@
                         <div style="margin-top: 15px;">
                             <input class="form-control" placeholder="Search for results..." type="search">
                         </div>
-                    </div>
-                </div>
-                    
-                
-													
-												
+                    </div> -->
+                </div>                    						
                 <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
 
                     <div class="panel panel-primary">
                         <div class="panel-body tabs-menu-body">
                             <div class="tab-content">
                                 <div class="tab-pane active " id="tab_Delivered">
+                                    <input type="hidden" name="_token" id="_tokenChangeAccountStatus" value="{{ csrf_token() }}"  >
                                     <caption>Delivered Table</caption>
-                                    <table id="delivered_table_pagination" class="table">
+                                    <table  class="table">
                                         
                                         <thead class="thead_th">
                                             <tr class="tr">
@@ -203,11 +189,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                <button class="button-29" style="vertical-align:middle" id="invoiceExport"><span>Export</span></button>
+                    <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
                         <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
-                    </form>
-                    <button type="button" class="button-29" data-dismiss="modal">Close</button>
+                    </form> -->
+                    <button type="button" class="button-29 colseAccountMangerModal" data-dismiss="modal" >Close</button>
                     <!-- <button class="btn btnclose" style="background-color:red;" data-bs-dismiss="modal">Close</button> -->
                 </div>
             </div>

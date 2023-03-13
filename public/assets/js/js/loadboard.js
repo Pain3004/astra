@@ -101,6 +101,8 @@
 // });
 
 $(document).ready(function() {
+ 
+
   dataTable = $("#example").DataTable({
   });
 
@@ -122,12 +124,12 @@ $(document).ready(function() {
   })
 //-- -------------------------------------------------------------------------    -- -------------------------------------------------------------------------
 
-$("#lb_shipperName, #lb_Company").select2({
-  placeholder: "Select a programming language",
+$("#consigneelist,#lb_consignee,#lb_owner, #lb_shipperName, #lb_Company,#LB_Customer, #lb_Dispatcher, #lb_load, #lb_EquipmentType, #LB_Carrier, #LB_Driver, #LB_Truck, #LB_Trailer, #lb_owner_truck, #lb_owner_trailer").select2({
+  placeholder: "Select Here",
   allowClear: true,
   dropdownParent: $('#addLoadBoardModal')
   });
- 
+
 $('#addLoadBoard').click(function(){
   $.ajax({
     type: "GET",
@@ -137,11 +139,14 @@ $('#addLoadBoard').click(function(){
       createshipperList(Result);
     }
 });
+
+
   $('#addLoadBoardModal').modal('show');
 });
 //-- -------------------------------------------------------------------------  Get loaboard data -- -------------------------------------------------------------------------
 $('.closeAddNewLoadBoard').click(function(){
   $('#addLoadBoardModal').modal('hide');
+
 });
 // $('.shipperName').click(function(){
 //   $('#page-loader').style('dispaly','inline-flex');
@@ -462,7 +467,7 @@ $.ajax({
    });
   }); 
 // <!-- -------------------------------------------------------------------------over change status   ------------------------------------------------------------------------- -->  
-// <!-- -------------------------------------------------------------------------get company for add new loadboard ------------------------------------------------------------------------- -->  
+// <!-- ------------------------------------------------------------------------- loadboard ------------------------------------------------------------------------- -->  
   $('.closeAddNewLoadBoard').click(function(){
     $('#addLoadBoardModal').modal('hide');
   });
@@ -470,53 +475,56 @@ $.ajax({
  
     $('#addLoadBoardModal').modal('show');
   }); 
-  $("#lb_Company").select2({
-    placeholder: "Select a programming language",
-    allowClear: true,
-    dropdownParent: $('#addLoadBoardModal')
+  $('#lb_owner, #LB_Driver,#select2-lb_EquipmentType-container, #select2-lb_load-container, #LBEquipmentTypePlus, #LBCustomerPlus, #LBLoadTypePlus').click(function(){
+    $('#EquipmentTypeModal').modal('hide');
+    $('#LoadModal').modal('hide');
+    $('#driverModal').modal('hide');
   });
-  $('#lb_Company').on('click', function(event){
-      alert();
-      $.ajax({
-        type: "GET",
-        url: base_path+"/admin/lbcompany",
-        async: false,
-        success: function(Result) { 
-            createcompanyList(Result);
-        }
-    });
-  });
+// <!-- -------------------------------------------------------------------------get company for add new loadboard ------------------------------------------------------------------------- -->  
+// $('#select2-lb_Company-container').one('click', function(event){
+//       $.ajax({
+//         type: "GET",
+//         url: base_path+"/admin/lbcompany",
+//         async: false,
+//         success: function(Result) { 
+//             createcompanyList(Result);
+//         }
+//     });
+//   });
 
-  function createcompanyList(Result) {           
-      var Length = 0;    
+//   function createcompanyList(Result) {           
+//       var Length = 0;    
       
-      if (Result != null) {
-          Length = Result.company.length;
-      }
+//       if (Result != null) {
+//           Length = Result.company.length;
+//       }
 
-      if (Length > 0) {
-          // var no=1;
-          $(".companyListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var companyLength =Result.company[i].company.length;
-              for (var j = 0; j < companyLength; j++) {  
-                var company =Result.company[i].company[j].companyName;
-                var id =Result.company[i].company[j]._id;
-                var deleteStatus =Result.company[i].company[j].deleteStatus;
+//       if (Length > 0) {
+//           // var no=1;
+//           // $(".companyListSet").html('');
+//           for (var i = 0; i < Length; i++) { 
+//               var companyLength =Result.company[i].company.length;
+//               for (var j = 0; j < companyLength; j++) {  
+//                 var company =Result.company[i].company[j].companyName;
+//                 var id =Result.company[i].company[j]._id;
+//                 var deleteStatus =Result.company[i].company[j].deleteStatus;
+               
+//                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+//                   // var List = "<option id='customerCurrency' data-id='"+id+"' >"+ id +"-"+ company +"</option>"   +
+//                   var List = "<option id='customerCurrency' value='"+id+"' >"+ company +"</option>"   +
 
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='customerCurrency' data-id='"+id+"' >"+ id +"-"+ company +"</option>"   +
-                  $(".companyListSet").append(List);
+//                   $(".companyListSet").append(List);
                   
-                }
-              }
-            }
-      }
+//                 }
+//               }
+//             }
+//       }
       
-  }
+//   }
 // <!-- -------------------------------------------------------------------------over get company  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get customer for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.customerListSet').focus(function(){
+  $('#select2-LB_Customer-container').one('click', function(event){
+    // alert();
     // console.log("helo"); 
     $.ajax({
         type: "GET",
@@ -537,16 +545,18 @@ $.ajax({
 
       if (Length > 0) {
           // var no=1;
-          $(".customerListSet").html('');
-          for (var i = 0; i < Length; i++) { 
+          // $(".customerListSet").html('');
+          for (var i = Length-1; i >= 0; i--) { 
+            // for (var i = 0; i < Length; i++) { 
               var customerLength =Result.customer[i].customer.length;
-              for (var j = 0; j < customerLength; j++) {  
+              // for (var j = 0; j < customerLength; j++) {
+              for (var j = customerLength-1; j >= 0; j--) {   
                 var customer =Result.customer[i].customer[j].custName;
                 var id =Result.customer[i].customer[j]._id;
                 var deleteStatus =Result.customer[i].customer[j].deleteStatus;
 
                 if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='customerCurrency' data-id='"+id+"' value='"+id+"-"+ customer +"'>"                   
+                  var List = "<option id='customerCurrency'  value='"+id+"-"+ customer +"'>" + customer +"<option>";                  
                   $(".customerListSet").append(List);
                 }
               }
@@ -561,84 +571,8 @@ $.ajax({
     
   });
 // <!-- -------------------------------------------------------------------------over get customer  ------------------------------------------------------------------------- -->
-// <!-- -------------------------------------------------------------------------get Dispatcher for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.DispatcherListSet').focus(function(){
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/user",
-        async: false,
-        success: function(Result) { 
-          // console.log(Result);                    
-          createDispatcherList(Result);
-        }
-    });
-  });
-  function createDispatcherList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.length;
-      }
-
-      if (Length > 0) {
-          $(".DispatcherListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              // var DispatcherLength =Result[i].Dispatcher.length;
-              // for (var j = 0; j < DispatcherLength; j++) {  
-                var id =Result[i]._id;
-                var userFirstName =Result[i].userFirstName;
-                var userLastName =Result[i].userLastName;
-                // var deleteStatus =Result[i].Dispatcher[j].deleteStatus;
-
-                // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='Dispatcher' data-value='"+id+"' value='"+id+"-"+ userFirstName +" "+ userLastName +"'>"                   
-                  $(".DispatcherListSet").append(List);
-                // }
-              // }
-            }
-      }
-      
-  }
-// <!-- -------------------------------------------------------------------------over get Dispatcher  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Active Type for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.LoadTypeListSet').focus(function(){
-    $('#LoadModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getLoadType",
-        async: false,
-        success: function(Result) { 
-          // console.log(Result);                    
-          createLoadTypeList(Result);
-        }
-    });
-  });
-  function createLoadTypeList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.Load_type.length;
-      }
 
-      if (Length > 0) {
-          // var no=1;
-          $(".LoadTypeListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var LoadTypeLength =Result.Load_type[i].loadType.length;
-              for (var j = 0; j < LoadTypeLength; j++) {  
-                var loadName =Result.Load_type[i].loadType[j].loadName;
-                var id =Result.Load_type[i].loadType[j]._id;
-                var deleteStatus =Result.Load_type[i].loadType[j].deleteStatus;
-
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ loadName +"'>"                   
-                  $(".LoadTypeListSet").append(List);
-                }
-              }
-            }
-      }
-      
-  }
 
   $("#LBLoadTypePlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -647,43 +581,9 @@ $.ajax({
   });
 // <!-- -------------------------------------------------------------------------over get Active Type  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get Equipment Type for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.EquipmentTypeListSet').focus(function(){
+$('#select2-lb_EquipmentType-container').on('click', function(event){
     $('#EquipmentTypeModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getEquipmentType",
-        async: false,
-        success: function(Result) { 
-          createEquipmentTypeList(Result);
-        }
-    });
   });
-  function createEquipmentTypeList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.EquipmentType.length;
-      }
-
-      if (Length > 0) {
-          // var no=1;
-          $(".EquipmentTypeListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var EquipmentTypeLength =Result.EquipmentType[i].equipment.length;
-              for (var j = 0; j < EquipmentTypeLength; j++) {  
-                var equipmentType =Result.EquipmentType[i].equipment[j].equipmentType;
-                var id =Result.EquipmentType[i].equipment[j]._id;
-                var deleteStatus =Result.EquipmentType[i].equipment[j].deleteStatus;
-
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ equipmentType +"'>"                   
-                  $(".EquipmentTypeListSet").append(List);
-                }
-              }
-            }
-      }
-      
-  }
 
   $("#LBEquipmentTypePlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -691,46 +591,47 @@ $.ajax({
     
   });
 // <!-- -------------------------------------------------------------------------over get Equipment Type  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------get Carrier for add new loadboard ------------------------------------------------------------------------- -->  
+
+$("#LBCarrierPlus").click(function(){
+  $("#addLoadBoardModal").css("z-index","-1");
+  $("#AddExternalCarrier").modal("show");
+  
+});
+// <!-- -------------------------------------------------------------------------over get Carrier  ------------------------------------------------------------------------- -->
+
 // <!-- -------------------------------------------------------------------------get driver for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.DriverListSet').focus(function(){
-    $('#driverModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/getDriver",
-        async: false,
-        success: function(Result) { 
-          createDriverList(Result);
-        }
-    });
-  });
+  // $('#select2-LB_Driver-container').one('click', function(event){
+  //   $('#driverModal').modal('hide');
+  // });
  
 
-  function createDriverList(Result) {           
-      var Length = 0;    
+  // function createDriverList(Result) {           
+  //     var Length = 0;    
       
-      if (Result != null) {
-          Length = Result.driver.length;
-      }
+  //     if (Result != null) {
+  //         Length = Result.driver.length;
+  //     }
 
-      if (Length > 0) {
-          // var no=1;
-          $(".DriverListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var DriverLength =Result.driver[i].driver.length;
-              for (var j = 0; j < DriverLength; j++) {  
-                var driverName =Result.driver[i].driver[j].driverName;
-                var id =Result.driver[i].driver[j]._id;
-                var deleteStatus =Result.driver[i].driver[j].deleteStatus;
+  //     if (Length > 0) {
+  //         // var no=1;
+  //         $(".DriverListSet").html('');
+  //         for (var i = 0; i < Length; i++) { 
+  //             var DriverLength =Result.driver[i].driver.length;
+  //             for (var j = 0; j < DriverLength; j++) {  
+  //               var driverName =Result.driver[i].driver[j].driverName;
+  //               var id =Result.driver[i].driver[j]._id;
+  //               var deleteStatus =Result.driver[i].driver[j].deleteStatus;
 
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ driverName +"'>"                   
-                  $(".DriverListSet").append(List);
-                }
-              }
-            }
-      }
+  //               if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+  //                 var List = "<option id=''  value='"+id+"-"+ driverName +"'>" + driverName +  "<option>";                
+  //                 $(".DriverListSet").append(List);
+  //               }
+  //             }
+  //           }
+  //     }
       
-  }
+  // }
 
   $("#LBDriverPlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -741,41 +642,7 @@ $.ajax({
 // <!-- -------------------------------------------------------------------------get Trailer for add new loadboard ------------------------------------------------------------------------- -->  
   $('.TrailerListSet').focus(function(){
     $('#TrailerModal').modal('hide');
-    $.ajax({
-        type: "GET",
-        url: base_path+"/admin/Trailer",
-        async: false,
-        success: function(Result) { 
-          createTrailerList(Result);
-        }
-    });
   });
-  function createTrailerList(Result) {           
-      var Length = 0;    
-      
-      if (Result != null) {
-          Length = Result.trailer.length;
-      }
-
-      if (Length > 0) {
-          // var no=1;
-          $(".TrailerListSet").html('');
-          for (var i = 0; i < Length; i++) { 
-              var TrailerLength =Result.trailer[i].trailer.length;
-              for (var j = 0; j < TrailerLength; j++) {  
-                var trailerNumber =Result.trailer[i].trailer[j].trailerNumber;
-                var id =Result.trailer[i].trailer[j]._id;
-                var deleteStatus =Result.trailer[i].trailer[j].deleteStatus;
-
-                if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                  var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ trailerNumber +"'>"                   
-                  $(".TrailerListSet").append(List);
-                }
-              }
-            }
-      }
-      
-  }
 
   $("#LBTrailerPlus1").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
@@ -786,47 +653,58 @@ $.ajax({
     $("#addTrailerModal").modal("show");
   });
 // <!-- -------------------------------------------------------------------------over get Trailer  ------------------------------------------------------------------------- -->
-// <!-- -------------------------------------------------------------------------get Truck for add new loadboard ------------------------------------------------------------------------- -->  
-  $('.TruckListSet').focus(function(){
+//-----------------------get owner truck and per-----------------select2-lb_owner-container
+  $('#lb_owner').change(function() {
+    var id=$('#lb_owner').val();
     $.ajax({
-        type: "GET",
-        url: base_path+"/admin/Truck",
-        async: false,
-        success: function(Result) { 
-          createTruckList(Result);
-        }
+      type: "get",
+      url: base_path+"/admin/owner",
+      // data: {id:id},
+      success: function(Result) {
+        console.log(Result); 
+        setOwnerPerTruck(Result);
+      }
     });
   });
 
-  function createTruckList(Result) {           
-    var Length = 0;    
-    
-    if (Result != null) {
-        Length = Result.truck.length;
-    }
+  function setOwnerPerTruck(Result) {
+    var id=$('#lb_owner').val();            
+      var Length = 0;    
+      
+      if (Result != null) {
+          Length = Result.Owner.length;
+      }
 
-    if (Length > 0) {
-        // var no=1;
-        $(".TruckListSet").html('');
-        for (var i = 0; i < Length; i++) { 
-            var truckLength =Result.truck[i].truck.length;
-            for (var j = 0; j < truckLength; j++) {  
-              var truckNumber =Result.truck[i].truck[j].truckNumber;
-              var id =Result.truck[i].truck[j]._id;
-              var deleteStatus =Result.truck[i].truck[j].deleteStatus;
-
-              if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                var List = "<option id='' data-id='"+id+"' value='"+id+"-"+ truckNumber +"'>"                   
-                $(".TruckListSet").append(List);
+      if (Length > 0) {
+          // var no=1;
+          for (var i = 0; i < Length; i++) { 
+              var Length1 =Result.Owner[i].ownerOperator.length;
+              console.log(Length1);
+              for (var j = 0; j < Length1; j++) {  
+                var percentage =Result.Owner[i].ownerOperator[j].percentage;
+                var truckNo =Result.Owner[i].ownerOperator[j].truckNo;
+                var driverId =Result.Owner[i].ownerOperator[j].driverId;
+                if(driverId == id){
+                  $('#lb_owner_percentage').val(percentage+"%");
+                  
+                  $("#lb_owner_truck option").each(function()
+                  {
+                       var no= $(this).val() ;
+                       if(truckNo == no){
+                        $('#lb_owner_truck').select2('val',truckNo);
+                      }
+                  });
+  
+                  break;
+                }
+                
               }
             }
-          }
-    }
-    
+      }
+      
   }
+//-----------------------end owner truck and per-----------------
 
-
-// <!-- -------------------------------------------------------------------------over get Truck  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------get shipper for add new loadboard ------------------------------------------------------------------------- -->  
 // $('.ShipperListSet').focus(function(){
 //   $.ajax({
@@ -899,9 +777,27 @@ $("#consigneelist").change(function(){
 });
   
 // <!-- -------------------------------------------------------------------------over shipper Truck  ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------Accessorial ------------------------------------------------------------------------- -->
+$(".closeAccCarrier").click(function(){
+  $("#AccessorialModal_carrier").modal("hide");
+});
+$(".closeAccdriver").click(function(){
+  $("#AccessorialModal_driver").modal("hide");
+});
+$(".closeAccowneroperator").click(function(){
+  $("#AccessorialModal_owneroperator").modal("hide");
+});
+$(".closeAcc").click(function(){
+  $("#AccessorialModal").modal("hide");
+});
+// <!-- -------------------------------------------------------------------------end Accessorial ------------------------------------------------------------------------- -->
+
+
 
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
-
+$("#select2-lb_Company-container").click(function(){
+  $("#select2-lb_Company-container").css("border", "2px solid #ced4da");
+});
 $("#addLBSubmit").click(function(){
 
     var noofunits='';
@@ -919,7 +815,16 @@ $("#addLBSubmit").click(function(){
     var totalAmount='';
     var cnno='';
 
-    var company=$('#lbCompany').val();
+    
+
+    var company=$('#lb_Company').val();
+    if(company == 'Select Here'){
+      //swal.fire("Error!", "Enter Percentage", "error");
+     swal.fire({title: 'Please Slelect company',text: 'Redirecting...',timer: 4000,buttons: false,})
+     $("#select2-lb_Company-container").css("border", "2px solid red");
+     $("#lb_Company").focus();
+     return false;
+    }
     var LB_Customer=$('#LB_Customer').val().split('-');
     var customerName=LB_Customer[1];
     var LB_Driver=$('#LB_Driver').val().split('-');
@@ -931,9 +836,7 @@ $("#addLBSubmit").click(function(){
     // var loadershipper=$('#').val();
     // var loaderconsignee=$('#').val();
     var loadertotal=$('#LB_loadertotal').val();
-
-    var company=$('#lb_Company').val().split('-');
-    var company=company[0];
+    
     var customer=LB_Customer[0];
 
     var lb_Dispatcher=$('#lb_Dispatcher').val().split('-');
@@ -965,12 +868,12 @@ $("#addLBSubmit").click(function(){
       var typeofloader = ' ';
     } 
     //carrier
-    var carrier_name='';
-    var flat_rate='0';
+    var carrier_name=$('#LB_Carrier').val();
+    var flat_rate=$('#LB_FlatRate').val();
     var isIfta='0';
-    var advance_charges='';
-    var carrier_total='';
-    var currency='';
+    var advance_charges=$('#Add_AdvanceCharges').val();
+    var carrier_total=$('#LB_CarrierTotal').val();
+    var currency=$('#LB_CarrierCurrency').val();
     //driver
     var drivername=LB_Driver[0];
     var truck=LB_Truck[0];
@@ -1020,100 +923,111 @@ $("#addLBSubmit").click(function(){
     var CustomerEmail='';
     var emailcustomer2='';
     var emailcustomer3='';
+
+
+    var formData = new FormData();
+    $.each($("#carrierfiles")[0].files, function(i, file) {            
+      formData.append('carrierfiles[]',file);
+    });
+   
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('customername',customerName);
+    formData.append('loadername',loadername);
+    formData.append('loadertruck',loadertruck);
+   
+    formData.append('loadertrailer',loadertrailer);
+       //formData.append('shippername', loadershipper);
+    //formData.append('consigneename', loaderconsignee);
+    formData.append('loadertotal',loadertotal);
+     formData.append('company',company);
+     formData.append('customer',customer);
+     formData.append('dispatcher',dispatcher);
+     formData.append('cnno',cnno);
+      formData.append('status',status);
+     formData.append('active_type',loadtype);
+     formData.append('rate',rate);
+     formData.append('noofunits',noofunits);
+     formData.append('fsc',fsc);
+     formData.append('fsc_percentage',fsc_percentage);
+     formData.append('other_charges',other_charges);
+     formData.append('data_other_charges',$('#AccessorialModalForm').serialize() );
+     formData.append('setTotalRate',totalAmount);
+     formData.append('equipment_type',equiptype);
+     formData.append('typeofloader',typeofloader);
+     formData.append('carrier_name',carrier_name);
+     formData.append('flat_rate',flat_rate);
+     formData.append('isIfta',isIfta);
+     formData.append('advance_charges',advance_charges);
+     formData.append('data_carrier_other_modal',$('#carrierOtherModalForm').serialize() );
+     formData.append('carrier_total',carrier_total);
+     formData.append('currency',currency);
+     formData.append('driver_name',drivername);
+     formData.append('truck',truck);
+     formData.append('trailer',trailer);
+     formData.append('loaded_mile',loadedmile);
+     formData.append('empty_mile',emptymile);
+     formData.append('driver_other',driver_other);
+     formData.append('data_driver_other_modal',$('#driver_other_modal').serialize() );
+     formData.append('tarp',tarp);
+     formData.append('flat',flat);
+     formData.append('driver_total',loadertotal);
+     //owner
+     formData.append('owner_name',owner_name);
+     formData.append('owner_percentage',owner_percentage);
+     formData.append('owner_truck',owner_truck );
+     formData.append('owner_trailer', owner_trailer);
+     formData.append('owner_other',owner_other);
+     formData.append('data_owneroperator_other_modal',$('#owneroperator_other_modal').serialize() );
+     formData.append('owner_total',owner_total);
+     formData.append('startlocation',start_location);
+     formData.append('endlocation',end_location);
+     formData.append('data_shipper',$('#shipperForm').serialize());
+     formData.append('data_consignee',$('#consigneeForm').serialize());
+     formData.append('tarp_select',tarp_select);
+     formData.append('loaded_miles_value',loaded_miles_value);
+     formData.append('empty_miles_value',empty_miles_value);
+     formData.append('driver_miles_value',driver_miles_value);
+     //formData.append('file',);
+     formData.append('load_notes',load_notes);
+     //formData.append('data_CarrierEmail',$('#CarrierEmail').serialize() );
+     formData.append('CarrierEmail',CarrierEmail);
+     formData.append('email2',email2);
+     formData.append('email3',email3);
+     //formData.append('data_customerEmail',$('#customerEmail').serialize() );
+     formData.append('CustomerEmail',CustomerEmail);
+     formData.append('emailcustomer2',emailcustomer2);
+     formData.append('emailcustomer3',emailcustomer3);
+     formData.append('brokerdriver',broker_driver);
+     formData.append('brokerdrivercontact',broker_driver_contact);
+     formData.append('broker_truck',broker_truck);
+     formData.append('broker_trailer',broker_trailer);
+     formData.append('is_unit_on',is_unit_on);
+     formData.append('carrier_parent',carrier_parent);
+     formData.append('customer_parent',customer_parent);
+     formData.append('driver_parent',driver_parent);
+     
+     formData.append('owner_parent',owner_parent);
+     // edit: edit,
+     // loadid: loadid,
+     // createdate: createDate,
+     // companyId: companyid,
+     // privilege: privilege,
+     formData.append('isbroker',isbroker);
+     //formData.append('loadParent',loadParent );
+     formData.append('isIftaVerified',isIftaVerified);
+     formData.append('receipt_status',receipt_status);
+     formData.append('custdays',custDays);
+     formData.append('cardays',carDays);
+
+    //  console.log(formData);
+    //  return;
     $.ajax({
         url: base_path+"/admin/addLoadBoard",
         type: "POST",
         datatype:"JSON",
-        data: {
-            _token: $("#tokenLoadboard").val(),
-            customername: customerName,
-            loadername: loadername,
-            loadertruck: loadertruck,
-            loadertrailer: loadertrailer,
-          // shippername: loadershipper,
-          // consigneename: loaderconsignee,
-            loadertotal: loadertotal,
-            company: company,
-            customer: customer,
-            dispatcher: dispatcher,
-            cnno: cnno,
-            status: status,
-            active_type: loadtype,
-            rate: rate,
-            noofunits: noofunits,
-            fsc: fsc,
-            fsc_percentage: fsc_percentage,
-            other_charges: other_charges,
-            // data_other_charges:$('#other_chargesForm').serialize(),
-            setTotalRate: totalAmount,
-            equipment_type: equiptype,
-            typeofLoader: typeofloader,
-            carrier_name: carrier_name,
-            flat_rate: flat_rate,
-            isIfta: isIfta,
-            advance_charges: advance_charges,
-            // data_carrier_other_modal:$('#carrierOtherModalForm').serialize(),
-            carrier_total: carrier_total,
-            currency: currency,
-            driver_name: drivername,
-            truck: truck,
-            trailer: trailer,
-            loaded_mile: loadedmile,
-            empty_mile: emptymile,
-            driver_other: driver_other,
-            // data_driver_other_modal:$('#driver_other_modal').serialize(),
-            tarp: tarp,
-            flat: flat,
-            driver_total: loadertotal,
-            //owner
-            owner_name: owner_name,
-            owner_percentage: owner_percentage,
-            owner_truck: owner_truck,
-            owner_trailer: owner_trailer,
-            owner_other: owner_other,
-            // data_driver_other_modal:$('#driver_other_modal').serialize(),
-            owner_total: owner_total,
-            startlocation: start_location,
-            endlocation: end_location,
-            data_shipper:$('#shipperForm').serialize(),
-            data_consignee:$('#consigneeForm').serialize(),
-
-            tarp_select: tarp_select,
-            loaded_miles_value: loaded_miles_value,
-            empty_miles_value: empty_miles_value,
-            driver_miles_value: driver_miles_value,
-            // data_file:$('#file').serialize(),
-            load_notes: load_notes,
-            
-            // data_CarrierEmail:$('#CarrierEmail').serialize(),
-            CarrierEmail: CarrierEmail,
-            email2: email2,
-            email3: email3,
-            // data_customerEmail:$('#customerEmail').serialize(),
-            CustomerEmail: CustomerEmail,
-            emailcustomer2: emailcustomer2,
-            emailcustomer3: emailcustomer3,
-            brokerdriver: broker_driver,
-            brokerdrivercontact: broker_driver_contact,
-            broker_truck: broker_truck,
-            broker_trailer: broker_trailer,
-            is_unit_on: is_unit_on,
-            carrier_parent: carrier_parent,
-            customer_parent: customer_parent,
-            driver_parent: driver_parent,
-            owner_parent: owner_parent,
-            // edit: edit,
-            // loadid: loadid,
-            // createdate: createDate,
-            // companyId: companyid,
-            // privilege: privilege,
-            isbroker: isBroker,
-            // loadParent: loadParent,
-            isIftaVerified:isIftaVerified,
-            receipt_status:receipt_status,
-            custdays: custDays,
-            cardays: carDays,
-        },
+        contentType: false,
+        processData: false,
+        data:formData,
         cache: false,
         success: function(Result){
             if(Result){
@@ -1182,4 +1096,25 @@ $("#addLBSubmit").click(function(){
   
   
   
+});
+
+
+
+
+$('#addOthChgModal').click(function(){
+  $('#AccessorialModal').modal('show');
+});
+
+
+$('#Adv_carrier, #Advcarrier').click(function(){
+  $('#AccessorialModal_carrier').modal('show');
+});
+
+
+$('#Other_driver').click(function(){
+  $('#AccessorialModal_driver').modal('show');
+});
+
+$('#Other_OwnerOperator').click(function(){
+  $('#AccessorialModal_owneroperator').modal('show');
 });

@@ -1,3 +1,9 @@
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+}
+
+
 .side-menu__label {
   font-size: 13px;
   font-weight: bold;
@@ -565,8 +571,9 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
 }
 
 
-#addContractCategory, #RestoreDriverModal, #editAddRecurrence, #editSubstractRecurrence, #driverPayInfoEditModal, #editDriverModal,#addDriverOwnerModal, #editDriverOwnerModal, #addRecurrenceCategoryModal,#RestoreTruckTrailerModal, #driverPayInfoModal, #RestoreBranchOfficeModal, #editRecurrenceCategoryModal, #editLoadModal, #editEquipmentType, #edittruckTrailer, #contractCategoryModal, #addDriverModal, #addRecurrence, #substractRecurrence, #setupDriverModal, #addUserModal, #addCustomerModal, #plusCurrencyModal, #factoringCompanyModal, #factoringCompanyModal, #PaymentTermsModal,
-#addTruckModal, #userEditModal, #addTruckModal, #addEquipmentTypeModal, #TruckTrailerMakeModal, #addTruckTrailerMakeModal, #LoadModal, #addLoadTypeModal, #addBranchOfficeModal, #editBranchOfficeModal, #editPaymentTermsModal {
+#addContractCategory,#AccessorialModal_carrier, #AccessorialModal_driver, #AccessorialModal_owneroperator,   #RestoreDriverModal, #editAddRecurrence, #editSubstractRecurrence, #driverPayInfoEditModal, #editDriverModal,#addDriverOwnerModal, #editDriverOwnerModal, #addRecurrenceCategoryModal,#RestoreTruckTrailerModal, #driverPayInfoModal, #RestoreBranchOfficeModal, #editRecurrenceCategoryModal, #editLoadModal, #editEquipmentType, #edittruckTrailer, #contractCategoryModal, #addDriverModal, #addRecurrence, #substractRecurrence, #setupDriverModal, #addUserModal, #addCustomerModal, #plusCurrencyModal, #factoringCompanyModal, #factoringCompanyModal, #PaymentTermsModal,
+#addTruckModal, #userEditModal, #addTruckModal, #addEquipmentTypeModal, #TruckTrailerMakeModal, #addTruckTrailerMakeModal, #LoadModal, #addLoadTypeModal, #addBranchOfficeModal, #editBranchOfficeModal, #editPaymentTermsModal, #AccessorialModal,
+#AddShipper_and_ConsigneeModal, #restoretruckModal, #addTrailerModal, #editTrailerModal, #RestoreTrailerModal, #addFactoringCompanyModal, #update_FactoringCompanyModal, #RestoreFacoringCompanyModal {
   backdrop-filter: blur(1px) contrast(.1);
 }
 
@@ -1268,14 +1275,14 @@ color: #ffffff;
           left: 0px;
           height: 200%;
           width: 200%;
-          background: #e9e9e9;
+          background: #ffffff;
           /* z-index: 0; */
           transition: all 0.2s linear;
           transform: scale(0.6) translate(-50%, -50%);
         }
         .checkbox_new:hover:before,
         .checkbox_new:focus-visible:before {
-          background: #cacaca;
+          background: #ffffff;
           top: -4%;
           left: 20%;
         }
@@ -1331,14 +1338,14 @@ color: #ffffff;
           left: 0px;
           height: 200%;
           width: 200%;
-          background: #e9e9e9;
+          background: #ffffff;
           /* z-index: 0; */
           transition: all 0.2s linear;
           transform: scale(0.6) translate(-50%, -50%);
         }
         .checkbox_new_alt:hover:before,
         .checkbox_new_alt:focus-visible:before {
-          background: #cacaca;
+          background: #ffffff;
           top: -4%;
           left: 20%;
         }
@@ -1395,14 +1402,14 @@ color: #ffffff;
           left: 0px;
           height: 200%;
           width: 200%;
-          background: #e9e9e9;
+          background: #ffffff;
           /* z-index: 0; */
           transition: all 0.2s linear;
           transform: scale(0.6) translate(-50%, -50%);
         }
         .checkbox_new_alt2:hover:before,
         .checkbox_new_alt2:focus-visible:before {
-          background: #cacaca;
+          background: #ffffff;
           top: -4%;
           left: 20%;
         }
@@ -1461,14 +1468,14 @@ color: #ffffff;
           left: 0px;
           height: 200%;
           width: 200%;
-          background: #e9e9e9;
+          background: #ffffff;
           /* z-index: 0; */
           transition: all 0.2s linear;
           transform: scale(0.6) translate(-50%, -50%);
         }
         .checkbox_new_alt3:hover:before,
         .checkbox_new_alt3:focus-visible:before {
-          background: #cacaca;
+          background: #ffffff;
           top: -4%;
           left: 20%;
         }
@@ -1526,14 +1533,14 @@ color: #ffffff;
           left: 0px;
           height: 200%;
           width: 200%;
-          background: #e9e9e9;
+          background: #ffffff;
           /* z-index: 0; */
           transition: all 0.2s linear;
           transform: scale(0.6) translate(-50%, -50%);
         }
         .checkbox_new_alt4:hover:before,
         .checkbox_new_alt4:focus-visible:before {
-          background: #cacaca;
+          background: #ffffff;
           top: -4%;
           left: 20%;
         }
@@ -1637,4 +1644,64 @@ color: #ffffff;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+}
+
+.button-70:hover {
+    background-image: linear-gradient(#0d70ea,#0dccea);
+}
+
+
+.opacity-animate3 {
+  animation: opt-animation3 1s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes opt-animation3 {
+  0% {
+      opacity: 1;
+      transform: scale(0.75);
+  }
+
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+@-moz-keyframes opt-animation3 {
+  0% {
+      opacity: 1;
+      transform: scale(0.75);
+  }
+
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+@-o-keyframes opt-animation3 {
+  0% {
+      opacity: 1;
+      transform: scale(0.75);
+  }
+
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+@keyframes opt-animation3 {
+  0% {
+      opacity: 1;
+      transform: scale(0.75);
+  }
+
+  100% {
+      opacity: 1;
+      transform: scale(1);
+  }
 }

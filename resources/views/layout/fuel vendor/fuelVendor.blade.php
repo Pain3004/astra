@@ -67,12 +67,9 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
-                        @csrf
                         @if($exportUser == 1)
-                            <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                            <button class="button-29" style="vertical-align:middle" id="exportFuelVendorDetails"><span>Export</span></button>
                         @endif
-                    </form>
                     <button type="button" class="button-29 fuelVendorClose">Close</button>
                 </div>
             </div>

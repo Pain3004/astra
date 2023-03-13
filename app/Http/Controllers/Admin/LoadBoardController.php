@@ -14,17 +14,38 @@ use App\Models\ArrivedConsignee;
 use App\Models\Delivered;
 use App\Models\BreakDown;
 use App\Models\User;
+use Auth;
 // use App\Models\;
 use File;
 use Image;
-use MongoDB\BSON\ObjectId;
-use Auth;
+
+
 use PDF;
+// use MongoDB\BSON\ObjectId;
+// new \MongoDB\BSON\ObjectID;
 
 use Illuminate\Database\Eloquent\Collection;
 
 class LoadBoardController extends Controller
 {
+
+    public function index(Request $request){
+        $companyId=Auth::user()->companyID;
+        $Carrier = \App\Models\Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();
+        $truck = \App\Models\Truckadd::where('companyID',$companyId)->get();
+        $Load_type = \App\Models\Load_type::where('companyID',$companyId)->get(); 
+        $customer = \App\Models\Customer::where('companyID',$companyId)->get(); 
+        $company = \App\Models\Company::select('company.companyName','company._id','company.deleteStatus')->where('companyID',$companyId)->get();
+        $EquipmentType = \App\Models\Equipment_add::where('companyID',$companyId)->orderBy('equipment._id')->get(); 
+        $driver = \App\Models\Driver::where('companyID',$companyId )->get();
+        $TrailerAdminAdd = \App\Models\TrailerAdminAdd::where('companyID',$companyId)->get();
+        $Consignee = \App\Models\Consignee::where('companyID',$companyId )->get();
+
+        $user = \App\Models\User::where('id', '!=', Auth::user()->id)->where('deleteStatus',0)->orderBy('_id', 'DESC')->get();
+        
+        //dd($TrailerAdminAdd);
+        return view('layout.Loadboard.Loadboard',['Consignee'=>$Consignee,'trailer'=>$TrailerAdminAdd,'driver'=>$driver,'company'=>$company, 'EquipmentType'=>$EquipmentType,'carrier'=>$Carrier,'truck'=>$truck,'Load_type'=>$Load_type, 'user'=>$user, 'customer'=>$customer]);
+    }
     public function getLoadboardData(Request $request){
         $companyId=auth::user()->companyID;
         $mergedArray = [];
@@ -58,6 +79,7 @@ class LoadBoardController extends Controller
         return response()->json(['data'=>$data,'user'=>$user]);
     }
 
+ 
     public function changeStatus(Request $request){
         dd( $request);
         $com_id=(int)$request->com_id;
@@ -226,7 +248,8 @@ class LoadBoardController extends Controller
         // $shipper_load_type=$unserializeData['shipperName'];
         // $shipper_name=explode('-',$shipper_load_type[1]);
         // dd($shipper_name[0]);
-        //die;
+        // dd($request);
+        // die;
         $obj_size=3500;
         $companyID=Auth::user()->companyID;
         $totalArray=0;
@@ -288,15 +311,16 @@ class LoadBoardController extends Controller
             $consignee=array();
         }
         //other_charges_modal
+        
         $unserializeData2 = [];
         if(isset($request->data_other_charges)){
             parse_str($request->data_other_charges,$unserializeData2);
         }
-        if(isset($unserializeData2['description'])){
-            foreach($unserializeData2['description'] as $key => $val){
+        if(isset($unserializeData2['Description'])){
+            foreach($unserializeData2['Description'] as $key => $val){
                 $other_charges_modal[]=((object)[
-                    'description'=>$unserializeData2['description'][$key],
-                    'amount'=>$unserializeData2['amount'][$key],
+                    'description'=>$unserializeData2['Description'][$key],
+                    'amount'=>$unserializeData2['Amount'][$key],
                 ]);        
             }
         }else{
@@ -307,12 +331,12 @@ class LoadBoardController extends Controller
         if(isset($request->data_carrier_other_modal)){
             parse_str($request->data_carrier_other_modal,$unserializeData3);
         }
-        if(isset($unserializeData3['description'])){
-            foreach($unserializeData3['description'] as $key => $val){
+        if(isset($unserializeData3['Description'])){
+            foreach($unserializeData3['Description'] as $key => $val){
                 $carrier_other_modal[]=((object)[
-                    'description'=>$unserializeData3['description'][$key],
-                    'advance'=>$unserializeData3['advance'][$key],
-                    'amount'=>$unserializeData3['amount'][$key],
+                    'description'=>$unserializeData3['Description'][$key],
+                    'advance'=>$unserializeData3['Advance'][$key],
+                    'amount'=>$unserializeData3['Charges'][$key],
 
                 ]);        
             }
@@ -325,11 +349,11 @@ class LoadBoardController extends Controller
         if(isset($request->data_driver_other_modal)){
             parse_str($request->data_driver_other_modal,$unserializeData4);
         }
-        if(isset($unserializeData4['description'])){
-            foreach($unserializeData4['description'] as $key => $val){
+        if(isset($unserializeData4['Description'])){
+            foreach($unserializeData4['Description'] as $key => $val){
                 $driver_other_modal[]=((object)[
-                    'description'=>$unserializeData4['description'][$key],
-                    'amount'=>$unserializeData4['amount'][$key],
+                    'description'=>$unserializeData4['Description'][$key],
+                    'amount'=>$unserializeData4['Amount'][$key],
                 ]);        
             }
         }else{
@@ -337,33 +361,63 @@ class LoadBoardController extends Controller
         }
         //owner_other_modal
         $unserializeData5 = [];
-        if(isset($request->data_owner_other_modal)){
-            parse_str($request->data_owner_other_modal,$unserializeData5);
+        if(isset($request->data_owneroperator_other_modal)){
+            parse_str($request->data_owneroperator_other_modal,$unserializeData5);
         }
-        if(isset($unserializeData5['description'])){
-            foreach($unserializeData5['description'] as $key => $val){
+        if(isset($unserializeData5['Description'])){
+            foreach($unserializeData5['Description'] as $key => $val){
                 $owner_other_modal[]=((object)[
-                    'description'=>$unserializeData5['description'][$key],
-                    'amount'=>$unserializeData5['amount'][$key],
+                    'description'=>$unserializeData5['Description'][$key],
+                    'amount'=>$unserializeData5['Amount'][$key],
                 ]);        
             }
         }else{
             $owner_other_modal=array();
         }
-        //owner_other_modal
-        $unserializeData6 = [];
-        if(isset($request->data_file)){
-            parse_str($request->data_file,$unserializeData6);
+        
+       
+        $path = public_path().'/CarrierFiles'; 
+          // dd($path);       
+        if(!File::exists($path)) {
+            
+        File::makeDirectory($path, $mode = 0777, true, true);
         }
-        if(isset($unserializeData6['file'])){
-            foreach($unserializeData6['file'] as $key => $val){
-                $file[]=((object)[
-                    'file'=>$unserializeData6['file'][$key],
-                ]);        
+        try{
+            if ($files = $request->file('carrierfiles')) {
+                    foreach ($request->file('carrierfiles') as $file) {
+                    $name =  time().rand(0,1000).$file->getClientOriginalName();
+                    $filePath=$file->move($path, $name);
+                    $data[] = $name;
+                    $size = File::size($filePath);
+                    
+                        $Carr_file[]=array(
+                            '_id' => 0,
+                            'mainid' =>'' ,
+                            'filename' =>$name ,
+                            'originalname' => $file->getClientOriginalName(),
+                            'filesize' =>$size ,
+                            'targetfilepath' => "CarrierFiles/".$name,
+                            'index' =>0,
+                        );
+                        //   dd($trailerfile);
+                    }
+                }else{
+                    $Carr_file=array();
+                }
             }
-        }else{
-            $file=array();
+        
+        catch(\Exception $error){
+            return $error->getMessage();
         }
+        // if(isset($unserializeData6['file'])){
+        //     foreach($unserializeData6['file'] as $key => $val){
+        //         $file[]=((object)[
+        //             'file'=>$unserializeData6['file'][$key],
+        //         ]);        
+        //     }
+        // }else{
+        //     $file=array();
+        // }
         $customer_email[]=((object)[
             'CustomerEmail'=>(string)$request->CustomerEmail,
             'emailcustomer2'=>(string)$request->emailcustomer2,
@@ -433,7 +487,7 @@ class LoadBoardController extends Controller
             'loaded_miles_value' =>(string) $request->loaded_miles_value,
             'empty_miles_value' =>(string) $request->empty_miles_value,
             'driver_miles_value' =>(string) $request->driver_miles_value,
-            'file' => $file,//array
+            'file' => $Carr_file,//array
             'load_notes' =>(string) $request->load_notes,
 
             'carrier_email' => $carrier_email,

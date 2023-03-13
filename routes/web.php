@@ -56,9 +56,11 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     Route::get('/admin/driverApplication', function () {
         return view('driver_application_form');
     });
-    Route::get('/admin/Loadboard', function () {
-        return view('layout.Loadboard.Loadboard');
-    })->name('admin_loadboard');
+    // Route::get('/admin/Loadboard', function () {
+    //     return view('layout.Loadboard.Loadboard');
+    // })->name('admin_loadboard');
+
+    Route::get('/admin/Loadboard', [LoadBoardController::class, 'index'])->name('admin_loadboard');
     // Route::get('profile', function () {
     //     return view('profile');
     // });
@@ -97,6 +99,7 @@ Route::post('post-forgot-password', [AuthController::class, 'submitForgetPasswor
 
 // Driver
 Route::get('admin/driver', [DriverController::class, 'getDriverData']);
+Route::get('admin/owner', [DriverController::class, 'getowner']);
 Route::get('admin/getDriver', [DriverController::class, 'getDriver']);
 Route::post('admin/addDriver', [DriverController::class, 'addDriverData']);
 Route::post('admin/editDriver', [DriverController::class, 'editDriverData']);
@@ -317,8 +320,12 @@ Route::post('admin/restoreLoad', [LoadController::class, 'restoreLoad']);
 
 //ExternalCarrierController
 Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);
+Route::get('admin/getCarrier', [ExternalCarrierController::class, 'getCarrier']);
 Route::post('admin/storeExternalCarrier', [ExternalCarrierController::class, 'storeExternalCarrier']);
 Route::get('admin/editExternalCarrier', [ExternalCarrierController::class, 'editExternalCarrier']);
 Route::post('admin/updateExternalCarrier', [ExternalCarrierController::class, 'updateExternalCarrier']);
 Route::post('admin/deleteExternalCarrier', [ExternalCarrierController::class, 'deleteExternalCarrier']);
 Route::post('admin/restoreExternalCarrier', [ExternalCarrierController::class, 'restoreExternalCarrier']);
+
+
+Route::post('admin/export_fuelVendor', [FuelVendorController::class, 'export_fuelVendor']);
