@@ -15,6 +15,7 @@ use App\Models\Delivered;
 use App\Models\BreakDown;
 use App\Models\User;
 use Auth;
+use MongoDB\Driver\Cursor;
 // use App\Models\;
 use File;
 use Image;
@@ -32,6 +33,7 @@ class LoadBoardController extends Controller
     public function index(Request $request){
         $companyId=Auth::user()->companyID;
         $Carrier = \App\Models\Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();
+    //   dd($Carrier[1]);
         $truck = \App\Models\Truckadd::where('companyID',$companyId)->get();
         $Load_type = \App\Models\Load_type::where('companyID',$companyId)->get(); 
         $customer = \App\Models\Customer::where('companyID',$companyId)->get(); 
@@ -316,11 +318,11 @@ class LoadBoardController extends Controller
         if(isset($request->data_other_charges)){
             parse_str($request->data_other_charges,$unserializeData2);
         }
-        if(isset($unserializeData2['Description'])){
-            foreach($unserializeData2['Description'] as $key => $val){
+        if(isset($unserializeData2['otherDescription'])){
+            foreach($unserializeData2['otherDescription'] as $key => $val){
                 $other_charges_modal[]=((object)[
-                    'description'=>$unserializeData2['Description'][$key],
-                    'amount'=>$unserializeData2['Amount'][$key],
+                    'description'=>$unserializeData2['otherDescription'][$key],
+                    'amount'=>$unserializeData2['other_charges'][$key],
                 ]);        
             }
         }else{
@@ -331,12 +333,12 @@ class LoadBoardController extends Controller
         if(isset($request->data_carrier_other_modal)){
             parse_str($request->data_carrier_other_modal,$unserializeData3);
         }
-        if(isset($unserializeData3['Description'])){
-            foreach($unserializeData3['Description'] as $key => $val){
+        if(isset($unserializeData3['Description_car'])){
+            foreach($unserializeData3['Description_car'] as $key => $val){
                 $carrier_other_modal[]=((object)[
-                    'description'=>$unserializeData3['Description'][$key],
-                    'advance'=>$unserializeData3['Advance'][$key],
-                    'amount'=>$unserializeData3['Charges'][$key],
+                    'description'=>$unserializeData3['Description_car'][$key],
+                    'advance'=>$unserializeData3['Advance_car'][$key],
+                    'amount'=>$unserializeData3['Charges_car'][$key],
 
                 ]);        
             }
@@ -349,11 +351,11 @@ class LoadBoardController extends Controller
         if(isset($request->data_driver_other_modal)){
             parse_str($request->data_driver_other_modal,$unserializeData4);
         }
-        if(isset($unserializeData4['Description'])){
-            foreach($unserializeData4['Description'] as $key => $val){
+        if(isset($unserializeData4['Description_dri'])){
+            foreach($unserializeData4['Description_dri'] as $key => $val){
                 $driver_other_modal[]=((object)[
-                    'description'=>$unserializeData4['Description'][$key],
-                    'amount'=>$unserializeData4['Amount'][$key],
+                    'description'=>$unserializeData4['Description_dri'][$key],
+                    'amount'=>$unserializeData4['Amount_dri'][$key],
                 ]);        
             }
         }else{
@@ -364,11 +366,11 @@ class LoadBoardController extends Controller
         if(isset($request->data_owneroperator_other_modal)){
             parse_str($request->data_owneroperator_other_modal,$unserializeData5);
         }
-        if(isset($unserializeData5['Description'])){
-            foreach($unserializeData5['Description'] as $key => $val){
+        if(isset($unserializeData5['Description_own'])){
+            foreach($unserializeData5['Description_own'] as $key => $val){
                 $owner_other_modal[]=((object)[
-                    'description'=>$unserializeData5['Description'][$key],
-                    'amount'=>$unserializeData5['Amount'][$key],
+                    'description'=>$unserializeData5['Description_own'][$key],
+                    'amount'=>$unserializeData5['Amount_own'][$key],
                 ]);        
             }
         }else{
@@ -586,5 +588,231 @@ class LoadBoardController extends Controller
             }
         } 
 
+    }
+    public function getCarrier(Request $request){
+        $id = (int)$request->carrierId;
+        $parent = (int)$request->mainId;
+        $payTermId = 0;
+        $payDays = 0;
+        
+        $show1 = \App\Models\Carrier::raw()->aggregate([
+            ['$match' => ['companyID' => Auth::user()->companyID]], 
+            ['$match' => ['_id' => $parent]], 
+            ['$unwind' => ['path' => '$carrier']], 
+            ['$match' => ['carrier._id' => $id]]
+        ]);
+       
+        $res = array("instruction" => "","email" => "", "parent" => "", "paydays" => "", "blackListed" => false);
+   
+        foreach ($show1 as $row) {
+            $carrier = array();
+            $k = 0;
+            $carrier_parent = $row['_id'];
+            $carrier[$k] = $row['carrier'];
+            $k++;
+        
+            foreach ($carrier as $row) {
+                $now = strtotime("now");
+                $liabilityExpiry = strtotime($row['expiryDate']);
+                $autoExpiry = strtotime($row['autoInsExpiryDate']);
+                $cargoExpiry = strtotime($row['cargoExpiryDate']);
+                if($row['insuranceLiabilityCompany'] == "" || $row['insurancePolicyNo'] == "" || $row['expiryDate'] == "" || $row['insuranceTelephone'] == "" || $row['insuranceExt'] =="" || $row['insuranceContactName'] == "" || $row['insuranceLiabilityAmount'] == "" || $row['autoInsuranceCompany'] == "" || $row['autoInsPolicyNo'] == "" || $row['autoInsExpiryDate'] == "" || $row['autoInsTelephone'] == "" || $row['autoInsExt'] == "" || $row['autoInsContactName'] == "" || $row['autoInsLiabilityAmount'] == "" || $row['cargoCompany'] == "" || $row['cargoPolicyNo'] == "" || $row['cargoExpiryDate'] == "" || $row['cargoTelephone'] == "" || $row['cargoExt'] == "" || $row['cargoContactName'] == "" || $row['cargoInsuranceAmt'] == "" || $row['WSIBNo'] == "")
+                {
+                        $res['instruction'] .=  "- <b style='font-weight:bold;line-height:1.5'>Some insurance fields are empty.</b>"."<br>";
+                }
+                if(($liabilityExpiry - $now)  <= 2592000){
+                        $res['instruction'] .= "- <b style='font-weight:bold;line-height:1.5'>Liability Insurance is Expiring in less than 30 days.</b>"."<br>";
+                }
+                if(($autoExpiry - $now)  <= 2592000){
+                        $res['instruction'] .= "- <b style='font-weight:bold;line-height:1.5'>Auto Insurance is Expiring in less than 30 days.</b>"."<br>";
+                }
+                if(($cargoExpiry - $now)  <= 2592000){
+                        $res['instruction'] .= "- <b style='font-weight:bold;line-height:1.5'>Cargo Insurance is Expiring in less than 30 days.</b>"."<br>";
+                } 
+        
+                if($row['blacklisted']  == "on"){
+                        $res['blackListed'] = true;
+                        // $res['instruction'] .= "- <b style='color:red;font-weight:bold;line-height:1.5'>This carrier is blacklisted.</b>"."<br>";
+                }
+        
+                $res['email'] = $row['email'];
+                $res['parent'] = $carrier_parent;
+                $payTermId = $row['paymentTerms'];
+            }
+        }
+    
+        $result= \App\Models\Payment_terms::raw()->aggregate([
+            ['$match' => ['companyID' =>(int)Auth::user()->companyID]], 
+            ['$unwind' => ['path' => '$payment']], 
+            ['$match' => ['payment._id' => (int)$payTermId]]
+        ]);
+
+        foreach($result as $r) {
+        
+            $payment = $r['payment'];
+            $paymentDays=0;
+            if($payment['paymentDays']) {
+                $payDays = $payment['paymentDays'];
+            }
+        }
+        $res['paydays'] = $payDays;
+        // dd($res);
+        echo json_encode($res);
+    }
+
+    public function getDriver(Request $request){
+        $id = (int)$request->driverId;
+        $parent = (int)$request->mainId;
+        $show1 =  \App\Models\Driver::raw()->aggregate([
+                ['$match'=>['companyID'=>Auth::user()->companyID]],
+                ['$unwind' => ['path' => '$driver']],
+                ['$match' => ['driver._id' => $id]]
+        ]);
+        
+        foreach ($show1 as $row) {
+        $driver = array();
+        $k = 0;
+        $driver_parent = $row['_id'];
+        $driver[$k] = $row['driver'];
+        $k++;
+        foreach ($driver as $row) {
+              $now = strtotime("now");
+              $licenseExpiry = $row['driverLicenseExp'];
+              $nextMedical = $row['driverNextMedical'];
+              $nextDrug = $row['driverNextDrugTest'];
+              $passportExpiry = $row['passportExpiry'];
+              $fastcardexpiry = $row['fastCardExpiry'];
+              $hazmatexpiry = $row['hazmatExpiry'];
+              $loadedMile = (string)$row['driverLoadedMile'];
+              $emptyMile =(string) $row['driverEmptyMile'];
+              $tarp = (string)$row['tarp'];
+              $pickrate = $row['pickupRate'];
+              $pickafter = $row['pickupAfter'];
+              $droprate = $row['dropRate'];
+              $dropafter = $row['dropAfter']; 
+              $rate = $row['rate'];
+              if ($row['percentage']) {
+                 $percentage = $row['percentage'];
+             } else {
+                  $percentage = "";
+             }
+              
+              if((int)$licenseExpiry - $now <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>License is Expiring in less than 30 days.</b>"."<br>";
+              }
+              if(((int)$nextMedical - $now)  <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>Next Medical is within 30 days.</b>"."<br>";
+              }
+              if(((int)$nextDrug - $now)  <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>Next Drugtest is within 30 days.</b>"."<br>";
+              } 
+              if(((int)$passportExpiry - $now)  <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>Passport is expiring in 30 days.</b>"."<br>";
+              }
+              if(((int)$fastcardexpiry - $now)  <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>Fast card is expiring in 30 days.</b>"."<br>";
+              }
+              if(((int)$hazmatexpiry - $now)  <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>Hazmat is expiring in 30 days.</b>"."<br>";
+              } 
+              
+              echo "^".$loadedMile."^".$emptyMile."^".$tarp."^".$pickrate."^".$pickafter."^".$droprate."^".$dropafter."^".$rate."^".$driver_parent."^".$percentage;
+           }
+        }
+     }
+
+    public function getOwner(Request $request){
+        // dd($request);
+        // $id = (int)$data['value'];
+        // $mainid = "";
+    $id = (int)$request->Id;
+    // dd($id);
+    $mainid = (int)$request->mainId;
+    
+    $collection =\App\Models\Owner_operator_driver::raw();
+            $show1 = $collection->aggregate([
+                ['$lookup' => ['from' => 'driver','localField' => 'companyID','foreignField' => 'companyID', 'as' => 'owner' ]],
+                ['$match'=>['companyID'=>(int)Auth::user()->companyID]],
+                ['$unwind' => ['path' => '$ownerOperator']],
+                // ['$match' => ['ownerOperator.driverId' => $id]],
+                // ['$unwind'=>'$owner'],
+                // ['$unwind'=>'$owner.driver'],
+                // ['$match'=>['owner.driver._id'=>$id]]
+
+            ]);
+            // dd($show1);
+            $owner = array();
+            $ownerOperator = array();
+            $trucknumber = 0;
+            foreach ($show1 as $row) {
+            // dd($row);
+            $c = 0;
+            $ownerOperator[$c] = $row['ownerOperator'];
+            $c++;
+            $a = 0;
+            $owner[$a] = $row['owner'];
+            $a++;
+            foreach ($ownerOperator as $row1) {
+                    $driverPercentage = $row1['percentage'];
+                    $drivertruck = $row1['truckNo'];
+                    
+                    $collection = \App\Models\Truckadd::raw();
+                    $truck1 = $collection->aggregate([
+                            ['$match'=>['companyID'=>(int)Auth::user()->companyID]],
+                            ['$unwind'=>'$truck'],
+                            ['$match'=>['truck._id'=>(int)$drivertruck]]
+                    ]);
+                
+                foreach ($truck1 as $tr) {
+                    $truck = array();
+                    $k = 0;
+                    $truck[$k] = $tr['truck'];
+                    $k++;
+                    foreach ($truck as $e) {
+                        $trucknumber = $e['truckNumber'];
+                        
+                    }
+                }
+                    echo $driverPercentage."^".$drivertruck.")".$trucknumber.")";
+            }
+            
+            }
+        foreach ($owner as $row2) {
+            $b = 0;
+            $driver[$b] = $row2['driver'];
+            $b++;
+            $mainid = $row2['_id'];
+            foreach ($driver as $row3) {
+                $now = strtotime("now");
+                $driverid = $row3['_id'];
+                $licenseExpiry = $row3['driverLicenseExp'];
+                $nextMedical = $row3['driverNextMedical'];
+                $nextDrug = $row3['driverNextDrugTest'];
+                $passportExpiry = $row3['passportExpiry'];
+                $fastcardexpiry = $row3['fastCardExpiry'];
+                $hazmatexpiry = $row3['hazmatExpiry'];
+                $loadedMile = $row3['driverLoadedMile'];
+                $emptyMile = $row3['driverEmptyMile'];
+                echo $mainid.")".$driverid."^";
+                if($licenseExpiry - $now <= 2592000){
+                echo "- <b style='font-weight:bold;line-height:1.5'>License is Expiring in less than 30 days.</b>"."<br>";
+                }
+                if(($nextMedical - $now)  <= 2592000){
+                echo "- <b style='font-weight:bold;line-height:1.5'>Next Medical is within 30 days.</b>"."<br>";
+                }
+                if(($nextDrug - $now)  <= 2592000){
+                echo "- <b style='font-weight:bold;line-height:1.5'>Next Drugtest is within 30 days.</b>"."<br>";
+                } 
+                if(($passportExpiry - $now)  <= 2592000){
+                echo "- <b style='font-weight:bold;line-height:1.5'>Passport is expiring in 30 days.</b>"."<br>";
+                }
+                if(($fastcardexpiry - $now)  <= 2592000){
+                echo "- <b style='font-weight:bold;line-height:1.5'>Fast card is expiring in 30 days.</b>"."<br>";
+                }
+                if(($hazmatexpiry - $now)  <= 2592000){
+                echo "- <b style='font-weight:bold;line-height:1.5'>Hazmat is expiring in 30 days.</b>"."<br>";
+                } 
+            }
+        }
     }
 }

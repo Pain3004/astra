@@ -45,6 +45,9 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// Route::get('/admin/addloadboard', function () {
+//     return view('layout.Loadboard.addLoadboard');
+// });
 
     Route::get('/table', function () {
         return view('table');
@@ -53,6 +56,7 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     Route::get('/admin/driverApplication2', function () {
         return view('layout.driver.driver_application_form2');
     });
+    
     Route::get('/admin/driverApplication', function () {
         return view('driver_application_form');
     });
@@ -70,6 +74,12 @@ Auth::routes();
 Route::get('admin/getLoadboardData', [LoadBoardController::class, 'getLoadboardData']);
 Route::post('admin/changeStatus', [LoadBoardController::class, 'changeStatus'])->name('changeStatus');;
 Route::post('admin/addLoadBoard', [LoadBoardController::class, 'addLoadBoard']);
+// Route::get('/admin/index', [LoadBoardController::class, 'index']);
+Route::post('/admin/carrierVerify', [LoadBoardController::class, 'getCarrier']);
+Route::post('/admin/driverVerify', [LoadBoardController::class, 'getDriver']);
+Route::post('/admin/ownerVerify', [LoadBoardController::class, 'getOwner']);
+
+
 // User
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);

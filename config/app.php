@@ -233,7 +233,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'AppHelper' => App\Helpers\AppHelper::class,
+        'AppHelper' => App\Helpers\Helpers\AppHelper::class,
         // 'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 

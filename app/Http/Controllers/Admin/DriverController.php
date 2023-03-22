@@ -431,7 +431,7 @@ class DriverController extends Controller
             $driverData[]=array(    
                             '_id' => $new_id,
                             'counter' => 3,
-                            'ownerID' => '',
+                            'ownerID' => $new_id,
                             'driverName' => $request->name,
                             'driverUsername' => $request->username,
                             'driverAddress' => $request->address,

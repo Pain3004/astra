@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\FuelVendor;
-use App\Helpers\AppHelper;
+use App\Helpers\Helpers\AppHelper;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;

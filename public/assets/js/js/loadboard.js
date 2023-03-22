@@ -139,10 +139,9 @@ $('#addLoadBoard').click(function(){
       createshipperList(Result);
     }
 });
-
-
   $('#addLoadBoardModal').modal('show');
 });
+
 //-- -------------------------------------------------------------------------  Get loaboard data -- -------------------------------------------------------------------------
 $('.closeAddNewLoadBoard').click(function(){
   $('#addLoadBoardModal').modal('hide');
@@ -795,9 +794,15 @@ $(".closeAcc").click(function(){
 
 
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
-$("#select2-lb_Company-container").click(function(){
-  $("#select2-lb_Company-container").css("border", "2px solid #ced4da");
+$("#select2-lb_Company-container, #select2-lb_Dispatcher-container, #lbCN_No").click(function(){
+  $("#select2-lb_Company-container").css("border", "1px solid #ced4da");
+  $("#select2-lb_Dispatcher-container").css("border", "1px solid #ced4da");
+  $("#lbCN_No").css("border", "1px solid #ced4da");
 });
+$("#select2-lb_load-container").click(function(){
+  document.getElementById('units').disabled = false;
+});
+
 $("#addLBSubmit").click(function(){
 
     var noofunits='';
@@ -818,8 +823,7 @@ $("#addLBSubmit").click(function(){
     
 
     var company=$('#lb_Company').val();
-    if(company == 'Select Here'){
-      //swal.fire("Error!", "Enter Percentage", "error");
+    if(company == 'Select Here' || company == '' ){
      swal.fire({title: 'Please Slelect company',text: 'Redirecting...',timer: 4000,buttons: false,})
      $("#select2-lb_Company-container").css("border", "2px solid red");
      $("#lb_Company").focus();
@@ -839,9 +843,21 @@ $("#addLBSubmit").click(function(){
     
     var customer=LB_Customer[0];
 
-    var lb_Dispatcher=$('#lb_Dispatcher').val().split('-');
-    var dispatcher=lb_Dispatcher[0];
+    var dispatcher=$('#lb_Dispatcher').val();
+    if(dispatcher == '' ){
+      swal.fire({title: 'Please Slelect dispatcher',text: 'Redirecting...',timer: 4000,buttons: false,})
+      $("#select2-lb_Dispatcher-container").css("border", "2px solid red");
+      $("#lb_Company").focus();
+      return false;
+     }
+   
     var cnno=$('#lbCN_No').val();
+    if(cnno == '' ){
+      swal.fire({title: 'Enter cnno',text: 'Redirecting...',timer: 4000,buttons: false,})
+      $("#lbCN_No").css("border", "2px solid red");
+      $("#lbCN_No").focus();
+      return false;
+     }
     var status=$('#lb_status').val();
 
     var lb_load=$('#lb_load').val().split('-');
@@ -868,7 +884,8 @@ $("#addLBSubmit").click(function(){
       var typeofloader = ' ';
     } 
     //carrier
-    var carrier_name=$('#LB_Carrier').val();
+    var lbcarrier=$('#LB_Carrier').val().split('-');
+    var carrier_name=lbcarrier[0];
     var flat_rate=$('#LB_FlatRate').val();
     var isIfta='0';
     var advance_charges=$('#Add_AdvanceCharges').val();
@@ -884,7 +901,8 @@ $("#addLBSubmit").click(function(){
     var tarp=$('#lb_Tarp').val();
     var flat=$('#lb_Flat').val();
     //owner
-    var owner_name=$('#lb_owner').val();
+    var lb_owner=$('#lb_owner').val().split('-');
+    var owner_name=lb_owner[0];
     var owner_percentage=$('#lb_owner_percentage').val();
     var owner_truck=$('#lb_owner_truck').val();
     var owner_trailer=$('#lb_owner_trailer').val();
@@ -906,15 +924,15 @@ $("#addLBSubmit").click(function(){
     var broker_truck='';
     var broker_trailer='';
     var is_unit_on='';
-    var carrier_parent='';
-    var customer_parent='';
-    var driver_parent='';
-    var owner_parent='';
-    var isBroker='';
+    var carrier_parent=$('#carrier-parent').val();
+    var customer_parent=$('#customer-parent').val();
+    var driver_parent=$('#driver-parent').val();
+    var owner_parent=$('#owner-parent').val();
+    var isBroker=$('#isbroker').val();
     var isIftaVerified='';
     var receipt_status='';
-    var custDays='';
-    var carDays='';
+    var custDays=$('#custdays').val();
+    var carDays=$('#cardays').val();
     //carrier_email
     var CarrierEmail='';
     var email2='';
@@ -1052,6 +1070,207 @@ $("#addLBSubmit").click(function(){
     });
 
   });
+// <!-- ---------------------------------get carrier------------------------------------
+  $('#LB_Carrier').change(function() {
+    var LB_Carrier =$('#LB_Carrier').val().split('-');
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('carrierId',LB_Carrier[0]);
+    formData.append('mainId',LB_Carrier[1]);
+      $.ajax({
+        url: base_path+"/admin/carrierVerify",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+        success: function (data) {
+          var response = JSON.parse(data);
+          console.log("response ActiveCarrier:> ", response, response['email']);
+          if (response["blackListed"] === true) {
+            swal.fire({
+              title: "Warning!",
+              type: "warning",
+              html: "<b style='font-weight:bold;line-height:1.5'>This carrier is blackListed.</b><br><p>In order to continue with this carrier contact admin.</p>",
+              cancelButtonText: "Ok",
+              cancelButtonClass: "btn btn-danger ml-2",
+              buttonsStyling: false,
+            });
+            $("#browserscarrier").html("");
+            $("#carrierlist").val("");
+            return;
+          } else {
+            if (response[0] != "") {
+              swal.fire({
+                title: "Are you sure? You Want to Continue!",
+                type: "warning",
+                html: response["instruction"],
+                showCancelButton: true,
+                confirmButtonText: "Yes, Continue!",
+                cancelButtonText: "No, cancel!",
+                confirmButtonClass: "btn btn-success",
+                cancelButtonClass: "btn btn-danger ml-2",
+                buttonsStyling: false,
+              });
+            }
+          }
+        
+          if (response['email'] != "") {
+            carrieremail = response["email"];
+            $("#carrierratecon").attr('modal-value', JSON.stringify([{"CarrierEmail": response["email"],"email2":"","email3":""}]))
+          }
+  
+          if (response[2] != "") {
+            carrier_parent = response["parent"];
+          }
+          document.getElementById("carrier-parent").value = carrier_parent;
+          document.getElementById("cardays").value = response["paydays"];
+        },
+    });
+  });
+  // <!-- ---------------------------------get driver------------------------------------
+  $('#LB_Driver').change(function() {
+    var LB_Driver=$('#LB_Driver').val().split('-');
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('driverId',LB_Driver[0]);
+    formData.append('mainId',LB_Driver[2]);
+    // alert($('#LB_Driver').val());
+      $.ajax({
+        url: base_path+"/admin/driverVerify",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+        success: function (data) {
+          // console.log(data);
+          var response = data.split("^");
+          var driver_total = document.getElementById("LB_loadertotal");
+          document.getElementById("lb_LoadedMiles").value = response[1];
+          document.getElementById("lb_EmptyMiles").value = response[2];
+          document.getElementById("lb_Tarp").value = parseInt( response[3]).toFixed(2);
+          pickrate = response[4];
+          pickafter = response[5];
+          droprate = response[6];
+          dropafter = response[7];
+          driverRate = response[8];
+          percentage = response[10];
+          console.log(driverRate);
+          if (driverRate == "percentage") {
+            var totalRate = document.getElementById("totalAmount").value;
+            console.log(totalRate);
+            console.log(percentage);
+            var percen = parseFloat((totalRate * percentage) / 100).toFixed(2);
+            console.log(percen);
+            driver_total.value = parseFloat(percen).toFixed(2);
+            // driver_total.value = parseInt(percen);
+          }else{
+            driver_total.value = 0.00;
+          }
+          tarp = response[3];
+          if (response[0] != "") {
+            swal.fire({
+              title: "Are you sure? You Want to Continue!",
+              type: "warning",
+              type: "info",
+              html: response[0],
+              showCancelButton: true,
+              confirmButtonText: "Yes, Continue!",
+              cancelButtonText: "No, cancel!",
+              confirmButtonClass: "btn btn-success",
+              cancelButtonClass: "btn btn-danger ml-2",
+              buttonsStyling: false,
+            });
+          }
+  
+          if (response[9] != "") {
+            driver_parent = response[9];
+          }
+        },
+    });
+  });
+  // <!-- ---------------------------------get owner------------------------------------
+    $('#lb_owner').change(function() {
+      var lb_owner=$('#lb_owner').val().split('-');
+      var formData = new FormData();
+      formData.append('_token',$("#tokenLoadboard").val());
+      formData.append('Id',lb_owner[0]);
+      formData.append('mainId',lb_owner[1]);
+      // alert($('#LB_Driver').val());
+        $.ajax({
+          url: base_path+"/admin/ownerVerify",
+          type: "POST",
+          datatype:"JSON",
+          contentType: false,
+          processData: false,
+          data:formData,
+          cache: false,
+          success: function (data) {
+            var values = data.split("^");
+            var ownertrucklist = values[1].split(")");
+    
+            document.getElementById("lb_owner_truck").value = ownertrucklist[1];
+            document.getElementById("TruckListSet"
+            ).innerHTML = `<option data-value = "${ownertrucklist[0]}" value="${ownertrucklist[1]}"></option>`;
+            document.getElementById("lb_owner_percentage").value = values[0];
+            owner_parent = ownertrucklist[2] + ")" + ownertrucklist[3];
+            var otherCharges = document.getElementById("lb_owner_other");
+            if (otherCharges.value == "") {
+              document.getElementById("lb_owner_total").value = parseFloat(
+                (parseFloat(document.getElementById("totalAmount").value) *
+                  parseFloat(values[0])) /
+                  100
+              ).toFixed(2);
+            } else {
+              document.getElementById("lb_owner_total").value =
+                parseFloat(
+                  (parseFloat(document.getElementById("totalAmount").value) *
+                    parseFloat(values[0])) /
+                    100
+                ) + parseFloat(otherCharges.value).toFixed(2);
+            }
+    
+            if (values[2] != "") {
+              swal({
+                title: "Are you sure? You Want to Continue!",
+                type: "warning",
+                type: "info",
+                html: values[2],
+                showCancelButton: true,
+                confirmButtonText: "Yes, Continue!",
+                cancelButtonText: "No, cancel!",
+                confirmButtonClass: "btn btn-success",
+                cancelButtonClass: "btn btn-danger ml-2",
+                buttonsStyling: false,
+              });
+            }
+          },
+      });
+    });
+  // <!-- ---------------------------------get owner------------------------------------
+    // $('#LB_Driver').change(function() {
+    //   var LB_Driver=$('#LB_Driver').val().split('-');
+    //   var formData = new FormData();
+    //   formData.append('_token',$("#tokenLoadboard").val());
+    //   formData.append('driverId',LB_Driver[0]);
+    //   formData.append('mainId',LB_Driver[2]);
+    //   // alert($('#LB_Driver').val());
+    //     $.ajax({
+    //       url: base_path+"/admin/driverVerify",
+    //       type: "POST",
+    //       datatype:"JSON",
+    //       contentType: false,
+    //       processData: false,
+    //       data:formData,
+    //       cache: false,
+    //       success: function (data) {
+          
+    //       },
+    //   });
+    // });
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 
 

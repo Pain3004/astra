@@ -319,7 +319,8 @@
                           <input type="text" class="form-control" id="lbCN_No" placeholder="CN">
                         </div>
                         <div class="form-group col-md-2">
-                          <label for="Status">Status</label>
+                          <label for="Status">Status <span style="color:#ff0000">*</span>
+                          </label>
                           <select class="form-control" id="lb_status">
                             <option value="Open" selected="">0) Open</option>
                             <option value="Dispatched" disabled="">1) Dispatched</option>
@@ -362,7 +363,7 @@
                         </div>
                         <div class="form-group col-md-1">
                           <label for="units"># of Units</label>
-                          <input type="text" class="form-control telephone4" id="units" placeholder="Units" onkeyup="getTotal()" disabled>
+                          <input type="text" class="form-control telephone4" id="units" placeholder="Units" onkeyup="getTotal()">
                         </div>
                         <div class="form-group col-md-2">
                           <label style="display:inline">F.S.C.</label>
@@ -429,17 +430,15 @@
                           <label>Carrier Name <i title="Add Carrier" class="mdi mdi-plus-circle plus" id="LBCarrierPlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <!-- <select class="form-control select2-show-search form-select CarrierListSet"  list="CarrierListSet" id="LB_Carrier" onchange="getCarrier(this.value)" placeholder> -->
-                            <select class="form-control select2-show-search form-select CarrierListSet"  list="CarrierListSet" id="LB_Carrier" placeholder>
-                            <option value="">Select Here</option>
+                            <select class="form-control select2-show-search form-select CarrierListSet" list="CarrierListSet" id="LB_Carrier" placeholder>
+                            <!-- <option value="">Select Here</option> -->
                         <?php
-                            foreach($carrier as $single_carrier){  
-                              $id=$single_carrier['_id'] ;
+                            foreach($carrier as $single_carrier){                              
                               foreach($single_carrier['carrier'] as $i_c){
                                 $i_c_name=$i_c['name'];              
                                 $i_c_id=$i_c['_id'];              
                                 ?>
-                                  <option value="{{$i_c_id}}-{{$id}}">{{$i_c_name}}</option>
+                                  <option value="{{$i_c_id}}">{{$i_c_name}}</option>
                                 <?php
                               }
                             }
@@ -480,13 +479,12 @@
                           <div class="dropdown show">
                             <select class="form-control select2-show-search form-select DriverListSet" list="DriverListSet" id="LB_Driver" placeholder>
                             <?php
-                                foreach($driver as $single){  
-                                  $mainId=$single['_id'] ;                            
+                                foreach($driver as $single){                              
                                   foreach($single['driver'] as $i_c){
                                     $name=$i_c['driverName'];              
                                     $id=$i_c['_id'];              
                                     ?>
-                                      <option value="{{$id}}-{{$name}}-{{$mainId}}">{{$name}}</option>
+                                      <option value="{{$id}}">{{$name}}</option>
                                     <?php
                                   }
                                 }
@@ -580,15 +578,14 @@
                             <!-- <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist" id="lb_owner" placeholder="Search Here"> -->
                             <select class="form-control select2-show-search form-select " id="lb_owner" placeholder onkeyup="OwnerOperator(this.id)">
                             <?php
-                                foreach($driver as $single){  
-                                  $mainId=$single['_id'] ;                             
+                                foreach($driver as $single){                              
                                   foreach($single['driver'] as $i_c){
                                     $name=$i_c['driverName'];
                                     $ownerOperator=$i_c['ownerOperatorStatus'];              
                                     $id=$i_c['_id']; 
                                     if($ownerOperator=="YES") {            
                                     ?>
-                                      <option value="{{$id}}-{{$mainId}}">{{$name}}</option>
+                                      <option value="{{$id}}">{{$name}}</option>
                                     <?php
                                     }
                                   }
@@ -961,20 +958,6 @@
                               <div>
                                 <input class="form-control" placeholder="Load Notes" type="text" id="loadnotes">
                               </div>
-                            </div>
-                            <div class="form-group col-md-5">
-                                <input type="hidden" id="is-ifta" value="">
-                                <input type="hidden" id="is-uniton" value="">
-                                <input type="hidden" id="carrier-parent" value="">
-                                <input type="hidden" id="customer-parent" value="">
-                                <input type="hidden" id="driver-parent" value="">
-                                <input type="hidden" id="owner-parent" value="">
-                                <input type="hidden" id="load-id" value="">
-                                <input type="hidden" id="create-date" value="">
-                                <input type="hidden" id="isbroker" value="">
-                                <input type="hidden" id="custdays" value="">
-                                <input type="hidden" id="cardays" value="">
-                                
                             </div>
                           </div>
                         </div>
@@ -2053,7 +2036,7 @@ function removeConsignee(mainid, contentid) {
 
 
 $('.LBshipper').click(function(){
-  //  alert(); 
+   alert(); 
 });
 
 
@@ -2066,7 +2049,7 @@ function getOtherCharges(){
 
   $('input[name^="other_charges"]').each(function(oneTag){
       var oneValue = $(this).val();
-      // alert(oneValue);
+      alert(oneValue);
       tot=parseFloat(tot)+parseFloat(oneValue);
       $('#MainOtherCharges').val(tot);
       getTotal();
@@ -2123,7 +2106,7 @@ function getTotal() {
                 });
             }
         } else {
-          // alert();
+          alert();
             if (rateAmount != "") {
                 if (typeof (rateAmount) == 'number') {
                     var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseInt(rateAmount * noOfUnits) + parseInt(fsc);
@@ -2441,7 +2424,7 @@ function getdriverOtherCharges(){
   var tot =parseFloat(0);
   $('input[name^="Amount_dri"]').each(function(oneTag){
       var oneValue = $(this).val();
-      // alert(oneValue);
+      alert(oneValue);
       tot=parseFloat(tot)+parseFloat(oneValue);
       $('#lb_driver_Other').val(tot);
   });
@@ -2580,24 +2563,6 @@ function changeDriverTotal() {
     driver_total.value = 0;
   }
 }
-
-// function getCarrier(id) {
-//   $.ajax({
-//         url: base_path+"/admin/carrierVerify",
-//         type: "POST",
-//         datatype:"JSON",
-//         contentType: false,
-//         processData: false,
-//         data:{
-//           token:$("#tokenLoadboard").val(),
-//           id:id,
-//         },
-//         cache: false,
-//         success: function(Result){
-//             console.log(Result);
-//         }
-//     });
-// }
 // //-----------------------other driver modal-----------------
 </script>
 

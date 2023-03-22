@@ -109,128 +109,10 @@
 </style>
 
 
-@include('layout.dashboard.header')
-
-@include('layout.loader')
 
 
-<div class="page-main">
-    @include('layout.dashboard.navigation')
-     @include('layout.dashboard.sidebar')
-  <!--app-content open-->
-  <div class="app-content main-content mt-0" id="LB">
-    <div class="side-app">
-      <!-- CONTAINER -->
-      <div class="main-container container-fluid">
-        <!-- PAGE-HEADER -->
-        <div class="page-header">
-          <div>
-            <h1 class="page-title">Loadboard</h1>
-          </div>
-          <div class="ms-auto pageheader-btn">
-            <ul class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="javascript:void(0);">Home</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">Loadboard</li>
-            </ul>
-          </div>
-          <!-- <div class="dropdown"> -->
-          <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div> -->
-          <!-- </div> -->
-        </div>
-        <!-- PAGE-HEADER END -->
-        <!-- ROW-4 -->
-        <input type="hidden" name="_token" id="tokenLoadboard" value="{{ csrf_token() }}" />
-        <div class="row">
-          <div class="col-12 col-sm-12">
-            <div class="card-body">
-              <div class="row">
-                <!-- <div class="col-2 btn-group submitter-group"><a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a></div> -->
-                <div class="col-2">
-                  <!-- <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a> -->
-                  <a href="#" id="addLoadBoard" class="button-57_alt">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    <span>New Active Load</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- COL END -->
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-12">
-            <div class="card-body">
-              <div class="row">
-                <!-- <div class="col-2 btn-group submitter-group"><a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a></div> -->
-                <div class="col-3">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-info">Action</button>
-                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown">
-                      <span class="caret"></span>
-                      <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="list-unstyled dropdown-menu dropdown-menu-lb" role="menu">
-                      <li>
-                        <label for="c1" style="display: block;">
-                          <input style="margin-right: 2px;" type="checkbox" id="c1" data-col="col-name" class="col-checkbox" />Name </label>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-8 submitter-group ">
-                  <input type="checkbox" data-name="Open" class="filter-checkbox checkbox_new" />
-                  <input type="checkbox" data-name="Dispatched" class="filter-checkbox checkbox_new" />
-                  <input type="checkbox" data-name="Arrived Shipper" class="checkbox_new_alt" />
-                  <input type="checkbox" data-name="Loaded" class="checkbox_new" />
-                  <input type="checkbox" data-name="On Route" class="checkbox_new_alt2" />
-                  <input type="checkbox" data-name="Arrived Consignee" class="checkbox_new_alt3" />
-                  <input type="checkbox" data-name="Delivered" class="checkbox_new" />
-                  <input type="checkbox" data-name="Break Down" class="checkbox_new_alt4" />
-                </div>
-                <div class="col-1">
-                  <button type="" class="button-70">
-                    <i class="fa fa-search" style="font-size: 11px;margin-left: -5px;margin-right: 5px;"></i>Filter </button>
-                </div>
-                <!-- <div class="col-9 btn-group submitter-group "><ul class="filter-wrapper ks-cboxtags" ><li><input type="checkbox" class="filter-checkbox" id="checkboxOne" value="Open"><label for="checkboxOne">Open</label></li><li><input type="checkbox" class="filter-checkbox" id="checkboxTwo" value="Dispatched"><label for="checkboxTwo">Dispatched</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Shipper"><label for="">Arrived Shipper</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Loaded"><label for="">Loaded</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="On Route"><label for="">On Route</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Consignee"><label for="">Arrived Consignee</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Delivered"><label for="">Delivered</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Break Down"><label for="">Break Down</label></li></ul></div> -->
-              </div>
-            </div>
-            <div class="card-body">
-              <input type="hidden" class="_id">
-              <div class="table-responsive">
-                <table class="table dataTable no-footer" style="max-height: 100%;overflow: hidden;border-spacing: 4px;border-collapse: unset !important;">
-                  <thead class="thead_th">
-                    <tr class="tr">
-                      <th class="th_new">ID</th>
-                      <th class="th_new">Invoice</th>
-                      <th class="th_new">Order Id</th>
-                      <th class="th_new">Status</th>
-                      <th class="th_new">Ship-Date</th>
-                      <th class="th_new">Del-Date</th>
-                      <th class="th_new">Customer</th>
-                      <th class="th_new">Carrier/Driver/Owner Operator</th>
-                      <th class="th_new">Origin</th>
-                      <th class="th_new">Destination</th>
-                      <th class="th_new">Truck</th>
-                      <th class="th_new">Trailer</th>
-                      <th class="th_new">Load Pay</th>
-                      <th class="th_new">Carrier Pay/Driver Pay</th>
-                    </tr>
-                  </thead>
-                  <tbody id="LoadBoardTable"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- COL END -->
-        </div>
-        <!-- ROW-4 END -->
-      </div>
-    </div>
-  </div>
-  <!-- CONTAINER END -->
-</div>
+
+
 
 <!------------------------------------------------------------------- Add   modal ------------------------------------------------------------------->
 <div class="container">
@@ -246,772 +128,757 @@
         <!-- Modal body -->
         <div class="modal-body" style="overflow-y: auto !important;">
           <!-- Row -->
-          <div class="row">
-            <div class="row row-sm">
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="export-table">
-                      <!-- <form id="addLoadBoardForm"> -->
-                         @csrf
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                            <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span>
-                            </label>
-                            <div class="form-group">
-                                <select class="form-control select2-show-search form-select companyListSet" list="companyListSet" id="lb_Company">
-                                <option>Select Here </option>
-                                <?php
-                                foreach($company as $single){                              
-                                  foreach($single['company'] as $i_s){
-                                    $i_s_name=$i_s['companyName'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                            </div>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>Customer &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCustomerPlus" style='color:blue !important'></i>
+          <div id="modal-isi-body">
+              <div class="row">
+                <div class="row row-sm">
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="export-table">
+                          <!-- <form id="addLoadBoardForm"> -->
+                            @csrf
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span>
                                 </label>
-                            <div class="dropdown show">
-                                <select class="form-control select2-show-search form-select customerListSet" list="customerListSet" id="LB_Customer" placeholder>
-                                <?php
-                                    foreach($customer as $customer){                              
-                                        $custName=$customer['custName'];
-                                        // $userLastName=$customer['userLastName']; 
-                                        // $userLastName=$customer['userLastName'];
-                                        // $userLastName=$customer['userLastName'];             
-                                        $_id=$customer['_id'];              
+                                <div class="form-group">
+                                    <select class="form-control select2-show-search form-select companyListSet" list="companyListSet" id="lb_Company">
+                                    <option>Select Here </option>
+                                    <?php
+                                    foreach($company as $single){                              
+                                      foreach($single['company'] as $i_s){
+                                        $i_s_name=$i_s['companyName'];              
+                                        $i_s_id=$i_s['_id'];              
                                         ?>
-                                          <option value="{{$_id}}-{{$custName}}">{{$custName}} </option>
+                                          <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                        <?php
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                                </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Customer &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCustomerPlus" style='color:blue !important'></i>
+                                    </label>
+                                <div class="dropdown show">
+                                    <select class="form-control select2-show-search form-select customerListSet" list="customerListSet" id="LB_Customer" placeholder>
+                                    <?php
+                                        foreach($customer as $customer){                              
+                                            $custName=$customer['custName'];
+                                            // $userLastName=$customer['userLastName']; 
+                                            // $userLastName=$customer['userLastName'];
+                                            // $userLastName=$customer['userLastName'];             
+                                            $_id=$customer['_id'];              
+                                            ?>
+                                              <option value="{{$_id}}-{{$custName}}">{{$custName}} </option>
+                                            <?php
+                                        }
+                                    ?>                                                          
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="Dispatcher">Dispatcher <span style="color:#ff0000">*</span>
+                              </label>
+                              <div class="dropdown show">
+                                <select class="form-control select2-show-search form-select DispatcherListSet" list="DispatcherListSet" id="lb_Dispatcher" placeholder>
+                                <?php
+                                    foreach($user as $user){                              
+                                        $userFirstName=$user['userFirstName'];
+                                        $userLastName=$user['userLastName'];              
+                                        $_id=$user['_id'];              
+                                        ?>
+                                          <option value="{{$_id}}">{{$userFirstName}} {{$userLastName}}</option>
                                         <?php
                                     }
                                 ?>                                                          
                                 </select>
+                              </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="Dispatcher">Dispatcher <span style="color:#ff0000">*</span>
-                          </label>
-                          <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select DispatcherListSet" list="DispatcherListSet" id="lb_Dispatcher" placeholder>
-                            <?php
-                                foreach($user as $user){                              
-                                    $userFirstName=$user['userFirstName'];
-                                    $userLastName=$user['userLastName'];              
-                                    $_id=$user['_id'];              
-                                    ?>
-                                      <option value="{{$_id}}">{{$userFirstName}} {{$userLastName}}</option>
-                                    <?php
-                                }
-                            ?>                                                          
-                            </select>
+                            <div class="form-group col-md-2">
+                              <label for="CN">CN No. <span style="color:#ff0000">*</span>
+                              </label>
+                              <input type="text" class="form-control" id="lbCN_No" placeholder="CN">
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label for="Status">Status <span style="color:#ff0000">*</span>
+                              </label>
+                              <select class="form-control" id="lb_status">
+                                <option value="Open" selected="">0) Open</option>
+                                <option value="Dispatched" disabled="">1) Dispatched</option>
+                                <option value="Arrived Shipper" disabled="">2) Arrived Shipper</option>
+                                <option value="Loaded" disabled="">3) Loaded</option>
+                                <option value="On Route" disabled="">4) On Route</option>
+                                <option value="Arrived Consignee" disabled="">5) Arrived Consignee</option>
+                                <option value="Delivered" disabled="">6) Delivered</option>
+                                <option value="Invoiced" disabled="">7) Invoiced</option>
+                                <option value="Paid" disabled="">8) Paid</option>
+                                <option value="Completed" disabled="">9) Completed</option>
+                                <option value="Break Down" disabled="">10) Break Down</option>
+                              </select>
+                            </div>
                           </div>
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="CN">CN No. <span style="color:#ff0000">*</span>
-                          </label>
-                          <input type="text" class="form-control" id="lbCN_No" placeholder="CN">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="Status">Status</label>
-                          <select class="form-control" id="lb_status">
-                            <option value="Open" selected="">0) Open</option>
-                            <option value="Dispatched" disabled="">1) Dispatched</option>
-                            <option value="Arrived Shipper" disabled="">2) Arrived Shipper</option>
-                            <option value="Loaded" disabled="">3) Loaded</option>
-                            <option value="On Route" disabled="">4) On Route</option>
-                            <option value="Arrived Consignee" disabled="">5) Arrived Consignee</option>
-                            <option value="Delivered" disabled="">6) Delivered</option>
-                            <option value="Invoiced" disabled="">7) Invoiced</option>
-                            <option value="Paid" disabled="">8) Paid</option>
-                            <option value="Completed" disabled="">9) Completed</option>
-                            <option value="Break Down" disabled="">10) Break Down</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="form-group col-md-2">
-                          <label>Active Type &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBLoadTypePlus" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select LoadTypeListSet" list="LoadTypeListSet" id="lb_load" placeholder>
-                            <?php
-                                foreach($Load_type as $single){                              
-                                  foreach($single['loadType'] as $i_s){
-                                    $i_s_name=$i_s['loadName'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1">
-                          <label for="rateAmount">Rate <span style="color:#ff0000">*</span>
-                          </label>
-                          <input class="form-control" placeholder="Rate" type="number" id="rateAmount" value="" onkeyup="getTotal()">
-                        </div>
-                        <div class="form-group col-md-1">
-                          <label for="units"># of Units</label>
-                          <input type="text" class="form-control telephone4" id="units" placeholder="Units" onkeyup="getTotal()" disabled>
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label style="display:inline">F.S.C.</label>
-                          <div style="display:inline" class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="fsc_percentage" onclick="getTotal()" data-parsley-multiple="groups" data-parsley-mincheck="2" >
-                            <label class="custom-control-label" for="fsc_percentage">Rate%</label>
-                          </div>
-                          <div>
-                            <input class="form-control mt-2" placeholder="F.S.C." type="number" id="fsc" name="fsc" value="" onkeyup="getTotal()">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1">
-                          <label>Oth Chg</label>
-                          <span herf="#" id="addOthChgModal" class="glyphicon glyphicon-plus-sign" data-toggle="modal" style="cursor:pointer;"></span>
-                          <input class="form-control" placeholder="Other Charges" type="text" id="MainOtherCharges" modal-value="[]" onkeyup="getTotal()" readonly="">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label>Total Rate</label>
-                          <div>
-                            <input class="form-control" placeholder="Total Rate" type="number" id="totalAmount">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label>Equipment Type &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBEquipmentTypePlus" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select EquipmentTypeListSet" list="EquipmentTypeListSet" id="lb_EquipmentType" placeholder>
-                            <?php
-                                foreach($EquipmentType as $single){                              
-                                  foreach($single['equipment'] as $i_s){
-                                    $equipmentType=$i_s['equipmentType'];              
-                                    $id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$id}}">{{$equipmentType}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- -------------------- Radio Buttons ------------------- -->
-                      <div class="form-row">
-                        <div class="form-group col-md-2">
-                          <!-- <div><input type="radio" name="radio_buttons" value="Driver" id="Driver"><label for="Driver">Driver</label></div><div><input type="radio" name="radio_buttons" value="OwnerOperator" id="OwnerOperator"><label for="OwnerOperator">OwnerOperator</label></div></div><div> -->
-                          <div>
-                            <input type="radio" name="country" value="Carrier" id="Carrier">
-                            <label for="Carrier">Carrier</label>
-                          </div>
-                          <div>
-                            <input type="radio" name="country" value="Driver" id="Driver">
-                            <label for="Driver">Driver</label>
-                          </div>
-                          <div>
-                            <input type="radio" name="country" value="OwnerOperator" id="OwnerOperator">
-                            <label for="OwnerOperator">OwnerOperator</label>
-                          </div>
-                        </div>
-
-                       
-                        <!-- --------------carrier radio list------------ -->
-                        <div class="form-group col-md-2 Carrierlist">
-                          <label>Carrier Name <i title="Add Carrier" class="mdi mdi-plus-circle plus" id="LBCarrierPlus" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <!-- <select class="form-control select2-show-search form-select CarrierListSet"  list="CarrierListSet" id="LB_Carrier" onchange="getCarrier(this.value)" placeholder> -->
-                            <select class="form-control select2-show-search form-select CarrierListSet"  list="CarrierListSet" id="LB_Carrier" placeholder>
-                            <option value="">Select Here</option>
-                        <?php
-                            foreach($carrier as $single_carrier){  
-                              $id=$single_carrier['_id'] ;
-                              foreach($single_carrier['carrier'] as $i_c){
-                                $i_c_name=$i_c['name'];              
-                                $i_c_id=$i_c['_id'];              
-                                ?>
-                                  <option value="{{$i_c_id}}-{{$id}}">{{$i_c_name}}</option>
+                          <div class="form-row">
+                            <div class="form-group col-md-2">
+                              <label>Active Type &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBLoadTypePlus" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <select class="form-control select2-show-search form-select LoadTypeListSet" list="LoadTypeListSet" id="lb_load" placeholder>
                                 <?php
-                              }
-                            }
-                        ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-2 Carrierlist">
-                          <label>Flat Rate</label>
-                          <div class="dropdown show">
-                            <input class="form-control "  id="LB_FlatRate" placeholder="Search Here" onkeyup="getCarrierTotal()" value="">
-                            
-                          </div>
-                        </div>
-                        <div class="form-group col-md-2 Carrierlist">
-                          <label>Advance Charges <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Adv_carrier" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <input class="form-control"  id="Advcarrier" placeholder="Other Charges"  value="" onkeyup="getCarrierTotal()" readonly>
-                            </div>
-                          </div>
-                          <div class="form-group col-md-2 Carrierlist">
-                            <label>Total</label>
-                            <div class="dropdown show">
-                              <input class="form-control CarrierListSet" list="CarrierListSet" name="" id="LB_CarrierTotal" placeholder="Search Here">
-                            </div>
-                          </div>
-                          <div class="form-group col-md-2 Carrierlist">
-                            <label>Currency</label>
-                            <div class="dropdown show">
-                              <input class="form-control "  id="LB_CarrierCurrency" placeholder="USD" readonly>
-                            </div>
-                          </div>
-                        <!-- --------------driver radio list------------ -->
-                        <div class="form-group col-md-2 Driverlist">
-                          <label>Driver Name &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select DriverListSet" list="DriverListSet" id="LB_Driver" placeholder>
-                            <?php
-                                foreach($driver as $single){  
-                                  $mainId=$single['_id'] ;                            
-                                  foreach($single['driver'] as $i_c){
-                                    $name=$i_c['driverName'];              
-                                    $id=$i_c['_id'];              
-                                    ?>
-                                      <option value="{{$id}}-{{$name}}-{{$mainId}}">{{$name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Truck</label>
-                          <div class="dropdown show">
-                            <!-- <input class="form-control TruckListSet" list="TruckListSet" id="LB_Truck" placeholder="Search Here"> -->
-                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="LB_Truck" placeholder>
-                            <option value="">Select Here</option>
-                            <?php
-                                foreach($truck as $single_Truck){                              
-                                  foreach($single_Truck['truck'] as $i_s){
-                                    $i_s_name=$i_s['truckNumber'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus1" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="LB_Trailer" placeholder>
-                            <option value="">Select Here</option>
-                            <?php
-                                foreach($trailer as $single){                              
-                                  foreach($single['trailer'] as $i_s){
-                                    $name=$i_s['trailerNumber'];              
-                                    $id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$id}}-{{$name}}">{{$name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Loaded Mi</label>
-                          <div class="dropdown show">
-                            <input type="text" class="form-control" id="lb_LoadedMiles" placeholder="LoadedMiles">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Empty Mi</label>
-                          <div>
-                            <input type="text" class="form-control" id="lb_EmptyMiles" placeholder="EmptyMiles">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Other &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Other_driver" style='color:blue !important'></i>
-                          </label>
-                          <div>
-                            <input type="text" class="form-control" id="lb_driver_Other" placeholder="Other" readonly="">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Trap</label>
-                          <div>
-                            <input type="text" class="form-control" id="lb_Tarp" placeholder="Tarp">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Flat</label>
-                          <div>
-                            <input type="text" class="form-control" id="lb_Flat" placeholder="Flat" onkeyup="changeDriverTotal()">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 Driverlist">
-                          <label>Total</label>
-                          <div>
-                            <input type="text" class="form-control" id="LB_loadertotal" placeholder="Total">
-                          </div>
-                        </div>
-                        <!-- --------------end of driver radio list------------ -->
-                        <!-- --------------Owner Operator radio list------------ -->
-                        <div class="form-group col-md-2 OwnerOperatorlist">
-                          <label>Owner Operator&nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <!-- <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist" id="lb_owner" placeholder="Search Here"> -->
-                            <select class="form-control select2-show-search form-select " id="lb_owner" placeholder onkeyup="OwnerOperator(this.id)">
-                            <?php
-                                foreach($driver as $single){  
-                                  $mainId=$single['_id'] ;                             
-                                  foreach($single['driver'] as $i_c){
-                                    $name=$i_c['driverName'];
-                                    $ownerOperator=$i_c['ownerOperatorStatus'];              
-                                    $id=$i_c['_id']; 
-                                    if($ownerOperator=="YES") {            
-                                    ?>
-                                      <option value="{{$id}}-{{$mainId}}">{{$name}}</option>
-                                    <?php
+                                    foreach($Load_type as $single){                              
+                                      foreach($single['loadType'] as $i_s){
+                                        $i_s_name=$i_s['loadName'];              
+                                        $i_s_id=$i_s['_id'];              
+                                        ?>
+                                          <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                        <?php
+                                      }
                                     }
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-2 OwnerOperatorlist">
-                          <label>Pay Percentage</label>
-                          <div class="dropdown show">
-                            <input class="form-control " readonly=""  id="lb_owner_percentage" placeholder="Pay Percentage ">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 OwnerOperatorlist">
-                          <label>Truck</label>
-                          <div class="dropdown show" id="lbownertruck">
-                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="lb_owner_truck" placeholder name=mySelect2>
-                            
-                            <?php
-                                foreach($truck as $single_Truck){                              
-                                  foreach($single_Truck['truck'] as $i_s){
-                                    $i_s_name=$i_s['truckNumber'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-1 OwnerOperatorlist">
-                          <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus2" style='color:blue !important'></i>
-                          </label>
-                          <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="lb_owner_trailer" placeholder>
-                            <option value="">Select Here</option>
-                            <?php
-                                foreach($trailer as $single){                              
-                                  foreach($single['trailer'] as $i_s){
-                                    $name=$i_s['trailerNumber'];              
-                                    $id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$id}}-{{$name}}">{{$name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group col-md-2 OwnerOperatorlist">
-                          <label>Other &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Other_OwnerOperator" style='color:blue !important'></i>
-                          </label>
-                          <div>
-                            <input class="form-control " readonly="" id="lb_owner_other" placeholder="Other">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-2 OwnerOperatorlist">
-                          <label>Total</label>
-                          <div class="dropdown show">
-                            <input class="form-control OwnerOperatorlist" id="lb_owner_total" placeholder="$ Total">
-                          </div>
-                        </div>
-                        <!-- --------------End Of Owner Operator radio list------------ -->
-                      </div>
-                      <!-- -------------------- End Radio Buttons ------------------- -->
-                      <!-- <div class="form-row"><button id="add-tab">Add Form</button><div class="tab-container"><ul class="nav nav-tabs"><li class="active"><a href="#tab-1" data-toggle="tab">Form 1</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-1"><form><div class="tab-content" id="myTabContent"><div class="tab-pane fade show active" id="home0" role="tabpanel"aria-labelledby="home-tab"><div class="row m-2"><div class="form-group col-md-12"><label>Name*</label><input   type="hidden" id="shipperId" name="shipperId"><div class="form-group"><select class="form-control select2-show-search form-select" id="lb_shipperName"><option>Select Here </option></select></div></div></div></div></form></div></div></div></div> -->
-                      <!-- add shipper   -->
-                      <div class="form-row">
-                        <div class="navtabs_2">
-                          <h6>
-                            <a class="button-29 shipperName" onclick="add_fields();" data-toggle="tooltip" data-placement="top" title="Click here to add more shippers." style="color: #ffffff;">ADD SHIPPER</a>
-                            <i class="mdi mdi-plus-circle plus-xs" id="add_shipper_modal"></i>
-                          </h6>
-                          <div class="card m-b-30" id="sc-card">
-                            <div class="custom_tab-list cardbg">
-                              <ul class="nav nav-tabs main-tabs" id="myTab" role="tablist" style="border-bottom: none;">
-                                <li class="nav-item-custom nav-item list-item" id="home-title^0">
-                                  <button class="nav-tab-list active" id="home-tab0" data-toggle="tab" href="#home0" role="tab" aria-controls="home" aria-selected="true" style=""> Shipper 1</button>
-                                  <button type="button" class="button-25" onclick="removeTab('home-title^0','home0')">×</button>
-                                  <!-- <a type="button" class="button-25" onclick="removeTab('home-title^0','home0')" aria-hidden="true"></a> -->
-                                </li>
-                              </ul>
-                            </div>
-                            <form id="shipperForm">
-                              <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home0" role="tabpanel" aria-labelledby="home-tab">
-                                  <div class="row m-2">
-                                    <div class="form-group col-md-3">
-                                      <label>Name*</label>
-                                      <input type="hidden" id="shipperId" name="shipperId">
-                                      <div class="form-group">
-                                        <select class="form-control select2-show-search form-select lb_shipperName" id="lb_shipperName" name="shipperName[]">
-                                          <option>Select Here </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Address*</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Address *" type="text" id="shipperaddress" name="shipperaddress[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Location *</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" data-location="activeshipper0" id="activeshipper0" onkeydown="getLocation('activeshipper0')" name="shipperLocation[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Pickup Date</label>
-                                      <div>
-                                        <input class="form-control" type="date" id="shipperdate" name="shipperdate[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Pickup Time</label>
-                                      <div>
-                                        <input class="form-control" type="time" id="shippertime" name="shippertime[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                      <label>Type*</label>
-                                      <div class="row">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" class="custom-control-input" id="tl0" name="loadType[]" value="TL" checked>
-                                          <label class="custom-control-label" for="tl0">TL</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" class="custom-control-input" id="ltl0" value="LTL" name="loadType[]">
-                                          <label class="custom-control-label" for="ltl0">LTL</label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Commodity</label>
-                                      <div>
-                                        <input class="form-control" type="text" placeholder="Commodity" id="shippercommodity" name="shippercommodity[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-1 ">
-                                      <label>Qty</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Qty" id="shipperqty" name="shipperqty[]" type="text">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2 ">
-                                      <label>Weight</label>
-                                      <div>
-                                        <input class="form-control" type="text" placeholder="Weight" id="shipperweight" name="shipperweight[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Pickup #</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Pickup #" type="text" id="shipperpickup" name="shipperpickup[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                      <label>Sr#</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Sr#" type="number" id="shipseq" name="shipseq[]" value="0">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                      <label>Pickup Notes</label>
-                                      <div>
-                                        <textarea rows="1" cols="30" class="form-control" type="textarea" id="shippernotes" name="shippernotes[]"></textarea>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+                                ?>                                                          
+                                </select>
                               </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- add CONSIGNEE   -->
-                      <div class="form-row">
-                        <div class="navtabs_2">
-                          <h6>
-                            <a class="button-29" onclick="add_consignee();" data-toggle="tooltip" data-placement="top" title="Click here to add more consignees." style="color: #ffffff;">ADD CONSIGNEE</a>
-                            <i class="mdi mdi-plus-circle plus-xs" id="add_consignee_modal"></i>
-                          </h6>
-                          <div class="card m-b-30" id="sc-card">
-                            <div class="custom_tab-list cardbg">
-                              <ul class="nav nav-tabs main-tabs" id="consignee" role="tablist" style="border-bottom: none;">
-                                <li name="customconsigneetab" class="nav-item-custom nav-item list-item" id="consig-title^0">
-                                  <button class="nav-tab-list active consignee list-anchors-consig" id="consig-tab0" data-toggle="tab" href="#consig0" role="tab" aria-controls="home" aria-selected="true" style=""> Consignee 1</button>
-                                  <button type="button" class="button-25" onclick="removeConsignee('consig-title^0','consig0')">×</button>
-                                  <!-- <a type="button" class="button-25" onclick="removeTab('home-title^0','home0')" aria-hidden="true"></a> -->
-                                </li>
-                              </ul>
                             </div>
-                            <form id="consigneeForm">
-                              <div class="tab-content" id="consigneeContent">
-                                <div class="tab-pane fade show active" id="consig0" role="tabpanel" aria-labelledby="consig-tab0">
-                                  <div class="row m-2">
-                                    <div class="form-group col-md-3">
-                                      <label>Name*</label>
-                                      <div class="dropdown show">
-                                        <!-- <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here"><datalist id="consigneee" name="consignee[]"></datalist>  -->
-                                        <!-- <select class="form-control select2-show-search form-select  lb_shipperName" id="consigneelist" name="shipperName[]"> -->
-                                        <select class="form-control select2-show-search form-select" list="consigneelist" id="lb_consignee" placeholder name="consigneelist[]">
-                                            <option value="">Select Here</option>
-                                            <?php
-                                                foreach($Consignee as $single){                              
-                                                  foreach($single['consignee'] as $i_s){
-                                                    $id=$i_s['_id']; 
-                                                    $consigneeName=$i_s['consigneeName']; 
-                                                    $consigneeAddress=$i_s['consigneeAddress']; 
-                                                    $consigneeLocation=$i_s['consigneeLocation']; 
-                                                    $deleteStatus=$i_s['deleteStatus']; 
-                                                    if($deleteStatus == "NO"){             
-                                                      ?>
-                                                        <option value="{{$id}}-{{$consigneeAddress}}-{{$consigneeLocation}}">{{$consigneeName}}</option>
-                                                      <?php
-                                                    }
-                                                  }
-                                                }
-                                            ?>                                                          
-                                          </select>
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Address*</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Address *" type="text" id="consigneeaddress" name="consigneeaddress[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Location *</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" data-location="activeconsignee0" id="activeconsignee0" onkeydown="getLocation(this.name)" name="activeconsignee[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Delivery Date</label>
-                                      <div>
-                                        <input class="form-control" type="date" id="consigneepickdate" name="consigneepickdate[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Delivery Time</label>
-                                      <div>
-                                        <input class="form-control" type="time" id="consigneepicktime" name="consigneepicktime[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                      <label>Type*</label>
-                                      <div class="row">
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" class="custom-control-input" id="ctl0" name="ctl[]" value="TL" checked>
-                                          <label class="custom-control-label" for="ctl">TL</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                          <input type="radio" class="custom-control-input" id="cltl0" value="LTL" name="ctl[]">
-                                          <label class="custom-control-label" for="cltl0">LTL</label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Commodity</label>
-                                      <div>
-                                        <input class="form-control" type="text" placeholder="Commodity" id="consigneecommodity" name="consigneecommodity[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-1 ">
-                                      <label>Qty</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Qty" type="text" id="consigneeqty" name="consigneeqty[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2 ">
-                                      <label>Weight</label>
-                                      <div>
-                                        <input class="form-control" type="text" placeholder="Weight" id="consigneeweight" name="consigneeweight[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                      <label>Delivery #</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Delivery #" type="text" id="consigneedelivery" name="consigneedelivery[]">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                      <label>Sr#</label>
-                                      <div>
-                                        <input class="form-control" placeholder="Sr#" type="number" id="consigseq" name="consigseq[]" value="0">
-                                      </div>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                      <label>Delivery Notes</label>
-                                      <div>
-                                        <textarea rows="1" cols="30" placeholder="Delivery Notes" class="form-control" type="textarea" id="deliverynotes" name="deliverynotes[]"></textarea>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+                            <div class="form-group col-md-1">
+                              <label for="rateAmount">Rate <span style="color:#ff0000">*</span>
+                              </label>
+                              <input class="form-control" placeholder="Rate" type="number" id="rateAmount" value="" onkeyup="getTotal()">
+                            </div>
+                            <div class="form-group col-md-1">
+                              <label for="units"># of Units</label>
+                              <input type="text" class="form-control telephone4" id="units" placeholder="Units" onkeyup="getTotal()">
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label style="display:inline">F.S.C.</label>
+                              <div style="display:inline" class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="fsc_percentage" onclick="getTotal()" data-parsley-multiple="groups" data-parsley-mincheck="2" >
+                                <label class="custom-control-label" for="fsc_percentage">Rate%</label>
                               </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-row">
-                        <div class="row col-md-12 ">
-                          <div class="form-group col-md-2">
-                            <label>Tarp</label>
-                            <select class="form-control" id="driverTarpSelect">
-                              <option value="Yes">Yes</option>
-                              <option value="No">No</option>
-                            </select>
-                          </div>
-                          <div class="form-group col-md-2 ">
-                            <label>Calculate Miles</label>
-                            <div>
-                              <button id="calcmiles" class="button-29" type="button" onclick="calculateMiles()">
-                                <span class="spinner-border spinner-border-sm loader1" role="status" style="display:none"></span> Calculate Miles </button>
+                              <div>
+                                <input class="form-control mt-2" placeholder="F.S.C." type="number" id="fsc" name="fsc" value="" onkeyup="getTotal()">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1">
+                              <label>Oth Chg</label>
+                              <span herf="#" id="addOthChgModal" class="glyphicon glyphicon-plus-sign" data-toggle="modal" style="cursor:pointer;"></span>
+                              <input class="form-control" placeholder="Other Charges" type="text" id="MainOtherCharges" modal-value="[]" onkeyup="getTotal()" readonly="">
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label>Total Rate</label>
+                              <div>
+                                <input class="form-control" placeholder="Total Rate" type="number" id="totalAmount">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label>Equipment Type &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBEquipmentTypePlus" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <select class="form-control select2-show-search form-select EquipmentTypeListSet" list="EquipmentTypeListSet" id="lb_EquipmentType" placeholder>
+                                <?php
+                                    foreach($EquipmentType as $single){                              
+                                      foreach($single['equipment'] as $i_s){
+                                        $equipmentType=$i_s['equipmentType'];              
+                                        $id=$i_s['_id'];              
+                                        ?>
+                                          <option value="{{$id}}">{{$equipmentType}}</option>
+                                        <?php
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                              </div>
                             </div>
                           </div>
-                          <div class="form-group col-md-2">
-                            <label>Loaded Miles</label>
-                            <div>
-                              <input class="form-control" placeholder="Loaded Miles" type="text" id="loadedmiles" value="0">
-                            </div>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label>Empty Miles</label>
-                            <div>
-                              <input class="form-control" placeholder="Empty Miles" type="text" id="emptymiles" value="0">
-                            </div>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label>Driver Miles</label>
-                            <div>
-                              <input class="form-control" placeholder="Driver Miles" type="text" id="drivermiles" value="0">
-                            </div>
-                          </div>
-                          <div class="form-group col-md-2 Carrierlist carrier">
-                            <label>Driver Name</label>
-                            <div>
-                              <input class="form-control" placeholder="Driver Name" type="text" id="">
-                            </div>
-                          </div>
+                          <!-- -------------------- Radio Buttons ------------------- -->
                           <div class="form-row">
-                            <div class="form-group col-md-2 Carrierlist carrier">
-                              <label>Driver Contact</label>
+                            <div class="form-group col-md-2">
+                              <!-- <div><input type="radio" name="radio_buttons" value="Driver" id="Driver"><label for="Driver">Driver</label></div><div><input type="radio" name="radio_buttons" value="OwnerOperator" id="OwnerOperator"><label for="OwnerOperator">OwnerOperator</label></div></div><div> -->
                               <div>
-                                <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                <input type="radio" name="country" value="Carrier" id="Carrier">
+                                <label for="Carrier">Carrier</label>
+                              </div>
+                              <div>
+                                <input type="radio" name="country" value="Driver" id="Driver">
+                                <label for="Driver">Driver</label>
+                              </div>
+                              <div>
+                                <input type="radio" name="country" value="OwnerOperator" id="OwnerOperator">
+                                <label for="OwnerOperator">OwnerOperator</label>
                               </div>
                             </div>
-                            <div class="form-group col-md-2 Carrierlist carrier">
-                              <label>Truck</label>
-                              <div>
-                                <input class="form-control" placeholder="Driver Name" type="text" id="">
+
+                          
+                            <!-- --------------carrier radio list------------ -->
+                            <div class="form-group col-md-2 Carrierlist">
+                              <label>Carrier Name <i title="Add Carrier" class="mdi mdi-plus-circle plus" id="LBCarrierPlus" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <select class="form-control select2-show-search form-select CarrierListSet" list="CarrierListSet" id="LB_Carrier" placeholder>
+                                <!-- <option value="">Select Here</option> -->
+                            <?php
+                                foreach($carrier as $single_carrier){                              
+                                  foreach($single_carrier['carrier'] as $i_c){
+                                    $i_c_name=$i_c['name'];              
+                                    $i_c_id=$i_c['_id'];              
+                                    ?>
+                                      <option value="{{$i_c_id}}">{{$i_c_name}}</option>
+                                    <?php
+                                  }
+                                }
+                            ?>                                                          
+                                </select>
                               </div>
                             </div>
-                            <div class="form-group col-md-2 Carrierlist carrier">
-                              <label>Trailer</label>
-                              <div>
-                                <input class="form-control" placeholder="Trailer" type="text" id="">
-                              </div>
-                            </div>
-                            <!-- </div><div class="form-row"><div class="form-group col-md-6"><label>Load Notes</label><div><input class="form-control" placeholder="Load Notes" type="text" id="loadnotes"></div></div></div> -->
-                            <div class="form-group col-md-5">
-                              <label>Load Notes</label>
-                              <div>
-                                <input class="form-control" placeholder="Load Notes" type="text" id="loadnotes">
-                              </div>
-                            </div>
-                            <div class="form-group col-md-5">
-                                <input type="hidden" id="is-ifta" value="">
-                                <input type="hidden" id="is-uniton" value="">
-                                <input type="hidden" id="carrier-parent" value="">
-                                <input type="hidden" id="customer-parent" value="">
-                                <input type="hidden" id="driver-parent" value="">
-                                <input type="hidden" id="owner-parent" value="">
-                                <input type="hidden" id="load-id" value="">
-                                <input type="hidden" id="create-date" value="">
-                                <input type="hidden" id="isbroker" value="">
-                                <input type="hidden" id="custdays" value="">
-                                <input type="hidden" id="cardays" value="">
+                            <div class="form-group col-md-2 Carrierlist">
+                              <label>Flat Rate</label>
+                              <div class="dropdown show">
+                                <input class="form-control "  id="LB_FlatRate" placeholder="Search Here" onkeyup="getCarrierTotal()" value="">
                                 
+                              </div>
                             </div>
+                            <div class="form-group col-md-2 Carrierlist">
+                              <label>Advance Charges <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Adv_carrier" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <input class="form-control"  id="Advcarrier" placeholder="Other Charges"  value="" onkeyup="getCarrierTotal()" readonly>
+                                </div>
+                              </div>
+                              <div class="form-group col-md-2 Carrierlist">
+                                <label>Total</label>
+                                <div class="dropdown show">
+                                  <input class="form-control CarrierListSet" list="CarrierListSet" name="" id="LB_CarrierTotal" placeholder="Search Here">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-2 Carrierlist">
+                                <label>Currency</label>
+                                <div class="dropdown show">
+                                  <input class="form-control "  id="LB_CarrierCurrency" placeholder="USD" readonly>
+                                </div>
+                              </div>
+                            <!-- --------------driver radio list------------ -->
+                            <div class="form-group col-md-2 Driverlist">
+                              <label>Driver Name &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <select class="form-control select2-show-search form-select DriverListSet" list="DriverListSet" id="LB_Driver" placeholder>
+                                <?php
+                                    foreach($driver as $single){                              
+                                      foreach($single['driver'] as $i_c){
+                                        $name=$i_c['driverName'];              
+                                        $id=$i_c['_id'];              
+                                        ?>
+                                          <option value="{{$id}}">{{$name}}</option>
+                                        <?php
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Truck</label>
+                              <div class="dropdown show">
+                                <!-- <input class="form-control TruckListSet" list="TruckListSet" id="LB_Truck" placeholder="Search Here"> -->
+                                <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="LB_Truck" placeholder>
+                                <option value="">Select Here</option>
+                                <?php
+                                    foreach($truck as $single_Truck){                              
+                                      foreach($single_Truck['truck'] as $i_s){
+                                        $i_s_name=$i_s['truckNumber'];              
+                                        $i_s_id=$i_s['_id'];              
+                                        ?>
+                                          <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                        <?php
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus1" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="LB_Trailer" placeholder>
+                                <option value="">Select Here</option>
+                                <?php
+                                    foreach($trailer as $single){                              
+                                      foreach($single['trailer'] as $i_s){
+                                        $name=$i_s['trailerNumber'];              
+                                        $id=$i_s['_id'];              
+                                        ?>
+                                          <option value="{{$id}}-{{$name}}">{{$name}}</option>
+                                        <?php
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Loaded Mi</label>
+                              <div class="dropdown show">
+                                <input type="text" class="form-control" id="lb_LoadedMiles" placeholder="LoadedMiles">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Empty Mi</label>
+                              <div>
+                                <input type="text" class="form-control" id="lb_EmptyMiles" placeholder="EmptyMiles">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Other &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Other_driver" style='color:blue !important'></i>
+                              </label>
+                              <div>
+                                <input type="text" class="form-control" id="lb_driver_Other" placeholder="Other" readonly="">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Trap</label>
+                              <div>
+                                <input type="text" class="form-control" id="lb_Tarp" placeholder="Tarp">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Flat</label>
+                              <div>
+                                <input type="text" class="form-control" id="lb_Flat" placeholder="Flat" onkeyup="changeDriverTotal()">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 Driverlist">
+                              <label>Total</label>
+                              <div>
+                                <input type="text" class="form-control" id="LB_loadertotal" placeholder="Total">
+                              </div>
+                            </div>
+                            <!-- --------------end of driver radio list------------ -->
+                            <!-- --------------Owner Operator radio list------------ -->
+                            <div class="form-group col-md-2 OwnerOperatorlist">
+                              <label>Owner Operator&nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <!-- <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist" id="lb_owner" placeholder="Search Here"> -->
+                                <select class="form-control select2-show-search form-select " id="lb_owner" placeholder onkeyup="OwnerOperator(this.id)">
+                                <?php
+                                    foreach($driver as $single){                              
+                                      foreach($single['driver'] as $i_c){
+                                        $name=$i_c['driverName'];
+                                        $ownerOperator=$i_c['ownerOperatorStatus'];              
+                                        $id=$i_c['_id']; 
+                                        if($ownerOperator=="YES") {            
+                                        ?>
+                                          <option value="{{$id}}">{{$name}}</option>
+                                        <?php
+                                        }
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-2 OwnerOperatorlist">
+                              <label>Pay Percentage</label>
+                              <div class="dropdown show">
+                                <input class="form-control " readonly=""  id="lb_owner_percentage" placeholder="Pay Percentage ">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 OwnerOperatorlist">
+                              <label>Truck</label>
+                              <div class="dropdown show" id="lbownertruck">
+                                <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="lb_owner_truck" placeholder name=mySelect2>
+                                
+                                <?php
+                                    foreach($truck as $single_Truck){                              
+                                      foreach($single_Truck['truck'] as $i_s){
+                                        $i_s_name=$i_s['truckNumber'];              
+                                        $i_s_id=$i_s['_id'];              
+                                        ?>
+                                          <option value="{{$i_s_id}}">{{$i_s_name}}</option>
+                                        <?php
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-1 OwnerOperatorlist">
+                              <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus2" style='color:blue !important'></i>
+                              </label>
+                              <div class="dropdown show">
+                                <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="lb_owner_trailer" placeholder>
+                                <option value="">Select Here</option>
+                                <?php
+                                    foreach($trailer as $single){                              
+                                      foreach($single['trailer'] as $i_s){
+                                        $name=$i_s['trailerNumber'];              
+                                        $id=$i_s['_id'];              
+                                        ?>
+                                          <option value="{{$id}}-{{$name}}">{{$name}}</option>
+                                        <?php
+                                      }
+                                    }
+                                ?>                                                          
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-2 OwnerOperatorlist">
+                              <label>Other &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Other_OwnerOperator" style='color:blue !important'></i>
+                              </label>
+                              <div>
+                                <input class="form-control " readonly="" id="lb_owner_other" placeholder="Other">
+                              </div>
+                            </div>
+                            <div class="form-group col-md-2 OwnerOperatorlist">
+                              <label>Total</label>
+                              <div class="dropdown show">
+                                <input class="form-control OwnerOperatorlist" id="lb_owner_total" placeholder="$ Total">
+                              </div>
+                            </div>
+                            <!-- --------------End Of Owner Operator radio list------------ -->
+                          </div>
+                          <!-- -------------------- End Radio Buttons ------------------- -->
+                          <!-- <div class="form-row"><button id="add-tab">Add Form</button><div class="tab-container"><ul class="nav nav-tabs"><li class="active"><a href="#tab-1" data-toggle="tab">Form 1</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-1"><form><div class="tab-content" id="myTabContent"><div class="tab-pane fade show active" id="home0" role="tabpanel"aria-labelledby="home-tab"><div class="row m-2"><div class="form-group col-md-12"><label>Name*</label><input   type="hidden" id="shipperId" name="shipperId"><div class="form-group"><select class="form-control select2-show-search form-select" id="lb_shipperName"><option>Select Here </option></select></div></div></div></div></form></div></div></div></div> -->
+                          <!-- add shipper   -->
+                          <div class="form-row">
+                            <div class="navtabs_2">
+                              <h6>
+                                <a class="button-29 shipperName" onclick="add_fields();" data-toggle="tooltip" data-placement="top" title="Click here to add more shippers." style="color: #ffffff;">ADD SHIPPER</a>
+                                <i class="mdi mdi-plus-circle plus-xs" id="add_shipper_modal"></i>
+                              </h6>
+                              <div class="card m-b-30" id="sc-card">
+                                <div class="custom_tab-list cardbg">
+                                  <ul class="nav nav-tabs main-tabs" id="myTab" role="tablist" style="border-bottom: none;">
+                                    <li class="nav-item-custom nav-item list-item" id="home-title^0">
+                                      <button class="nav-tab-list active" id="home-tab0" data-toggle="tab" href="#home0" role="tab" aria-controls="home" aria-selected="true" style=""> Shipper 1</button>
+                                      <button type="button" class="button-25" onclick="removeTab('home-title^0','home0')">×</button>
+                                      <!-- <a type="button" class="button-25" onclick="removeTab('home-title^0','home0')" aria-hidden="true"></a> -->
+                                    </li>
+                                  </ul>
+                                </div>
+                                <form id="shipperForm">
+                                  <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home0" role="tabpanel" aria-labelledby="home-tab">
+                                      <div class="row m-2">
+                                        <div class="form-group col-md-3">
+                                          <label>Name*</label>
+                                          <input type="hidden" id="shipperId" name="shipperId">
+                                          <div class="form-group">
+                                            <select class="form-control select2-show-search form-select lb_shipperName" id="lb_shipperName" name="shipperName[]">
+                                              <option>Select Here </option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Address*</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Address *" type="text" id="shipperaddress" name="shipperaddress[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Location *</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Enter a location" type="text" data-location="activeshipper0" id="activeshipper0" onkeydown="getLocation('activeshipper0')" name="shipperLocation[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Pickup Date</label>
+                                          <div>
+                                            <input class="form-control" type="date" id="shipperdate" name="shipperdate[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Pickup Time</label>
+                                          <div>
+                                            <input class="form-control" type="time" id="shippertime" name="shippertime[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-1">
+                                          <label>Type*</label>
+                                          <div class="row">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                              <input type="radio" class="custom-control-input" id="tl0" name="loadType[]" value="TL" checked>
+                                              <label class="custom-control-label" for="tl0">TL</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                              <input type="radio" class="custom-control-input" id="ltl0" value="LTL" name="loadType[]">
+                                              <label class="custom-control-label" for="ltl0">LTL</label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Commodity</label>
+                                          <div>
+                                            <input class="form-control" type="text" placeholder="Commodity" id="shippercommodity" name="shippercommodity[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-1 ">
+                                          <label>Qty</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Qty" id="shipperqty" name="shipperqty[]" type="text">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2 ">
+                                          <label>Weight</label>
+                                          <div>
+                                            <input class="form-control" type="text" placeholder="Weight" id="shipperweight" name="shipperweight[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Pickup #</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Pickup #" type="text" id="shipperpickup" name="shipperpickup[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-1">
+                                          <label>Sr#</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Sr#" type="number" id="shipseq" name="shipseq[]" value="0">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                          <label>Pickup Notes</label>
+                                          <div>
+                                            <textarea rows="1" cols="30" class="form-control" type="textarea" id="shippernotes" name="shippernotes[]"></textarea>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- add CONSIGNEE   -->
+                          <div class="form-row">
+                            <div class="navtabs_2">
+                              <h6>
+                                <a class="button-29" onclick="add_consignee();" data-toggle="tooltip" data-placement="top" title="Click here to add more consignees." style="color: #ffffff;">ADD CONSIGNEE</a>
+                                <i class="mdi mdi-plus-circle plus-xs" id="add_consignee_modal"></i>
+                              </h6>
+                              <div class="card m-b-30" id="sc-card">
+                                <div class="custom_tab-list cardbg">
+                                  <ul class="nav nav-tabs main-tabs" id="consignee" role="tablist" style="border-bottom: none;">
+                                    <li name="customconsigneetab" class="nav-item-custom nav-item list-item" id="consig-title^0">
+                                      <button class="nav-tab-list active consignee list-anchors-consig" id="consig-tab0" data-toggle="tab" href="#consig0" role="tab" aria-controls="home" aria-selected="true" style=""> Consignee 1</button>
+                                      <button type="button" class="button-25" onclick="removeConsignee('consig-title^0','consig0')">×</button>
+                                      <!-- <a type="button" class="button-25" onclick="removeTab('home-title^0','home0')" aria-hidden="true"></a> -->
+                                    </li>
+                                  </ul>
+                                </div>
+                                <form id="consigneeForm">
+                                  <div class="tab-content" id="consigneeContent">
+                                    <div class="tab-pane fade show active" id="consig0" role="tabpanel" aria-labelledby="consig-tab0">
+                                      <div class="row m-2">
+                                        <div class="form-group col-md-3">
+                                          <label>Name*</label>
+                                          <div class="dropdown show">
+                                            <!-- <input class="form-control consigneelist" list="consigneee" id="consigneelist" name="consigneelist[]" placeholder="Search Here"><datalist id="consigneee" name="consignee[]"></datalist>  -->
+                                            <!-- <select class="form-control select2-show-search form-select  lb_shipperName" id="consigneelist" name="shipperName[]"> -->
+                                            <select class="form-control select2-show-search form-select" list="consigneelist" id="lb_consignee" placeholder name="consigneelist[]">
+                                                <option value="">Select Here</option>
+                                                <?php
+                                                    foreach($Consignee as $single){                              
+                                                      foreach($single['consignee'] as $i_s){
+                                                        $id=$i_s['_id']; 
+                                                        $consigneeName=$i_s['consigneeName']; 
+                                                        $consigneeAddress=$i_s['consigneeAddress']; 
+                                                        $consigneeLocation=$i_s['consigneeLocation']; 
+                                                        $deleteStatus=$i_s['deleteStatus']; 
+                                                        if($deleteStatus == "NO"){             
+                                                          ?>
+                                                            <option value="{{$id}}-{{$consigneeAddress}}-{{$consigneeLocation}}">{{$consigneeName}}</option>
+                                                          <?php
+                                                        }
+                                                      }
+                                                    }
+                                                ?>                                                          
+                                              </select>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Address*</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Address *" type="text" id="consigneeaddress" name="consigneeaddress[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Location *</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Enter a location" type="text" data-location="activeconsignee0" id="activeconsignee0" onkeydown="getLocation(this.name)" name="activeconsignee[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Delivery Date</label>
+                                          <div>
+                                            <input class="form-control" type="date" id="consigneepickdate" name="consigneepickdate[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Delivery Time</label>
+                                          <div>
+                                            <input class="form-control" type="time" id="consigneepicktime" name="consigneepicktime[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-1">
+                                          <label>Type*</label>
+                                          <div class="row">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                              <input type="radio" class="custom-control-input" id="ctl0" name="ctl[]" value="TL" checked>
+                                              <label class="custom-control-label" for="ctl">TL</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                              <input type="radio" class="custom-control-input" id="cltl0" value="LTL" name="ctl[]">
+                                              <label class="custom-control-label" for="cltl0">LTL</label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Commodity</label>
+                                          <div>
+                                            <input class="form-control" type="text" placeholder="Commodity" id="consigneecommodity" name="consigneecommodity[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-1 ">
+                                          <label>Qty</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Qty" type="text" id="consigneeqty" name="consigneeqty[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2 ">
+                                          <label>Weight</label>
+                                          <div>
+                                            <input class="form-control" type="text" placeholder="Weight" id="consigneeweight" name="consigneeweight[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                          <label>Delivery #</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Delivery #" type="text" id="consigneedelivery" name="consigneedelivery[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-1">
+                                          <label>Sr#</label>
+                                          <div>
+                                            <input class="form-control" placeholder="Sr#" type="number" id="consigseq" name="consigseq[]" value="0">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                          <label>Delivery Notes</label>
+                                          <div>
+                                            <textarea rows="1" cols="30" placeholder="Delivery Notes" class="form-control" type="textarea" id="deliverynotes" name="deliverynotes[]"></textarea>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="row col-md-12 ">
+                              <div class="form-group col-md-2">
+                                <label>Tarp</label>
+                                <select class="form-control" id="driverTarpSelect">
+                                  <option value="Yes">Yes</option>
+                                  <option value="No">No</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-md-2 ">
+                                <label>Calculate Miles</label>
+                                <div>
+                                  <button id="calcmiles" class="button-29" type="button" onclick="calculateMiles()">
+                                    <span class="spinner-border spinner-border-sm loader1" role="status" style="display:none"></span> Calculate Miles </button>
+                                </div>
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label>Loaded Miles</label>
+                                <div>
+                                  <input class="form-control" placeholder="Loaded Miles" type="text" id="loadedmiles" value="0">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label>Empty Miles</label>
+                                <div>
+                                  <input class="form-control" placeholder="Empty Miles" type="text" id="emptymiles" value="0">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label>Driver Miles</label>
+                                <div>
+                                  <input class="form-control" placeholder="Driver Miles" type="text" id="drivermiles" value="0">
+                                </div>
+                              </div>
+                              <div class="form-group col-md-2 Carrierlist carrier">
+                                <label>Driver Name</label>
+                                <div>
+                                  <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-2 Carrierlist carrier">
+                                  <label>Driver Contact</label>
+                                  <div>
+                                    <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                  </div>
+                                </div>
+                                <div class="form-group col-md-2 Carrierlist carrier">
+                                  <label>Truck</label>
+                                  <div>
+                                    <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                  </div>
+                                </div>
+                                <div class="form-group col-md-2 Carrierlist carrier">
+                                  <label>Trailer</label>
+                                  <div>
+                                    <input class="form-control" placeholder="Trailer" type="text" id="">
+                                  </div>
+                                </div>
+                                <!-- </div><div class="form-row"><div class="form-group col-md-6"><label>Load Notes</label><div><input class="form-control" placeholder="Load Notes" type="text" id="loadnotes"></div></div></div> -->
+                                <div class="form-group col-md-5">
+                                  <label>Load Notes</label>
+                                  <div>
+                                    <input class="form-control" placeholder="Load Notes" type="text" id="loadnotes">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <form id="carrierfilesForm">
+                              <div class="form-row">
+                                <div class="upload-button carrier">
+                                  <label>Upload Files
+                                  &nbsp; <i title="view Upload Files" class="mdi mdi-eye" id="view_Upload_Files" style='color:blue !important'></i>
+                                      </label>
+                                  <br>
+                                  <!-- <button class="button-29">Upload a file</button> -->
+                                  <!-- <input type="file" id="carrierfiles" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" /> -->
+                                  <input type="file" class="form-control" id="carrierfiles"  name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" >
+                                  <!-- <div class="trailer_img">
+                                  </div> -->
+                                </div>
+                                <div class="form-group col-md-2 Carrierlist carrier">
+                                  <label>Send carrier rate con</label>
+                                  <div>
+                                    <button id="carrierratecon"  class="button-29"> Add Email </button>
+                                  </div>
+                                </div>
+                                <div class="form-group col-md-2 Carrierlist carrier">
+                                  <label>Send customer rate con</label>
+                                  <div>
+                                    <button id="customerratecon"  class="button-29"> Add Email </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
                           </div>
                         </div>
-                        <form id="carrierfilesForm">
-                          <div class="form-row">
-                            <div class="upload-button carrier">
-                              <label>Upload Files
-                              &nbsp; <i title="view Upload Files" class="mdi mdi-eye" id="view_Upload_Files" style='color:blue !important'></i>
-                                  </label>
-                              <br>
-                              <!-- <button class="button-29">Upload a file</button> -->
-                              <!-- <input type="file" id="carrierfiles" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" /> -->
-                              <input type="file" class="form-control" id="carrierfiles"  name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf" >
-                              <!-- <div class="trailer_img">
-                              </div> -->
-                            </div>
-                            <div class="form-group col-md-2 Carrierlist carrier">
-                              <label>Send carrier rate con</label>
-                              <div>
-                                <button id="carrierratecon"  class="button-29"> Add Email </button>
-                              </div>
-                            </div>
-                            <div class="form-group col-md-2 Carrierlist carrier">
-                              <label>Send customer rate con</label>
-                              <div>
-                                <button id="customerratecon"  class="button-29"> Add Email </button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- End Row -->
               </div>
-            </div>
-            <!-- End Row -->
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
@@ -1360,6 +1227,11 @@
 
 
 <script>
+  alert();
+    $(document).ready(function() {
+
+  $('#addLoadBoardModal').modal('show');
+});
     // $(document).ready(function() {
     //     $('#showdriver').prop('checked',true);
     //     $('#showowner').prop('checked',false);
@@ -2053,7 +1925,7 @@ function removeConsignee(mainid, contentid) {
 
 
 $('.LBshipper').click(function(){
-  //  alert(); 
+   alert(); 
 });
 
 
@@ -2066,7 +1938,7 @@ function getOtherCharges(){
 
   $('input[name^="other_charges"]').each(function(oneTag){
       var oneValue = $(this).val();
-      // alert(oneValue);
+      alert(oneValue);
       tot=parseFloat(tot)+parseFloat(oneValue);
       $('#MainOtherCharges').val(tot);
       getTotal();
@@ -2123,7 +1995,7 @@ function getTotal() {
                 });
             }
         } else {
-          // alert();
+          alert();
             if (rateAmount != "") {
                 if (typeof (rateAmount) == 'number') {
                     var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseInt(rateAmount * noOfUnits) + parseInt(fsc);
@@ -2441,7 +2313,7 @@ function getdriverOtherCharges(){
   var tot =parseFloat(0);
   $('input[name^="Amount_dri"]').each(function(oneTag){
       var oneValue = $(this).val();
-      // alert(oneValue);
+      alert(oneValue);
       tot=parseFloat(tot)+parseFloat(oneValue);
       $('#lb_driver_Other').val(tot);
   });
@@ -2580,25 +2452,8 @@ function changeDriverTotal() {
     driver_total.value = 0;
   }
 }
-
-// function getCarrier(id) {
-//   $.ajax({
-//         url: base_path+"/admin/carrierVerify",
-//         type: "POST",
-//         datatype:"JSON",
-//         contentType: false,
-//         processData: false,
-//         data:{
-//           token:$("#tokenLoadboard").val(),
-//           id:id,
-//         },
-//         cache: false,
-//         success: function(Result){
-//             console.log(Result);
-//         }
-//     });
-// }
 // //-----------------------other driver modal-----------------
+
 </script>
 
 <!-------------------------------------------------------------------End modal------------------------------------------------------------------->		

@@ -47,6 +47,7 @@ class LoadController extends Controller
                         ['$unwind' => '$loadType'], $search_data,
                         ['$limit' => 10]
                     ]);  
+                    
             $completedata = array();
             $loadData = array();
             $arrData1 = array();
@@ -68,15 +69,16 @@ class LoadController extends Controller
         {
             $ID=2;
             $cursor = Load_type::raw()->aggregate([
-                ['$match' => 
-                    ['companyID' => $companyID],
+                ['$match' => ['companyID' => $companyID],
                     // ['_id' => $ID]
                 ],
                 ['$project' => ['size' => ['$size' => ['$loadType']],'_id' => $ID]]
             ]);
+            // dd($cursor);
         //    dd($cursor);
             foreach ($cursor as $v) 
             {
+                // dd('l');
                 $total_records += (int)$v['size'];
             }
         // dd($total_records);
