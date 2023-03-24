@@ -261,23 +261,21 @@ $(document).ready(function() {
                     //dataType:JSON,
                     success: function(text) {
                         createFuelVendorRows(text);
-                        FuelVendorResult = text;
                         var fuelVendorlen = 0;
-                        if (text != null) {
-                            fuelVendorlen = text.fuelCard.length;
-                            $(".card_vendor_type").html();
+                        if (text != null) 
+                        { 
+                            fuelVendorlen = text.arrData1.fuelCard.length;
+                            var lentData=[];
                             if (fuelVendorlen > 0) {
-                                for (var i = fuelVendorlen - 1; i >= 0; i--) {
-                                    var fuelVendorId = text.arrData1.fuelCard[j]._id;
-                                    var fuelCardType = text.arrData1.fuelCard[j].fuelCardType;
+                                for (var j = fuelVendorlen-1; j >= 0; j--) { 
+                                    var fuelVendorId =text.arrData1.fuelCard[j]._id;
+                                    var fuelCardType =text.arrData1.fuelCard[j].fuelCardType;
                                     var html = "<option value='" + fuelVendorId + "'> " + fuelCardType + "</option>";
                                     $(".card_vendor_type").append(html);
                                 }
                             }
                         }
-                        // // console.log(text);
-                        // createFuelVendorRows(text);
-                        // FuelVendorResult = text;
+                        // $('.card_vendor_type ').select2('refresh')
                      }
                 });
             }
@@ -470,8 +468,7 @@ $(document).ready(function() {
             $("#restoreFuelVendorTable").html('');
             var lentData=[];
             if (fuelVendorlen > 0) 
-            {
-               
+            {               
                 var no=1;
                 for (var j = fuelVendorlen-1; j >= 0; j--) {  
                     var CompID =FuelVendorResult.arrData1.companyID;

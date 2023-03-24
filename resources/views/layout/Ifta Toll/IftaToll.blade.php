@@ -95,12 +95,12 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                <form action="{{route('download-pdf')}}" method="post" target="__blank">
-                    @csrf
+                <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    @csrf -->
                     @if($exportUser == 1)
-                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                        <button class="button-29" style="vertical-align:middle" id="exportIftaTollsDetails"><span>Export</span></button>
                     @endif
-                </form>
+                <!-- </form> -->
                     <button type="button" class="button-29 iftaTollClose">Close</button>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form  >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_createIftaToll" value="{{ csrf_token() }}" />
                                             <div class="form-row">
@@ -210,7 +210,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form  >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_updateIftaToll" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="iftaTollId" class="updateiftaTollId" >

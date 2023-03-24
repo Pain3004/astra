@@ -70,12 +70,12 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
                         @if($exportUser == 1)
                             <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                         @endif
-                    </form>
+                    </form> -->
                     <button type="button" class="button-29 fuelCardClose">Close</button>
                 </div>
             </div>
@@ -84,7 +84,7 @@
 
 </div>
  <!-- ================= start add fuelCard ========================================= -->
- <div class="modal fade" id="AddFuelCard"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="AddFuelCard"   role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,8 +100,7 @@
                     <div class="form-group col-md-12">
                         <label>Card Holder Name<span style="color:#ff0000">*</span></label>
                         <div class="card_holder_js_select">
-                        <select class='form-control fuel_drive_change cardHolderName addFuel_Card_holder_name ' name="cardHolderName" > 
-                            <option> select  one</option>
+                        <select  class='form-control fuel_drive_change cardHolderName addFuel_Card_holder_name single_selectFuelCard' name="cardHolderName" id='single'> 
                         </select>
                         </div>
                         <label>Employee No<span style="color:#ff0000">*</span></label>
@@ -110,12 +109,11 @@
                         </div>
                         <label>IFTA Card Number<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control add_IFTA_Card_Number " type="text" name="iftaCardNumber" required />
+                            <input  class="form-control add_IFTA_Card_Number " type="number" name="iftaCardNumber" required />
                         </div>
-                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_vendor_model "  data-toggle="modal"  style="cursor:pointer;"></span> </label>
+                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_card_type_new "  data-toggle="modal"  style="cursor:pointer;color:blue;"></span> </label>
                         <div>
-                            <select  class="form-control card_vendor_type add_Fuel_Card_Type"  name="fuelCardType" required > 
-                                <option> Select one</option>
+                            <select  class="selectpicker search_select form-control card_vendor_type single_selectFuelCard add_Fuel_Card_Type" id="card_vendar_addData" data-live-search="true" name="fuelCardType" required > 
                             </select>
                         </div>
                     </div>
@@ -150,7 +148,7 @@
                     <div class="form-group col-md-12">
                         <label>Card Holder Name<span style="color:#ff0000">*</span></label>
                         <div class="card_holder_js_select">
-                        <select class='form-control fuel_drive_change  cardHolderName updateFuel_Card_holder_name ' name="cardHolderName" > 
+                        <select class='form-control fuel_drive_change  cardHolderName updateFuel_Card_holder_name updateSingleFuelCard' name="cardHolderName" > 
                             <option> select  one</option>
                         </select>
                         </div>
@@ -160,11 +158,11 @@
                         </div>
                         <label>IFTA Card Number<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input  class="form-control update_IFTA_Card_Number " type="text" name="iftaCardNumber" required />
+                            <input  class="form-control update_IFTA_Card_Number " type="number" name="iftaCardNumber" required />
                         </div>
-                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_vendor_model "  data-toggle="modal"  style="cursor:pointer;"></span> </label>
+                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_card_type_new "  data-toggle="modal"  style="cursor:pointer; color:blue;"></span> </label>
                         <div>
-                            <select  class="form-control card_vendor_type update_Fuel_Card_Type"  name="fuelCardType" required > 
+                            <select  class="form-control card_vendor_type update_Fuel_Card_Type updateSingleFuelCard"  name="fuelCardType" required > 
                                 <option> Select one</option>
                             </select>
                         </div>

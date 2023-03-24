@@ -3216,21 +3216,79 @@ function convertTimeZoneToDate(date) {
     return moment((date + 86400) * 1000).format("MM/DD/YYYY");
 }
 
-function convertTimeZone(date, format) {
-    if (date == "" || date == "false") {
-        return;
+// date formate =============================================================
+function convertTimeZoneToDate(date) 
+{
+    return moment((date + 86400) * 1000).format("MM/DD/YYYY");
+}
+function convertTimeZone(date) 
+{
+    var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
+    var date = new Date(date*1000);
+    var year = date.getFullYear();
+    var month = months_arr[date.getMonth()];
+    var day = date.getDate();
+    return month+'/'+day+'/'+year;
+  
+}
+  //===== end date formate ========================================
+// =====================  pagination ==============================
+function paginateList(arrList, main, sub, func, status = '') 
+{
+    var paginate = `<select class='form-control' id='page_active'
+    onchange='callPagination(this.value,"${main}","${sub}","${func}", "${status}")'>`;
+    var pageno = 1;
+    for (var j = 0; j < arrList[0].length; j++) 
+    {
+        for (var i = 0; i < arrList[0][j].length; i++) 
+        {
+            paginate += `<option value='${JSON.stringify(arrList[0][j][i]) + "^" + pageno}'>${pageno++}</option>`;
+        }
     }
-    // this is temporary solution for date by shyam patel
-    // date = parseFloat(date) + 19800;
-    if (format == "date") {
-        return moment.utc((date) * 1000).format("YYYY-MM-DD");
-    } else if (format == "info") {
-        return moment.utc((date) * 1000).format("MM/DD/YYYY");
-    } else if (format == "info_toll") {
-        return moment.utc((date) * 1000).format("MM/DD/YYYY HH:mm");
-    } else if (format == "duedate") {
-        return moment.utc((date + 2592000) * 1000).format("MM/DD/YYYY");
-    } else {
-        return moment.utc((date + 2678400) * 1000).format("MM/DD/YYYY");
+    paginate += `</select>`;
+    return paginate;
+}
+function renameTableSeq2(tableid, paginateid) 
+{
+    if (paginateid != null && paginateid != undefined) 
+    {
+        var pagearr = $('#' + paginateid).val();
+        if (pagearr != null && pagearr != undefined) 
+        {
+            arr1 = pagearr.split("^");
+            var pageno = arr1[1] - 1;
+            var table = document.getElementById(tableid);
+            if (table != null && table != undefined) 
+            {
+                for (var i = 0, j = (pageno * 100) + 1; i < table.rows.length; i++, j++) 
+                {
+                    table.rows[i].cells[1].innerHTML = j;
+                }
+            }
+        }
+        else
+        {
+            var table = document.getElementById(tableid);
+            if (table != null && table != undefined) 
+            {
+                for (var i = 0, j = 1; i < table.rows.length; i++, j++) 
+                {
+                    table.rows[i].cells[1].innerHTML = j;
+                }
+            }
+        }
+    } 
+    else 
+    {
+        var table = document.getElementById(tableid);
+        if (table != null && table != undefined) 
+        {
+            for (var i = 0, j = 1; i < table.rows.length; i++, j++) 
+            {
+                table.rows[i].cells[1].innerHTML = j;
+            }
+        }
     }
-    }
+}
+
+//=============== end pagination====================================

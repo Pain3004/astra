@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\FuelVendor;
-use App\Helpers\Helpers\AppHelper;
+use App\Helpers\AppHelper;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
@@ -20,16 +20,6 @@ class FuelVendorController extends Controller
     public function getFuelVendor(Request $request)
     {
         $companyID=(int)Auth::user()->companyID;
-        // $FuelVendor = FuelVendor::where('companyID',$companyID)->get();
-        // foreach($FuelVendor as $row)
-        // {
-        //     $FuelVendor=collect($row->fuelCard);
-        //     $FuelVendor = $FuelVendor->chunk(10);
-        //     $FuelVendor= $FuelVendor->toArray();
-        // }
-        // return response()->json(['FuelVendor'=>$FuelVendor,'companyId'=>$companyID], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-
-
 
         $total_records = 0;
         $cursor = FuelVendor::raw()->aggregate([

@@ -8,7 +8,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract; 
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
-
+use Auth;
 
 class FuelCard extends Model 
 {
@@ -21,11 +21,9 @@ class FuelCard extends Model
      */
 
     protected $connection = 'mongodb';
-    protected $collection = 'ifta_card_category';
-
-  
-
+    protected $collection = 'fuelcard';
     protected $guarded = [];
+    protected $primarykey = "_id";
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -38,4 +36,6 @@ class FuelCard extends Model
     // {
     //     return $this->userPassword;
     // }
+    
+   
 }
