@@ -471,7 +471,8 @@ $.ajax({
     $('#addLoadBoardModal').modal('hide');
   });
   $('#addLoadBoard').click(function(){
- 
+    $('#totalAmount').val(0);
+    $('#lb_owner_other').val(0);
     $('#addLoadBoardModal').modal('show');
   }); 
   $('#lb_owner, #LB_Driver,#select2-lb_EquipmentType-container, #select2-lb_load-container, #LBEquipmentTypePlus, #LBCustomerPlus, #LBLoadTypePlus').click(function(){
@@ -653,55 +654,55 @@ $("#LBCarrierPlus").click(function(){
   });
 // <!-- -------------------------------------------------------------------------over get Trailer  ------------------------------------------------------------------------- -->
 //-----------------------get owner truck and per-----------------select2-lb_owner-container
-  $('#lb_owner').change(function() {
-    var id=$('#lb_owner').val();
-    $.ajax({
-      type: "get",
-      url: base_path+"/admin/owner",
-      // data: {id:id},
-      success: function(Result) {
-        console.log(Result); 
-        setOwnerPerTruck(Result);
-      }
-    });
-  });
+  // $('#lb_owner').change(function() {
+  //   var id=$('#lb_owner').val();
+  //   $.ajax({
+  //     type: "get",
+  //     url: base_path+"/admin/owner",
+  //     // data: {id:id},
+  //     success: function(Result) {
+  //       console.log(Result); 
+  //       setOwnerPerTruck(Result);
+  //     }
+  //   });
+  // });
 
-  function setOwnerPerTruck(Result) {
-    var id=$('#lb_owner').val();            
-      var Length = 0;    
+  // function setOwnerPerTruck(Result) {
+  //   var id=$('#lb_owner').val();            
+  //     var Length = 0;    
       
-      if (Result != null) {
-          Length = Result.Owner.length;
-      }
+  //     if (Result != null) {
+  //         Length = Result.Owner.length;
+  //     }
 
-      if (Length > 0) {
-          // var no=1;
-          for (var i = 0; i < Length; i++) { 
-              var Length1 =Result.Owner[i].ownerOperator.length;
-              console.log(Length1);
-              for (var j = 0; j < Length1; j++) {  
-                var percentage =Result.Owner[i].ownerOperator[j].percentage;
-                var truckNo =Result.Owner[i].ownerOperator[j].truckNo;
-                var driverId =Result.Owner[i].ownerOperator[j].driverId;
-                if(driverId == id){
-                  $('#lb_owner_percentage').val(percentage+"%");
+  //     if (Length > 0) {
+  //         // var no=1;
+  //         for (var i = 0; i < Length; i++) { 
+  //             var Length1 =Result.Owner[i].ownerOperator.length;
+  //             console.log(Length1);
+  //             for (var j = 0; j < Length1; j++) {  
+  //               var percentage =Result.Owner[i].ownerOperator[j].percentage;
+  //               var truckNo =Result.Owner[i].ownerOperator[j].truckNo;
+  //               var driverId =Result.Owner[i].ownerOperator[j].driverId;
+  //               if(driverId == id){
+  //                 $('#lb_owner_percentage').val(percentage+"%");
                   
-                  $("#lb_owner_truck option").each(function()
-                  {
-                       var no= $(this).val() ;
-                       if(truckNo == no){
-                        $('#lb_owner_truck').select2('val',truckNo);
-                      }
-                  });
+  //                 $("#lb_owner_truck option").each(function()
+  //                 {
+  //                      var no= $(this).val() ;
+  //                      if(truckNo == no){
+  //                       $('#lb_owner_truck').select2('val',truckNo);
+  //                     }
+  //                 });
   
-                  break;
-                }
+  //                 break;
+  //               }
                 
-              }
-            }
-      }
+  //             }
+  //           }
+  //     }
       
-  }
+  // }
 //-----------------------end owner truck and per-----------------
 
 // <!-- -------------------------------------------------------------------------get shipper for add new loadboard ------------------------------------------------------------------------- -->  
@@ -1194,7 +1195,9 @@ $("#addLBSubmit").click(function(){
   });
   // <!-- ---------------------------------get owner------------------------------------
     $('#lb_owner').change(function() {
+      
       var lb_owner=$('#lb_owner').val().split('-');
+      alert(lb_owner);
       var formData = new FormData();
       formData.append('_token',$("#tokenLoadboard").val());
       formData.append('Id',lb_owner[0]);
@@ -1209,36 +1212,33 @@ $("#addLBSubmit").click(function(){
           data:formData,
           cache: false,
           success: function (data) {
+            // console.log(data);
             var values = data.split("^");
             var ownertrucklist = values[1].split(")");
-    
-            document.getElementById("lb_owner_truck").value = ownertrucklist[1];
-            document.getElementById("TruckListSet"
-            ).innerHTML = `<option data-value = "${ownertrucklist[0]}" value="${ownertrucklist[1]}"></option>`;
+            // console.log(values[0]);
+            // console.log(values[1]);
+            // console.log(values[2]);
+            // console.log(ownertrucklist);
+
+          // $('#lb_owner_truck').select2().val(ownertrucklist[0]).trigger('change');
+
             document.getElementById("lb_owner_percentage").value = values[0];
             owner_parent = ownertrucklist[2] + ")" + ownertrucklist[3];
-            var otherCharges = document.getElementById("lb_owner_other");
-            if (otherCharges.value == "") {
-              document.getElementById("lb_owner_total").value = parseFloat(
-                (parseFloat(document.getElementById("totalAmount").value) *
-                  parseFloat(values[0])) /
-                  100
-              ).toFixed(2);
+            var otherCharges =$("#lb_owner_other").val();
+            if (otherCharges.value == 0) {
+              document.getElementById("lb_owner_total").value = parseFloat((parseFloat(document.getElementById("totalAmount").value) * parseFloat(values[0])) /100).toFixed(2);
             } else {
-              document.getElementById("lb_owner_total").value =
-                parseFloat(
-                  (parseFloat(document.getElementById("totalAmount").value) *
-                    parseFloat(values[0])) /
-                    100
-                ) + parseFloat(otherCharges.value).toFixed(2);
+               var tot1= parseFloat((parseFloat(document.getElementById("totalAmount").value) * parseFloat(values[0])) / 100 );
+               var tot2=parseFloat(tot1)+parseFloat(otherCharges);
+               document.getElementById("lb_owner_total").value=tot2.toFixed(2);
             }
     
             if (values[2] != "") {
-              swal({
+              swal.fire({
                 title: "Are you sure? You Want to Continue!",
                 type: "warning",
                 type: "info",
-                html: values[2],
+                html: values[3],
                 showCancelButton: true,
                 confirmButtonText: "Yes, Continue!",
                 cancelButtonText: "No, cancel!",
@@ -1247,30 +1247,86 @@ $("#addLBSubmit").click(function(){
                 buttonsStyling: false,
               });
             }
+            $('#lb_owner_truck').select2().val(ownertrucklist[0]).trigger('change');
           },
+          
       });
     });
-  // <!-- ---------------------------------get owner------------------------------------
-    // $('#LB_Driver').change(function() {
-    //   var LB_Driver=$('#LB_Driver').val().split('-');
-    //   var formData = new FormData();
-    //   formData.append('_token',$("#tokenLoadboard").val());
-    //   formData.append('driverId',LB_Driver[0]);
-    //   formData.append('mainId',LB_Driver[2]);
-    //   // alert($('#LB_Driver').val());
-    //     $.ajax({
-    //       url: base_path+"/admin/driverVerify",
-    //       type: "POST",
-    //       datatype:"JSON",
-    //       contentType: false,
-    //       processData: false,
-    //       data:formData,
-    //       cache: false,
-    //       success: function (data) {
-          
-    //       },
-    //   });
-    // });
+
+    $('#lb_owner_truck, #LB_Truck').change(function() {
+      var lb_owner_truck=$('#lb_owner_truck').val();
+      var formData = new FormData();
+      formData.append('_token',$("#tokenLoadboard").val());
+      formData.append('Id',lb_owner_truck);
+      // formData.append('mainId',lb_owner_truck[1]);
+      $.ajax({
+        url: base_path+"/admin/ownerTruckVerify",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+          success: function (data) {
+              var res = JSON.parse(data);
+              console.log(res);
+              if (res['instruction'] != "") {
+                  swal.fire({
+                      title: 'Are you sure? You Want to Continue!',
+                      type: 'warning',
+                      type: 'info',
+                      html: res['instruction'],
+                      showCancelButton: true,
+                      confirmButtonText: 'Yes, Continue!',
+                      cancelButtonText: 'No, cancel!',
+                      confirmButtonClass: 'btn btn-success',
+                      cancelButtonClass: 'btn btn-danger ml-2',
+                      buttonsStyling: false
+                  });
+              }
+  
+              isIfta = res['ifta'];
+          }
+      });
+  
+    });
+  // <!-- --------------------------------getTrailer------------------------------------
+  $('#lb_owner_trailer, #LB_Trailer').change(function() {
+    var clickedId = this.id;
+    console.log(clickedId + " was clicked!");
+
+    var lb_trailer=$(this).val();
+    // alert(lb_trailer);
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('Id',lb_trailer);
+     
+    $.ajax({
+      url: base_path+"/admin/ownerTrailerVerify",
+      type: "POST",
+      datatype:"JSON",
+      contentType: false,
+      processData: false,
+      data:formData,
+      cache: false,
+      success: function (data) {
+        if (data != "") {
+          swal.fire({
+            title: "Are you sure? You Want to Continue!",
+            type: "warning",
+            type: "info",
+            html: data,
+            showCancelButton: true,
+            confirmButtonText: "Yes, Continue!",
+            cancelButtonText: "No, cancel!",
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger ml-2",
+            buttonsStyling: false,
+          });
+        }
+      },
+    });
+  });
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 
 

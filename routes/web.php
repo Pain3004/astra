@@ -78,7 +78,8 @@ Route::post('admin/addLoadBoard', [LoadBoardController::class, 'addLoadBoard']);
 Route::post('/admin/carrierVerify', [LoadBoardController::class, 'getCarrier']);
 Route::post('/admin/driverVerify', [LoadBoardController::class, 'getDriver']);
 Route::post('/admin/ownerVerify', [LoadBoardController::class, 'getOwner']);
-
+Route::post('admin/ownerTruckVerify', [LoadBoardController::class, 'getTruck']);
+Route::post('admin/ownerTrailerVerify', [LoadBoardController::class, 'getTrailer']);
 
 // User
 Route::get('/', [AuthController::class, 'dashboard']);

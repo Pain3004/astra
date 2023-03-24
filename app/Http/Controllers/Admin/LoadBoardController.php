@@ -722,30 +722,29 @@ class LoadBoardController extends Controller
      }
 
     public function getOwner(Request $request){
-        // dd($request);
-        // $id = (int)$data['value'];
-        // $mainid = "";
-    $id = (int)$request->Id;
-    // dd($id);
-    $mainid = (int)$request->mainId;
+        $id = (int)$request->Id;
+        $mainid = (int)$request->mainId;
     
-    $collection =\App\Models\Owner_operator_driver::raw();
+        $collection =\App\Models\Owner_operator_driver::raw();
             $show1 = $collection->aggregate([
-                ['$lookup' => ['from' => 'driver','localField' => 'companyID','foreignField' => 'companyID', 'as' => 'owner' ]],
-                ['$match'=>['companyID'=>(int)Auth::user()->companyID]],
-                ['$unwind' => ['path' => '$ownerOperator']],
-                // ['$match' => ['ownerOperator.driverId' => $id]],
-                // ['$unwind'=>'$owner'],
-                // ['$unwind'=>'$owner.driver'],
-                // ['$match'=>['owner.driver._id'=>$id]]
-
+                ['$lookup' => [
+                    'from' => 'driver', 
+                    'localField' => 'companyID', 
+                    'foreignField' => 'companyID', 
+                    'as' => 'owner']], 
+                    ['$match' => ['companyID' => (int)Auth::user()->companyID]], 
+                    ['$unwind' => ['path' => '$ownerOperator']], 
+                    ['$match' => ['ownerOperator.driverId' => (string)$id]], 
+                    ['$unwind' => ['path' => '$owner']], 
+                    ['$unwind' => ['path' => '$owner.driver']], 
+                    ['$match' => ['owner.driver._id' => (int)$id]
+                ]
             ]);
-            // dd($show1);
+
             $owner = array();
             $ownerOperator = array();
             $trucknumber = 0;
             foreach ($show1 as $row) {
-            // dd($row);
             $c = 0;
             $ownerOperator[$c] = $row['ownerOperator'];
             $c++;
@@ -785,7 +784,7 @@ class LoadBoardController extends Controller
             foreach ($driver as $row3) {
                 $now = strtotime("now");
                 $driverid = $row3['_id'];
-                $licenseExpiry = $row3['driverLicenseExp'];
+                $licenseExpiry = (int)$row3['driverLicenseExp'];
                 $nextMedical = $row3['driverNextMedical'];
                 $nextDrug = $row3['driverNextDrugTest'];
                 $passportExpiry = $row3['passportExpiry'];
@@ -794,9 +793,11 @@ class LoadBoardController extends Controller
                 $loadedMile = $row3['driverLoadedMile'];
                 $emptyMile = $row3['driverEmptyMile'];
                 echo $mainid.")".$driverid."^";
+                // die;
                 if($licenseExpiry - $now <= 2592000){
                 echo "- <b style='font-weight:bold;line-height:1.5'>License is Expiring in less than 30 days.</b>"."<br>";
                 }
+                
                 if(($nextMedical - $now)  <= 2592000){
                 echo "- <b style='font-weight:bold;line-height:1.5'>Next Medical is within 30 days.</b>"."<br>";
                 }
@@ -815,4 +816,88 @@ class LoadBoardController extends Controller
             }
         }
     }
+
+    public function getTruck(Request $request){
+        // dd($request);
+        $id = (int)$request->Id;
+        // $mainid = (int)$request->mainId;
+
+        $show1 = \App\Models\Truckadd::raw()->aggregate([
+                ['$match'=>['companyID'=>Auth::user()->companyID]],
+                // ['$match'=>['_id'=>$mainid]],
+                ['$unwind'=>['path' => '$truck']],
+                ['$match'=>['truck._id'=>$id]]
+        ]);
+        $res = array("instruction" => "", "ifta" => "");
+        foreach ($show1 as $row) {
+        //   dd($row);
+        $driver = array();
+        $k = 0;
+        $driver[$k] = $row['truck'];
+        $k++;
+        foreach ($driver as $row) {
+              $now = strtotime("now");
+             
+              $plateExpiry = $row['plateExpiry'];
+              $inspectionExpiry = $row['inspectionExpiry'];
+            
+              $dotExpiry  =$row['dotexpiryDate'];
+              $ifta = $row['ifta'];
+              if((int)$plateExpiry - (int)$now <= 2592000){
+                 $res['instruction'] .=  "- <b style='font-weight:bold;line-height:1.5'>License plate is Expiring in less than 30 days.</b>"."<br>";
+              }
+              if(((int)$inspectionExpiry - (int)$now)  <= 2592000){
+                 $res['instruction'] .= "- <b style='font-weight:bold;line-height:1.5'>Inspection expiry is within 30 days.</b>"."<br>";
+              }
+              if(((int)$dotExpiry - (int)$now)  <= 2592000){
+                 $res['instruction'] .= "- <b style='font-weight:bold;line-height:1.5'>DOT is expiring in 30 days.</b>"."<br>";
+              } 
+              
+              if($ifta == "IFTA Truck"){
+                 $res['ifta'] = "1";
+              }
+              else{
+                 $res['ifta'] = "0";
+              }
+           }
+        }
+        // dd($res);
+        echo json_encode($res);
+    }
+
+    public function getTrailer(Request $request){
+        $id = (int)$request->Id;
+        $collection = \App\Models\TrailerAdminAdd::raw();
+        $show1 = $collection->aggregate([
+                ['$match'=>['companyID'=>Auth::user()->companyID]],
+                ['$unwind'=>'$trailer'],
+                ['$match'=>['trailer._id'=>$id]]
+        ]);
+        
+        foreach ($show1 as $row) {
+        //   dd($row);
+        $driver = array();
+        $k = 0;
+        $driver[$k] = $row['trailer'];
+        $k++;
+        foreach ($driver as $row) {
+              $now = strtotime("now");
+              $plateExpiry = $row['plateExpiry'];
+              $inspectionExpiry = $row['inspectionExpiration'];
+              $dotExpiry  =$row['dot'];
+              if($plateExpiry - $now <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>License plate is Expiring in less than 30 days.</b>"."<br>";
+              }
+              if(($inspectionExpiry - $now)  <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>Inspection expiry is within 30 days.</b>"."<br>";
+              }
+              if(($dotExpiry - $now)  <= 2592000){
+                 echo "- <b style='font-weight:bold;line-height:1.5'>DOT is expiring in 30 days.</b>"."<br>";
+              } 
+     
+           }
+        }
+      
+     }
+
 }

@@ -578,7 +578,7 @@
                           </label>
                           <div class="dropdown show">
                             <!-- <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist" id="lb_owner" placeholder="Search Here"> -->
-                            <select class="form-control select2-show-search form-select " id="lb_owner" placeholder onkeyup="OwnerOperator(this.id)">
+                            <select class="form-control select2-show-search form-select " id="lb_owner" placeholder >
                             <?php
                                 foreach($driver as $single){  
                                   $mainId=$single['_id'] ;                             
@@ -606,10 +606,11 @@
                         <div class="form-group col-md-1 OwnerOperatorlist">
                           <label>Truck</label>
                           <div class="dropdown show" id="lbownertruck">
-                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="lb_owner_truck" placeholder name=mySelect2>
+                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="lb_owner_truck"  placeholder name="lb_owner_truck">
                             
                             <?php
-                                foreach($truck as $single_Truck){                              
+                                foreach($truck as $single_Truck){ 
+                                  $mainId=$single_Truck['_id'] ;                              
                                   foreach($single_Truck['truck'] as $i_s){
                                     $i_s_name=$i_s['truckNumber'];              
                                     $i_s_id=$i_s['_id'];              
@@ -634,7 +635,8 @@
                                     $name=$i_s['trailerNumber'];              
                                     $id=$i_s['_id'];              
                                     ?>
-                                      <option value="{{$id}}-{{$name}}">{{$name}}</option>
+                                      <!-- <option value="{{$id}}-{{$name}}">{{$name}}</option> -->
+                                      <option value="{{$id}}">{{$name}}</option>
                                     <?php
                                   }
                                 }
@@ -646,7 +648,7 @@
                           <label>Other &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Other_OwnerOperator" style='color:blue !important'></i>
                           </label>
                           <div>
-                            <input class="form-control " readonly="" id="lb_owner_other" placeholder="Other">
+                            <input class="form-control " readonly="" id="lb_owner_other" placeholder="Other" modal-value="">
                           </div>
                         </div>
                         <div class="form-group col-md-2 OwnerOperatorlist">
@@ -1158,7 +1160,7 @@
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="submit" class="button-29" id="driLBSubmit" onclick="getdriverOtherCharges()">Submit</button>
+            <button type="submit" class="button-29" id="driLBSubmit" onclick="getdriverOtherCharges()" modal-value="">Submit</button>
             <button type="button" class="button-29 closeAccdriver">Close</button>
           </div>
         </div>
@@ -1337,7 +1339,7 @@
           '<div class="form-group col-md-5">'+
           '<label for="Amount">Amount</label>'+
           '<div>'+
-          '<input type="number" class="form-control" name="Amount[]_own">'+
+          '<input type="number" class="form-control" name="Amount_own[]">'+
           '</div>'+
           '</div>'+
           '<div class="form-group col-md-2">'+
@@ -2052,9 +2054,9 @@ function removeConsignee(mainid, contentid) {
 }
 
 
-$('.LBshipper').click(function(){
-  //  alert(); 
-});
+// $('.LBshipper').click(function(){
+//   //  alert(); 
+// });
 
 
 // <!-- -------------------------------------------------------------------------AccessorialModal ------------------------------------------------------------------------- -->
@@ -2441,22 +2443,12 @@ function getdriverOtherCharges(){
   var tot =parseFloat(0);
   $('input[name^="Amount_dri"]').each(function(oneTag){
       var oneValue = $(this).val();
-      // alert(oneValue);
       tot=parseFloat(tot)+parseFloat(oneValue);
       $('#lb_driver_Other').val(tot);
   });
   $("#AccessorialModal_driver").modal('hide');
   getDriverTotal();
-  
 
-  // $('input[name^="Amount_dri"]').each(function(oneTag){
-  //     var oneValue = $(this).val();
-  //     alert(oneValue);
-  //     tot=parseFloat(tot)+parseFloat(oneValue);
-  //     $('#lb_driver_Other').val(tot);
-  //     getDriverTotal();
-  //     $("#AccessorialModal_driver").modal('hide');
-  // });
 }
 function getDriverTotal() {
     // getDriver(document.getElementById('LB_Driver').value);
@@ -2581,23 +2573,48 @@ function changeDriverTotal() {
   }
 }
 
-// function getCarrier(id) {
-//   $.ajax({
-//         url: base_path+"/admin/carrierVerify",
-//         type: "POST",
-//         datatype:"JSON",
-//         contentType: false,
-//         processData: false,
-//         data:{
-//           token:$("#tokenLoadboard").val(),
-//           id:id,
-//         },
-//         cache: false,
-//         success: function(Result){
-//             console.log(Result);
-//         }
-//     });
-// }
+function getownerOtherCharges() {
+  // var oth_chg = document.getElementById("lb_owner_other");
+  // var owner_other_total = 0;
+
+  var tot =parseFloat(0);
+  $('input[name^="Amount_own"]').each(function(oneTag){
+      var oneValue = $(this).val();
+      tot=parseFloat(tot)+parseFloat(oneValue);
+      $('#lb_owner_other').val(tot);
+  });
+  $("#AccessorialModal_owneroperator").modal('hide');
+
+  getOwnerTotal();
+}
+
+function getOwnerTotal() {
+  var owner_other_charges = document.getElementById("lb_owner_other");
+  var owner_percentage = document.getElementById("lb_owner_percentage");
+  var owner_total = document.getElementById("lb_owner_total");
+  if (owner_percentage.value != "") {
+    if (owner_other_charges.value != 0) {
+      var rateamount = parseFloat(document.getElementById("totalAmount").value);
+      var peramount = parseFloat((rateamount * parseFloat(owner_percentage.value)) / 100);
+      owner_total.value = peramount + parseFloat(owner_other_charges.value);
+    }
+  } else {
+    swal.fire({
+      title: "Are you sure? You Want to Continue!",
+      type: "warning",
+      type: "info",
+      html: "<b> Pay Percentage cannot be Empty. </b>",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Continue!",
+      cancelButtonText: "No, cancel!",
+      confirmButtonClass: "btn btn-success",
+      cancelButtonClass: "btn btn-danger ml-2",
+      buttonsStyling: false,
+    });
+  }
+}
+
+
 // //-----------------------other driver modal-----------------
 </script>
 

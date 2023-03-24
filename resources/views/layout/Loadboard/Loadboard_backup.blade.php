@@ -643,7 +643,7 @@
                           <label>Other &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="Other_OwnerOperator" style='color:blue !important'></i>
                           </label>
                           <div>
-                            <input class="form-control " readonly="" id="lb_owner_other" placeholder="Other">
+                            <input class="form-control " readonly="" id="lb_owner_other" placeholder="Other" modal-value="">
                           </div>
                         </div>
                         <div class="form-group col-md-2 OwnerOperatorlist">
