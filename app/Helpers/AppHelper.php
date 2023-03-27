@@ -226,7 +226,10 @@ class AppHelper
             $counter = $value['counter'];
             foreach ($value[$val] as $arr) 
             {
-                $id = $arr['_id'];
+                if(isset($arr['_id']))
+                {
+                    $id = $arr['_id'];
+                }
             }
         }
         $id += 1;

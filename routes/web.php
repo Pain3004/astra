@@ -112,6 +112,7 @@ Route::get('admin/edit_customer', [CustomerController::class, 'edit_customer']);
 Route::post('admin/update_customer', [CustomerController::class, 'update_customer']);
 Route::post('admin/delete_customer', [CustomerController::class, 'delete_customer']);
 Route::post('admin/restoreCustomer', [CustomerController::class, 'restoreCustomer']);
+Route::post('admin/exportCustomer', [CustomerController::class, 'exportCustomer']);
 
 //addCurrency
 Route::get('admin/customerCurrency', [CustomerController::class, 'getCustomerCurrency']);

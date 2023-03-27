@@ -36,7 +36,13 @@
                     </table>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="button-29 exportCustomer" data-dismiss="modal">export</button>
                     <button type="button" class="button-29 close_customerModal" data-dismiss="modal">Close</button>
+                    <nav aria-label="..." data-name="cus_pagination" class="float-right">
+                        <div class="pagination" id="cus_pagination">
+
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -505,6 +511,7 @@
                                                 @csrf
                                                     <input type="hidden" name="_token" id="_tokenUpdateCustomer" value="{{ csrf_token() }}" />
                                                     <input type="hidden" name="cu_id" id="updateCustomer_id" />
+                                                    <input type="hidden" name="master_id" id="update_masterId" />
                                                     <div class="form-row">
                                                         <div class="form-group col-md-3">
                                                             <label for="customerName">Customer Name  <span style="color:#ff0000">*</span></label>
@@ -759,6 +766,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="button-29 closeRestoreCustomer" data-dismiss="modal">Close</button>
+                    <nav aria-label="..." data-name="Restorecus_pagination" class="float-right">
+                        <div class="pagination" id="Restorecus_pagination">
+
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

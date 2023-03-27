@@ -2012,6 +2012,110 @@ function renameTableSeq2(tableid, paginateid)
         }
     }
 }
+function renameTableSeq(tableid, paginateid) 
+{
+    if (paginateid != null && paginateid != undefined) 
+    {
+        var pagearr = $('#' + paginateid).val();
+        if (pagearr != null && pagearr != undefined) 
+        {
+            arr1 = pagearr.split("^");
+            var pageno = arr1[1] - 1;
+            var table = document.getElementById(tableid);
+            if (table != null && table != undefined) 
+            {
+                for (var i = 0, j = (pageno * 100) + 1; i < table.rows.length; i++, j++) 
+                {
+                    table.rows[i].cells[0].innerHTML = j;
+                }
+            }
+        }
+        else
+        {
+            var table = document.getElementById(tableid);
+            if (table != null && table != undefined) 
+            {
+                for (var i = 0, j = 1; i < table.rows.length; i++, j++) 
+                {
+                    table.rows[i].cells[0].innerHTML = j;
+                }
+            }
+        }
+    } 
+    else 
+    {
+        var table = document.getElementById(tableid);
+        if (table != null && table != undefined) 
+        {
+            for (var i = 0, j = 1; i < table.rows.length; i++, j++) 
+            {
+                table.rows[i].cells[0].innerHTML = j;
+            }
+        }
+    }
+}
+function callPagination(arr1, main, sub, func, status) 
+{
+    var res = arr1.split("^");
+    var arr = res[0];
+    var page_no = res[1];
+    var data = {
+        page_no: page_no,
+        arr: arr,
+        status : status
+    }
+    if (func == "processFuelReceiptTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getFuelReceipt",
+            async: false,
+            data: data,
+            success: function(response) {
+                $(".loading").css("display", "none");
+                var res = JSON.parse(response);
+            if (func == "processFuelReceiptTable") 
+            {
+                    processFuelReceiptTable(res[0]);
+                    renameTableSeq2("FuelReceTable", "page_active");
+                }
+                        
+            }
+        });
+    }
+    // console.log(func);
+    if (func == "processCustomer") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/customer",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processCustomer(res[0]);
+                renameTableSeq("customerTable", "page_active");
+                        
+            }
+        });
+    }
+    if (func == "restoreProcessCustomer") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/customer",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                RestoreprocessCustomer(res[0]);
+                renameTableSeq("customerTable", "page_active");
+                        
+            }
+        });
+    }
+    
+}
 
 //=============== end pagination====================================
 

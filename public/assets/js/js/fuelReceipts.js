@@ -355,34 +355,34 @@ var base_path = $("#url").val();
 
 
     //================ pagination  ========================================
-    function callPagination(arr1, main, sub, func, status) 
-    {
-        var res = arr1.split("^");
-        var arr = res[0];
-        var page_no = res[1];
-        var data = {
-            page_no: page_no,
-            arr: arr,
-            status : status
-        }
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/getFuelReceipt",
-            async: false,
-            data: data,
-            success: function(response) {
-                $(".loading").css("display", "none");
-                var res = JSON.parse(response);
-               if (func == "processFuelReceiptTable") 
-               {
-                    processFuelReceiptTable(res[0]);
-                    renameTableSeq2("FuelReceTable", "page_active");
-                }
+    // function callPagination(arr1, main, sub, func, status) 
+    // {
+    //     var res = arr1.split("^");
+    //     var arr = res[0];
+    //     var page_no = res[1];
+    //     var data = {
+    //         page_no: page_no,
+    //         arr: arr,
+    //         status : status
+    //     }
+    //     $.ajax({
+    //         type: "GET",
+    //         url: base_path+"/admin/getFuelReceipt",
+    //         async: false,
+    //         data: data,
+    //         success: function(response) {
+    //             $(".loading").css("display", "none");
+    //             var res = JSON.parse(response);
+    //            if (func == "processFuelReceiptTable") 
+    //            {
+    //                 processFuelReceiptTable(res[0]);
+    //                 renameTableSeq2("FuelReceTable", "page_active");
+    //             }
                         
-            }
-        });
+    //         }
+    //     });
         
-    }
+    // }
     //======= end pagination ==============================================
 
     // ================End================================================ 
