@@ -32,5 +32,8 @@ class LoggedUsers extends Model
      * @var array
      */
 
-   
+    // public function getIdAttribute() 
+    // {
+    //     return $this->attributes['_id'];
+    // }
 }

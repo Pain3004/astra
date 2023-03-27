@@ -1954,6 +1954,66 @@ function convertTimeZone(date)
   
 }
   //===== end date formate ========================================
+// =====================  pagination ==============================
+function paginateList(arrList, main, sub, func, status = '') 
+{
+    var paginate = `<select class='form-control' id='page_active'
+    onchange='callPagination(this.value,"${main}","${sub}","${func}", "${status}")'>`;
+    var pageno = 1;
+    for (var j = 0; j < arrList[0].length; j++) 
+    {
+        for (var i = 0; i < arrList[0][j].length; i++) 
+        {
+            paginate += `<option value='${JSON.stringify(arrList[0][j][i]) + "^" + pageno}'>${pageno++}</option>`;
+        }
+    }
+    paginate += `</select>`;
+    return paginate;
+}
+function renameTableSeq2(tableid, paginateid) 
+{
+    if (paginateid != null && paginateid != undefined) 
+    {
+        var pagearr = $('#' + paginateid).val();
+        if (pagearr != null && pagearr != undefined) 
+        {
+            arr1 = pagearr.split("^");
+            var pageno = arr1[1] - 1;
+            var table = document.getElementById(tableid);
+            if (table != null && table != undefined) 
+            {
+                for (var i = 0, j = (pageno * 100) + 1; i < table.rows.length; i++, j++) 
+                {
+                    table.rows[i].cells[1].innerHTML = j;
+                }
+            }
+        }
+        else
+        {
+            var table = document.getElementById(tableid);
+            if (table != null && table != undefined) 
+            {
+                for (var i = 0, j = 1; i < table.rows.length; i++, j++) 
+                {
+                    table.rows[i].cells[1].innerHTML = j;
+                }
+            }
+        }
+    } 
+    else 
+    {
+        var table = document.getElementById(tableid);
+        if (table != null && table != undefined) 
+        {
+            for (var i = 0, j = 1; i < table.rows.length; i++, j++) 
+            {
+                table.rows[i].cells[1].innerHTML = j;
+            }
+        }
+    }
+}
+
+//=============== end pagination====================================
 
 
     

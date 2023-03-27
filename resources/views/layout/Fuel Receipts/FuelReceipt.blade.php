@@ -32,17 +32,19 @@
                         <a id="delete_Fuel_ReceiptData"  class="button-57_alt delete_Fuel_ReceiptData" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete </span></a>
 
                     @endif
-                    <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
-                    <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a>
-                    <div class="searchbar" style="float: right; margin-right: 15px;">
-                        <input type="text" placeholder="search" /> -->
-                        <!-- <div class="symbol">
-                            
-                            <svg class="lens">
-                            <use xlink:href="#lens" />
-                            </svg>
-                        </div> -->
+                    <!-- <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="searchText_Fuel" placeholder="search" style="margin-left: 5px;"
+                    data-name="fuel_receipt_search">
+                    <select style="margin-left: 3px;" class="form-control col-md-2 col-sm-4 col-lg-2 float-right"
+                        name="shipper_search" id="shipper_search" 
+                        data-name="fuel_receipt_select">
+                        <option value="">---select---</option>
+                        <option value="driverNumber">Driver Number</option>
+                        <option value="cardNo">Card No</option>
+                        <option value="locationName">Location Name</option>
+                        <option value="locationCity">Location City</option>
+                        <option value="locationState">Location State</option>
+                        <option value="invoiceNo">Invoice No</option>
+                    </select> -->
                     </div>
 
                 </div>
@@ -124,13 +126,17 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                <form action="{{route('download-pdf')}}" method="post" target="__blank">
-                    @csrf
-                    @if($exportUser == 1)
-                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    @csrf-->
+                    @if($exportUser == 1) 
+                        <button class="button-29" style="vertical-align:middle" id="exportFuelReceiptsDetails"><span>Export</span></button>
                     @endif
-                </form>
+                <!-- </form> -->
                     <button type="button" class="button-29 fuelReceiptClose">Close</button>
+                    <nav aria-label="..." class="float-right">
+                        <div class="pagination" id="paginate" data-name="fuel_receipt_pagination">
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

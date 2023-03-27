@@ -643,6 +643,8 @@ $(document).ready(function() {
         else {
             $('.check_iftaToll_one:checkbox').each(function () {
                 this.checked = false;
+                IftaTollCheckboxRestore();
+
             });
         }
     });
@@ -708,6 +710,7 @@ $(document).ready(function() {
         else {
             $('.delete_check_iftaToll_one:checkbox').each(function () {
                 this.checked = false;
+                IftaTollCheckboxDelete();
             });
         }
     });
@@ -771,4 +774,18 @@ $(document).ready(function() {
         });
     });
     //================================= end multi delete toll ====================
+
+    // export data ===============================================
+    $("#exportIftaTollsDetails").click(function(){
+        $.ajax({
+            type:"post",
+            data:{_token:$("#_token_updateFuelReceipts").val()},
+            url: base_path+"/admin/export_Tolls",
+            success: function(data) {   
+                var rows = JSON.parse(data);
+            JSONToCSVConvertor(rows, "iftaToll Report", true);
+            }
+        });
+    });
+    // end export data ==========================================
 });

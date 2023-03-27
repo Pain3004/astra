@@ -205,6 +205,7 @@ Route::post('admin/updateIftaToll', [IftaTollController::class, 'updateIftaToll'
 Route::post('admin/deleteIftaToll', [IftaTollController::class, 'deleteIftaToll']);
 Route::post('admin/restoreIftaToll', [IftaTollController::class, 'restoreIftaToll']);
 Route::post('admin/deleteMultiIftaToll', [IftaTollController::class, 'deleteMultiIftaToll']);
+Route::post('admin/export_Tolls', [FuelReceiptController::class, 'export_Tolls']);
 
 //IftaTripController
 Route::get('admin/getIftaTrip', [IftaTripController::class, 'getIftaTrip']);

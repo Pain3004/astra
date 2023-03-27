@@ -8,6 +8,7 @@ use Session;
 use App\Models\User;
 use App\Models\PasswordReset;
 use App\Models\LoggedUsers;
+use App\Helpers\AppHelper;
 use Mail; 
 use Hash;
 use Illuminate\Support\Str;
@@ -53,10 +54,11 @@ class AuthController extends Controller
                 $emailArr[]=$row->userEmail;
             }
                 $count=$count+1;
+                // $cursor = LoggedUsers::raw()->find(['_id'=>$name]);
+                // dd($cursor);
             if(!in_array(Auth::user()->userEmail, $emailArr))
             {
-                LoggedUsers::create([
-                    // '_id' =>(int)2,
+                $cons=array(
                     'userId'=>Auth::user()->_id,
                     'userEmail' => Auth::user()->userEmail,
                     'userFirstName'=> Auth::user()->userFirstName,
@@ -65,7 +67,10 @@ class AuthController extends Controller
                     'created_time' => date('d-m-y h:i:s'),
                     'edit_time' =>time(),
                     'deleteStatus' =>"NO",
-                ]);
+                );
+                LoggedUsers::raw()->insertOne($cons);
+                
+
             }
             return view('dashboard',['driverData' => $driverData]);
         }

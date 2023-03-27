@@ -216,6 +216,29 @@ class AppHelper
         }
         return $document;
     }
+    function getAdminDocumentSequence($key,$collection,$val, $docId) 
+    {
+        $cursor = $collection->find(['companyID'=>(int)$key, '_id' => (int)$docId]);
+        $array = iterator_to_array($cursor);
+        $id = 0;
+        foreach ($array as $value)
+        {
+            $counter = $value['counter'];
+            foreach ($value[$val] as $arr) 
+            {
+                $id = $arr['_id'];
+            }
+        }
+        $id += 1;
+       $collection->updateOne(['companyID' => (int)$key,'_id'=>(int)$docId],
+        ['$inc' => ['counter' => 1]]);
+        return $id;
+    }
+    public function getIntId($name,$collection) 
+    {
+        $id=(int)1;
+        return $id;
+    }
     public function showQueries()
     {
         dd(\DB::getQueryLog());
