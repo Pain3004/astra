@@ -120,7 +120,7 @@
                     <button type="button" class="button-29 btn btn-secondary closeShipperModal" >Close</button>
                     <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
                     <nav aria-label="..." data-name="shipper_pagination" class="float-right">
-                        <div class="pagination" id="paginate">
+                        <div class="pagination" >
 
                         </div>
                     </nav>

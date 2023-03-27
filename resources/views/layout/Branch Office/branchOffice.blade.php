@@ -80,7 +80,7 @@
                     <button type="button" class="button-24 addBranchOfficeClose" >×</button>
 
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
+                <div class="modal-body" style="">
 
                     <!-- Row -->
                     <div class="row">

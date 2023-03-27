@@ -9,14 +9,13 @@
 
 @include('layout.dashboard.sidebar')
 		
-
 			<!--app-content open-->
-			<div class="app-content main-content mt-0">
+			<div class="app-content main-content mt-3">
 				<div class="side-app">
 					 <!-- CONTAINER -->
 					 <div class="main-container container-fluid">
 						<!-- PAGE-HEADER -->
-						<div class="page-header">
+						<!-- <div class="page-header">
 							<div>
 								<h1 class="page-title">Dashboard</h1>
 							</div>
@@ -26,37 +25,39 @@
 									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 								</ol>
 							</div>
-						</div>
+						</div> -->
 						<!-- PAGE-HEADER END -->
 
-						<!-- ROW-1 -->
-						<div class="row">
-							<div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
-								<div class="card overflow-hidden">
-									<div class="card-body">
+    <div class="row">
+          <div id="menu-wrapper" class="menu-wrapper">
+	           <div id="menu" class="menu">
+               <div class="col-lg-6 col-sm-12 col-md-6 col-xl-3 item">
+								<div class="card overflow-hidden card-now">
+									<div class="card-body gradient-1">
 										<div class="row">
 											<div class="col">
 												<h3 class="mb-2 fw-semibold">1,12,324</h3>
 												<p class="text-muted fs-13 mb-0">Daily Visitors</p>
 												<p class="text-muted mb-0 mt-2 fs-12">
 													<span class="icn-box text-success fw-semibold fs-13 me-1">
-														<i class='fa fa-long-arrow-up'></i>
+														<i class="fa fa-long-arrow-up"></i>
 														42%</span>
 													since last month
 												</p>
 											</div>
 											<div class="col col-auto top-icn dash">
 												<div class="counter-icon bg-primary dash ms-auto box-shadow-primary">
-													<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M12,8c-2.2091675,0-4,1.7908325-4,4s1.7908325,4,4,4c2.208252-0.0021973,3.9978027-1.791748,4-4C16,9.7908325,14.2091675,8,12,8z M12,15c-1.6568604,0-3-1.3431396-3-3s1.3431396-3,3-3c1.6561279,0.0018311,2.9981689,1.3438721,3,3C15,13.6568604,13.6568604,15,12,15z M21.960022,11.8046875C19.9189453,6.9902344,16.1025391,4,12,4s-7.9189453,2.9902344-9.960022,7.8046875c-0.0537109,0.1246948-0.0537109,0.2659302,0,0.390625C4.0810547,17.0097656,7.8974609,20,12,20s7.9190063-2.9902344,9.960022-7.8046875C22.0137329,12.0706177,22.0137329,11.9293823,21.960022,11.8046875z M12,19c-3.6396484,0-7.0556641-2.6767578-8.9550781-7C4.9443359,7.6767578,8.3603516,5,12,5s7.0556641,2.6767578,8.9550781,7C19.0556641,16.3232422,15.6396484,19,12,19z"/></svg>
+													<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M12,8c-2.2091675,0-4,1.7908325-4,4s1.7908325,4,4,4c2.208252-0.0021973,3.9978027-1.791748,4-4C16,9.7908325,14.2091675,8,12,8z M12,15c-1.6568604,0-3-1.3431396-3-3s1.3431396-3,3-3c1.6561279,0.0018311,2.9981689,1.3438721,3,3C15,13.6568604,13.6568604,15,12,15z M21.960022,11.8046875C19.9189453,6.9902344,16.1025391,4,12,4s-7.9189453,2.9902344-9.960022,7.8046875c-0.0537109,0.1246948-0.0537109,0.2659302,0,0.390625C4.0810547,17.0097656,7.8974609,20,12,20s7.9190063-2.9902344,9.960022-7.8046875C22.0137329,12.0706177,22.0137329,11.9293823,21.960022,11.8046875z M12,19c-3.6396484,0-7.0556641-2.6767578-8.9550781-7C4.9443359,7.6767578,8.3603516,5,12,5s7.0556641,2.6767578,8.9550781,7C19.0556641,16.3232422,15.6396484,19,12,19z"></path></svg>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
-								<div class="card overflow-hidden">
-									<div class="card-body">
+
+       <div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
+								<div class="card overflow-hidden card-now ">
+									<div class="card-body gradient-2">
 										<div class="row">
 											<div class="col">
 												<h3 class="mb-2 fw-semibold">12,563</h3>
@@ -77,9 +78,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
-								<div class="card overflow-hidden">
-									<div class="card-body">
+
+          <div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
+								<div class="card overflow-hidden card-now">
+									<div class="card-body gradient-3">
 										<div class="row">
 											<div class="col">
 												<h3 class="mb-2 fw-semibold">$5,178</h3>
@@ -100,9 +102,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
-								<div class="card overflow-hidden">
-									<div class="card-body">
+
+         <div class="col-lg-6 col-sm-12 col-md-6 col-xl-3">
+								<div class="card overflow-hidden card-now">
+									<div class="card-body gradient-4">
 										<div class="row">
 											<div class="col">
 												<h3 class="mb-2 fw-semibold">$43,987</h3>
@@ -123,20 +126,99 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- ROW-1 END-->
 
-						
-                        
-						<!-- ROW-1.1 -->
+      <div class="col-lg-6 col-sm-12 col-md-6 col-xl-3 item">
+								<div class="card overflow-hidden card-now">
+									<div class="card-body gradient-5">
+										<div class="row">
+											<div class="col">
+												<h3 class="mb-2 fw-semibold">1,12,324</h3>
+												<p class="text-muted fs-13 mb-0">Daily Visitors</p>
+												<p class="text-muted mb-0 mt-2 fs-12">
+													<span class="icn-box text-success fw-semibold fs-13 me-1">
+														<i class="fa fa-long-arrow-up"></i>
+														42%</span>
+													since last month
+												</p>
+											</div>
+											<div class="col col-auto top-icn dash">
+												<div class="counter-icon bg-primary dash ms-auto box-shadow-primary">
+													<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M12,8c-2.2091675,0-4,1.7908325-4,4s1.7908325,4,4,4c2.208252-0.0021973,3.9978027-1.791748,4-4C16,9.7908325,14.2091675,8,12,8z M12,15c-1.6568604,0-3-1.3431396-3-3s1.3431396-3,3-3c1.6561279,0.0018311,2.9981689,1.3438721,3,3C15,13.6568604,13.6568604,15,12,15z M21.960022,11.8046875C19.9189453,6.9902344,16.1025391,4,12,4s-7.9189453,2.9902344-9.960022,7.8046875c-0.0537109,0.1246948-0.0537109,0.2659302,0,0.390625C4.0810547,17.0097656,7.8974609,20,12,20s7.9190063-2.9902344,9.960022-7.8046875C22.0137329,12.0706177,22.0137329,11.9293823,21.960022,11.8046875z M12,19c-3.6396484,0-7.0556641-2.6767578-8.9550781-7C4.9443359,7.6767578,8.3603516,5,12,5s7.0556641,2.6767578,8.9550781,7C19.0556641,16.3232422,15.6396484,19,12,19z"></path></svg>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+        <div class="col-lg-6 col-sm-12 col-md-6 col-xl-3 item">
+								<div class="card overflow-hidden card-now">
+									<div class="card-body gradient-6">
+										<div class="row">
+											<div class="col">
+												<h3 class="mb-2 fw-semibold">1,12,324</h3>
+												<p class="text-muted fs-13 mb-0">Daily Visitors</p>
+												<p class="text-muted mb-0 mt-2 fs-12">
+													<span class="icn-box text-success fw-semibold fs-13 me-1">
+														<i class="fa fa-long-arrow-up"></i>
+														42%</span>
+													since last month
+												</p>
+											</div>
+											<div class="col col-auto top-icn dash">
+												<div class="counter-icon bg-primary dash ms-auto box-shadow-primary">
+													<svg xmlns="http://www.w3.org/2000/svg" class="fill-white" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M12,8c-2.2091675,0-4,1.7908325-4,4s1.7908325,4,4,4c2.208252-0.0021973,3.9978027-1.791748,4-4C16,9.7908325,14.2091675,8,12,8z M12,15c-1.6568604,0-3-1.3431396-3-3s1.3431396-3,3-3c1.6561279,0.0018311,2.9981689,1.3438721,3,3C15,13.6568604,13.6568604,15,12,15z M21.960022,11.8046875C19.9189453,6.9902344,16.1025391,4,12,4s-7.9189453,2.9902344-9.960022,7.8046875c-0.0537109,0.1246948-0.0537109,0.2659302,0,0.390625C4.0810547,17.0097656,7.8974609,20,12,20s7.9190063-2.9902344,9.960022-7.8046875C22.0137329,12.0706177,22.0137329,11.9293823,21.960022,11.8046875z M12,19c-3.6396484,0-7.0556641-2.6767578-8.9550781-7C4.9443359,7.6767578,8.3603516,5,12,5s7.0556641,2.6767578,8.9550781,7C19.0556641,16.3232422,15.6396484,19,12,19z"></path></svg>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+                    </div>
+
+	            <div class="arrows">
+		             <button id="leftArrow" class="left-arrow arrow hidden">
+                     <img src="http://127.0.0.1:8000/assets/images/brand/left-arrow.png" alt="">
+		            </button>
+		             <button id="rightArrow" class="right-arrow arrow">
+                     <img src="http://127.0.0.1:8000/assets/images/brand/right-arrow.png" alt="">
+		            </button>
+	          </div>
+
+            </div>
+        </div>
+
+
+
 						<div class="row">
-							<div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+							<div class="col-sm-12 col-md-12 col-xl-4 col-lg-6 ">
                             
 								<div class="row">
-                                    
+								    <div class="col-xl-4 padd-n">
+                  				<a href="#" id="add_dashboard" class="button-57_alt button-58_alt">New Active Load</a>
+                                </div>
 
-                                    
-                                    <div class="col-xl-5"  style="display:flex">
+                                <div class="redio-btn col-xl-2 padd-g">
+							                 	   <div class="radio">
+   								                     <input id="radio-1" name="radio" type="radio" checked>
+    						                          <label for="radio-1" class="radio-label">MC</label>
+  								                         </div>
+
+  								                      <div class="radio">
+   								                          <input id="radio-2" name="radio" type="radio">
+    							                            <label  for="radio-2" class="radio-label">DOT
+    							                             </label>
+  								                             </div>
+								                                 </div>
+
+                                    <div class="col-1 psd-1">
+                                        <div class="searchmenu"> 
+                                          <input type="search" name="searchinput" value="" class="search-input" placeholder="search">
+                                             <button name="search" value="" id="" class="search"><i class="fa fa-search"></i></button>
+                                          </div>
+                                    </div>
+
+                                <div class="col-xl-5"  style="display:flex">
                                         <i class="mdi mdi-play-circle float-right tour-icon" id="dashboard_tour" title="Take a Tour"
                                             style="margin-top: -8px;font-size:35px"></i>
                                             <select name="dashtype" style="width: 100%;" class="form-control" id="dashfilter_by" onchange="dateWiseDashData(this.value)">
@@ -153,591 +235,924 @@
 
                             
 
-							<div class="col-sm-12 col-md-12 col-lg-6 col-xl-8 float-right">
-								 <!-- App actions start -->
-                                 <div class="app-actions" data-name="dash_actions_tabs">
+          <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8 float-right">	
+					      <div class="tabBox">
+  						    <ul class="tabs">
+   							  <li><a href="#tab1">Customer</a></li>
+						      <li><a href="#tab2">Profit/Loss</a></li>
+    						  <li><a href="#tab3">Dispatcher</a></li>
+   							  <li><a href="#tab4">Driver</a></li>
+   							  <li><a href="#tab5">Company</a></li>
+    						  <li><a href="#tab6">Truck</a></li>
+    						  <li><a href="#tab7">Carrier</a></li>
+   							  <li><a href="#tab8">Equipment</a></li>
+   							  <li><a href="#tab9">Sales Representative</a></li>
+  
+  							</ul>
+							</div> 
+							
+       </div>
+		</div>
 
-                                    <button type="button" class="btn dash_button <!--active--> " onclick="_empty();dashchart(this.value);"
-                                        value="customer_analytics">Customer</button>
-                                    <?php if(!isset($_SESSION['dashboard']) || $privileges->profitLoss == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();dashchart(this.value);"
-                                        value="profit_loss">Profit/Loss</button>
-                                    <?php } if(!isset($_SESSION['dashboard']) || $privileges->dispatcher == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();dashchart(this.value);"
-                                        value="dispatcher_analytics">Dispatcher</button>
-                                    <?php } if(!isset($_SESSION['dashboard']) || $privileges->driver == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();dashchart(this.value);"
-                                        value="driver_analytics">Driver</button>
-                                    <?php } if(!isset($_SESSION['dashboard']) || $privileges->company == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();companydashdata(); dashchart(this.value);"
-                                        value="company_analytics">Company</button>
-                                    <?php } if(!isset($_SESSION['dashboard']) || $privileges->truck == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();dashchart(this.value);"
-                                        value="truck_analytics">Truck</button>
-                                    <?php } if(!isset($_SESSION['dashboard']) || $privileges->carrier == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();dashchart(this.value);"
-                                        value="carrier_analytics">Carrier</button>
-                                    <?php } if(!isset($_SESSION['dashboard']) || $privileges->equipment == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();dashchart(this.value);"
-                                        value="equipment_analytics">Equipment</button>
-                                    <?php } if(!isset($_SESSION['dashboard']) || $privileges->sales_representative == 1) {?>
-                                    <button type="button" class="btn dash_button" onclick="_empty();getsalesrapdata(); dashchart(this.value);"
-                                        value="salesrep_analytics">Sales Representative</button>
-                                    <?php } ?>
-                                    </div>
-                                    <!-- App actions end -->
-							</div>
-						</div>
-						<!-- ROW-1.1 END -->
+		<div class="row">
+		   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
+		      <div class="tabContainer">
+             <div id="tab1" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
 
-						<!-- ROW-2 -->
-						<div class="row">
-							<div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
-								<div class="row">
-									<div class="col-lg-12 col-xl-12 col-md-6 col-sm-12">
-										<div class="card">
-											<div class="card-body pb-2">
-												<div class="title-head mb-3">
-													<h3 class="mb-5 card-title">Revenue By channel</h3>
-													<div class="storage-percent">
-														<div class="progress fileprogress h-auto ps-0 shadow1">
-															<span class="progress-bar progress-bar-xs wd-15p received" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
-															<span class="progress-bar progress-bar-xs wd-15p download" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
-															<span class="progress-bar progress-bar-xs wd-15p shared" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
-															<span class="progress-bar progress-bar-xs wd-15p my-images" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></span>
-														</div>
-														<div class="remaining-storage">
-															<div class="text-muted fs-13 mb-1 mt-3">Total Revenue Earned</div>
-															<div class="fw-semibold fs-14 mb-1 mt-3">$345,3467.72</div>
-														</div>
-													</div>
-												</div>
-												<div class="content-main mt-5">
-													<ul class="task-list1 row mx-auto">
-														<li class="col-xl-6">
-															<span class="mb-0 fs-13 me-1"><i class="task-icon1 bg-primary me-3"></i>Direct</span>
-															<span class="text-success fw-semibold fs-12">
-																<span class="mx-1"><i class="fa fa-caret-up"></i></span>
-																<span class="">(42.34%)</span>
-															</span>
-														</li>
-														<li class="col-xl-6">
-															<span class="mb-0 fs-13 me-1"><i class="task-icon1 bg-secondary"></i>Referral</span>
-															<span class="text-danger fw-semibold fs-12">
-																<span class="mx-1"><i class="fa fa-caret-down"></i></span>
-																<span class="">(13%)</span>
-															</span>
-														</li>
-														<li class="col-xl-6">
-															<span class="mb-0 fs-13 me-1"><i class="task-icon1 bg-custom-yellow"></i>Social</span>
-															<span class="text-success fw-semibold fs-12">
-																<span class="mx-1"><i class="fa fa-caret-up"></i></span>
-																<span class="">(62%)</span>
-															</span>
-														</li>
-														<li class="col-xl-6 mb-xl-0">
-															<span class="mb-0 fs-13 me-1"><i class="task-icon1 bg-teritary"></i>Organic Search</span>
-															<span class="text-success fw-semibold fs-12">
-																<span class="mx-1"><i class="fa fa-caret-up"></i></span>
-																<span class="">(22.46%)</span>
-															</span>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
-										<div class="card overflow-hidden">
-											<div class="card-header border-bottom">
-												<h4 class="card-title fw-semibold">Latest Transactions</h4>
-												<a href="#" class="ms-auto">View All</a>
-											</div>
-											<div class="card-body p-0 customers mt-1">
-												<div class="list-group py-1">
-													<a href="javascript:void(0);" class="border-0">
-														<div class="list-group-item border-0">
-															<div class="media mt-0 align-items-center">
-																<div class="transaction-icon"><i class="fe fe-chevrons-right"></i>
-																</div>
-																<div class="media-body">
-																	<div class="d-flex align-items-center">
-																		<div class="mt-0">
-																			<h5 class="mb-1 fs-13 fw-normal text-dark">To Bel Bcron Bank<span class="fs-13 fw-semibold ms-1">Savings Section</span></h5>
-																			<p class="mb-0 fs-12 text-muted">Transfer 4.53pm</p>
-																		</div>
-																		<span class="ms-auto fs-13">
-																			<span class="float-end text-dark">-$2,543</span>
-																		</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</a>
-													<a href="javascript:void(0);" class="border-0">
-														<div class="list-group-item border-0">
-															<div class="media mt-0 align-items-center">
-																<div class="transaction-icon">
-																	<i class="fe fe-briefcase"></i>
-																</div>
-																<div class="media-body">
-																	<div class="d-flex align-items-center">
-																		<div class="mt-0">
-																			<h5 class="mb-1 fs-13 fw-normal text-dark">Payment For <span class="fs-13 fw-semibold ms-1">Day Job</span></h5>
-																			<p class="mb-0 fs-12 text-muted">Received 2.45pm</p>
-																		</div>
-																		<span class="ms-auto fs-13">
-																			<span class="float-end text-dark">+$32,543</span>
-																		</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</a>
-													<a href="javascript:void(0);" class="border-0">
-														<div class="list-group-item border-0">
-															<div class="media mt-0 align-items-center">
-																<div class="transaction-icon"><i class="fe fe-dollar-sign"></i>
-																</div>
-																<div class="media-body">
-																	<div class="d-flex align-items-center">
-																		<div class="mt-0">
-																			<h5 class="mb-1 fs-13 fw-normal text-dark">Bought items from<span class="fs-13 fw-semibold ms-1">Ecommerce site</span></h5>
-																			<p class="mb-0 fs-12 text-muted">Payment 8.00am</p>
-																		</div>
-																		<span class="ms-auto fs-13">
-																			<span class="float-end text-dark">-$256</span>
-																		</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</a>
-													<a href="javascript:void(0);" class="border-0">
-														<div class="list-group-item border-0">
-															<div class="media mt-0 align-items-center">
-																<div class="transaction-icon"><i class="fe fe-file-text"></i>
-																</div>
-																<div class="media-body">
-																	<div class="d-flex align-items-center">
-																		<div class="mt-0">
-																			<h5 class="mb-1 fs-13 fw-normal text-dark">Paid Monthly Expenses<span class="fs-13 fw-semibold ms-1">Bills & Loans</span></h5>
-																			<p class="mb-0 fs-12 text-muted">Payment 6.43am</p>
-																		</div>
-																		<span class="ms-auto fs-13">
-																			<span class="float-end text-dark">-$1,298</span>
-																		</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
-								<div class="card">
-									<div class="card-header border-bottom">
-										<h3 class="card-title">Sales</h3>
-										<div class="ms-auto">
-											<div class="btn-group p-0 ms-auto">
-												<button class="btn btn-primary-light btn-sm disabled" type="button">2021</button>
-												<button class="btn btn-primary-light btn-sm" type="button">2022</button>
-												<button class="btn btn-primary-light btn-sm disabled" type="button">2023</button>
-											 </div>
-										</div>
-									</div>
-									<div class="card-body">
-										<div class="sales-stats d-flex">
-											<div>
-												<div class="text-muted fs-13">Total Sales
-													<span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
-												</div>
-												<h3 class="fw-semibold">$582,857.97</h3>
-												<div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
-											</div>
-										</div>
-										<div id="chartD"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- ROW-2 END -->
-						
-                        <!-- ROW-2 -->
-						<div class="row">
-							<div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
-								<div class="row">
-									<div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
-										<div class="card overflow-hidden">
-											<div class="card-header border-bottom">
-
-                                                <div class="card-body custom-card" style="padding:0rem">
-                                                    <div class="wrapper__header">
-                                                        <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
-                                                        <div class="b_caption">
-                                                            <span id="ranking_table" style="float:left"></span>
-                                                        </div>
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">CUSTOMER RANKING</span>
                                                     </div>
-                                                    <div class="wrapper__content" id="dashtable" >
-
-
                                                     </div>
-                                                    <div class="b_footer">
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
 
-                            
-
-							<div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
-								<div class="card">
-									<div class="card-header border-bottom">
-										<h3 class="card-title">Sales</h3>
-										<div class="ms-auto">
-											<div class="btn-group p-0 ms-auto">
-												<button class="btn btn-primary-light btn-sm disabled" type="button">2021</button>
-												<button class="btn btn-primary-light btn-sm" type="button">2022</button>
-												<button class="btn btn-primary-light btn-sm disabled" type="button">2023</button>
-											 </div>
-										</div>
-									</div>
-									<div class="card-body">
-										<div class="sales-stats d-flex">
-											<div>
-												<div class="text-muted fs-13">Total Sales
-													<span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
-												</div>
-												<h3 class="fw-semibold">$582,857.97</h3>
-												<div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
-											</div>
-										</div>
-										<div id="chartD"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- ROW-2 END -->
-
-						<!-- ROW-3 -->
-						<div class="row">
-							<div class="col-xl-12 col-md-12">
-								<div class="card">
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Customer Revenue
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
                                 <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          <div id="chartD"></div>
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+
+          <canvas id="badCanvas2" width="400" height="100">Your browser does not support the canvas element.</canvas>
+         <!-- ROW-3 -->
+
+        <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
                         <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span
-                                class="bartitle"></span>&nbsp;<span class="linetitledata"></span><span
-                                class="float-right" id="linec_name"></span></h5>
-                        <!-- Row start -->
-                        <div class="row gutters align-items-center">
-                            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
-                                <div class="monthly-avg">
-                                    <h5>Current Month</h5>
-                                    <div class="avg-block">
-                                        <h3 class="avg-total text-success" id="current_loadd"></h3>
-                                        <h6 class="avg-label">Load</h6>
-                                    </div>
-                                    <div class="avg-block">
-
-                                        <div class="tooltip1">
-                                            <span class="revenue">
-                                                <h3 class="avg-total text-info" id="current_amountd"></h3>
-                                            </span>
-                                            <h4 class="toolrevenue" id="current_amountdtool"></h4>
-                                        </div>
-                                        <h6 class="avg-label avg-label-2"></h6>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
-                            <figure class="highcharts-figure">
-                                <div id="line-chart"></div>
-                            </figure>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
-                                <div class="monthly-avg">
-                                    <h5>Previous Month</h5>
-                                    <div class="avg-block">
-                                        <h3 class="avg-total text-success" id="previous_loadd"></h3>
-                                        <h6 class="avg-label">Load</h6>
-                                    </div>
-                                    <div class="avg-block">
-
-                                        <div class="tooltip1">
-                                            <span class="revenue">
-                                                <h3 class="avg-total text-info" id="previous_amountd"></h3>
-                                            </span>
-                                            <h4 class="toolrevenue" id="previous_amountdtool"></h4>
-                                        </div>
-                                        <h6 class="avg-label avg-label-2"></h6>
-                                    </div>
-                                </div>
-                            </div>
+                         class="bartitle"></span>&nbsp;<span class="linetitledata">Customer Revenue
+                          </span><span class="float-right" id="linec_name"></span></h5>
+               
+               <!-- Row start -->
+                           <div class="row gutters align-items-center padd-top">
+                               <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+                                <div class="monthly-avg cut-text">
+                                   <h5>Current Month</h5>
+                                 <div class="avg-block">
+                                    <h3 class="avg-total text-success" id="current_loadd">0</h3>
+                                     <h6 class="avg-label">Load</h6>
+                                     </div>
+                                      <div class="avg-block">
+                                     <div class="tooltip1">
+                           <span class="revenue">
+                            <h3 class="avg-total text-info" id="current_amountd">$0.00</h3>
+                          </span>
+                          <h4 class="toolrevenue" id="current_amountdtool"></h4>
                         </div>
-                        <!-- Row end -->
+                      <h6 class="avg-label avg-label-2">Revenue</h6>
+
+                     </div>
+                   </div>
+                  </div>
+                 <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
+                <figure class="highcharts-figure">
+               <div id="line-chart"></div>
+            </figure>
+           </div>
+           <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+               <div class="monthly-avg cut-text">
+                <h5>Previous Month</h5>
+                <div class="avg-block">
+                    <h3 class="avg-total text-success" id="previous_loadd">0</h3>
+                    <h6 class="avg-label">Load</h6>
+                </div>
+                <div class="avg-block">
+
+                    <div class="tooltip1">
+                        <span class="revenue">
+                            <h3 class="avg-total text-info" id="previous_amountd">$0.00</h3>
+                        </span>
+                        <h4 class="toolrevenue" id="previous_amountdtool"></h4>
                     </div>
-								</div>
-							</div>
-							
-							
-						</div>
-						<!-- ROW-3 END -->
+                    <h6 class="avg-label avg-label-2">Revenue</h6>
+                </div>
+            </div>
+        </div>
+       </div>
+    <!-- Row end -->
+      </div>
+     </div>
+     </div>							
+    </div>
 
-						<!-- ROW-4 -->
-						<div class="row">
-							<div class="col-12 col-sm-12">
-								<div class="card product-sales-main">
-									<div class="card-header border-bottom">
-										<h3 class="card-title mb-0">Task List</h3>
-									</div>
-									<div class="card-body">
-										<div class="table-responsive">
-											<table id="data-table" class="table text-nowrap mb-0 table-bordered">
-												<thead class="table-head">
-													<tr>
-														<th class="bg-transparent border-bottom-0 wp-15">Assigned To</th>
-														<th class="bg-transparent border-bottom-0">Task</th>
-														<th class="bg-transparent border-bottom-0">Project</th>
-														<th class="bg-transparent border-bottom-0">Due Date</th>
-														<th class="bg-transparent border-bottom-0">Status</th>
-														<th class="bg-transparent border-bottom-0 no-btn">Action</th>
-													</tr>
-												</thead>
-												<tbody class="table-body">
-													<tr>
-														<td>
-															<div class="d-flex align-items-center">
-																<span class="data-image avatar avatar-md rounded-circle" style="background-image: url(../assets/images/users/11.jpg)"></span>
-																<div class="user-details ms-2">
-																	<h6 class="mb-0">Skyler Hilda</h6>
-																	<span class="text-muted fs-12">member@spruko.com</span>
-																</div>
-															</div>
-														</td>
-														<td class="text-muted fs-14 fw-semibold"><a href="#" class="text-dark" data-bs-target="#Vertically" data-bs-toggle="modal" >Sit sed takimata sanctus invidunt</a></td>
-														<td class="text-muted fs-13"><a href="project-details.html" class="text-dark">Noa Dashboard UI</a></td>
-														<td class="text-danger fs-14 fw-semibold">31 Oct 21</td>
-														<td>
-															<div class="form-group mb-0">
-																<ul>
-																	<li class="select-status">
-																		<select class="form-control select2-status-search" data-placeholder="Select Status">
-																			<option value="IP" selected>In Progress</option>
-																			<option value="OH">On Hold</option>
-																			<option value="CP">Completed</option>
-																		</select>
-																	</li>
-																</ul>
-															</div>
-														</td>
-														<td>
-															<div class="d-flex align-items-stretch">
-																<a class="btn btn-sm btn-outline-primary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Mark As Completed">
-																	<svg  xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="20" width="16" viewBox="0 0 24 24"><path d="M15.8085327,8.6464844l-5.6464233,5.6464844l-2.4707031-2.4697266c-0.0023804-0.0023804-0.0047607-0.0047607-0.0072021-0.0071411c-0.1972046-0.1932373-0.5137329-0.1900635-0.7069702,0.0071411c-0.1932983,0.1972656-0.1900635,0.5137939,0.0071411,0.7070312l2.8242188,2.8232422C9.9022217,15.4474487,10.02948,15.5001831,10.1621094,15.5c0.1326294,0.0001221,0.2598267-0.0525513,0.3534546-0.1464844l6-6c0.0023804-0.0023804,0.0047607-0.0046997,0.0071411-0.0071411c0.1932373-0.1972046,0.1900635-0.5137329-0.0071411-0.7069702C16.3183594,8.446106,16.0018311,8.4493408,15.8085327,8.6464844z M12,2C6.4771729,2,2,6.4771729,2,12s4.4771729,10,10,10c5.5201416-0.0064697,9.9935303-4.4798584,10-10C22,6.4771729,17.5228271,2,12,2z M12,21c-4.9705811,0-9-4.0294189-9-9s4.0294189-9,9-9c4.9683228,0.0054321,8.9945679,4.0316772,9,9C21,16.9705811,16.9705811,21,12,21z"/></svg>
-																</a>
-																<a class="btn btn-sm btn-outline-secondary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-																	<svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" /></svg>
-																</a>
-																<a href="#" class="border br-5 px-2 py-1 d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-																<div class="dropdown-menu dropdown-menu-start">
-																	<a class="dropdown-item" href="#"><i class="fe fe-edit-2 me-2"></i> Edit</a>
-																	<a class="dropdown-item" href="#"><i class="fe fe-info me-2"></i> Info</a>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="d-flex align-items-center">
-																<span class="data-image avatar avatar-md rounded-circle" style="background-image: url(../assets/images/users/12.jpg)"></span>
-																<div class="user-details ms-2">
-																	<h6 class="mb-0">Daniel Obrien</h6>
-																	<span class="text-muted fs-12">member@spruko.com</span>
-																</div>
-															</div>
-														</td>
-														<td class="text-muted fs-14 fw-semibold"><a href="#" class="text-dark" data-bs-target="#Vertically" data-bs-toggle="modal" >Diam lorem dolor no lorem.</a></td>
-														<td class="text-muted fs-13"><a href="project-details.html" class="text-dark">Noa Dashboard UI</a></td>
-														<td class="text-danger fs-14 fw-semibold">01 Nov 21</td>
-														<td>
-															<div class="form-group mb-0">
-																<ul>
-																	<li class="select-status">
-																		<select class="form-control select2-status-search" data-placeholder="Select Status">
-																			<option value="IP">In Progress</option>
-																			<option value="OH" selected>On Hold</option>
-																			<option value="CP">Completed</option>
-																		</select>
-																	</li>
-																</ul>
-															</div>
-														</td>
-														<td>
-															<div class="d-flex align-items-stretch">
-																<a class="btn btn-sm btn-outline-primary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Mark As Completed">
-																	<svg  xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="20" width="16" viewBox="0 0 24 24"><path d="M15.8085327,8.6464844l-5.6464233,5.6464844l-2.4707031-2.4697266c-0.0023804-0.0023804-0.0047607-0.0047607-0.0072021-0.0071411c-0.1972046-0.1932373-0.5137329-0.1900635-0.7069702,0.0071411c-0.1932983,0.1972656-0.1900635,0.5137939,0.0071411,0.7070312l2.8242188,2.8232422C9.9022217,15.4474487,10.02948,15.5001831,10.1621094,15.5c0.1326294,0.0001221,0.2598267-0.0525513,0.3534546-0.1464844l6-6c0.0023804-0.0023804,0.0047607-0.0046997,0.0071411-0.0071411c0.1932373-0.1972046,0.1900635-0.5137329-0.0071411-0.7069702C16.3183594,8.446106,16.0018311,8.4493408,15.8085327,8.6464844z M12,2C6.4771729,2,2,6.4771729,2,12s4.4771729,10,10,10c5.5201416-0.0064697,9.9935303-4.4798584,10-10C22,6.4771729,17.5228271,2,12,2z M12,21c-4.9705811,0-9-4.0294189-9-9s4.0294189-9,9-9c4.9683228,0.0054321,8.9945679,4.0316772,9,9C21,16.9705811,16.9705811,21,12,21z"/></svg>
-																</a>
-																<a class="btn btn-sm btn-outline-secondary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-																	<svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" /></svg>
-																</a>
-																<a href="#" class="border br-5 px-2 py-1 d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-																<div class="dropdown-menu dropdown-menu-start">
-																	<a class="dropdown-item" href="#"><i class="fe fe-edit-2 me-2"></i> Edit</a>
-																	<a class="dropdown-item" href="#"><i class="fe fe-info me-2"></i> Info</a>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="d-flex align-items-center">
-																<span class="data-image avatar avatar-md rounded-circle" style="background-image: url(../assets/images/users/13.jpg)"></span>
-																<div class="user-details ms-2">
-																	<h6 class="mb-0">William Turner</h6>
-																	<span class="text-muted fs-12">member@spruko.com</span>
-																</div>
-															</div>
-														</td>
-														<td class="text-muted fs-14 fw-semibold"><a href="#" class="text-dark" data-bs-target="#Vertically" data-bs-toggle="modal" >Amet clita sea ut dolor consetetur, elitr.</a></td>
-														<td class="text-muted fs-13"><a href="project-details.html" class="text-dark">Noa Dashboard UI</a></td>
-														<td class="text-danger fs-14 fw-semibold">08 Nov 21</td>
-														<td>
-															<div class="form-group mb-0">
-																<ul>
-																	<li class="select-status">
-																		<select class="form-control select2-status-search" data-placeholder="Select Status">
-																			<option value="IP">In Progress</option>
-																			<option value="OH" selected>On Hold</option>
-																			<option value="CP">Completed</option>
-																		</select>
-																	</li>
-																</ul>
-															</div>
-														</td>
-														<td>
-															<div class="d-flex align-items-stretch">
-																<a class="btn btn-sm btn-outline-primary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Mark As Completed">
-																	<svg  xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="20" width="16" viewBox="0 0 24 24"><path d="M15.8085327,8.6464844l-5.6464233,5.6464844l-2.4707031-2.4697266c-0.0023804-0.0023804-0.0047607-0.0047607-0.0072021-0.0071411c-0.1972046-0.1932373-0.5137329-0.1900635-0.7069702,0.0071411c-0.1932983,0.1972656-0.1900635,0.5137939,0.0071411,0.7070312l2.8242188,2.8232422C9.9022217,15.4474487,10.02948,15.5001831,10.1621094,15.5c0.1326294,0.0001221,0.2598267-0.0525513,0.3534546-0.1464844l6-6c0.0023804-0.0023804,0.0047607-0.0046997,0.0071411-0.0071411c0.1932373-0.1972046,0.1900635-0.5137329-0.0071411-0.7069702C16.3183594,8.446106,16.0018311,8.4493408,15.8085327,8.6464844z M12,2C6.4771729,2,2,6.4771729,2,12s4.4771729,10,10,10c5.5201416-0.0064697,9.9935303-4.4798584,10-10C22,6.4771729,17.5228271,2,12,2z M12,21c-4.9705811,0-9-4.0294189-9-9s4.0294189-9,9-9c4.9683228,0.0054321,8.9945679,4.0316772,9,9C21,16.9705811,16.9705811,21,12,21z"/></svg>
-																</a>
-																<a class="btn btn-sm btn-outline-secondary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-																	<svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" /></svg>
-																</a>
-																<a href="#" class="border br-5 px-2 py-1 d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-																<div class="dropdown-menu dropdown-menu-start">
-																	<a class="dropdown-item" href="#"><i class="fe fe-edit-2 me-2"></i> Edit</a>
-																	<a class="dropdown-item" href="#"><i class="fe fe-info me-2"></i> Info</a>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="d-flex align-items-center">
-																<span class="data-image avatar avatar-md rounded-circle" style="background-image: url({{URL::to('/')}}/assets/images/users/4.jpg)"></span>
-																<div class="user-details ms-2">
-																	<h6 class="mb-0">Olena Tyrell</h6>
-																	<span class="text-muted fs-12">member@spruko.com</span>
-																</div>
-															</div>
-														</td>
-														<td class="text-muted fs-14 fw-semibold"><a href="#" class="text-dark" data-bs-target="#Vertically" data-bs-toggle="modal" >Est sea erat at kasd.</a></td>
-														<td class="text-muted fs-13"><a href="project-details.html" class="text-dark">Noa Dashboard UI</a></td>
-														<td class="text-danger fs-14 fw-semibold">04 Nov 21</td>
-														<td>
-															<div class="form-group mb-0">
-																<ul>
-																	<li class="select-status">
-																		<select class="form-control select2-status-search" data-placeholder="Select Status">
-																			<option value="IP" selected>In Progress</option>
-																			<option value="OH">On Hold</option>
-																			<option value="CP">Completed</option>
-																		</select>
-																	</li>
-																</ul>
-															</div>
-														</td>
-														<td>
-															<div class="d-flex align-items-stretch">
-																<a class="btn btn-sm btn-outline-primary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Mark As Completed">
-																	<svg  xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="20" width="16" viewBox="0 0 24 24"><path d="M15.8085327,8.6464844l-5.6464233,5.6464844l-2.4707031-2.4697266c-0.0023804-0.0023804-0.0047607-0.0047607-0.0072021-0.0071411c-0.1972046-0.1932373-0.5137329-0.1900635-0.7069702,0.0071411c-0.1932983,0.1972656-0.1900635,0.5137939,0.0071411,0.7070312l2.8242188,2.8232422C9.9022217,15.4474487,10.02948,15.5001831,10.1621094,15.5c0.1326294,0.0001221,0.2598267-0.0525513,0.3534546-0.1464844l6-6c0.0023804-0.0023804,0.0047607-0.0046997,0.0071411-0.0071411c0.1932373-0.1972046,0.1900635-0.5137329-0.0071411-0.7069702C16.3183594,8.446106,16.0018311,8.4493408,15.8085327,8.6464844z M12,2C6.4771729,2,2,6.4771729,2,12s4.4771729,10,10,10c5.5201416-0.0064697,9.9935303-4.4798584,10-10C22,6.4771729,17.5228271,2,12,2z M12,21c-4.9705811,0-9-4.0294189-9-9s4.0294189-9,9-9c4.9683228,0.0054321,8.9945679,4.0316772,9,9C21,16.9705811,16.9705811,21,12,21z"/></svg>
-																</a>
-																<a class="btn btn-sm btn-outline-secondary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-																	<svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" /></svg>
-																</a>
-																<a href="#" class="border br-5 px-2 py-1 d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-																<div class="dropdown-menu dropdown-menu-start">
-																	<a class="dropdown-item" href="#"><i class="fe fe-edit-2 me-2"></i> Edit</a>
-																	<a class="dropdown-item" href="#"><i class="fe fe-info me-2"></i> Info</a>
-																</div>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="d-flex align-items-center">
-																<span class="data-image avatar avatar-md rounded-circle" style="background-image: url(../assets/images/users/5.jpg)"></span>
-																<div class="user-details ms-2">
-																	<h6 class="mb-0">Emilie Benett</h6>
-																	<span class="text-muted fs-12">member@spruko.com</span>
-																</div>
-															</div>
-														</td>
-														<td class="text-muted fs-14 fw-semibold"><a href="#" class="text-dark" data-bs-target="#Vertically" data-bs-toggle="modal" >Rebum gubergren at kasd takimata clita.</a></td>
-														<td class="text-muted fs-13"><a href="project-details.html" class="text-dark">Noa Dashboard UI</a></td>
-														<td class="text-danger fs-14 fw-semibold">29 Oct 21</td>
-														<td>
-															<div class="form-group mb-0">
-																<ul>
-																	<li class="select-status">
-																		<select class="form-control select2-status-search" data-placeholder="Select Status">
-																			<option value="IP">In Progress</option>
-																			<option value="OH">On Hold</option>
-																			<option value="CP" selected>Completed</option>
-																		</select>
-																	</li>
-																</ul>
-															</div>
-														</td>
-														<td>
-															<div class="d-flex align-items-stretch">
-																<a class="btn btn-sm btn-outline-primary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Mark As Completed">
-																	<svg  xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="20" width="16" viewBox="0 0 24 24"><path d="M15.8085327,8.6464844l-5.6464233,5.6464844l-2.4707031-2.4697266c-0.0023804-0.0023804-0.0047607-0.0047607-0.0072021-0.0071411c-0.1972046-0.1932373-0.5137329-0.1900635-0.7069702,0.0071411c-0.1932983,0.1972656-0.1900635,0.5137939,0.0071411,0.7070312l2.8242188,2.8232422C9.9022217,15.4474487,10.02948,15.5001831,10.1621094,15.5c0.1326294,0.0001221,0.2598267-0.0525513,0.3534546-0.1464844l6-6c0.0023804-0.0023804,0.0047607-0.0046997,0.0071411-0.0071411c0.1932373-0.1972046,0.1900635-0.5137329-0.0071411-0.7069702C16.3183594,8.446106,16.0018311,8.4493408,15.8085327,8.6464844z M12,2C6.4771729,2,2,6.4771729,2,12s4.4771729,10,10,10c5.5201416-0.0064697,9.9935303-4.4798584,10-10C22,6.4771729,17.5228271,2,12,2z M12,21c-4.9705811,0-9-4.0294189-9-9s4.0294189-9,9-9c4.9683228,0.0054321,8.9945679,4.0316772,9,9C21,16.9705811,16.9705811,21,12,21z"/></svg>
-																</a>
-																<a class="btn btn-sm btn-outline-secondary border me-2" data-bs-toggle="tooltip" data-bs-original-title="Delete">
-																	<svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="16"><path d="M0 0h24v24H0V0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z" /></svg>
-																</a>
-																<a href="#" class="border br-5 px-2 py-1 d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-																<div class="dropdown-menu dropdown-menu-start">
-																	<a class="dropdown-item" href="#"><i class="fe fe-edit-2 me-2"></i> Edit</a>
-																	<a class="dropdown-item" href="#"><i class="fe fe-info me-2"></i> Info</a>
-																</div>
-															</div>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div><!-- COL END -->
-						</div>
-						<!-- ROW-4 END -->
+   </div>
+     
+   <div id="tab2" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
 
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">FUEL CARD</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Total Revenue
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
+                                <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          <div id="chartD"></div>
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+
+         
+          <div class="row">
+		        <div class="col-xs-12 col-lg-6">
+                   <div class="card-body add-truck">
+                     <div class="widget">
+					   <div class="widget-heading">
+					    <div class="">
+                                    <h5 class="custome-line">Bank</h5>
+                                </div>
 					</div>
 				</div>
-			</div>
-			<!-- CONTAINER END -->
+		     </div>
+
 		</div>
+		<div class="col-xs-12 col-lg-6">
+            <div class="card-body add-truck">
+                <div class="widget">
+					<div class="widget-heading">
+					<div class="">
+                                    <h5 class="custome-line">Truck Average</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+	</div>
+
+    </div>
+    <!-- Row end -->
+        </div>
+    </div>
+    </div>							
+
+    <div id="tab3" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
+
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">DISPATCHER RANKING</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Dispatcher Loads
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
+                                <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          <div id="chartD"></div>
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+
+         
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Dispatcher Incentive
+                          </span><span class="float-right" id="linec_name"></span></h5>
+               
+               <!-- Row start -->
+                           <div class="row gutters align-items-center padd-top">
+                               <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+                                <div class="monthly-avg cut-text">
+                                   <h5>Current Month</h5>
+                                 <div class="avg-block">
+                                    <h3 class="avg-total text-success" id="current_loadd">0</h3>
+                                     <h6 class="avg-label">Load</h6>
+                                     </div>
+                                      <div class="avg-block">
+                                     <div class="tooltip1">
+                           <span class="revenue">
+                            <h3 class="avg-total text-info" id="current_amountd">$0.00</h3>
+                          </span>
+                          <h4 class="toolrevenue" id="current_amountdtool"></h4>
+                        </div>
+                      <h6 class="avg-label avg-label-2">Revenue</h6>
+
+                     </div>
+                   </div>
+                  </div>
+                 <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
+                <figure class="highcharts-figure">
+               <div id="line-chart"></div>
+            </figure>
+           </div>
+           <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+               <div class="monthly-avg cut-text">
+                <h5>Previous Month</h5>
+                <div class="avg-block">
+                    <h3 class="avg-total text-success" id="previous_loadd">0</h3>
+                    <h6 class="avg-label">Load</h6>
+                </div>
+                <div class="avg-block">
+
+                    <div class="tooltip1">
+                        <span class="revenue">
+                            <h3 class="avg-total text-info" id="previous_amountd">$0.00</h3>
+                        </span>
+                        <h4 class="toolrevenue" id="previous_amountdtool"></h4>
+                    </div>
+                    <h6 class="avg-label avg-label-2">Revenue</h6>
+                </div>
+            </div>
+        </div>
+       </div>
+    <!-- Row end -->
+      </div>
+     </div>
+     </div>							
+    </div>
+    </div>
+    <!-- Row end -->
+
+    <div id="tab4" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
+
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">DRIVER RANKING</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Driver Loads
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
+                                <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          <div id="chartD"></div>
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+
+         
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Driver Pay
+                          </span><span class="float-right" id="linec_name"></span></h5>
+               
+               <!-- Row start -->
+                           <div class="row gutters align-items-center padd-top">
+                               <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+                                <div class="monthly-avg cut-text">
+                                   <h5>Current Month</h5>
+                                 <div class="avg-block">
+                                    <h3 class="avg-total text-success" id="current_loadd">0</h3>
+                                     <h6 class="avg-label">Load</h6>
+                                     </div>
+                                      <div class="avg-block">
+                                     <div class="tooltip1">
+                           <span class="revenue">
+                            <h3 class="avg-total text-info" id="current_amountd">$0.00</h3>
+                          </span>
+                          <h4 class="toolrevenue" id="current_amountdtool"></h4>
+                        </div>
+                      <h6 class="avg-label avg-label-2">Revenue</h6>
+
+                     </div>
+                   </div>
+                  </div>
+                 <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
+                <figure class="highcharts-figure">
+               <div id="line-chart"></div>
+            </figure>
+           </div>
+           <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+               <div class="monthly-avg cut-text">
+                <h5>Previous Month</h5>
+                <div class="avg-block">
+                    <h3 class="avg-total text-success" id="previous_loadd">0</h3>
+                    <h6 class="avg-label">Load</h6>
+                </div>
+                <div class="avg-block">
+
+                    <div class="tooltip1">
+                        <span class="revenue">
+                            <h3 class="avg-total text-info" id="previous_amountd">$0.00</h3>
+                        </span>
+                        <h4 class="toolrevenue" id="previous_amountdtool"></h4>
+                    </div>
+                    <h6 class="avg-label avg-label-2">Revenue</h6>
+                </div>
+            </div>
+        </div>
+       </div>
+    <!-- Row end -->
+      </div>
+     </div>
+     </div>							
+    </div>
+    </div>
+
+    <div id="tab5" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
+
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">COMPANY RANKING</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Company Loads
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
+                                <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          <div id="chartD"></div>
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+            <div class="row">
+		        <div class="col-xs-12 col-lg-6">
+                   <div class="card-body add-truck">
+                     <div class="widget">
+					   <div class="widget-heading">
+					    <div class="">
+                                    <h5 class="custome-line">Company Expense Chart</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+		<div class="col-xs-12 col-lg-6">
+            <div class="card-body add-truck">
+                <div class="widget">
+					<div class="widget-heading">
+					<div class="">
+                                    <h5 class="custome-line">Company Cashflow Chart</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+		
+	</div>
+    </div>
+
+    <div id="tab6" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
+
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">TRUCK RANKING</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Truck Map
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
+                                <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+
+
+            <div class="row">
+		        <div class="col-xs-12 col-lg-4">
+                   <div class="card-body add-truck">
+                     <div class="widget">
+					   <div class="widget-heading">
+					    <div class="">
+                                    <h5 class="custome-line">Truck Miles</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+
+        <div class="col-xs-12 col-lg-4">
+                   <div class="card-body add-truck">
+                     <div class="widget">
+					   <div class="widget-heading">
+					    <div class="">
+                                    <h5 class="custome-line">Truck Average</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+
+		<div class="col-xs-12 col-lg-4">
+            <div class="card-body add-truck">
+                <div class="widget">
+					<div class="widget-heading">
+					<div class="">
+                                    <h5 class="custome-line">Truck Earning</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+		
+	</div>
+    </div>
+
+    <div id="tab7" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
+
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">CARRIER RANKING</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Carrier Loads
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
+                                <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          <div id="chartD"></div>
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+
+         
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Carrier Pay
+
+                          </span><span class="float-right" id="linec_name"></span></h5>             
+               <!-- Row start -->
+                           <div class="row gutters align-items-center padd-top">
+                               <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+                                <div class="monthly-avg cut-text">
+                                   <h5>Current Month</h5>
+                                 <div class="avg-block">
+                                    <h3 class="avg-total text-success" id="current_loadd">0</h3>
+                                     <h6 class="avg-label">Load</h6>
+                                     </div>
+                                      <div class="avg-block">
+                                     <div class="tooltip1">
+                           <span class="revenue">
+                            <h3 class="avg-total text-info" id="current_amountd">$0.00</h3>
+                          </span>
+                          <h4 class="toolrevenue" id="current_amountdtool"></h4>
+                        </div>
+                      <h6 class="avg-label avg-label-2">Revenue</h6>
+
+                     </div>
+                   </div>
+                  </div>
+                 <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
+                <figure class="highcharts-figure">
+               <div id="line-chart"></div>
+            </figure>
+           </div>
+           <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+               <div class="monthly-avg cut-text">
+                <h5>Previous Month</h5>
+                <div class="avg-block">
+                    <h3 class="avg-total text-success" id="previous_loadd">0</h3>
+                    <h6 class="avg-label">Load</h6>
+                </div>
+                <div class="avg-block">
+
+                    <div class="tooltip1">
+                        <span class="revenue">
+                            <h3 class="avg-total text-info" id="previous_amountd">$0.00</h3>
+                        </span>
+                        <h4 class="toolrevenue" id="previous_amountdtool"></h4>
+                    </div>
+                    <h6 class="avg-label avg-label-2">Revenue</h6>
+                </div>
+            </div>
+        </div>
+       </div>
+    <!-- Row end -->
+      </div>
+     </div>
+     </div>							
+    </div>
+    </div>
+
+
+    <div id="tab8" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
+
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">EQUIPMENT RANKING</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   <div class="card">
+                                   <div class="card-header border-hide">
+				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Equipment Loads
+                                    </span><span class="float-right" id="linec_name"></span></h5>
+                                 </div>
+                                <div class="card-body">
+                                <div class="sales-stats d-flex">
+                               <div>
+                                <div class="text-muted fs-13">Total Sales
+                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                               </div>
+                               <h3 class="fw-semibold">$582,857.97</h3>
+                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                            </div>
+                          </div>
+                          <div id="chartD"></div>
+                     </div>
+
+                 </div>
+               </div>
+
+            </div>
+
+         
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Equipment Revenue
+                          </span><span class="float-right" id="linec_name"></span></h5>             
+               <!-- Row start -->
+                           <div class="row gutters align-items-center padd-top">
+                               <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+                                <div class="monthly-avg cut-text">
+                                   <h5>Current Month</h5>
+                                 <div class="avg-block">
+                                    <h3 class="avg-total text-success" id="current_loadd">0</h3>
+                                     <h6 class="avg-label">Load</h6>
+                                     </div>
+                                      <div class="avg-block">
+                                     <div class="tooltip1">
+                           <span class="revenue">
+                            <h3 class="avg-total text-info" id="current_amountd">$0.00</h3>
+                          </span>
+                          <h4 class="toolrevenue" id="current_amountdtool"></h4>
+                        </div>
+                      <h6 class="avg-label avg-label-2">Revenue</h6>
+
+                     </div>
+                   </div>
+                  </div>
+                 <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
+                <figure class="highcharts-figure">
+               <div id="line-chart"></div>
+            </figure>
+           </div>
+           <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+               <div class="monthly-avg cut-text">
+                <h5>Previous Month</h5>
+                <div class="avg-block">
+                    <h3 class="avg-total text-success" id="previous_loadd">0</h3>
+                    <h6 class="avg-label">Load</h6>
+                </div>
+                <div class="avg-block">
+
+                    <div class="tooltip1">
+                        <span class="revenue">
+                            <h3 class="avg-total text-info" id="previous_amountd">$0.00</h3>
+                        </span>
+                        <h4 class="toolrevenue" id="previous_amountdtool"></h4>
+                    </div>
+                    <h6 class="avg-label avg-label-2">Revenue</h6>
+                </div>
+            </div>
+        </div>
+       </div>
+    <!-- Row end -->
+      </div>
+     </div>
+     </div>							
+    </div>
+    </div>
+
+    <div id="tab9" class="tabContent">
+		        <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                       <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                              <div class="card overflow-hidden">
+                                  <div class="card-header border-bottom card-padd">
+
+                                     <div class="card-body custom-card" style="padding:0rem">
+                                         <div class="wrapper__header">
+                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                                                  <div class="b_caption">
+                                                       <span id="ranking_table" style="float:left">SALES REPRESENTATIVE RANKING</span>
+                                                    </div>
+                                                    </div>
+                                                    <div class="wrapper__content" id="dashtable"></div>
+                                                   <div class="b_footer">
+                                                 <p></p>
+                                               </div>
+                                            </div>
+                                          </div>
+                        
+                                        </div>
+                                       </div>
+                
+                                     </div>
+                                   </div>
+
+                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                                   
+                                 <div class="row">
+		        <div class="col-xs-12 col-lg-6">
+                   <div class="card-body add-truck">
+                     <div class="widget">
+					   <div class="widget-heading">
+					    <div class="">
+                                    <h5 class="custome-line">Company Expense Chart</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+		<div class="col-xs-12 col-lg-6">
+            <div class="card-body add-truck">
+                <div class="widget">
+					<div class="widget-heading">
+					<div class="">
+                                    <h5 class="custome-line">Company Cashflow Chart</h5>
+                                </div>
+					</div>
+				</div>
+		     </div>
+
+		</div>
+		
+	</div>
+                              
+    </div>
+	</div>
+	</div>
+    </div> 							
+        </div>
+        </div> </div>
 
 		<!--TASK MODAL-->
 		<div class="modal fade" id="Vertically">
@@ -1183,5 +1598,90 @@
             </div>
         </div>
         <!-- /Country-selector modal-->
+
+<script>
+const leftArrow = document.getElementById('leftArrow');
+const rightArrow = document.getElementById('rightArrow');
+const menu = document.getElementById('menu');
+
+// Establish unchanging constants and initialize variables.
+const menuWrapperSize = document.getElementById('menu-wrapper').offsetWidth; 
+const menuSize = document.getElementById('menu').offsetWidth;	
+const menuInvisibleSize = Math.max(menuSize - menuWrapperSize, 0);	
+const arrowSize = rightArrow.offsetWidth;	
+const menuEndOffset = Math.max(menuInvisibleSize - arrowSize, 0);	
+const itemsCount = document.getElementsByClassName('item').length; 
+const itemSize = document.getElementsByClassName('item')[0].offsetWidth; 
+const itemsSpaceBetween = (menuSize - (itemsCount * itemSize)) / (itemsCount -2.0);	
+const distanceInPixels = itemSize + itemsSpaceBetween;	
+const durationInMilliseconds = 530;
+let starttime = null;
+
+if (menuInvisibleSize === 0) {
+	rightArrow.classList.add("hidden");
+}
+
+// Get current left position of menu in pixels.
+const getMenuPosition = () => {
+	return parseFloat(menu.style.left) || 0;
+};
+
+// Get current distance (in pixels) that we have scrolled.
+const getScrolledDistance = () => {
+	return -1 * getMenuPosition();	// Negate value because this is the only way it will work.
+};
+
+const checkPosition = () => {
+	// Calculate where we are right now.
+	const menuPosition = getScrolledDistance();
+
+	// Determine which arrow key(s) to display based on position.
+	if (menuPosition <= arrowSize) {			
+		leftArrow.classList.add("hidden");		
+		rightArrow.classList.remove("hidden");
+	} else if (menuPosition < menuEndOffset) {	
+		leftArrow.classList.remove("hidden");
+		rightArrow.classList.remove("hidden");
+	} else if (menuPosition >= menuEndOffset) {	
+		leftArrow.classList.remove("hidden");
+		rightArrow.classList.add("hidden");
+    }
+	
+	document.querySelector("#print-menu-position span").textContent = menuPosition + 'px';
+};
+
+const animateMenu = (timestamp, startingPoint, distance) => {
+    const runtime = timestamp - starttime;
+    let progress = runtime / durationInMilliseconds;
+    progress = Math.min(progress, 1);
+	let newValue = (startingPoint + (distance * progress)).toFixed(2) + 'px';
+	menu.style.left = newValue;
+
+	if (runtime < durationInMilliseconds) {	// If we still have time remaining...
+        requestAnimationFrame(function(timestamp) {	// Request another animation frame and recursively call THIS function.
+            animateMenu(timestamp, startingPoint, distance);
+        })
+    }
+	checkPosition();
+};
+ 
+const animationFramesSetup = (timestamp, travelDistanceInPixels) => {
+	timestamp = timestamp || new Date().getTime();	// if browser doesn't support requestAnimationFrame, generate our own timestamp using Date.
+	starttime = timestamp;
+	const startingPoint = getMenuPosition();		// This cannot be defined up top in constants. Need to read current value only during initial setup of arrow button click.
+	animateMenu(timestamp, startingPoint, travelDistanceInPixels);
+};
+
+rightArrow.addEventListener('click', () => requestAnimationFrame(
+	timestamp => animationFramesSetup(timestamp, -1 * distanceInPixels)
+));
+	
+leftArrow.addEventListener('click', () => requestAnimationFrame(
+	timestamp => animationFramesSetup(timestamp, distanceInPixels)
+));
+
+</script>
+
+
 
 @include('layout.dashboard.footer')	

@@ -366,14 +366,25 @@ $.ajax({
                         }
                         //----------------------------------
 
-                          $('#loadStatus option:selected').eq(status).prop('selected', true);
+                      //---Bh----    
+                        $('#loadStatus option:selected').eq(status).prop('selected', true);
                           
-                          var Str = "<tr style='z-index: 5;position: relative;' class='tr' data-id=" + (i + 1) + ">" +
-                          "<td class='td_new' data-field='no' data-toggle='tooltip' data-placement='top' title='"+info+"'><i class='mdi mdi-restore-clock' style='font-size:24px'></i><br>" + no + "</td>" +
-                          "<td data-field='invoice' class='td_new modal-trigger invoice_btn' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+" <div class='rrrrr' style='position: absolute;z-index: 22222;height: 64px; display:none;'><ul><li><a href='#'>Menu 1</a></li><li><a href='#'>Menu 2</a></li><li><a href='#'>Menu 3</a></li></ul></div></td>" +
-                          "<td data-field='orderId' class='orderId td_new' title='" + orderId + "'>" + order_id + "</td>" +
-                          "<td class='td_new' data-field='status' style='color:black;'>" + 
-                            "<select class='form-control loadStatus' id='loadStatus' data-main_id='"+main_id+"' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
+                        var Str = "<tr style='/* z-index: 5; */;position: relative;' class='tr' data-id=" + (i + 1) + ">" +
+                        "<td class='td_new' data-field='no' data-toggle='tooltip' data-placement='top' title='"+info+"'><i class='mdi mdi-restore-clock' style='font-size:24px'></i><br>" + no + "</td>" +
+                        "<td data-field='invoice' class='td_new modal-trigger invoice_btn' >"+invoice +" <br>"+chatIcon+" "+folderIcon+" "+truckIcon+" <div class='dropdown-n' tabindex='1'>"+
+                        "<a class='dropbtn'></a><div class='dropdown-content'>"+
+                            "<a href='javascript:void(0)'><img src='http://127.0.0.1:8000/assets/images/brand/pen.png' alt=''> Edit </a>"+
+                            "<a href='javascript:void(0)'><img src='http://127.0.0.1:8000/assets/images/brand/duplicate.png' alt=''> Duplicate </a>"+
+                            "<a href='javascript:void(0)'><img src='http://127.0.0.1:8000/assets/images/brand/note.png' alt=''> Internal Note</a>"+
+                           " <a href='javascript:void(0)'><img src='http://127.0.0.1:8000/assets/images/brand/bol.png' alt=''> Create BOL </a>"+
+                            "<a href='javascript:void(0)'><img src='http://127.0.0.1:8000/assets/images/brand/carrier-rate.png' alt=''> Create Carrier Rate Conf</a>"+
+                            "<a href='javascript:void(0)'><img src='http://127.0.0.1:8000/assets/images/brand/customer-rate.png' alt=''> Create Customer Rate Conf</a>"+
+                            "<a href='javascript:void(0)'><img src='http://127.0.0.1:8000/assets/images/brand/delete.png' alt=''> Delete</a></div></div></td>" +
+                        "<td data-field='orderId' class='orderId td_new' title='" + orderId + "'>" + order_id + "</td>" +
+                        "<td class='td_new' data-field='status' style='color:black;'>" +
+                            
+                       //---bh----   
+                          "<select class='form-control loadStatus' id='loadStatus' data-main_id='"+main_id+"' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
                               "<option value='" + status +"'  selected='' >" + status +"</option>" +
                               "<option value='Open'>Open</option>" +
                               "<option value='Dispatched'>Dispatched</option>" +

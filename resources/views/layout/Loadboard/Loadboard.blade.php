@@ -143,20 +143,44 @@
         <!-- ROW-4 -->
         <input type="hidden" name="_token" id="tokenLoadboard" value="{{ csrf_token() }}" />
         <div class="row">
-          <div class="col-12 col-sm-12">
-            <div class="card-body">
-              <div class="row">
-                <!-- <div class="col-2 btn-group submitter-group"><a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a></div> -->
-                <div class="col-2">
-                  <!-- <a href="#addLoadBoardModal" data-toggle="modal" data-target="#addLoadBoardModal" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a> -->
-                  <a href="#" id="addLoadBoard" class="button-57_alt">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    <span>New Active Load</span>
-                  </a>
-                </div>
-              </div>
+            <div class="col-12 col-sm-12">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-12 col-sm-6">
+                          <div class="row">
+                              <div class="col-3">
+                                   <a href="#" id="addLoadBoard" class="button-57_alt button-58_alt">
+                                   New Active Load</a>
+                              </div>
+   
+                               <div class="redio-btn col-xl-2 padd-g">
+								                    <div class="radio">
+   								                      <input id="radio-1" name="radio" type="radio" checked="">
+    						                        <label for="radio-1" class="radio-label">MC</label>
+  						                      </div>
+  								                  <div class="radio">
+   								                      <input id="radio-2" name="radio" type="radio">
+    							                      <label for="radio-2" class="radio-label">DOT
+    							                      </label>
+  								                   </div>
+								                </div>
+                                <div class="col-1">
+                                <div class="searchmenu left-sect"> 
+                                          <input type="search" name="searchinput" value="" class="search-input" placeholder="search">
+                                             <button name="search" value="" id="" class="search"><i class="fa fa-search"></i></button>
+                                          </div>
+                                </div>
+                          </div></div>
+                          
+                          <div class="col-12 col-sm-6">
+                          <div class="relative inline-block">
+                               <input type="text" class="place-box" placeholder="Search...">
+                                <button class="but-box" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                              </div>
+                  </div>
+           
             </div>
-          </div>
           <!-- COL END -->
         </div>
         <div class="row">
@@ -166,40 +190,101 @@
                 <!-- <div class="col-2 btn-group submitter-group"><a href="#" class="button-57_alt"><i class="fa fa-plus" aria-hidden="true"></i><span>New Active Load</span></a></div> -->
                 <div class="col-3">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-info">Action</button>
+                    <button type="button" class="btn btn-info">Hide/Show</button>
                     <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown">
                       <span class="caret"></span>
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
-                    <ul class="list-unstyled dropdown-menu dropdown-menu-lb" role="menu">
-                      <li>
+                    <ul class="list-unstyled dropdown-menu dropdown-menu-lb show-btn" role="menu">
+                      
+                    
+                    
+                    <li>
                         <label for="c1" style="display: block;">
-                          <input style="margin-right: 2px;" type="checkbox" id="c1" data-col="col-name" class="col-checkbox" />Name </label>
+                          <input style="margin-right: 5px;" type="checkbox" id="c1" data-col="col-name" class="col-checkbox" /># </label>
+                      </li>
+                      <li>
+                        <label for="c2" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c2" data-col="col-name" class="col-checkbox" />Invoice </label>
+                      </li>
+                      <li>
+                        <label for="c3" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c3" data-col="col-name" class="col-checkbox" />Order Id </label>
+                      </li>
+                      <li>
+                        <label for="c4" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c4" data-col="col-name" class="col-checkbox" />Status</label>
+                      </li>
+                      <li>
+                        <label for="c5" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c5" data-col="col-name" class="col-checkbox" />Ship-Date</label>
+                      </li>
+                      <li>
+                        <label for="c6" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c6" data-col="col-name" class="col-checkbox" />Ship-Date</label>
+                      </li>
+                      <li>
+                        <label for="c7" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c7" data-col="col-name" class="col-checkbox" />Del-Date</label>
+                      </li>
+                      <li>
+                        <label for="c8" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c8" data-col="col-name" class="col-checkbox" />Customer</label>
+                      </li>
+                      <li>
+                        <label for="c9" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c9" data-col="col-name" class="col-checkbox" />Carrier/Driver/Owner Operator</label>
+                      </li>
+                      <li>
+                        <label for="c10" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c10" data-col="col-name" class="col-checkbox" />Origin</label>
+                      </li>
+                      <li>
+                        <label for="c11" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c11" data-col="col-name" class="col-checkbox" />Truck</label>
+                      </li>
+                      <li>
+                        <label for="c12" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c12" data-col="col-name" class="col-checkbox" /> Load Pay</label>
+                      </li>
+                      <li>
+                        <label for="c13" style="display: block;">
+                          <input style="margin-right: 5px;" type="checkbox" id="c13" data-col="col-name" class="col-checkbox" /> Carrier Pay/Driver Pay</label>
                       </li>
                     </ul>
                   </div>
+                  <button type="button" class="btn btn-info2">Display All</button>
                 </div>
                 <div class="col-8 submitter-group ">
-                  <input type="checkbox" data-name="Open" class="filter-checkbox checkbox_new" />
-                  <input type="checkbox" data-name="Dispatched" class="filter-checkbox checkbox_new" />
-                  <input type="checkbox" data-name="Arrived Shipper" class="checkbox_new_alt" />
-                  <input type="checkbox" data-name="Loaded" class="checkbox_new" />
-                  <input type="checkbox" data-name="On Route" class="checkbox_new_alt2" />
-                  <input type="checkbox" data-name="Arrived Consignee" class="checkbox_new_alt3" />
-                  <input type="checkbox" data-name="Delivered" class="checkbox_new" />
-                  <input type="checkbox" data-name="Break Down" class="checkbox_new_alt4" />
+                  <input type="checkbox" data-name="Open" class="filter-checkbox checkbox_new bg1" />
+                  <input type="checkbox" data-name="Dispatched" class="filter-checkbox checkbox_new bg2" />
+                  <input type="checkbox" data-name="Arrived Shipper" class="checkbox_new_alt bg3" />
+                  <input type="checkbox" data-name="Loaded" class="checkbox_new bg4" />
+                  <input type="checkbox" data-name="On Route" class="checkbox_new_alt2 bg5" />
+                  <input type="checkbox" data-name="Arrived Consignee" class="checkbox_new_alt3 bg6" />
+                  <input type="checkbox" data-name="Delivered" class="checkbox_new bg7"/>
+                  <input type="checkbox" data-name="Break Down" class="checkbox_new_alt4 bg8"/>
                 </div>
                 <div class="col-1">
-                  <button type="" class="button-70">
+                  <button type="" class="button-70 add-button">
+
+
+
+
+
+
+
+
+
                     <i class="fa fa-search" style="font-size: 11px;margin-left: -5px;margin-right: 5px;"></i>Filter </button>
                 </div>
                 <!-- <div class="col-9 btn-group submitter-group "><ul class="filter-wrapper ks-cboxtags" ><li><input type="checkbox" class="filter-checkbox" id="checkboxOne" value="Open"><label for="checkboxOne">Open</label></li><li><input type="checkbox" class="filter-checkbox" id="checkboxTwo" value="Dispatched"><label for="checkboxTwo">Dispatched</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Shipper"><label for="">Arrived Shipper</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Loaded"><label for="">Loaded</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="On Route"><label for="">On Route</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Consignee"><label for="">Arrived Consignee</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Delivered"><label for="">Delivered</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Break Down"><label for="">Break Down</label></li></ul></div> -->
               </div>
             </div>
-            <div class="card-body">
+            <div class="card-body padd-new">
               <input type="hidden" class="_id">
-              <div class="table-responsive">
-                <table class="table dataTable no-footer" style="max-height: 100%;overflow: hidden;border-spacing: 4px;border-collapse: unset !important;">
+              <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 4px;border-collapse: unset !important;"> 
                   <thead class="thead_th">
                     <tr class="tr">
                       <th class="th_new">ID</th>
@@ -218,11 +303,11 @@
                       <th class="th_new">Carrier Pay/Driver Pay</th>
                     </tr>
                   </thead>
-                  <tbody id="LoadBoardTable"></tbody>
+                  <tbody id="LoadBoardTable" class="load-box"></tbody>
                 </table>
               </div>
             </div>
-          </div>
+          </div>  
           <!-- COL END -->
         </div>
         <!-- ROW-4 END -->
@@ -996,13 +1081,13 @@
                             <div class="form-group col-md-2 Carrierlist carrier">
                               <label>Send carrier rate con</label>
                               <div>
-                                <button id="carrierratecon"  class="button-29"> Add Email </button>
+                                <button type="button" class="btn-first-modal button-29" data-toggle="modal" data-target="#first-modal" id="carrierratecon" > Add Email </button>
                               </div>
                             </div>
                             <div class="form-group col-md-2 Carrierlist carrier">
                               <label>Send customer rate con</label>
                               <div>
-                                <button id="customerratecon"  class="button-29"> Add Email </button>
+                                <button class="btn-first-modal button-29" data-toggle="modal" data-target="#second-modal" id="customerratecon"> Add Email </button>
                               </div>
                             </div>
                           </div>
@@ -1212,8 +1297,79 @@
       </div>
     </div>
   </div>
-
-
+<!-- -----mail modal------ -->
+<div class="container">
+  <div class="modal" id="first-modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog first-email">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Customer Email</h4>
+          <button type="button" class="close button-24" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+              <form>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label for="Email">Email-1 <span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="Email-1" type="text" id="emailcustomer1">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="Email">Email-2 <span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="Email-2" type="text" id="emailcustomer2">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="Email">Email-3 <span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="Email-3" type="text" id="emailcustomer3">
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-second-modal button-29" data-dismiss="modal">Close</button>
+          <button type="button" class="btn-second-modal button-29">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="modal" id="second-modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog first-email">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Customer Email</h4>
+          <button type="button" class="close button-24" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+              <form>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label for="Email">Email-1 <span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="Email-1" type="text" id="emailcustomer1">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="Email">Email-2 <span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="Email-2" type="text" id="emailcustomer2">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="Email">Email-3 <span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="Email-3" type="text" id="emailcustomer3">
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-second-modal button-29" data-dismiss="modal">Close</button>
+          <button type="button" class="btn-second-modal button-29">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
     $(document).ready(function() {
     //when the Add Field button is clicked

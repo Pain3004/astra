@@ -34,6 +34,7 @@
     <link href="{{URL::to('/')}}/assets/css/style.css" rel="stylesheet" />
     <link href="{{URL::to('/')}}/assets/css/skin-modes.css" rel="stylesheet" />
     <link href="{{URL::to('/')}}/assets/css/customcss.css" rel="stylesheet" />
+    <link href="{{URL::to('/')}}/assets/css/customcss2.css" rel="stylesheet" />
 
     <!--- FONT-ICONS CSS -->
     <link href="{{URL::to('/')}}/assets/css/icons.css" rel="stylesheet" />
