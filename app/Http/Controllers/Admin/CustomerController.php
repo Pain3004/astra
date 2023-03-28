@@ -450,7 +450,6 @@ class CustomerController extends Controller
     {
         $id=(int)$request->id;
         $masterId=(int)$request->masterId;
-        // dd($masterId);
         $companyID=(int)Auth::user()->companyID;
         $customerData=Customer::raw()->updateOne(['companyID' => $companyID,'_id' => $masterId,'customer._id' => $id], 
         ['$set' => ['customer.$.deleteStatus' => 'YES','customer.$.deleteUser' => Auth::user()->userName,'customer.$.deleteTime' => time()]]
@@ -465,62 +464,31 @@ class CustomerController extends Controller
     {
         $cu_ids=$request->all_ids;
         $custID=(array)$request->custID;
+        $companyID=(int)Auth::user()->companyID;
         // dd($custID);
         foreach($custID as $customer_id)
         {
             $customer_id=str_replace( array( '\'', '"',
             ',' , ' " " ', '[', ']' ), ' ', $customer_id);
-            $customer_id=(int)$customer_id;
-            $customerData = Customer::where('companyID',$customer_id )->first();
-            // dd($customerData);
-            $customerArray=$customerData->customer;
-            $arrayLength=count($customerArray);            
-            $i=0;
-            $v=0;
-            $data=array();
-            for ($i=0; $i<$arrayLength; $i++){
-                $ids=$customerData->customer[$i];
-                // $ids=(array)$ids;
-                foreach ($ids as $value){
-                //    print_r(gettype($cu_ids));
-
-                    $cu_ids= str_replace( array('[', ']'), ' ', $cu_ids);
-                    if(is_string($cu_ids))
-                    {
-                        $cu_ids=explode(",",$cu_ids);
-                    }
-                    // dd($cu_ids);
-                    foreach($cu_ids as $c_ids)
-                    {
-                        $c_ids= str_replace( array('"', ']' ), ' ', $c_ids);
-                        // echo "<p>". $c_ids ."  ".$value . "</p>";
-                        // dd($c_ids);
-                        if($value==$c_ids)
-                        {                        
-                            $data[]=$i; 
-                            // print($v);
-                        //    $v= explode(",",$v);
-                        //    $data[]=$v;
-                        //    print_r($data);
-                        //    dd($v);
-                        }
-                    }
-                }
-            }
-            // dd($data);
-            // dd($arrayLength);
-            // echo $v;
-            // $rows=implode(" ,",$data);
-            // dd($rows);
-            foreach($data as $row)
+            $masterId=(int)$customer_id;
+            $cu_ids= str_replace( array('[', ']'), ' ', $cu_ids);
+            if(is_string($cu_ids))
             {
-                // echo "<p>".$row. "</p>";
-                $customerArray[$row]['deleteStatus'] = "NO";
-                // dd( $customerArray[$row]);
-                $customerData->customer= $customerArray;
-                $save=$customerData->save();
+                $cu_ids=explode(",",$cu_ids);
             }
-            if ($save) {
+            foreach($cu_ids as $c_ids)
+            {
+                $c_ids= str_replace( array('"', ']' ), ' ', $c_ids);
+                      
+                // if($value==$c_ids)
+                // {  
+                    print($c_ids);                      
+                    $customerData=Customer::raw()->updateOne(['companyID' => $companyID,'_id' => $masterId,'customer._id' => (int)$c_ids], 
+                    ['$set' => ['customer.$.deleteStatus' => 'NO','customer.$.RestoreUser' => Auth::user()->userName,'customer.$.restoreTime' => time()]]
+                    );
+                // }
+            }
+            if ($customerData==true) {
                 $arr = array('status' => 'success', 'message' => 'Customer Restored successfully.','statusCode' => 200); 
             return json_encode($arr);
             }

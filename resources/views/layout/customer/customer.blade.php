@@ -17,7 +17,7 @@
                 
                 <div class="modal-body" style="overflow-y: auto !important;">
 
-                    <table id="customer_table_pagination" class="table editable-table table-nowrap table-bordered table-edit wp-100">
+                    <table  class="table editable-table table-nowrap table-bordered table-edit wp-100">
                         <thead class="thead_th">
                             <tr class="tr">
                                 <th>No</th>
@@ -746,7 +746,7 @@
                     <!-- <button   class="button-57_alt " ><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore Customer</span></button> -->
                 </div>                
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100">
+                    <table  class="table editable-table table-nowrap table-bordered table-edit wp-100">
                         <thead class="thead_th">
                             <tr class="th">
                                 <th><input type="checkbox" name="all_ids[]" class="all_ids_cust"></th>
@@ -759,7 +759,7 @@
                                 <!-- <th>Action</th> -->
                             </tr>
                         </thead>
-                        <tbody class="restoreCustomerTable">
+                        <tbody id="restoreCustomerTable">
 
                         </tbody>
                     </table>

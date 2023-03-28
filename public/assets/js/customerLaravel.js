@@ -43,7 +43,7 @@ var base_path = $("#url").val();
                 if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
                     processCustomer(res[0]);
                     $("#cus_pagination").html(paginateList(res[1], "admin", "paginatecustomer", "processCustomer"));
-                    renameTableSeq2("customerTable", "page_active");
+                    renameTableSeq("customerTable", "page_active");
                 }
                 // var totalcustomer = "<i class='mdi mdi-chart-areaspline statistics-icon' style='font-size:24px'></i>Total Records : " + res[2];
                 // $("#total_customer").html(totalcustomer);
@@ -74,6 +74,7 @@ var base_path = $("#url").val();
                 var custTelephone = data[i].custTelephone;
                 var custEmail = data[i].custEmail;
                 var deleteStatus = data[i].deleteStatus;
+                var delEn = deleteStatus == 'YES' ? 'disabled_load' : '';
                 var edit_by = data[i].edit_by;
                 if(custName !="" || custName !=null)
                 {
@@ -150,7 +151,7 @@ var base_path = $("#url").val();
                 if(deleteStatus=="NO")
                 {
                     var tr = `<tr>
-                    <td>${custName}</td>    
+                    <td class='center-alignment ${delEn}'>${delEn}</td>    
                      <td>${custName}</td>    
                      <td>${custLocation}</td> 
                      <td>${custZip}</td>    
@@ -1336,11 +1337,11 @@ var base_path = $("#url").val();
             // dataType:JSON,
             success: function(customerResult) {
                 var res = JSON.parse(customerResult);
-                if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
+                // if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
                     RestoreprocessCustomer(res[0]);
-                    $("#Restorecus_pagination").html(paginateList(res[1], "admin", "paginatecustomer", "restoreProcessCustomer"));
-                    renameTableSeq("restoreCustomerTable", "page_active");
-                }
+                    renameTableSeq("customerTable", "page_active");
+                    $("#Restorecus_pagination").html(paginateList(res[1], "admin", "repaginatecustomer", "restoreProcessCustomer"));
+                // }
             }
         });
         $("#restoreCustomerData").modal("show");
@@ -1368,6 +1369,7 @@ var base_path = $("#url").val();
                 var custTelephone = data[i].custTelephone;
                 var custEmail = data[i].custEmail;
                 var deleteStatus = data[i].deleteStatus;
+                var delEn = deleteStatus == 'NO' ? 'disabled_load' : '';
                 var edit_by = data[i].edit_by;
                 if(custName !="" || custName !=null)
                 {
@@ -1444,14 +1446,13 @@ var base_path = $("#url").val();
                 if(deleteStatus=="YES")
                 {
                     var tr = `<tr>
-                    <td><input type='checkbox' class='check_cust_one' name='all_cst_id[]' data-id='` + id + `' date-cusId=" `+ masterID+ `"  value='` + id + `'></td>    
+                    <td><input type='checkbox' class='check_cust_one' name='all_cst_id[]' data-id='` + id + `' date-cusId=" `+ masterID+ `"  value='`+ id +`'></td>    
                      <td>${custName}</td>    
                      <td>${custLocation}</td> 
                      <td>${custZip}</td>    
                      <td>${primaryContact}</td>    
                      <td> ${custTelephone}</td>
                      <td> ${custEmail}</td>`;
-                    tr += '<td>';
                     tr += '</tr>';
                 }
                 row = tr + row;

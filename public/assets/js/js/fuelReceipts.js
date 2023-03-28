@@ -290,7 +290,7 @@ var base_path = $("#url").val();
             {
                 var tr = `<tr>`;
     
-                tr += `<td ><input type='checkbox' class='check_fuelRecept_one_delete' name='all_fuel_recepit_ids_delete[]' data-id='${id}' date-cusId='${companyID}'  value'${id}'></th>`;
+                tr += `<td ><input type='checkbox' class='check_fuelRecept_one_delete' name='all_fuel_recepit_ids_delete[]' data-id='${id}' date-cusId='${companyID}'  value'${id}'></td>`;
         
                 tr += `<td class="center-alignment ${delEn}"></td>
                            <td class='center-alignment ${delEn}'>${driverName}</td>

@@ -160,6 +160,8 @@ Route::get('admin/editShipper', [ShipperController::class, 'editShipper']);
 Route::post('admin/updateShipper', [ShipperController::class, 'updateShipper']);
 Route::post('admin/deleteShipper', [ShipperController::class, 'deleteShipper']);
 Route::post('admin/restoreShipper', [ShipperController::class, 'restoreShipper']);
+Route::post('admin/exportShipper', [ShipperController::class, 'exportShipper']);
+Route::post('admin/importExcel', [ShipperController::class, 'importExcel']);
 
 //consignee
 Route::get('admin/getConsignee', [ConsigneeController::class, 'getConsignee']);
