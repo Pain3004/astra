@@ -2065,6 +2065,7 @@ function getFSC(fsc) {
 
 
 function calculateMiles() {
+  
   $(".loader1").css("display", "inline-block");
   document.getElementById("drivermiles").value = 0;
   document.getElementById("loadedmiles").value = 0;

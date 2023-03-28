@@ -131,11 +131,12 @@
 <script src="{{URL::to('/')}}/assets/js/js/loadboard.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/script.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/iftaForm.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.js"></script>
-<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js"></script>
-<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js.map"></script>
-<script src="https://maps.google.com/maps/api/js?sensor=true"></script>    
+<!-- <script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js.map"></script> -->
+<!-- <script src="https://maps.google.com/maps/api/js?sensor=true"></script>     -->
 </body>
 
 </html>

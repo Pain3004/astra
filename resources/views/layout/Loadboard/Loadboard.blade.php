@@ -750,6 +750,7 @@
                       <div class="form-row">
                         <div class="navtabs_2">
                           <h6>
+                          <img src="{{URL::to('/')}}/assets/images/home.png" style="cursor:pointer" height="50px" width="50px" id="startLocation" modal-value="" data-toggle="tooltip" data-placement="top" title="Click here to add start location.">
                             <a class="button-29 shipperName" onclick="add_fields();" data-toggle="tooltip" data-placement="top" title="Click here to add more shippers." style="color: #ffffff;">ADD SHIPPER</a>
                             <i class="mdi mdi-plus-circle plus-xs" id="add_shipper_modal"></i>
                           </h6>
@@ -785,7 +786,7 @@
                                     <div class="form-group col-md-2">
                                       <label>Location *</label>
                                       <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" data-location="activeshipper0" id="activeshipper0" onkeydown="getLocation('activeshipper0')" name="shipperLocation[]">
+                                        <input class="form-control" placeholder="Enter a location" type="text" name="activeshipper" data-location="activeshipper0" id="activeshipper0" onkeydown="getLocation('activeshipper0')" name="shipperLocation[]">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -840,7 +841,7 @@
                                     <div class="form-group col-md-1">
                                       <label>Sr#</label>
                                       <div>
-                                        <input class="form-control" placeholder="Sr#" type="number" id="shipseq" name="shipseq[]" value="0">
+                                        <input class="form-control" placeholder="Sr#" type="number" id="shipseq0" name="shipseq[]" value="0">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-4">
@@ -860,6 +861,7 @@
                       <div class="form-row">
                         <div class="navtabs_2">
                           <h6>
+                            <img src="{{URL::to('/')}}/assets/images/destination.png" style="cursor:pointer" height="50px" id="endLocation" modal-value="" data-toggle="tooltip" data-placement="top" title="Click here to enter destination." width="50px">
                             <a class="button-29" onclick="add_consignee();" data-toggle="tooltip" data-placement="top" title="Click here to add more consignees." style="color: #ffffff;">ADD CONSIGNEE</a>
                             <i class="mdi mdi-plus-circle plus-xs" id="add_consignee_modal"></i>
                           </h6>
@@ -912,7 +914,7 @@
                                     <div class="form-group col-md-2">
                                       <label>Location *</label>
                                       <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" data-location="activeconsignee0" id="activeconsignee0" onkeydown="getLocation(this.name)" name="activeconsignee[]">
+                                        <input class="form-control" placeholder="Enter a location" type="text" name="activeconsignee" data-location="activeconsignee0" id="activeconsignee0" onkeydown="getLocation(this.name)" name="activeconsignee[]">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -967,7 +969,7 @@
                                     <div class="form-group col-md-1">
                                       <label>Sr#</label>
                                       <div>
-                                        <input class="form-control" placeholder="Sr#" type="number" id="consigseq" name="consigseq[]" value="0">
+                                        <input class="form-control" placeholder="Sr#" type="number" id="consigseq0" name="consigseq[]" value="0">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-4">
@@ -1081,13 +1083,13 @@
                             <div class="form-group col-md-2 Carrierlist carrier">
                               <label>Send carrier rate con</label>
                               <div>
-                                <button type="button" class="btn-first-modal button-29" data-toggle="modal" data-target="#first-modal" id="carrierratecon" > Add Email </button>
+                                <button type="button" class="btn-first-modal button-29" id="carrierratecon" > Add Email </button>
                               </div>
                             </div>
                             <div class="form-group col-md-2 Carrierlist carrier">
                               <label>Send customer rate con</label>
                               <div>
-                                <button class="btn-first-modal button-29" data-toggle="modal" data-target="#second-modal" id="customerratecon"> Add Email </button>
+                                <button class="btn-first-modal button-29"  id="customerratecon"> Add Email </button>
                               </div>
                             </div>
                           </div>
@@ -1297,14 +1299,75 @@
       </div>
     </div>
   </div>
-<!-- -----mail modal------ -->
+<!-- -----home modal------ -->
 <div class="container">
-  <div class="modal" id="first-modal" data-backdrop="static" data-keyboard="false">
+  <div class="modal" id="addstartlocation" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog first-email">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Customer Email</h4>
-          <button type="button" class="close button-24" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add Start Location</h4>
+          <button type="button" class="close button-24 closestartlocation"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+              <form>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label for="Email">Name<span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="Start Location" type="text" id="add_start_location" name="add_start_location" onkeydown="getLocation('add_start_location')">
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-second-modal button-29 closestartlocation" >Close</button>
+          <button type="button" onclick="addStartLocation()" id="" class="btn btn-primary waves-effect waves-light">
+              <i class="mdi mdi-shield-lock-outline"></i> Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- -----Destination modal------ -->
+<div class="container">
+  <div class="modal" id="endlocationmodal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog first-email">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Add Destination</h4>
+          <button type="button" class="close button-24 closeEndlocationmodal"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+              <form>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label for="Email">Name<span style="color:#ff0000">*</span></label>
+                      <input class="form-control" placeholder="End Location" type="text" id="add_end_location" name="add_end_location" onkeydown="getLocation('add_end_location')">                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-second-modal button-29 closeEndlocationmodal" >Close</button>
+          <button type="button" onclick="addEndLocation()" id="" class="btn btn-primary waves-effect waves-light">
+            <i class="mdi mdi-shield-lock-outline"></i> Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- -----mail modal------ -->
+<div class="container">
+  <div class="modal" id="carrierrateconModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog first-email">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">carrier Email</h4>
+          <button type="button" class="close button-24 closeEmailModal1"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
             <div class="form-group col-md-12">
@@ -1312,35 +1375,35 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                       <label for="Email">Email-1 <span style="color:#ff0000">*</span></label>
-                      <input class="form-control" placeholder="Email-1" type="text" id="emailcustomer1">
+                      <input class="form-control" placeholder="Email-1" type="text" id="emailcarrier1">
                     </div>
                     <div class="form-group col-md-12">
                       <label for="Email">Email-2 <span style="color:#ff0000">*</span></label>
-                      <input class="form-control" placeholder="Email-2" type="text" id="emailcustomer2">
+                      <input class="form-control" placeholder="Email-2" type="text" id="emailcarrier2">
                     </div>
                     <div class="form-group col-md-12">
                       <label for="Email">Email-3 <span style="color:#ff0000">*</span></label>
-                      <input class="form-control" placeholder="Email-3" type="text" id="emailcustomer3">
+                      <input class="form-control" placeholder="Email-3" type="text" id="emailcarrier3">
                     </div>
                 </div>
               </form>
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-second-modal button-29" data-dismiss="modal">Close</button>
-          <button type="button" class="btn-second-modal button-29">Save</button>
+          <button type="button" class="btn-second-modal button-29 closeEmailModal1" >Close</button>
+          <button type="button" class="btn-second-modal button-29 closeEmailModal1">Save</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="container">
-  <div class="modal" id="second-modal" data-backdrop="static" data-keyboard="false">
+  <div class="modal" id="customerrateconModal" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog first-email">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="myModalLabel">Customer Email</h4>
-          <button type="button" class="close button-24" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close button-24 closeEmailModal2" ><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
             <div class="form-group col-md-12">
@@ -1363,8 +1426,8 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-second-modal button-29" data-dismiss="modal">Close</button>
-          <button type="button" class="btn-second-modal button-29">Save</button>
+          <button type="button" class="btn-second-modal button-29 closeEmailModal2" >Close</button>
+          <button type="button" class="btn-second-modal button-29 closeEmailModal2">Save</button>
         </div>
       </div>
     </div>
@@ -2348,94 +2411,128 @@ function getFSC(fsc) {
 
 
 //-----------------------calculateMiles-----------------
+function addStartLocation() {
+  startLocation = document.getElementById("add_start_location").value;
+  $("#startLocation").attr("modal-value", startLocation);
+  $("#addstartlocation").modal("hide");
+}
 
+function addEndLocation() {
+  endLocation = document.getElementById("add_end_location").value;
+  $("#endLocation").attr("modal-value", endLocation);
+  $("#endlocationmodal").modal("hide");
+}
+
+function addStartfield() {
+  document.getElementById("add_start_location").value = startLocation;
+}
+
+function addEndfield() {
+  document.getElementById("add_end_location").value = endLocation;
+}
 
 function calculateMiles() {
-  $(".loader1").css("display", "inline-block");
-  document.getElementById("drivermiles").value = 0;
-  document.getElementById("loadedmiles").value = 0;
-  document.getElementById("emptymiles").value = 0;
-  var shipLoc = document.getElementsByName("activeshipper");
-  var shipseq = document.getElementsByName("shipseq");
-  var consigLoc = document.getElementsByName("activeconsignee");
-  var consigseq = document.getElementsByName("consigseq");
-  var locations = [];
-  var startFlag = 0;
-  var endflag = 0;
-  var startLocation = 'AKRON, OH';
-  var endLocation = 'ADDISON, TX';
- // alert(startLocation);
-  if (startLocation != "") {
-    locations.push({ seq: "0", location: startLocation });
-    startFlag = 1;
-  }
-  for (var i = 0; i < shipLoc.length; i++) {
-    if (shipLoc[i].value == "") {
-      swal.fire({
-        title:
-          "<h5>One of the shipper's location is empty. Please fill it to continue</h5>",
-        type: "warning",
-        type: "info",
-        html: "",
-        showCancelButton: true,
-        confirmButtonText: "Yes, Continue!",
-        cancelButtonText: "No, cancel!",
-        confirmButtonClass: "btn btn-success",
-        cancelButtonClass: "btn btn-danger ml-2",
-        buttonsStyling: false,
-      });
-      $(".loader1").css("display", "none");
-      return;
+  
+    $(".loader1").css("display", "inline-block");
+    document.getElementById("drivermiles").value = 0;
+    document.getElementById("loadedmiles").value = 0;
+    document.getElementById("emptymiles").value = 0;
+    var shipLoc = document.getElementById("activeshipper0");
+    var consigLoc = document.getElementById("activeconsignee0");
+    var shipseq = document.getElementsByName("shipseq");
+    var consigseq = document.getElementsByName("consigseq");
+    var locations = [];
+    var startFlag = 0;
+    var endflag = 0;
+    
+    // var startLocation = 'ABERDEEN, WA';
+    // var endLocation = 'NEW CASTLE ,DE';
+    // var shipLoc = 'ABERDEEN, WA';
+    //  var consigLoc = 'NEW CASTLE ,DE';
+    console.log(startLocation);
+    console.log(endLocation);
+  console.log(shipLoc.value+" ");
+  console.log(shipseq.value+" ");
+  console.log(consigLoc.value+" ");
+  console.log(consigseq.value+" ");
+  // // console.log(locations.value+" ");
+  // console.log(startLocation+" ");
+  // alert(startLocation);
+    if (startLocation != "") {
+      locations.push({ seq: "0", location: startLocation });
+      startFlag = 1;
     }
-    locations.push({ seq: shipseq[i].value, location: shipLoc[i].value });
-  }
-  for (var i = 0; i < consigLoc.length; i++) {
-    if (consigLoc[i].value == "") {
-      swal.fire({
-        title:
-          "<h5>One of the consignees's location is empty. Please fill it to continue</h5>",
-        type: "warning",
-        type: "info",
-        html: "",
-        showCancelButton: true,
-        confirmButtonText: "Yes, Continue!",
-        cancelButtonText: "No, cancel!",
-        confirmButtonClass: "btn btn-success",
-        cancelButtonClass: "btn btn-danger ml-2",
-        buttonsStyling: false,
-      });
-      $(".loader1").css("display", "none");
-      return;
+    console.log(shipLoc.length);
+    for (var i = 0; i < shipLoc.length; i++) {
+      if (shipLoc[i].value == "") {
+        swal.fire({
+          title:
+            "<h5>One of the shipper's location is empty. Please fill it to continue</h5>",
+          type: "warning",
+          type: "info",
+          html: "",
+          showCancelButton: true,
+          confirmButtonText: "Yes, Continue!",
+          cancelButtonText: "No, cancel!",
+          confirmButtonClass: "btn btn-success",
+          cancelButtonClass: "btn btn-danger ml-2",
+          buttonsStyling: false,
+        });
+        $(".loader1").css("display", "none");
+        return;
+      }
+      locations.push({ seq: shipseq[i].value, location: shipLoc[i].value });
     }
-    locations.push({ seq: consigseq[i].value, location: consigLoc[i].value });
-  }
+    for (var i = 0; i < consigLoc.length; i++) {
+      if (consigLoc[i].value == "") {
+        swal.fire({
+          title:
+            "<h5>One of the consignees's location is empty. Please fill it to continue</h5>",
+          type: "warning",
+          type: "info",
+          html: "",
+          showCancelButton: true,
+          confirmButtonText: "Yes, Continue!",
+          cancelButtonText: "No, cancel!",
+          confirmButtonClass: "btn btn-success",
+          cancelButtonClass: "btn btn-danger ml-2",
+          buttonsStyling: false,
+        });
+        $(".loader1").css("display", "none");
+        return;
+      }
+      locations.push({ seq: consigseq[i].value, location: consigLoc[i].value });
+    }
 
-  if (endLocation != "") {
-    locations.push({ seq: "300", location: endLocation });
-    endflag = 1;
-  }
-// alert(locations.length);
-  if (locations.length <= 1) {
-    swal.fire({
-      title: "<h5>There should be atleast one shipper and one consignee</h5>",
-      type: "warning",
-      type: "info",
-      html: "",
-      showCancelButton: true,
-      confirmButtonText: "Yes, Continue!",
-      cancelButtonText: "No, cancel!",
-      confirmButtonClass: "btn btn-success",
-      cancelButtonClass: "btn btn-danger ml-2",
-      buttonsStyling: false,
-    });
-    return;
-  }
-  locations.sort(compare);
-  var waypts = [];
-  for (var i = 0; i < locations.length; i++) {
-    waypts.push({ location: locations[i].location, stopover: true });
-  }
-  calcRoute(waypts, startFlag, endflag);
+    if (endLocation != "") {
+      locations.push({ seq: "300", location: endLocation });
+      endflag = 1;
+    }
+  // alert(locations.length);
+    if (locations.length <= 1) {
+      swal.fire({
+        title: "<h5>There should be atleast one shipper and one consignee</h5>",
+        type: "warning",
+        type: "info",
+        html: "",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Continue!",
+        cancelButtonText: "No, cancel!",
+        confirmButtonClass: "btn btn-success",
+        cancelButtonClass: "btn btn-danger ml-2",
+        buttonsStyling: false,
+      });
+      return;
+    }
+    
+    locations.sort(compare);
+    var waypts = [];
+    for (var i = 0; i < locations.length; i++) {
+      
+      waypts.push({ location: locations[i].location, stopover: true });
+    }
+    
+    calcRoute(waypts, startFlag, endflag);
 }
 
 function compare(a, b) {
@@ -2450,7 +2547,12 @@ function compare(a, b) {
   }
   return comparison;
 }
+
 function calcRoute(waypts, startFlag, endflag) {
+  // console.log(waypts, startFlag, endflag);
+  // alert(waypts);
+  // alert(startFlag);
+  // alert(endflag);
   EmptyHour = 0;
   loadedHour = 0;
   var request = {
@@ -2462,21 +2564,28 @@ function calcRoute(waypts, startFlag, endflag) {
     unitSystem: google.maps.DirectionsUnitSystem.METRIC,
 
 
-  };
+  };  
+  
   var directionsService = new google.maps.DirectionsService();
-var directionsDisplay = new google.maps.DirectionsRenderer();
-
+  var directionsDisplay = new google.maps.DirectionsRenderer();
+  
   directionsService.route(request, function (response, status) {
+    
     if (status == google.maps.DirectionsStatus.OK) {
       var distance = 0;
       var time_taken = 0;
       var empty_km = 0;
+      
       for (var i = 0; i < response.routes[0].legs.length; i++) {
+        
         if (startFlag == 0 && endflag == 0) {
+          
           distance += response.routes[0].legs[i].distance.value;
           loadedHour += response.routes[0].legs[i].duration.value;
           time_taken += response.routes[0].legs[i].duration.value;
+          
         } else if (startFlag == 1 && endflag == 0) {
+          
           if (i == 1) {
             empty_km += response.routes[0].legs[i].distance.value;
             EmptyHour += response.routes[0].legs[i].duration.value;
@@ -2486,6 +2595,7 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
             time_taken += response.routes[0].legs[i].duration.value;
           }
         } else if (startFlag == 0 && endflag == 1) {
+          
           if (i == response.routes[0].legs.length - 2) {
             empty_km += response.routes[0].legs[i].distance.value;
             EmptyHour += response.routes[0].legs[i].duration.value;
@@ -2495,20 +2605,28 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
             time_taken += response.routes[0].legs[i].duration.value;
           }
         } else if (startFlag == 1 && endflag == 1) {
+         
           if (i == 1) {
             empty_km += response.routes[0].legs[i].distance.value;
             EmptyHour += response.routes[0].legs[i].duration.value;
+            
+          
           } else if (i == response.routes[0].legs.length - 2) {
             empty_km += response.routes[0].legs[i].distance.value;
             EmptyHour += response.routes[0].legs[i].duration.value;
+            
           } else {
             distance += response.routes[0].legs[i].distance.value;
             loadedHour += response.routes[0].legs[i].duration.value;
             time_taken += response.routes[0].legs[i].duration.value;
+            
           }
         }
       }
 
+      console.log("distance:"+distance);
+          console.log("loadedHour:"+loadedHour);
+          console.log("time_taken:"+time_taken);
       //alert("loaded hour = "+loadedHour + "Empty hour = "+EmptyHour);
       var calc_distance = distance;
 
@@ -2541,8 +2659,6 @@ var directionsDisplay = new google.maps.DirectionsRenderer();
       alert("Unable to find route!!!");
     }
   });
-
-  
 }
 //-----------------------end calculateMiles-----------------
 // //-----------------------other Carrier modal-----------------
@@ -2571,7 +2687,7 @@ function getcarrierOtherCharges(){
 
 function getCarrierTotal() {
   var flatrate = document.getElementById("LB_FlatRate").value;
- console.log(flatrate);
+  console.log(flatrate);
   var advancecharges = document.getElementById("Advcarrier").value;
   var total_charges = document.getElementById("LB_CarrierTotal");
   if (flatrate != "" && advancecharges == "") {

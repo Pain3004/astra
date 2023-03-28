@@ -84,6 +84,9 @@
 
 
 </style>
+<script
+        src='https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=places&key=AIzaSyCvWNB0WPacABJ0XWzHL_W9reg_YSbs8V4'>
+    </script>
 </head>
 
 <body class="ltr app sidebar-mini">

@@ -1,110 +1,7 @@
 
-// $(document).ready(function(){
-//   var counter = 2; // Starting form number
-//   $('#add-tab').click(function(){
-//     var tabTitle = "Form " + counter;
-//     var tabContent = '<div class="tab-pane" id="tab-'+counter+'"><form>'+
-//     '<div class="tab-content" id="myTabContent">'+
-//         '<div class="tab-pane fade show active" id="home0" role="tabpanel"aria-labelledby="home-tab">'+
-//             '<div class="row m-2">'+
-//                 '<div class="form-group col-md-3">'+
-//                     '<label>Name*</label>'+
-//                     '<input   type="hidden" id="shipperId" name="shipperId">'+
-//                     '<div class="form-group">'+
-//                         '<select class="form-control select2-show-search form-select" id="lb_shipperName">'+
-//                             '<option>Select Here </option>'+
-//                         '</select>'+
-//                     '</div>'+
-//                 '</div>'+
-//                 {/* <div class="form-group col-md-2">
-//                     <label>Address*</label>
-//                     <div>
-//                         <input class="form-control" placeholder="Address *" type="text" id="shipperaddress0" name="shipperaddress">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-2">
-//                     <label>Location *</label>
-//                     <div>
-//                         <input class="form-control" placeholder="Enter a location" type="text" id="activeshipper0" name="activeshipper">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-2">
-//                     <label>Pickup Date</label>
-//                     <div>
-//                         <input class="form-control" type="date" id="shipperdate" name="shipperdate">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-2">
-//                     <label>Pickup Time</label>
-//                     <div>
-//                         <input class="form-control" type="time" id="shippertime" name="shippertime">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-1">
-//                     <label>Type*</label>
-//                     <div class="row">
-//                         <div class="custom-control custom-radio custom-control-inline">
-//                             <input type="radio" class="custom-control-input" id="tl0" name="tl0" value="TL" checked>
-//                             <label class="custom-control-label" for="tl0">TL</label>
-//                         </div>
-//                         <div class="custom-control custom-radio custom-control-inline">
-//                             <input type="radio" class="custom-control-input" id="ltl0" value="LTL" name="tl0">
-//                             <label class="custom-control-label" for="ltl0">LTL</label>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-2">
-//                     <label>Commodity</label>
-//                     <div>
-//                         <input class="form-control" type="text" placeholder="Commodity" id="shippercommodity" name="shippercommodity">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-1 ">
-//                     <label>Qty</label>
-//                     <div>
-//                         <input class="form-control" placeholder="Qty" id="shipperqty"  name="shipperqty" type="text">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-2 ">
-//                     <label>Weight</label>
-//                     <div>
-//                         <input class="form-control" type="text" placeholder="Weight"  id="shipperweight" name="shipperweight">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-2">
-//                     <label>Pickup #</label>
-//                     <div>
-//                         <input class="form-control" placeholder="Pickup #" type="text" id="shipperpickup" name="shipperpickup">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-1">
-//                     <label>Sr#</label>
-//                     <div>
-//                         <input class="form-control" placeholder="Sr#" type="number" id="shipseq0" name="shipseq" value="0">
-//                     </div>
-//                 </div>
-//                 <div class="form-group col-md-4">
-//                     <label>Pickup Notes</label>
-//                     <div>
-//                         <textarea rows="1" cols="30" class="form-control" type="textarea" id="shippernotes" name="shippernotes"></textarea>
-//                     </div>
-//                 </div> */}
-//             '</div>'+
-//         '</div>'+
-//     '</div>'+
-//     '</form></div>';
-
-//     $('.nav-tabs').append('<li><a href="#tab-'+counter+'" data-toggle="tab">'+tabTitle+'</a></li>');
-//     $('.tab-content').append(tabContent);
-//     counter++;
-//   });
-// });
-
 $(document).ready(function() {
- 
-
-  dataTable = $("#example").DataTable({
-  });
+  // dataTable = $("#example").DataTable({
+  // });
 
   $('.filter-checkbox').on('change', function(e){
     var searchTerms = []
@@ -802,6 +699,34 @@ $(".closeAcc").click(function(){
   $("#AccessorialModal").modal("hide");
 });
 // <!-- -------------------------------------------------------------------------end Accessorial ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------add email ------------------------------------------------------------------------- -->
+$("#carrierratecon").click(function(){
+  $("#carrierrateconModal").modal("show");
+});
+$("#customerratecon").click(function(){
+  $("#customerrateconModal").modal("show");
+});
+$(".closeEmailModal1").click(function(){
+  $("#carrierrateconModal").modal("hide");
+});
+$(".closeEmailModal2").click(function(){
+  $("#customerrateconModal").modal("hide");
+});
+// <!-- -------------------------------------------------------------------------end add email ------------------------------------------------------------------------- -->
+// <!-- -------------------------------------------------------------------------add location ------------------------------------------------------------------------- -->
+$("#startLocation").click(function(){
+  $("#addstartlocation").modal("show");
+});
+$("#endLocation").click(function(){
+  $("#endlocationmodal").modal("show");
+});
+$(".closestartlocation").click(function(){
+  $("#addstartlocation").modal("hide");
+});
+$(".closeEndlocationmodal").click(function(){
+  $("#endlocationmodal").modal("hide");
+});
+// <!-- -------------------------------------------------------------------------end location ------------------------------------------------------------------------- -->
 
 
 
@@ -946,13 +871,13 @@ $("#addLBSubmit").click(function(){
     var custDays=$('#custdays').val();
     var carDays=$('#cardays').val();
     //carrier_email
-    var CarrierEmail='';
-    var email2='';
-    var email3='';
+    var CarrierEmail=$('#emailcarrier1').val();
+    var email2=$('#emailcarrier2').val();
+    var email3=$('#emailcarrier3').val();
     //customer_email
-    var CustomerEmail='';
-    var emailcustomer2='';
-    var emailcustomer3='';
+    var CustomerEmail=$('#emailcustomer1').val();
+    var emailcustomer2=$('#emailcustomer2').val();
+    var emailcustomer3=$('#emailcustomer3').val();
 
 
     var formData = new FormData();
