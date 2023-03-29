@@ -2114,6 +2114,21 @@ function callPagination(arr1, main, sub, func, status)
             }
         });
     }
+    if (func == "processShipperTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getShipper",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processShipperTable(res[0]);
+                renameTableSeq("customerTable", "shipperTable");
+                        
+            }
+        });
+    }
     
 }
 

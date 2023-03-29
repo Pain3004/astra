@@ -62,6 +62,11 @@ class ShipperController extends Controller
         $completedata[] = $paginate;
         $completedata[] = $total_records;
         echo json_encode($completedata);
+
+
+
+
+       
        
     }
     public function storeShipper(Request $request)
@@ -339,12 +344,10 @@ class ShipperController extends Controller
     {
         $id=(int)$request->id;
         $companyID=(int)Auth::user()->companyID;
-        $masterId=(int)$request->masterId;
-        $cursor = Shipper::raw()->aggregate([
-            ['$match' => ['companyID' => $companyID,'_id'=>$masterId,'shipper._id' => $id]],
-            ['$project' => ['size' => ['$size' => ['$shipper']]]]
-        ]);
+        $masterId=(int)$request->comID;
+        $cursor = Shipper::raw()->findOne(['companyID'=> $companyID,'_id'=>$masterId,'shipper._id' => $id]);
         dd($cursor);
+        // dd($cursor);
         // $Shipper = Shipper::where('companyID',$companyID)->first();
         // // dd($Shipper );
         // $ShipperArray=$Shipper->shipper;
