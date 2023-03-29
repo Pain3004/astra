@@ -772,9 +772,15 @@
                                       <label>Name*</label>
                                       <input type="hidden" id="shipperId" name="shipperId">
                                       <div class="form-group">
-                                        <select class="form-control select2-show-search form-select lb_shipperName" id="lb_shipperName" name="shipperName[]">
+                                        <!-- <select class="form-control select2-show-search form-select lb_shipperName" id="lb_shipperName" name="shipperName[]">
+                                          <option>Select Here </option>
+                                        </select> -->
+                                        <select class="form-control select2-show-search form-select" id="lb_shipperName" name="shipperName[]" onchange="getShipper(this.value,0)"  onkeyup="doSearch(this.value,'searchActiveShipper',0)">
                                           <option>Select Here </option>
                                         </select>
+                                        <!-- 'id="shipperlist" name="shipperlist" onchange="getShipper(this.value,0)"  onkeyup="doSearch(this.value,'."'searchActiveShipper'".',0)" autocomplete="off">'; -->
+                                    <datalist id="shipper" name="shipper">';
+                                    </datalist>';
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -786,7 +792,9 @@
                                     <div class="form-group col-md-2">
                                       <label>Location *</label>
                                       <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" name="activeshipper" data-location="activeshipper0" id="activeshipper0" onkeydown="getLocation('activeshipper0')" name="shipperLocation[]">
+                                        <input class="form-control location_view" placeholder="Enter a location" type="text" data-location="activeshipper0" id="activeshipper0" onkeydown="getLocation('activeshipper0')" name="shipperLocation[]">
+                                        <!-- <input type="text" class="form-control location_view" data-location="customerLocation"  id="customerLocation" placeholder="Enter Location"> -->
+
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -914,7 +922,7 @@
                                     <div class="form-group col-md-2">
                                       <label>Location *</label>
                                       <div>
-                                        <input class="form-control" placeholder="Enter a location" type="text" name="activeconsignee" data-location="activeconsignee0" id="activeconsignee0" onkeydown="getLocation(this.name)" name="activeconsignee[]">
+                                        <input class="form-control" placeholder="Enter a location" type="text"  data-location="activeconsignee0" id="activeconsignee0" onkeydown="getLocation('activeconsignee0')" name="activeconsignee[]">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -2437,32 +2445,19 @@ function calculateMiles() {
     document.getElementById("drivermiles").value = 0;
     document.getElementById("loadedmiles").value = 0;
     document.getElementById("emptymiles").value = 0;
-    var shipLoc = document.getElementById("activeshipper0");
-    var consigLoc = document.getElementById("activeconsignee0");
-    var shipseq = document.getElementsByName("shipseq");
-    var consigseq = document.getElementsByName("consigseq");
+    var shipLoc = document.getElementsByName("shipperLocation[]");
+    var consigLoc = document.getElementsByName("activeconsignee[]");
+    var shipseq = document.getElementsByName("shipseq[]");
+    var consigseq = document.getElementsByName("consigseq[]");
     var locations = [];
     var startFlag = 0;
     var endflag = 0;
     
-    // var startLocation = 'ABERDEEN, WA';
-    // var endLocation = 'NEW CASTLE ,DE';
-    // var shipLoc = 'ABERDEEN, WA';
-    //  var consigLoc = 'NEW CASTLE ,DE';
-    console.log(startLocation);
-    console.log(endLocation);
-  console.log(shipLoc.value+" ");
-  console.log(shipseq.value+" ");
-  console.log(consigLoc.value+" ");
-  console.log(consigseq.value+" ");
-  // // console.log(locations.value+" ");
-  // console.log(startLocation+" ");
-  // alert(startLocation);
+    
     if (startLocation != "") {
       locations.push({ seq: "0", location: startLocation });
       startFlag = 1;
     }
-    console.log(shipLoc.length);
     for (var i = 0; i < shipLoc.length; i++) {
       if (shipLoc[i].value == "") {
         swal.fire({
@@ -2650,6 +2645,7 @@ function calcRoute(waypts, startFlag, endflag) {
       $("#emptymiles").val(empty_mi);
       var type = document.getElementsByName("typeofloder");
       var checked = getTypeOfLoader(type);
+      console.log(type);
       if (checked == "driver") {
         getDriverTotal();
       }
@@ -2659,6 +2655,67 @@ function calcRoute(waypts, startFlag, endflag) {
       alert("Unable to find route!!!");
     }
   });
+}
+
+function getTypeOfLoader(type) {
+  for (let i = 0; i < type.length; i++) {
+    if (type[i].checked) {
+      var loaderType = type[i].getAttribute("id");
+      switch (loaderType) {
+        case "carrier":
+          return "carrier";
+        case "driver":
+          return "driver";
+        case "owner":
+          return "owner";
+      }
+    }
+  }
+}
+
+var placeArray = "";
+$.getJSON(("./place.json", function (json) {
+  placeArray = json; // this will show the info it in firebug console
+}));
+
+var placetimeout = "";
+function getLocation(fieldID) {
+
+
+  console.log(fieldID);
+  clearTimeout(placetimeout);
+  var location = document.getElementById(fieldID);
+  console.log(location.value);
+  var st = fieldID + "-list";
+  if (location.value == "") {
+    document.getElementById(st).style.display = "none";
+  }
+  placetimeout = setTimeout(function () {
+    var regex = new RegExp(location.value, "i");
+    var list = `<ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front col-md-10" unselectable="on" style="left:16px;top: 61.625px; height:auto; box-shadow: 2px 2px 2px 3px rgb(0 0 0 / 6%); max-height: 200px;overflow: auto;z-index: 9999;">`;
+    var count = 1;
+
+    $.each(placeArray, function (key, val) {
+      if (val.city.search(regex) != -1) {
+        list += `<li class="ui-menu-item" style="padding: 5px; border-bottom: 1px solid;" >
+                                <div id="ui-id-2" tabindex="-1" class="ui-menu-item-wrapper" onclick="putValue('${val.city.toUpperCase()}', '${fieldID}', '${st}')">${val.city.toUpperCase()}</div>
+                         </li>`;
+
+        count++;
+      }
+    });
+    
+    list += `</ul>`;
+    if (document.getElementById(st) == undefined) {
+      var div = document.createElement("div");
+      div.setAttribute("id", st);
+      location.parentNode.insertBefore(div, location.nextSibling);
+    } else {
+      document.getElementById(st).style.display = "block";
+    }
+    document.getElementById(st).innerHTML = list;
+  }, 800);
+  //var location = new google.maps.places.Autocomplete(document.getElementById(fieldID), options);
 }
 //-----------------------end calculateMiles-----------------
 // //-----------------------other Carrier modal-----------------
@@ -2888,6 +2945,54 @@ function getOwnerTotal() {
 
 
 // //-----------------------other driver modal-----------------
+// //-----------------------searchShipper-----------------
+// Searching function for all
+var timeout = null;
+
+// function doSearch(dom, funname, val) {
+//     var active_id = val;
+//     var func = funname;
+//     var dom = dom;
+//     var value = $('#search').val();
+//     if (timeout) {
+//         clearTimeout(timeout);
+//     }
+//     timeout = setTimeout(function () {
+//         if (func == 'searchShipper') {
+//             searchShipper(searchBoxDom.value, 'browsers'); // shipper_modal.php
+//         } 
+//     }, 600); 
+// }
+// function searchShipper(value, id) {
+//     if (!value.includes(")")) {
+//         if (value.match(letters) || value == '') {
+//             $.ajax({
+//                 url: "./Master.php",
+//                 data: {
+//                     main: "admin",
+//                     sub: "shipperlist",
+//                     data: value,
+//                 },
+//                 method: "POST",
+//                 dataType: 'html',
+//                 success: function (response) {
+//                     var result = JSON.parse(response);
+//                     if (result.length == 0) {
+//                         document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+//                     } else {
+//                         var options = "";
+//                         for (var i = 0; i < result.length; i++) {
+//                             options += `<option data-value = "${result[i].id}" data-id = "${result[i].parent}" value="${result[i].value}">${result[i].location}</option>`;
+//                         }
+//                         document.getElementById(id).innerHTML = options;
+//                     }
+//                 }
+//             });
+//         } else {
+//             swal('Please input alphanumeric characters only');
+//         }
+//     }
+// }
 </script>
 
 <!-------------------------------------------------------------------End modal------------------------------------------------------------------->		

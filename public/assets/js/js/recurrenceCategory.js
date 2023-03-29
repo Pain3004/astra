@@ -552,16 +552,16 @@ $('.closeDriverPayInfo').click(function(){
 });
 
 $('#saveDriverPayInfo').click(function(){
-    var loadedmiles = $('#loadedmiles').val();
+    var loadedmiles = $('#pay_loadedmiles').val();
     if(loadedmiles == ''){
         swal.fire({title: 'Please loaded miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
-        $("#loadedmiles").focus();
+        $("#pay_loadedmiles").focus();
         return false;
     }
-    var emptymiles = $('#emptymiles').val();
+    var emptymiles = $('#pay_emptymiles').val();
     if(emptymiles == ''){
         swal.fire({title: 'Please empty miles ',text: 'Redirecting...',timer: 3000,buttons: false,})
-        $("#emptymiles").focus();
+        $("#pay_emptymiles").focus();
         return false;
     }
 
