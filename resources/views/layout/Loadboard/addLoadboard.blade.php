@@ -464,7 +464,7 @@
                                         <label for="customerPaymentTerms">Name<span style="color: red">*</span></label>
                                         <div class="dropdown show">
                                           <!-- <input class="form-control" placeholder="Search here..." list="shipper" id="lb_shipperName" name="shipperName[]" onkeyup="doSearch(this.value,'searchActiveShipper',0)"> -->
-                                          <input class="form-control" placeholder="Search here..." list="shipper" id="shipperlist" name="shipperName[]" onkeyup="doSearch(this.value,'searchActiveShipper',0)">
+                                          <input class="form-control" placeholder="Search here..." list="shipper" id="shipperlist" name="shipperName[]" onchange="getShipper(this.value,0)" onkeyup="doSearch(this.value,'searchActiveShipper',0)">
                                           <datalist id="shipper" name="shipper">
                                           </datalist>
                                         </div>
@@ -474,7 +474,7 @@
                                     <div class="form-group col-md-2">
                                       <label>Address<span style="color: red">*</span></label>
                                       <div>
-                                        <input class="form-control" placeholder="Address *" type="text" id="shipperaddress" name="shipperaddress[]">
+                                        <input class="form-control" placeholder="Address *" type="text" id="shipperaddress0" name="shipperaddress[]">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">
@@ -580,7 +580,7 @@
                                         <label for="customerPaymentTerms">Name<span style="color: red">*</span></label>
                                         <div class="dropdown show">
                                           <!-- <input class="form-control" placeholder="Search here..." list="shipper" id="lb_shipperName" name="shipperName[]" onkeyup="doSearch(this.value,'searchActiveShipper',0)"> -->
-                                          <input class="form-control" placeholder="Search here..." list="consigneee" id="lb_consignee" name="consigneelist[]" onclick="doSearch(this.value,'searchActiveConsignee', 0)" onkeyup="doSearch(this.value,'searchActiveConsignee', 0)" autocomplete="off">
+                                          <input class="form-control" placeholder="Search here..." list="consigneee" id="lb_consignee" name="consigneelist[]" onchange="getConsignee(this.value,0)" onclick="doSearch(this.value,'searchActiveConsignee', 0)" onkeyup="doSearch(this.value,'searchActiveConsignee', 0)" autocomplete="off">
                                           <datalist id="consigneee" name="consigneee">
                                           </datalist>
                                         </div>
@@ -590,7 +590,7 @@
                                     <div class="form-group col-md-2">
                                       <label>Address<span style='color:#ff0000'>*</span></label>
                                       <div>
-                                        <input class="form-control" placeholder="Address *" type="text" id="consigneeaddress" name="consigneeaddress[]">
+                                        <input class="form-control" placeholder="Address *" type="text" id="consigneeaddress0" name="consigneeaddress[]">
                                       </div>
                                     </div>
                                     <div class="form-group col-md-2">

@@ -867,7 +867,6 @@ function searchActiveConsignee(value, id) {
 }
 
 function searchConsignee(value, id) {
-    console.log(value, id);
     var formData = new FormData();
     formData.append('_token',$("#tokenLoadboard").val());
     formData.append('data',value);
@@ -902,5 +901,94 @@ function searchConsignee(value, id) {
             swal('Please input alphanumeric characters only');
         }
     }
+}
+
+//active Shipper
+function getShipper(value, tabId) {
+  var val = "";
+  var id = "";
+  if (tabId == 0) {
+    val = $('#shipper [value="' + value + '"]').data("value");
+    id = $('#shipper [value="' + value + '"]').data("id");
+  } else {
+    val = $("#shipper" + tabId + ' [value="' + value + '"]').data("value");
+    id = $("#shipper" + tabId + ' [value="' + value + '"]').data("id");
+  }
+
+//   var data = {
+//     value: val,
+//     id: id,
+//   };
+
+  var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',val);
+    formData.append('id',id);
+
+  if (value != "") {
+    $.ajax({
+        url: base_path+"/admin/LBShipper",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+      success: function (data) {
+        var values = JSON.parse(data);
+        if (values.address != "" && values.location != "") {
+          document.getElementById("shipperaddress" + tabId + "").value =
+            values.address;
+          document.getElementById("activeshipper" + tabId + "").value =
+            values.location;
+        }
+      },
+    });
+  } else {
+    document.getElementById("shipperaddress" + tabId + "").value = "";
+    document.getElementById("activeshipper" + tabId + "").value = "";
+  }
+}
+
+function getConsignee(value, tabId) {
+  var val = "";
+  var id = "";
+  if (tabId == 0) {
+    val = $('#consigneee [value="' + value + '"]').data("value");
+    id = $('#consigneee [value="' + value + '"]').data("id");
+  } else {
+    val = $("#consigneee" + tabId + ' [value="' + value + '"]').data("value");
+    id = $("#consigneee" + tabId + ' [value="' + value + '"]').data("id");
+  }
+
+  var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',val);
+    formData.append('id',id);
+
+  if (value != "") {
+    $.ajax({
+        url: base_path+"/admin/LBconsignee",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+      success: function (data) {
+        var values = JSON.parse(data);
+        console.log(values);
+        if (values.address != "" && values.location != "") {
+          document.getElementById("consigneeaddress" + tabId + "").value =
+            values.address;
+          document.getElementById("activeconsignee" + tabId + "").value =
+            values.location;
+        }
+      },
+    });
+  } else {
+    document.getElementById("consigneeaddress" + tabId + "").value = "";
+    document.getElementById("activeconsignee" + tabId + "").value = "";
+  }
 }
 </script>

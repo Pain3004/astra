@@ -82,6 +82,8 @@ Route::post('admin/ownerTruckVerify', [LoadBoardController::class, 'getTruck']);
 Route::post('admin/ownerTrailerVerify', [LoadBoardController::class, 'getTrailer']);
 Route::post('admin/shipperList', [LoadBoardController::class, 'shipperList']);
 Route::post('admin/consigneeList', [LoadBoardController::class, 'consigneeList']);
+Route::post('admin/LBconsignee', [LoadBoardController::class, 'getConsignee']);
+Route::post('admin/LBShipper', [LoadBoardController::class, 'getShipper']);
 // User
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);

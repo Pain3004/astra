@@ -88,6 +88,56 @@ class LoadBoardController extends Controller
         // dd($consigneeList);
         echo json_encode($consigneeList);
     }
+
+    public function getShipper(Request $request){
+        $id = (int)$request->value;
+        $doc_id = (int)$request->id;
+        $show1 = \App\Models\Shipper::raw()->aggregate([
+                ['$match'=>['companyID'=>(int)Auth::user()->companyID, '_id' => $doc_id]],
+                ['$unwind'=>'$shipper'],
+                ['$match'=>['shipper._id'=>$id]]
+        ]);
+        
+        $result = array();
+        foreach ($show1 as $row) {
+        $shipper = array();
+        $k = 0;
+        $shipper[$k] = $row['shipper'];
+        $k++;
+        foreach ($shipper as $row) {
+              $result['address'] = $row['shipperAddress'];
+              $result['location'] = $row['shipperLocation'];
+           }
+        }
+        echo json_encode($result);
+    }
+
+    public function getConsignee(Request $request){
+        // dd($request);
+        $id = (int)$request->value;
+        $doc_id = (int)$request->id;
+        $show1 = \App\Models\Consignee::raw()->aggregate([
+                ['$match'=>['companyID'=>(int)Auth::user()->companyID, '_id' => $doc_id]],
+                ['$unwind'=>'$consignee'],
+                ['$match'=>['consignee._id'=>$id]]
+        ]);
+        
+        $result = array();
+        foreach ($show1 as $row) {
+          
+        $consignee = array();
+        $k = 0;
+        $consignee[$k] = $row['consignee'];
+        $k++;
+        foreach ($consignee as $row) {
+              $result['address'] =  $row['consigneeAddress'];
+              $result['location'] = $row['consigneeLocation'];
+           }
+        }
+        echo json_encode($result);
+     }
+
+     
     public function index(Request $request){
         $companyId=Auth::user()->companyID;
         $Carrier = \App\Models\Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();

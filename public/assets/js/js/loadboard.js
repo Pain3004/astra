@@ -672,26 +672,26 @@ $("#LBCarrierPlus").click(function(){
 //     }
     
 // }
-$("#lb_shipperName").change(function(){
-  //var id=$("#LB_Shipper").val();
-  var Shipper=$('#lb_shipperName').val().split('-');
+// $("#lb_shipperName").change(function(){
+//   //var id=$("#LB_Shipper").val();
+//   var Shipper=$('#lb_shipperName').val().split('-');
  
-  $("#shipperId").val(Shipper[0]);
-  $("#shipperaddress").val(Shipper[1]);
-  $("#activeshipper").val(Shipper[2]);
+//   $("#shipperId").val(Shipper[0]);
+//   $("#shipperaddress").val(Shipper[1]);
+//   $("#activeshipper").val(Shipper[2]);
   
-});
+// });
 
 
-$("#consigneelist").change(function(){
-  //var id=$("#LB_Shipper").val();
-  var Shipper=$('#consigneelist').val().split('-');
+// $("#consigneelist").change(function(){
+//   //var id=$("#LB_Shipper").val();
+//   var Shipper=$('#consigneelist').val().split('-');
  
-  //$("#shipperId").val(Shipper[0]);
-  $("#consigneeaddress").val(Shipper[1]);
-  $("#activeconsignee").val(Shipper[2]);
+//   //$("#shipperId").val(Shipper[0]);
+//   // $("#consigneeaddress").val(Shipper[1]);
+//   // $("#activeconsignee").val(Shipper[2]);
   
-});
+// });
   
 // <!-- -------------------------------------------------------------------------over shipper Truck  ------------------------------------------------------------------------- -->
 // <!-- -------------------------------------------------------------------------Accessorial ------------------------------------------------------------------------- -->
