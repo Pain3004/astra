@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ShipperController extends Controller
 {
+
+   
     public function getShipper(){
         $companyId=Auth::user()->companyID;
         $shipper = Shipper::where('companyID',$companyId)->first();

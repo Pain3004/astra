@@ -1,5 +1,20 @@
 
 $(document).ready(function() {
+
+//   $('.shipperSet').click(function(){
+//     alert(); 
+//     // $.ajax({
+//     //     type: "GET",
+//     //     url: base_path+"/admin/getCustomerPaymentTerms",
+//     //     async: false,
+//     //     //dataType:JSON,
+//     //     success: function(customerPaymentTermsResult) {
+//     //         //console.log(customerCurrencyResult);
+//     //         createcustomerPaymentTermsList(customerPaymentTermsResult);
+//     //         customerPaymentTermsResponse = customerPaymentTermsResult;
+//     //     }
+//     // });
+// });
   // dataTable = $("#example").DataTable({
   // });
 
@@ -21,24 +36,18 @@ $(document).ready(function() {
   })
 //-- -------------------------------------------------------------------------    -- -------------------------------------------------------------------------
 
-$("#consigneelist,#lb_consignee,#lb_owner, #lb_shipperName, #lb_Company,#LB_Customer, #lb_Dispatcher, #lb_load, #lb_EquipmentType, #LB_Carrier, #LB_Driver, #LB_Truck, #LB_Trailer, #lb_owner_truck, #lb_owner_trailer").select2({
+$("#lb_owner,#lb_Company,#LB_Customer, #lb_Dispatcher, #lb_load, #lb_EquipmentType, #LB_Carrier, #LB_Driver, #LB_Truck, #LB_Trailer, #lb_owner_truck, #lb_owner_trailer").select2({
   placeholder: "Select Here",
   allowClear: true,
   dropdownParent: $('#addLoadBoardModal')
   });
 
-$('#addLoadBoard').click(function(){
-  $.ajax({
-    type: "GET",
-    url: base_path+"/admin/Shipper",
-    async: false,
-    success: function(Result) { 
-      createshipperList(Result);
-    }
+$('#addLoadBoard, #add_dashboard').click(function(){
+   $('#addLoadBoardModal').modal('show');
 });
+$('#add_dashboard').click(function(){
   $('#addLoadBoardModal').modal('show');
 });
-
 //-- -------------------------------------------------------------------------  Get loaboard data -- -------------------------------------------------------------------------
 $('.closeAddNewLoadBoard').click(function(){
   $('#addLoadBoardModal').modal('hide');
@@ -624,45 +633,45 @@ $("#LBCarrierPlus").click(function(){
 //       }
 //   });
 // });
-$("#lb1_shipperName").change(function(){
-  // alert();
-  //var id=$("#LB_Shipper").val();
-  var Shipper=$('#lb_shipperName').val().split('-');
+// $("#lb1_shipperName").change(function(){
+//   // alert();
+//   //var id=$("#LB_Shipper").val();
+//   var Shipper=$('#lb_shipperName').val().split('-');
   
-  $("#shipperId").val(Shipper[0]);
-  $("#shipperaddress").val(Shipper[1]);
-  $("#activeshipper").val(Shipper[2]);
+//   $("#shipperId").val(Shipper[0]);
+//   $("#shipperaddress").val(Shipper[1]);
+//   $("#activeshipper").val(Shipper[2]);
   
-});
-function createshipperList(Result) {           
-    var Length = 0;    
-    if (Result != null) {
-        Length = Result.shipper.length;
-    }
+// });
+// function createshipperList(Result) {           
+//     var Length = 0;    
+//     if (Result != null) {
+//         Length = Result.shipper.length;
+//     }
 
-    if (Length > 0) {
-        // var no=1;
-        $(".ShipperListSet").html('');
-        for (var i = 0; i < Length; i++) { 
-            var shipperLength =Result.shipper[i].shipper.length;
-            for (var j = 0; j < shipperLength; j++) {  
-              var id =Result.shipper[i].shipper[j]._id;
-              var shipperName =Result.shipper[i].shipper[j].shipperName;
-              var shipperAddress =Result.shipper[i].shipper[j].shipperAddress;
-              var shipperLocation =Result.shipper[i].shipper[j].shipperLocation;
-              // var shipperNumber =Result.shipper[i].shipper[j].shipperNumber;
-              var deleteStatus =Result.shipper[i].shipper[j].deleteStatus;
+//     if (Length > 0) {
+//         // var no=1;
+//         $(".ShipperListSet").html('');
+//         for (var i = 0; i < Length; i++) { 
+//             var shipperLength =Result.shipper[i].shipper.length;
+//             for (var j = 0; j < shipperLength; j++) {  
+//               var id =Result.shipper[i].shipper[j]._id;
+//               var shipperName =Result.shipper[i].shipper[j].shipperName;
+//               var shipperAddress =Result.shipper[i].shipper[j].shipperAddress;
+//               var shipperLocation =Result.shipper[i].shipper[j].shipperLocation;
+//               // var shipperNumber =Result.shipper[i].shipper[j].shipperNumber;
+//               var deleteStatus =Result.shipper[i].shipper[j].deleteStatus;
 
-              // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
-                var List = "<option class='LB_Shipper' value='"+id+"-"+shipperAddress+"-"+shipperLocation+"'>"+shipperName+"</option>"                   
-                $("#lb_shipperName").append(List);
-                // $(".lb1_shipperName").append(List);
-              // }
-            }
-          }
-    }
+//               // if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+//                 var List = "<option class='LB_Shipper' value='"+id+"-"+shipperAddress+"-"+shipperLocation+"'>"+shipperName+"</option>"                   
+//                 $("#lb_shipperName").append(List);
+//                 // $(".lb1_shipperName").append(List);
+//               // }
+//             }
+//           }
+//     }
     
-}
+// }
 $("#lb_shipperName").change(function(){
   //var id=$("#LB_Shipper").val();
   var Shipper=$('#lb_shipperName').val().split('-');

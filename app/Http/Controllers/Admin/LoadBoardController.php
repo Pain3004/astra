@@ -18,6 +18,7 @@ use Auth;
 use MongoDB\Driver\Cursor;
 // use App\Models\;
 use File;
+use MongoDB\BSON\Regex;
 use Image;
 
 
@@ -29,7 +30,64 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LoadBoardController extends Controller
 {
+    public function shipperList(Request $request)
+    {
+       // echo "hello";
+        // dd($request);
+        $para = '^' . $request->data;
+        // dd($para);
+        $datasearch = new Regex($para, 'i');
+        $show = \App\Models\Shipper::raw()->aggregate([
+            ['$match' => ["companyID" => (int)Auth::user()->companyID]],
+            ['$unwind' => '$shipper'],
+            ['$match' => ['shipper.shipperName' => $datasearch, 'shipper.shipperStatus' => "Active","shipper.deleteStatus"=>"NO"]],
+            ['$project' => ['shipper._id' => 1, 'shipper.shipperName' => 1, 'shipper.shipperLocation' => 1, 'companyID' => (int)Auth::user()->companyID]],
+            ['$limit' => 100]
+        ]);
+        $shipper = array();
+        $shipperList = array();
+        foreach ($show as $s) {
+            
+            $q = 0;
+            $shipper[$q] = $s['shipper'];
+            $parent = $s['_id'];
+            $q++;
+            foreach ($shipper as $sr) {
+                $shipperList[] = array("id" => $sr['_id'], "value" => $sr['shipperName'], "location" => $sr['shipperLocation'], "parent" => $parent);
+            }
+        }
+        // dd($shipperList);
+        echo json_encode($shipperList);
+    }
 
+    public function consigneeList(Request $request)
+    {
+        // echo "ll";
+        // dd($request->data);
+        $para = '^' . $request->data;
+        $datasearch = new Regex($para, 'i');
+        $show = \App\Models\Consignee::raw()->aggregate([
+            ['$match' => ["companyID" => (int)Auth::user()->companyID]],
+            ['$unwind' => '$consignee'],
+            ['$match' => ['consignee.consigneeName' => $datasearch, 'consignee.consigneeStatus' => "Active","consignee.deleteStatus" => "NO"]],
+            ['$project' => ['consignee._id' => 1, 'consignee.consigneeName' => 1,'consignee.consigneeLocation' => 1, 'companyID' => (int)Auth::user()->companyID]],
+            ['$limit' => 100]
+        ]);
+        $consignee = array();
+        $consigneeList = array();
+        foreach ($show as $s) {
+            // dd($s);
+            $u = 0;
+            $consignee[$u] = $s['consignee'];
+            $parent = $s['_id'];
+            $u++;
+            foreach ($consignee as $ce) {
+                $consigneeList[] = array("id" => $ce['_id'], "value" => $ce['consigneeName'], "location" => $ce['consigneeLocation'], "parent" => $parent);
+            }
+        }
+        // dd($consigneeList);
+        echo json_encode($consigneeList);
+    }
     public function index(Request $request){
         $companyId=Auth::user()->companyID;
         $Carrier = \App\Models\Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();
@@ -44,7 +102,7 @@ class LoadBoardController extends Controller
         $Consignee = \App\Models\Consignee::where('companyID',$companyId )->get();
 
         $user = \App\Models\User::where('id', '!=', Auth::user()->id)->where('deleteStatus',0)->orderBy('_id', 'DESC')->get();
-        
+       
         //dd($TrailerAdminAdd);
         return view('layout.Loadboard.Loadboard',['Consignee'=>$Consignee,'trailer'=>$TrailerAdminAdd,'driver'=>$driver,'company'=>$company, 'EquipmentType'=>$EquipmentType,'carrier'=>$Carrier,'truck'=>$truck,'Load_type'=>$Load_type, 'user'=>$user, 'customer'=>$customer]);
     }

@@ -80,7 +80,8 @@ Route::post('/admin/driverVerify', [LoadBoardController::class, 'getDriver']);
 Route::post('/admin/ownerVerify', [LoadBoardController::class, 'getOwner']);
 Route::post('admin/ownerTruckVerify', [LoadBoardController::class, 'getTruck']);
 Route::post('admin/ownerTrailerVerify', [LoadBoardController::class, 'getTrailer']);
-
+Route::post('admin/shipperList', [LoadBoardController::class, 'shipperList']);
+Route::post('admin/consigneeList', [LoadBoardController::class, 'consigneeList']);
 // User
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);
@@ -187,6 +188,7 @@ Route::post('admin/create_truckType', [TruckController::class, 'create_truckType
 
 //Shipper
 Route::get('admin/getShipper', [ShipperController::class, 'getShipper']);
+
 Route::get('admin/Shipper', [ShipperController::class, 'Shipper']);
 Route::post('admin/storeShipper', [ShipperController::class, 'storeShipper']);
 Route::get('admin/editShipper', [ShipperController::class, 'editShipper']);
