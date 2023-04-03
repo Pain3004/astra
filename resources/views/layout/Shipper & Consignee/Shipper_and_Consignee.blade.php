@@ -17,8 +17,8 @@
                                     <div class="tabs-menu4 border-bottomo-sm">
                                         <nav class="nav d-sm-flex d-block">
                                             <input type="hidden" class="editAddressType">
-                                            <!-- <a class="nav-link border border-bottom-0 br-sm-5 me-2 active shipper_tab" data-bs-toggle="tab" href="#tab25" style="width: 15%; !important"> Shipper </a>
-                                            <a class="nav-link border border-bottom-0 br-sm-5 me-2 consignee_tab" data-bs-toggle="tab" href="#tab26" style="width: 15% !important ;">Consignee</a> -->
+                                            <button class="button-23 shipperConsignee_navbar"  id=""> Shipper </button>
+                                            <button class="button-23 consignee_viewList" >Consignee</button>
                                         </nav>
                                     </div>
                                 </div>
@@ -66,44 +66,6 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                <!-- </div> -->
-                                                <!-- <div class="tab-pane " id="tab26">
-                                                    <div class="table-responsive export-table">
-                                                        <a href="#" class="button-29 createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
-                                                        <input type="file" class="form-control float-right" id="Shipperfiles" name="Shipperfiles[]" multiple="" accept=".png, .jpg, .jpeg, .pdf" style="width: auto;">
-                                                        <a href="#" class="btn btn-primary float-right" data-toggle="modal" data-target="#"> XLSX format</a> &nbsp;&nbsp;&nbsp;
-
-                                                        <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100" style="height:500px; width:1000px;">
-
-                                                            <thead class="thead_th">
-                                                                <tr class="tr">
-                                                                    <th >NO</th>
-                                                                    <th >Consignee Name</th>
-                                                                    <th >Address</th>
-                                                                    <th >Location</th>
-                                                                    <th >Postal / Zip</th>
-                                                                    <th >Contact Name</th>
-                                                                    <th >Contact Email</th>
-                                                                    <th >Telephone</th>
-                                                                    <th >Ext</th>
-                                                                    <th >Toll Free</th>
-                                                                    <th >Fax</th>
-                                                                    <th >Shipping Hours </th>
-                                                                    <th >Appt</th>
-                                                                    <th >Major Instructions/Directions</th>
-                                                                    <th >Status</th>
-                                                                    <th >Shipping Notes</th>
-                                                                    <th >Internal Notes</th>
-
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="consigneeTable">
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -147,18 +109,13 @@
                             <div class="card">
                                 <div class="tab-menu-heading border-bottom-0">
                                     <div class="tabs-menu4 border-bottomo-sm">
-                                        <!-- <nav class="nav d-sm-flex d-block">
-                                            <input type="hidden" class="addressType" value="shipper">
-                                            <a class="nav-link border border-bottom-0 br-sm-5 me-2 active  getValueShipper" data-bs-toggle="tab" href="#shipperTab1" style="width: 15%; !important"> Shipper </a>
-                                            <a class="nav-link border border-bottom-0 br-sm-5 me-2 getValueConsignee" data-bs-toggle="tab" href="#consigneeTab1" style="width: 15% !important ;">Consignee</a>
-                                        </nav> -->
+                                        
                                     </div>
                                 </div>
                                 <div class="card-body p-6">
                                     <div class="panel panel-primary">
                                         <div class="panel-body tabs-menu-body">
                                             <div class="tab-content">
-                                                <!-- <div class="tab-pane active " id="shipperTab1"> -->
                                                     <div class="table-responsive export-table">
                                                         <form>
                                                             @csrf
@@ -478,7 +435,7 @@
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Restore Shipper & Consignee</h4>
+                    <h4 class="modal-title">Restore Shipper </h4>
                     <button type="button" class="button-24 closeRestoreShipperModal">&times;</button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
@@ -529,7 +486,7 @@
                                                                     <th >Internal Notes</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody id="RestoreshipperTable">
+                                                            <tbody class="RestoreshipperTable" id="RestoreshipperTable">
 
                                                             </tbody>
                                                         </table>

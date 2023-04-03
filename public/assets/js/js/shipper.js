@@ -7,7 +7,7 @@ var base_path = $("#url").val();
      });
   
     // <!-- ----====================Get truck ====================----- -->     
-    $('#shipperConsignee_navbar').click(function(){
+    $('.shipperConsignee_navbar').click(function(){
         $(".editAddressType").val("shipper");
         $.ajax({
             type: "GET",
@@ -20,483 +20,14 @@ var base_path = $("#url").val();
                     $("#shipper_pagination").html(paginateList(res[1], "admin", "paginateshipper", "processShipperTable"));
                     renameTableSeq("shipperTable", "page_active");
                 }
-                // var totalshipper = "<i class='mdi mdi-chart-areaspline statistics-icon' style='font-size:24px'></i>Total Records : " + res[2];
-                // $("#shipper_pagination").html(totalshipper);
-                // $(".loading").css("display", "none");
                
              }
         });
         $('#Shipper_and_ConsigneeModal').modal('show');
+        $('#View_ConsigneeModal').modal('hide');
     });
 
-    // $('.shipper_tab').click(function(){
-    //     $(".editAddressType").val("shipper");
-    //     $.ajax({
-    //         type: "GET",
-    //         url: base_path+"/admin/getShipper",
-    //         async: false,
-    //         //dataType:JSON,
-    //         success: function(text) {
-    //             //alert();
-    //             console.log(text);
-    //             createGetShipperRows(text);
-    //             shipperResult = text;
-    //          }
-    //     });
-    // });
     
-    // <!--======================over Get truck======================- --> 
-    // <!--=======================--function =======================-- --> 
-        
-    // get truck
-    // function createGetShipperRows(shipperResult) 
-    // {
-    //     var shipperlen = 0;
-    //     var no=1;
-    //     var lentData=[];
-    //     if (shipperResult != null) {
-    //         shipperlen = shipperResult.shipper.length;
-    //         $("#shipperTable").html('');
-    //         if (shipperlen > 0) {
-    //             for (var j = shipperlen-1; j > 0; j--) 
-    //             {  
-    //                 var comID=shipperResult.companyId.companyId;
-    //                 var data=shipperResult.shipper[j];
-    //                 $.each(data, function(i, v) { 
-    //                     var id =shipperResult.shipper[j][i]._id;
-    //                     var shipperName =shipperResult.shipper[j][i].shipperName;
-    //                     var shipperAddress =shipperResult.shipper[j][i].shipperAddress;
-    //                     var shipperLocation =shipperResult.shipper[j][i].shipperLocation;
-    //                     var  shipperPostal=shipperResult.shipper[j][i].shipperPostal;
-    //                     var  shipperContact=shipperResult.shipper[j][i].shipperContact;
-    //                     var  shipperEmail=shipperResult.shipper[j][i].shipperEmail;
-    //                     var  shipperTelephone=shipperResult.shipper[j][i].shipperTelephone;
-    //                     var  shipperExt=shipperResult.shipper[j][i].shipperExt;
-    //                     var  shipperTollFree=shipperResult.shipper[j][i].shipperTollFree;
-    //                     var  shipperFax=shipperResult.shipper[j][i].shipperFax;
-    //                     var  shipperShippingHours=shipperResult.shipper[j][i].shipperShippingHours;
-    //                     var  shipperAppointments=shipperResult.shipper[j][i].shipperAppointments;
-    //                     var  shipperIntersaction=shipperResult.shipper[j][i].shipperIntersaction;
-    //                     var  shipperStatus=shipperResult.shipper[j][i].shipperStatus;
-    //                     var  shippingNotes=shipperResult.shipper[j][i].shippingNotes;
-    //                     var  internalNotes=shipperResult.shipper[j][i].internalNotes;
-    //                     var  deleteStatus=shipperResult.shipper[j][i].deleteStatus;
-    //                     var  insertedTime1=shipperResult.shipper[j][i].insertedTime;
-    //                     if(shipperName !=="" && shipperName !==null)
-    //                     {
-    //                         shipperName=shipperName; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperName="----";
-    //                     }
-    //                     if(shipperAddress !=="" && shipperAddress !==null)
-    //                     {
-    //                         shipperAddress=shipperAddress; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperAddress="----";
-    //                     }
-    //                     if(shipperLocation !=="" &&shipperLocation  !==null)
-    //                     {
-    //                         shipperLocation=shipperLocation; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperLocation="----";
-    //                     }
-    //                     if(shipperPostal !=="" && shipperPostal !==null)
-    //                     {
-    //                         shipperPostal=shipperPostal; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperPostal="----";
-    //                     }
-    //                     if(shipperContact !=="" &&  shipperContact!==null)
-    //                     {
-    //                         shipperContact=shipperContact; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperContact="----";
-    //                     }
-    //                     if(shipperTelephone !=="" && shipperTelephone !==null)
-    //                     {
-    //                         shipperTelephone=shipperTelephone; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperTelephone="----";
-    //                     }
-    //                     if(shipperExt !=="" &&  shipperExt!==null)
-    //                     {
-    //                         shipperExt=shipperExt; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperExt="----";
-    //                     }
-    //                     if(shipperTollFree !=="" &&  shipperTollFree!==null)
-    //                     {
-    //                         shipperTollFree=shipperTollFree; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperTollFree="----";
-    //                     }
-    //                     if(shipperFax !=="" && shipperFax !==null)
-    //                     {
-    //                         shipperFax=shipperFax; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperFax="----";
-    //                     }
-    //                     if(shipperShippingHours !=="" && shipperShippingHours !==null)
-    //                     {
-    //                         shipperShippingHours=shipperShippingHours; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperShippingHours="----";
-    //                     }
-    //                     if(shipperAppointments !=="" &&  shipperAppointments!==null)
-    //                     {
-    //                         shipperAppointments=shipperAppointments; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperAppointments="----";
-    //                     }
-    //                     if(shipperIntersaction !=="" && shipperIntersaction !==null)
-    //                     {
-    //                         shipperIntersaction=shipperIntersaction; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperIntersaction="----";
-    //                     }
-    //                     if(shipperStatus !=="" &&  shipperStatus!==null)
-    //                     {
-    //                         shipperStatus=shipperStatus; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shipperStatus="----";
-    //                     }
-    //                     if(shippingNotes !=="" &&  shippingNotes!==null)
-    //                     {
-    //                         shippingNotes=shippingNotes; 
-    //                     }
-    //                     else
-    //                     {
-    //                         shippingNotes="----";
-    //                     }
-    //                     if(internalNotes !=="" &&internalNotes  !==null)
-    //                     {
-    //                         internalNotes=internalNotes; 
-    //                     }
-    //                     else
-    //                     {
-    //                         internalNotes="----";
-    //                     }
-
-    //                     if(insertedTime1){
-    //                         insertedTime1 =shipperResult.shipper[j][i].insertedTime;
-    //                     }else{
-    //                         insertedTime1='';
-    //                     }
-    //                     var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-    //                     var date_tr = new Date(insertedTime1*1000);
-    //                     var year_tr = date_tr.getFullYear();
-    //                     var month_tr = months_arr_tr[date_tr.getMonth()];
-    //                     var day_tr = date_tr.getDate();
-    //                     var insertedTime = month_tr+'/'+day_tr+'/'+year_tr;
-
-    //                     if(deleteStatus == 'NO')
-    //                     {
-    //                         lentData.push(i);
-    //                         var shipperStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-    //                         "<td data-field='no'>" + no+ "</td>" +
-    //                         // "<td data-field='no'>" + insertedTime1 + "-" + insertedTime + "</td>" +
-    //                         "<td data-field='shipperName' >" + shipperName + "</td>" +
-    //                         "<td data-field='shipperName' >Shipper</td>" +
-    //                         "<td data-field='shipperAddress' >" +shipperAddress  + "</td>" +
-    //                         "<td data-field='shipperLocation' >" +shipperLocation  + "</td>" +
-    //                         "<td data-field='shipperPostal' >" + shipperPostal + "</td>" +
-    //                         "<td data-field='shipperContact' >" + shipperContact + "</td>" +
-    //                         "<td data-field='shipperEmail' >" + shipperEmail + "</td>" +
-    //                         "<td data-field='shipperTelephone' >" + shipperTelephone + "</td>" +
-    //                         "<td data-field='shipperExt' >" + shipperExt + "</td>" +
-    //                         "<td data-field='shipperTollFree' >" + shipperTollFree + "</td>" +
-    //                         "<td data-field='shipperFax' >" + shipperFax + "</td>" +
-    //                         "<td data-field='shipperShippingHours' >" + shipperShippingHours + "</td>" +
-    //                         "<td data-field='shipperAppointments' >" + shipperAppointments + "</td>" +
-    //                         "<td data-field='shipperIntersaction' >" + shipperIntersaction + "</td>" +
-    //                         "<td data-field='shipperStatus' >" + shipperStatus + "</td>" +
-    //                         "<td data-field='shippingNotes' >" + shippingNotes + "</td>" +
-    //                         "<td data-field='internalNotes' >" + internalNotes + "</td>" +
-                            
-    //                         "<td style='text-align:center'>"+
-    //                             "<a class='button-23 editShipperAndCongneeBtn'  title='Edit1' data-shipAndConsig='"+id+"' data-masterId='"+comID+"'><i class='fe fe-edit'></i></a>&nbsp"+
-
-    //                             "<a class='button-23 deleteShipperAndCongneeBtn'  title='Edit1' data-shipAndConsig='"+id+"' data-masterId='"+comID+"'><i class='fe fe-trash'></i></a>&nbsp"+
-    //                         "</td></tr>";
-
-    //                         $("#shipperTable").append(shipperStr);
-    //                         no++;
-    //                     } 
-    //                     $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
-    //                     function sort_td(a, b) 
-    //                     {
-    //                         return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;                    
-    //                     }
-    //                 });
-    //             }
-                
-    //         } 
-    //         else 
-    //         {
-    //             var shipperStr = "<tr data-id=" + i + ">" +
-    //                 "<td align='center' colspan='4'>No record found.</td>" +
-    //                 "</tr>";
-    
-    //             $("#shipperTable").append(shipperStr);
-    //         }
-
-
-
-    //         var consigneelen = shipperResult.consignee.length;
-    //         if (consigneelen > 0) {
-    //             var no=1;
-    //             for (var j = consigneelen-1; j > 0; j--) { 
-    //                 var data= shipperResult.consignee[j];
-    //                 $.each(data, function(i, v) {  
-    //                     var comID =shipperResult.consignee.companyID;
-    //                     var id =shipperResult.consignee[j][i]._id;
-    //                     var consigneeName =shipperResult.consignee[j][i].consigneeName;
-    //                     var consigneeAddress =shipperResult.consignee[j][i].consigneeAddress;
-    //                     var consigneeLocation =shipperResult.consignee[j][i].consigneeLocation;
-    //                     var  consigneePostal=shipperResult.consignee[j][i].consigneePostal;
-    //                     var  consigneeContact=shipperResult.consignee[j][i].consigneeContact;
-    //                     var  consigneeEmail=shipperResult.consignee[j][i].consigneeEmail;
-    //                     var  consigneeTelephone=shipperResult.consignee[j][i].consigneeTelephone;
-    //                     var  consigneeExt=shipperResult.consignee[j][i].consigneeExt;
-    //                     var  consigneeTollFree=shipperResult.consignee[j][i].consigneeTollFree;
-    //                     var  consigneeFax=shipperResult.consignee[j][i].consigneeFax;
-    //                     var  consigneeReceiving=shipperResult.consignee[j][i].consigneeReceiving;
-    //                     var  consigneeAppointments=shipperResult.consignee[j][i].consigneeAppointments;
-    //                     var  consigneeIntersaction=shipperResult.consignee[j][i].consigneeIntersaction;
-    //                     var  consigneeStatus=shipperResult.consignee[j][i].consigneeStatus;
-    //                     var  consigneeRecivingNote=shipperResult.consignee[j][i].consigneeRecivingNote;
-    //                     var  consigneeInternalNote=shipperResult.consignee[j][i].consigneeInternalNote;
-    //                     var  deleteStatus=shipperResult.consignee[j][i].deleteStatus;
-    //                     var  insertedTime1=shipperResult.consignee[j][i].insertedTime;
-    //                     if(consigneeName !=="" && consigneeName !==null)
-    //                     {
-    //                         consigneeName=consigneeName; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeName="----";
-    //                     }
-    //                     if(consigneeAddress !=="" && consigneeAddress  !==null)
-    //                     {
-    //                         consigneeAddress=consigneeAddress; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeAddress="----";
-    //                     }
-    //                     if(consigneeLocation !=="" && consigneeLocation !==null)
-    //                     {
-    //                         consigneeLocation=consigneeLocation; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeLocation="----";
-    //                     }
-    //                     if(consigneePostal !=="" && consigneePostal  !==null)
-    //                     {
-    //                         consigneePostal=consigneePostal; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneePostal="----";
-    //                     }
-    //                     if(consigneeContact !=="" && consigneeContact !==null)
-    //                     {
-    //                         consigneeContact=consigneeContact; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeContact="----";
-    //                     }
-    //                     if(consigneeEmail !=="" && consigneeEmail  !==null)
-    //                     {
-    //                         consigneeEmail=consigneeEmail;
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeEmail="----";
-    //                     }
-    //                     if(consigneeTelephone !=="" &&  consigneeTelephone!==null)
-    //                     {
-    //                         consigneeTelephone=consigneeTelephone; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeTelephone="----";
-    //                     }
-    //                     if(consigneeExt !=="" && consigneeExt !==null)
-    //                     {
-    //                         consigneeExt=consigneeExt; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeExt="----";
-    //                     }
-    //                     if(consigneeTollFree !=="" && consigneeTollFree !==null)
-    //                     {
-    //                         consigneeTollFree=consigneeTollFree; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeTollFree="----";
-    //                     }
-    //                     if(consigneeFax !=="" &&consigneeFax  !==null)
-    //                     {
-    //                         consigneeFax=consigneeFax; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeFax="----";
-    //                     }
-    //                     if(consigneeReceiving !=="" && consigneeReceiving !==null)
-    //                     {
-    //                         consigneeReceiving=consigneeReceiving; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeShippingHours="----";
-    //                     }
-    //                     if(consigneeAppointments !=="" &&  consigneeAppointments!==null)
-    //                     {
-    //                         consigneeAppointments=consigneeAppointments; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeAppointments="----";
-    //                     }
-    //                     if(consigneeIntersaction !=="" && consigneeIntersaction !==null)
-    //                     {
-    //                         consigneeIntersaction=consigneeIntersaction; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeIntersaction="----";
-    //                     }
-    //                     if(consigneeStatus !=="" && consigneeStatus !==null)
-    //                     {
-    //                         consigneeStatus=consigneeStatus; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeStatus="----";
-    //                     }
-    //                     if(consigneeRecivingNote !=="" && consigneeRecivingNote !==null)
-    //                     {
-    //                         consigneeRecivingNote=consigneeRecivingNote; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeRecivingNote="----";
-    //                     }
-    //                     if(consigneeInternalNote !=="" && consigneeInternalNote !==null)
-    //                     {
-    //                         consigneeInternalNote=consigneeInternalNote; 
-    //                     }
-    //                     else
-    //                     {
-    //                         consigneeInternalNote="----";
-    //                     }
-
-    //                     if(insertedTime1){
-    //                         insertedTime1 =shipperResult.consignee[j][i].insertedTime;
-    //                     }else{
-    //                         insertedTime1='--';
-    //                     }
-    //                     var months_arr_tr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
-    //                     var date_tr = new Date(insertedTime1*1000);
-    //                     var year_tr = date_tr.getFullYear();
-    //                     var month_tr = months_arr_tr[date_tr.getMonth()];
-    //                     var day_tr = date_tr.getDate();
-    //                     var insertedTime = month_tr+'/'+day_tr+'/'+year_tr;
-                    
-    //                     if(deleteStatus == 'NO'){
-    //                         lentData.push(i);
-    //                         var consigneeStr = "<tr class='tr' data-id=" + (i + 1) + ">" +
-    //                             //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-    //                         "<td data-field='no'>" + no + "</td>" +
-    //                         // "<td data-field='no'>" + insertedTime1 + "-" + insertedTime + "</td>" +
-    //                         "<td data-field='consigneeName' >" + consigneeName + "</td>" +
-    //                         "<td data-field='consigneeName' >Consignee</td>" +
-    //                         "<td data-field='consigneeAddress' >" +consigneeAddress  + "</td>" +
-    //                         "<td data-field='consigneeLocation' >" +consigneeLocation  + "</td>" +
-    //                         "<td data-field='consigneePostal' >" + consigneePostal + "</td>" +
-    //                         "<td data-field='consigneeContact' >" + consigneeContact + "</td>" +
-    //                         "<td data-field='consigneeEmail' >" + consigneeEmail + "</td>" +
-    //                         "<td data-field='consigneeTelephone' >" + consigneeTelephone + "</td>" +
-    //                         "<td data-field='consigneeExt' >" + consigneeExt + "</td>" +
-    //                         "<td data-field='consigneeTollFree' >" + consigneeTollFree + "</td>" +
-    //                         "<td data-field='consigneeFax' >" + consigneeFax + "</td>" +
-    //                         "<td data-field='consigneeReceiving' >" + consigneeReceiving + "</td>" +
-    //                         "<td data-field='consigneeAppointments' >" + consigneeAppointments + "</td>" +
-    //                         "<td data-field='consigneeIntersaction' >" + consigneeIntersaction + "</td>" +
-    //                         "<td data-field='consigneeStatus' >" + consigneeStatus + "</td>" +
-    //                         "<td data-field='consigneeRecivingNote' >" + consigneeRecivingNote + "</td>" +
-    //                         "<td data-field='consigneeInternalNote' >" + consigneeInternalNote + "</td>" +
-                            
-    //                         "<td style='text-align:center'>"+
-    //                             "<a class='editConsigShipperAndCongneeBtn button-23'  title='Edit1' data-consigneeAndConsig='"+id+"' data-masterId='"+comID+"'><i class='fe fe-edit'></i></a>&nbsp"+
-
-    //                             "<a class='button-23 deleteConsiShipperAndCongneeBtn'  title='Edit1' data-consigneeAndConsig='"+id+"' data-masterId='"+comID+"'><i class='fe fe-trash'></i></a>&nbsp"+
-    //                         "</td></tr>";
-    //                         $("#shipperTable").append(consigneeStr);
-    //                         no++;
-    //                     } 
-    //                     $("#shipperTable tr").sort(sort_td).appendTo("#shipperTable");
-    //                         function sort_td(a, b) {
-    //                         return ($(a).find("td:eq(1)").text()) < ($(b).find("td:eq(1)").text()) ? 1 : -1;
-    //                     }
-    //                 });
-    //             }
-    //         } 
-    //         else 
-    //         {
-    //             var consigneeStr = "<tr data-id=" + i + ">" +
-    //             "<td align='center' colspan='4'>No record found.</td>" +
-    //             "</tr>";
-
-    //             $("#shipperTable").append(consigneeStr);
-    //         }
-    //         var items=lentData.length;
-    //         console.log(items);
-    //         // Paginator(items);
-
-
-    //     }
-    //     else
-    //     {
-    //         var tr_str1 = "<tr data-id=" + i + ">" +
-    //         "<td align='center' colspan='4'>No record found.</td>" +
-    //         "</tr>";
-    //         $("#shipperTable").append(shipperStr);
-    //     }
-    // }
-
 
     function processShipperTable(res) {
         $("#shipperTable").empty();
@@ -706,7 +237,7 @@ var base_path = $("#url").val();
         $(this).find('form').trigger('reset');
     });
     $(".createShipperModalBtn").click(function(){
-       
+        $("#AddShipper_and_ConsigneeModal").css("z-index","10000000000");
         $("#AddShipper_and_ConsigneeModal").modal("show");
     });
     $(".closeCreateShipperAndConsigneeModal").click(function(){
@@ -817,6 +348,8 @@ var base_path = $("#url").val();
                                 $("#shipper_pagination").html(paginateList(res[1], "admin", "paginateshipper", "processShipperTable"));
                                 renameTableSeq("shipperTable", "page_active");
                             }
+                            $('#Shipper_and_ConsigneeModal').modal('show');
+                            $('#View_ConsigneeModal').modal('hide');
                         }
                     });
                 }
@@ -916,12 +449,18 @@ var base_path = $("#url").val();
                     $('#AddShipper_and_ConsigneeModal').modal('hide');
                     $.ajax({
                         type: "GET",
-                        url: base_path+"/admin/getShipper",
+                        url: base_path+"/admin/getConsignee",
                         async: false,
                         success: function(text) {
-                            // console.log(text);
-                            // createGetShipperRows(text);
-                            // shipperResult = text;
+                            var res = JSON.parse(text);
+                            if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
+                                processConsignee(res[0]);
+                                $("#consignee_pagination").html(paginateList(res[1], "admin", "paginateconsignee", "processConsignee"));
+                                renameTableSeq("consigneeTable", "page_active");
+
+                            }
+                            $('#Shipper_and_ConsigneeModal').modal('hide');
+                            $('#View_ConsigneeModal').modal('show');
                         }
                     });
                 }
@@ -1159,14 +698,18 @@ var base_path = $("#url").val();
                     $('#UpdateShipper_and_ConsigneeModal').modal('hide');
                     $.ajax({
                         type: "GET",
-                        url: base_path+"/admin/getShipper",
+                        url: base_path+"/admin/getConsignee",
                         async: false,
                         success: function(text) {
                             var res = JSON.parse(text);
                             if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
-                                processShipperTable(res[0]);
-                                $("#shipper_pagination").html(paginateList(res[1], "admin", "paginateshipper", "processShipperTable"));
-                                renameTableSeq("shipperTable", "page_active");
+                                var res = JSON.parse(text);
+                                if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
+                                    processConsignee(res[0]);
+                                    $("#consignee_pagination").html(paginateList(res[1], "admin", "paginateconsignee", "processConsignee"));
+                                    renameTableSeq("consigneeTableData", "page_active");
+                    
+                                }
                             }
                         }
                     });
@@ -1183,7 +726,7 @@ var base_path = $("#url").val();
         $(".shipper_type_ed").hide();
         $(".consignee_type_ed").show();
         $(".shipperYaConsignee").val("consignee");
-        var id=$(this).attr("data-consigneeAndConsig");
+        var id=$(this).attr("data-ConsigneeId");
         var comID=$(this).attr("data-masterId");
         $.ajax({
             type: "GET",
@@ -1211,6 +754,7 @@ var base_path = $("#url").val();
                 $('.updateinternal_note').val(text.consigneeInternalNote);
             }
         });
+        $("#UpdateShipper_and_ConsigneeModal").css("z-index","10000000000");
         $("#UpdateShipper_and_ConsigneeModal").modal("show");
     });
 
@@ -1267,49 +811,7 @@ var base_path = $("#url").val();
 
 
 
-    $('body').on('click','.deleteConsiShipperAndCongneeBtn', function(){
-        var id=$(this).attr("data-consigneeAndConsig");
-        var comID=$(this).attr("data-masterId");
-        swal.fire({
-            title: "Delete?",
-            text: "Please ensure and then confirm!",
-            type: "warning",
-            showCancelButton: !0,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: !0
-        }).then(function (e) {
-            if (e.value === true) 
-            {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'post',
-                    url: base_path+"/admin/deleteConsignee",
-                    data: { _token: $("#_token_AddShipperAndConsignee").val(), id: id,comID:comID},
-                    success: function(resp){
-                        swal.fire("Done!", "Consignee Deleted successfully", "success");
-                        $.ajax({
-                            type: "GET",
-                            url: base_path+"/admin/getShipper",
-                            async: false,
-                            success: function(text) {
-                                // console.log(text);
-                                // createGetShipperRows(text);
-                                // shipperResult = text;
-                            }
-                        });
-                        $('#Shipper_and_ConsigneeModal').modal('show');
-
-                    },
-                    error: function (resp) {
-                        swal.fire("Error!", 'Something went wrong.', "error");
-                    }
-                });
-            } 
-        });
-    });
+   
     //=============================== end delete ===========================================
 
     // =========================== start restore -=======================================
@@ -1321,7 +823,7 @@ var base_path = $("#url").val();
                 success: function(text) {
                     var res = JSON.parse(text);
                     if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
-                        processShipperTable(res[0]);
+                        processRestoreShipperTable(res[0]);
                         $("#shipper_pagination").html(paginateList(res[1], "admin", "paginateshipper", "processShipperTable"));
                         renameTableSeq("shipperTable", "page_active");
                     }
@@ -1332,167 +834,210 @@ var base_path = $("#url").val();
     $(".closeRestoreShipperModal").click(function(){
         $("#RestoreShipper_and_ConsigneeModal").modal("hide");
     });
-    // function RestorecreateGetShipperRows(shipperResult) {
-    //     var shipperlen = 0;
-    //     if (shipperResult != null) {
-    //         shipperlen = shipperResult.shipper.length;
-    //         $("#RestoreshipperTable").html('');
-
-    //         if (shipperlen > 0) {
-    //             var no=1;
-    //             for (var j = shipperlen-1; j > 0; j--) {  
-    //                 $.each(data, function(i, v) { 
-    //                     var comId=shipperResult.companyId.companyId;
-    //                     var id =shipperResult.shipper[j][i]._id;
-    //                     var shipperName =shipperResult.shipper[j][i].shipperName;
-    //                     var shipperAddress =shipperResult.shipper[j][i].shipperAddress;
-    //                     var shipperLocation =shipperResult.shipper[j][i].shipperLocation;
-    //                     var  shipperPostal=shipperResult.shipper[j][i].shipperPostal;
-    //                     var  shipperContact=shipperResult.shipper[j][i].shipperContact;
-    //                     var  shipperEmail=shipperResult.shipper[j][i].shipperEmail;
-    //                     var  shipperTelephone=shipperResult.shipper[j][i].shipperTelephone;
-    //                     var  shipperExt=shipperResult.shipper[j][i].shipperExt;
-    //                     var  shipperTollFree=shipperResult.shipper[j][i].shipperTollFree;
-    //                     var  shipperFax=shipperResult.shipper[j][i].shipperFax;
-    //                     var  shipperShippingHours=shipperResult.shipper[j][i].shipperShippingHours;
-    //                     var  shipperAppointments=shipperResult.shipper[j][i].shipperAppointments;
-    //                     var  shipperIntersaction=shipperResult.shipper[j][i].shipperIntersaction;
-    //                     var  shipperStatus=shipperResult.shipper[j][i].shipperStatus;
-    //                     var  shippingNotes=shipperResult.shipper[j][i].shippingNotes;
-    //                     var  internalNotes=shipperResult.shipper[j][i].internalNotes;
-    //                     var  deleteStatus=shipperResult.shipper[j][i].deleteStatus;
-
-    //                     if(deleteStatus == 'YES'){
-
-
-    //                     var shipperStr = "<tr data-id=" + (i + 1) + ">" +
-    //                         "<td data-field='no'><input type='checkbox' class='check_ShipperAndConsignee_one' name='allShipConIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='shipper' value="+id+"></td>" +
-    //                         "<td data-field='shipperName' >" + shipperName + "</td>" +
-    //                         "<td data-field='shipperName' >Shipper</td>" +
-    //                         "<td data-field='shipperAddress' >" +shipperAddress  + "</td>" +
-    //                         "<td data-field='shipperLocation' >" +shipperLocation  + "</td>" +
-    //                         "<td data-field='shipperPostal' >" + shipperPostal + "</td>" +
-    //                         "<td data-field='shipperContact' >" + shipperContact + "</td>" +
-    //                         "<td data-field='shipperEmail' >" + shipperEmail + "</td>" +
-    //                         "<td data-field='shipperTelephone' >" + shipperTelephone + "</td>" +
-    //                         "<td data-field='shipperExt' >" + shipperExt + "</td>" +
-    //                         "<td data-field='shipperTollFree' >" + shipperTollFree + "</td>" +
-    //                         "<td data-field='shipperFax' >" + shipperFax + "</td>" +
-    //                         "<td data-field='shipperShippingHours' >" + shipperShippingHours + "</td>" +
-    //                         "<td data-field='shipperAppointments' >" + shipperAppointments + "</td>" +
-    //                         "<td data-field='shipperIntersaction' >" + shipperIntersaction + "</td>" +
-    //                         "<td data-field='shipperStatus' >" + shipperStatus + "</td>" +
-    //                         "<td data-field='shippingNotes' >" + shippingNotes + "</td>" +
-    //                         "<td data-field='internalNotes' >" + internalNotes + "</td>" +
-    //                         "</tr>";
-
-    //                     $("#RestoreshipperTable").append(shipperStr);
-    //                     no++;
-    //                     } 
-    //                 });
-    //             }
-    //         } else {
-    //             var shipperStr = "<tr data-id=" + i + ">" +
-    //                 "<td align='center' colspan='4'>No record found.</td>" +
-    //                 "</tr>";
+    function processRestoreShipperTable(res) {
+        $(".RestoreshipperTable").html();
+        var row = ``;
+        for (var j = res.length - 1; j >= 0; j--) 
+        {
+            var masterID = res[j]["arrData1"]._id;
+            var data = res[j]["arrData1"].shipper;
+            for (var i = 0; i < data.length; i++) 
+            {
     
-    //             $("#RestoreshipperTable").append(shipperStr);
-    //         }
-
-
-
-    //        var consigneelen = shipperResult.consignee.length;
-    //         if (consigneelen > 0) 
-    //         {
-    //             var no=1;
-    //             for (var j = consigneelen-1; j > 0; j--) 
-    //             {  
-    //                 var data= shipperResult.consignee[j];
-    //                 $.each(data, function(i, v) { 
-    //                     var comId=shipperResult.companyId.companyId;
-    //                     var id =shipperResult.consignee[j][i]._id;
-    //                     var consigneeName =shipperResult.consignee[j][i].consigneeName;
-    //                     var consigneeAddress =shipperResult.consignee[j][i].consigneeAddress;
-    //                     var consigneeLocation =shipperResult.consignee[j][i].consigneeLocation;
-    //                     var  consigneePostal=shipperResult.consignee[j][i].consigneePostal;
-    //                     var  consigneeContact=shipperResult.consignee[j][i].consigneeContact;
-    //                     var  consigneeEmail=shipperResult.consignee[j][i].consigneeEmail;
-    //                     var  consigneeTelephone=shipperResult.consignee[j][i].consigneeTelephone;
-    //                     var  consigneeExt=shipperResult.consignee[j][i].consigneeExt;
-    //                     var  consigneeTollFree=shipperResult.consignee[j][i].consigneeTollFree;
-    //                     var  consigneeFax=shipperResult.consignee[j][i].consigneeFax;
-    //                     var  consigneeReceiving=shipperResult.consignee[j][i].consigneeReceiving;
-    //                     var  consigneeAppointments=shipperResult.consignee[j][i].consigneeAppointments;
-    //                     var  consigneeIntersaction=shipperResult.consignee[j][i].consigneeIntersaction;
-    //                     var  consigneeStatus=shipperResult.consignee[j][i].consigneeStatus;
-    //                     var  consigneeRecivingNote=shipperResult.consignee[j][i].consigneeRecivingNote;
-    //                     var  consigneeInternalNote=shipperResult.consignee[j][i].consigneeInternalNote;
-    //                     var  deleteStatus=shipperResult.consignee[j][i].deleteStatus;
-
-    //                     if(deleteStatus == 'YES'){
-    //                         var consigneeStr = "<tr data-id=" + (i + 1) + ">" +
-    //                             //  "<td id='id1'>" + id+ "&"+driverId + "</td>" +
-    //                         "<td data-field='no'><input type='checkbox' class='check_ShipperAndConsignee_one' name='allShipConIdCheck[]' data-consigneeShipid=" + id+ " date-compID="+comId+" data-typeOf='consignee' value="+id+"></td>" +
-    //                         "<td data-field='consigneeName' >" + consigneeName + "</td>" +
-    //                         "<td data-field='consigneeName' >Consignee</td>" +
-    //                         "<td data-field='consigneeAddress' >" +consigneeAddress  + "</td>" +
-    //                         "<td data-field='consigneeLocation' >" +consigneeLocation  + "</td>" +
-    //                         "<td data-field='consigneePostal' >" + consigneePostal + "</td>" +
-    //                         "<td data-field='consigneeContact' >" + consigneeContact + "</td>" +
-    //                         "<td data-field='consigneeEmail' >" + consigneeEmail + "</td>" +
-    //                         "<td data-field='consigneeTelephone' >" + consigneeTelephone + "</td>" +
-    //                         "<td data-field='consigneeExt' >" + consigneeExt + "</td>" +
-    //                         "<td data-field='consigneeTollFree' >" + consigneeTollFree + "</td>" +
-    //                         "<td data-field='consigneeFax' >" + consigneeFax + "</td>" +
-    //                         "<td data-field='consigneeReceiving' >" + consigneeReceiving + "</td>" +
-    //                         "<td data-field='consigneeAppointments' >" + consigneeAppointments + "</td>" +
-    //                         "<td data-field='consigneeIntersaction' >" + consigneeIntersaction + "</td>" +
-    //                         "<td data-field='consigneeStatus' >" + consigneeStatus + "</td>" +
-    //                         "<td data-field='consigneeRecivingNote' >" + consigneeRecivingNote + "</td>" +
-    //                         "<td data-field='consigneeInternalNote' >" + consigneeInternalNote + "</td></tr>";
-    //                         $("#RestoreshipperTable").append(consigneeStr);
-    //                         no++;
-    //                     }
-    //                 }); 
-    //             }
-    //         } 
-    //         else 
-    //         {
-    //             var consigneeStr = "<tr data-id=" + i + ">" +
-    //             "<td align='center' colspan='4'>No record found.</td>" +
-    //             "</tr>";
-
-    //             $("#RestoreshipperTable").append(consigneeStr);
-    //         }
-
-
-    //     }
-    //     else
-    //     {
-    //         var tr_str1 = "<tr data-id=" + i + ">" +
-    //         "<td align='center' colspan='4'>No record found.</td>" +
-    //         "</tr>";
-    //         $("#RestoreshipperTable").append(shipperStr);
-    //     }
-    // }
+                var id = data[i]._id;
+                var counter = data[i].counter;
+                var shipperName = data[i].shipperName;
+                var shipperAddress = data[i].shipperAddress;
+                var shipperLocation = data[i].shipperLocation;
+                var shipperPostal = data[i].shipperPostal;
+                var shipperContact = data[i].shipperContact;
+                var shipperEmail = data[i].shipperEmail;
+                var shipperTelephone = data[i].shipperTelephone;
+                var shipperExt = data[i].shipperExt;
+                var shipperTollFree = data[i].shipperTollFree;
+                var shipperFax = data[i].shipperFax;
+                var shipperShippingHours = data[i].shipperShippingHours;
+                var shipperAppointments = data[i].shipperAppointments;
+                var shipperIntersaction = data[i].shipperIntersaction;
+                var shipperStatus = data[i].shipperStatus;
+                var shippingNotes = data[i].shippingNotes;
+                var internalNotes = data[i].internalNotes;
+                var deleteStatus = data[i].deleteStatus;
+                
+                if(shipperName !="" && shipperName !=null)
+                {
+                    shipperName=shipperName;
+                }
+                else
+                {
+                    shipperName="------";
+                }
+                if(shipperAddress !="" && shipperAddress !=null)
+                {
+                    shipperAddress=shipperAddress;
+                }
+                else
+                {
+                    shipperAddress="------";
+                }
+                if(shipperLocation !="" && shipperLocation !=null)
+                {
+                    shipperLocation=shipperLocation;
+                }
+                else
+                {
+                    shipperLocation="------";
+                }
+                if(shipperPostal !="" && shipperPostal !=null)
+                {
+                    shipperPostal=shipperPostal;
+                }
+                else
+                {
+                    shipperPostal="------";
+                }
+                if(shipperContact !="" && shipperContact !=null)
+                {
+                    shipperContact=shipperContact;
+                }
+                else
+                {
+                    shipperContact="------";
+                }
+                if(shipperEmail !="" && shipperEmail !=null)
+                {
+                    shipperEmail=shipperEmail;
+                }
+                else
+                {
+                    shipperEmail="------";
+                }
+                if(shipperTelephone !="" && shipperTelephone !=null)
+                {
+                    shipperTelephone=shipperTelephone;
+                }
+                else
+                {
+                    shipperTelephone="------";
+                }
+                if(shipperExt !="" && shipperExt !=null)
+                {
+                    shipperExt=shipperExt;
+                }
+                else
+                {
+                    shipperExt="------";
+                }
+                if(shipperTollFree !="" && shipperTollFree !=null)
+                {
+                    shipperTollFree=shipperTollFree;
+                }
+                else
+                {
+                    shipperTollFree="------";
+                }
+                if(shipperFax !="" && shipperFax !=null)
+                {
+                    shipperFax=shipperFax;
+                }
+                else
+                {
+                    shipperFax="------";
+                }
+                if(shipperShippingHours !="" && shipperShippingHours !=null)
+                {
+                    shipperShippingHours=shipperShippingHours;
+                }
+                else
+                {
+                    shipperShippingHours="------";
+                }
+                if(shipperAppointments !="" && shipperAppointments !=null)
+                {
+                    shipperAppointments=shipperAppointments;
+                }
+                else
+                {
+                    shipperAppointments="------";
+                }
+                if(shipperIntersaction !="" && shipperIntersaction !=null)
+                {
+                    shipperIntersaction=shipperIntersaction;
+                }
+                else
+                {
+                    shipperIntersaction="------";
+                }
+                if(shipperStatus !="" && shipperStatus !=null)
+                {
+                    shipperStatus=shipperStatus;
+                }
+                else
+                {
+                    shipperStatus="------";
+                }
+                if(shippingNotes !="" && shippingNotes !=null)
+                {
+                    shippingNotes=shippingNotes;
+                }
+                else
+                {
+                    shippingNotes="------";
+                }
+                if(internalNotes !="" && internalNotes !=null)
+                {
+                    internalNotes=internalNotes;
+                }
+                else
+                {
+                    internalNotes="------";
+                }
+                if(deleteStatus=="YES")
+                {
+                    var tr = `<tr>
+                        <td><input type='checkbox' class='check_ShipperAndConsignee_one' name='allShipConIdCheck[]' data-consigneeShipid=" ${id}" date-compID="${masterID}" data-typeOf='shipper' value="${id}"></td>
+                        <td>${shipperName}</td>
+                        <td>Shipper</td>
+                        <td>${shipperAddress}</td>
+                        <td> ${shipperLocation}</td>
+                        <td> ${shipperPostal} </td>
+                        <td>${shipperContact}  </td>
+                        <td>${shipperEmail} </td>
+                        <td>${shipperTelephone}</td>
+                        <td>${shipperExt} </td>
+                        <td>${shipperTollFree}</td>
+                        <td>${shipperFax} </td>
+                        <td>${shipperShippingHours}</td>
+                        <td>${shipperAppointments}</td>
+                        <td>${shipperIntersaction}</td>
+                        <td>${shipperStatus} </td>
+                        <td>${shippingNotes}</td>                       
+                        <td>${internalNotes}</td>`;
+                    tr += `</tr>`;
+                    row = tr + row;
+                    console.log(row);
+                }
+                
+            }
+        }
+        $(".RestoreshipperTable").append(row);
+    }
     $(document).on("change", ".shipperAndConsigneeChecked", function() 
     {
         if(this.checked) {
             $('.check_ShipperAndConsignee_one:checkbox').each(function() 
             {
                 this.checked = true;
-                // ShipperAndConsigneeCheckboxRestore();
+                ShipperAndConsigneeCheckboxRestore();
             });
         } 
         else 
         {
             $('.check_ShipperAndConsignee_one:checkbox').each(function() {
                 this.checked = false;
+                ShipperAndConsigneeCheckboxRestore();
             });
         }
-    });
-    $('body').on('click','.check_ShipperAndConsignee_one',function(){
-        ShipperAndConsigneeCheckboxRestore();
     });
     function ShipperAndConsigneeCheckboxRestore()
     {
@@ -1541,9 +1086,13 @@ var base_path = $("#url").val();
                     url: base_path+"/admin/getShipper",
                     async: false,
                     success: function(text) {
-                        // console.log(text);
-                        // createGetShipperRows(text);
-                        // shipperResult = text;
+                        var res = JSON.parse(text);
+                        if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
+                            processShipperTable(res[0]);
+                            processRestoreShipperTable(res[0]);
+                            $("#shipper_pagination").html(paginateList(res[1], "admin", "paginateshipper", "processShipperTable"));
+                            renameTableSeq("shipperTable", "page_active");
+                        }
                     }
                 });
             }

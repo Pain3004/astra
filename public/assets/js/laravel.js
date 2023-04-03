@@ -2084,7 +2084,7 @@ function callPagination(arr1, main, sub, func, status)
         });
     }
     // console.log(func);
-    if (func == "processCustomer") 
+    else if (func == "processCustomer") 
     {
         $.ajax({
             type: "GET",
@@ -2099,7 +2099,7 @@ function callPagination(arr1, main, sub, func, status)
             }
         });
     }
-    if (func == "restoreProcessCustomer") 
+   else if (func == "restoreProcessCustomer") 
     {
         $.ajax({
             type: "GET",
@@ -2114,7 +2114,7 @@ function callPagination(arr1, main, sub, func, status)
             }
         });
     }
-    if (func == "processShipperTable") 
+   else if (func == "processShipperTable") 
     {
         $.ajax({
             type: "GET",
@@ -2124,7 +2124,22 @@ function callPagination(arr1, main, sub, func, status)
             success: function(response) {
                 var res = JSON.parse(response);
                 processShipperTable(res[0]);
-                renameTableSeq("customerTable", "shipperTable");
+                renameTableSeq("shipperTable", "page_active");
+                        
+            }
+        });
+    }
+    else if (func == "processConsignee") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getConsignee",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processConsignee(res[0]);
+                renameTableSeq("consigneeTableData", "page_active");
                         
             }
         });

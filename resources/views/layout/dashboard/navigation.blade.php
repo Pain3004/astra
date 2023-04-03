@@ -63,7 +63,7 @@
 														
 													
 																 
-																<li><a href="#" id="shipperConsignee_navbar" class="slide-item">Shipper & Consignee</a></li>
+																<li><a href="#" id="shipperConsignee_navbar" class="slide-item shipperConsignee_navbar">Shipper & Consignee</a></li>
 														
 															<li><a href="#"  class="slide-item ExternalCarrierModalBtn" >External Carrier</a></li>
 															
@@ -435,6 +435,7 @@
 			@include('layout.Factoring company.Factoring_company')
 			@include('layout.Trailer.Trailer')
 			@include('layout.Shipper & Consignee.Shipper_and_Consignee')
+			@include('layout.consignee.consigneeTable')
 			@include('layout.External Carrier.External_Carrier')
 			@include('layout.driver.addRecurrence')
             @include('layout.driver.subtractRecurrence')
