@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ShipperController extends Controller
 {
-    public function getShipper(){
+    public function getShipper(Request $request){
         $companyID=(int)Auth::user()->companyID;
         $total_records = 0;
         $cursor = Shipper::raw()->aggregate([
@@ -39,9 +39,23 @@ class ShipperController extends Controller
         {
             for ($i = 0; $i < sizeof($paginate[0][0][0]); $i++) 
             {
-                $docid= $paginate[0][0][0][$i]['doc'];
-                $end=$paginate[0][0][0][$i]['end'];
-                $start=$paginate[0][0][0][$i]['start'];
+                $pagina_data= str_replace( array('"',":"," " ,"doc",'start',"end", ']','[','{','}' ), ' ', $request->arr);
+                $pagina_data=explode(",",$pagina_data);
+                if(!empty($request->arr))
+                {
+                    $docid=preg_replace('/\s+/',"", $pagina_data[0]);
+                    $start=preg_replace('/\s+/',"",$pagina_data[1]);
+                    $end=preg_replace('/\s+/',"",$pagina_data[2]);
+                    $docid=intval($docid);
+                    $start=intval($start);
+                    $end=intval($end);
+                }
+                else
+                {
+                    $docid= $paginate[0][0][0][$i]['doc'];
+                    $end=$paginate[0][0][0][$i]['end'];
+                    $start=$paginate[0][0][0][$i]['start'];
+                }
                 $show1 = Shipper::raw()->aggregate([
                     ['$match' => ["companyID" => $companyID, "_id" => $docid]],
                     ['$project' => ["companyID" => $companyID, "shipper" => ['$slice' => ['$shipper', $end, $start - $end ]]]],

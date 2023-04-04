@@ -76,19 +76,19 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
                         @if($exportUser == 1)
                             <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                         @endif
-                    </form>
+                    </form> -->
                     <button type="button" class="button-29 FactoringCompanyModalClose" >Close</button>
                     <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
                     </nav> 
-                    <!-- <nav aria-label="Page navigation">
-                        <ul id="static-pagination" class="pagination">
-                        </ul>
-                    </nav> -->
+                    <nav aria-label="..." data-name="factoring_pagination" class="float-right">
+                        <div class="pagination" id="factoring_pagination">
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

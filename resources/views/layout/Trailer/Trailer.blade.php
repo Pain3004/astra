@@ -67,13 +67,17 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                        <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                        <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                             @csrf
                             @if($exportUser == 1)
                                 <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                             @endif
-                        </form>
+                        </form> -->
                     <button type="button" class="button-29 coseTrilershow" data-dismiss="modal">Close</button>
+                    <nav aria-label="..." data-name="trailer_pagination" class="float-right">
+                        <div class="pagination" id="trailer_pagination">
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

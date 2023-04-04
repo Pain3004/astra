@@ -2064,6 +2064,7 @@ function callPagination(arr1, main, sub, func, status)
         arr: arr,
         status : status
     }
+    // console.log(func);
     if (func == "processFuelReceiptTable") 
     {
         $.ajax({
@@ -2083,7 +2084,6 @@ function callPagination(arr1, main, sub, func, status)
             }
         });
     }
-    // console.log(func);
     else if (func == "processCustomer") 
     {
         $.ajax({
@@ -2140,6 +2140,78 @@ function callPagination(arr1, main, sub, func, status)
                 var res = JSON.parse(response);
                 processConsignee(res[0]);
                 renameTableSeq("consigneeTableData", "page_active");
+                        
+            }
+        });
+    }
+    
+    if (func == "processCarrierTable") 
+    {
+        // $.ajax({
+        //     type: "GET",
+        //     url: base_path + "/admin/getExternalCarrier",
+        //     async: false,
+        //     success: function (text) {
+        //         var res = JSON.parse(text);
+        //         processCarrierTable(res[0]);
+        //         renameTableSeq("external_carrierTable", "page_active");
+                        
+        //     }
+        // });
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getExternalCarrier",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processCarrierTable(res[0]);
+                renameTableSeq("external_carrierTable", "page_active");
+                        
+            }
+        });
+    }
+    if (func == "processTruckTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getTruck",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processTruckTable(res[0]);
+                renameTableSeq("truckTable", "page_active");
+                        
+            }
+        });
+    }
+    if (func == "processTrailerTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getTrailer",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processTruckTable(res[0]);
+                renameTableSeq("trailer_tbl", "page_active");
+                        
+            }
+        });
+    }
+    if (func == "processFactoringTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getFactCompany",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processFactoringTable(res[0]);
+                renameTableSeq("factCompTable", "page_active");
                         
             }
         });
