@@ -10,11 +10,15 @@
 	$accountArray=$userdata->account;
 	$reportsArray=$userdata->reports;
 	$settlementsArray=$userdata->settlements;
+	$privilege=$userdata->privilege;
+	$companyID=$userdata->companyID;
 	//dd($adminArray['addCustomer']);
 	$user=App\Models\LoggedUsers::get();
 	// dd($user);
 	$loggedUser=count($user);
  ?>
+<!-- <input type="hidden" id="userCompanyid" value=""  >
+<input type="hidden" id="userPrivilege" value=""> -->
 <div class="app-header header sticky" style="padding: 0; background-color:#FBFBFB">
                 <div class="container-fluid main-container">
                     <div class="d-flex">
@@ -77,11 +81,11 @@
 
 														@if(isset($adminArray['addShipper']) && isset($adminArray['addConsignee']))
 															@if($adminArray['addShipper']==1 && $adminArray['addConsignee']==1)
-																<li><a href="#" id="shipperConsignee_navbar" class="slide-item">Shipper & Consignee</a></li>
+																<li><a href="#" id="shipperConsignee_navbar" class="slide-item shipperConsignee_navbar">Shipper & Consignee</a></li>
 															@endif 
 														@elseif(isset($adminArray['shipper_Consignee']))
 															@if($adminArray['shipper_Consignee']==1)
-																<li><a href="#" id="shipperConsignee_navbar" class="slide-item">Shipper & Consignee</a></li>
+																<li><a href="#" id="shipperConsignee_navbar" class="slide-item shipperConsignee_navbar">Shipper & Consignee</a></li>
 															@endif 
 														@endif	
 
@@ -703,4 +707,4 @@
 			@include('layout.Truck & Trailer make.TruckTrailerMake')
 			@include('layout.Load.Load')
 			@include('layout.User Privillege.userPrivillege')
-			
+			@include('layout.consignee.consigneeTable')

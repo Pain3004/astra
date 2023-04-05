@@ -12,8 +12,13 @@ $(document).ready(function() {
             url: base_path+"/admin/user",
             async: false,
             success: function(text) {
-                createRows(text);
-                response = text;
+                var data = JSON.parse(text);
+                totalremaninguser(data[1]);
+                // if (UserBody != null) {
+                    $("#table1").html(data[0]);
+                // }
+                // createRows(text);
+                // response = text;
             }
         });
         $("#userModal").modal("show");
@@ -49,54 +54,76 @@ $(document).ready(function() {
             }
         });
     });
-    function createRows(response) {
-        var len = 0;
-        $('#table1').empty(); 
-        if (response != null) {
-            len = response.length;
-        }
     
-        if (len > 0) {
+    // function createRows(response) {
+    //     var len = 0;
+    //     $('#table1').empty(); 
+    //     if (response != null) {
+    //         len = response.length;
+    //     }
+    
+    //     if (len > 0) {
             
-            for (var i = len-1; i >= 0; i--) {
-                var id = response[i].id;
-                var email = response[i].userEmail;
-                var username = response[i].userName;
-                var firstname = response[i].userFirstName;
-                var lastname = response[i].userLastName;
-                var address = response[i].userAddress;
-                var location = response[i].userLocation;
-                var zip = response[i].userZip;
-                var telephone = response[i].userTelephone;
-                var ext = response[i].userExt;
-                var tollfree = response[i].TollFree;
-                var fax = response[i].userFax;
-                var tr_str = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                    "<td data-field='id'>" + (i + 1) + "</td>" +
-                    "<td data-field='email' id="+email+">" + email + "</td>" +
-                    "<td data-field='username'>" + username + "</td>" +
-                    "<td data-field='fistname'>" + firstname + "</td>" +
-                    "<td data-field='lastname'>" + lastname + "</td>" +
-                    "<td data-field='address'>" + address + "</td>" +
-                    "<td data-field='location'>" + location + "</td>" +
-                    "<td data-field='zip'>" + zip + "</td>" +
-                    "<td data-field='telephone'>" + telephone + "</td>" +
-                    "<td data-field='ext'>" + ext + "</td>" +
-                    "<td data-field='tollfree'>" + tollfree + "</td>" +
-                    "<td data-field='fax'>" + fax + "</td>" +
-                    "<td style='width: 100px'><a class='button-23 edit1' id='editmodel' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23' data-id="+ email +" title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
-                $("#table1").append(tr_str);
-            }
-        } else {
-            var tr_str = "<tr data-id=" + i + ">" +
-                "<td align='center' colspan='14'>No record found.</td>" +
-                "</tr>";
+    //         for (var i = len-1; i >= 0; i--) {
+    //             var id = response[i].id;
+    //             var email = response[i].userEmail;
+    //             var username = response[i].userName;
+    //             var firstname = response[i].userFirstName;
+    //             var lastname = response[i].userLastName;
+    //             var address = response[i].userAddress;
+    //             var location = response[i].userLocation;
+    //             var zip = response[i].userZip;
+    //             var telephone = response[i].userTelephone;
+    //             var ext = response[i].userExt;
+    //             var tollfree = response[i].TollFree;
+    //             var fax = response[i].userFax;
+    //             var tr_str = "<tr class='tr' data-id=" + (i + 1) + ">" +
+    //                 "<td data-field='id'>" + (i + 1) + "</td>" +
+    //                 "<td data-field='email' id="+email+">" + email + "</td>" +
+    //                 "<td data-field='username'>" + username + "</td>" +
+    //                 "<td data-field='fistname'>" + firstname + "</td>" +
+    //                 "<td data-field='lastname'>" + lastname + "</td>" +
+    //                 "<td data-field='address'>" + address + "</td>" +
+    //                 "<td data-field='location'>" + location + "</td>" +
+    //                 "<td data-field='zip'>" + zip + "</td>" +
+    //                 "<td data-field='telephone'>" + telephone + "</td>" +
+    //                 "<td data-field='ext'>" + ext + "</td>" +
+    //                 "<td data-field='tollfree'>" + tollfree + "</td>" +
+    //                 "<td data-field='fax'>" + fax + "</td>" +
+    //                 "<td style='width: 100px'><a class='button-23 edit1' id='editmodel' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23' data-id="+ email +" title='Delete'><i class='fe fe-delete'></i></a></td></tr>";
+    //             $("#table1").append(tr_str);
+    //         }
+    //     } else {
+    //         var tr_str = "<tr data-id=" + i + ">" +
+    //             "<td align='center' colspan='14'>No record found.</td>" +
+    //             "</tr>";
     
-            $("#table1").append(tr_str);
-        }
-        usermodal();
+    //         $("#table1").append(tr_str);
+    //     }
+    //     usermodal();
+    // }
+    function totalremaninguser(value) {
+        // var remaining = value.remaining;
+        // var totaluser = value.total;
+        // if (substatus == 0 && remaining <= 0) {
+        //     var buybutton = `<button class="btn btn-primary waves-effect waves-light custom-buttons-space invisible"  type="button" id="show_subscribe"><i class="mdi mdi-cart"></i>&nbsp;Subscribe Now</button>`;
+        //     $("#user-add-button").html(buybutton);
+        // } else if(remaining <= 0) {
+        //     var buybutton = `<button class="btn btn-primary waves-effect waves-light custom-buttons-space check-user invisible" data-module="truck" data-planid="price_1IRZboF8XlusGvbDraV2yVwJ" type="button" ><i class="mdi mdi-cart"></i>&nbsp;Buy </button>`;
+        //     $("#user-add-button").html(buybutton);
+        // } else {
+        //     var addbutton = `<button class="btn btn-primary float-left custom-buttons-space" data-name="user_add" type="button" data-toggle="modal" data-target="#" id="user_add"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD </button>`;
+        //     if (value.paidRemaining > 0) {
+        //         addbutton += `  <button type="button" class="btn btn-outline-primary waves-effect waves-light ml-1 invisible"
+        //         id="user_manage"><i class="mdi mdi-account-arrow-right-outline"></i> User
+        //         Managment</button>`;
+        //         paidRemainingUser = value.paidRemaining;
+        //     }
+        //     $("#user-add-button").html(addbutton);                
+        // }
+        // var tag = "<b>Total User : <span id='total_user'>" + totaluser + "</span>&nbsp; |&nbsp; Remaining Users : <span id='reamining_user'>" + remaining + "</span> </b>&nbsp;&nbsp;";
+        // $("#total_users").html(tag);
     }
-   
     //=========== end view user ===========================================
 
 
@@ -496,8 +523,8 @@ $(document).ready(function() {
                         url: base_path+"/admin/user",
                         async: false,
                         success: function(text) {
-                            createRows(text);
-                            response = text;
+                            // createRows(text);
+                            // response = text;
                         }
                     });
                     $("#addUserModal form").trigger("reset");
@@ -838,8 +865,9 @@ $(document).ready(function() {
                     type: "GET",
                     url: base_path+"/admin/user",
                     success: function(text) {
-                        createRows(text);
-                        response = text;
+
+                        // createRows(text);
+                        // response = text;
                     }
                 });		
             }

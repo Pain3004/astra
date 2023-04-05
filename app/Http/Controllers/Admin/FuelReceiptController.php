@@ -43,9 +43,23 @@ class FuelReceiptController extends Controller
            
             for ($i = 0; $i < sizeof($paginate[0][0][0]); $i++) 
             {
-                $docid= $paginate[0][0][0][$i]['doc'];
-                $end=$paginate[0][0][0][$i]['end'];
-                $start=$paginate[0][0][0][$i]['start'];
+                $pagina_data= str_replace( array('"',":"," " ,"doc",'start',"end", ']','[','{','}' ), ' ', $request->arr);
+                $pagina_data=explode(",",$pagina_data);
+                if(!empty($request->arr))
+                {
+                    $docid=preg_replace('/\s+/',"", $pagina_data[0]);
+                    $start=preg_replace('/\s+/',"",$pagina_data[1]);
+                    $end=preg_replace('/\s+/',"",$pagina_data[2]);
+                    $docid=intval($docid);
+                    $start=intval($start);
+                    $end=intval($end);
+                }
+                else
+                {
+                    $docid= $paginate[0][0][0][$i]['doc'];
+                    $end=$paginate[0][0][0][$i]['end'];
+                    $start=$paginate[0][0][0][$i]['start'];
+                }
                 $show1 = FuelReceipt::raw()->aggregate([
                     ['$match' => ["companyID" => $companyID, "_id" => $docid]],
                     ['$project' => ["companyID" => $companyID, "fuel_receipt" => ['$slice' => ['$fuel_receipt', $end, $start - $end]]]],
@@ -277,8 +291,8 @@ class FuelReceiptController extends Controller
     {
         $id=(int)$request->id;
         $companyID=(int)$request->companyID;
-        FuelReceipt::raw()->updateOne(['companyID' => (int) $_SESSION['companyId'],'_id' => (int)$this->documentID, 'fuel_receipt._id' => (int)$this->getId()],
-        ['$set' => ['fuel_receipt.$.' . $f_receipt->getCategory() => $f_receipt->gettruckNumber(),'fuel_receipt.$.'.'edit_by' =>  $_SESSION['userName'], 'fuel_receipt.$.'.'edit_time' =>  time()
+        FuelReceipt::raw()->updateOne(['companyID' => $companyID, 'fuel_receipt._id' => $id],
+        ['$set' => ['fuel_receipt.$.deleteStatus' => 'YES','fuel_receipt.$.'.'deleted_by' =>  Auth::user()->userName, 'fuel_receipt.$.'.'delete_time' =>  time()
         ]]
     );
     //     $fuelReceipt=FuelReceipt::where('companyID',$companyID)->first();
@@ -366,37 +380,43 @@ class FuelReceiptController extends Controller
    {
         $fuelReceIds=$request->all_ids;
         $custID=(array)$request->custID;
-        // foreach($custID as $fuel_re_id)
-        // {
-        //     $fuel_re_id=str_replace( array( '\'', '"',
-        //     ',' , ' " " ', '[', ']' ), ' ', $fuel_re_id);
-        //     $fuel_re_id=(int)$fuel_re_id;
-        //     $FuelReceipt = FuelReceipt::where('companyID',$fuel_re_id )->first();
-        //     // dd($FuelReceipt);
-        //     $fuelReceiptArray=$FuelReceipt->fuel_receipt;
-        //     $arrayLength=count($fuelReceiptArray);            
-        //     $i=0;
-        //     $v=0;
-        //     $data=array();
-        //     for ($i=0; $i<$arrayLength; $i++){
-        //         $ids=$FuelReceipt->fuel_receipt[$i]['_id'];
-        //         $ids=(array)$ids;
-        //         foreach ($ids as $value){
-        //             $fuelReceIds= str_replace( array('[', ']'), ' ', $fuelReceIds);
-        //             if(is_string($fuelReceIds))
-        //             {
-        //                 $fuelReceIds=explode(",",$fuelReceIds);
-        //             }
-        //             foreach($fuelReceIds as $fuelReId)
-        //             {
-        //                 $fuelReId= str_replace( array('"', ']' ), ' ', $fuelReId);
-        //                 if($value==$fuelReId)
-        //                 {                        
-        //                     $data[]=$i; 
-        //                 }
-        //             }
+        $companyID=(int)Auth::user()->companyID;
+        foreach($custID as $fuel_re_id)
+        {
+            $fuel_re_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $fuel_re_id);
+            $fuel_re_id=(int)$fuel_re_id;
+            // $FuelReceipt = FuelReceipt::where('companyID',$fuel_re_id )->first();
+            // dd($FuelReceipt);
+            // $fuelReceiptArray=$FuelReceipt->fuel_receipt;
+            // $arrayLength=count($fuelReceiptArray);            
+            // $i=0;
+            // $v=0;
+            // $data=array();
+            // for ($i=0; $i<$arrayLength; $i++){
+            //     $ids=$FuelReceipt->fuel_receipt[$i]['_id'];
+                // $ids=(array)$ids;
+                // foreach ($ids as $value){
+                    $fuelReceIds= str_replace( array('[', ']'), ' ', $fuelReceIds);
+                    if(is_string($fuelReceIds))
+                    {
+                        $fuelReceIds=explode(",",$fuelReceIds);
+                    }
+                    foreach($fuelReceIds as $fuelReId)
+                    {
+                        $fuelReId= str_replace( array('"', ']' ), ' ', $fuelReId);
+                        print($fuelReId);
+                        FuelReceipt::raw()->updateOne(['companyID' => $companyID, 'fuel_receipt._id' => (int)$fuelReId],
+            ['$set' => ['fuel_receipt.$.deleteStatus' => 'YES','fuel_receipt.$.'.'deleted_by' =>  Auth::user()->userName, 'fuel_receipt.$.'.'delete_time' =>  time()
+            ]]
+        );
+                        // if($value==$fuelReId)
+                        // {                        
+                        //     $data[]=$i; 
+                        // }
+                    // }
         //         }
-        //     }
+            }
         //     // dd($data);
         //     foreach($data as $row)
         //     {
@@ -408,53 +428,52 @@ class FuelReceiptController extends Controller
         //         $arr = array('status' => 'success', 'message' => 'Fuel Receipt Deleted successfully.','statusCode' => 200); 
         //         return json_encode($arr);
         //     }
+        }
+
+
+
+
+
+        // $svalue = $request->all_ids;
+        // $svalue= str_replace( array('[', ']'), ' ', $svalue);
+        // if(is_string($svalue))
+        // {
+        //     $svalue=explode(",",$svalue);
         // }
-
-        $svalue = $request->all_ids;
-        $svalue= str_replace( array('[', ']'), ' ', $svalue);
-        if(is_string($svalue))
-        {
-            $svalue=explode(",",$svalue);
-        }
-        // dd($svalue);
-        $companyID=(int)Auth::user()->companyID;
-        $list = [];
-        $docId = []; 
-        for($i = 0 ; $i < sizeof($svalue); $i++ )
-        {
-           $toll1=$svalue[$i];
-            // $toll1 = (explode(")",$svalue[$i]));
-            // print_r($svalue[$i]);
-            if(array_key_exists($toll1[1],$docId))
-            {
-                array_push($docId[$toll1[1]],(int)$toll1[0]);
-            }
-            else
-            {
-                $docId[$toll1[1]] = array(0 => (int)$toll1[0]);  
-            }
-        }     
-        $keys = array_keys($docId);      
-        for($j = 0; $j<sizeof($docId); $j++)
-        {
-            $list = $docId[$keys[$j]];
-            $dId = $keys[$j];
-            $counting = sizeof($list);
-            
-            FuelReceipt::raw()->updateOne(
-                ['companyID' => $companyID,'_id' => (int)$dId],
-                ['$set' => ['fuel_receipt.$[elem].deleteStatus' => "YES", 'fuel_receipt.$[elem].deleteUser' =>Auth::user()->userName, 'fuel_receipt.$[elem].deleteTime' => time()]],
-                ['multi' => true,'arrayFilters' => [['elem._id' => ['$in' => $list]]]]
-            );
-
-            $deleteEntry = FuelReceipt::raw()->updateOne(
-                ['companyID' => $companyID,'_id' => (int)$dId],
-                ['$pull' => ['fuel_receipt' => ['_id' =>['$in' => $list]]]]);
-            FuelReceipt::raw()->updateOne(
-                ['companyID' => $companyID,'_id' => (int)$dId],
-                ['$inc' => ['counter' => -(int)$counting]]);
+        // // dd($svalue);
+        // $companyID=(int)Auth::user()->companyID;
+        // $list = [];
+        // $docId = []; 
+        // for($i = 0 ; $i < sizeof($svalue); $i++ )
+        // {
+        //    $toll1=$svalue[$i];
+        // //    print($toll1);
+        //     // $toll1 = (explode(")",$svalue[$i]));
+        //     // print_r($svalue[$i]);
+        //     if(array_key_exists($toll1[1],$docId))
+        //     {
+        //         array_push($docId[$toll1[1]],(int)$toll1[0]);
+        //     }
+        //     else
+        //     {
+        //         $docId[$toll1[1]] = array(0 => (int)$toll1[0]);  
+        //     }
+        // }     
+        // $keys = array_keys($docId);   
+        // dd($docId);   
+        // for($j = 0; $j<sizeof($docId); $j++)
+        // {
+        //     $list = $docId[$keys[$j]];
+        //     $dId = $keys[$j];
+        //     $counting = sizeof($list);
+        //     echo $counting;
+        //     // print(list$list);
+        //     FuelReceipt::raw()->updateOne(['companyID' => $companyID, 'fuel_receipt._id' => (int)$dId],
+        //     ['$set' => ['fuel_receipt.$.deleteStatus' => 'YES','fuel_receipt.$.'.'deleted_by' =>  Auth::user()->userName, 'fuel_receipt.$.'.'delete_time' =>  time()
+        //     ]]
+        // );
                 
-        }
+        // }
    }
    public function export_FuelReceipts(Request $request)
    {

@@ -45,7 +45,7 @@
                 <div class="modal-footer">               
                     <button type="button" class="button-29 closeExternalCarrierModal" data-dismiss="modal">Close</button>
                     <nav aria-label="..." data-name="carrier_pagination" class="float-right">
-                        <div class="pagination">
+                        <div class="pagination" id="carrier_pagination">
                         </div>
                     </nav>
                 </div>

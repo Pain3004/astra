@@ -84,6 +84,17 @@ Route::post('admin/shipperList', [LoadBoardController::class, 'shipperList']);
 Route::post('admin/consigneeList', [LoadBoardController::class, 'consigneeList']);
 Route::post('admin/LBconsignee', [LoadBoardController::class, 'getConsignee']);
 Route::post('admin/LBShipper', [LoadBoardController::class, 'getShipper']);
+Route::post('admin/compnayList', [LoadBoardController::class, 'compnayList']);
+Route::post('admin/customerlist', [LoadBoardController::class, 'customerlist']);
+Route::post('admin/customerhelper', [LoadBoardController::class, 'getCustomer']);
+Route::post('admin/userlist', [LoadBoardController::class, 'userlist']);
+Route::post('admin/loadtypelist', [LoadBoardController::class, 'loadtypelist']);
+Route::post('admin/enableunits', [LoadBoardController::class, 'enableUnit']);
+Route::post('admin/equipmenttypelist', [LoadBoardController::class, 'equipmenttypeList']);
+Route::post('admin/carrierlist', [LoadBoardController::class, 'carrierlist']);
+Route::post('admin/driverlist', [LoadBoardController::class, 'driverlist']);
+Route::post('admin/owneropretorlist', [LoadBoardController::class, 'owneropretorlist']);
+Route::post('admin/trucklist', [LoadBoardController::class, 'trucklist']);
 // User
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);

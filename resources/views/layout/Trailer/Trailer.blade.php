@@ -38,7 +38,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
-                        <table id="" class="table">
+                        <table  class="table">
                             <thead class="thead_th">
                                 <tr class="tr">
                                     <th>NO</th>
@@ -67,13 +67,17 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                        <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                        <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                             @csrf
                             @if($exportUser == 1)
                                 <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                             @endif
-                        </form>
+                        </form> -->
                     <button type="button" class="button-29 coseTrilershow" data-dismiss="modal">Close</button>
+                    <nav aria-label="..." data-name="trailer_pagination" class="float-right">
+                        <div class="pagination" id="trailer_pagination">
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -296,7 +300,7 @@
         </button>
       </div>
       <div class="modal-body" style="overflow-y: auto !important;">
-        <form id="">
+        <form >
             @csrf
             <input type="hidden" name="_token" id="_tokenTrailer_Type" value="{{ csrf_token() }}" />
             <div class="form-group col-md-12">
@@ -333,7 +337,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" enctype="multipart/form-data">
+                                        <form  enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_EditTrailer" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="id" id="edit_trailer_id" >

@@ -25,58 +25,27 @@
                             <label for="CompanyName">Select Your Company <span style="color:#ff0000">*</span>
                             </label>
                             <div class="form-group">
-                                <select class="form-control select2-show-search form-select companyListSet" list="companyListSet" id="lb_Company">
-                                <option>Select Here </option>
-                                <?php
-                                foreach($company as $single){                              
-                                  foreach($single['company'] as $i_s){
-                                    $i_s_name=$i_s['companyName'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                               
+                              <input list="browserscompany" placeholder="Search here..." class="form-control" id="lb_Company"  name="selectCompany" onkeyup="doSearch(this.value,'browserscompany')" autocomplete="off">
+                              <datalist id="browserscompany">
+                              </datalist>
+
                             </div>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Customer &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBCustomerPlus" style='color:blue !important'></i>
                                 </label>
                             <div class="dropdown show">
-                                <select class="form-control select2-show-search form-select customerListSet" list="customerListSet" id="LB_Customer" placeholder>
-                                <?php
-                                    foreach($customer as $customer){                              
-                                        $custName=$customer['custName'];
-                                        // $userLastName=$customer['userLastName']; 
-                                        // $userLastName=$customer['userLastName'];
-                                        // $userLastName=$customer['userLastName'];             
-                                        $_id=$customer['_id'];              
-                                        ?>
-                                          <option value="{{$_id}}-{{$custName}}">{{$custName}} </option>
-                                        <?php
-                                    }
-                                ?>                                                          
-                                </select>
+                              <input list="browserscustomer" placeholder="Search here..." class="form-control"  id="LB_Customer" name="customerlist" onkeyup="doSearch(this.value,'browserscustomer')" onchange="getCustomer(this.value)" autocomplete="off">
+                              <datalist id="browserscustomer"></datalist> 
                             </div>
                         </div>
                         <div class="form-group col-md-2">
                           <label for="Dispatcher">Dispatcher <span style="color:#ff0000">*</span>
                           </label>
                           <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select DispatcherListSet" list="DispatcherListSet" id="lb_Dispatcher" placeholder>
-                            <?php
-                                foreach($user as $user){                              
-                                    $userFirstName=$user['userFirstName'];
-                                    $userLastName=$user['userLastName'];              
-                                    $_id=$user['_id'];              
-                                    ?>
-                                      <option value="{{$_id}}">{{$userFirstName}} {{$userLastName}}</option>
-                                    <?php
-                                }
-                            ?>                                                          
-                            </select>
+                            <input list="browsersdispatcher" placeholder="Search here..."  class="form-control" id="lb_Dispatcher"  name="dispatcherlist" onkeyup="doSearch(this.value,'browsersdispatcher')" autocomplete="off">
+                            <datalist id="browsersdispatcher"></datalist>
                           </div>
                         </div>
                         <div class="form-group col-md-2">
@@ -106,19 +75,8 @@
                           <label>Active Type &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBLoadTypePlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select LoadTypeListSet" list="LoadTypeListSet" id="lb_load" placeholder>
-                            <?php
-                                foreach($Load_type as $single){                              
-                                  foreach($single['loadType'] as $i_s){
-                                    $i_s_name=$i_s['loadName'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                            <input list="browsersloadtype" placeholder="Search here..." class="form-control" id="lb_load" name="loadtypelist" value="" onchange="enableUnits(this.value)" onkeyup="doSearch(this.value,'browsersloadtype')" autocomplete="off">
+                            <datalist id="browsersloadtype"></datalist>
                           </div>
                         </div>
                         <div class="form-group col-md-1">
@@ -155,19 +113,8 @@
                           <label>Equipment Type &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBEquipmentTypePlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select EquipmentTypeListSet" list="EquipmentTypeListSet" id="lb_EquipmentType" placeholder>
-                            <?php
-                                foreach($EquipmentType as $single){                              
-                                  foreach($single['equipment'] as $i_s){
-                                    $equipmentType=$i_s['equipmentType'];              
-                                    $id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$id}}">{{$equipmentType}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                            <input list="browsersequipment" class="form-control" placeholder="Search here..." id="lb_EquipmentType" value="" name="equipmentlist" onkeyup="doSearch(this.value,'browsersequipment')" autocomplete="off">
+                            <datalist id="browsersequipment"></datalist>
                           </div>
                         </div>
                       </div>
@@ -195,22 +142,8 @@
                           <label>Carrier Name <i title="Add Carrier" class="mdi mdi-plus-circle plus" id="LBCarrierPlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <!-- <select class="form-control select2-show-search form-select CarrierListSet"  list="CarrierListSet" id="LB_Carrier" onchange="getCarrier(this.value)" placeholder> -->
-                            <select class="form-control select2-show-search form-select CarrierListSet"  list="CarrierListSet" id="LB_Carrier" placeholder>
-                            <option value="">Select Here</option>
-                        <?php
-                            foreach($carrier as $single_carrier){  
-                              $id=$single_carrier['_id'] ;
-                              foreach($single_carrier['carrier'] as $i_c){
-                                $i_c_name=$i_c['name'];              
-                                $i_c_id=$i_c['_id'];              
-                                ?>
-                                  <option value="{{$i_c_id}}-{{$id}}">{{$i_c_name}}</option>
-                                <?php
-                              }
-                            }
-                        ?>                                                          
-                            </select>
+                            <input list="browserscarrier" class="form-control" placeholder="Search here..." id="LB_Carrier" name="carrierlist" onkeyup="doSearch(this.value,'browserscarrier')" onchange="getCarrier(this.value)" autocomplete="off">
+                            <datalist id="browserscarrier"></datalist>
                           </div>
                         </div>
                         <div class="form-group col-md-2 Carrierlist">
@@ -244,20 +177,9 @@
                           <label>Driver Name &nbsp; <i title="Add Customer" class="mdi mdi-plus-circle plus" id="LBDriverPlus" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select DriverListSet" list="DriverListSet" id="LB_Driver" placeholder>
-                            <?php
-                                foreach($driver as $single){  
-                                  $mainId=$single['_id'] ;                            
-                                  foreach($single['driver'] as $i_c){
-                                    $name=$i_c['driverName'];              
-                                    $id=$i_c['_id'];              
-                                    ?>
-                                      <option value="{{$id}}-{{$name}}-{{$mainId}}">{{$name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                            <input list="browsersdriver" class="form-control" placeholder="Search here..." id="LB_Driver" name="driverlist" onkeyup="doSearch(this.value,'browsersdriver')" onchange="getDriver(this.value);" autocomplete="off">
+                            <datalist id="browsersdriver"></datalist>
+                            
                           </div>
                         </div>
                         <div class="form-group col-md-1 Driverlist">
@@ -344,23 +266,8 @@
                           </label>
                           <div class="dropdown show">
                             <!-- <input class="form-control OwnerOperatorlist" list="OwnerOperatorlist" id="lb_owner" placeholder="Search Here"> -->
-                            <select class="form-control select2-show-search form-select " id="lb_owner" placeholder >
-                            <?php
-                                foreach($driver as $single){  
-                                  $mainId=$single['_id'] ;                             
-                                  foreach($single['driver'] as $i_c){
-                                    $name=$i_c['driverName'];
-                                    $ownerOperator=$i_c['ownerOperatorStatus'];              
-                                    $id=$i_c['_id']; 
-                                    if($ownerOperator=="YES") {            
-                                    ?>
-                                      <option value="{{$id}}-{{$mainId}}">{{$name}}</option>
-                                    <?php
-                                    }
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                            <input list="browsersowner" class="form-control" placeholder="Search here..." id="lb_owner" name="ownerlist" onkeyup="doSearch(this.value,'browsersowner')" onchange="getOwner(this.value)" autocomplete="off">
+                            <datalist id="browsersowner"></datalist>
                           </div>
                         </div>
                         <div class="form-group col-md-2 OwnerOperatorlist">
@@ -372,21 +279,9 @@
                         <div class="form-group col-md-1 OwnerOperatorlist">
                           <label>Truck</label>
                           <div class="dropdown show" id="lbownertruck">
-                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="lb_owner_truck"  placeholder name="lb_owner_truck">
-                            
-                            <?php
-                                foreach($truck as $single_Truck){ 
-                                  $mainId=$single_Truck['_id'] ;                              
-                                  foreach($single_Truck['truck'] as $i_s){
-                                    $i_s_name=$i_s['truckNumber'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                          <input list="browsers1truck" class="form-control" placeholder="Search here..." id="lb_owner_truck" name="truck1list" onkeyup="doSearch(this.value,'browsers1truck');" onchange="getTruck(this.value,'browsers1truck');" autocomplete="off">
+                          <datalist id="browsers1truck"></datalist> 
+                          
                           </div>
                         </div>
                         <div class="form-group col-md-1 OwnerOperatorlist">

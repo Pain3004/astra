@@ -580,14 +580,14 @@ $('body').on('click',function() {
             var hazmatExpiry = $('#hazmatExpiry').val();
             var rate = $('#rate').val();
             var currency = $('#currency_add').val();
-            // console.log(currency);
+            console.log(currency);
             var recurrencePlus = $('#recurrencePlus').val();
             var recurrenceMin = $('#recurrenceMin').val();
             var terminationDate = $('#terminationDate').val();
             var driverBalance = $('#driverBalance').val();
             var internalNotes = $('#internalNotes').val();   
-            var loadedMiles = $('#pay_loadedmiles').val();   
-            var emptyMiles = $('#pay_emptymiles').val();   
+            var loadedMiles = $('#loadedmiles').val();   
+            var emptyMiles = $('#emptymiles').val();   
             var pickRate = $('#pickrate').val();   
             var pickStart = $('#pickstart').val();   
             var dropRate = $('#droprate').val();   
@@ -1790,8 +1790,7 @@ $(".location_view").keyup(function(){
     var fieldID=$(this).attr('data-location');  
     // alert(fieldID)
     var placeArray = "";
-    // $.getJSON("{{URL::to('/')}}/place.json", function (json) {
-        $.getJSON("./place.json", function (json) {
+    $.getJSON("./place.json", function (json) {
     placeArray = json; // this will show the info it in firebug console
     });
    var placetimeout='';;
@@ -2065,6 +2064,7 @@ function callPagination(arr1, main, sub, func, status)
         arr: arr,
         status : status
     }
+    // console.log(func);
     if (func == "processFuelReceiptTable") 
     {
         $.ajax({
@@ -2084,8 +2084,7 @@ function callPagination(arr1, main, sub, func, status)
             }
         });
     }
-    // console.log(func);
-    if (func == "processCustomer") 
+    else if (func == "processCustomer") 
     {
         $.ajax({
             type: "GET",
@@ -2100,7 +2099,7 @@ function callPagination(arr1, main, sub, func, status)
             }
         });
     }
-    if (func == "restoreProcessCustomer") 
+   else if (func == "restoreProcessCustomer") 
     {
         $.ajax({
             type: "GET",
@@ -2111,6 +2110,108 @@ function callPagination(arr1, main, sub, func, status)
                 var res = JSON.parse(response);
                 RestoreprocessCustomer(res[0]);
                 renameTableSeq("customerTable", "page_active");
+                        
+            }
+        });
+    }
+   else if (func == "processShipperTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getShipper",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processShipperTable(res[0]);
+                renameTableSeq("shipperTable", "page_active");
+                        
+            }
+        });
+    }
+    else if (func == "processConsignee") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getConsignee",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processConsignee(res[0]);
+                renameTableSeq("consigneeTableData", "page_active");
+                        
+            }
+        });
+    }
+    
+    if (func == "processCarrierTable") 
+    {
+        // $.ajax({
+        //     type: "GET",
+        //     url: base_path + "/admin/getExternalCarrier",
+        //     async: false,
+        //     success: function (text) {
+        //         var res = JSON.parse(text);
+        //         processCarrierTable(res[0]);
+        //         renameTableSeq("external_carrierTable", "page_active");
+                        
+        //     }
+        // });
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getExternalCarrier",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processCarrierTable(res[0]);
+                renameTableSeq("external_carrierTable", "page_active");
+                        
+            }
+        });
+    }
+    if (func == "processTruckTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getTruck",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processTruckTable(res[0]);
+                renameTableSeq("truckTable", "page_active");
+                        
+            }
+        });
+    }
+    if (func == "processTrailerTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getTrailer",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processTruckTable(res[0]);
+                renameTableSeq("trailer_tbl", "page_active");
+                        
+            }
+        });
+    }
+    if (func == "processFactoringTable") 
+    {
+        $.ajax({
+            type: "GET",
+            url: base_path+"/admin/getFactCompany",
+            async: false,
+            data: data,
+            success: function(response) {
+                var res = JSON.parse(response);
+                processFactoringTable(res[0]);
+                renameTableSeq("factCompTable", "page_active");
                         
             }
         });

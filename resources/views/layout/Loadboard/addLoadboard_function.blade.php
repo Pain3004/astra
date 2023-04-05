@@ -1,6 +1,17 @@
+<?php 
+	$userdata=Auth::user();
+  $companyId=Auth::user()->companyId;
+	// $insertUser=$userdata->privilege['insertUser'];
+  //   // $updateUser=$userdata->privilege['updateUser'];
+  //   $deleteUser=$userdata->privilege['deleteUser'];
+  //   $importUser=$userdata->privilege['importUser'];
+  //   $exportUser=$userdata->privilege['exportUser'];
+ ?>
 <script>
     //-------function start-------
 var letters = /^[0-9a-zA-Z '&,.-]+$/;
+// var companyid = $('#userCompanyid').val();
+// var privilege = $('#userPrivilege').val();
 
 function renameConsignee() {
   var consignee = document.getElementsByClassName("consignee");
@@ -804,6 +815,30 @@ function doSearch(dom, funname, val) {
             searchActiveShipper(dom, active_id);
         }else if (func == 'searchActiveConsignee') {
             searchActiveConsignee(dom, active_id);
+        }else if (func == 'browserscompany') { //  admin/utils/getActiveload.php(beloaw all function in this file)
+            searchCompnay(dom, 'browserscompany');
+        }else if (func == 'browserscustomer') {
+            searchCustomer(dom, 'browserscustomer');
+        } else if (func == 'browsersdispatcher') {
+            searchUser(dom, 'browsersdispatcher');
+        } else if (func == 'browsersloadtype') {
+            searchLoadtype(dom, 'browsersloadtype');
+        } else if (func == 'browsersequipment') {
+            searchEquipmenttype(dom, 'browsersequipment')
+        } else if (func == 'browserscarrier') {
+            searchCarrier(dom, 'browserscarrier');
+        } else if (func == 'browsersdriver') {
+            searchDriver(dom, 'browsersdriver')
+        } else if (func == 'browserstruck') {
+            searchTruck(dom, 'browserstruck');
+        } else if (func == 'browserstrailer') {
+            searchTrailer(dom, 'browserstrailer');
+        } else if (func == 'browsersowner') {
+            searchOwneropretor(dom, 'browsersowner')
+        } else if (func == 'browsers1truck') {
+            searchTruck(dom, 'browsers1truck');
+        } else if (func == 'browserstrailer1') {
+            searchTrailer(dom, 'browserstrailer1');
         } 
     }, 600); 
 }
@@ -850,7 +885,7 @@ function searchShipper(value, id) {
                 }
             });
         } else {
-            swal('Please input alphanumeric characters only');
+            swal.fire('Please input alphanumeric characters only');
         }
     }
 }
@@ -898,7 +933,7 @@ function searchConsignee(value, id) {
                 }
             });
         } else {
-            swal('Please input alphanumeric characters only');
+            swal.fire('Please input alphanumeric characters only');
         }
     }
 }
@@ -915,10 +950,6 @@ function getShipper(value, tabId) {
     id = $("#shipper" + tabId + ' [value="' + value + '"]').data("id");
   }
 
-//   var data = {
-//     value: val,
-//     id: id,
-//   };
 
   var formData = new FormData();
     formData.append('_token',$("#tokenLoadboard").val());
@@ -989,6 +1020,732 @@ function getConsignee(value, tabId) {
   } else {
     document.getElementById("consigneeaddress" + tabId + "").value = "";
     document.getElementById("activeconsignee" + tabId + "").value = "";
+  }
+}
+
+function searchCompnay(value, id, func) {
+
+    if (!value.includes(")")) {
+
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('companyId',companyId);
+    formData.append('privilege',privilege);
+    formData.append('value',value);
+        
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/compnayList",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                  console.log(response)
+                  var result = JSON.parse(response);
+                    console.log(result);
+                    if (result.length == 0) {
+                        document.getElementById("browserscompany").innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option data-value = "${result[i].id}" data-id = "${result[i].parent}" value="${result[i].value}"></option>`;
+                            //options += `<option data-value = "${result[i].id}" data-id = "${result[i].parent}" value="">${result[i].value}</option>`;
+                        }
+                        document.getElementById("browserscompany").innerHTML = options;
+                    }
+                    // optionsList = JSON.parse(response);
+                    // if (func == 'searchCompnay') {
+                    //     document.getElementById("createListCom").disabled = false;
+                    // } else if (func == 'tocompanyname') {
+                    //     document.getElementById("createListToCom").disabled = false;
+                    // } else if (func == 'searchCompnayOther') {
+                    //     document.getElementById("createListOtherCom").disabled = false;
+                    // }
+                },
+                complete: function (response) {
+                  // console.log(response)
+                    // if (func == 'searchCompnay') {
+                    //     listDisplay(id, "createListCom");
+                    // } else if (func == 'tocompanyname') {
+                    //     listDisplay(id, "createListToCom");
+                    // } else if (func == 'searchCompnayOther') {
+                    //     listDisplay(id, "createListOtherCom");
+                    // } else {
+                    //     listDisplay(id);
+                    // }
+                }
+            });
+        } else {
+            swal.fire('Please input alphanumeric characters only');
+        }
+    }
+}
+//customer
+function searchCustomer(value, id) {
+    if (!value.includes(")")) {
+
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('main',"admin");
+    formData.append('value',value);
+
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/customerlist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    console.log(result);
+                    if (result.length == 0) {
+                        document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option data-value = "${result[i].id}" data-id = "${result[i].parent}" value="${result[i].value}">${result[i].location}</option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+            swal.fire('Please input alphanumeric characters only');
+        }
+    }
+}
+
+function getCustomer(value) {
+  if (value != "") {
+    var val = $('#browserscustomer [value="' + value + '"]').data("value");
+    var parent = $('#browserscustomer [value="' + value + '"]').data("id");
+
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('parent',parent);
+    formData.append('value',val);
+    
+    $.ajax({
+      url: base_path+"/admin/customerhelper",
+      type: "POST",
+      datatype:"JSON",
+      contentType: false,
+      processData: false,
+      data:formData,
+      cache: false,
+      success: function (data) {
+        var response = JSON.parse(data);
+        console.log(response);
+        if (response["email"] != "") {
+          customeremail = response["email"];
+        } else {
+          swal.fire({
+            title: "<h5>Customer's email is empty.</h5>",
+            type: "warning",
+            html: "",
+            showCancelButton: true,
+            confirmButtonText: "Yes, Continue!",
+            cancelButtonText: "No, cancel!",
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger ml-2",
+            buttonsStyling: false,
+          });
+        }
+        if (response["parent"] != "") {
+          customer_parent = response["parent"];
+        }
+
+        document.getElementById("customer-parent").value = customer_parent;
+        document.getElementById("custdays").value = response["paydays"];
+        if (response["blacklisted"] != "") {
+          if (response["blacklisted"] == "on") {
+            swal.fire("This customer is blacklisted", "", "warning");
+          }
+        }
+        if (response["broker"] != "") {
+          isbroker = response["broker"];
+          $("#isbroker").val(isbroker);
+        }
+      },
+    });
+  }
+}
+//dispatcher
+function searchUser(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('main',"admin");
+    formData.append('value',value);
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/userlist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                 
+                    var result = JSON.parse(response);
+                    console.log(result);
+                    if (result.length == 0) {
+                        document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option id = "${result[i].id}" value="${result[i].userFirstName} ${result[i].userLastName}"></option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+            swal('Please input alphanumeric characters only');
+        }
+    }
+}
+
+//load type/Active Type
+function searchLoadtype(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    // formData.append('companyId',"companyId");
+    // formData.append('privilege',privilege);
+    formData.append('value',value);
+        
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/loadtypelist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                
+              success: function (response) {
+                  var result = JSON.parse(response);
+                  if (result.length == 0) {
+                      document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                  } else {
+                      var options = "";
+                      for (var i = 0; i < result.length; i++) {
+                          options += `<option data-value = "${result[i].id}" value="${result[i].value}"></option>`;
+                      }
+                      document.getElementById(id).innerHTML = options;
+                  }
+              }
+            });
+        } else {
+            swal('Please input alphanumeric characters only');
+        }
+    }
+}
+
+function enableUnits(value) {
+  var val = $('#browsersloadtype [value="' + value + '"]').data("value");
+  var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',val);
+  
+  $.ajax({
+    url: base_path+"/admin/enableunits",
+    type: "POST",
+    datatype:"JSON",
+    contentType: false,
+    processData: false,
+    data:formData,
+    cache: false,
+    success: function (res) {
+      var data = res.trim();
+      if (data == "Yes") {
+        document.getElementById("units").disabled = false;
+        is_unit_on = "on";
+      }
+      if (data == "No") {
+        document.getElementById("units").disabled = true;
+        is_unit_on = "off";
+      }
+    },
+  });
+}
+
+//Equipmenttype
+function searchEquipmenttype(value, id) {
+    if (!value.includes(")")) {
+      var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    // formData.append('companyId',"companyId");
+    // formData.append('privilege',privilege);
+    formData.append('value',value);
+        
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/equipmenttypelist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    if (result.length == 0) {
+                        document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option parent="${result[i].parent}" data-value = "${result[i].id}" value="${result[i].value}" ></option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+            swal('Please input alphanumeric characters only');
+        }
+    }
+}
+getCarrier
+//Carrier
+function searchCarrier(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',value);
+    formData.append('main',"admin");
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/carrierlist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    if (result.length == 0) {
+                        document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option data-value = "${result[i].id}" data-id= "${result[i].parent}" value="${result[i].value}">${result[i].location}</option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+            swal('Please input alphanumeric characters only');
+        }
+    }
+}
+
+function getCarrier(value) {
+    if (value != "") {
+        var val = $('#browserscarrier [value="' + value + '"]').data('value');
+        var parent = $('#browserscarrier [value="' + value + '"]').data('id');
+        emptyOther("carrier");
+
+        var formData = new FormData();
+        formData.append('_token',$("#tokenLoadboard").val());
+        formData.append('value',val);
+        formData.append('parent',parent);
+        
+        $.ajax({
+          url: base_path+"/admin/carrierVerify",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+            success: function (data) {
+                var response = JSON.parse(data);
+                if (response[0] != "") {
+                    swal.fire({
+                        title: 'Are you sure? You Want to Continue!',
+                        type: 'warning',
+                        html: response['instruction'],
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, Continue!',
+                        cancelButtonText: 'No, cancel!',
+                        confirmButtonClass: 'btn btn-success',
+                        cancelButtonClass: 'btn btn-danger ml-2',
+                        buttonsStyling: false
+                    });
+                }
+
+                if (response[1] != "") {
+                    carrieremail = response["email"];
+                }
+
+                if (response[2] != "") {
+                    carrier_parent = response["parent"];
+                }
+
+                document.getElementById("carrier-parent").value = carrier_parent;
+            }
+        });
+    }
+}
+
+function emptyOther(type) {
+    if (type == "carrier") {
+        // document.getElementById('driverlist').value = "";
+        // document.getElementById('trucklist').value = "";
+        // document.getElementById('trailerlist').value = "";
+        // document.getElementById('loadedmile').value = "";
+        // document.getElementById('emptymile').value = "";
+        // document.getElementById('driverothercharges').value = "";
+        // document.getElementById('driverTarp').value = "";
+        // document.getElementById('driverflat').value = "";
+        // document.getElementById('driverTotal').value = "";
+        // document.getElementById('ownerlist').value = "";
+        // document.getElementById('ownerPercentage').value = "";
+        // document.getElementById('truck1list').value = "";
+        // document.getElementById('trailer1list').value = "";
+        // document.getElementById('ownerothercharges').value = "";
+        // document.getElementById('ownerTotal').value = "";
+        // driverotherDescription = [""];
+        // driverotherCharges = ["0"];
+        // ownerotherDescription = [""];
+        // ownerotherCharges = ["0"];
+    } else if (type == "driver") {
+
+        // document.getElementById('ownerlist').value = "";
+        // document.getElementById('ownerPercentage').value = "";
+        // document.getElementById('truck1list').value = "";
+        // document.getElementById('trailer1list').value = "";
+        // document.getElementById('ownerothercharges').value = "";
+        // document.getElementById('ownerTotal').value = "";
+        // document.getElementById('carrierlist').value = "";
+        // document.getElementById('carrierFlat').value = "";
+        // document.getElementById('carrierOther').value = "";
+        // document.getElementById('carrierTotal').value = "";
+        // document.getElementById('currencylist').value = "";
+        // carrierotherDescription = [""];
+        // carrierotherCharges = ["0"];
+        // carrierotherAdvances = ["0"];
+        // ownerotherDescription = [""];
+        // ownerotherCharges = ["0"];
+    } else if (type == "owner") {
+        // document.getElementById('driverlist').value = "";
+        // document.getElementById('trucklist').value = "";
+        // document.getElementById('trailerlist').value = "";
+        // document.getElementById('loadedmile').value = "";
+        // document.getElementById('emptymile').value = "";
+        // document.getElementById('driverothercharges').value = "";
+        // document.getElementById('driverTarp').value = "";
+        // document.getElementById('driverflat').value = "";
+        // document.getElementById('driverTotal').value = "";
+        // document.getElementById('carrierlist').value = "";
+        // document.getElementById('carrierFlat').value = "";
+        // document.getElementById('carrierOther').value = "";
+        // document.getElementById('carrierTotal').value = "";
+        // document.getElementById('currencylist').value = "";
+        // carrierotherDescription = [""];
+        // carrierotherCharges = ["0"];
+        // carrierotherAdvances = ["0"];
+        // driverotherDescription = [""];
+        // driverotherCharges = ["0"];
+    }
+}
+
+//driver
+function searchDriver(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',value);
+    formData.append('main',"admin");
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/driverlist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    if (result.length == 0) {
+                        document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option data-value = "${result[i].id}" value="${result[i].value}"></option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+            swal.fire('Please input alphanumeric characters only');
+        }
+    }
+}
+
+function getDriver(value) {
+  if (value != "") {
+    var val = $('#browsersdriver [value="' + value + '"]').data("value");
+    emptyOther("driver");
+    if(val==undefined){
+      document.getElementById("LB_Driver").value="";
+      swal.fire('Please select from drop down list only');
+      
+    }else{
+      var formData = new FormData();
+      formData.append('_token',$("#tokenLoadboard").val());
+      formData.append('value',val);
+
+      $.ajax({
+        url: base_path+"/admin/driverVerify",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+        success: function (data) {
+          console.log(data);
+          var response = data.split("^");
+          var driver_total = document.getElementById("LB_loadertotal");
+          document.getElementById("lb_LoadedMiles").value = response[1];
+          document.getElementById("lb_EmptyMiles").value = response[2];
+          document.getElementById("lb_Tarp").value = parseInt( response[3]).toFixed(2);
+          pickrate = response[4];
+          pickafter = response[5];
+          droprate = response[6];
+          dropafter = response[7];
+          driverRate = response[8];
+          percentage = response[10];
+
+          if (driverRate == "percentage") {
+            var totalRate = document.getElementById("totalAmount").value;
+            var percen = parseFloat((totalRate * percentage) / 100).toFixed(2);
+            driver_total.value = parseInt(percen).toFixed(2);
+          }
+          // else{
+          //     driver_total.value = 0.00;
+          //   }
+          tarp = response[3];
+          if (response[0] != "") {
+            swal.fire({
+              title: "Are you sure? You Want to Continue!",
+              type: "warning",
+              type: "info",
+              html: response[0],
+              showCancelButton: true,
+              confirmButtonText: "Yes, Continue!",
+              cancelButtonText: "No, cancel!",
+              confirmButtonClass: "btn btn-success",
+              cancelButtonClass: "btn btn-danger ml-2",
+              buttonsStyling: false,
+            });
+          }
+
+          if (response[9] != "") {
+            driver_parent = response[9];
+          }
+        },
+      });
+    }
+  }
+}
+
+//owner
+function searchOwneropretor(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',value);
+    formData.append('main',"admin");
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/owneropretorlist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    if (result.length == 0) {
+                        document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option  data-value = "${result[i].id}" value="${result[i].value}"></option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+            swal.fire('Please input alphanumeric characters only');
+        }
+    }
+}
+
+function getOwner(value) {
+  if (value != "") {
+    var val = $('#browsersowner [value="' + value + '"]').data("value");
+    // var mainid = $('#browsersowner [value="' + value + '"]').data("parent");
+    emptyOther("owner");
+    if(val==undefined){
+      document.getElementById("browsersowner").value="";
+      swal.fire('Please select from drop down list only');
+    }else{
+      var formData = new FormData();
+      formData.append('_token',$("#tokenLoadboard").val());
+      formData.append('Id',val);
+      // formData.append('mainId',mainid);
+    
+      $.ajax({
+        url: base_path+"/admin/ownerVerify",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+        success: function (data) {
+          var values = data.split("^");
+          var ownertrucklist = values[1].split(")");
+
+          document.getElementById("lb_owner_truck").value = ownertrucklist[1];
+          document.getElementById(
+            "browsers1truck"
+          ).innerHTML = `<option data-value = "${ownertrucklist[0]}" value="${ownertrucklist[1]}"></option>`;
+          document.getElementById("lb_owner_percentage").value = values[0];
+          owner_parent = ownertrucklist[2] + ")" + ownertrucklist[3];
+          var otherCharges = document.getElementById("lb_owner_other");
+          if (otherCharges.value == "") {
+            document.getElementById("lb_owner_total").value = parseFloat(
+              (parseFloat(document.getElementById("totalAmount").value) *
+                parseFloat(values[0])) /
+                100
+            ).toFixed(2);
+          } else {
+            document.getElementById("lb_owner_total").value =
+              parseFloat(
+                (parseFloat(document.getElementById("totalAmount").value) *
+                  parseFloat(values[0])) /
+                  100
+              ) + parseFloat(otherCharges.value).toFixed(2);
+          }
+          // document.getElementById("lb_owner_total").value=tot2.toFixed(2);
+
+          if (values[2] != "") {
+            swal.fire({
+              title: "Are you sure? You Want to Continue!",
+              type: "warning",
+              type: "info",
+              html: values[3],
+              // html: values[2],
+              showCancelButton: true,
+              confirmButtonText: "Yes, Continue!",
+              cancelButtonText: "No, cancel!",
+              confirmButtonClass: "btn btn-success",
+              cancelButtonClass: "btn btn-danger ml-2",
+              buttonsStyling: false,
+            });
+          }
+          // $('#lb_owner_truck').select2().val(ownertrucklist[0]).trigger('change');
+        },
+      });
+    }
+  }
+}
+
+//truck
+function searchTruck(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',value);
+        
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/trucklist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+              success: function (response) {
+                  var result = JSON.parse(response);
+                  if (result.length == 0) {
+                      document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                  } else {
+                      var options = "";
+                      for (var i = 0; i < result.length; i++) {
+                          options += `<option data-value = "${result[i].id}" value="${result[i].value}"></option>`;
+                      }
+                      document.getElementById(id).innerHTML = options;
+                  }
+              }
+            });
+        } else {
+            swal.fire('Please input alphanumeric characters only');
+        }
+    }
+}
+
+function getTruck(value, id) {
+  var val = $("#browsers1truck" + id + ' [value="' + value + '"]').data("value");
+
+  if(val==undefined){
+      document.getElementById("browsers1truck").value="";
+      swal.fire('Please select from drop down list only');
+  }else{
+      var formData = new FormData();
+      formData.append('_token',$("#tokenLoadboard").val());
+      formData.append('Id',val);
+      
+      $.ajax({
+        url: base_path+"/admin/ownerTruckVerify",
+        type: "POST",
+        datatype:"JSON",
+        contentType: false,
+        processData: false,
+        data:formData,
+        cache: false,
+        success: function (data) {
+          var res = JSON.parse(data);
+          if (res["instruction"] != "") {
+            swal.fire({
+              title: "Are you sure? You Want to Continue!",
+              type: "warning",
+              type: "info",
+              html: res["instruction"],
+              showCancelButton: true,
+              confirmButtonText: "Yes, Continue!",
+              cancelButtonText: "No, cancel!",
+              confirmButtonClass: "btn btn-success",
+              cancelButtonClass: "btn btn-danger ml-2",
+              buttonsStyling: false,
+            });
+          }
+
+          isIfta = res["ifta"];
+        },
+      });
   }
 }
 </script>

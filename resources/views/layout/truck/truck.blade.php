@@ -41,7 +41,7 @@
 
                                             
 
-                                            <table id="" class="table" >
+                                            <table  class="table" >
 
                                                 <thead class="thead_th">
                                                     <tr class="tr">
@@ -94,7 +94,10 @@
                     @endif
                 </form> -->
                     <button type="button" class="btn btn-secondary closeTruckModal" >Close</button>
-                    
+                    <nav aria-label="..." data-name="truck_pagination" class="float-right">
+                        <div class="pagination" id="truck_pagination">
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

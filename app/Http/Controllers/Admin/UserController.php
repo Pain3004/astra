@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Office;
 use App\Models\Company;
+use App\Models\UserSubscription;
 use Mail; 
 use Hash;
 use Illuminate\Support\Str;
@@ -411,14 +412,154 @@ class UserController extends Controller
 
     }
     public function getAllUser(Request $request){
-        // $user = User::all();
-        $user = User::where('id', '!=', Auth::user()->id)->where('deleteStatus',0)->get();
-        return response()->json($user);  
+        // $user = User::where('id', '!=', Auth::user()->id)->where('deleteStatus',0)->get();
+        // return response()->json($user);  
+        $companyID=(int)Auth::user()->companyID;
+        $show = User::raw()->find(array('companyID' => $companyID));
+        $i = 0;
+        $table = "";
+        $count = 0;
+        foreach ($show as $row1) 
+        {
+            $count++;
+            $counter = $row1['counter'];
+            $id = $row1['_id'];
+            $userEmail = $row1['userEmail'];
+            $userName = $row1['userName'];
+            $userFirstName = $row1['userFirstName'];
+            $userLastName = $row1['userLastName'];
+            $userAddress = $row1['userAddress'];
+            $userLocation = $row1['userLocation'];
+            $userZip = $row1['userZip'];
+            $userTelephone = $row1['userTelephone'];
+            $userExt = $row1['userExt'];
+            $TollFree = $row1['TollFree'];
+            $userFax = $row1['userFax'];
+            $deleteStatus = $row1['deleteStatus'];
+            $checkdelete = $deleteStatus == 0 ? "" : "disabled_load";
+            if($userEmail !="" || $userEmail !=null)
+            {
+                $userEmail=$userEmail;
+            }
+            else
+            {
+                $userEmail="------";
+            }
+            if($userName !="" || $userName !=null)
+            {
+                $userName=$userName;
+            }
+            else
+            {
+                $userName="------";
+            }
+            if($userFirstName !="" || $userFirstName !=null)
+            {
+                $userFirstName=$userFirstName;
+            }
+            else
+            {
+                $userFirstName="------";
+            }
+            if($userLastName !="" || $userLastName !=null)
+            {
+                $userLastName=$userLastName;
+            }
+            else
+            {
+                $userLastName="------";
+            }
+            if($userAddress !="" || $userAddress !=null)
+            {
+                $userAddress=$userAddress;
+            }
+            else
+            {
+                $userAddress="------";
+            }
+            if($userLocation !="" || $userLocation !=null)
+            {
+                $userLocation=$userLocation;
+            }
+            else
+            {
+                $userLocation="------";
+            }
+            if($userZip !="" || $userZip !=null)
+            {
+                $userZip=$userZip;
+            }
+            else
+            {
+                $userZip="------";
+            }
+            if($userTelephone !="" || $userTelephone !=null)
+            {
+                $userTelephone=$userTelephone;
+            }
+            else
+            {
+                $userTelephone="------";
+            }
+            if($userExt !="" || $userExt !=null)
+            {
+                $userExt=$userExt;
+            }
+            else
+            {
+                $userExt="------";
+            }
+            if($TollFree !="" || $TollFree !=null)
+            {
+                $TollFree=$TollFree;
+            }
+            else
+            {
+                $TollFree="------";
+            }
+            if($userFax !="" || $userFax !=null)
+            {
+                $userFax=$userFax;
+            }
+            else
+            {
+                $userFax="------";
+            }
+            $i++;
+            $table .= "<tr  class='tr'>
+                <td class= '$checkdelete'> $i</td>
+                <td data-field='email' id='$userEmail'> $userEmail </td>
+                <td data-field='username'> $userName </td>
+                <td data-field='fistname'> $userFirstName </td>
+                <td data-field='lastname'> $userLastName </td>
+                <td data-field='address'> $userAddress </td>
+                <td data-field='location'> $userLocation </td>
+                <td data-field='zip'> $userZip </td>
+                <td data-field='telephone'> $userTelephone </td>
+                <td data-field='ext'> $userExt </td>
+                <td data-field='tollfree'> $TollFree </td>
+                <td data-field='fax'> $userFax </td>
+                <td style='width: 100px'> <a class='button-23 edit1' id='editmodel' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23' data-id='$userEmail' title='Delete'><i class='fe fe-delete'></i></a></td>
+                </tr>";     
+        }
+        $planres = UserSubscription::raw()->findOne(['companyID' => (int)$companyID]);
+        $paidRemaining = $planres['user']['remaining'];
+        $freeRemaining = $planres['user']['freeremaining'];
+        $paidTotal = $planres['user']['total'];
+        $freeTotal = $planres['user']['freetotal'];
+        $remaining = $freeRemaining + $paidRemaining;
+        $total = $freeTotal + $paidTotal;
+        $array = array();
+        $array[] = $table; 
+        $arrcount = array('total' => $total,'remaining' => $remaining,'paidRemaining' => $paidRemaining);
+        $array[] = $arrcount; 
+        echo json_encode($array);
     }
 
     public function getUser(Request $request){
         $user = Auth::user();
-        return view('layout.user.profile',compact('user'));  
+        return view('layout.user.profile',compact('user'));
+    
     }
 
     public function editUserDetails(Request $request)

@@ -15,11 +15,13 @@ use App\Models\Delivered;
 use App\Models\BreakDown;
 use App\Models\User;
 use Auth;
+use Error;
 use MongoDB\Driver\Cursor;
 // use App\Models\;
 use File;
 use MongoDB\BSON\Regex;
 use Image;
+use Illuminate\Support\Arr;
 
 
 use PDF;
@@ -135,9 +137,319 @@ class LoadBoardController extends Controller
            }
         }
         echo json_encode($result);
-     }
+    }
 
+    public function compnayList(Request $request)
+    {
+        // dd($request->value);
+        $val = $request->value;
+        $para = '^' . $val;
+        $datasearch = new Regex ($para, 'i');
+        $show = \App\Models\Company::raw()->aggregate([['$match' => ["companyID" => (int)Auth::user()->companyID]],
+            ['$unwind' => '$company'],
+            ['$match' => ['company.companyName' => $datasearch]],
+            ['$project' => ['company._id' => 1,'_id' => 1, 'company.companyName' => 1,'company.deleteStatus'=>1,'companyID' => (int)Auth::user()->companyID]],
+            // ['$limit' => 100]
+        ]);
+        $company = array();
+        $companyList = array();
+        foreach ($show as $s)
+        {
+            // dd($s);
+            $k = 0;
+            $company[$k] = $s['company'];
+            $parent = $s['_id'];
+            $k++;
+            foreach ($company as $sr)
+            {
+                $companyList[] = array("id" =>$sr['_id'], "value" => $sr['companyName'],"delstatus"=>$sr['deleteStatus'], "parent" => $parent);
+            }
+        }
+        // dd($companyList);
+        echo json_encode($companyList);
+    } 
+
+    public function customerList(Request $request)
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $para = '^' . $request->value;
+        $datasearch = new Regex ($para, 'i');
+        $show = \App\Models\Customer::raw()->aggregate([
+            ['$match' => ["companyID" => (int)$companyID]],
+            ['$unwind' => '$customer'],
+            ['$match' => ['customer.custName' => $datasearch]],
+            ['$project' => ['customer._id' => 1, 'customer.custName' => 1,'customer.deleteStatus' => 1, 'customer.custLocation' => 1, 'companyID' => (int)$companyID]],
+            ['$limit' => 100]
+        ]);
+        $customer = array();
+        $customerList = array();
+        foreach ($show as $s) {
+            $z = 0;
+            $customer[$z] = $s['customer'];
+            $parent = $s['_id'];
+            $z++;
+            foreach ($customer as $cr) {
+                $customerList[] = array("id" => $cr['_id'], "value" => $cr['custName'], "location" => $cr['custLocation'], "parent" => $parent,"delstatus"=>$cr['deleteStatus']);
+            }
+        }
+        echo json_encode($customerList);
+    }
+    
+    public function getCustomer(Request $request){
+        $companyID = (int)Auth::user()->companyID;
+        $id = (int)$request->value;
+        $parent = (int)$request->parent;
+        $isBroker = "";
+        $payTermId = 0;
+        $payDays = 0;
+        $show1 =  \App\Models\Customer::raw()->aggregate([
+                ['$match'=>['companyID'=>$companyID, "_id" => $parent]],
+                ['$unwind'=>'$customer'],
+                ['$match'=>['customer._id'=>(int)$id]]
+        ]);
      
+        $res = array("email" => "", "blacklisted" => "", "parent" => "", "broker" => "", "paydays" => "");
+        foreach ($show1 as $row) {
+        $customer = array();
+        $k = 0;
+        $customer_parent = $row['_id'];
+        $customer[$k] = $row['customer'];
+        $k++;
+        foreach ($customer as $row) {
+              $isBroker = $row['isBroker'];
+              $res['email'] = $row['custEmail'];
+              $res['blacklisted'] = $row['blacklisted'];
+              $payTermId = $row['paymentTerms'];
+           }
+        }
+        // dd($payTermId);
+        $result = \App\Models\Payment_terms::raw()->aggregate([
+           ['$match'=>['companyID'=>$companyID]],
+           ['$unwind'=>'$payment'],
+           ['$match'=>['payment._id'=>(int)$payTermId]]
+        ]);
+     
+        foreach($result as $r) {
+           
+           $payment = $r['payment'];
+            if( Arr::exists($payment, 'paymentDays')) {
+              $payDays = $payment['paymentDays'];
+           }
+        }
+       
+        $res['parent'] = $customer_parent;
+        $res['broker'] = $isBroker;
+        $res['paydays'] = $payDays;
+        echo json_encode($res);
+    }
+
+    public function userList(Request $request){
+        // 
+        $companyID = (int)Auth::user()->companyID;
+        $para=explode(" ",$request->value);
+        $para = '^'.$para[0];
+        $datasearch  =  new Regex ($para, 'i');
+        $show = \App\Models\user::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID, 'userFirstName' => $datasearch]],
+            ['$project' => ['_id' => 1, 'userFirstName' => 1, 'userLastName' => 1]],
+            ['$limit' => 100]
+        ]);
+
+      $user = array();
+      foreach ($show as $s) {
+        // dd($s);
+          $z = 0;
+          $user[$z] = $s;
+          $parent = $s['_id'];
+          $z++;
+          foreach($user as $cr) {
+            //   $userValue = "'" . $cr['_id'] . ")&nbsp;" . $cr['userName'] . "'";
+              $userList[] = array("id" => $cr['_id'], "userFirstName" => $cr['userFirstName'], "userLastName" => $cr['userLastName'], "parent" => $parent);
+          }
+          
+      }
+    //   dd($userList);
+          echo json_encode($userList);
+    }
+
+    public function loadtypeList(Request $request){
+        $companyID = (int)Auth::user()->companyID;
+        $val = $request->value;
+        $para = '^' . $val;
+        $datasearch  = new Regex($para, 'i');
+            $show =\App\Models\Load_type::raw()->aggregate([
+                ['$match'=>["companyID"=>$companyID]],
+                ['$unwind'=>'$loadType'],
+                ['$match' =>['loadType.loadName' => $datasearch,'loadType.deleteStatus'=>"NO"]],
+                ['$project' => ['loadType._id' => 1,'loadType.loadName' => 1]],
+                ['$limit' =>10]
+            ]);  
+            $loadType = array();
+            $loadtypeList = array();
+            foreach ($show as $s) {
+                $k = 0;
+                $loadType[$k] = $s['loadType'];
+                $parent = $s['_id'];
+                $k++;
+                foreach($loadType as $sr) {
+                    $loadtypeList[] = array("id" =>  $sr['_id'], "value" =>  $sr['loadName'],"parent" => $parent);
+                }
+            }
+            echo json_encode($loadtypeList);
+    }
+
+    public function enableUnit(Request $request){
+        // dd($request);
+        $companyID = (int)Auth::user()->companyID;
+        $id = (int)$request->value;
+       
+        $show1 = \App\Models\Load_type::raw()->aggregate([
+          ['$match'=>['companyID'=>$companyID]],
+          ['$unwind'=>'$loadType'],
+          ['$match'=>['loadType._id'=>$id]]]);
+          foreach ($show1 as $showloadtype) {
+              $k = 0;
+              $load[$k] = $showloadtype['loadType'];
+              $k++;
+              foreach ($load as $sl) {
+                 echo $sl['loadType'];
+              }
+           }
+    }
+
+    public function equipmenttypeList(Request $request)
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $val = $request->value;
+        $para = '^' . $val;
+        $datasearch = new Regex($para, 'i');
+        $show = \App\Models\Equipment_add::raw()->aggregate([
+            ['$match' => ["companyID" => $companyID]],
+            ['$unwind' => '$equipment'],
+            ['$match' => ['equipment.equipmentType' => $datasearch,'equipment.deleteStatus' => "NO"]],
+            ['$project' => ['equipment._id' => 1, 'equipment.equipmentType' => 1]]
+        ]);
+        $equipment = array();
+        $equipmentList = array();
+        foreach ($show as $s) {
+            $k = 0;
+            $equipment[$k] = $s['equipment'];
+            $parent = $s['_id'];
+            $k++;
+            foreach ($equipment as $sr) {
+                $equipmentList[] = array("id" => $sr['_id'], "value" => $sr['equipmentType'],"parent" => $parent);
+            }
+        }
+        echo json_encode($equipmentList);
+    }
+
+    public function carrierlist(Request $request)
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $para = '^' .$request->value;
+        $datasearch = new Regex($para, 'i');
+        $show = \App\Models\Carrier::raw()->aggregate([
+            ['$match' => ["companyID" =>  $companyID]],
+            ['$unwind' => '$carrier'],
+            ['$match' => ['carrier.name' => $datasearch]],
+            ['$project' => ['carrier._id' => 1, 'carrier.name' => 1, 'carrier.location' => 1,"carrier.deleteStatus" => 1]],
+            ['$limit' => 100]
+        ]);
+        $carrier = array();
+        $carrierList = array();
+        foreach ($show as $s) {
+            $k = 0;
+            $carrier[$k] = $s['carrier'];
+            $parent = $s['_id'];
+            $k++;
+            foreach ($carrier as $sr) {
+                $carrierList[] = array("id" => $sr['_id'], "value" => $sr['name'], "location" => $sr['location'], "parent" => $parent,"delstatus"=>$sr['deleteStatus']);
+            }
+        }
+        echo json_encode($carrierList);
+    }
+
+    public function driverList(Request $request)
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $para = '^' . $request->value;
+        $datasearch = new Regex($para, 'i');
+        $show = \App\Models\Driver::raw()->aggregate([
+            ['$match' => ["companyID" => $companyID]],
+            ['$unwind' => '$driver'],
+            ['$match' => ['driver.driverName' => $datasearch]],
+            ['$project' => ['driver._id' => 1, 'driver.driverName' => 1, 'driver.deleteStatus'=>1,'companyID' => $companyID]]
+            // ['$limit' => 20]
+        ]);
+        // , 'driver.ownerOperatorStatus' => 'NO'
+        $driver = array();
+        $driverList = array();
+        foreach ($show as $s) {
+            $k = 0;
+            $driver[$k] = $s['driver'];
+            $parent = $s['_id'];
+            $k++;
+            foreach ($driver as $sr) {
+                $driverList[] = array("id" => $sr['_id'], "value" => $sr['driverName'],"delstatus"=>$sr['deleteStatus'], "parent" => $parent);
+            }
+        }
+        // dd($driverList);
+        echo json_encode($driverList);
+    }
+
+    public function owneropretorlist(Request $request){
+        // dd($request);
+        $para = '^'.$request->value;
+        $datasearch  = new Regex($para, 'i');
+        // dd($datasearch);
+        $show = \App\Models\Driver::raw()->aggregate([
+            ['$match'=>["companyID"=> (int)Auth::user()->companyID]],
+            ['$unwind'=>'$driver'],
+            ['$match' =>['driver.driverName' => $datasearch,'driver.ownerOperatorStatus' => "YES"]],
+            ['$project' => ['driver._id' => 1,'driver.ownerID' => 1,'driver.driverName' => 1,'companyID' => 1]],
+            ['$limit' => 20]
+        ]);   
+        $driver = array();
+        $ownerList = array();
+        foreach ($show as $s) {
+            
+          $k = 0;
+          $driver[$k] = $s['driver'];
+          $parent = $s['_id'];
+
+        //   dd((int)$parent);
+          $k++;
+          foreach($driver as $dr) {
+              $ownerList[] = array("id" => $dr['_id'],"ownerID" => $dr['ownerID'], "value" => $dr['driverName'],"parent" => $parent);
+          }
+        }
+        // dd($ownerList);
+        echo json_encode($ownerList);
+    } 
+
+    public function truckList(Request $request)
+    {
+        $para = '^' . $request->value;
+        $datasearch = new Regex($para, 'i');
+        $show = \App\Models\Truckadd::raw()->aggregate([
+            ['$match' => ["companyID" => (int)Auth::user()->companyID]],
+            ['$unwind' => '$truck'],
+            ['$match' => ['truck.truckNumber' => $datasearch,"truck.deleteStatus"=>"NO"]],
+            ['$project' => ['truck._id' => 1, 'truck.truckNumber' => 1, 'companyID' => 1]],
+            ['$limit' => 50]
+        ]);
+        $shipper = array();
+        $truckList = array();
+        foreach ($show as $s) {
+            $k = 0;
+            $shipper[$k] = $s['truck'];
+            $k++;
+            foreach ($shipper as $sr) {
+                $truckList[] = array("id" => $sr['_id'], "value" => $sr['truckNumber']);
+            }
+        }
+        echo json_encode($truckList);
+    }
     public function index(Request $request){
         $companyId=Auth::user()->companyID;
         $Carrier = \App\Models\Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();
@@ -697,21 +1009,20 @@ class LoadBoardController extends Controller
         } 
 
     }
+
     public function getCarrier(Request $request){
-        $id = (int)$request->carrierId;
-        $parent = (int)$request->mainId;
+        $id = (int)$request->value;
+        $parent = (int)$request->parent;
         $payTermId = 0;
         $payDays = 0;
         
         $show1 = \App\Models\Carrier::raw()->aggregate([
-            ['$match' => ['companyID' => Auth::user()->companyID]], 
-            ['$match' => ['_id' => $parent]], 
-            ['$unwind' => ['path' => '$carrier']], 
-            ['$match' => ['carrier._id' => $id]]
+                ['$match'=>['companyID'=>Auth::user()->companyID, "_id" => $parent]],
+                ['$unwind'=>'$carrier'],
+                ['$match'=>['carrier._id'=>$id]]
         ]);
-       
         $res = array("instruction" => "","email" => "", "parent" => "", "paydays" => "", "blackListed" => false);
-   
+        
         foreach ($show1 as $row) {
             $carrier = array();
             $k = 0;
@@ -766,11 +1077,10 @@ class LoadBoardController extends Controller
         $res['paydays'] = $payDays;
         // dd($res);
         echo json_encode($res);
-    }
+     }
 
     public function getDriver(Request $request){
-        $id = (int)$request->driverId;
-        $parent = (int)$request->mainId;
+        $id = (int)$request->value;
         $show1 =  \App\Models\Driver::raw()->aggregate([
                 ['$match'=>['companyID'=>Auth::user()->companyID]],
                 ['$unwind' => ['path' => '$driver']],
@@ -791,9 +1101,9 @@ class LoadBoardController extends Controller
               $passportExpiry = $row['passportExpiry'];
               $fastcardexpiry = $row['fastCardExpiry'];
               $hazmatexpiry = $row['hazmatExpiry'];
-              $loadedMile = (string)$row['driverLoadedMile'];
-              $emptyMile =(string) $row['driverEmptyMile'];
-              $tarp = (string)$row['tarp'];
+              $loadedMile = $row['driverLoadedMile'];
+              $emptyMile = $row['driverEmptyMile'];
+              $tarp = $row['tarp'];
               $pickrate = $row['pickupRate'];
               $pickafter = $row['pickupAfter'];
               $droprate = $row['dropRate'];
@@ -830,8 +1140,10 @@ class LoadBoardController extends Controller
      }
 
     public function getOwner(Request $request){
+        // dd($request);
         $id = (int)$request->Id;
-        $mainid = (int)$request->mainId;
+        // $mainid = (int)$request->mainId;
+        $mainid = "";
     
         $collection =\App\Models\Owner_operator_driver::raw();
             $show1 = $collection->aggregate([
@@ -888,6 +1200,7 @@ class LoadBoardController extends Controller
             $b = 0;
             $driver[$b] = $row2['driver'];
             $b++;
+            // dd($row2['_id']);
             $mainid = $row2['_id'];
             foreach ($driver as $row3) {
                 $now = strtotime("now");
