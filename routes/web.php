@@ -307,3 +307,5 @@ Route::post('admin/restoreExternalCarrier', [ExternalCarrierController::class, '
 // DashboardController ==============================================================
 
 Route::get('/dashboard-customerdata', [DashboardController::class, 'customerdata']);
+Route::get('/dashboard-dashpayable', [DashboardController::class, 'dashpayable']);
+Route::get('/dashboard-driverpayStatement', [DashboardController::class, 'driverpayStatement']);

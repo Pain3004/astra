@@ -70,6 +70,11 @@
                 <div class="modal-footer">
                     <button class="button-29" style="vertical-align:middle" id="exportBankDetails"><span>Export</span></button>
                     <button type="button" class="button-29 bankClose">Close</button>
+                    <nav aria-label="..." data-name="bankdata_pagination" class="float-right">
+                        <div class="pagination" id="bankdata_pagination">
+
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

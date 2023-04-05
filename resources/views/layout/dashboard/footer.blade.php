@@ -125,7 +125,7 @@
 <script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
 <script sr="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<!-- <script src="{{URL::to('/')}}/assets/js/dashboardLaravel.js"></script> -->
+<script src="{{URL::to('/')}}/assets/js/dashboardLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/jquery.mask.min.js"></script>
 
 

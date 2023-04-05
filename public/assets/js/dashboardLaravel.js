@@ -1,19 +1,4 @@
 var base_path = $("#url").val();
-// $("#dashboardloader").css("display", "block");
-// var usertheme = document.getElementById('theme').value;
-// if (usertheme == "day") {
-//     var daytheme = '';
-//     var daycolor = '';
-// } else {
-//     var daytheme = '#0e1726'
-//     var daycolor = '#fff';
-// }
-// $(document).on("click", ".noactive", function () {
-//     $(".noactive").removeClass("myactive");
-//     $(this).addClass("myactive");
-// });
-
-// var allcompany_data = '';
  //--------------Global Variable Start -----------------
 var mainarr = { "current": [], "prev": [] };
 var dispatchermain = { "current": [], "prev": [] };
@@ -1124,7 +1109,7 @@ function prepairDashBoardData(dashDaterange)
             var week_first = res[0].estdrvpayfirstdate;
             var week_last = res[0].estdrvpaylastdate;
             estimated_driverpay_statement(week_first, week_last);
-            // getPayableAndRecevable();
+            getPayableAndRecevable();
             // getProfitLoss();
             // getTruckDataMap();
             loads = res[0].loads;
@@ -2207,32 +2192,24 @@ function prepairDashBoardData(dashDaterange)
 
             //----------Company Revenue Stat---------------
             var dashcomrev = '';
-            console.log(companycurramounttotal);
+            // console.log(companycurramounttotal);
             if (companycurramounttotal == NaN && companyprevamounttotal == NaN) {
                 companycurramounttotal = 0;
                 companyprevamounttotal = 0;
             }
-            console.log(companycurramounttotal);
+            // console.log(companycurramounttotal);
             if (companycurramounttotal > companyprevamounttotal) {
                 var companyamountdiff = Math.abs(companycurramounttotal - companyprevamounttotal);
 
-                dashcomrev += `<h3 style="font-size:22px"><div class="tooltip1"><span class="revenue">$${abbreviateNumber(parseInt(companycurramounttotal))}</span><span class="toolrevenue">$${numberWithCommas(companycurramounttotal.toFixed(2))}</span></div> &nbsp;<span class="rate-inc"><div class="tooltip1"><span class="revenue">$${abbreviateNumber(parseInt(companyamountdiff))}</span><span class="toolrevenue">$${numberWithCommas(companyamountdiff.toFixed(2))}</span></div></span> <svg class="rate-inc object" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up">
-                                <line x1="12" y1="19" x2="12" y2="5"></line>
-                                <polyline points="5 12 12 5 19 12"></polyline>
-                            </svg></h3>
-                        <p>Company Revenue</p>`;
+                dashcomrev += `<h3 class="mb-2 fw-semibold">$${abbreviateNumber(parseInt(companycurramounttotal))} <span class="text-danger fs-13 mb-0"">$${numberWithCommas(companycurramounttotal.toFixed(2))}</span> <span class="text-danger fs-13 mb-0"">$${abbreviateNumber(parseInt(companyamountdiff))}</span>$${numberWithCommas(companyamountdiff.toFixed(2))}</span></h3>
+                        <p class="text-muted fs-13 mb-0">Company Revenue <span class="icn-box text-danger fw-semibold fs-13 me-1"> <i class="fa fa-long-arrow-up"></i>
+                            </span></p>`;
             } else {
                 companyamountdiff = Math.abs(companycurramounttotal - companyprevamounttotal);
-                dashcomrev += `<h3 style="font-size:22px"><div class="tooltip1"><span class="revenue">$${abbreviateNumber(parseInt(companycurramounttotal))}</span><span class="toolrevenue">$${numberWithCommas(companycurramounttotal.toFixed(2))}</span></div> &nbsp;<span class="rate-dec"><div class="tooltip1"><span class="revenue">$${abbreviateNumber(parseInt(companyamountdiff))}</span><span class="toolrevenue">$${numberWithCommas(companyamountdiff.toFixed(2))}</span></div></span><svg class="rate-dec object"
-                                xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-arrow-down">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <polyline points="19 12 12 19 5 12"></polyline>
-                            </svg></h3>
-                        <p>Company Revenue</p>`;
+                dashcomrev += `<h3 class="mb-2 fw-semibold">$${abbreviateNumber(parseInt(companycurramounttotal))} <span class="text-danger mb-0 fs-13 mb-0">$${numberWithCommas(companycurramounttotal.toFixed(2))}</span></h3>
+                        <p class="text-muted fs-13 mb-0">Company Revenue <span class="icn-box text-danger fw-semibold fs-13 me-1">
+                            <i class="fa fa-long-arrow-up"></i>
+                            </span></p>`;
             }
             $("#copmrev").css("display", "none");
             $("#dashcomrev").html(dashcomrev);
@@ -2244,12 +2221,12 @@ function prepairDashBoardData(dashDaterange)
             if (total_expence == null || isNaN(total_expence) || total_expence == undefined) {
                 total_expence = 0;
             }
-            dashcomexpence += `<h3 style="font-size:22px"><div class="tooltip1"><span class="revenue">$${abbreviateNumber(parseInt(total_expence))}</span><span class="toolrevenue">$${numberWithCommas(total_expence.toFixed(2))}</span></div>&nbsp;
+            dashcomexpence += `<h3 class="mb-2 fw-semibold">$${abbreviateNumber(parseInt(total_expence))} <span class="text-danger mb-0 fs-13 mb-0">$${numberWithCommas(total_expence.toFixed(2))}</span>&nbsp;
                         </h3>
-                        <p>
-                        Company Expenses
+                        <p class="text-muted mb-0 mt-2 fs-12">
+                        Company Expenses 
                         </p>`;
-            $("#payrep").css("display", "none");
+            // $("#payrep").css("display", "none");
             $("#dashcomexpence").html(dashcomexpence);
 
             //--------------Bar Graph Data Stat------------
@@ -2331,49 +2308,41 @@ function prepairDashBoardData(dashDaterange)
 
 
 // //-----------------Function for get payable & Recevable Data start---------------------
-// function getPayableAndRecevable() {
-//     var data = {
-//         companyId: companyId,
-//         privilege: privilege,
-//     };
-//     $.ajax({
-//         url: "./Master.php",
-//         data: {
-//             main: "dashboard",
-//             sub: "dashpayable",
-//             data: data
-//         },
-//         method: "POST",
-//         dataType: 'html',
-//         success: function (response) {
-//             var payrevamount = JSON.parse(response);
-//             var todayspayable = '';
-//             var todaysreceivable = '';
+function getPayableAndRecevable() 
+{
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-dashpayable",
+        async: false,
+        success: function (response) {
+            var payrevamount = JSON.parse(response);
+            var todayspayable = '';
+            var todaysreceivable = '';
 
-//             //Get Today Payable & Recevable data
-//             todayspayable += `<h3 style="font-size:22px"><div class="tooltip1"><span class="revenue">&#36;${abbreviateNumber(parseInt(payrevamount[0].payable))}</span><span class="toolrevenue">$${numberWithCommas((payrevamount[0].payable).toFixed(2))}</span></div></h3>
-//                         <p>
-//                         Today's Payable
-//                         </p>`;
+            //Get Today Payable & Recevable data
+            todayspayable += `<h3 class="mb-2 fw-semibold">&#36;${abbreviateNumber(parseInt(payrevamount[0].payable))} <span class="text-muted mb-0 mt-2 fs-12">$${numberWithCommas((payrevamount[0].payable).toFixed(2))}</span></h3>
+                        <p class="text-muted mb-0 mt-2 fs-12">
+                        Today's Payable
+                        </p>`;
 
-//             todaysreceivable += `<h3 style="font-size:22px"><div class="tooltip1"><span class="revenue">&#36;${abbreviateNumber(parseInt(payrevamount[0].receivable))}</span><span class="toolrevenue">$${numberWithCommas((payrevamount[0].receivable).toFixed(2))}</span></div></h3>
-//                         <p>
-//                         Today's Receivable
-//                         </p>`;
+            todaysreceivable += `<h3 class="mb-2 fw-semibold">&#36;${abbreviateNumber(parseInt(payrevamount[0].receivable))} <span class="text-muted mb-0 mt-2 fs-12">$${numberWithCommas((payrevamount[0].receivable).toFixed(2))}</span></h3>
+                        <p class="text-muted mb-0 mt-2 fs-12">
+                        Today's Receivable
+                        </p>`;
 
-//             $("#dashpayable").html(todayspayable);
-//             $("#dashrecevable").html(todaysreceivable);
-//             $("#recvreport").css("display", "none");
-//             $("#recrep").css("display", "none");
-//         }
-//     })
-//     .fail(function (jqXHR, textStatus, errorThrown) {
-//         // Request failed. Show error message to user. 
-//         // errorThrown has error message.
-//         //console.log(jqXHR, textStatus, errorThrown);
-//         swal(request.responseText,'', 'error');
-//     });
-// }
+            $("#dashpayable").html(todayspayable);
+            $("#dashrecevable").html(todaysreceivable);
+            // $("#recvreport").css("display", "none");
+            // $("#recrep").css("display", "none");
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+        //console.log(jqXHR, textStatus, errorThrown);
+        swal(request.responseText,'', 'error');
+    });
+}
 // //-----------------Function for get payable & Recevable Data End---------------------
 // var dispatchinarr = "";
 // var salesrarr = "";
@@ -4202,97 +4171,86 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
     var daterangefrom = weekfirts;
     var daterangeto = weeklast;
 
-    var data = {
-        driver_name_report: driver_name_report,
-        filterby: filterby,
-        daterangefrom: daterangefrom,
-        daterangeto: daterangeto
-    }
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-driverpayStatement",
+        async: false,
+        data:{driver_name_report:driver_name_report,filterby:filterby,daterangefrom:daterangefrom,daterangeto:daterangeto},
+        success: function (data) {
+            var estarr = JSON.parse(data);
 
-    // $.ajax({
-    //     url: './Master.php',
-    //     type: 'POST',
-    //     data: {
-    //         main: "ifta",
-    //         sub: "driverpaystatement",
-    //         data: data,
-    //     },
-    //     success: function (data) {
+            var estcountarr = Object.keys(estarr).length;
 
-    //         var estarr = JSON.parse(data);
+            if (estcountarr >= 1) {
+                var lastindex = estcountarr - 1;
+                var alldrivertab = estarr[lastindex].alldrivertable.length;
 
-    //         var estcountarr = Object.keys(estarr).length;
+                var driverloadtotal = 0;
+                var driveradvancetotal = 0;
+                var final_drtotal = 0;
+                var recurrsub = 0;
+                var recurradd = 0;
+                var oorecurrsub = 0;
+                var totalnetdrp = 0;
+                for (var b = 0; b < alldrivertab; b++) {
+                    driverloadtotal += estarr[lastindex].alldrivertable[b].driverload;
+                    driveradvancetotal += estarr[lastindex].alldrivertable[b].driveradvance;
+                    final_drtotal += parseFloat(estarr[lastindex].alldrivertable[b].totalearning);
+                    var shrecurrsub = 0;
+                    var ooshrecurrsub = 0;
+                    var shrecurradd = 0;
 
-    //         if (estcountarr >= 1) {
-    //             var lastindex = estcountarr - 1;
-    //             var alldrivertab = estarr[lastindex].alldrivertable.length;
+                    for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) {
+                        if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) {
+                            recurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
+                            shrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
+                        }
+                    }
 
-    //             var driverloadtotal = 0;
-    //             var driveradvancetotal = 0;
-    //             var final_drtotal = 0;
-    //             var recurrsub = 0;
-    //             var recurradd = 0;
-    //             var oorecurrsub = 0;
-    //             var totalnetdrp = 0;
-    //             for (var b = 0; b < alldrivertab; b++) {
-    //                 driverloadtotal += estarr[lastindex].alldrivertable[b].driverload;
-    //                 driveradvancetotal += estarr[lastindex].alldrivertable[b].driveradvance;
-    //                 final_drtotal += parseFloat(estarr[lastindex].alldrivertable[b].totalearning);
-    //                 var shrecurrsub = 0;
-    //                 var ooshrecurrsub = 0;
-    //                 var shrecurradd = 0;
+                    for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) {
+                        if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) {
+                            oorecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
+                            ooshrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
+                        }
+                    }
 
-    //                 for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) {
-    //                     if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) {
-    //                         recurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
-    //                         shrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
-    //                     }
-    //                 }
+                    for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) {
+                        if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) {
+                            recurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
+                            shrecurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
+                        }
+                    }
+                    var recurrdata = (shrecurradd) - (shrecurrsub) - (ooshrecurrsub);
+                    var calfinalrecurrdata = Math.sign(recurrdata) == -1 ? estarr[lastindex].alldrivertable[b].totalearning - Math.abs(recurrdata) : parseFloat(estarr[lastindex].alldrivertable[b].totalearning + recurrdata);
 
-    //                 for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) {
-    //                     if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) {
-    //                         oorecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
-    //                         ooshrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
-    //                     }
-    //                 }
+                    var nerdrvpaybal = estarr[lastindex].alldrivertable[b].driverBalance;
+                    totalnetdrp += (nerdrvpaybal) + (calfinalrecurrdata);
+                }
+                var totalrecurramount = (recurradd) - (recurrsub) - (oorecurrsub);
+                var finalestdrv = Math.sign(totalrecurramount) == -1 ? parseFloat(final_drtotal - Math.abs(totalrecurramount)) : parseFloat(final_drtotal + totalrecurramount);
+                var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)))) + ")" : abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)));
 
-    //                 for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) {
-    //                     if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) {
-    //                         recurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
-    //                         shrecurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
-    //                     }
-    //                 }
-    //                 var recurrdata = (shrecurradd) - (shrecurrsub) - (ooshrecurrsub);
-    //                 var calfinalrecurrdata = Math.sign(recurrdata) == -1 ? estarr[lastindex].alldrivertable[b].totalearning - Math.abs(recurrdata) : parseFloat(estarr[lastindex].alldrivertable[b].totalearning + recurrdata);
-
-    //                 var nerdrvpaybal = estarr[lastindex].alldrivertable[b].driverBalance;
-    //                 totalnetdrp += (nerdrvpaybal) + (calfinalrecurrdata);
-    //             }
-    //             var totalrecurramount = (recurradd) - (recurrsub) - (oorecurrsub);
-    //             var finalestdrv = Math.sign(totalrecurramount) == -1 ? parseFloat(final_drtotal - Math.abs(totalrecurramount)) : parseFloat(final_drtotal + totalrecurramount);
-    //             var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)))) + ")" : abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)));
-
-    //             $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(totalnetdrp.toFixed(2)) + ")" : parseFloat(totalnetdrp.toFixed(2))));
-    //             $("#estdrvpay").html("$" + findatadrv);
+                $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(totalnetdrp.toFixed(2)) + ")" : parseFloat(totalnetdrp.toFixed(2))));
+                $("#estdrvpay").html("$" + findatadrv);
                 
 
-    //         }
+            }
 
-    //         if (estcountarr < 1) {
-    //             $("#toolestdrvpay").html("$0.00");
-    //             $("#estdrvpay").html("$0.00");
-    //         }
+            if (estcountarr < 1) {
+                $("#toolestdrvpay").html("$0.00");
+                $("#estdrvpay").html("$0.00");
+            }
 
-    //         $("#estdp").html("Estimated Driver Pay");
-    //         $("#driveredp").css("display", "none");
-    //     }
-    // })
-    // .fail(function (jqXHR, textStatus, errorThrown) {
-    //     // Request failed. Show error message to user. 
-    //     // errorThrown has error message.
-    //     //console.log(jqXHR, textStatus, errorThrown);
-    //     swal.fire("Something want wrong");
-    // });
+            $("#estdp").html("Estimated Driver Pay");
+            $("#driveredp").css("display", "none");
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+        //console.log(jqXHR, textStatus, errorThrown);
+        swal.fire("Something want wrong");
+    });
 }
 //-----------------function for estimated driver pay End----------
 
