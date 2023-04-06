@@ -484,6 +484,7 @@ $.ajax({
 
   $("#LBCustomerPlus").click(function(){
     $("#addLoadBoardModal").css("z-index","-1");
+    // $("#addLoadBoardModal").css("z-index","9999999");
     $("#addCustomerModal").modal("show");
     
   });
@@ -512,6 +513,8 @@ $('#select2-lb_EquipmentType-container').on('click', function(event){
 
 $("#LBCarrierPlus").click(function(){
   $("#addLoadBoardModal").css("z-index","-1");
+  // $("#AddExternalCarrier").css("z-index","99999999");
+  // $("#AddExternalCarrier").css("-webkit-backdrop-filter","blur(5px)");
   $("#AddExternalCarrier").modal("show");
   
 });
@@ -780,10 +783,12 @@ $("#addLBSubmit").click(function(){
     var loadername = $('#LB_Driver').val();
     var drivername = $('#browsersdriver option[value="' + loadername + '"]').attr('data-value');
 
-    var LB_Truck=$('#LB_Truck').val().split('-');
-    var loadertruck=LB_Truck[1];
-    var LB_Trailer=$('#LB_Trailer').val().split('-');
-    var loadertrailer=LB_Trailer[1];
+    var loadertruck = $('#LB_Truck').val();
+    var truck = $('#browserstruck option[value="' + company + '"]').attr('data-value');
+    
+    var loadertrailer = $('#LB_Trailer').val();
+    var trailer = $('#browserstrailer option[value="' + company + '"]').attr('data-value');
+
     // var loadershipper=$('#').val();
     // var loaderconsignee=$('#').val();
     var loadertotal=$('#LB_loadertotal').val();
@@ -847,8 +852,8 @@ $("#addLBSubmit").click(function(){
     var currency=$('#LB_CarrierCurrency').val();
     //driver
     
-    var truck=LB_Truck[0];
-    var trailer=LB_Trailer[0];
+    // var truck=LB_Truck[0];
+    // var trailer=LB_Trailer[0];
     var loadedmile=$('#lb_LoadedMiles').val();
     var emptymile=$('#lb_EmptyMiles').val();
     var driver_other=$('#lb_driver_Other').val();
@@ -1236,42 +1241,42 @@ $("#addLBSubmit").click(function(){
   
     // });
   // <!-- --------------------------------getTrailer------------------------------------
-  $('#lb_owner_trailer, #LB_Trailer').change(function() {
-    var clickedId = this.id;
-    console.log(clickedId + " was clicked!");
+  // $('#lb_owner_trailer, #LB_Trailer').change(function() {
+  //   var clickedId = this.id;
+  //   console.log(clickedId + " was clicked!");
 
-    var lb_trailer=$(this).val();
-    // alert(lb_trailer);
-    var formData = new FormData();
-    formData.append('_token',$("#tokenLoadboard").val());
-    formData.append('Id',lb_trailer);
+  //   var lb_trailer=$(this).val();
+  //   // alert(lb_trailer);
+  //   var formData = new FormData();
+  //   formData.append('_token',$("#tokenLoadboard").val());
+  //   formData.append('Id',lb_trailer);
      
-    $.ajax({
-      url: base_path+"/admin/ownerTrailerVerify",
-      type: "POST",
-      datatype:"JSON",
-      contentType: false,
-      processData: false,
-      data:formData,
-      cache: false,
-      success: function (data) {
-        if (data != "") {
-          swal.fire({
-            title: "Are you sure? You Want to Continue!",
-            type: "warning",
-            type: "info",
-            html: data,
-            showCancelButton: true,
-            confirmButtonText: "Yes, Continue!",
-            cancelButtonText: "No, cancel!",
-            confirmButtonClass: "btn btn-success",
-            cancelButtonClass: "btn btn-danger ml-2",
-            buttonsStyling: false,
-          });
-        }
-      },
-    });
-  });
+  //   $.ajax({
+  //     url: base_path+"/admin/ownerTrailerVerify",
+  //     type: "POST",
+  //     datatype:"JSON",
+  //     contentType: false,
+  //     processData: false,
+  //     data:formData,
+  //     cache: false,
+  //     success: function (data) {
+  //       if (data != "") {
+  //         swal.fire({
+  //           title: "Are you sure? You Want to Continue!",
+  //           type: "warning",
+  //           type: "info",
+  //           html: data,
+  //           showCancelButton: true,
+  //           confirmButtonText: "Yes, Continue!",
+  //           cancelButtonText: "No, cancel!",
+  //           confirmButtonClass: "btn btn-success",
+  //           cancelButtonClass: "btn btn-danger ml-2",
+  //           buttonsStyling: false,
+  //         });
+  //       }
+  //     },
+  //   });
+  // });
 // <!-- -------------------------------------------------------------------------submit add new loadboard ------------------------------------------------------------------------- -->  
 
 

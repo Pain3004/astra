@@ -185,41 +185,17 @@
                         <div class="form-group col-md-1 Driverlist">
                           <label>Truck</label>
                           <div class="dropdown show">
-                            <!-- <input class="form-control TruckListSet" list="TruckListSet" id="LB_Truck" placeholder="Search Here"> -->
-                            <select class="form-control select2-show-search form-select TruckListSet" list="TruckListSet" id="LB_Truck" placeholder>
-                            <option value="">Select Here</option>
-                            <?php
-                                foreach($truck as $single_Truck){                              
-                                  foreach($single_Truck['truck'] as $i_s){
-                                    $i_s_name=$i_s['truckNumber'];              
-                                    $i_s_id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$i_s_id}}">{{$i_s_name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                          <input list="browserstruck" class="form-control" placeholder="Search here..." id="LB_Truck" name="trucklist" onkeyup="doSearch(this.value,'browserstruck');" onchange="getTruck(this.value,'browserstruck','LB_Truck');" autocomplete="off">
+                          <datalist id="browserstruck"></datalist>
+                         
                           </div>
                         </div>
                         <div class="form-group col-md-1 Driverlist">
                           <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus1" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="LB_Trailer" placeholder>
-                            <option value="">Select Here</option>
-                            <?php
-                                foreach($trailer as $single){                              
-                                  foreach($single['trailer'] as $i_s){
-                                    $name=$i_s['trailerNumber'];              
-                                    $id=$i_s['_id'];              
-                                    ?>
-                                      <option value="{{$id}}-{{$name}}">{{$name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                            <input list="browserstrailer" class="form-control" id="LB_Trailer" placeholder="Search here..." name="trailerlist" onkeyup="doSearch(this.value,'browserstrailer');" onchange="getTrailer(this.value,'browserstrailer',this.id)" autocomplete="off">
+                            <datalist id="browserstrailer"></datalist>
                           </div>
                         </div>
                         <div class="form-group col-md-1 Driverlist">
@@ -279,7 +255,7 @@
                         <div class="form-group col-md-1 OwnerOperatorlist">
                           <label>Truck</label>
                           <div class="dropdown show" id="lbownertruck">
-                          <input list="browsers1truck" class="form-control" placeholder="Search here..." id="lb_owner_truck" name="truck1list" onkeyup="doSearch(this.value,'browsers1truck');" onchange="getTruck(this.value,'browsers1truck');" autocomplete="off">
+                          <input list="browsers1truck" class="form-control" placeholder="Search here..." id="lb_owner_truck" name="truck1list" onkeyup="doSearch(this.value,'browsers1truck');" onchange="getTruck(this.value,'browsers1truck','lb_owner_truck');" autocomplete="off">
                           <datalist id="browsers1truck"></datalist> 
                           
                           </div>
@@ -288,21 +264,8 @@
                           <label>Trailer &nbsp; <i title="Add Trailer" class="mdi mdi-plus-circle plus" id="LBTrailerPlus2" style='color:blue !important'></i>
                           </label>
                           <div class="dropdown show">
-                            <select class="form-control select2-show-search form-select TrailerListSet" list="TrailerListSet" id="lb_owner_trailer" placeholder>
-                            <option value="">Select Here</option>
-                            <?php
-                                foreach($trailer as $single){                              
-                                  foreach($single['trailer'] as $i_s){
-                                    $name=$i_s['trailerNumber'];              
-                                    $id=$i_s['_id'];              
-                                    ?>
-                                      <!-- <option value="{{$id}}-{{$name}}">{{$name}}</option> -->
-                                      <option value="{{$id}}">{{$name}}</option>
-                                    <?php
-                                  }
-                                }
-                            ?>                                                          
-                            </select>
+                          <input list="browserstrailer1" class="form-control" id="lb_owner_trailer" placeholder="Search here..." name="trailer1list" onkeyup="doSearch(this.value,'browserstrailer1');" onchange="getTrailer(this.value,'browserstrailer1',this.id)" autocomplete="off">
+                          <datalist id="browserstrailer1"></datalist> 
                           </div>
                         </div>
                         <div class="form-group col-md-2 OwnerOperatorlist">

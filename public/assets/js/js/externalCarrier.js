@@ -365,6 +365,7 @@ var base_path = $("#url").val();
         $("#step-3").addClass("d-none");
         $("#step-4").addClass("d-none");
         $("#AddExternalCarrier").modal("hide");
+        $("#addLoadBoardModal").css("z-index","100000000000");
     });
     $('#carrierBlacklisted').click(function(){
         if($(this).prop("checked") == true){

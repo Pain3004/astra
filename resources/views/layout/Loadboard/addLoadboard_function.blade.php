@@ -802,7 +802,7 @@ function getOwnerTotal() {
 var timeout = null;
 
 function doSearch(dom, funname, val) {
-  console.log(dom, funname, val);
+  // console.log(dom, funname, val);
     var active_id = val;
     var func = funname;
     var dom = dom;
@@ -1707,12 +1707,11 @@ function searchTruck(value, id) {
     }
 }
 
-function getTruck(value, id) {
-  var val = $("#browsers1truck" + id + ' [value="' + value + '"]').data("value");
-
+function getTruck(value, id, truckId) {
+  var val = $("#" + id + ' [value="' + value + '"]').data("value");
   if(val==undefined){
-      document.getElementById("browsers1truck").value="";
-      swal.fire('Please select from drop down list only');
+      document.getElementById(truckId).value="";
+      swal.fire('Please select Truck from drop down list only');
   }else{
       var formData = new FormData();
       formData.append('_token',$("#tokenLoadboard").val());
@@ -1746,6 +1745,80 @@ function getTruck(value, id) {
           isIfta = res["ifta"];
         },
       });
+  }
+}
+
+//triler
+function searchTrailer(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',value);
+    formData.append('main',"admin");
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/Trailerlist",
+              type: "POST",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    if (result.length == 0) {
+                        document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                    } else {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) {
+                            options += `<option data-value = "${result[i].id}" value="${result[i].value}"></option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+            swal('Please input alphanumeric characters only');
+        }
+    }
+}
+
+function getTrailer(value, id, TrailerId) {
+  console.log(TrailerId);
+  var val = $("#" + id + ' [value="' + value + '"]').data("value");
+  if(val==undefined){
+      document.getElementById(TrailerId).value="";
+      swal.fire('Please select Trailer from drop down list only');
+  }else{
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('Id',val);
+    
+    $.ajax({
+      url: base_path+"/admin/ownerTrailerVerify",
+      type: "POST",
+      datatype:"JSON",
+      contentType: false,
+      processData: false,
+      data:formData,
+      cache: false,
+      success: function (data) {
+        if (data != "") {
+          swal.fire({
+            title: "Are you sure? You Want to Continue!",
+            type: "warning",
+            type: "info",
+            html: data,
+            showCancelButton: true,
+            confirmButtonText: "Yes, Continue!",
+            cancelButtonText: "No, cancel!",
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger ml-2",
+            buttonsStyling: false,
+          });
+        }
+      },
+    });
   }
 }
 </script>

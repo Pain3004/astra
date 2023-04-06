@@ -224,6 +224,7 @@ var base_path = $("#url").val();
         $('#addAdvanceCustomerTab').removeClass('active show'); 
         $('#addCustomerTab').addClass('active show');           
         $("#addCustomerModal").modal("hide");
+        $("#addLoadBoardModal").css("z-index","100000000000");
     });
     $(".customerDataSubmit").click(function(){
 

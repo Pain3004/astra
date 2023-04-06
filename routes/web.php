@@ -60,6 +60,9 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     Route::get('/admin/driverApplication', function () {
         return view('driver_application_form');
     });
+    Route::get('/admin/externalLoadboard', function () {
+        return view('layout.Loadboard.ExternalLoadboard');
+    });
     // Route::get('/admin/Loadboard', function () {
     //     return view('layout.Loadboard.Loadboard');
     // })->name('admin_loadboard');
@@ -101,6 +104,7 @@ Route::post('admin/carrierlist', [LoadBoardController::class, 'carrierlist']);
 Route::post('admin/driverlist', [LoadBoardController::class, 'driverlist']);
 Route::post('admin/owneropretorlist', [LoadBoardController::class, 'owneropretorlist']);
 Route::post('admin/trucklist', [LoadBoardController::class, 'trucklist']);
+Route::post('admin/Trailerlist', [LoadBoardController::class, 'Trailerlist']);
 // User
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);
