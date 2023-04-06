@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract; 
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
-class ArrivedShipper extends Model
+class Paid extends Model
 {
     use Notifiable, Authenticatable;
     use HasFactory;
@@ -18,5 +19,5 @@ class ArrivedShipper extends Model
      */
 
     protected $connection = 'mongodb';
-    protected $collection = 'Arrived Shipper';
+    protected $collection = 'Paid';
 }

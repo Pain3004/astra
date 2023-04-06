@@ -9,8 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
-
-class Open extends Model 
+class Open extends Model
 {
     use Notifiable, Authenticatable;
     use HasFactory;
@@ -22,20 +21,4 @@ class Open extends Model
 
     protected $connection = 'mongodb';
     protected $collection = 'Open';
-
-  
-
-    protected $guarded = [];
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    // protected $hidden = [
-    //     'userPass',
-    // ];
-    // public function getAuthPassword()
-    // {
-    //     return $this->userPassword;
-    // }
 }

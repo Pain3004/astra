@@ -70,6 +70,12 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     // });
 
 Auth::routes();
+
+//dashboard
+Route::get('/dashboard-customerdata', [DashboardController::class, 'customerdata']);
+Route::get('/dashboard-dashpayable', [DashboardController::class, 'dashpayable']);
+Route::get('/dashboard-driverpayStatement', [DashboardController::class, 'driverpayStatement']);
+
 //Loadboard
 Route::get('admin/getLoadboardData', [LoadBoardController::class, 'getLoadboardData']);
 Route::post('admin/changeStatus', [LoadBoardController::class, 'changeStatus'])->name('changeStatus');;
