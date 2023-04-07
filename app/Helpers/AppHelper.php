@@ -4,6 +4,7 @@ use Auth;
 use App\Models\FuelCard;
 use App\Models\IftaCardCategory;
 use App\Models\FuelVendor;
+use App\Models\Owner_operator_driver;
 use App\Models\Driver;
 class AppHelper
 {
@@ -236,6 +237,192 @@ class AppHelper
        $collection->updateOne(['companyID' => (int)$key,'_id'=>(int)$docId],
         ['$inc' => ['counter' => 1]]);
         return $id;
+    }
+    public function oodriverinstallment($isownoptr,$daterangefrom,$daterangeto,$drrecurrid) 
+    {
+        if ($isownoptr == "YES") 
+        {
+            $daterangeto1 = (int)$daterangeto;
+            $daterangefrom1 = (int)$daterangefrom;
+
+            $collection_oo = Owner_operator_driver::raw();
+            $ownerdrivername = $collection_oo->aggregate([
+                        ['$match'=>['companyID'=> (int)Auth::user()->companyID]],
+                        ['$unwind'=> '$ownerOperator'],
+                        ['$match' => ['ownerOperator.driverId' => ['$in' => [$drrecurrid]]]]
+                        ]);
+             
+            $oorecurrencesubList = array();
+            foreach ($ownerdrivername as $ooval)
+            {
+                $o = 0;
+                $ooarr[$o] = $ooval['ownerOperator'];
+                $o++;
+                foreach ($ooarr as $ownerval) 
+                {
+                    $ooid = $ownerval['_id'];
+                    $oodriverId = $ownerval['driverId'];
+                    $oopercentage = $ownerval['percentage'];
+                    $ootruckNo = $ownerval['truckNo'];
+                    $ooinstallment = $ownerval['installment'];
+                    foreach ($ooinstallment as $ooins) 
+                    {
+
+                        if ($ooins['installmentCategory'] != "") 
+                        {
+                            $ins_id = $ooins['_id'];
+                            $ins_installmentCategory = $ooins['installmentCategory'];
+                            $ins_installmentType = $ooins['installmentType'];
+                            $ins_amount = $ooins['amount'];
+                            $ins_installment = $ooins['installment'];
+                            $ins_startNo = $ooins['startNo'];
+                            $ins_startDate = $ooins['startDate'];
+                            $ins_internalNote = $ooins['internalNote'];
+                            $ooskipped = array();
+                            if(array_key_exists("skiprecurrence", $ooins))
+                            {
+                                $ooskipped = $ooins['skiprecurrence'];
+                            }
+
+                            $insrecurrence_addsub = "sub";
+                            $id=$ins_id;
+                            $category=$ins_installmentCategory;
+                            $type=$ins_installmentType;
+                            $amount=$ins_amount;
+                            $total_install=$ins_installment;
+                            $start_install=$ins_startNo;
+                            $startdate=$ins_startDate;
+                            $internalnote=$ins_internalNote;
+                            $recurrtype=$insrecurrence_addsub;
+                            $to=$daterangeto1;
+                            $from=$daterangefrom1;
+                            $skipped=$ooskipped;
+
+                            $seconds = 604800;
+                            if($type == "Monthly")
+                            {
+                                $seconds = 2592000;
+                            }
+                            if($type == "Quarterly")
+                            {
+                                $seconds = 7776000;
+                            }
+                            if($type == "yearly")
+                            {
+                                $seconds = 31536000;
+                            }
+                            $skipped_installment = sizeof($skipped);
+                            $skip_arr = array();
+                            for($i = 0; $i < $skipped_installment; $i++)
+                            {
+                                $skip_arr[$skipped[$i]['recurrenceno']] = $skipped[$i]['recurrencedate'];
+                            }
+                            $enddate =  $startdate + ($total_install * $seconds) + ($skipped_installment * $seconds);
+                            $recurrence = array();
+                            $totalamount = 0;
+                            if($from < $enddate)
+                            {
+                                $dateDiff = $from - $startdate;
+                                $weeks = ceil($dateDiff / $seconds) - $skipped_installment;
+                                $no = $start_install;
+                                $no += $weeks;
+                                for($i = $start_install,$j = 0; $i < $total_install + $skipped_installment; $i++,$j++)
+                                {
+                                    if($i == 0)
+                                    {
+                                        $start = $startdate;
+                                    }
+                                    else
+                                    {
+                                        $start = $startdate + ($j * $seconds);
+                                    }
+                                    $recurrencetotalam = 0;
+                                    if($start <= $to && $start >= $from)
+                                    {
+                                        if(array_key_exists($i, $skip_arr)){
+                                            $recurrence[] = array("id"=>$id,"no" => $no, "amount" => (float)$amount,"date" => date('m/d/Y', $start),"category"=>$category, "type" => $type, "note" => $internalnote,"recurrtype" => $recurrtype, "skipped" => "yes");
+                                            $no++;
+                                        }
+                                        else
+                                        {
+                                            $recurrencetotalam += $amount;
+                                            $recurrence[] = array("id"=>$id,"no" => $no, "amount" => (float)$amount,"date" => date('m/d/Y', $start),"category"=>$category, "type" => $type, "note" => $internalnote,"recurrtype" => $recurrtype, "skipped" => "no");
+                                            $no++;
+                                        }
+                                    }
+                                }
+                            }
+                            $oorecurrencesubList[] = $recurrence;
+
+                        }  
+
+                    }
+                }
+            }
+            return $oorecurrencesubList;
+        }
+
+    }
+    public function driverinstallment($id, $category, $type, $amount, $total_install, $start_install, $startdate, $internalnote, $recurrtype, $to, $from, $skipped)
+    {
+        $seconds = 604800;
+        if($type == "Monthly")
+        {
+            $seconds = 2592000;
+        }
+        if($type == "Quarterly")
+        {
+            $seconds = 7776000;
+        }
+        if($type == "yearly")
+        {
+            $seconds = 31536000;
+        }
+        $skipped_installment = sizeof($skipped);
+        $skip_arr = array();
+        for($i = 0; $i < $skipped_installment; $i++)
+        {
+            $skip_arr[$skipped[$i]['recurrenceno']] = $skipped[$i]['recurrencedate'];
+        }
+        $enddate =  intval($startdate) + (intval($total_install) * intval($seconds)) + (intval($skipped_installment) * intval($seconds));
+        $recurrence = array();
+        $totalamount = 0;
+        if($from < $enddate)
+        {
+            $dateDiff = $from - $startdate;
+            $weeks = ceil($dateDiff / $seconds) - $skipped_installment;
+            $no = $start_install;
+            $no += $weeks;
+            for($i = $start_install,$j = 0; $i < $total_install + $skipped_installment; $i++,$j++)
+            {
+                if($i == 0)
+                {
+                    $start = $startdate;
+                }
+                else
+                {
+                    $start = $startdate + ($j * $seconds);
+                }
+                $recurrencetotalam = 0;
+                if($start <= $to && $start >= $from)
+                {
+                    if(array_key_exists($i, $skip_arr))
+                    {
+                        $recurrence[] = array("id"=>$id,"no" => $no, "amount" => (float)$amount,"date" => date('m/d/Y', $start),"category"=>$category, "type" => $type, "note" => $internalnote,"recurrtype" => $recurrtype, "skipped" => "yes");
+                        $no++;
+                    }
+                    else
+                    {
+                        $recurrencetotalam += $amount;
+                        $recurrence[] = array("id"=>$id,"no" => $no, "amount" => (float)$amount,"date" => date('m/d/Y', $start),"category"=>$category, "type" => $type, "note" => $internalnote,"recurrtype" => $recurrtype, "skipped" => "no");
+                        $no++;
+                    }
+                }
+            }
+        }
+
+        return $recurrence;
+        
     }
     public function getIntId($name,$collection) 
     {

@@ -383,9 +383,10 @@ class CustomerController extends Controller
     {
         $id=(int)$request->id;
         // dd($id);
-        $email=$request->email;
+        // $email=$request->email;
+        $masterId=(int)$request->masterId;
         $companyID=(int)Auth::user()->companyID;
-        $customerData=Customer::where("companyID",$companyID)->first();
+        $customerData=Customer::raw()->findOne(['companyID' => $companyID,'_id'=>$masterId,'customer._id' => $id]);
         $cusomerArray=$customerData->customer;
         $arrayLength=count($cusomerArray);
        
@@ -405,6 +406,7 @@ class CustomerController extends Controller
         }
            
        }
+    //    dd($customerData);
         $customerData->customer= $cusomerArray[$v];
         return response()->json($customerData); 
     }
@@ -465,6 +467,7 @@ class CustomerController extends Controller
         $id=(int)$request->id;
         $masterId=(int)$request->masterId;
         $companyID=(int)Auth::user()->companyID;
+        // dd($companyID);
         $customerData=Customer::raw()->updateOne(['companyID' => $companyID,'_id' => $masterId,'customer._id' => $id], 
         ['$set' => ['customer.$.deleteStatus' => 'YES','customer.$.deleteUser' => Auth::user()->userName,'customer.$.deleteTime' => time()]]
         );

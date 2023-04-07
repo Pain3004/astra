@@ -1537,8 +1537,9 @@ var base_path = $("#url").val();
                         // dataType:JSON,
                         success: function(customerResult) {
                             //console.log(customerResult);
-                            createcustomerRows(customerResult);
-                            customerResponse = customerResult;
+                            processCustomer(res[0]);
+                            $("#cus_pagination").html(paginateList(res[1], "admin", "paginatecustomer", "processCustomer"));
+                            renameTableSeq("customerTable", "page_active");
                         }
                     });
             }
