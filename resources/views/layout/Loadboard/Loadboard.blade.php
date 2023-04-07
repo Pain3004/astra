@@ -123,28 +123,13 @@
       <!-- CONTAINER -->
       <div class="main-container container-fluid">
         <!-- PAGE-HEADER -->
-        <div class="page-header">
-          <div>
-            <h1 class="page-title">Loadboard</h1>
-          </div>
-          <div class="ms-auto pageheader-btn">
-            <ul class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="javascript:void(0);">Home</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">Loadboard</li>
-            </ul>
-          </div>
-          <!-- <div class="dropdown"> -->
-          <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div> -->
-          <!-- </div> -->
-        </div>
+       
         <!-- PAGE-HEADER END -->
         <!-- ROW-4 -->
         <input type="hidden" name="_token" id="tokenLoadboard" value="{{ csrf_token() }}" />
         <div class="row">
             <div class="col-12 col-sm-12">
-               <div class="card-body">
+               <div class="card-body-style">
                   <div class="row">
                      <div class="col-12 col-sm-6">
                           <div class="row">
@@ -281,7 +266,7 @@
                 <!-- <div class="col-9 btn-group submitter-group "><ul class="filter-wrapper ks-cboxtags" ><li><input type="checkbox" class="filter-checkbox" id="checkboxOne" value="Open"><label for="checkboxOne">Open</label></li><li><input type="checkbox" class="filter-checkbox" id="checkboxTwo" value="Dispatched"><label for="checkboxTwo">Dispatched</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Shipper"><label for="">Arrived Shipper</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Loaded"><label for="">Loaded</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="On Route"><label for="">On Route</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Arrived Consignee"><label for="">Arrived Consignee</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Delivered"><label for="">Delivered</label></li><li><input type="checkbox" class="filter-checkbox" id="" value="Break Down"><label for="">Break Down</label></li></ul></div> -->
               </div>
             </div>
-            <div class="card-body padd-new">
+            <div>
               <input type="hidden" class="_id">
               <div class="table-responsive table-scroll">
                  <table class="table dataTable no-footer" style="border-spacing: 4px;border-collapse: unset !important;"> 

@@ -2227,3 +2227,8 @@ function callPagination(arr1, main, sub, func, status)
 
 
     
+// close button
+$('.closeDriverModal').click(function(){
+    // console.log("close");
+    $('#driver_modal_view').modal('hide');
+});

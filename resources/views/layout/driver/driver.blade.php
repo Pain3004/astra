@@ -7,7 +7,7 @@
     $exportUser=$userdata->privilege['exportUser'];
  ?>
 <!------------------------------------------------------------------- driver modal ------------------------------------------------------------------->
-<div class="container">
+<div class="container" id="driver_modal_view">
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="driverModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
@@ -16,7 +16,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Driver</h4>
-                    <button type="button" class="button-24 closeDriverModal">&times;</button>
+                    <button type="button" class="button-24 closeDriverModal" >&times;</button>
                 </div>
 
                 

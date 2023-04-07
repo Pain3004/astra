@@ -21,9 +21,7 @@ $('#addCompany').click(function(){
     $('#addCompanyModal').modal('show');
 });
 
-$('.closeDriverModal').click(function(){
-    $('#driverModal').modal('hide');
-});
+
 $('.closeAddDriverModal').click(function(){
     $("#addLoadBoardModal").css("z-index","100000000000");
     $('#RecurrenceCategoryModal').modal('hide');
