@@ -112,7 +112,7 @@
 @include('layout.dashboard.header')
 
 @include('layout.loader')
-
+@include('layout.Loadboard.extnavigation')
 
 <div class="page-main">
    
@@ -121,55 +121,22 @@
       <!-- CONTAINER -->
       <div class="main-container container-fluid">
         <!-- PAGE-HEADER -->
-       
-        <!-- PAGE-HEADER END -->
+						<!-- <div class="page-header">
+							<div>
+								<h1 class="page-title">Loadboard</h1>
+							</div>
+						</div> -->
+						<!-- PAGE-HEADER END -->
         <!-- ROW-4 -->
         <input type="hidden" name="_token" id="tokenLoadboard" value="{{ csrf_token() }}" />
         <div class="row">
-            <div class="col-12 col-sm-12">
-               <div class="card-body">
-                  <!-- <div class="row">
-                     <div class="col-12 col-sm-6">
-                          <div class="row">
-                              <div class="col-3">
-                                   <a href="#" id="addLoadBoard" class="button-57_alt button-58_alt">
-                                   New Active Load</a>
-                              </div>
-   
-                               <div class="redio-btn col-xl-2 padd-g">
-								                    <div class="radio">
-   								                      <input id="radio-1" name="radio" type="radio" checked="">
-    						                        <label for="radio-1" class="radio-label">MC</label>
-  						                      </div>
-  								                  <div class="radio">
-   								                      <input id="radio-2" name="radio" type="radio">
-    							                      <label for="radio-2" class="radio-label">DOT
-    							                      </label>
-  								                   </div>
-								                </div>
-                                <div class="col-1">
-                                <div class="searchmenu left-sect"> 
-                                          <input type="search" name="searchinput" value="" class="search-input" placeholder="search">
-                                             <button name="search" value="" id="" class="search"><i class="fa fa-search"></i></button>
-                                          </div>
-                                </div>
-                          </div></div>
-                          
-                          <div class="col-12 col-sm-6">
-                          <div class="relative inline-block">
-                               <input type="text" class="place-box" placeholder="Search...">
-                                <button class="but-box" type="button"><i class="fas fa-search"></i></button>
-                    </div>
-                              </div>
-                  </div> -->
-           
-            </div>
+            
           <!-- COL END -->
         </div>
         <div class="row">
           <div class="col-12 col-sm-12">
             <div class="card-body">
-              
+             
             </div>
             <div class="card-body padd-new">
               <input type="hidden" class="_id">
@@ -191,9 +158,10 @@
                       <th class="th_new">Trailer</th>
                       <th class="th_new">Load Pay</th>
                       <th class="th_new">Carrier Pay/Driver Pay</th>
+                      <th class="th_new">Action</th>
                     </tr>
                   </thead>
-                  <tbody id="LoadBoardTable" class="load-box"></tbody>
+                  <tbody id="extLoadBoardTable" class="load-box"></tbody>
                 </table>
               </div>
             </div>
@@ -212,3 +180,8 @@
 
 
 <!-------------------------------------------------------------------  modal ------------------------------------------------------------------->
+
+  <script src="{{URL::to('/')}}/assets/js/js/extloadboard.js"></script>
+  <script>
+
+</script>

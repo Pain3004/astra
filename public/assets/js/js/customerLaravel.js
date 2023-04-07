@@ -152,7 +152,7 @@ var base_path = $("#url").val();
                 {
                     var tr = `<tr>
                     <td class='center-alignment ${delEn}'>${delEn}</td>    
-                     <td>${custName}</td>    
+                     <td>${id} ${custName}</td>    
                      <td>${custLocation}</td> 
                      <td>${custZip}</td>    
                      <td>${primaryContact}</td>    
@@ -1448,7 +1448,7 @@ var base_path = $("#url").val();
                 {
                     var tr = `<tr>
                     <td><input type='checkbox' class='check_cust_one' name='all_cst_id[]' data-id='` + id + `' date-cusId=" `+ masterID+ `"  value='`+ id +`'></td>    
-                     <td>${custName}</td>    
+                     <td>${id} ${custName}</td>    
                      <td>${custLocation}</td> 
                      <td>${custZip}</td>    
                      <td>${primaryContact}</td>    

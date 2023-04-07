@@ -1,11 +1,6 @@
 <?php 
 	$userdata=Auth::user();
   $companyId=Auth::user()->companyId;
-	// $insertUser=$userdata->privilege['insertUser'];
-  //   // $updateUser=$userdata->privilege['updateUser'];
-  //   $deleteUser=$userdata->privilege['deleteUser'];
-  //   $importUser=$userdata->privilege['importUser'];
-  //   $exportUser=$userdata->privilege['exportUser'];
  ?>
 <script>
     //-------function start-------
@@ -115,22 +110,13 @@ function removeConsignee(mainid, contentid) {
   }
 }
 
-
-// $('.LBshipper').click(function(){
-//   //  alert(); 
-// });
-
-
 // <!-- -------------------------------------------------------------------------AccessorialModal ------------------------------------------------------------------------- -->
 function getOtherCharges(){
-  
   var tagSelect = [];
   var tot =parseFloat(0);
 
-
   $('input[name^="other_charges"]').each(function(oneTag){
       var oneValue = $(this).val();
-      // alert(oneValue);
       tot=parseFloat(tot)+parseFloat(oneValue);
       $('#MainOtherCharges').val(tot);
       getTotal();
@@ -143,7 +129,6 @@ function getOtherCharges(){
 function getTotal() {
   
     var rateAmount = document.getElementById('rateAmount').value;
-    // alert(rateAmount);
     var noOfUnits = document.getElementById('units').value;
     var fsc = document.getElementById('fsc').value;
     var totalAmount = document.getElementById('totalAmount');
@@ -152,13 +137,11 @@ function getTotal() {
 
     if (rateAmount != "" && noOfUnits == "" && fsc == "" && otherCharges == "") {
         totalAmount.value = parseFloat(rateAmount).toFixed(2);
-       //$('#totalAmount').val(totalAmountvalue);
     }
 
     if (noOfUnits != "" && fsc == "") {
         if (rateAmount != "") {
             totalAmount.value = parseFloat(rateAmount * noOfUnits).toFixed(2);
-            //$('#totalAmount').val(totalAmountvalue);
         } else {
             swal.fire({
                 title: 'Warning!',
@@ -172,11 +155,9 @@ function getTotal() {
     }
     if (fsc != "" && otherCharges == "") {
       if ($("#fsc_percentage").is(":checked")) { 
-        // if (ratePercentage.checked == true) {
             if (rateAmount != "") {
                 var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(rateAmount * fsc) / 100 : parseFloat(parseFloat(rateAmount * noOfUnits) + (parseFloat(rateAmount * noOfUnits * fsc) / 100));
                 totalAmount.value = total.toFixed(2);
-                //$('#totalAmount').val(totalAmountvalue);
             } else {
                 swal.fire({
                     title: 'Warning!',
@@ -187,7 +168,6 @@ function getTotal() {
                 });
             }
         } else {
-          // alert();
             if (rateAmount != "") {
                 if (typeof (rateAmount) == 'number') {
                     var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseInt(rateAmount * noOfUnits) + parseInt(fsc);
@@ -230,7 +210,6 @@ function getTotal() {
                 var total = noOfUnits == "" ? parseFloat(rateAmount) + getFSC(fsc) + parseFloat(otherCharges) : parseInt(rateAmount * noOfUnits) + getFSC(fsc) + parseFloat(otherCharges);
                 totalAmount.value = total.toFixed(2);
                 ////$('#totalAmount').val(totalAmountvalue);
-
             } else {
                 swal.fire({
                     title: 'Warning!',
@@ -450,10 +429,6 @@ function calcRoute(waypts, startFlag, endflag) {
         }
       }
 
-      // console.log("distance:"+distance);
-      //     console.log("loadedHour:"+loadedHour);
-      //     console.log("time_taken:"+time_taken);
-      //alert("loaded hour = "+loadedHour + "Empty hour = "+EmptyHour);
       var calc_distance = distance;
 
       function roundNumber(numbr, decimalPlaces) {
@@ -470,34 +445,18 @@ function calcRoute(waypts, startFlag, endflag) {
       empty_mi = empty_mi / 1000;
       empty_mi = roundNumber(empty_mi, 2);
 
-      //alert("Total miles  = "+mi + "Empty miles = "+empty_mi);
       $("#drivermiles").val((empty_mi + mi).toFixed(2));
       $("#loadedmiles").val(Math.abs(mi).toFixed(2));
       $("#emptymiles").val(empty_mi);
-
-
-     
     
     // if ($('input:radio[name="country"]').is(':checked'))
     // {
       if ($('#Driver').prop('checked', true))
       {
-        alert();
         getDriverTotal();
       }
     // }
 
-
-
-
-      // var type = document.getElementsByName("country");
-      
-      // alert(type);
-      // var checked = getTypeOfLoader(type);
-      // console.log(type);
-      // if (checked == "Driver") {
-      //   getDriverTotal();
-      // }
       $(".loader1").css("display", "none");
     } else {
       $(".loader1").css("display", "none");
@@ -529,12 +488,8 @@ $.getJSON(("./place.json", function (json) {
 
 var placetimeout = "";
 function getLocation(fieldID) {
-
-
-  // console.log(fieldID);
   clearTimeout(placetimeout);
   var location = document.getElementById(fieldID);
-  // console.log(location.value);
   var st = fieldID + "-list";
   if (location.value == "") {
     document.getElementById(st).style.display = "none";
@@ -564,18 +519,13 @@ function getLocation(fieldID) {
     }
     document.getElementById(st).innerHTML = list;
   }, 800);
-  //var location = new google.maps.places.Autocomplete(document.getElementById(fieldID), options);
 }
 //-----------------------end calculateMiles-----------------
-// //-----------------------other Carrier modal-----------------
 // <!-- -------------------------------------------------------------------------Accessorial carrier Modal ------------------------------------------------------------------------- -->
 function getcarrierOtherCharges(){
-  
-  // var tagSelect = [];
   var tot1 =parseFloat(0);
   var tot2 =parseFloat(0);
   var tot =parseFloat(0);
-
 
   $('input[name^="Advance_car"]').each(function(oneTag){
       var oneValue1 = $(this).val();
@@ -593,7 +543,6 @@ function getcarrierOtherCharges(){
 
 function getCarrierTotal() {
   var flatrate = document.getElementById("LB_FlatRate").value;
-  // console.log(flatrate);
   var advancecharges = document.getElementById("Advcarrier").value;
   var total_charges = document.getElementById("LB_CarrierTotal");
   if (flatrate != "" && advancecharges == "") {
@@ -629,7 +578,6 @@ function getdriverOtherCharges(){
 
 }
 function getDriverTotal() {
-  // console.log("driver");
  
     // getDriver(document.getElementById('LB_Driver').value);
     // getDriver(document.getElementById('select2-LB_Driver-container').value);

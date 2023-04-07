@@ -1683,5 +1683,5 @@ leftArrow.addEventListener('click', () => requestAnimationFrame(
 </script>
 
 
-
+<script src="{{URL::to('/')}}/assets/js/js/dashboardLaravel.js"></script>
 @include('layout.dashboard.footer')	

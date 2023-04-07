@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LoadBoardController extends Controller
 {
+    
+
     public function shipperList(Request $request)
     {
        // echo "hello";
@@ -476,24 +478,8 @@ class LoadBoardController extends Controller
     }
 
     public function index(Request $request){
-    //     $companyId=Auth::user()->companyID;
-    //     $Carrier = \App\Models\Carrier::select('carrier._id','carrier.name','carrier.deleteStatus')->where('companyID',$companyId)->get();
-    // //   dd($Carrier[1]);
-    //     $truck = \App\Models\Truckadd::where('companyID',$companyId)->get();
-    //     $Load_type = \App\Models\Load_type::where('companyID',$companyId)->get(); 
-    //     $customer = \App\Models\Customer::where('companyID',$companyId)->get(); 
-    //     $company = \App\Models\Company::select('company.companyName','company._id','company.deleteStatus')->where('companyID',$companyId)->get();
-    //     $EquipmentType = \App\Models\Equipment_add::where('companyID',$companyId)->orderBy('equipment._id')->get(); 
-    //     $driver = \App\Models\Driver::where('companyID',$companyId )->get();
-    //     $TrailerAdminAdd = \App\Models\TrailerAdminAdd::where('companyID',$companyId)->get();
-    //     $Consignee = \App\Models\Consignee::where('companyID',$companyId )->get();
-
-    //     $user = \App\Models\User::where('id', '!=', Auth::user()->id)->where('deleteStatus',0)->orderBy('_id', 'DESC')->get();
-       
-        //dd($TrailerAdminAdd);
                 return view('layout.Loadboard.Loadboard');
 
-        // return view('layout.Loadboard.Loadboard',['Consignee'=>$Consignee,'trailer'=>$TrailerAdminAdd,'driver'=>$driver,'company'=>$company, 'EquipmentType'=>$EquipmentType,'carrier'=>$Carrier,'truck'=>$truck,'Load_type'=>$Load_type, 'user'=>$user, 'customer'=>$customer]);
     }
 
     public function getLoadboardData(Request $request){

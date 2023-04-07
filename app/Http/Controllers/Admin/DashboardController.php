@@ -237,7 +237,7 @@ class DashboardController extends Controller
             $r++;
             foreach ($companyarr as $comdata) 
             {
-                if (array_key_exists('paytype',$comdata)) 
+                if ( Arr::exists('paytype',$comdata)) 
                 {
                     $pay_typedr = $comdata['paytype'];
                     $pay_datedr = $comdata['paydate'];
@@ -390,11 +390,11 @@ class DashboardController extends Controller
             foreach ($load_data as $ld) 
             {
                 //Diff Between Two Date
-                if (array_key_exists("paiddate", $ld)) 
+                if ( Arr::exists("paiddate", $ld)) 
                 {
                     if (empty($ld['paiddate'])) 
                     {
-                        if (array_key_exists("invoice_received_date",$ld)) {
+                        if ( Arr::exists("invoice_received_date",$ld)) {
                             if (!empty($ld['invoice_received_date'])) 
                             {
                                 $invoice_received_date = $ld['invoice_received_date'];
@@ -412,7 +412,7 @@ class DashboardController extends Controller
                 }
                 else
                 {
-                    if (array_key_exists("invoice_received_date", $ld)) 
+                    if ( Arr::exists("invoice_received_date", $ld)) 
                     {
                         if (!empty($ld['invoice_received_date'])) 
                         {    
@@ -444,7 +444,7 @@ class DashboardController extends Controller
             $load = $ag['load'];
             foreach ($load as $agd) 
             {
-                if(array_key_exists("receivedate", $agd))
+                if( Arr::exists("receivedate", $agd))
                 {
                     if (empty($agd['receivedate'])) 
                     { 
@@ -605,7 +605,7 @@ class DashboardController extends Controller
                     $internalNote = $add['internalNoteStore'];
                     $totalamountadd += (int)$install_amt;
                     $skipped = array();
-                    if(array_key_exists("skiprecurrence", $add))
+                    if( Arr::exists("skiprecurrence", $add))
                     {
                         $skipped = $add['skiprecurrence'];
                     }
@@ -627,7 +627,7 @@ class DashboardController extends Controller
                     $internalNotesub = $sub['internalNoteStore'];
                     $totalamountsub += (int)$amountsub;
                     $skipped = array();
-                    if(array_key_exists("skiprecurrence", $sub))
+                    if( Arr::exists("skiprecurrence", $sub))
                     {
                         $skipped = $sub['skiprecurrence'];
                     }
@@ -712,7 +712,7 @@ class DashboardController extends Controller
                                
 
                                 
-                                if (array_key_exists('paiddate', $dps1)) {
+                                if ( Arr::exists('paiddate', $dps1)) {
                                     if (empty($dps1['paiddate'])) { 
                                            $driver_load++; 
                                            $invoice = $dps1['_id'];
@@ -727,13 +727,13 @@ class DashboardController extends Controller
                                            $total_driver_miles += $driver_miles;
                                            $total_empty_miles += $empty_miles;
                                            $total_loaded_miles += $loaded_miles;
-                                           if(array_key_exists($dps1["truck"], $truckType)){
+                                           if( Arr::exists($dps1["truck"], $truckType)){
                                               $drivertruck = $truckType[$dps1['truck']];
                                             }
                                             else{
                                                 $drivertruck = "";
                                             }
-                                            if(array_key_exists($dps1["trailer"], $trailerType)){
+                                            if( Arr::exists($dps1["trailer"], $trailerType)){
                                                 $drivertrailer = $trailerType[$dps1["trailer"]];
                                             }
                                             else{
@@ -781,11 +781,11 @@ class DashboardController extends Controller
                                        $total_empty_miles += $empty_miles;
                                        $total_loaded_miles += $loaded_miles;
                                        //
-                                       if(array_key_exists($dps1["truck"], $truckType)){
+                                       if( Arr::exists($dps1["truck"], $truckType)){
                                           $drivertruck = $truckType[$dps1['truck']];
                                         }
                                         else{
-                                            if(array_key_exists($dps1["owner_truck"], $truckType)){
+                                            if( Arr::exists($dps1["owner_truck"], $truckType)){
                                               $drivertruck = $truckType[$dps1['owner_truck']];
                                             }
                                             else{
@@ -794,11 +794,11 @@ class DashboardController extends Controller
                                         }
                                         
 
-                                        if(array_key_exists($dps1["trailer"], $trailerType)){
+                                        if( Arr::exists($dps1["trailer"], $trailerType)){
                                             $drivertrailer = $trailerType[$dps1["trailer"]];
                                         }
                                         else{
-                                            if(array_key_exists($dps1["owner_trailer"], $trailerType)){
+                                            if( Arr::exists($dps1["owner_trailer"], $trailerType)){
                                                 $drivertrailer = $trailerType[$dps1["owner_trailer"]];
                                             }
                                             else{
@@ -878,7 +878,7 @@ class DashboardController extends Controller
                 
                 foreach ($amount_dp as $row2) {
                     $advance_obj[] = $row2;
-                    if (!array_key_exists('TotalAmount',$row2)) {
+                    if (! Arr::exists('TotalAmount',$row2)) {
                         if ((int)$row2['Amount'] < 0) {
                             $Amount_advancepay_gretter += abs($row2['Amount']);
                             $Amount_advancepay = abs($row2['Amount']);

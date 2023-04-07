@@ -2225,5 +2225,7 @@ function callPagination(arr1, main, sub, func, status)
 
 //=============== end pagination====================================
 
-
-    
+//close button
+$('.closeDriverModal').click(function(){
+    $('#driverModal').modal('hide');
+});

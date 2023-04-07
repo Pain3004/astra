@@ -569,13 +569,13 @@
                             <div class="form-group col-md-2 Carrierlist carrier">
                               <label>Driver Contact</label>
                               <div>
-                                <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                <input class="form-control" placeholder="Driver Contact" type="text" id="">
                               </div>
                             </div>
                             <div class="form-group col-md-2 Carrierlist carrier">
                               <label>Truck</label>
                               <div>
-                                <input class="form-control" placeholder="Driver Name" type="text" id="">
+                                <input class="form-control" placeholder="Truck" type="text" id="">
                               </div>
                             </div>
                             <div class="form-group col-md-2 Carrierlist carrier">

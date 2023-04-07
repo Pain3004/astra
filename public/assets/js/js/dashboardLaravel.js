@@ -1108,7 +1108,7 @@ function prepairDashBoardData(dashDaterange)
             res = JSON.parse(response);
             var week_first = res[0].estdrvpayfirstdate;
             var week_last = res[0].estdrvpaylastdate;
-            estimated_driverpay_statement(week_first, week_last);
+            // estimated_driverpay_statement(week_first, week_last);
             getPayableAndRecevable();
             // getProfitLoss();
             // getTruckDataMap();
@@ -4164,94 +4164,94 @@ document.getElementById('mapdiv').addEventListener('mouseout', function () {
 //-----------------function for estimated driver pay start----------
 var all_driver = '';
 
-function estimated_driverpay_statement(weekfirts, weeklast) {
+// function estimated_driverpay_statement(weekfirts, weeklast) {
 
-    var driver_name_report = 'All';
-    var filterby = 'deliver_date';
-    var daterangefrom = weekfirts;
-    var daterangeto = weeklast;
+//     var driver_name_report = 'All';
+//     var filterby = 'deliver_date';
+//     var daterangefrom = weekfirts;
+//     var daterangeto = weeklast;
 
-    $.ajax({
-        type: "GET",
-        url: base_path+"/dashboard-driverpayStatement",
-        async: false,
-        data:{driver_name_report:driver_name_report,filterby:filterby,daterangefrom:daterangefrom,daterangeto:daterangeto},
-        success: function (data) {
-            var estarr = JSON.parse(data);
+//     $.ajax({
+//         type: "GET",
+//         url: base_path+"/dashboard-driverpayStatement",
+//         async: false,
+//         data:{driver_name_report:driver_name_report,filterby:filterby,daterangefrom:daterangefrom,daterangeto:daterangeto},
+//         success: function (data) {
+//             var estarr = JSON.parse(data);
 
-            var estcountarr = Object.keys(estarr).length;
+//             var estcountarr = Object.keys(estarr).length;
 
-            if (estcountarr >= 1) {
-                var lastindex = estcountarr - 1;
-                var alldrivertab = estarr[lastindex].alldrivertable.length;
+//             if (estcountarr >= 1) {
+//                 var lastindex = estcountarr - 1;
+//                 var alldrivertab = estarr[lastindex].alldrivertable.length;
 
-                var driverloadtotal = 0;
-                var driveradvancetotal = 0;
-                var final_drtotal = 0;
-                var recurrsub = 0;
-                var recurradd = 0;
-                var oorecurrsub = 0;
-                var totalnetdrp = 0;
-                for (var b = 0; b < alldrivertab; b++) {
-                    driverloadtotal += estarr[lastindex].alldrivertable[b].driverload;
-                    driveradvancetotal += estarr[lastindex].alldrivertable[b].driveradvance;
-                    final_drtotal += parseFloat(estarr[lastindex].alldrivertable[b].totalearning);
-                    var shrecurrsub = 0;
-                    var ooshrecurrsub = 0;
-                    var shrecurradd = 0;
+//                 var driverloadtotal = 0;
+//                 var driveradvancetotal = 0;
+//                 var final_drtotal = 0;
+//                 var recurrsub = 0;
+//                 var recurradd = 0;
+//                 var oorecurrsub = 0;
+//                 var totalnetdrp = 0;
+//                 for (var b = 0; b < alldrivertab; b++) {
+//                     driverloadtotal += estarr[lastindex].alldrivertable[b].driverload;
+//                     driveradvancetotal += estarr[lastindex].alldrivertable[b].driveradvance;
+//                     final_drtotal += parseFloat(estarr[lastindex].alldrivertable[b].totalearning);
+//                     var shrecurrsub = 0;
+//                     var ooshrecurrsub = 0;
+//                     var shrecurradd = 0;
 
-                    for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) {
-                        if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) {
-                            recurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
-                            shrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
-                        }
-                    }
+//                     for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) {
+//                         if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) {
+//                             recurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
+//                             shrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
+//                         }
+//                     }
 
-                    for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) {
-                        if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) {
-                            oorecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
-                            ooshrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
-                        }
-                    }
+//                     for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) {
+//                         if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) {
+//                             oorecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
+//                             ooshrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
+//                         }
+//                     }
 
-                    for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) {
-                        if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) {
-                            recurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
-                            shrecurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
-                        }
-                    }
-                    var recurrdata = (shrecurradd) - (shrecurrsub) - (ooshrecurrsub);
-                    var calfinalrecurrdata = Math.sign(recurrdata) == -1 ? estarr[lastindex].alldrivertable[b].totalearning - Math.abs(recurrdata) : parseFloat(estarr[lastindex].alldrivertable[b].totalearning + recurrdata);
+//                     for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) {
+//                         if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) {
+//                             recurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
+//                             shrecurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
+//                         }
+//                     }
+//                     var recurrdata = (shrecurradd) - (shrecurrsub) - (ooshrecurrsub);
+//                     var calfinalrecurrdata = Math.sign(recurrdata) == -1 ? estarr[lastindex].alldrivertable[b].totalearning - Math.abs(recurrdata) : parseFloat(estarr[lastindex].alldrivertable[b].totalearning + recurrdata);
 
-                    var nerdrvpaybal = estarr[lastindex].alldrivertable[b].driverBalance;
-                    totalnetdrp += (nerdrvpaybal) + (calfinalrecurrdata);
-                }
-                var totalrecurramount = (recurradd) - (recurrsub) - (oorecurrsub);
-                var finalestdrv = Math.sign(totalrecurramount) == -1 ? parseFloat(final_drtotal - Math.abs(totalrecurramount)) : parseFloat(final_drtotal + totalrecurramount);
-                var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)))) + ")" : abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)));
+//                     var nerdrvpaybal = estarr[lastindex].alldrivertable[b].driverBalance;
+//                     totalnetdrp += (nerdrvpaybal) + (calfinalrecurrdata);
+//                 }
+//                 var totalrecurramount = (recurradd) - (recurrsub) - (oorecurrsub);
+//                 var finalestdrv = Math.sign(totalrecurramount) == -1 ? parseFloat(final_drtotal - Math.abs(totalrecurramount)) : parseFloat(final_drtotal + totalrecurramount);
+//                 var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)))) + ")" : abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)));
 
-                $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(totalnetdrp.toFixed(2)) + ")" : parseFloat(totalnetdrp.toFixed(2))));
-                $("#estdrvpay").html("$" + findatadrv);
+//                 $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(totalnetdrp.toFixed(2)) + ")" : parseFloat(totalnetdrp.toFixed(2))));
+//                 $("#estdrvpay").html("$" + findatadrv);
                 
 
-            }
+//             }
 
-            if (estcountarr < 1) {
-                $("#toolestdrvpay").html("$0.00");
-                $("#estdrvpay").html("$0.00");
-            }
+//             if (estcountarr < 1) {
+//                 $("#toolestdrvpay").html("$0.00");
+//                 $("#estdrvpay").html("$0.00");
+//             }
 
-            $("#estdp").html("Estimated Driver Pay");
-            $("#driveredp").css("display", "none");
-        }
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-        // Request failed. Show error message to user. 
-        // errorThrown has error message.
-        //console.log(jqXHR, textStatus, errorThrown);
-        swal.fire("Something want wrong");
-    });
-}
+//             $("#estdp").html("Estimated Driver Pay");
+//             $("#driveredp").css("display", "none");
+//         }
+//     })
+//     .fail(function (jqXHR, textStatus, errorThrown) {
+//         // Request failed. Show error message to user. 
+//         // errorThrown has error message.
+//         //console.log(jqXHR, textStatus, errorThrown);
+//         swal.fire("Something want wrong");
+//     });
+// }
 //-----------------function for estimated driver pay End----------
 
 

@@ -29,8 +29,9 @@ use App\Http\Controllers\Admin\TruckTrailerMakeController;
 use App\Http\Controllers\Admin\LoadController;
 use App\Http\Controllers\Admin\UserPrivillegeController;
 use App\Http\Controllers\Admin\LoadBoardController;
+use App\Http\Controllers\Admin\ExtLoadBoardController;
 use App\Http\Controllers\Admin\ExternalCarrierController;
-
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,13 +57,14 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     Route::get('/admin/driverApplication2', function () {
         return view('layout.driver.driver_application_form2');
     });
-    
     Route::get('/admin/driverApplication', function () {
         return view('driver_application_form');
     });
+   
     Route::get('/admin/externalLoadboard', function () {
         return view('layout.Loadboard.ExternalLoadboard');
     });
+
     // Route::get('/admin/Loadboard', function () {
     //     return view('layout.Loadboard.Loadboard');
     // })->name('admin_loadboard');
@@ -71,8 +73,8 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     // Route::get('profile', function () {
     //     return view('profile');
     // });
-
-Auth::routes();
+    Auth::routes();
+   
 
 //dashboard
 Route::get('/dashboard-customerdata', [DashboardController::class, 'customerdata']);
@@ -80,6 +82,7 @@ Route::get('/dashboard-dashpayable', [DashboardController::class, 'dashpayable']
 Route::get('/dashboard-driverpayStatement', [DashboardController::class, 'driverpayStatement']);
 
 //Loadboard
+Route::get('admin/getExtLoadboardData', [ExtLoadBoardController::class, 'getExtLoadboardData']);
 Route::get('admin/getLoadboardData', [LoadBoardController::class, 'getLoadboardData']);
 Route::post('admin/changeStatus', [LoadBoardController::class, 'changeStatus'])->name('changeStatus');;
 Route::post('admin/addLoadBoard', [LoadBoardController::class, 'addLoadBoard']);
