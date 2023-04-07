@@ -2301,7 +2301,7 @@ function prepairDashBoardData(dashDaterange)
         // errorThrown has error message.
         //console.log(jqXHR, textStatus, errorThrown);
         // swal.fire(request.responseText,'', 'error');
-        swal.fire("something went wrong !");
+        // swal.fire("something went wrong !");
     });
 }
 //------------- Main Array Function End------------------------------------------------

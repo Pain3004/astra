@@ -101,14 +101,14 @@
 
 														@if(isset($adminArray['addDriver']))
 															@if($adminArray['addDriver']==1)
-															<!-- <li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li> -->
-															<li><a href="#" class="slide-item" id="Driver_navbar">Driver & Owner Operator</a></li>
+															<li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li>
+															<!-- <li><a href="#" class="slide-item" id="Driver_navbar">Driver & Owner Operator</a></li> -->
 
 															@endif 
 														@elseif(isset($adminArray['driver_owner_operator']))
 															@if($adminArray['driver_owner_operator']==1)
-															<!-- <li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li> -->
-															<li><a href="#" class="slide-item" id="Driver_navbar">Driver & Owner Operator</a></li>
+															<li><a href="#driverModal" class="slide-item" data-toggle="modal" data-target="#driverModal">Driver & Owner Operator</a></li>
+															<!-- <li><a href="#" class="slide-item" id="Driver_navbar">Driver & Owner Operator</a></li> -->
 
 															@endif 
 														@endif
