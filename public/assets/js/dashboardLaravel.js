@@ -1069,7 +1069,7 @@ function prepairDashBoardData(dashDaterange)
             equipmentdaytotal = { "current": equipmentdaycurrmonth, "prev": equipmentdayprevmonth };
             salesdaytotal = { "current": salesdaycurrmonth, "prev": salesdayprevmonth };
     } 
-//--------------Global Variable End -----------------
+    //--------------Global Variable End -----------------
 
     var datewisefilter = dashDaterange == undefined ? "ship_date" : dashDaterange;
     //Hide Show Field
@@ -1104,22 +1104,23 @@ function prepairDashBoardData(dashDaterange)
     $.ajax({
         url: base_path+"/dashboard-customerdata",
         method: "get",
+        data:{datewisefilter:datewisefilter},
         success: function (response) {
             res = JSON.parse(response);
             var week_first = res[0].estdrvpayfirstdate;
             var week_last = res[0].estdrvpaylastdate;
             estimated_driverpay_statement(week_first, week_last);
             getPayableAndRecevable();
-            // getProfitLoss();
-            // getTruckDataMap();
+            getProfitLoss();
+            getTruckDataMap();
             loads = res[0].loads;
             
             var driverarr = res[0].alldriverarr;
             allcompany_data = res[0].allcompany;
-            // loads.map(function(l){
-            //     l.created_at = convertTimeZone(l.created_at,"info");
-            // })
-            //     console.log(JSON.stringify(loads));
+            loads.map(function(l){
+                l.created_at = convertTimeZone(l.created_at,"info");
+            })
+                console.log(JSON.stringify(loads));
 
             var firstcurr = res[0].firstcurr;
             var lastcurr = res[0].lastcurr;
@@ -1158,15 +1159,23 @@ function prepairDashBoardData(dashDaterange)
             var loadlent = loads.length;
 
             //Process Data 
-            for (var i = 0; i < loadlent; i++) {
+            for (var i = 0; i < loadlent; i++) 
+            {
                 var date = '';
-                if (filter_Type == "shipper_pickup") {
+                if (filter_Type == "shipper_pickup") 
+                {
                     date = loads[i].shipper_pickup;
-                }else if (filter_Type == "created_at") {
+                }
+                else if (filter_Type == "created_at") 
+                {
                     date = loads[i].created_at;
-                }else if (filter_Type == "consignee_pickup") {
+                }
+                else if (filter_Type == "consignee_pickup") 
+                {
                     date = loads[i].consignee_pickup;
-                }else if (filter_Type == "status_Invoiced_time") {
+                }
+                else if (filter_Type == "status_Invoiced_time") 
+                {
                     date = loads[i].status_Invoiced_time;
                 }
 
@@ -1183,20 +1192,29 @@ function prepairDashBoardData(dashDaterange)
                 var isDriver = false;
                 var isCarrier = false;
                 var isOwner = false;
-                if (loads[i].typeofloader != "Carrier") {
+                if (loads[i].typeofloader != "Carrier") 
+                {
                     isDriver = true;
-                } else {
+                } 
+                else 
+                {
                     isCarrier = true;
                 }
 
                 //----------Check Carrier Empty Start-------------
-                if (typeof (carr_name) != "object") {
-                    if (carr_name != "") {
+                if (typeof (carr_name) != "object") 
+                {
+                    if (carr_name != "") 
+                    {
                         carr_index = carr_name.trim().toString();
-                    } else {
+                    } 
+                    else 
+                    {
                         carr_index = "NA";
                     }
-                } else {
+                } 
+                else 
+                {
                     carr_index = "NA";
                 }
                 //----------Check Carrier Empty End-------------
@@ -1206,13 +1224,19 @@ function prepairDashBoardData(dashDaterange)
                 //----------Check Dispatcher Empty Start-------------
                 var dispatch_name = loads[i].dispatcher;
                 var dispatch_index = "";
-                if (typeof (dispatch_name) != "object") {
-                    if (dispatch_name != "") {
+                if (typeof (dispatch_name) != "object") 
+                {
+                    if (dispatch_name != "") 
+                    {
                         dispatch_index = dispatch_name.trim().toString();
-                    } else {
+                    } 
+                    else 
+                    {
                         dispatch_index = "NA";
                     }
-                } else {
+                } 
+                else 
+                {
                     dispatch_index = "NA";
                 }
                 //----------Check Dispatcher Empty End---------
@@ -1221,16 +1245,21 @@ function prepairDashBoardData(dashDaterange)
                 //--------- Check Company Empty Start---------
                 var company_name = loads[i].company;
                 var company_index = "";
-                if (typeof (company_name) != "object") {
-                    if (company_name != "") {
+                if (typeof (company_name) != "object") 
+                {
+                    if (company_name != "") 
+                    {
                         company_index = company_name.trim().toString();
-                    } else {
+                    } 
+                    else 
+                    {
                         company_index = "NA";
                     }
-                } else {
+                } 
+                else 
+                {
                     company_index = "NA";
                 }
-
                 //--------- Check Company Empty End---------
 
 
@@ -1238,49 +1267,62 @@ function prepairDashBoardData(dashDaterange)
 
                 var equipment_name = loads[i].equipment_type;
                 var equipment_index = "";
-                if (typeof (equipment_name) != "object") {
-                    if (equipment_name != "") {
+                if (typeof (equipment_name) != "object") 
+                {
+                    if (equipment_name != "") 
+                    {
                         equipment_index = equipment_name.trim().toString();
-                    } else {
+                    } 
+                    else 
+                    {
                         equipment_index = "NA";
                     }
-                } else {
+                } 
+                else
+                {
                     equipment_index = "NA";
                 }
 
                 //---------Check Equipment Empty End---------
 
                 //---------Check Driver & Truck Empty Start----------
-                if (isDriver) {
+                if (isDriver)
+                {
                     //check driver or owner
-                    if (loads[i].typeofloader == "Driver") {
+                    if (loads[i].typeofloader == "Driver") 
+                    {
                         // console.log(loads[i]._id);
                         var index = loads[i].driver_name;
                         var driver_name = driverarr[index] ? driverarr[index]['_id'] : '';
-                    } else {
+                    }
+                    else 
+                    {
                         // console.log(loads[i].owner_name+"-->"+loads[i]._id);
                         var index = loads[i].owner_name;
                         // console.log(index)
-                        if(index != undefined && index != "" && index != null){
+                        if(index != undefined && index != "" && index != null)
+                        {
                             var driver_name = driverarr[index] ? driverarr[index]['_id'] : '';
-                        }
-                            
+                        }  
                         // console.log(driver_name +"--"+ loads[i]._id);
                     }
-                    
-
                     //driver data
                     var driver_index = "";
                     var drivername = loads[i].loaddata['loadername'];
 
                     //Check Driver Empty
-                    if (typeof (driver_name) != "object") {
+                    if (typeof (driver_name) != "object") 
+                    {
                         if (driver_name != "" && driver_name != undefined) {
                             driver_index = driver_name.toString();
-                        } else {
+                        } 
+                        else 
+                        {
                             driver_index = "NA";
                         }
-                    } else {
+                    } 
+                    else 
+                    {
                         driver_index = "NA";
                     }
 
@@ -1289,16 +1331,21 @@ function prepairDashBoardData(dashDaterange)
                     var truck_miles = loads[i].driver_miles_value;
                     var truck_index = "";
                     //Check Truck Empty
-                    if (typeof (truck_name) != "object") {
-                        if (truck_name != "" && truck_name != undefined) {
+                    if (typeof (truck_name) != "object") 
+                    {
+                        if (truck_name != "" && truck_name != undefined) 
+                        {
                             truck_index = truck_name.trim().toString();
-                        } else {
+                        } 
+                        else 
+                        {
                             truck_index = "NA";
                         }
-                    } else {
+                    } 
+                    else 
+                    {
                         truck_index = "NA";
                     }
-
                 }
                 //---------Check Driver & Truck Empty End--------------------
 
@@ -1334,10 +1381,11 @@ function prepairDashBoardData(dashDaterange)
 
 
                 //---------Condition For Current Month Data Start------------
-                if (month_type == "current") {
-
+                if (month_type == "current") 
+                {
                     //----------Customer Start--------------
-                    if (!currcustindex.hasOwnProperty(cust_index)) {
+                    if (!currcustindex.hasOwnProperty(cust_index)) 
+                    {
                         var month = {
                             "1": { "loads": 0, "amount": 0 },
                             "2": { "loads": 0, "amount": 0 },
@@ -1387,7 +1435,9 @@ function prepairDashBoardData(dashDaterange)
                         currentloadtotal += 1;
                         currentamounttotal += parseFloat(isNaN(total_rate) == true ? 0 : total_rate);
 
-                    } else {
+                    } 
+                    else 
+                    {
                         var index = 0;
                         index = currcustindex[cust_index];
                         cust_table[index] = { "name": name, "loads": cust_table[index]['loads'] + 1, "total": parseFloat(cust_table[index]['total'] + total_rate), "Margin": parseFloat(cust_table[index]['Margin']) + parseFloat(total_rate - loadertotal), "id": cust_index };
@@ -1402,7 +1452,8 @@ function prepairDashBoardData(dashDaterange)
                     //----------Customer End--------------
 
                     //----------Dispatcher Start--------------
-                    if (!currdipatchindex.hasOwnProperty(dispatch_index)) {
+                    if (!currdipatchindex.hasOwnProperty(dispatch_index)) 
+                    {
                         var dispatchmonth = {
                             "1": { "loads": 0, "amount": 0 },
                             "2": { "loads": 0, "amount": 0 },
@@ -1451,7 +1502,9 @@ function prepairDashBoardData(dashDaterange)
                         dispatchdaytotal[month_type][onlyDate].loads += 1;
                         dispatchcurrentamounttotal += parseFloat(total_rate - loadertotal);
 
-                    } else {
+                    } 
+                    else 
+                    {
                         var dispatchindex = 0;
                         dispatchindex = currdipatchindex[dispatch_index];
                         dispatch_table[dispatchindex] = { "name": res[0].alldispatcher[dispatch_index], "loads": dispatch_table[dispatchindex]['loads'] + 1, "total": parseFloat(dispatch_table[dispatchindex]['total'] + (total_rate)), "Margin": parseFloat(dispatch_table[dispatchindex]['Margin']) + parseFloat(total_rate - loadertotal), "id": dispatch_index };
@@ -1464,9 +1517,11 @@ function prepairDashBoardData(dashDaterange)
                     //----------Dispatcher End--------------
 
                     //---------Driver Start ------------------
-                    if (isDriver) {
+                    if (isDriver) 
+                    {
 
-                        if (!currtruckindex.hasOwnProperty(truck_index)) {
+                        if (!currtruckindex.hasOwnProperty(truck_index)) 
+                        {
                             currtruckindex[truck_index] = l;
                             l++;
                             var truckindex = 0;
@@ -1475,7 +1530,9 @@ function prepairDashBoardData(dashDaterange)
                             truckcurrmiles += isNaN(parseFloat(truck_miles)) == true ? 0 : parseFloat(truck_miles);
 
                             alldrivercurramounttotal += parseFloat(total_rate);
-                        } else {
+                        } 
+                        else 
+                        {
                             var truckindex = 0;
                             truckindex = currtruckindex[truck_index];
                             truck_table[truckindex] = { "name": truck_index, "loads": parseFloat(truck_table[truckindex]['loads'] + 1), "total": parseFloat(truck_table[truckindex]['total'] + (total_rate)), "id": truck_index, "miles": parseFloat(truck_table[truckindex]['miles'] + parseFloat(truck_miles)) };
@@ -1534,7 +1591,9 @@ function prepairDashBoardData(dashDaterange)
                             driverdaytotal[month_type][onlyDate].loads += 1;
                             drivercurrentamounttotal += parseFloat(loadertotal);
                             drivercurrentloadtotal += 1;
-                        } else {
+                        } 
+                        else 
+                        {
 
                             var driverindex = 0;
                             driverindex = currdriverindex[driver_index];
@@ -1552,7 +1611,8 @@ function prepairDashBoardData(dashDaterange)
                     //---------Driver End ------------------
 
                     //---------Company Start ---------------
-                    if (!currcompanyindex.hasOwnProperty(company_index)) {
+                    if (!currcompanyindex.hasOwnProperty(company_index)) 
+                    {
                         var companymonth = {
                             "1": { "loads": 0, "amount": 0 },
                             "2": { "loads": 0, "amount": 0 },
@@ -1600,7 +1660,7 @@ function prepairDashBoardData(dashDaterange)
                         companydaytotal[month_type][onlyDate].loads += 1;
                         companycurrloadtotal += 1;
                         companycurramounttotal += parseFloat(isNaN(total_rate) == true ? 0 : total_rate);
-                    console.log(companycurramounttotal);
+                        console.log(companycurramounttotal);
                     } 
                     else 
                     {
@@ -1619,7 +1679,8 @@ function prepairDashBoardData(dashDaterange)
                     var equipment_miles = loads[i].driver_miles_value;
                     //-------------------Equipment Start-------------------
 
-                    if (!currequipmentindex.hasOwnProperty(equipment_index)) {
+                    if (!currequipmentindex.hasOwnProperty(equipment_index)) 
+                    {
                         var equipmentmonth = {
                             "1": { "loads": 0, "amount": 0 },
                             "2": { "loads": 0, "amount": 0 },
@@ -1688,7 +1749,8 @@ function prepairDashBoardData(dashDaterange)
 
                     if (isCarrier) 
                     {
-                        if (!currcarrierindex.hasOwnProperty(carr_index)) {
+                        if (!currcarrierindex.hasOwnProperty(carr_index)) 
+                        {
                             var carrirmonth = {
                                 "1": { "loads": 0, "amount": 0 },
                                 "2": { "loads": 0, "amount": 0 },
@@ -1736,7 +1798,9 @@ function prepairDashBoardData(dashDaterange)
                             carrierdaytotal[month_type][onlyDate].loads += 1;
                             carriercurrloadtotal += 1;
                             carriercurramounttotal += parseFloat(total_rate);
-                        } else {
+                        } 
+                        else 
+                        {
                             var carrierindex = 0;
                             carrierindex = currcarrierindex[carr_index];
                             carrier_table[carrierindex] = { "name": carr_loadername, "loads": carrier_table[carrierindex]['loads'] + 1, "total": parseFloat(carrier_table[carrierindex]['total'] + (total_rate)), "Margin": parseFloat(carrier_table[carrierindex]['Margin']) + parseFloat(total_rate - loadertotal), "loadertotal": carrier_table[carrierindex]['loadertotal'] + loadertotal, "id": carr_index };
@@ -1758,7 +1822,8 @@ function prepairDashBoardData(dashDaterange)
                 } 
                 else 
                 {
-                    if (!prevcustindex.hasOwnProperty(cust_index)) {
+                    if (!prevcustindex.hasOwnProperty(cust_index)) 
+                    {
                         var ind_cust = {};
                         var month = {
                             "1": { "loads": 0, "amount": 0 },
@@ -1807,7 +1872,9 @@ function prepairDashBoardData(dashDaterange)
                         prevloadtotal += 1;
                         prevamounttotal += parseFloat(total_rate);
 
-                    } else {
+                    } 
+                    else 
+                    {
                         var index = 0;
                         index = prevcustindex[cust_index];
                         mainarr[month_type][index][cust_index][onlyDate].loads += 1;
@@ -1818,7 +1885,8 @@ function prepairDashBoardData(dashDaterange)
                         prevamounttotal += parseFloat(total_rate);
                     }
 
-                    if (!prevcompanyindex.hasOwnProperty(company_index)) {
+                    if (!prevcompanyindex.hasOwnProperty(company_index)) 
+                    {
                         var companymonth = {
                             "1": { "loads": 0, "amount": 0 },
                             "2": { "loads": 0, "amount": 0 },
@@ -1866,7 +1934,9 @@ function prepairDashBoardData(dashDaterange)
                         companydaytotal[month_type][onlyDate].loads += 1;
                         companyprevloadtotal += 1;
                         companyprevamounttotal += parseFloat(total_rate);
-                    } else {
+                    } 
+                    else 
+                    {
                         var companyindex = 0;
                         companyindex = prevcompanyindex[company_index];
                         companymain[month_type][companyindex][company_index][onlyDate].loads += 1;
@@ -1879,7 +1949,8 @@ function prepairDashBoardData(dashDaterange)
 
                     //-------------Prev Equipment Start-------------//
 
-                    if (!prevequipmentindex.hasOwnProperty(equipment_index)) {
+                    if (!prevequipmentindex.hasOwnProperty(equipment_index)) 
+                    {
                         var equipmentmonth = {
                             "1": { "loads": 0, "amount": 0 },
                             "2": { "loads": 0, "amount": 0 },
@@ -1926,7 +1997,9 @@ function prepairDashBoardData(dashDaterange)
                         equipmentdaytotal[month_type][onlyDate].loads += 1;
                         equipmentprevloadtotal += 1;
                         equipmentprevamounttotal += parseFloat(total_rate);
-                    } else {
+                    } 
+                    else 
+                    {
                         var equipmentindex = 0;
                         equipmentindex = prevequipmentindex[equipment_index];
                         equipmentmain[month_type][equipmentindex][equipment_index][onlyDate].loads += 1;
@@ -1940,8 +2013,10 @@ function prepairDashBoardData(dashDaterange)
                     //-------------Prev Equipment End-------------//
 
                     //-------------Prev Carrier Start-------------//
-                    if (isCarrier) {
-                        if (!prevcarrierindex.hasOwnProperty(carr_index)) {
+                    if (isCarrier) 
+                    {
+                        if (!prevcarrierindex.hasOwnProperty(carr_index)) 
+                        {
                             var carrirmonth = {
                                 "1": { "loads": 0, "amount": 0 },
                                 "2": { "loads": 0, "amount": 0 },
@@ -1989,7 +2064,9 @@ function prepairDashBoardData(dashDaterange)
                             carrierdaytotal[month_type][onlyDate].loads += 1;
                             carrierprevloadtotal += 1;
                             carrierprevamounttotal += parseFloat(total_rate);
-                        } else {
+                        } 
+                        else 
+                        {
                             var carrierindex = 0;
                             carrierindex = prevcarrierindex[carr_index];
                             carriermain[month_type][carrierindex][carr_index][onlyDate].loads += 1;
@@ -2050,7 +2127,9 @@ function prepairDashBoardData(dashDaterange)
                         dispatchdaytotal[month_type][onlyDate].loads += 1;
                         dispatchprevamounttotal += parseFloat(total_rate - loadertotal);
 
-                    } else {
+                    } 
+                    else 
+                    {
                         var index = 0;
                         index = prevdispatchindex[dispatch_index];
                         dispatchermain[month_type][index][dispatch_index][onlyDate].loads += 1;
@@ -2060,11 +2139,15 @@ function prepairDashBoardData(dashDaterange)
                         dispatchprevamounttotal += parseFloat(total_rate - loadertotal);
                     }
 
-                    if (isDriver) {
+                    if (isDriver) 
+                    {
 
-                        if (!prevtruckindex.hasOwnProperty(truck_index)) {
+                        if (!prevtruckindex.hasOwnProperty(truck_index)) 
+                        {
                             truckprevmiles += parseFloat(truck_miles);
-                        } else {
+                        } 
+                        else 
+                        {
                             truckprevmiles += parseFloat(truck_miles);
                         }
 
@@ -2117,7 +2200,9 @@ function prepairDashBoardData(dashDaterange)
                             driverprevamounttotal += parseFloat(loadertotal);
                             driverprevloadtotal += 1;
                             alldriverprevamounttotal += parseFloat(total_rate);
-                        } else {
+                        } 
+                        else 
+                        {
                             var driverindex = 0;
                             driverindex = prevdriverindex[driver_index];
                             drivermain[month_type][driverindex][driver_index][onlyDate].loads += 1;
@@ -2136,13 +2221,13 @@ function prepairDashBoardData(dashDaterange)
             }
 
             //--------Sort All Ranking Table-------------
-            // cust_table.sort(SortFilterData("total"));
-            // dispatch_table.sort(SortFilterData("total"));
-            // driver_table.sort(SortFilterData("total"));
-            // truck_table.sort(SortFilterData("total"));
-            // company_table.sort(SortFilterData("total"));
-            // carrier_table.sort(SortFilterData("total"));
-            // equip_table.sort(SortFilterData("total"));
+            cust_table.sort(SortFilterData("total"));
+            dispatch_table.sort(SortFilterData("total"));
+            driver_table.sort(SortFilterData("total"));
+            truck_table.sort(SortFilterData("total"));
+            company_table.sort(SortFilterData("total"));
+            carrier_table.sort(SortFilterData("total"));
+            equip_table.sort(SortFilterData("total"));
 
             //console.log(JSON.stringify(loads));
             //----------Ranking Table Start-------------
@@ -2151,7 +2236,8 @@ function prepairDashBoardData(dashDaterange)
             var companyamountdiff = 0;
 
             var a = 1;
-            for (var h = 0; h < cus_table; h++) {
+            for (var h = 0; h < cus_table; h++) 
+            {
                 var cust_percentage = cust_table[h]['Margin'] * 100 / cust_table[h]['total'];
                 dashtable += `<li id='bgshadow' class='noactive' onclick='indchart("${cust_table[h]['id']}","${bartitle}","${cust_table[h]['name']}")'>
                 <table>
@@ -2193,18 +2279,22 @@ function prepairDashBoardData(dashDaterange)
             //----------Company Revenue Stat---------------
             var dashcomrev = '';
             // console.log(companycurramounttotal);
-            if (companycurramounttotal == NaN && companyprevamounttotal == NaN) {
+            if (companycurramounttotal == NaN && companyprevamounttotal == NaN) 
+            {
                 companycurramounttotal = 0;
                 companyprevamounttotal = 0;
             }
             // console.log(companycurramounttotal);
-            if (companycurramounttotal > companyprevamounttotal) {
+            if (companycurramounttotal > companyprevamounttotal) 
+            {
                 var companyamountdiff = Math.abs(companycurramounttotal - companyprevamounttotal);
 
                 dashcomrev += `<h3 class="mb-2 fw-semibold">$${abbreviateNumber(parseInt(companycurramounttotal))} <span class="text-danger fs-13 mb-0"">$${numberWithCommas(companycurramounttotal.toFixed(2))}</span> <span class="text-danger fs-13 mb-0"">$${abbreviateNumber(parseInt(companyamountdiff))}</span>$${numberWithCommas(companyamountdiff.toFixed(2))}</span></h3>
                         <p class="text-muted fs-13 mb-0">Company Revenue <span class="icn-box text-danger fw-semibold fs-13 me-1"> <i class="fa fa-long-arrow-up"></i>
                             </span></p>`;
-            } else {
+            } 
+            else 
+            {
                 companyamountdiff = Math.abs(companycurramounttotal - companyprevamounttotal);
                 dashcomrev += `<h3 class="mb-2 fw-semibold">$${abbreviateNumber(parseInt(companycurramounttotal))} <span class="text-danger mb-0 fs-13 mb-0">$${numberWithCommas(companycurramounttotal.toFixed(2))}</span></h3>
                         <p class="text-muted fs-13 mb-0">Company Revenue <span class="icn-box text-danger fw-semibold fs-13 me-1">
@@ -2218,7 +2308,8 @@ function prepairDashBoardData(dashDaterange)
 
 
             var dashcomexpence = '';
-            if (total_expence == null || isNaN(total_expence) || total_expence == undefined) {
+            if (total_expence == null || isNaN(total_expence) || total_expence == undefined) 
+            {
                 total_expence = 0;
             }
             dashcomexpence += `<h3 class="mb-2 fw-semibold">$${abbreviateNumber(parseInt(total_expence))} <span class="text-danger mb-0 fs-13 mb-0">$${numberWithCommas(total_expence.toFixed(2))}</span>&nbsp;
@@ -2235,22 +2326,15 @@ function prepairDashBoardData(dashDaterange)
             var curramounts = [];
             var prevamounts = [];
             var cust_current_len = Object.keys(custdaytotal.current).length;
-            for (var h = 1; h <= cust_current_len; h++) {
-                //
+            for (var h = 1; h <= cust_current_len; h++) 
+            {
                 currloads.push(custdaytotal.current[h].loads);
                 prevloads.push(custdaytotal.prev[h].loads);
-
                 curramounts.push(custdaytotal.current[h].amount);
                 prevamounts.push(custdaytotal.prev[h].amount);
-
-                //
-
             }
             //--------------Bar Graph Data End------------
-
-
             dashGraphBarLine(currloads, prevloads, curramounts, prevamounts);
-
             //----------------Calculate Truck Avg curr & prev month Start----------------
             var fuelqunttotal = res[0].fueltotal;
             var prevfuel = res[0].fuelprevtotal;
@@ -2268,15 +2352,13 @@ function prepairDashBoardData(dashDaterange)
             }
 
             //final calculation 
-            if (fuelqunttotal != 0 && truckcurrmiles != 0) {
-                // console.log(truckcurrmiles);
-                // console.log(fuelqunttotal);
+            if (fuelqunttotal != 0 && truckcurrmiles != 0) 
+            {
                 var truckcurra = parseFloat(truckcurrmiles / fuelqunttotal);
                 truckcurravg = truckcurra;
             }
-            if (companyprevamounttotal != 0 && truckprevmiles != 0) {
-                // console.log(truckprevmiles);
-                // console.log(prevfuel);
+            if (companyprevamounttotal != 0 && truckprevmiles != 0) 
+            {
                 var truckpreva = parseFloat(truckprevmiles / prevfuel);
                 truckprevavg = truckpreva;
             }
@@ -2292,7 +2374,7 @@ function prepairDashBoardData(dashDaterange)
             $("#previous_loadd").html(prevloadtotal);
             $("#previous_amountd").html("$" + prev_amount);
             $("#previous_amountdtool").html("$" + numberWithCommas(prevamounttotal.toFixed(2)));
-            getdispatcherdata();
+            // getdispatcherdata();
             $("#dashboardloader").css("display", "none");
         },
     })
@@ -2344,845 +2426,845 @@ function getPayableAndRecevable()
     });
 }
 // //-----------------Function for get payable & Recevable Data End---------------------
-// var dispatchinarr = "";
-// var salesrarr = "";
-// function getdispatcherdata() {
-//     var data = {
-//         companyId: companyId,
-//         privilege: privilege,
-//     };
-//     $.ajax({
-//         url: "./Master.php",
-//         data: {
-//             main: "dashboard",
-//             sub: "getdispatcherinsdata",
-//             data: data
-//         },
-//         method: "POST",
-//         dataType: 'html',
-//         success: function (data) {
-//             var incentdata = JSON.parse(data);
-
-//             dispatchinarr = incentdata[0].dispatcharr;
-//             salesrarr = incentdata[0].salesrarr;
-//         }
-//     })
-//     .fail(function (jqXHR, textStatus, errorThrown) {
-//         // Request failed. Show error message to user. 
-//         // errorThrown has error message.
-//         // console.log(jqXHR, textStatus, errorThrown);
-//         swal(request.responseText,'', 'error');
-//     });
-// }
+var dispatchinarr = "";
+var salesrarr = "";
+function getdispatcherdata() 
+{
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-getDispatcherInsdata",
+        async: false,
+        success: function (data) {
+            var incentdata = JSON.parse(data);
+            dispatchinarr = incentdata[0].dispatcharr;
+            salesrarr = incentdata[0].salesrarr;
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+        // console.log(jqXHR, textStatus, errorThrown);
+        swal(request.responseText,'', 'error');
+    });
+}
 // //-----------------Function for get truck Data Start---------------------------------
-// function getTruckDataMap() {
-//     var data = {
-//         companyId: companyId,
-//         privilege: privilege,
-//     };
-//     $.ajax({
-//         url: "./Master.php",
-//         data: {
-//             main: "dashboard",
-//             sub: "truckmap",
-//             data: data
-//         },
-//         method: "POST",
-//         dataType: 'html',
-//         success: function (response) {
-
-//             mapselectedstate = JSON.parse(response);
-//             // console.log(mapselectedstate['individualstate']);
-//         }
-//     })
-//     .fail(function (jqXHR, textStatus, errorThrown) {
-//         // Request failed. Show error message to user. 
-//         // errorThrown has error message.
-//        // console.log(jqXHR, textStatus, errorThrown);
-//         swal(request.responseText,'', 'error');
-//     });
-// }
+function getTruckDataMap() 
+{
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-truckmap",
+        async: false,
+        success: function (response) {
+            mapselectedstate = JSON.parse(response);
+            // console.log(mapselectedstate['individualstate']);
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+       // console.log(jqXHR, textStatus, errorThrown);
+        swal(request.responseText,'', 'error');
+    });
+}
 // //-----------------Function for get truck Data End---------------------------------
 
 
 // //-----------------Function for get Profit Loss Data Satrt-------------------------
-// var pandingAmounArr = [];
-// function getProfitLoss() {
-//     var data = {
-//         companyId: companyId,
-//         privilege: privilege,
-//     };
-//     $.ajax({
-//         url: "./Master.php",
-//         data: {
-//             main: "dashboard",
-//             sub: "profitloss",
-//             data: data
-//         },
-//         method: "POST",
-//         dataType: 'html',
-//         success: function (response) {
-//             var resp = JSON.parse(response);
-            
-//             var allload = [];
-//             var totalrecevableamount = resp[0].loaddata;
+var pandingAmounArr = [];
+function getProfitLoss() {
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-profitloss",
+        async: false,
+        success: function (response) {
+            var resp = JSON.parse(response);
+            var allload = [];
+            var totalrecevableamount = resp[0].loaddata;
 
-//             var fueltotal = 0;
+            var fueltotal = 0;
 
 
-//             //-----------------------------------------
-//             pandingAmounArr = resp[0].pendingpaymentobj;
+            //-----------------------------------------
+            pandingAmounArr = resp[0].pendingpaymentobj;
 
-//             var pendingcustomer_amount_tool = numberWithCommas(resp[0].pendingcustomeramount);
-//             var pendingcustomeramount = abbreviateNumber(resp[0].pendingcustomeramount);
+            var pendingcustomer_amount_tool = numberWithCommas(resp[0].pendingcustomeramount);
+            var pendingcustomeramount = abbreviateNumber(resp[0].pendingcustomeramount);
 
-//             $('#panddingamt').html('$' + pendingcustomeramount);
-//             $('#penddingtool').html('$' + pendingcustomer_amount_tool);
+            $('#panddingamt').html('$' + pendingcustomeramount);
+            $('#penddingtool').html('$' + pendingcustomer_amount_tool);
 
-//             //-----------------------------------------
+            //-----------------------------------------
 
-//             //----------Total Rate---------------------
-//             var total_amount = totalrecevableamount;
+            //----------Total Rate---------------------
+            var total_amount = totalrecevableamount;
 
-//             //-----------Total Payable-----------------
-//             var total_payamount = resp[0].payable;
+            //-----------Total Payable-----------------
+            var total_payamount = resp[0].payable;
 
-//             //--------------------fuel list table Start------------------------
-//             var fuelarrsize = resp[0].fueldata[0] == undefined ? 0 : resp[0].fueldata[0].fuelCard.length;
-//             var fueltab = '';
-//             var k = 1;
-//             for (var t = 0; t < fuelarrsize; t++) {
-//                 fueltotal += parseFloat(resp[0].fueldata[0].fuelCard[t].currentBalance.toFixed(2));
-//                 fueltab += `<li id='bgshadow' class='noactive'>
-//                     <table>
-//                         <tr>
-//                             <td>
-//                                 <div class="graphic">${k}</div>
-//                             </td>
-//                             <td style="width:170px; padding-left:10px;" >
-//                                 <span class="header">${resp[0].fueldata[0].fuelCard[t].fuelCardType}</span>
-//                             </td>
-//                             <td style="width:60px; padding-left:10px;">
-//                                 <span class="stat">$${resp[0].fueldata[0].fuelCard[t].currentBalance.toFixed(2)}</span>
-//                             </td>
-//                         </tr>
-//                     </table>
-//                 </li>`;
-//                 k++;
-//             }
-//             //--------------------fuel list table End------------------------
+            //--------------------fuel list table Start------------------------
+            var fuelarrsize = resp[0].fueldata[0] == undefined ? 0 : resp[0].fueldata[0].fuelCard.length;
+            var fueltab = '';
+            var k = 1;
+            for (var t = 0; t < fuelarrsize; t++) {
+                fueltotal += parseFloat(resp[0].fueldata[0].fuelCard[t].currentBalance.toFixed(2));
+                fueltab += `<li id='bgshadow' class='noactive'>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="graphic">${k}</div>
+                            </td>
+                            <td style="width:170px; padding-left:10px;" >
+                                <span class="header">${resp[0].fueldata[0].fuelCard[t].fuelCardType}</span>
+                            </td>
+                            <td style="width:60px; padding-left:10px;">
+                                <span class="stat">$${resp[0].fueldata[0].fuelCard[t].currentBalance.toFixed(2)}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </li>`;
+                k++;
+            }          
+            //===fuel list table End-=========================
 
-//             //---------------bank name & amount start------------------------
-//             var banksize = resp[0].bankdata[0] == undefined ? 0 : resp[0].bankdata[0].admin_bank.length;
-//             var bankname = [];
-//             var bankamount = [];
-//             for (var d = 0; d < banksize; d++) {
+             //=====bank name & amount start ======================
+            var banksize = resp[0].bankdata[0] == undefined ? 0 : resp[0].bankdata[0].admin_bank.length;
+            var bankname = [];
+            var bankamount = [];
+            for (var d = 0; d < banksize; d++) 
+            {
 
-//                 var com_name = resp[0].bankdata[0].admin_bank[d].bankName + '-' + allcompany_data[resp[0].bankdata[0].admin_bank[d].accountHolder];
-//                 bankname.push([com_name, parseFloat(resp[0].bankdata[0].admin_bank[d].currentBalance.toFixed(2))]);
-//                 bankamount.push(parseFloat(resp[0].bankdata[0].admin_bank[d].currentBalance.toFixed(2)));
-//             }
-//             //---------------bank name & amount end--------------------------
-
-
-//             //---------------credit name & amount satrt----------------------
-//             var creditsize = resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].admin_credit.length;
-//             var credit_name = [];
-//             var credit_amount = [];
-//             for (var f = 0; f < creditsize; f++) {
-//                 credit_name.push([resp[0].creditdata[0].admin_credit[f].displayName, Math.sign(resp[0].creditdata[0].admin_credit[f].currentBalance) == -1 ? 0 : parseFloat(resp[0].creditdata[0].admin_credit[f].currentBalance.toFixed(2))]);
-//                 credit_amount.push(parseFloat(resp[0].creditdata[0].admin_credit[f].currentBalance.toFixed(2)));
-//             }
-//             //---------------credit name & amount end----------------------
-
-//             //bank amount
-//             var banktotalamount = parseFloat(resp[0].bankdata[0] == undefined ? 0 : resp[0].bankdata[0].bankcurrentbalance.toFixed(2));
-
-//             //bank amount + load total rate company Rev
-//             var totalcompanybal = banktotalamount + total_amount;
-
-//             //company payable amount credit | fuel | total pay
-//             var creditedamount = parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)) + fueltotal + total_payamount;
-
-//             //total company profit
-//             var companyprofit = totalcompanybal - creditedamount;
-
-//             //Calculate Percentage start
-//             var revtotal = banktotalamount + total_amount;
-//             var bankpercentage = banktotalamount * 100 / revtotal;
-//             var loadpercentage = total_amount * 100 / revtotal;
-
-//             var payabletotal = creditedamount;
-//             var creditpercentage = parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)) * 100 / payabletotal;
-//             var fuelpercentage = fueltotal * 100 / payabletotal;
-//             //Calculate Percentage end
-
-//             //radial graph data
-//             var radialBardata = [isNaN(loadpercentage.toFixed(2)) == true ? 0 : loadpercentage.toFixed(2), isNaN(bankpercentage.toFixed(2)) == true ? 0 : bankpercentage.toFixed(2), isNaN(creditpercentage.toFixed(2)) == true ? 0 : creditpercentage.toFixed(2), isNaN(fuelpercentage.toFixed(2)) == true ? 0 : fuelpercentage.toFixed(2)];
+                var com_name = resp[0].bankdata[0].admin_bank[d].bankName + '-' + allcompany_data[resp[0].bankdata[0].admin_bank[d].accountHolder];
+                bankname.push([com_name, parseFloat(resp[0].bankdata[0].admin_bank[d].currentBalance.toFixed(2))]);
+                bankamount.push(parseFloat(resp[0].bankdata[0].admin_bank[d].currentBalance.toFixed(2)));
+            }
+            // =============bank name & amount end ==================
 
 
-//             var bankbalance = numberWithCommas(totalcompanybal.toFixed(2));
-//             var amounypayable = numberWithCommas(creditedamount.toFixed(2));
-//             var compprofit = numberWithCommas(companyprofit.toFixed(2));
-//             var agingpayable = numberWithCommas(total_payamount.toFixed(2));
+            //============credit name & amount satrt============-------
+            var creditsize = resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].admin_credit.length;
+            var credit_name = [];
+            var credit_amount = [];
+            for (var f = 0; f < creditsize; f++) {
+                credit_name.push([resp[0].creditdata[0].admin_credit[f].displayName, Math.sign(resp[0].creditdata[0].admin_credit[f].currentBalance) == -1 ? 0 : parseFloat(resp[0].creditdata[0].admin_credit[f].currentBalance.toFixed(2))]);
+                credit_amount.push(parseFloat(resp[0].creditdata[0].admin_credit[f].currentBalance.toFixed(2)));
+            }
+            //============credit name & amount end============-------
 
-//             //profit loss table data
-//             var Total_Load_Amount = numberWithCommas(total_amount.toFixed(2));
-//             var Total_Bank_Balance = numberWithCommas(banktotalamount.toFixed(2));
-//             var Total_Credit_Balance = numberWithCommas(parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)));
-//             var Total_Fuel_Balance = numberWithCommas(fueltotal.toFixed(2));
-//             var totalcurrbal_dash = numberWithCommas(totalcompanybal.toFixed(2));
-//             var totalpaybal_dash = numberWithCommas(creditedamount.toFixed(2));
+            //bank amount
+            var banktotalamount = parseFloat(resp[0].bankdata[0] == undefined ? 0 : resp[0].bankdata[0].bankcurrentbalance.toFixed(2));
 
+            //bank amount + load total rate company Rev
+            var totalcompanybal = banktotalamount + total_amount;
 
-//             $("#total_bbalance").html('$' + bankbalance);
-//             $("#total_payable").html('$' + amounypayable);
-//             $("#total_profit").html('$' + compprofit);
+            //company payable amount credit | fuel | total pay
+            var creditedamount = parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)) + fueltotal + total_payamount;
 
-//             $("#Total_Load_Amount").html('$' + Total_Load_Amount);
-//             $("#Total_Bank_Balance").html('$' + Total_Bank_Balance);
-//             $("#Total_Credit_Balance").html('$' + Total_Credit_Balance);
-//             $("#Total_Agpayable").html('$' + agingpayable);
-//             $("#Total_Fuel_Balance").html('$' + Total_Fuel_Balance);
-//             $("#totalcurrbal_dash").html('$' + totalcurrbal_dash);
-//             $("#totalpaybal_dash").html('$' + totalpaybal_dash);
+            //total company profit
+            var companyprofit = totalcompanybal - creditedamount;
 
-//             if (parseFloat(compprofit) < 0) {
-//                 $("#prolosstitle").html('Loss');
-//                 $("#pro_lossdata").html(`<span style="font-weight: bold;color:#dc3545 !important; margin-left:-25px">$${"(" + numberWithCommas(Math.abs(companyprofit).toFixed(2)) + ")"}</span>`);
-//             } else {
-//                 $("#prolosstitle").html('Profit');
-//                 $("#pro_lossdata").html(`<span style="font-weight: bold;color:#28a745 !important; margin-left:-25px">$${compprofit}</span>`);
-//             }
+            //Calculate Percentage start
+            var revtotal = banktotalamount + total_amount;
+            var bankpercentage = banktotalamount * 100 / revtotal;
+            var loadpercentage = total_amount * 100 / revtotal;
 
+            var payabletotal = creditedamount;
+            var creditpercentage = parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)) * 100 / payabletotal;
+            var fuelpercentage = fueltotal * 100 / payabletotal;
+            //Calculate Percentage end
 
-//             var ravamount = abbreviateNumber(parseInt(totalcompanybal));
-//             var payable_amount = abbreviateNumber(parseInt(creditedamount));
-
-//             var radialbarrav = ["$" + ravamount + " | " + "$" + payable_amount];
-
-//             //---------------------------profitloss radialBar graph Start----------------------------
-//             var options = {
-//                 chart: {
-//                     height: 400,
-//                     type: 'radialBar',
-//                     toolbar: {
-//                         show: false,
-//                     },
-//                     dropShadow: {
-//                         enabled: true,
-//                         opacity: 0.2,
-//                         blur: 9,
-//                         left: 10,
-//                         top: 20
-//                     },
-//                 },
-//                 plotOptions: {
-//                     radialBar: {
-//                         track: {
-//                             background: 'transparent',
-//                         },
-//                         dataLabels: {
-//                             name: {
-//                                 fontSize: '50px',
-//                                 fontColor: 'black',
-//                                 fontFamily: 'Open Sans, sans-serif',
-//                             },
-//                             value: {
-//                                 fontSize: '50px',
-//                                 fontFamily: 'Open Sans, sans-serif',
-//                             },
-//                             total: {
-//                                 show: true,
-//                                 label: ['Revenue | Payable'],
-//                                 formatter: function (w) {
-//                                     return radialbarrav;
-//                                 }
-//                             }
-//                         }
-//                     },
-//                 },
-//                 series: radialBardata,
-//                 labels: ['Load Total', 'Bank Balance', 'Credit Card Total', 'Fuel Card Total'],
-//                 colors: ['#007bff', '#28a745', '#dc3545', '#1782b8'],
-//             }
-
-//             var chart = new ApexCharts(
-//                 document.querySelector("#profit_lossdonut"),
-//                 options
-//             );
-//             chart.render();
-//             //-------------------------profitloss radialBar graph End----------------------------------
-
-//             //color array
-//             var colorArray = ["#2460A7FF", "#FAA094FF", "#9ED9CCFF", "#008C76FF", "#A13941FF", "#85B3D1FF",
-//                 "#EF6079FF", "#669DB3FF", "#D9B48FFF", "#ABD1C9FF", "#A59C94FF", "#DBB04AFF", "#97B3D0FF",
-//                 "#95DBE5FF", "#078282FF", "#339E66FF", "#D7A9E3FF", "#8BBEE8FF", "#A8D5BAFF", '#FC766AFF',
-//                 '#B0B8B4FF', '#184A45FF', '#9FC131FF', '#755139FF', '#2BAE66FF', '#2C5F2D', '#D7C49EFF', '#343148FF'];
+            //radial graph data
+            var radialBardata = [isNaN(loadpercentage.toFixed(2)) == true ? 0 : loadpercentage.toFixed(2), isNaN(bankpercentage.toFixed(2)) == true ? 0 : bankpercentage.toFixed(2), isNaN(creditpercentage.toFixed(2)) == true ? 0 : creditpercentage.toFixed(2), isNaN(fuelpercentage.toFixed(2)) == true ? 0 : fuelpercentage.toFixed(2)];
 
 
-//             //-------------------------bank pie Start----------------------------------
+            var bankbalance = numberWithCommas(totalcompanybal.toFixed(2));
+            var amounypayable = numberWithCommas(creditedamount.toFixed(2));
+            var compprofit = numberWithCommas(companyprofit.toFixed(2));
+            var agingpayable = numberWithCommas(total_payamount.toFixed(2));
+
+            //profit loss table data
+            var Total_Load_Amount = numberWithCommas(total_amount.toFixed(2));
+            var Total_Bank_Balance = numberWithCommas(banktotalamount.toFixed(2));
+            var Total_Credit_Balance = numberWithCommas(parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)));
+            var Total_Fuel_Balance = numberWithCommas(fueltotal.toFixed(2));
+            var totalcurrbal_dash = numberWithCommas(totalcompanybal.toFixed(2));
+            var totalpaybal_dash = numberWithCommas(creditedamount.toFixed(2));
+
+
+            $("#total_bbalance").html('$' + bankbalance);
+            $("#total_payable").html('$' + amounypayable);
+            $("#total_profit").html('$' + compprofit);
+
+            $("#Total_Load_Amount").html('$' + Total_Load_Amount);
+            $("#Total_Bank_Balance").html('$' + Total_Bank_Balance);
+            $("#Total_Credit_Balance").html('$' + Total_Credit_Balance);
+            $("#Total_Agpayable").html('$' + agingpayable);
+            $("#Total_Fuel_Balance").html('$' + Total_Fuel_Balance);
+            $("#totalcurrbal_dash").html('$' + totalcurrbal_dash);
+            $("#totalpaybal_dash").html('$' + totalpaybal_dash);
+
+            if (parseFloat(compprofit) < 0) {
+                $("#prolosstitle").html('Loss');
+                $("#pro_lossdata").html(`<span style="font-weight: bold;color:#dc3545 !important; margin-left:-25px">$${"(" + numberWithCommas(Math.abs(companyprofit).toFixed(2)) + ")"}</span>`);
+            } else {
+                $("#prolosstitle").html('Profit');
+                $("#pro_lossdata").html(`<span style="font-weight: bold;color:#28a745 !important; margin-left:-25px">$${compprofit}</span>`);
+            }
+
+
+            var ravamount = abbreviateNumber(parseInt(totalcompanybal));
+            var payable_amount = abbreviateNumber(parseInt(creditedamount));
+
+            var radialbarrav = ["$" + ravamount + " | " + "$" + payable_amount];
+
+            //============profitloss radialBar graph Start==============-
+            var options = {
+                chart: {
+                    height: 400,
+                    type: 'radialBar',
+                    toolbar: {
+                        show: false,
+                    },
+                    dropShadow: {
+                        enabled: true,
+                        opacity: 0.2,
+                        blur: 9,
+                        left: 10,
+                        top: 20
+                    },
+                },
+                plotOptions: {
+                    radialBar: {
+                        track: {
+                            background: 'transparent',
+                        },
+                        dataLabels: {
+                            name: {
+                                fontSize: '50px',
+                                fontColor: 'black',
+                                fontFamily: 'Open Sans, sans-serif',
+                            },
+                            value: {
+                                fontSize: '50px',
+                                fontFamily: 'Open Sans, sans-serif',
+                            },
+                            total: {
+                                show: true,
+                                label: ['Revenue | Payable'],
+                                formatter: function (w) {
+                                    return radialbarrav;
+                                }
+                            }
+                        }
+                    },
+                },
+                series: radialBardata,
+                labels: ['Load Total', 'Bank Balance', 'Credit Card Total', 'Fuel Card Total'],
+                colors: ['#007bff', '#28a745', '#dc3545', '#1782b8'],
+            }
+
+            var chart = new ApexCharts(
+                document.querySelector("#profit_lossdonut"),
+                options
+            );
+            chart.render();
+            //=========profitloss radialBar graph End ================
+
+            //color array
+            var colorArray = ["#2460A7FF", "#FAA094FF", "#9ED9CCFF", "#008C76FF", "#A13941FF", "#85B3D1FF",
+                "#EF6079FF", "#669DB3FF", "#D9B48FFF", "#ABD1C9FF", "#A59C94FF", "#DBB04AFF", "#97B3D0FF",
+                "#95DBE5FF", "#078282FF", "#339E66FF", "#D7A9E3FF", "#8BBEE8FF", "#A8D5BAFF", '#FC766AFF',
+                '#B0B8B4FF', '#184A45FF', '#9FC131FF', '#755139FF', '#2BAE66FF', '#2C5F2D', '#D7C49EFF', '#343148FF'];
+
+
+            //===========bank pie Start=============================
             
 
-//             Highcharts.chart('bank_pie', {
-//                 chart: {
-//                     type: 'pie',
-//                     backgroundColor: daytheme,
-//                     options3d: {
-//                         enabled: true,
-//                         alpha: 45,
-//                         beta: 0
-//                     }
-//                 },
-//                 title: {
-//                     text: ''
-//                 },
-//                 plotOptions: {
-//                     pie: {
-//                         allowPointSelect: true,
-//                         cursor: 'pointer',
-//                         depth: 35,
-//                         dataLabels: {
-//                             color: daycolor,
-//                             enabled: true,
-//                             format: '{point.name}'
-//                         }
-//                     }
-//                 },
-//                 series: [{
-//                     type: 'pie',
-//                     name: 'Bank Balance',
-//                     data: bankname
-//                 }]
-//             });
+            Highcharts.chart('bank_pie', {
+                chart: {
+                    type: 'pie',
+                    backgroundColor: daytheme,
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            color: daycolor,
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Bank Balance',
+                    data: bankname
+                }]
+            });
 
-//             //-------------------------------bank pie end------------------------------
+            //============bank pie end================================
 
-
-//             //------------------------------credit pie start---------------------------
+            //=============credit pie start============================
             
 
-//             Highcharts.chart('credit_pie', {
-//                 chart: {
-//                     type: 'pie',
-//                     backgroundColor: daytheme,
-//                     options3d: {
-//                         enabled: true,
-//                         alpha: 45,
-//                         beta: 0
-//                     }
-//                 },
-//                 title: {
-//                     text: ''
-//                 },
-//                 plotOptions: {
-//                     pie: {
-//                         allowPointSelect: true,
-//                         cursor: 'pointer',
-//                         depth: 35,
-//                         dataLabels: {
-//                             color: daycolor,
-//                             enabled: true,
-//                             format: '{point.name}'
-//                         }
-//                     }
-//                 },
-//                 series: [{
-//                     type: 'pie',
-//                     name: 'Credit Card Balance',
-//                     data: credit_name
-//                 }]
-//             });
-//             //---------------------credit pie end---------------------------------
+            Highcharts.chart('credit_pie', {
+                chart: {
+                    type: 'pie',
+                    backgroundColor: daytheme,
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            color: daycolor,
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Credit Card Balance',
+                    data: credit_name
+                }]
+            });
+            //==================credit pie end============================
 
 
-//             //fuel table start
+            //fuel table start
 
-//             $("#fueltable").html(fueltab);
-//             //fuel table end
+            $("#fueltable").html(fueltab);
+            //fuel table end
 
-//         }
-//     })
-//     .fail(function (jqXHR, textStatus, errorThrown) {
-//         // Request failed. Show error message to user. 
-//         // errorThrown has error message.
-//         // console.log(jqXHR, textStatus, errorThrown);
-//         swal(request.responseText,'', 'error');
-//     });
-// }
-// //-----------------Function for get Profit Loss Data End-------------------------
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+        // console.log(jqXHR, textStatus, errorThrown);
+        swal(request.responseText,'', 'error');
+    });
+}
+// //=================Function for get Profit Loss Data End=================
 
 
-// //-----------------Function for get Carrier Data Start---------------------------
+// //===Function for get Carrier Data Start============
 // var driverarra = '';
 
-// function getdriverdata() {
-//     var data = {
-//         companyId: companyId,
-//         privilege: privilege,
-//     };
-//     $.ajax({
-//         url: "./Master.php",
-//         data: {
-//             main: "dashboard",
-//             sub: "driverdata",
-//             data: data
-//         },
-//         method: "POST",
-//         dataType: 'html',
-//         success: function (response) {
-
-//             driverarra = JSON.parse(response);
-
-//         }
-//     })
-//     .fail(function (jqXHR, textStatus, errorThrown) {
-//         // Request failed. Show error message to user. 
-//         // errorThrown has error message.
-//         //console.log(jqXHR, textStatus, errorThrown);
-//         swal(request.responseText,'', 'error');
-//     });
-// }
+function getdriverdata() 
+{
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-driverdata",
+        async: false,
+        success: function (response) {
+            driverarra = JSON.parse(response);
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+        //console.log(jqXHR, textStatus, errorThrown);
+        swal(request.responseText,'', 'error');
+    });
+}
 // //-----------------Function for get Carrier Data End---------------------------
 
 // //-----------------Function for get salesrep Data start------------------------
-// function getsalesrapdata() {
-//     var data = {
-//         companyId: companyId,
-//         privilege: privilege,
-//     };
-//     $.ajax({
-//         url: "./Master.php",
-//         data: {
-//             main: "dashboard",
-//             sub: "salesdata",
-//             data: data
-//         },
-//         method: "POST",
-//         dataType: 'html',
-//         success: function (response) {
-//             var salesdata = JSON.parse(response);
-//             var salloads = res[0].loads;
+function getsalesrapdata() 
+{
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-salesData",
+        async: false,
+        success: function (response) {
+            var salesdata = JSON.parse(response);
+            var salloads = res[0].loads;
 
-//             var saldispatcher = res[0].alldispatcher;
-//             var salfirstcurr = res[0].firstcurr;
-//             var sallastcurr = res[0].lastcurr;
-//             var salfirstprev = res[0].firstprev;
-//             var sallastprev = res[0].lastprev;
-//             var filter_Type = res[0].filterType;
-//             var b = 0;
-//             var v = 0;
-//             var rr = 0;
-//             var salcurrindex = {};
-//             var salprevindex = {};
-//             var salcurrcustindex = {};
-//             var salprevcustindex = {};
+            var saldispatcher = res[0].alldispatcher;
+            var salfirstcurr = res[0].firstcurr;
+            var sallastcurr = res[0].lastcurr;
+            var salfirstprev = res[0].firstprev;
+            var sallastprev = res[0].lastprev;
+            var filter_Type = res[0].filterType;
+            var b = 0;
+            var v = 0;
+            var rr = 0;
+            var salcurrindex = {};
+            var salprevindex = {};
+            var salcurrcustindex = {};
+            var salprevcustindex = {};
 
-//             var saldata = {};
-//             var newArray = {};
-//             var newArrayprev = {};
-//             for (var w = 0; w < salloads.length; w++) {
-//                 var saldate = '';
-//                 if (filter_Type == "shipper_pickup") {
-//                     saldate = salloads[w].shipper_pickup;
-//                 }else if (filter_Type == "created_at") {
-//                     saldate = salloads[w].created_at;
-//                 }else if (filter_Type == "consignee_pickup") {
-//                     saldate = salloads[w].consignee_pickup;
-//                 }else if (filter_Type == "status_Invoiced_time") {
-//                     saldate = salloads[w].status_Invoiced_time;
-//                 }
+            var saldata = {};
+            var newArray = {};
+            var newArrayprev = {};
+            for (var w = 0; w < salloads.length; w++) 
+            {
+                var saldate = '';
+                if (filter_Type == "shipper_pickup") 
+                {
+                    saldate = salloads[w].shipper_pickup;
+                }
+                else if (filter_Type == "created_at") 
+                {
+                    saldate = salloads[w].created_at;
+                }
+                else if (filter_Type == "consignee_pickup") 
+                {
+                    saldate = salloads[w].consignee_pickup;
+                }
+                else if (filter_Type == "status_Invoiced_time") 
+                {
+                    saldate = salloads[w].status_Invoiced_time;
+                }
 
-//                 var salonlyDate = convertTimeZone(saldate, "info").substring(3, 5).toString(); //.replace(/\b0/g, '').substring(2, 3).toString();
-//                 if (salonlyDate == "01" || salonlyDate == "02" || salonlyDate == "03" || salonlyDate == "04" || salonlyDate == "05" || salonlyDate == "06" || salonlyDate == "07" || salonlyDate == "08" || salonlyDate == "09") {
-//                     salonlyDate = salonlyDate.replace(/\b0/g, '');
-//                 }
-//                 var salcust_name = salloads[w].customer_parent + "-" + salloads[w].customer;
-//                 var salcust_index = "";
+                var salonlyDate = convertTimeZone(saldate, "info").substring(3, 5).toString(); //.replace(/\b0/g, '').substring(2, 3).toString();
+                if (salonlyDate == "01" || salonlyDate == "02" || salonlyDate == "03" || salonlyDate == "04" || salonlyDate == "05" || salonlyDate == "06" || salonlyDate == "07" || salonlyDate == "08" || salonlyDate == "09") 
+                {
+                    salonlyDate = salonlyDate.replace(/\b0/g, '');
+                }
+                var salcust_name = salloads[w].customer_parent + "-" + salloads[w].customer;
+                var salcust_index = "";
 
-//                 //----------Check Customer Empty Start-----------------------
-//                 if (typeof (salcust_name) != "object") {
-//                     if (salcust_name != "") {
-//                         salcust_index = salcust_name.trim().toString();
-//                     } else {
-//                         salcust_index = "Other";
-//                     }
-//                 } else {
-//                     salcust_index = "Other";
-//                 }
-//                 //----------Check Customer Empty Start-----------------------
+                //----------Check Customer Empty Start-----------------------
+                if (typeof (salcust_name) != "object") 
+                {
+                    if (salcust_name != "") 
+                    {
+                        salcust_index = salcust_name.trim().toString();
+                    } 
+                    else 
+                    {
+                        salcust_index = "Other";
+                    }
+                } 
+                else 
+                {
+                    salcust_index = "Other";
+                }
+                //----------Check Customer Empty Start-----------------------
 
-//                 if (salesdata[salloads[w].customer_parent + "-" + salloads[w].customer] === undefined) {
-//                     continue;
-//                 } else {
-//                     var salrep_name = salesdata[salloads[w].customer_parent + "-" + salloads[w].customer].salesRep;
-//                 }
+                if (salesdata[salloads[w].customer_parent + "-" + salloads[w].customer] === undefined) 
+                {
+                    continue;
+                } 
+                else 
+                {
+                    var salrep_name = salesdata[salloads[w].customer_parent + "-" + salloads[w].customer].salesRep;
+                }
 
-//                 var salrep_index = "";
+                var salrep_index = "";
 
-//                 //----------Check Customer Empty Start-----------------------
-//                 if (typeof (salrep_name) != "object") {
-//                     if (salrep_name != "") {
-//                         salrep_index = salrep_name.trim().toString();
-//                     } else {
-//                         salrep_index = "Other";
-//                     }
-//                 } else {
-//                     salrep_index = "Other";
-//                 }
-//                 //----------Check Customer Empty Start-----------------------
+                //----------Check Customer Empty Start-----------------------
+                if (typeof (salrep_name) != "object") 
+                {
+                    if (salrep_name != "") 
+                    {
+                        salrep_index = salrep_name.trim().toString();
+                    } 
+                    else 
+                    {
+                        salrep_index = "Other";
+                    }
+                } 
+                else 
+                {
+                    salrep_index = "Other";
+                }
+                //----------Check Customer Empty Start-----------------------
 
-//                 if (salrep_index == "undefined") {
-//                     salrep_index = "Other";
-//                 }
+                if (salrep_index == "undefined") 
+                {
+                    salrep_index = "Other";
+                }
 
-//                 //---------Check Current & Previous Month Start--------------
-//                 var salmonth_type = "current";
-//                 var saltotal_rate = parseFloat(isNaN(salloads[w].total_rate) == true ? 0 : salloads[w].total_rate);
-//                 var salname = salloads[w].loaddata['customername'];
-//                 var salloadertotal = salloads[w].loaddata['loadertotal'] != "" ? parseFloat(salloads[w].loaddata['loadertotal']) : 0;
-//                 salindex = b;
-//                 if (saldate <= sallastprev && saldate >= salfirstprev) {
-//                     salmonth_type = "prev";
-//                     salindex = v;
-//                 }
-//                 //---------Check Current & Previous Month End----------------
+                //---------Check Current & Previous Month Start--------------
+                var salmonth_type = "current";
+                var saltotal_rate = parseFloat(isNaN(salloads[w].total_rate) == true ? 0 : salloads[w].total_rate);
+                var salname = salloads[w].loaddata['customername'];
+                var salloadertotal = salloads[w].loaddata['loadertotal'] != "" ? parseFloat(salloads[w].loaddata['loadertotal']) : 0;
+                salindex = b;
+                if (saldate <= sallastprev && saldate >= salfirstprev) 
+                {
+                    salmonth_type = "prev";
+                    salindex = v;
+                }
+                //---------Check Current & Previous Month End----------------
 
-//                 if (salmonth_type == "current") {
+                if (salmonth_type == "current") 
+                {
 
-//                     if (!salcurrcustindex.hasOwnProperty(salcust_index)) {
-//                         salcurrcustindex[salcust_index] = b;
-//                         b++;
-//                         var salindex = 0;
-//                         var saleincent = 0;
-//                         salindex = salcurrcustindex[salcust_index];
-//                         var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
-//                         var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
+                    if (!salcurrcustindex.hasOwnProperty(salcust_index)) 
+                    {
+                        salcurrcustindex[salcust_index] = b;
+                        b++;
+                        var salindex = 0;
+                        var saleincent = 0;
+                        salindex = salcurrcustindex[salcust_index];
+                        var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
+                        var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
 
-//                         if (salestype == "FLAT") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
-//                         }
-//                         if (salestype == "PERCENTAGE") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
-//                         }
+                        if (salestype == "FLAT") {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
+                        }
+                        if (salestype == "PERCENTAGE") 
+                        {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
+                        }
 
-//                         salcust_table[salindex] = { "name": salname, "loads": 1, "Margin": parseFloat(saltotal_rate - salloadertotal), "incentive": saleincent, "total": saltotal_rate, "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
-
-
-//                     } else {
-
-//                         var salindex = 0;
-//                         salindex = salcurrcustindex[salcust_index];
-//                         var saleincent = 0;
-//                         var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
-//                         var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
-
-//                         if (salestype == "FLAT") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
-//                         }
-//                         if (salestype == "PERCENTAGE") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
-//                         }
-
-//                         salcust_table[salindex] = { "name": salname, "loads": salcust_table[salindex]['loads'] + 1, "Margin": salcust_table[salindex]['Margin'] + parseFloat(saltotal_rate - salloadertotal), "incentive": salcust_table[salindex]['incentive'] + saleincent, "total": parseFloat(salcust_table[salindex]['total'] + saltotal_rate), "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
-
-//                     }
-
-
-//                 } else {
-
-//                     if (!salprevcustindex.hasOwnProperty(salcust_index)) {
-//                         salprevcustindex[salcust_index] = v;
-//                         v++;
-//                         var salindex = 0;
-//                         salindex = salprevcustindex[salcust_index];
-
-//                         var saleincent = 0;
-//                         var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
-//                         var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
-
-//                         if (salestype == "FLAT") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
-//                         }
-//                         if (salestype == "PERCENTAGE") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
-//                         }
-
-//                         salcust_tablepre[salindex] = { "name": salname, "incentive": saleincent, "total": saltotal_rate, "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
+                        salcust_table[salindex] = { "name": salname, "loads": 1, "Margin": parseFloat(saltotal_rate - salloadertotal), "incentive": saleincent, "total": saltotal_rate, "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
 
 
-//                     } else {
+                    } 
+                    else 
+                    {
+                        var salindex = 0;
+                        salindex = salcurrcustindex[salcust_index];
+                        var saleincent = 0;
+                        var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
+                        var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
 
-//                         var salindex = 0;
-//                         salindex = salprevcustindex[salcust_index];
+                        if (salestype == "FLAT") 
+                        {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
+                        }
+                        if (salestype == "PERCENTAGE") 
+                        {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
+                        }
 
-//                         var saleincent = 0;
-//                         var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
-//                         var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
+                        salcust_table[salindex] = { "name": salname, "loads": salcust_table[salindex]['loads'] + 1, "Margin": salcust_table[salindex]['Margin'] + parseFloat(saltotal_rate - salloadertotal), "incentive": salcust_table[salindex]['incentive'] + saleincent, "total": parseFloat(salcust_table[salindex]['total'] + saltotal_rate), "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
 
-//                         if (salestype == "FLAT") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
-//                         }
-//                         if (salestype == "PERCENTAGE") {
-//                             var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
-//                         }
-
-//                         salcust_tablepre[salindex] = { "name": salname, "incentive": salcust_tablepre[salindex]['incentive'] + saleincent, "total": parseFloat(salcust_tablepre[salindex]['total'] + saltotal_rate), "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
-
-//                     }
-
-//                 }
-
-
-//             }
-
-//             var saltable = [];
-//             var holder = {};
-//             var d = 0;
-//             for (var g = 0; g < salcust_table.length; g++) {
-//                 var sal_name = salcust_table[g].salesr;
-//                 var sal_incentive = isNaN(salcust_table[g].incentive) == true ? 0 : salcust_table[g].incentive;
-//                 var sal_rev = isNaN(salcust_table[g].total) == true ? 0 : salcust_table[g].total;
-//                 var sal_total_loads = salcust_table[g].loads;
-//                 var sal_margin = isNaN(salcust_table[g].Margin) == true ? 0 : salcust_table[g].Margin;
-//                 var sal_index = "";
-
-//                 //----------Check Customer Empty Start-----------------------
-//                 if (typeof (sal_name) != "object") {
-//                     if (sal_name != "") {
-//                         sal_index = sal_name.trim().toString();
-//                     } else {
-//                         sal_index = "Other";
-//                     }
-//                 } else {
-//                     sal_index = "Other";
-//                 }
-//                 //----------Check Customer Empty Start-----------------------
-
-//                 if (!holder.hasOwnProperty(sal_index)) {
-//                     holder[sal_index] = d;
-//                     d++;
-//                     var salind = 0;
-//                     salind = holder[sal_index];
-//                     if (saldispatcher[sal_index] == undefined) {
-//                         salrename = "Other";
-//                     } else {
-//                         salrename = saldispatcher[sal_index];
-//                     }
-//                     saltable[salind] = { "salname": salrename, "insantive": sal_incentive, "salmargin": sal_margin, "salrev": sal_rev, "loads": sal_total_loads, "sald": sal_index };
+                    }
 
 
-//                 } else {
+                } 
+                else 
+                {
 
-//                     var salind = 0;
-//                     salind = holder[sal_index];
-//                     if (saldispatcher[sal_index] == undefined) {
-//                         salrename = "Other";
-//                     } else {
-//                         salrename = saldispatcher[sal_index];
-//                     }
-//                     saltable[salind] = { "salname": salrename, "insantive": parseFloat(saltable[salind]['insantive'] + sal_incentive), "salmargin": parseFloat(saltable[salind]['salmargin'] + sal_margin), "salrev": parseFloat(saltable[salind]['salrev'] + sal_rev), "loads": parseFloat(saltable[salind]['loads'] + sal_total_loads), "sald": sal_index };
+                    if (!salprevcustindex.hasOwnProperty(salcust_index)) 
+                    {
+                        salprevcustindex[salcust_index] = v;
+                        v++;
+                        var salindex = 0;
+                        salindex = salprevcustindex[salcust_index];
 
-//                 }
+                        var saleincent = 0;
+                        var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
+                        var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
 
-//             }
+                        if (salestype == "FLAT") 
+                        {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
+                        }
+                        if (salestype == "PERCENTAGE") 
+                        {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
+                        }
 
-//             saltable.sort(sortByProperty("insantive"));
-
-//             //for curr
-//             for (var f of salcust_table) {
-//                 if (newArray[f.salesr]) {
-//                     newArray[f.salesr].push(f)
-//                 } else {
-//                     newArray[f.salesr] = [f]
-//                 }
-//             }
-
-//             //for prev
-//             for (var x of salcust_tablepre) {
-//                 if (newArrayprev[x.salesr]) {
-//                     newArrayprev[x.salesr].push(x)
-//                 } else {
-//                     newArrayprev[x.salesr] = [x]
-//                 }
-//             }
-
-//             // var salrepn = saltable[1] == undefined ? saltable[0] == undefined ? "NA" : saltable[0]['sald'] : saltable[1]['sald'];
-
-//             var salrepn = saltable[0] == undefined ? "NA" : saltable[0]['sald'];
-
-//             barchartSales(newArray, newArrayprev, salrepn);
+                        salcust_tablepre[salindex] = { "name": salname, "incentive": saleincent, "total": saltotal_rate, "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
 
 
-//             var salre_table = Object.keys(saltable).length;
-//             var saldashtable = '';
+                    } 
+                    else 
+                    {
 
-//             $("#sales_name").html(saltable[0] == undefined ? "NA" : saltable[0]['salname']);
-//             $("#sales_name_prv").html(saltable[0] == undefined ? "NA" : saltable[0]['salname']);
+                        var salindex = 0;
+                        salindex = salprevcustindex[salcust_index];
 
-//             var y = 1;
-//             for (var z = 0; z < salre_table; z++) {
+                        var saleincent = 0;
+                        var salesindexdata = salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other";
+                        var salestype = salesrarr[salesindexdata] == undefined ? "" : salesrarr[salesindexdata].saleratetype;
 
-//                 var sal_percentage = saltable[z]['salmargin'] * 100 / saltable[z]['salrev'];
-//                 saldashtable += `<li id='bgshadow'  class='noactive' onclick='barchartSales(${JSON.stringify(newArray).replace(/'/g, "&apos;")},${JSON.stringify(newArrayprev).replace(/'/g, "&apos;")},"${saltable[z]['sald']}","${saltable[z]['salname']}")'>
-//                 <table>
-//                         <tbody>
-//                            <tr>
-//                             <td rowspan="2">
-//                                 <div class="graphic" >${y}</div>
-//                             </td>
-//                             <td style="width:170px; padding-left:10px;">
-//                                 <span class="header">${saltable[z]['salname']}</span>
-//                             </td>
-//                             <td style="width:100px; padding-left:10px;">
-//                                 <div class="tooltip1"><span class="header">${numberWithCommas(saltable[z]['insantive'].toFixed(2))}</span><span class="toolInsantive">Commison</span></div>
-//                             </td>
-//                             <td style="width:60px; padding-left:10px;">
-//                                 <div class="tooltip1"><span class="stat"><i class="mdi mdi-truck truckicon-loads"></i>&nbsp;${saltable[z]['loads']}</span><span class="toolloads">Loads</span></div>
-//                             </td>
-//                         </tr>
-//                         <tr>
-//                             <td style="width:170px; padding-left:10px;">
-//                                 <div class="tooltip1"><span class="">$${numberWithCommas(saltable[z]['salrev'].toFixed(2))}</span><span class="toolrevenue">Revenue</span></div>
-//                             </td>
-//                             <td style="width:100px; padding-left:10px;">
-//                                 <div class="tooltip1"><span class="">$${numberWithCommas(saltable[z]['salmargin'].toFixed(2))}</span><span class="toolmargin">Margin</span></div>
-//                             </td>
-//                             <td style="width:60px; padding-left:10px;">
-//                                 <div class="tooltip1"><span class="">${sal_percentage.toFixed(2)}%</span><span class="toolpercentage">Percentage</span></div>
-//                             </td>
-//                         </tr>
-//                        </tbody>
-// 				</table>
+                        if (salestype == "FLAT") 
+                        {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper);
+                        }
+                        if (salestype == "PERCENTAGE") 
+                        {
+                            var saleincent = parseFloat(saltotal_rate - salloadertotal) * parseFloat(salesrarr[salesindexdata].salesflatper) / 100;
+                        }
+
+                        salcust_tablepre[salindex] = { "name": salname, "incentive": salcust_tablepre[salindex]['incentive'] + saleincent, "total": parseFloat(salcust_tablepre[salindex]['total'] + saltotal_rate), "id": salcust_index, 'salesr': salesdata[salcust_index].salesRep != "" ? salesdata[salcust_index].salesRep : "Other" };
+
+                    }
+                }
+            }
+
+            var saltable = [];
+            var holder = {};
+            var d = 0;
+            for (var g = 0; g < salcust_table.length; g++) 
+            {
+                var sal_name = salcust_table[g].salesr;
+                var sal_incentive = isNaN(salcust_table[g].incentive) == true ? 0 : salcust_table[g].incentive;
+                var sal_rev = isNaN(salcust_table[g].total) == true ? 0 : salcust_table[g].total;
+                var sal_total_loads = salcust_table[g].loads;
+                var sal_margin = isNaN(salcust_table[g].Margin) == true ? 0 : salcust_table[g].Margin;
+                var sal_index = "";
+
+                //----------Check Customer Empty Start-----------------------
+                if (typeof (sal_name) != "object") 
+                {
+                    if (sal_name != "") 
+                    {
+                        sal_index = sal_name.trim().toString();
+                    } 
+                    else 
+                    {
+                        sal_index = "Other";
+                    }
+                } 
+                else 
+                {
+                    sal_index = "Other";
+                }
+                //----------Check Customer Empty Start-----------------------
+
+                if (!holder.hasOwnProperty(sal_index)) 
+                {
+                    holder[sal_index] = d;
+                    d++;
+                    var salind = 0;
+                    salind = holder[sal_index];
+                    if (saldispatcher[sal_index] == undefined) 
+                    {
+                        salrename = "Other";
+                    } 
+                    else 
+                    {
+                        salrename = saldispatcher[sal_index];
+                    }
+                    saltable[salind] = { "salname": salrename, "insantive": sal_incentive, "salmargin": sal_margin, "salrev": sal_rev, "loads": sal_total_loads, "sald": sal_index };
+
+
+                } 
+                else 
+                {
+
+                    var salind = 0;
+                    salind = holder[sal_index];
+                    if (saldispatcher[sal_index] == undefined) 
+                    {
+                        salrename = "Other";
+                    }
+                    else 
+                    {
+                        salrename = saldispatcher[sal_index];
+                    }
+                    saltable[salind] = { "salname": salrename, "insantive": parseFloat(saltable[salind]['insantive'] + sal_incentive), "salmargin": parseFloat(saltable[salind]['salmargin'] + sal_margin), "salrev": parseFloat(saltable[salind]['salrev'] + sal_rev), "loads": parseFloat(saltable[salind]['loads'] + sal_total_loads), "sald": sal_index };
+                }
+            }
+            saltable.sort(sortByProperty("insantive"));
+            //for curr
+            for (var f of salcust_table) 
+            {
+                if (newArray[f.salesr]) 
+                {
+                    newArray[f.salesr].push(f)
+                } 
+                else 
+                {
+                    newArray[f.salesr] = [f]
+                }
+            }
+
+            //for prev
+            for (var x of salcust_tablepre) 
+            {
+                if (newArrayprev[x.salesr]) 
+                {
+                    newArrayprev[x.salesr].push(x)
+                } 
+                else 
+                {
+                    newArrayprev[x.salesr] = [x]
+                }
+            }
+
+            // var salrepn = saltable[1] == undefined ? saltable[0] == undefined ? "NA" : saltable[0]['sald'] : saltable[1]['sald'];
+
+            var salrepn = saltable[0] == undefined ? "NA" : saltable[0]['sald'];
+
+            barchartSales(newArray, newArrayprev, salrepn);
+
+
+            var salre_table = Object.keys(saltable).length;
+            var saldashtable = '';
+
+            $("#sales_name").html(saltable[0] == undefined ? "NA" : saltable[0]['salname']);
+            $("#sales_name_prv").html(saltable[0] == undefined ? "NA" : saltable[0]['salname']);
+
+            var y = 1;
+            for (var z = 0; z < salre_table; z++) 
+            {
+                var sal_percentage = saltable[z]['salmargin'] * 100 / saltable[z]['salrev'];
+                saldashtable += `<li id='bgshadow'  class='noactive' onclick='barchartSales(${JSON.stringify(newArray).replace(/'/g, "&apos;")},${JSON.stringify(newArrayprev).replace(/'/g, "&apos;")},"${saltable[z]['sald']}","${saltable[z]['salname']}")'>
+                <table>
+                        <tbody>
+                           <tr>
+                            <td rowspan="2">
+                                <div class="graphic" >${y}</div>
+                            </td>
+                            <td style="width:170px; padding-left:10px;">
+                                <span class="header">${saltable[z]['salname']}</span>
+                            </td>
+                            <td style="width:100px; padding-left:10px;">
+                                <div class="tooltip1"><span class="header">${numberWithCommas(saltable[z]['insantive'].toFixed(2))}</span><span class="toolInsantive">Commison</span></div>
+                            </td>
+                            <td style="width:60px; padding-left:10px;">
+                                <div class="tooltip1"><span class="stat"><i class="mdi mdi-truck truckicon-loads"></i>&nbsp;${saltable[z]['loads']}</span><span class="toolloads">Loads</span></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:170px; padding-left:10px;">
+                                <div class="tooltip1"><span class="">$${numberWithCommas(saltable[z]['salrev'].toFixed(2))}</span><span class="toolrevenue">Revenue</span></div>
+                            </td>
+                            <td style="width:100px; padding-left:10px;">
+                                <div class="tooltip1"><span class="">$${numberWithCommas(saltable[z]['salmargin'].toFixed(2))}</span><span class="toolmargin">Margin</span></div>
+                            </td>
+                            <td style="width:60px; padding-left:10px;">
+                                <div class="tooltip1"><span class="">${sal_percentage.toFixed(2)}%</span><span class="toolpercentage">Percentage</span></div>
+                            </td>
+                        </tr>
+                       </tbody>
+				</table>
                     
-//                 </li>`;
-//                 y++;
-//             }
-//             $("#dashtable").html(saldashtable);
-
-
-
-//         }
-//     })
-//     .fail(function (jqXHR, textStatus, errorThrown) {
-//         // Request failed. Show error message to user. 
-//         // errorThrown has error message.
-//       //  console.log(jqXHR, textStatus, errorThrown);
-//         swal(request.responseText,'', 'error');
-//     });
-// }
+                </li>`;
+                y++;
+            }
+            $("#dashtable").html(saldashtable);
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+      //  console.log(jqXHR, textStatus, errorThrown);
+        swal(request.responseText,'', 'error');
+    });
+}
 // //-----------------Function for get salesrep Data End----------------------
 
 
 // //------------------Function for Company Data--------------------
-// function companydashdata() {
-//     var data = {
-//         companyId: companyId,
-//         privilege: privilege,
-//     };
-//     $.ajax({
-//         url: "./Master.php",
-//         data: {
-//             main: "dashboard",
-//             sub: "companydata",
-//             data: data
-//         },
-//         method: "POST",
-//         dataType: 'html',
-//         success: function (response) {
-//             var comdata = JSON.parse(response);
+function companydashdata() {
+    $.ajax({
+        type: "GET",
+        url: base_path+"/dashboard-companydataData",
+        async: false,
+        success: function (response) {
+            var comdata = JSON.parse(response);
 
-//             var piearr = [["Driver", comdata[0]['companyamountpie'][0].driver],
-//             ["Carrier", comdata[0]['companyamountpie'][0].carrier],
-//             ["Factoring", comdata[0]['companyamountpie'][0].factoringcompany],
-//             ["Expense", comdata[0]['companyamountpie'][0].Expense],
-//             ["Maintenance", comdata[0]['companyamountpie'][0].Maintenance],
-//             ["Insurance", comdata[0]['companyamountpie'][0].Insurance],
-//             ["Other", comdata[0]['companyamountpie'][0].Other],
-//             ["Loan", comdata[0]['companyamountpie'][0].loan],
-//             ["Credit Card", comdata[0]['companyamountpie'][0].creditcard],
-//             ["Fuel Card", comdata[0]['companyamountpie'][0].fuelcard]
-//             ]
-//             bankreceipttotal = Math.round(comdata[0]['totalcreditamount'], 2);
-//             var bankoutstanding = parseFloat(currentamounttotal) - parseFloat(bankreceipttotal);
+            var piearr = [["Driver", comdata[0]['companyamountpie'][0].driver],
+            ["Carrier", comdata[0]['companyamountpie'][0].carrier],
+            ["Factoring", comdata[0]['companyamountpie'][0].factoringcompany],
+            ["Expense", comdata[0]['companyamountpie'][0].Expense],
+            ["Maintenance", comdata[0]['companyamountpie'][0].Maintenance],
+            ["Insurance", comdata[0]['companyamountpie'][0].Insurance],
+            ["Other", comdata[0]['companyamountpie'][0].Other],
+            ["Loan", comdata[0]['companyamountpie'][0].loan],
+            ["Credit Card", comdata[0]['companyamountpie'][0].creditcard],
+            ["Fuel Card", comdata[0]['companyamountpie'][0].fuelcard]
+            ]
+            bankreceipttotal = Math.round(comdata[0]['totalcreditamount'], 2);
+            var bankoutstanding = parseFloat(currentamounttotal) - parseFloat(bankreceipttotal);
 
 
-//             Highcharts.chart('donutdashcompany', {
-//                 chart: {
-//                     type: 'pie',
-//                     backgroundColor: daytheme,
-//                     options3d: {
-//                         enabled: true,
-//                         alpha: 45
-//                     }
-//                 },
-//                 title: {
-//                     text: ''
-//                 },
-//                 subtitle: {
-//                     text: ''
-//                 },
-//                 plotOptions: {
-//                     pie: {
-//                         innerSize: 100,
-//                         depth: 45
-//                     }
-//                 },
-//                 series: [{
-//                     name: 'Cashflow',
-//                     color: daycolor,
-//                     data: [
-//                         ['Receipt', bankreceipttotal],
-//                         ['Outstanding', bankoutstanding]
-//                     ]
-//                 }]
-//             });
+            Highcharts.chart('donutdashcompany', {
+                chart: {
+                    type: 'pie',
+                    backgroundColor: daytheme,
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
+                },
+                series: [{
+                    name: 'Cashflow',
+                    color: daycolor,
+                    data: [
+                        ['Receipt', bankreceipttotal],
+                        ['Outstanding', bankoutstanding]
+                    ]
+                }]
+            });
 
-//             //-------------Company Donut Chart End-------------
+            //-------------Company Donut Chart End-------------
 
 
-//             Highcharts.chart('piedashcompany', {
-//                 chart: {
-//                     type: 'pie',
-//                     backgroundColor: daytheme,
-//                     options3d: {
-//                         enabled: true,
-//                         alpha: 45,
-//                         beta: 0
-//                     }
-//                 },
-//                 title: {
-//                     text: ''
-//                 },
-//                 plotOptions: {
-//                     pie: {
-//                         allowPointSelect: true,
-//                         cursor: 'pointer',
-//                         depth: 35,
-//                         dataLabels: {
-//                             color: daycolor,
-//                             enabled: true,
-//                             format: '{point.name}'
-//                         }
-//                     }
-//                 },
-//                 series: [{
-//                     type: 'pie',
-//                     name: 'Expense',
-//                     data: piearr
-//                 }]
-//             });
-//             //-------------Company Pie Chart End-------------
+            Highcharts.chart('piedashcompany', {
+                chart: {
+                    type: 'pie',
+                    backgroundColor: daytheme,
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            color: daycolor,
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Expense',
+                    data: piearr
+                }]
+            });
+            //-------------Company Pie Chart End-------------
 
-//         }
-//     })
-//     .fail(function (jqXHR, textStatus, errorThrown) {
-//         // Request failed. Show error message to user. 
-//         // errorThrown has error message.
-//         //console.log(jqXHR, textStatus, errorThrown);
-//         swal(request.responseText,'', 'error');
-//     });
-// }
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        // Request failed. Show error message to user. 
+        // errorThrown has error message.
+        //console.log(jqXHR, textStatus, errorThrown);
+        swal(request.responseText,'', 'error');
+    });
+}
 
 
 //----------------------Function for get category wise Data Start------------------
@@ -4226,11 +4308,12 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
                     var nerdrvpaybal = estarr[lastindex].alldrivertable[b].driverBalance;
                     totalnetdrp += (nerdrvpaybal) + (calfinalrecurrdata);
                 }
+                // console.log(typeof (parseInt(totalnetdrp)));
                 var totalrecurramount = (recurradd) - (recurrsub) - (oorecurrsub);
                 var finalestdrv = Math.sign(totalrecurramount) == -1 ? parseFloat(final_drtotal - Math.abs(totalrecurramount)) : parseFloat(final_drtotal + totalrecurramount);
-                var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)))) + ")" : abbreviateNumber(parseFloat(totalnetdrp.toFixed(2)));
+                var findatadrv = Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(abbreviateNumber(parseFloat(parseInt(totalnetdrp).toFixed(2)))) + ")" : abbreviateNumber(parseFloat(parseInt(totalnetdrp).toFixed(2)));
 
-                $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(totalnetdrp.toFixed(2)) + ")" : parseFloat(totalnetdrp.toFixed(2))));
+                $("#toolestdrvpay").html("$" + numberWithCommas(Math.sign(parseFloat(totalnetdrp)) == -1 ? "(" + Math.abs(parseInt(totalnetdrp).toFixed(2)) + ")" : parseFloat(parseInt(totalnetdrp).toFixed(2))));
                 $("#estdrvpay").html("$" + findatadrv);
                 
 
@@ -4242,7 +4325,7 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
             }
 
             $("#estdp").html("Estimated Driver Pay");
-            $("#driveredp").css("display", "none");
+            // $("#driveredp").css("display", "none");
         }
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
@@ -4261,51 +4344,51 @@ function dashGraphBarLine(curloads, preloads, curramount, prevamount) {
 
 
 //-------------------Bar Graph Start------------------
-//     const chart = new Highcharts.Chart({
-//     chart: {
-//         renderTo: 'bar-chart',
-//         backgroundColor: daytheme,
-//         type: 'column',
-//         options3d: {
-//             enabled: true,
-//             alpha: 0,
-//             beta: 0,
-//             depth: 100,
-//             viewDistance: 25
-//         }
-//     },
-//     title: {
-//         text: ''
-//     },
+    const chart = new Highcharts.Chart({
+    chart: {
+        renderTo: 'bar-chart',
+        backgroundColor: daytheme,
+        type: 'column',
+        options3d: {
+            enabled: true,
+            alpha: 0,
+            beta: 0,
+            depth: 100,
+            viewDistance: 25
+        }
+    },
+    title: {
+        text: ''
+    },
     
-//     plotOptions: {
-//         column: {
-//             depth: 25
-//         }
-//     },
-//     tooltip : {
-//         valueSuffix: ' Loads',
-//     },
-//     series: [{
-//         name: 'Current Month ', data: curloads
-//     },{
-//         name: 'Previous Month', data: preloads
-//     }],
-//     xAxis: {
-//             title: {
-//                 text: 'Number Of Days'
-//             },
-//             categories: [1,2,3],
-//             tickInterval: 1,
-//         },
-//     yAxis: {
-//             title: {
-//                 text: 'Number Of Loads'
-//             },
-//             tickInterval: 1
-//         },
-//         colors: ['#5C1AC3', '#FFBB44']
-// });
+    plotOptions: {
+        column: {
+            depth: 25
+        }
+    },
+    tooltip : {
+        valueSuffix: ' Loads',
+    },
+    series: [{
+        name: 'Current Month ', data: curloads
+    },{
+        name: 'Previous Month', data: preloads
+    }],
+    xAxis: {
+            title: {
+                text: 'Number Of Days'
+            },
+            categories: [1,2,3],
+            tickInterval: 1,
+        },
+    yAxis: {
+            title: {
+                text: 'Number Of Loads'
+            },
+            tickInterval: 1
+        },
+        colors: ['#5C1AC3', '#FFBB44']
+});
 
 function showValues() {
     // document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
@@ -4380,36 +4463,36 @@ $(".highcharts-credits").empty();
 
 
 //---------------------------Pandding Table Start----------------------------------
-// function panddingAmount() {
+function panddingAmount() {
             
-//             var panddingarsize = pandingAmounArr.length;
-//             var panddingTable = '';
-//             var pdt = 1;
-//             var totalPanddingAmount = 0;
-//             for (var fd = 0; fd < panddingarsize; fd++) {
+            var panddingarsize = pandingAmounArr.length;
+            var panddingTable = '';
+            var pdt = 1;
+            var totalPanddingAmount = 0;
+            for (var fd = 0; fd < panddingarsize; fd++) {
 
-//                 panddingTable += `<tr>
-//                     <td class = "first-row">${pdt}</td>
-//                     <td>${pandingAmounArr[fd].InvoiceNo}</td>
-//                     <td>${pandingAmounArr[fd].customer}</td>
-//                     <td>${convertTimeZone(pandingAmounArr[fd].invoicetime,'date')}</td>
-//                     <td>$${numberWithCommas(parseFloat(pandingAmounArr[fd].rate).toFixed(2))}</td>
-//                     <td>${pandingAmounArr[fd].note}</td>
-//                 </tr>`;
-//                 totalPanddingAmount += parseFloat(pandingAmounArr[fd].rate);
+                panddingTable += `<tr>
+                    <td class = "first-row">${pdt}</td>
+                    <td>${pandingAmounArr[fd].InvoiceNo}</td>
+                    <td>${pandingAmounArr[fd].customer}</td>
+                    <td>${convertTimeZone(pandingAmounArr[fd].invoicetime,'date')}</td>
+                    <td>$${numberWithCommas(parseFloat(pandingAmounArr[fd].rate).toFixed(2))}</td>
+                    <td>${pandingAmounArr[fd].note}</td>
+                </tr>`;
+                totalPanddingAmount += parseFloat(pandingAmounArr[fd].rate);
 
-//                 pdt++;
+                pdt++;
 
-//             }
+            }
 
-//             $('#penddingAmountdata').html(panddingTable);
-//             $('#penddingAmountTotal').html('$' + numberWithCommas(parseFloat(totalPanddingAmount).toFixed(2)));
-// }
+            $('#penddingAmountdata').html(panddingTable);
+            $('#penddingAmountTotal').html('$' + numberWithCommas(parseFloat(totalPanddingAmount).toFixed(2)));
+}
 //---------------------------Pandding Table End----------------------------------
 
 
 //----------------------function for date wise dashboard data---------------------
 
-// function dateWiseDashData(dashvaluedatewise) {
-//     prepairDashBoardData(dashvaluedatewise);
-// }
+function dateWiseDashData(dashvaluedatewise) {
+    prepairDashBoardData(dashvaluedatewise);
+}

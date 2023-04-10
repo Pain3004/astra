@@ -16,8 +16,11 @@ use App\Models\Truck_type;
 use App\Models\TrailerAdminAdd;
 use App\Models\Equipment_add;
 use App\Models\FuelReceipt;
+use App\Models\Customer;
+use App\Models\FuelVendor;
 use App\Models\PaymentBank;
 use  App\Models\CreditCard;
+use  App\Models\CreditCardAdmin;
 use App\Models\FuelCard;
 use App\Models\Driver;
 use App\Models\Invoiced;
@@ -29,7 +32,11 @@ use App\Models\OnRoute;
 use App\Models\ArrivedConsignee;
 use App\Models\Delivered;
 use App\Models\BreakDown;
+use App\Models\Bank;
 use App\Models\Paid;
+use App\Models\dispatcherincentive;
+use App\Models\salesrepincentive;
+use App\Models\Ifta;
 use DB;
 class DashboardController extends Controller
 {
@@ -486,10 +493,12 @@ class DashboardController extends Controller
         $daterangeto = strtotime($request->daterangeto." 23:59:59");
         $print_date_load = date('m/d/Y',$daterangefrom)." TO ".date('m/d/Y',$daterangeto);
         $compID = (int)Auth::user()->companyID;
+        // dd($print_date_load);
 
         //---------------------------------Admin Truck Data-------------------------------------------
         $truckType = array();
         $truck = Truckadd::raw()->find(['companyID' =>$compID]);
+        // print_r($truck);
         foreach ($truck as $truckArr) 
         {
             $load_truck = $truckArr['truck'];
@@ -963,5 +972,457 @@ class DashboardController extends Controller
         echo json_encode($statementobj);
         
     }
+    function profitloss(Request $request) 
+    {
+        $companyID=(int)Auth::user()->companyID;
+        $collection = Invoiced::raw();
+        $j = 0;
+        $total = 0;
+        $total_customerpay = 0;
+        $pandingPay_amount = array();
+        $currentDate = strtotime(date('Y-m-d')." 23:59:59");
+        $data = $collection->find(['companyID' => $companyID]);
+        foreach($data as $row)
+        {
+            $loads = $row['load'];
+            foreach($loads as $l)
+            {
+                if(array_key_exists("receivedate", $l))
+                {
+                    if(empty($l['receivedate']))
+                    {  
+                        $date_diff = $currentDate - (int)$l['status_Invoiced_time'];
+                        $total_days = floor((int)$date_diff / (60 * 60 * 24));
+                        if ($total_days >= 90) 
+                        {
+                            $pandingPay_amount[] = array("invoicetime" => $l['status_Invoiced_time'],"InvoiceNo" => $l['_id'],"customer" => $l['loaddata']['customername'],"rate" => $l['total_rate'],"note" => $l['load_notes']);
+                            $total_customerpay = (float)$l['total_rate'] + $total_customerpay;
+                        }
+        
+                        $total = (float)$l['total_rate'] + (float)$total;        
+                    }
+                }
+                else
+                {
+                    $date_diff = $currentDate - (int)$l['status_Invoiced_time'];
+                    $total_days = floor((int)$date_diff / (60 * 60 * 24));
+                    if ($total_days >= 90) 
+                    {
+                        $pandingPay_amount[] = array("invoicetime" => $l['status_Invoiced_time'],"InvoiceNo" => $l['_id'],"customer" => $l['loaddata']['customername'],"rate" => $l['total_rate'],"note" => $l['load_notes']);
+                        $total_customerpay = (float)$l['total_rate'] + $total_customerpay;
+                    } 
+                    $total = (float)$l['total_rate'] + (float)$total;           
+                }
+            }
+        }
+        $dataa = $collection->find(['companyID' => $companyID]);
+        $payablegrandtotal = 0;
+        foreach($dataa as $row)
+        {
+            $loads = $row['load'];
+            foreach($loads as $l)
+            {
+                if(array_key_exists("paiddate", $l))
+                {
+                    if(empty($l['paiddate']))
+                    {
+                        if(array_key_exists("invoice_received_date", $l))
+                        {
+                            if(!empty($l['invoice_received_date']))
+                            {
+                                if($l['typeofloader'] == "Carrier")
+                                {
+                                       
+                                    $payablegrandtotal = (float)$l['carrier_total'] + (float)$payablegrandtotal;
+                                        
+                                }
+                            }
+                        }
+                    }
+                }
+                else 
+                {     
+                    if(array_key_exists("invoice_received_date", $l))
+                    {
+                        if(!empty($l['invoice_received_date']))
+                        {
+                            if($l['typeofloader'] == "Carrier")
+                            {   
+                                $payablegrandtotal = (float)$l['carrier_total'] + (float)$payablegrandtotal;
+                            }
+                        }
+                    }     
+                }
+            }
+        }
+        $bankdata = Bank::raw()->aggregate([
+                ['$match' => ['companyID' => $companyID]],
+                ['$project' => ['admin_bank.bankName' => 1,'admin_bank.accountHolder' => 1,'admin_bank.currentBalance' => 1,
+                'bankcurrentbalance' => ['$sum' => '$admin_bank.currentBalance']]]
+            ]);
+        
+        $creditdata = CreditCardAdmin::raw()->aggregate([
+                ['$match' => ['companyID' => $companyID]],
+                ['$project' => ['admin_credit.displayName' => 1,'admin_credit.currentBalance' => 1,
+                'creditcurrentbalance' => ['$sum' => '$admin_credit.currentBalance']]]
+            ]);
+        
+        $fueldata = FuelVendor::raw()->aggregate([
+                ['$match' => ['companyID' => $companyID]],
+                ['$project' => ['fuelCard.fuelCardType' => 1,'fuelCard.currentBalance' => 1]]
+            ]);
+        $profitlossobj = array();
+        $bankdataobj = array();
+        $creditdataobj = array();
+        $fueldataobj = array();
+        foreach ($bankdata as $b) 
+        {
+            $bankdataobj[] = $b;
+        }
+        foreach ($creditdata as $c)
+        {
+            $creditdataobj[] = $c;
+        }
+        foreach ($fueldata as $f)
+        {
+            $fueldataobj[] = $f;
+        }
+        $profitlossobj[] = array('bankdata' => $bankdataobj,'creditdata' => $creditdataobj,'fueldata' => $fueldataobj,'loaddata' => $total,'payable' => $payablegrandtotal,'pendingcustomeramount' => $total_customerpay, "pendingpaymentobj" => $pandingPay_amount);
+        echo json_encode($profitlossobj);
+    }
+    function driverdata(Request $request) 
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $collection = Driver::raw();
+        $driverdata = $collection->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['driver._id' => 1,'driver.driverName'=>1,'driver.ownerID'=>1,'driver.ownerOperatorStatus'=>1]]
+        ]);
 
+        $drname = array();
+        foreach ($driverdata as $drdata) 
+        {
+            $dr_arr = $drdata['driver'];
+            foreach ($dr_arr as $drd) 
+            {
+                $drname[] = $drd;
+            }
+        }
+        echo json_encode($drname);
+    }
+
+    function salesData(Request $request) 
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $collection = Customer::raw();
+        $custdata = $collection->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['customer._id' => 1,'customer.custName'=>1,'customer.salesRep' => 1]]
+        ]);
+        $custobj = array();
+        foreach ($custdata as $custarr) 
+        {
+            $docperentid = $custarr['_id'];
+            $cust_arr = $custarr['customer'];
+            foreach ($cust_arr as $cusarrd) 
+            {
+                $custobj[$docperentid."-".$cusarrd['_id']] = $cusarrd;
+            }
+        }
+        echo json_encode($custobj);
+    }
+
+    function getDispatcherInsdata(Request $request) 
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $collection = dispatcherincentive::raw();
+        $dispdata = $collection->aggregate([
+            ['$match' => ['companyID' => $companyID]]
+        ]);
+        $disparrobj = array();
+        foreach ($dispdata as $dpp) 
+        {
+            $dispatcher_incentive = $dpp['dispatcherincentive'];
+            foreach ($dispatcher_incentive as $dis) 
+            {
+                $disparrobj[$dis['dispatcherid']] = $dis;
+            }
+        }
+        $collection = salesrepincentive::raw();
+        $saledata = $collection->aggregate([
+            ['$match' => ['companyID' => $companyID]]
+        ]);
+
+        $salearrobj = array();
+        foreach ($saledata as $spp) 
+        {
+            $sales_incentive = $spp['salesrepincentive'];
+            foreach ($sales_incentive as $sis) 
+            {
+                    $salearrobj[$sis['salesid']] = $sis;
+            }
+        }
+        $dissalmainobj[] = array("dispatcharr" => $disparrobj,"salesrarr" => $salearrobj);
+        echo json_encode($dissalmainobj);
+    }
+    function truckmap(Request $request) 
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $curryear = date('Y'); 
+        $currQuarter = ceil(date("n") / 3);
+        $collection = Truckadd::raw();
+        $truckdata = $collection->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['truck._id' => 1,'truck.truckNumber'=>1]]
+        ]);
+        $truckNumber = array();
+        foreach ($truckdata as $trdata) 
+        {
+            $trarr = $trdata['truck'];
+            foreach ($trarr as $trd) 
+            {
+                $truckid = $trd['_id'];
+                $truckNumber[] = $trd['truckNumber'];
+            }
+        }
+        $show = Ifta::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID,'year' => "$curryear",'quarter' => "$currQuarter"]],
+            ['$project' => ['_id' => 0,'companyID' => 0,'counter' => 0,'year' => 0,'quarter' => 0]]
+        ]);
+        
+        $individual_state = array("Alabama" => "", "Alaska" => "","Arizona" => "", "Arkansas" => "","California" => "", "Colorado" => "","Connecticut" => "", "Delaware" => "","Dist. Of Columbia" => "","Florida" => "", "Georgia" => "","Hawaii" => "", 
+                                        "Idaho" => "","Illinois" => "", "Indiana" => "","Iowa" => "", "Kansas" => "","Kentucky" => "", "Louisiana" => "","Maine" => "", "Maryland" => "","Massachusetts" => "", "Michigan" => "","Minnesota" => "", 
+                                        "Mississippi" => "","Missouri" => "", "Montana" => "","Nebraska" => "", "Nevada" => "","New Hampshire" => "", "New Jersey" => "","New Mexico" => "", "New York" => "","North Carolina" => "", "North Dakota" => "","Ohio" => "", 
+                                        "Oklahoma" => "","Oregon" => "", "Pennsylvania" => "","Rhode Island" => "","South Carolina" => "","South Dakota" => "","Tennessee" => "","Texas" => "","Utah" => "","Vermont" => "","Virginia" => "","Washington" => "","West Virginia" => "", 
+                                        "Wisconsin" => "", "Wyoming" => "");
+        
+        $individual_state_milesum = array("Alabama" => 0, "Alaska" => 0,"Arizona" => 0, "Arkansas" => 0,"California" => 0, "Colorado" => 0,"Connecticut" => 0, "Delaware" => 0,"Dist. Of Columbia" => 0,"Florida" => 0, "Georgia" => 0,"Hawaii" => 0, 
+                                                "Idaho" => 0,"Illinois" => 0, "Indiana" => 0,"Iowa" => 0, "Kansas" => 0,"Kentucky" => 0, "Louisiana" => 0,"Maine" => 0, "Maryland" => 0,"Massachusetts" => 0, "Michigan" => 0,"Minnesota" => 0, 
+                                                "Mississippi" => 0,"Missouri" => 0, "Montana" => 0,"Nebraska" => 0, "Nevada" => 0,"New Hampshire" => 0, "New Jersey" => 0,"New Mexico" => 0, "New York" => 0,"North Carolina" => 0, "North Dakota" => 0,"Ohio" => 0, 
+                                                "Oklahoma" => 0,"Oregon" => 0, "Pennsylvania" => 0,"Rhode Island" => 0,"South Carolina" => 0,"South Dakota" => 0,"Tennessee" => 0,"Texas" => 0,"Utah" => 0,"Vermont" => 0,"Virginia" => 0,"Washington" => 0,"West Virginia" => 0, 
+                                                "Wisconsin" => 0, "Wyoming" => 0);                            
+        
+            
+        $state = array("Alaska" => "AK", "Alabama" => "AL","Arkansas" => "AR","Arizona" => "AZ","California" => "CA",
+                            "Colorado" => "CO", "Connecticut" => "CT","Delaware" => "DE","Florida" => "FL",
+                            "Georgia" => "GA", "Hawaii" => "HI","Iowa" => "IA","Idaho" => "ID","Illinois" => "IL","Indiana" => "IN",
+                            "Kansas" => "KS", "Kentucky" => "KY","Louisiana" => "LA","Massachusetts" => "MA","Maryland" => "MD",
+                            "Maine" => "ME", "Michigan" => "MI", "Minnesota" => "MN","Missouri" => "MO","Mississippi" => "MS",
+                            "Montana" => "MT","North Carolina" => "NC","North Dakota" => "ND","Nebraska" => "NE","New Hampshire" => "NH",
+                            "New Jersey" => "NJ","New Mexico" => "NM","Nevada" => "NV","New York" => "NY","Ohio" => "OH",
+                            "Oklahoma" => "OK","Oregon" => "OR","Pennsylvania" => "PA","Rhode Island" => "RI","South Carolina" => "SC",
+                            "South Dakota" => "SD","Tennessee" => "TN","Texas" => "TX","Utah" => "UT","Virginia" => "VA",
+                            "Vermont" => "VT","Washington" => "WA","Wisconsin" => "WI","West Virginia" => "WV","Wyoming" => "WY");
+        $statedata = array();
+        $truckstate = array();
+        
+        foreach ($show as $s) 
+        {
+            for ($p = 0; $p < sizeof($truckNumber); $p++) 
+            {
+                if (array_key_exists($truckNumber[$p],$s)) 
+                {
+                    foreach($s[$truckNumber[$p]] as $td) 
+                    {
+                        foreach($td['mileage'] as $trmile) 
+                        {
+                            $individual_state[$trmile['state']] .= $truckNumber[$p].":".$trmile['mi'].",";
+                            $individual_state_milesum[$trmile['state']] += (int)$trmile['mi'];
+                        }
+                    }
+                }    
+            }
+        }
+        $maintruck = array("individualstate" => $individual_state,"individual_state_milesum" => $individual_state_milesum);
+        echo json_encode($maintruck);
+    }
+    function companydataData(Request $request)
+    {
+        $companyID = (int)Auth::user()->companyID;
+        $curryear = date("Y");
+        $currmonth = date("F");
+    
+        //-----------------------Query For Bank Category Amount Total (payment_bank) Start--------------------------------------
+        $showbank = PaymentBank::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID,'year' => "$curryear"]],
+            ['$unwind' => '$'.$currmonth],
+            ['$match' => [$currmonth.'.paymenttype' => "credit"]],
+            ['$group' => ['_id' => null, 'totalamount' => ['$sum' => ['$toDouble' => '$'.$currmonth.'.amount']]]],
+            ['$project' => ['_id' => 0]]
+        ]);
+        //----------------------------Query For Bank Category Amount Total (payment_bank) End-----------------------------------
+    
+    
+        //---------------------------Query For Bank Category cashback Amount Total (credit_card) Start--------------------------
+        $showcashback = CreditCard::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID,'year' => "$curryear"]],
+            ['$unwind' => '$'.$currmonth],
+            ['$match' => [$currmonth.'.payto' => "cashback"]],
+            ['$group' => ['_id' => null, 'totalcashback' => ['$sum' => ['$toDouble' => '$'.$currmonth.'.amount']]]],
+            ['$project' => ['_id' => 0]]
+        ]);
+        //---------------------------Query For Bank Category cashback Amount Total (credit_card) End----------------------------
+    
+        $showbankpie = PaymentBank::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID,'year' => "$curryear"]],
+            ['$group' => ['_id' => null, "$currmonth" => ['$push' => '$'.$currmonth]]],
+            ['$project' => ['_id' => 0,"$currmonth" => ['$reduce' => ['input' => '$'.$currmonth,'initialValue' => [],'in' => ['$concatArrays' =>['$$this','$$value']]]]]],
+            ['$project' => [$currmonth.".payto" => 1,"$currmonth.amount" => 1]],
+            ['$unwind' => '$'.$currmonth],
+            ['$match' => [$currmonth.'.payto' => ['$ne' => 'Receipt']]]
+        ],['allowDiskUse' => true]);
+    
+        $showcreditpie = CreditCard::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID,'year' => "$curryear"]],
+            ['$group' => ['_id' => null,"$currmonth" => ['$push' => '$'.$currmonth]]],
+            ['$project' => ['_id' => 0,"$currmonth" => ['$reduce' => ['input' => '$'.$currmonth,'initialValue' => [],'in' => ['$concatArrays' =>['$$this','$$value']]]]]],
+            ['$project' => [$currmonth.".payto" => 1,$currmonth.".amount" => 1]],
+            ['$unwind' => '$'.$currmonth]
+        ],['allowDiskUse' => true]);
+        
+        $showfuelpie = $db->fuelcard->aggregate([
+            ['$match' => ['companyID' => $companyID,'year' => "$curryear"]],
+            ['$group' => ['_id' => null,"$currmonth" => ['$push' => '$'.$currmonth]]],
+            ['$project' => ['_id' => 0,"$currmonth" => ['$reduce' => ['input' => '$'.$currmonth,'initialValue' => [],'in' => ['$concatArrays' =>['$$this','$$value']]]]]],
+            ['$project' => [$currmonth.".payto" => 1,$currmonth.".amount" => 1]],
+            ['$unwind' => '$'.$currmonth]
+        ],['allowDiskUse' => true]);
+        $totalcashback = 0;
+        $totalamount = 0;
+        $totalcreditamount = 0;
+        $bankdrivertotal = 0;
+        $bankcarriertotal = 0;
+        $bankfactoringtotal = 0;
+        $bankExpensetotal = 0;
+        $bankMaintenancetotal = 0;
+        $bankInsurancetotal = 0;
+        $bankOthertotal = 0;
+        $bankcreditcardtotal = 0;
+        $bankfuelcardtotal = 0;
+        $bankloantotal = 0;
+        $creditExpensetotal = 0;
+        $creditMaintenancetotal = 0;
+        $creditInsurancetotal = 0;
+        $creditOthertotal = 0;
+        $creditfuelcardtotal = 0;
+        $fueldrivertotal = 0;
+        $fuelcarriertotal = 0;
+        $fuelExpensetotal = 0;
+        $fuelMaintenancetotal = 0;
+        $fuelOthertotal = 0;
+        $companybankpie = array();
+        $marr = array();
+    
+        foreach ($showfuelpie as $fuelpie) 
+        {
+            if ($fuelpie[$currmonth]['payto'] == "driver")
+            {
+                $fueldrivertotal += (float)$fuelpie[$currmonth]['amount'];
+            } 
+            else if ($fuelpie[$currmonth]['payto'] == "carrier") 
+            {
+                $fuelcarriertotal += (float)$fuelpie[$currmonth]['amount'];
+            } 
+            else if ($fuelpie[$currmonth]['payto'] == "Expense") 
+            {
+                $fuelExpensetotal += (float)$fuelpie[$currmonth]['amount'];
+            } else if ($fuelpie[$currmonth]['payto'] == "Maintenance") {
+                $fuelMaintenancetotal += (float)$fuelpie[$currmonth]['amount'];
+            }
+            else if ($fuelpie[$currmonth]['payto'] == "other") 
+            {
+                $fuelOthertotal += (float)$fuelpie[$currmonth]['amount'];
+            }
+        }
+    
+        foreach ($showcreditpie as $cpie) 
+        {
+            if ($cpie[$currmonth]['payto'] == "Expense") 
+            {
+                $creditExpensetotal += (float)$cpie[$currmonth]['amount'];
+            } 
+            else if ($cpie[$currmonth]['payto'] == "Maintenance") 
+            {
+                $creditMaintenancetotal += (float)$cpie[$currmonth]['amount'];
+            } 
+            else if ($cpie[$currmonth]['payto'] == "Insurance") 
+            {
+                $creditInsurancetotal += (float)$cpie[$currmonth]['amount'];
+            } 
+            else if ($cpie[$currmonth]['payto'] == "fuelcard") 
+            {
+                $creditfuelcardtotal += (float)$cpie[$currmonth]['amount'];
+            } 
+            else if ($cpie[$currmonth]['payto'] == "other") 
+            {
+                $creditOthertotal += (float)$cpie[$currmonth]['amount'];
+            }
+        }    
+        foreach ($showbankpie as $bpie) 
+        {
+            if ($bpie[$currmonth]['payto'] == "driver") 
+            {
+                $bankdrivertotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "carrier") 
+            {
+                $bankcarriertotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "factoringcompany") 
+            {
+                $bankfactoringtotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "Expense") 
+            {
+                $bankExpensetotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "Maintenance") 
+            {
+                $bankMaintenancetotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "Insurance") 
+            {
+                $bankInsurancetotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "other") 
+            {
+                $bankOthertotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "creditcard") 
+            {
+                $bankcreditcardtotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "fuelcard") 
+            {
+                $bankfuelcardtotal += (float)$bpie[$currmonth]['amount'];
+            } 
+            else if ($bpie[$currmonth]['payto'] == "loan") 
+            {
+                $bankloantotal += (float)$bpie[$currmonth]['amount'];
+            }
+        }
+        foreach ($showcashback as $cb) 
+        {
+            $totalcashback = $cb['totalcashback'];
+        }
+        foreach ($showbank as $sb) 
+        {
+            $totalamount = $sb['totalamount'];
+        }    
+        $totalcreditamount = $totalamount + $totalcashback;
+        $driver =  $bankdrivertotal + $fueldrivertotal;
+        $carrier =  $bankcarriertotal + $fuelcarriertotal;
+        $Expense = $bankExpensetotal + $creditExpensetotal + $fuelExpensetotal;
+        $Maintenance = $bankMaintenancetotal + $creditMaintenancetotal + $fuelMaintenancetotal;
+        $Insurance = $bankInsurancetotal + $creditInsurancetotal;
+        $Other = $bankOthertotal + $creditOthertotal + $fuelOthertotal;
+        $fuelcard = $bankfuelcardtotal + $creditfuelcardtotal;
+        $companybankpie[] = array("driver" => $driver,"carrier" => $carrier,"factoringcompany" => $bankfactoringtotal,
+                                  "Expense" => $Expense,"Maintenance" => $Maintenance,"Insurance" => $Insurance,
+                                  "Other" => $Other, "creditcard" => $bankcreditcardtotal,"fuelcard" => $fuelcard,"loan" => $bankloantotal);
+        $marr[] = array("companyamountpie" => $companybankpie,"totalcreditamount" => $totalcreditamount);
+        echo json_encode($marr);
+    
+    }
+    
 }
