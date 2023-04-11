@@ -2220,6 +2220,10 @@ function callPagination(arr1, main, sub, func, status)
 }
 
 //=============== end pagination====================================
-
-
+//driver
+$('.closeAddDriverModal').click(function(){
+    $("#addLoadBoardModal").css("z-index","100000000000");
+    $('#RecurrenceCategoryModal').modal('hide');
+    $('#addDriverModal').modal('hide');
+});
     

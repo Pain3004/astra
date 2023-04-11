@@ -684,7 +684,7 @@ class LoadBoardController extends Controller
         // $shipper_load_type=$unserializeData['shipperName'];
         // $shipper_name=explode('-',$shipper_load_type[1]);
         // dd($shipper_name[0]);
-        // dd($request);
+        // dd($request->typeofloader);
         // die;
         $obj_size=3500;
         $companyID=Auth::user()->companyID;
@@ -703,7 +703,7 @@ class LoadBoardController extends Controller
                     'shipper_name'=>(string)$shipper_name[0],
                     'shipper_address'=>(string)$unserializeData['shipperaddress'][$key],
                     'shipper_location'=>(string)$unserializeData['shipperLocation'][$key],
-                    'shipper_pickup'=>(boolean)strtotime($unserializeData['shipperdate'][$key]),
+                    'shipper_pickup'=>strtotime($unserializeData['shipperdate'][$key]),
                     'shipper_picktime'=>(string)$unserializeData['shippertime'][$key],
                     'shipper_load_type'=>(string)$unserializeData['loadType'][$key],
                     'shipper_commodity'=>(string)$unserializeData['shippercommodity'][$key],
@@ -714,11 +714,13 @@ class LoadBoardController extends Controller
                     'shipper_notes'=>(string)$unserializeData['shippernotes'][$key],
                     // 'shipperparent'=>(string)$unserializeData[''][$key],
                     'shipperparent'=>'0',
-                ]);        
+                ]); 
             }
         }else{
             $shipper=array();
         }
+        // print_r($shipper[0]['shipper_name']);
+
         //consignee
         $unserializeData1 = [];
         parse_str($request->data_consignee,$unserializeData1);
@@ -730,7 +732,7 @@ class LoadBoardController extends Controller
                     'consignee_name'=>(string)$consignee_name[0],
                     'consignee_address'=>(string)$unserializeData1['consigneeaddress'][$key],
                     'consignee_location'=>(string)$unserializeData1['activeconsignee'][$key],
-                    'consignee_pickup'=>(boolean)strtotime($unserializeData1['consigneepickdate'][$key]),
+                    'consignee_pickup'=>strtotime($unserializeData1['consigneepickdate'][$key]),
                     'consignee_picktime'=>(string)$unserializeData1['consigneepicktime'][$key],
                     'consignee_load_type'=>(string)$unserializeData1['ctl'][$key],
                     'consignee_commodity'=>(string)$unserializeData1['consigneecommodity'][$key],
@@ -871,8 +873,8 @@ class LoadBoardController extends Controller
                 'loadername'=>(string)$request->loadername,
                 'loadertruck'=>(string)$request->loadertruck,
                 'loadertrailer'=>(string)$request->loadertrailer,
-                'shippername'=>(string)'',
-                'consigneename'=>(string)'',
+                'shippername'=>(string)$request->shippername,
+                'consigneename'=>(string)$request->consigneename,
                 'loadertotal'=>(string)$request->loadertotal,
             ]),
             'company' => (string)$request->company,
@@ -888,9 +890,9 @@ class LoadBoardController extends Controller
             'fsc_percentage' =>(string) $request->fsc_percentage,
             'other_charges' =>(string)$request->other_charges,
             'other_charges_modal' => $other_charges_modal, //array
-            'total_rate' =>(string) $request->setTotalRate,
+            'total_rate' =>(double) $request->setTotalRate,
             'equipment_type' =>(string) $request->equipment_type,
-            'typeofloader' =>(string) $request->typeofLoader,
+            'typeofloader' =>$request->typeofloader,
             'carrier_name' =>(string) $request->carrier_name,
             'flat_rate' =>(double) $request->flat_rate,
             'isIfta'=> (string)$request->isIfta,
@@ -931,8 +933,8 @@ class LoadBoardController extends Controller
             'created_user' =>(int) Auth::User()->_id,
             'created_at' =>(int) strtotime(date('Y-m-d H:i:s')),
             'updated_at' =>(int) '',
-            'shipper_pickup' => (boolean)strtotime($unserializeData['shipperdate'][0]),
-            'consignee_pickup' => (boolean)strtotime($unserializeData1['consigneepickdate'][0]),
+            'shipper_pickup' => strtotime($unserializeData['shipperdate'][0]),
+            'consignee_pickup' => strtotime($unserializeData1['consigneepickdate'][0]),
             'status_BreakDown_time' =>(int)0 ,
             'status_Loaded_time' =>(int) 0,
             'status_ArrivedConsignee_time' =>(int) 0,

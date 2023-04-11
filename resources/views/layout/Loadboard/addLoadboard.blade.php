@@ -530,6 +530,7 @@
                           <div class="form-group col-md-2">
                             <label>Tarp</label>
                             <select class="form-control" id="driverTarpSelect">
+                              <option value="" disabled selected hidden>Select</option>
                               <option value="Yes">Yes</option>
                               <option value="No">No</option>
                             </select>
@@ -644,7 +645,7 @@
           </div>
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="submit" class="button-29" id="addLBSubmit">Submit</button>
+            <button type="submit" class="button-29" id="addLBSubmit"  onclick="addNewActiveLoad('Add')">Submit</button>
             <button type="button" class="button-29 closeAddNewLoadBoard">Close</button>
           </div>
         </div>

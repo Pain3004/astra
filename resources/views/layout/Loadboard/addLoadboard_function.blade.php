@@ -623,7 +623,7 @@ function getDriverTotal() {
             driverTotal += parseFloat(driver_other_charges.value);
         }
     } else {
-        swal({
+        swal.fire({
             title: 'Tarp is not added for selected driver.',
             type: 'warning',
             type: 'info',
@@ -1156,7 +1156,7 @@ function searchUser(value, id) {
                 }
             });
         } else {
-            swal('Please input alphanumeric characters only');
+            swal.fire('Please input alphanumeric characters only');
         }
     }
 }
@@ -1194,7 +1194,7 @@ function searchLoadtype(value, id) {
               }
             });
         } else {
-            swal('Please input alphanumeric characters only');
+          swal.fire('Please input alphanumeric characters only');
         }
     }
 }
@@ -1260,7 +1260,7 @@ function searchEquipmenttype(value, id) {
                 }
             });
         } else {
-            swal('Please input alphanumeric characters only');
+          swal.fire('Please input alphanumeric characters only');
         }
     }
 }
@@ -1295,7 +1295,7 @@ function searchCarrier(value, id) {
                 }
             });
         } else {
-            swal('Please input alphanumeric characters only');
+          swal.fire('Please input alphanumeric characters only');
         }
     }
 }
@@ -1349,67 +1349,7 @@ function getCarrier(value) {
     }
 }
 
-function emptyOther(type) {
-    if (type == "carrier") {
-        // document.getElementById('driverlist').value = "";
-        // document.getElementById('trucklist').value = "";
-        // document.getElementById('trailerlist').value = "";
-        // document.getElementById('loadedmile').value = "";
-        // document.getElementById('emptymile').value = "";
-        // document.getElementById('driverothercharges').value = "";
-        // document.getElementById('driverTarp').value = "";
-        // document.getElementById('driverflat').value = "";
-        // document.getElementById('driverTotal').value = "";
-        // document.getElementById('ownerlist').value = "";
-        // document.getElementById('ownerPercentage').value = "";
-        // document.getElementById('truck1list').value = "";
-        // document.getElementById('trailer1list').value = "";
-        // document.getElementById('ownerothercharges').value = "";
-        // document.getElementById('ownerTotal').value = "";
-        // driverotherDescription = [""];
-        // driverotherCharges = ["0"];
-        // ownerotherDescription = [""];
-        // ownerotherCharges = ["0"];
-    } else if (type == "driver") {
 
-        // document.getElementById('ownerlist').value = "";
-        // document.getElementById('ownerPercentage').value = "";
-        // document.getElementById('truck1list').value = "";
-        // document.getElementById('trailer1list').value = "";
-        // document.getElementById('ownerothercharges').value = "";
-        // document.getElementById('ownerTotal').value = "";
-        // document.getElementById('carrierlist').value = "";
-        // document.getElementById('carrierFlat').value = "";
-        // document.getElementById('carrierOther').value = "";
-        // document.getElementById('carrierTotal').value = "";
-        // document.getElementById('currencylist').value = "";
-        // carrierotherDescription = [""];
-        // carrierotherCharges = ["0"];
-        // carrierotherAdvances = ["0"];
-        // ownerotherDescription = [""];
-        // ownerotherCharges = ["0"];
-    } else if (type == "owner") {
-        // document.getElementById('driverlist').value = "";
-        // document.getElementById('trucklist').value = "";
-        // document.getElementById('trailerlist').value = "";
-        // document.getElementById('loadedmile').value = "";
-        // document.getElementById('emptymile').value = "";
-        // document.getElementById('driverothercharges').value = "";
-        // document.getElementById('driverTarp').value = "";
-        // document.getElementById('driverflat').value = "";
-        // document.getElementById('driverTotal').value = "";
-        // document.getElementById('carrierlist').value = "";
-        // document.getElementById('carrierFlat').value = "";
-        // document.getElementById('carrierOther').value = "";
-        // document.getElementById('carrierTotal').value = "";
-        // document.getElementById('currencylist').value = "";
-        // carrierotherDescription = [""];
-        // carrierotherCharges = ["0"];
-        // carrierotherAdvances = ["0"];
-        // driverotherDescription = [""];
-        // driverotherCharges = ["0"];
-    }
-}
 
 //driver
 function searchDriver(value, id) {
@@ -1726,7 +1666,7 @@ function searchTrailer(value, id) {
                 }
             });
         } else {
-            swal('Please input alphanumeric characters only');
+          swal.fire('Please input alphanumeric characters only');
         }
     }
 }
@@ -1768,5 +1708,71 @@ function getTrailer(value, id, TrailerId) {
       },
     });
   }
+}
+
+/////
+function emptyOther(type) {
+    if (type == "carrier") {
+        document.getElementById('LB_Driver').value = "";
+        document.getElementById('LB_Truck').value = "";
+        document.getElementById('LB_Trailer').value = "";
+        document.getElementById('lb_LoadedMiles').value = "";
+        document.getElementById('lb_EmptyMiles').value = "";
+        document.getElementById('lb_driver_Other').value = "";
+        document.getElementById('lb_Tarp').value = "";
+        document.getElementById('lb_Flat').value = "";
+        document.getElementById('LB_loadertotal').value = "";
+
+        document.getElementById('lb_owner').value = "";
+        document.getElementById('lb_owner_percentage').value = "";
+        document.getElementById('lb_owner_truck').value = "";
+        document.getElementById('lb_owner_trailer').value = "";
+        document.getElementById('lb_owner_other').value = "";
+        document.getElementById('lb_owner_total').value = "";
+        driverotherDescription = [""];
+        driverotherCharges = ["0"];
+        ownerotherDescription = [""];
+        ownerotherCharges = ["0"];
+    } else if (type == "driver") {
+
+        document.getElementById('lb_owner').value = "";
+        document.getElementById('lb_owner_percentage').value = "";
+        document.getElementById('lb_owner_truck').value = "";
+        document.getElementById('lb_owner_trailer').value = "";
+        document.getElementById('lb_owner_other').value = "";
+        document.getElementById('lb_owner_total').value = "";
+
+        document.getElementById('LB_Carrier').value = "";
+        document.getElementById('LB_FlatRate').value = "";
+        document.getElementById('Advcarrier').value = "";
+        document.getElementById('LB_CarrierTotal').value = "";
+        document.getElementById('LB_CarrierCurrency').value = "";
+        carrierotherDescription = [""];
+        carrierotherCharges = ["0"];
+        carrierotherAdvances = ["0"];
+        ownerotherDescription = [""];
+        ownerotherCharges = ["0"];
+    } else if (type == "owner") {
+      document.getElementById('LB_Driver').value = "";
+        document.getElementById('LB_Truck').value = "";
+        document.getElementById('LB_Trailer').value = "";
+        document.getElementById('lb_LoadedMiles').value = "";
+        document.getElementById('lb_EmptyMiles').value = "";
+        document.getElementById('lb_driver_Other').value = "";
+        document.getElementById('lb_Tarp').value = "";
+        document.getElementById('lb_Flat').value = "";
+        document.getElementById('LB_loadertotal').value = "";
+
+        document.getElementById('LB_Carrier').value = "";
+        document.getElementById('LB_FlatRate').value = "";
+        document.getElementById('Advcarrier').value = "";
+        document.getElementById('LB_CarrierTotal').value = "";
+        document.getElementById('LB_CarrierCurrency').value = "";
+        carrierotherDescription = [""];
+        carrierotherCharges = ["0"];
+        carrierotherAdvances = ["0"];
+        driverotherDescription = [""];
+        driverotherCharges = ["0"];
+    }
 }
 </script>

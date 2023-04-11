@@ -54,6 +54,7 @@ return [
     
         'mongodb' => [
             'driver' => 'mongodb',
+            // 'dsn' => env('DB_URI', 'mongodb://10.188.4.129:27017/WindsonDispatch?readPreference=primary&directConnection=true&ssl=false'), //server
             'dsn' => env('DB_URI', 'mongodb+srv://astraportal:astraportal@astra.7uwteaq.mongodb.net/'), //server
             // 'dsn' => env('DB_URI', 'mongodb://172.31.89.128:27017'), //local
 

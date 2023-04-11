@@ -75,7 +75,8 @@ $.ajax({
                           var truck =Result1[i].load[j].loaddata.loadertruck;
                           var trailer =Result1[i].load[j].loaddata.loadertrailer;
                           var loadPay =Result1[i].load[j].total_rate;
-                          var carrierPay_driverPay=Result1[i].load[j].carrier_total;
+                          // var carrierPay_driverPay=Result1[i].load[j].carrier_total;
+                          var carrierPay_driverPay=Result1[i].load[j].loaddata.loadertotal;
                           var isBroker=Result1[i].load[j].isBroker;
                           var typeofloader=Result1[i].load[j].typeofloader;
                           var shippername =Result1[i].load[j].loaddata.shippername;
@@ -91,7 +92,7 @@ $.ajax({
                           var day = date.getDate();
                           var created_at = month+'/'+day+'/'+year;
                           
-                          var shipDate1 = Result1[i].load[j].created_at;
+                          var shipDate1 = Result1[i].load[j].shipper_pickup;
                           var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                           var date = new Date(shipDate1*1000);
                           var year = date.getFullYear();
@@ -99,7 +100,7 @@ $.ajax({
                           var day = date.getDate();
                           var shipDate = month+'/'+day+'/'+year;
 
-                          var delDate1 = Result1[i].load[j].created_at;
+                          var delDate1 = Result1[i].load[j].consignee_pickup;
                           var months_arr = ['1','2','3','4','5','6','7','8','9','10','11','12'];
                           var date = new Date(delDate1*1000);
                           var year = date.getFullYear();
@@ -265,7 +266,8 @@ $.ajax({
                             
                        //---bh----   
                           "<select class='form-control loadStatus' id='loadStatus' data-main_id='"+main_id+"' data-com_id='"+com_id+"' data-invoiceId='"+invoice+"' style='width: auto;text-align: center;border-radius:20px;background-color: radial-gradient(100% 100% at 100% 0, #00d1fc 0, #005880 100%);color:Black'>" +
-                              "<option value='" + status +"'  selected='' >" + status +"</option>" +
+                              // "<option value='" + status +"'  selected='' >" + status +"</option>" +
+                              "<option value='' disabled selected hidden>" + status +"</option>" +
                               "<option value='Open'>Open</option>" +
                               "<option value='Dispatched'>Dispatched</option>" +
                               "<option value='Arrived Shipper'>Arrived Shipper</option>" +
@@ -517,7 +519,7 @@ $("#addLBSubmit").click(function(){
     var noofunits='';
     var drivername='';
     var truck='';
-    var trailer='';
+    // var trailer='';
     var loadedmile='';
     var emptymile='';
     var tarp='';
@@ -526,31 +528,57 @@ $("#addLBSubmit").click(function(){
     var ownerpay='';
     var ownertruck='';
     var ownertrailer='';
-    var totalAmount='';
+    var totalAmount=$('#totalAmount').val();
+    console.log(totalAmount);
     var cnno='';
 
+    var shipperlist=$('#shipperlist').val();
     var customerName=$('#LB_Customer').val();
    
     var loadername = $('#LB_Driver').val();
     var drivername = $('#browsersdriver option[value="' + loadername + '"]').attr('data-value');
-
+    if(drivername==undefined){
+      loadername="";
+      drivername="";
+    }
     var loadertruck = $('#LB_Truck').val();
-    var truck = $('#browserstruck option[value="' + company + '"]').attr('data-value');
+    var truck = $('#browserstruck option[value="' + loadertruck + '"]').attr('data-value');
+   
+    if(truck==undefined){
+      truck="";
+      loadertruck="";
+    }
+  //  alert(truck);  alert(loadertruck);
+   
     
     var loadertrailer = $('#LB_Trailer').val();
-    var trailer = $('#browserstrailer option[value="' + company + '"]').attr('data-value');
-
-    var loadertotal=$('#LB_loadertotal').val();
+    var trailer = $('#browserstrailer option[value="' + loadertrailer + '"]').attr('data-value');
+    if(trailer==undefined){
+      // loadertrailer="";
+      trailer="";
+    }
+    // alert(loadertrailer);  alert(trailer);
+    // return;
+   var loadertotal=$('#LB_loadertotal').val();
     //*
     var company = $('#lb_Company').val();
     var companyId = $('#browserscompany option[value="' + company + '"]').attr('data-value');
-
+    if(companyId==undefined){
+      // company="";
+      companyId="";
+    }
     var customer = $('#LB_Customer').val();
     var customerId = $('#browserscustomer option[value="' + customer + '"]').attr('data-value');
-
+    if(customerId==undefined){
+      // customer="";
+      customerId="";
+    }
     var dispatcher = $('#lb_Dispatcher').val();
     var dispatcherId = $('#browsersdispatcher option[value="' + dispatcher + '"]').attr('id');
-   
+    if(dispatcher==undefined){
+      // dispatcher="";
+      dispatcherId="";
+    }
     // if(dispatcher == '' ){
     //   swal.fire({title: 'Please Slelect dispatcher',text: 'Redirecting...',timer: 4000,buttons: false,})
     //   $("#select2-lb_Dispatcher-container").css("border", "2px solid red");
@@ -569,7 +597,10 @@ $("#addLBSubmit").click(function(){
     
     var loadtype = $('#lb_load').val();
     var loadtypeId = $('#browsersloadtype option[value="' + loadtype + '"]').attr('data-value');
-
+    if(loadtypeId==undefined){
+      // loadtype="";
+      loadtypeId="";
+    }
     var rate=$('#rateAmount').val();
     var noofunits=$('#units').val();
     var fsc=$('#fsc').val();
@@ -579,24 +610,27 @@ $("#addLBSubmit").click(function(){
       var  fsc_percentage='off'; 
     }
     var other_charges=$('#MainOtherCharges').val();
-
-
     var lb_EquipmentType = $('#lb_EquipmentType').val();
     var equiptype = $('#browsersequipment option[value="' + lb_EquipmentType + '"]').attr('data-value');
-   
-    if ($("#Driver").is(":checked")){
-        var typeofloader = 'Driver';
-    } else if($("#OwnerOperator").is(":checked")){
-      var typeofloader = 'Owner Operator';
-    }else{
-      var typeofloader = ' ';
-    } 
+    if(equiptype==undefined){
+      lb_EquipmentType="";
+      equiptype="";
+    }
+    var typeofloader=$("input[name='country']:checked").val();
+    console.log(typeofloader);
     //carrier
     var lbcarrier = $('#LB_Carrier').val();
     var carrier_name = $('#browserscarrier option[value="' + lbcarrier + '"]').attr('data-value');
+    if(carrier_name==undefined){
+      // lbcarrier="";
+      carrier_name="";
+    }
     var flat_rate=$('#LB_FlatRate').val();
     var isIfta='0';
-    var advance_charges=$('#Add_AdvanceCharges').val();
+    var advance_charges=$('#Advcarrier').val();
+    if(advance_charges=="undefined"){
+      advance_charges="";
+    }
     var carrier_total=$('#LB_CarrierTotal').val();
     var currency=$('#LB_CarrierCurrency').val();
     //driver
@@ -612,15 +646,18 @@ $("#addLBSubmit").click(function(){
     
     var lb_owner = $('#lb_owner').val();
     var owner_name = $('#browsersowner option[value="' + lb_owner + '"]').attr('data-value');
+    if(owner_name==undefined){
+      // lb_owner="";
+      owner_name="";
+    }
     var owner_percentage=$('#lb_owner_percentage').val();
     var owner_truck=$('#lb_owner_truck').val();
     var owner_trailer=$('#lb_owner_trailer').val();
     var owner_other=$('#lb_owner_other').val();
     var owner_total=$('#lb_owner_total').val();
-    // var start_location=$('#start_location').val();
-    // var end_location=$('#end_location').val();
-    var start_location='';
-    var end_location='';
+    
+    var start_location=$('#add_start_location').val();
+    var end_location=$('#add_end_location').val();
     //miles
     var tarp_select=$('#driverTarpSelect').val();
     var loaded_miles_value=$('#loadedmiles').val();
@@ -650,8 +687,24 @@ $("#addLBSubmit").click(function(){
     var CustomerEmail=$('#emailcustomer1').val();
     var emailcustomer2=$('#emailcustomer2').val();
     var emailcustomer3=$('#emailcustomer3').val();
-
-
+    //loader total, name, truck, trailer
+    if(typeofloader=="Carrier"){
+      load_loadertotal=carrier_total;
+      load_loadername=lbcarrier;
+      load_loadertruck='';
+      load_loadertrailer='';
+    }else if(typeofloader=="Driver"){
+      load_loadertotal=loadertotal;
+      load_loadername=loadername;
+      load_loadertruck=loadertruck;
+      load_loadertrailer=loadertrailer;
+    }else if(typeofloader=="OwnerOperator"){
+      load_loadertotal=owner_total;
+      load_loadername=lb_owner;
+      load_loadertruck=owner_truck;
+      load_loadertrailer=owner_trailer;
+    }
+    
     var formData = new FormData();
     $.each($("#carrierfiles")[0].files, function(i, file) {            
       formData.append('carrierfiles[]',file);
@@ -659,13 +712,12 @@ $("#addLBSubmit").click(function(){
    
     formData.append('_token',$("#tokenLoadboard").val());
     formData.append('customername',customerName);
-    formData.append('loadername',loadername);
-    formData.append('loadertruck',loadertruck);
-   
-    formData.append('loadertrailer',loadertrailer);
-       //formData.append('shippername', loadershipper);
-    //formData.append('consigneename', loaderconsignee);
-    formData.append('loadertotal',loadertotal);
+    formData.append('loadername',load_loadername);
+    formData.append('loadertruck',load_loadertruck);
+    formData.append('loadertrailer',load_loadertrailer);
+    formData.append('shippername', shipperlist);
+    formData.append('consigneename', lb_consignee);
+    formData.append('loadertotal',load_loadertotal);
      formData.append('company',companyId);
      formData.append('customer',customerId);
      formData.append('dispatcher',dispatcherId);
@@ -761,7 +813,8 @@ $("#addLBSubmit").click(function(){
                 swal.fire({title: 'Added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
                 // $("#addLoadBoardModal").css("z-index","100000000000");
                 $("#addLoadBoardModal").modal("hide");
-                $("#addLoadBoardModal form").trigger('reset');
+                // $("#addLoadBoardModal form").trigger('reset');
+                $("#addLoadBoardModal").trigger('reset');
                   $.ajax({
                     type: "GET",
                     url: base_path+"/admin/getLoadboardData",
