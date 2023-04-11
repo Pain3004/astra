@@ -122,10 +122,7 @@
     <div class="side-app">
       <!-- CONTAINER -->
       <div class="main-container container-fluid">
-        <!-- PAGE-HEADER -->
        
-        <!-- PAGE-HEADER END -->
-        <!-- ROW-4 -->
         <input type="hidden" name="_token" id="tokenLoadboard" value="{{ csrf_token() }}" />
         <div class="row">
             <div class="col-12 col-sm-12">

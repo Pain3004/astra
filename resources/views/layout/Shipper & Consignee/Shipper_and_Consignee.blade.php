@@ -25,7 +25,7 @@
                                 <div class="card-body p-6">
                                     <div class="panel panel-primary">
                                         <div class="panel-body tabs-menu-body">
-                                            <div class="tab-content">
+                                            <div >
                                                     <div class="table-responsive export-table">
                                                         <a href="#" class="button-57_alt createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
                                                         <a href="#" class="button-57_alt restoreshipperAndConsigneeBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>
@@ -34,7 +34,7 @@
                                                         <input type="file" class="form-control float-right" id="Shipperfiles" name="Shipperfiles[]" multiple="" accept=".png, .jpg, .jpeg, .pdf" style="width: auto;">
                                                         <a href="#setupDriverModal" class="button-29 float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
 
-                                                        <table id="ShipperAndConsigneeTable" class="table editable-table table-nowrap table-bordered table-edit wp-100" style="height:500px; width:1000px;">
+                                                        <table id="ShipperAndConsigneeTable" class="table editable-table table-nowrap table-bordered table-edit wp-100" >
 
                                                             <thead class="thead_th">
                                                                 <tr class="tr">

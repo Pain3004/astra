@@ -66,6 +66,7 @@ $('.closeShipperModal').click(function(){
     function createGetShipperRows(shipperResult) {
         var shipperlen = 0;
             if (shipperResult != null) {
+                
                 //shipperlen = shipperResult.shipper.length;
                 shipperlen = shipperResult.shipper.length;
                 $("#shipperTable").html('');

@@ -27,7 +27,7 @@
                         @endif 
                     
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
+                <div class="modal-body" style="overflow-y: auto !important;">
 
                     <table  class="table">
                         <thead class="thead_th">

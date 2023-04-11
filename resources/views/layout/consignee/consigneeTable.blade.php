@@ -25,7 +25,7 @@
                                 <div class="card-body p-6">
                                     <div class="panel panel-primary">
                                         <div class="panel-body tabs-menu-body">
-                                            <div class="tab-content">
+                                            <div>
                                                     <div class="table-responsive export-table">
                                                         <a href="#" class="button-57_alt createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
                                                         <a href="#" class="button-57_alt restoreConsigneeBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>

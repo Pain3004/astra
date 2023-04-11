@@ -439,8 +439,8 @@ let bodyhorizontal = $('body').hasClass('horizontal');
         $('body').addClass('horizontal');
         $(".main-content").addClass("hor-content");
         $(".main-content").removeClass("app-content");
-        $(".main-container").addClass("container");
-        $(".main-container").removeClass("container-fluid");
+        // $(".main-container").addClass("container");
+        // $(".main-container").removeClass("container-fluid");
         $(".app-header").addClass("hor-header");
         $(".hor-header").removeClass("app-header");
         $(".app-sidebar").addClass("horizontal-main")
@@ -494,8 +494,8 @@ let bodyhorizontal1 = $('body').hasClass('horizontal-hover');
         $('body').addClass('horizontal');
         $(".main-content").addClass("hor-content");
         $(".main-content").removeClass("app-content");
-        $(".main-container").addClass("container");
-        $(".main-container").removeClass("container-fluid");
+        // $(".main-container").addClass("container");
+        // $(".main-container").removeClass("container-fluid");
         $(".app-header").addClass("hor-header");
         $(".app-header").removeClass("app-header");
         $(".app-sidebar").addClass("horizontal-main")

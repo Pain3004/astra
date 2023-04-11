@@ -204,7 +204,11 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
 }
 
 .custom_modal {
-  max-width: 95% !important;
+  max-width: 90% !important;
+}
+
+.custom_modal_medium {
+  max-width: 80% !important;
 }
 
 /* small screen, hidden by default */
@@ -902,7 +906,6 @@ ul.multicolumn li {
   position: sticky !important;
   top: -20px;
   z-index: 2;
-  background-image: radial-gradient(circle, rgba(0, 212, 255, 1) 0%, rgba(0, 50, 89, 1) 100%);
 
 }
 
@@ -1731,7 +1734,7 @@ table.dataTable thead th {
 
 .sticky span {
   font-size: 13px !important;
-  font-weight: 400;
+  font-weight: 600;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -2263,7 +2266,7 @@ div.tabContainer {
 
 table.dataTable thead th,
 table.dataTable thead td {
-  padding: 10px 7px !important;
+  padding: 7px 7px !important;
   border-bottom: 1px solid #111;
 }
 
@@ -2289,15 +2292,15 @@ table.dataTable thead th {
   z-index: 2;
   background: #444a5e !important;
   color: #ffffff;
-  left: 91px;
+  left: 0;
 }
 
 .thead_th {
   position: -webkit-sticky;
   position: sticky !important;
-  top: 0;
+  top: 1px !important;
   z-index: 9;
-  background-image: radial-gradient(circle, rgba(0, 212, 255, 1) 0%, rgba(0, 50, 89, 1) 100%);
+  
 }
 
 #back-to-top {
@@ -2347,7 +2350,7 @@ table.dataTable tbody td {
   font-size: 12px;
   text-align: center;
   line-height: 15px;
-  padding: 12px 15px 12px;
+  padding: 10px 0px 10px;
   text-decoration: none;
   cursor: pointer;
   background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%);
@@ -2385,7 +2388,7 @@ select.form-control:not([size]):not([multiple]) {
 
 .button-70.add-button {
   background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%);
-  font-size: 14px !important;
+  font-size: 12px !important;
   ;
   width: 90px;
   padding: 7px 15px;
@@ -2422,7 +2425,7 @@ select.form-control:not([size]):not([multiple]) {
 .btn-info {
   color: #fff !important;
   background: linear-gradient(358deg, #00b5fd 0%, #0047b1 100%);
-  font-size: 14px !important;
+  font-size: 12px !important;
   padding: 0.175rem 0.75rem !important;
   height: 33px;
 }
@@ -2438,7 +2441,7 @@ select.form-control:not([size]):not([multiple]) {
 .btn-info2 {
   color: #fff !important;
   background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%);
-  font-size: 14px !important;
+  font-size: 12px !important;
   padding: 0.175rem 0.75rem !important;
   height: 33px;
   margin: 0 0 0 10px;
@@ -2496,7 +2499,7 @@ select.form-control:not([size]):not([multiple]) {
 table.dataTable tbody th,
 table.dataTable tbody td {
   padding: 6px 10px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .table-responsive::-webkit-scrollbar-track {
@@ -2947,4 +2950,55 @@ body.modal-open {
   }
 
 
+}
+
+.modal-header
+{
+  padding:5px !important;
+}
+.horizontal .slide-item
+{
+  padding: 5px 25px;
+}
+.modal-body{
+  padding: 0 !important;
+  margin: 10px;
+}
+#customerTable td {
+  font-size: 12px;
+  padding: 6px;
+  width: min-content;
+}
+.form-group label {
+  font-size: 13px;
+}
+.form-group input {
+  font-size: 12px;
+}
+.form-group div {
+  font-size: 12px;
+}
+.all_ids_cust  {
+  width: 20px !important;
+}
+.check_cust_one
+{
+  width: 20px !important;
+}
+#restoreCustomerData th {
+  padding: 1px;
+  font-size: 12px;
+}
+#restoreCustomerData td {
+  
+  font-size: 12px;
+  
+}
+#restoreCustomerTable td
+{
+  width: min-content;
+  padding: 2px;
+}
+#updateCustomerModal {
+  backdrop-filter: blur(3px);
 }

@@ -11,8 +11,8 @@
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                     
-                    <button href="#" data-toggle="modal"  class="button-57_alt addCustomerButton" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Customer</span></button>
-                    <button class="button-57_alt restoreCustomerData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore Customer</span></button>
+                    <button href="#" data-toggle="modal"  class="button-57_alt button-58_alt addCustomerButton" >Add Customer</button>
+                    <button class="button-57_alt button-58_alt restoreCustomerData" >Restore Customer</button>
                 </div>
                 
                 <div class="modal-body" style="overflow-y: auto !important;">
@@ -36,8 +36,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button-29 exportCustomer" data-dismiss="modal">export</button>
-                    <button type="button" class="button-29 close_customerModal" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-57_alt button-58_alt exportCustomer" data-dismiss="modal">export</button>
+                    <button type="button" class="button-57_alt button-58_alt close_customerModal" data-dismiss="modal">Close</button>
                     <nav aria-label="..." data-name="cus_pagination" class="float-right">
                         <div class="pagination" id="cus_pagination">
 
@@ -58,15 +58,15 @@
         <div class="modal-dialog custom_modal_small modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Customer</h5>
-                    <button type="button" class="button-24 closeaddCustomerModal" data-dismiss="modal">×</button>
+                    <h6 class="modal-title">Add Customer</h>
+                    <!-- <button type="button" class="button-24 closeaddCustomerModal" data-dismiss="modal">×</button> -->
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     
                     <div class="container">
                         <ul class="nav nav-tabs">
-                            <li><a class="button-29 add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
-                            <li  ><a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
+                            <li><a class="button-57_alt button-58_alt add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
+                            <li  ><a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-57_alt button-58_alt advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="addCustomerTab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab"  data-name="fillextdata">
@@ -188,7 +188,7 @@
                                     </div>
                                 
                                     <div class="modal-footer">
-                                        <a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="align:right;" >Next</a>
+                                        <a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-57_alt button-58_alt advanceTabCustomer" style="align:right;" >Next</a>
                                     </div>
                                 </form>
                             </div>
@@ -269,8 +269,8 @@
                 </div>
             
                 <div class="modal-footer w-100" style="align:right;">
-                    <button type="submit" class="button-29 customerDataSubmit">Save</button>
-                    <button type="button" class="button-29 closeaddCustomerModal" data-dismiss="modal">Close</button>
+                    <button type="submit" class="button-57_alt button-58_alt customerDataSubmit">Save</button>
+                    <button type="button" class="button-57_alt button-58_alt closeaddCustomerModal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -319,8 +319,8 @@
         
         <!-- Modal footer -->
         <div class="modal-footer" >
-            <button type="submit" class="button-29 PaymentTermsDataSubmit">Save</button>
-            <button type="button" class="button-29 PaymentTermsModalCloseButton" data-dismiss="modal" id="closePaymentTermsModal">Close</button>
+            <button type="submit" class="button-57_alt button-58_alt PaymentTermsDataSubmit">Save</button>
+            <button type="button" class="button-57_alt button-58_alt PaymentTermsModalCloseButton" data-dismiss="modal" id="closePaymentTermsModal">Close</button>
         </div>
         
       </div>
@@ -358,8 +358,8 @@
         
         <!-- Modal footer -->
         <div class="modal-footer" >
-            <button type="submit" class="button-29 CurrencyrDataSubmit">Save</button>
-            <button type="button" class="button-29 plusCurrencyModalCloseButton" data-dismiss="modal" id="closeplusCurrencyModal">Close</button>
+            <button type="submit" class="button-57_alt button-58_alt CurrencyrDataSubmit">Save</button>
+            <button type="button" class="button-57_alt button-58_alt plusCurrencyModalCloseButton" data-dismiss="modal" id="closeplusCurrencyModal">Close</button>
         </div>
         
       </div>
@@ -475,8 +475,8 @@
             
                 <!-- Modal footer -->
                 <div class="modal-footer" >
-                    <button type="submit" class="button-29 factoringCompanyDataSubmit">Save</button>
-                    <button type="button" class="button-29 factoringCompanyModalCloseButton">Close</button>
+                    <button type="submit" class="button-57_alt button-58_alt factoringCompanyDataSubmit">Save</button>
+                    <button type="button" class="button-57_alt button-58_alt factoringCompanyModalCloseButton">Close</button>
                    
                 </div>
             </div>
@@ -490,7 +490,7 @@
 
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="updateCustomerModal" role="dialog">
-        <div class="modal-dialog custom_modal" role="document">
+        <div class="modal-dialog custom_modal_medium" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Update Customer</h4>
@@ -498,8 +498,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">                        
-                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-29 col-lg-2" >Update Customer</button> &nbsp; &nbsp; 
-                    <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-29 col-lg-2" >Update Advance</button>
+                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-57_alt button-58_alt col-lg-2" >Update Customer</button> &nbsp; &nbsp; 
+                    <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-57_alt button-58_alt col-lg-2" >Update Advance</button>
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -627,7 +627,7 @@
                                                         </div>
                                                     </div> -->
                                                 </form>
-                                                <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-29" >Next</button>
+                                                <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-57_alt button-58_alt" >Next</button>
                                             </div>
                                             <div class="update_advance_first_tap">
                                                 <div class="form-row">
@@ -708,9 +708,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-29" >Previous</button>
-                                                    <button type="button" style="vertical-align:middle" class="button-29" id="updateCustomerData" >update</button>
-                                                    <button type="button"style="vertical-align:middle" class=" closeUpdateCustomerModel button-29" >Close</button>
+                                                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-57_alt button-58_alt" >Previous</button>
+                                                    <button type="button" style="vertical-align:middle" class="button-57_alt button-58_alt" id="updateCustomerData" >update</button>
+                                                    <button type="button"style="vertical-align:middle" class=" closeUpdateCustomerModel button-57_alt button-58_alt" >Close</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -729,7 +729,7 @@
 
 <!--========================== resote customer start model ========================== -->
 <div class="modal fade" data-backdrop="static" id="restoreCustomerData" role="dialog">
-        <div class="modal-dialog custom_modal modal-dialog-scrollable" role="document">
+        <div class="modal-dialog custom_modal_medium modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> Restore Customer</h5>
@@ -765,7 +765,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button-29 closeRestoreCustomer" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-57_alt button-58_alt closeRestoreCustomer" data-dismiss="modal">Close</button>
                     <nav aria-label="..." data-name="Restorecus_pagination" class="float-right">
                         <div class="pagination" id="Restorecus_pagination">
 
