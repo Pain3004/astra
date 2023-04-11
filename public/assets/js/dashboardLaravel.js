@@ -1116,7 +1116,8 @@ function prepairDashBoardData(dashDaterange)
             loads = res[0].loads;
             
             var driverarr = res[0].alldriverarr;
-            allcompany_data = res[0].allcompany;
+            var allcompany_data = res[0].allcompany;
+            console.log(allcompany_data);
             loads.map(function(l){
                 l.created_at = convertTimeZone(l.created_at,"info");
             })
@@ -2398,6 +2399,7 @@ function getPayableAndRecevable()
         async: false,
         success: function (response) {
             var payrevamount = JSON.parse(response);
+            // console.log(payrevamount);
             var todayspayable = '';
             var todaysreceivable = '';
 
@@ -2478,6 +2480,7 @@ function getProfitLoss() {
         async: false,
         success: function (response) {
             var resp = JSON.parse(response);
+            console.log(resp);
             var allload = [];
             var totalrecevableamount = resp[0].loaddata;
 
@@ -2505,8 +2508,11 @@ function getProfitLoss() {
             var fuelarrsize = resp[0].fueldata[0] == undefined ? 0 : resp[0].fueldata[0].fuelCard.length;
             var fueltab = '';
             var k = 1;
+
             for (var t = 0; t < fuelarrsize; t++) {
-                fueltotal += parseFloat(resp[0].fueldata[0].fuelCard[t].currentBalance.toFixed(2));
+                // console.log(resp[0].fueldata[0].fuelCard[t].currentBalance);
+                // console.log(typeof(resp[0].fueldata[0].fuelCard[t].currentBalance));
+                fueltotal += parseFloat(parseInt(resp[0].fueldata[0].fuelCard[t].currentBalance).toFixed(2));
                 fueltab += `<li id='bgshadow' class='noactive'>
                     <table>
                         <tr>
@@ -2517,7 +2523,7 @@ function getProfitLoss() {
                                 <span class="header">${resp[0].fueldata[0].fuelCard[t].fuelCardType}</span>
                             </td>
                             <td style="width:60px; padding-left:10px;">
-                                <span class="stat">$${resp[0].fueldata[0].fuelCard[t].currentBalance.toFixed(2)}</span>
+                                <span class="stat">$${parseInt(resp[0].fueldata[0].fuelCard[t].currentBalance).toFixed(2)}</span>
                             </td>
                         </tr>
                     </table>
@@ -2534,8 +2540,8 @@ function getProfitLoss() {
             {
 
                 var com_name = resp[0].bankdata[0].admin_bank[d].bankName + '-' + allcompany_data[resp[0].bankdata[0].admin_bank[d].accountHolder];
-                bankname.push([com_name, parseFloat(resp[0].bankdata[0].admin_bank[d].currentBalance.toFixed(2))]);
-                bankamount.push(parseFloat(resp[0].bankdata[0].admin_bank[d].currentBalance.toFixed(2)));
+                bankname.push([com_name, parseFloat(parseInt(resp[0].bankdata[0].admin_bank[d].currentBalance).toFixed(2))]);
+                bankamount.push(parseFloat(parseInt(resp[0].bankdata[0].admin_bank[d].currentBalance).toFixed(2)));
             }
             // =============bank name & amount end ==================
 
@@ -2545,19 +2551,19 @@ function getProfitLoss() {
             var credit_name = [];
             var credit_amount = [];
             for (var f = 0; f < creditsize; f++) {
-                credit_name.push([resp[0].creditdata[0].admin_credit[f].displayName, Math.sign(resp[0].creditdata[0].admin_credit[f].currentBalance) == -1 ? 0 : parseFloat(resp[0].creditdata[0].admin_credit[f].currentBalance.toFixed(2))]);
-                credit_amount.push(parseFloat(resp[0].creditdata[0].admin_credit[f].currentBalance.toFixed(2)));
+                credit_name.push([resp[0].creditdata[0].admin_credit[f].displayName, Math.sign(resp[0].creditdata[0].admin_credit[f].currentBalance) == -1 ? 0 : parseFloat(parseInt(resp[0].creditdata[0].admin_credit[f].currentBalance).toFixed(2))]);
+                credit_amount.push(parseFloat(parseInt(resp[0].creditdata[0].admin_credit[f].currentBalance).toFixed(2)));
             }
             //============credit name & amount end============-------
 
             //bank amount
-            var banktotalamount = parseFloat(resp[0].bankdata[0] == undefined ? 0 : resp[0].bankdata[0].bankcurrentbalance.toFixed(2));
+            var banktotalamount = parseFloat(resp[0].bankdata[0] == undefined ? 0 : parseInt(resp[0].bankdata[0].bankcurrentbalance).toFixed(2));
 
             //bank amount + load total rate company Rev
             var totalcompanybal = banktotalamount + total_amount;
 
             //company payable amount credit | fuel | total pay
-            var creditedamount = parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)) + fueltotal + total_payamount;
+            var creditedamount = parseFloat(resp[0].creditdata[0] == undefined ? 0 : parseInt(resp[0].creditdata[0].creditcurrentbalance).toFixed(2)) + fueltotal + total_payamount;
 
             //total company profit
             var companyprofit = totalcompanybal - creditedamount;
@@ -2568,26 +2574,26 @@ function getProfitLoss() {
             var loadpercentage = total_amount * 100 / revtotal;
 
             var payabletotal = creditedamount;
-            var creditpercentage = parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)) * 100 / payabletotal;
+            var creditpercentage = parseFloat(resp[0].creditdata[0] == undefined ? 0 : parseInt(resp[0].creditdata[0].creditcurrentbalance).toFixed(2)) * 100 / payabletotal;
             var fuelpercentage = fueltotal * 100 / payabletotal;
             //Calculate Percentage end
 
             //radial graph data
-            var radialBardata = [isNaN(loadpercentage.toFixed(2)) == true ? 0 : loadpercentage.toFixed(2), isNaN(bankpercentage.toFixed(2)) == true ? 0 : bankpercentage.toFixed(2), isNaN(creditpercentage.toFixed(2)) == true ? 0 : creditpercentage.toFixed(2), isNaN(fuelpercentage.toFixed(2)) == true ? 0 : fuelpercentage.toFixed(2)];
+            var radialBardata = [isNaN(parseInt(loadpercentage).toFixed(2)) == true ? 0 : parseInt(loadpercentage).toFixed(2), isNaN(parseInt(bankpercentage).toFixed(2)) == true ? 0 : parseInt(bankpercentage).toFixed(2), isNaN(parseInt(creditpercentage).toFixed(2)) == true ? 0 : parseInt(creditpercentage).toFixed(2), isNaN(parseInt(fuelpercentage).toFixed(2)) == true ? 0 : parseInt(fuelpercentage).toFixed(2)];
 
 
-            var bankbalance = numberWithCommas(totalcompanybal.toFixed(2));
-            var amounypayable = numberWithCommas(creditedamount.toFixed(2));
-            var compprofit = numberWithCommas(companyprofit.toFixed(2));
-            var agingpayable = numberWithCommas(total_payamount.toFixed(2));
+            var bankbalance = numberWithCommas(parseInt(totalcompanybal).toFixed(2));
+            var amounypayable = numberWithCommas(parseInt(creditedamount).toFixed(2));
+            var compprofit = numberWithCommas(parseInt(companyprofit).toFixed(2));
+            var agingpayable = numberWithCommas(parseInt(total_payamount).toFixed(2));
 
             //profit loss table data
-            var Total_Load_Amount = numberWithCommas(total_amount.toFixed(2));
-            var Total_Bank_Balance = numberWithCommas(banktotalamount.toFixed(2));
-            var Total_Credit_Balance = numberWithCommas(parseFloat(resp[0].creditdata[0] == undefined ? 0 : resp[0].creditdata[0].creditcurrentbalance.toFixed(2)));
-            var Total_Fuel_Balance = numberWithCommas(fueltotal.toFixed(2));
-            var totalcurrbal_dash = numberWithCommas(totalcompanybal.toFixed(2));
-            var totalpaybal_dash = numberWithCommas(creditedamount.toFixed(2));
+            var Total_Load_Amount = numberWithCommas(parseInt(total_amount).toFixed(2));
+            var Total_Bank_Balance = numberWithCommas(parseInt(banktotalamount).toFixed(2));
+            var Total_Credit_Balance = numberWithCommas(parseFloat(resp[0].creditdata[0] == undefined ? 0 : parseInt(resp[0].creditdata[0].creditcurrentbalance).toFixed(2)));
+            var Total_Fuel_Balance = numberWithCommas(parseInt(fueltotal).toFixed(2));
+            var totalcurrbal_dash = numberWithCommas(parseInt(totalcompanybal).toFixed(2));
+            var totalpaybal_dash = numberWithCommas(parseInt(creditedamount).toFixed(2));
 
 
             $("#total_bbalance").html('$' + bankbalance);
@@ -2604,7 +2610,7 @@ function getProfitLoss() {
 
             if (parseFloat(compprofit) < 0) {
                 $("#prolosstitle").html('Loss');
-                $("#pro_lossdata").html(`<span style="font-weight: bold;color:#dc3545 !important; margin-left:-25px">$${"(" + numberWithCommas(Math.abs(companyprofit).toFixed(2)) + ")"}</span>`);
+                $("#pro_lossdata").html(`<span style="font-weight: bold;color:#dc3545 !important; margin-left:-25px">$${"(" + numberWithCommas(Math.abs(parseInt(companyprofit)).toFixed(2)) + ")"}</span>`);
             } else {
                 $("#prolosstitle").html('Profit');
                 $("#pro_lossdata").html(`<span style="font-weight: bold;color:#28a745 !important; margin-left:-25px">$${compprofit}</span>`);
@@ -3129,7 +3135,7 @@ function getsalesrapdata()
                                 <span class="header">${saltable[z]['salname']}</span>
                             </td>
                             <td style="width:100px; padding-left:10px;">
-                                <div class="tooltip1"><span class="header">${numberWithCommas(saltable[z]['insantive'].toFixed(2))}</span><span class="toolInsantive">Commison</span></div>
+                                <div class="tooltip1"><span class="header">${numberWithCommas(parseInt(saltable[z]['insantive']).toFixed(2))}</span><span class="toolInsantive">Commison</span></div>
                             </td>
                             <td style="width:60px; padding-left:10px;">
                                 <div class="tooltip1"><span class="stat"><i class="mdi mdi-truck truckicon-loads"></i>&nbsp;${saltable[z]['loads']}</span><span class="toolloads">Loads</span></div>
@@ -3137,13 +3143,13 @@ function getsalesrapdata()
                         </tr>
                         <tr>
                             <td style="width:170px; padding-left:10px;">
-                                <div class="tooltip1"><span class="">$${numberWithCommas(saltable[z]['salrev'].toFixed(2))}</span><span class="toolrevenue">Revenue</span></div>
+                                <div class="tooltip1"><span class="">$${numberWithCommas(parseInt(saltable[z]['salrev']).toFixed(2))}</span><span class="toolrevenue">Revenue</span></div>
                             </td>
                             <td style="width:100px; padding-left:10px;">
-                                <div class="tooltip1"><span class="">$${numberWithCommas(saltable[z]['salmargin'].toFixed(2))}</span><span class="toolmargin">Margin</span></div>
+                                <div class="tooltip1"><span class="">$${numberWithCommas(parseInt(saltable[z]['salmargin']).toFixed(2))}</span><span class="toolmargin">Margin</span></div>
                             </td>
                             <td style="width:60px; padding-left:10px;">
-                                <div class="tooltip1"><span class="">${sal_percentage.toFixed(2)}%</span><span class="toolpercentage">Percentage</span></div>
+                                <div class="tooltip1"><span class="">${parseInt(sal_percentage).toFixed(2)}%</span><span class="toolpercentage">Percentage</span></div>
                             </td>
                         </tr>
                        </tbody>
@@ -3268,7 +3274,8 @@ function companydashdata() {
 
 
 //----------------------Function for get category wise Data Start------------------
-function dashchart(val) {
+function dashchart(val) 
+{
     _empty();
 
     //Empty All Graph,Table,Title
@@ -3287,7 +3294,8 @@ function dashchart(val) {
     $("#ranking_table").empty();
 
     //condition for customer
-    if (val == "customer_analytics") {
+    if (val == "customer_analytics") 
+    {
         var bartitle = "Customer";
         var ranking_title = "Customer Ranking";
         var linetitledata = "Revenue";
@@ -3318,7 +3326,8 @@ function dashchart(val) {
 
     }
     //condition for driver 
-    else if (val == "driver_analytics") {
+    else if (val == "driver_analytics") 
+    {
 
         var bartitle = "Driver";
         var avglabel2 = "Driver Pay";
@@ -3349,7 +3358,8 @@ function dashchart(val) {
 
     }
     //condition for truck 
-    else if (val == "truck_analytics") {
+    else if (val == "truck_analytics") 
+    {
 
         var bartitle = "Truck";
         var ranking_title = "Truck Ranking";
@@ -3380,7 +3390,8 @@ function dashchart(val) {
 
     }
     //condition for dispatcher 
-    else if (val == "dispatcher_analytics") {
+    else if (val == "dispatcher_analytics") 
+    {
 
         var bartitle = "Dispatcher";
         var linetitledata = "Incentive";
@@ -3412,7 +3423,8 @@ function dashchart(val) {
 
     }
     //condition for company 
-    else if (val == "company_analytics") {
+    else if (val == "company_analytics") 
+    {
 
         var bartitle = "Company";
         var ranking_title = "Company Ranking";
@@ -3439,7 +3451,8 @@ function dashchart(val) {
 
     }
     //condition for profit loss 
-    else if (val == "profit_loss") {
+    else if (val == "profit_loss") 
+    {
         $("#cust_name").empty();
         $("#linec_name").empty();
         $(".linedash").css("display", "none");
@@ -3461,7 +3474,8 @@ function dashchart(val) {
 
     }
     //condition for carrier 
-    else if (val == "carrier_analytics") {
+    else if (val == "carrier_analytics") 
+    {
         var bartitle = "Carrier";
         var linetitledata = "Pay";
         var avglabel2 = "Carrier Pay";
@@ -3492,7 +3506,8 @@ function dashchart(val) {
 
     }
     //condition for equipment
-    else if (val == "equipment_analytics") {
+    else if (val == "equipment_analytics") 
+    {
 
         var bartitle = "Equipment";
         var linetitledata = "Revenue";
@@ -3524,7 +3539,8 @@ function dashchart(val) {
 
     }
     //condition for salesrep
-    else if (val == "salesrep_analytics") {
+    else if (val == "salesrep_analytics") 
+    {
         var bartitle = "Sales Representative";
         var ranking_title = "Sales Representative Ranking";
         $("#cust_name").empty();
@@ -3562,13 +3578,18 @@ function dashchart(val) {
     var tool_tip3 = "";
     var presign = "";
     var dollersign = "";
-    for (var s = 0; s < table_obj; s++) {
-        if (tbobject[s]['name'] != undefined) {
+    for (var s = 0; s < table_obj; s++) 
+    {
+        if (tbobject[s]['name'] != undefined) 
+        {
             var tbobj = tbobject[s]['name'];
-        } else {
+        } 
+        else 
+        {
             var tbobj = 'Other';
         }
-        if (bartitle == "Dispatcher") {
+        if (bartitle == "Dispatcher") 
+        {
             tool_tip1 = "Commison";
             tool_tip2 = "Margin";
             tool_tip3 = "Margin Percentage";
@@ -3577,10 +3598,12 @@ function dashchart(val) {
 
             var incentive = 0;
             var dispatcherrate_type = dispatchinarr[tbobject[s]['id']] == undefined ? "" : dispatchinarr[tbobject[s]['id']].dispatcherratetype.trim(" ");
-            if (dispatcherrate_type == "FLAT") {
+            if (dispatcherrate_type == "FLAT") 
+            {
                 var incentive = tbobject[s]['Margin'] * parseFloat(dispatchinarr[tbobject[s]['id']].dispatcherflatper.trim(" "));
             }
-            if (dispatcherrate_type == "PERCENTAGE") {
+            if (dispatcherrate_type == "PERCENTAGE") 
+            {
                 var incentive = (tbobject[s]['Margin'] * parseFloat(dispatchinarr[tbobject[s]['id']].dispatcherflatper.trim(" "))) / 100;
             }
 
@@ -3592,7 +3615,9 @@ function dashchart(val) {
             dashmargin = "$" + numberWithCommas(tbobject[s]['Margin'].toFixed(2));
             dashpercentage = isNaN(tbobject[s]['Margin'] * 100 / tbobject[s]['total']) == true ? 0 : tbobject[s]['Margin'] * 100 / tbobject[s]['total'];
 
-        } else if (bartitle == "Driver") {
+        } 
+        else if (bartitle == "Driver") 
+        {
             tool_tip1 = "Driver Pay";
             tool_tip2 = "Miles";
             tool_tip3 = "Average";
@@ -3606,7 +3631,9 @@ function dashchart(val) {
             dashmargin = numberWithCommas(tbobject[s]['miles'].toFixed(2));
             dashpercentage = tbobject[s]['total'] / tbobject[s]['miles'];
 
-        } else if (bartitle == "Customer") {
+        } 
+        else if (bartitle == "Customer") 
+        {
             tool_tip1 = "Margin";
             tool_tip2 = " ";
             tool_tip3 = "Margin Percentage";
@@ -3620,7 +3647,9 @@ function dashchart(val) {
             dashmargin = "";
             dashpercentage = isNaN(tbobject[s]['Margin'] * 100 / tbobject[s]['total']) == true ? 0 : tbobject[s]['Margin'] * 100 / tbobject[s]['total'];
 
-        } else if (bartitle == "Company") {
+        } 
+        else if (bartitle == "Company") 
+        {
             tool_tip1 = "Margin";
             tool_tip2 = "Carrier/Driver/Owner Pay";
             tool_tip3 = "Percentage";
@@ -3634,7 +3663,9 @@ function dashchart(val) {
             dashmargin = "$" + numberWithCommas(tbobject[s]['loadertotal'].toFixed(2));
             dashpercentage = isNaN(tbobject[s]['Margin'] * 100 / tbobject[s]['total']) == true ? 0 : tbobject[s]['Margin'] * 100 / tbobject[s]['total'];
 
-        } else if (bartitle == "Truck") {
+        } 
+        else if (bartitle == "Truck") 
+        {
             tool_tip1 = "";
             tool_tip2 = "Miles";
             tool_tip3 = "Average";
@@ -3648,7 +3679,9 @@ function dashchart(val) {
             dashmargin = numberWithCommas(tbobject[s]['miles'].toFixed(2));
             dashpercentage = tbobject[s]['total'] / tbobject[s]['miles'];
 
-        } else if (bartitle == "Carrier") {
+        } 
+        else if (bartitle == "Carrier") 
+        {
             tool_tip1 = "Margin";
             tool_tip2 = "Carrier Pay";
             tool_tip3 = "Percentage";
@@ -3662,7 +3695,9 @@ function dashchart(val) {
             dashmargin = "$" + numberWithCommas(tbobject[s]['loadertotal'].toFixed(2));
             dashpercentage = tbobject[s]['Margin'] * 100 / tbobject[s]['total'];
 
-        } else if (bartitle == "Equipment") {
+        } 
+        else if (bartitle == "Equipment") 
+        {
             tool_tip1 = "Margin";
             tool_tip2 = "Miles";
             tool_tip3 = "Average";
@@ -3720,16 +3755,14 @@ function dashchart(val) {
     var prevamount = [];
     var cust_current_len = Object.keys(currchartobj).length;
 
-    for (var h = 1; h <= cust_current_len; h++) {
+    for (var h = 1; h <= cust_current_len; h++) 
+    {
         //
         curloads.push(currchartobj[h].loads);
         preloads.push(prevchartobj[h].loads);
 
         curramount.push(currchartobj[h].amount);
         prevamount.push(prevchartobj[h].amount);
-
-        //
-
     }
     //----------Bar Graph Data End------------------------
 
@@ -3742,7 +3775,8 @@ function dashchart(val) {
 
 }
 
-function _empty() {
+function _empty() 
+{
     
     $("#dashtable").empty();
     $("#donutdashcompany").empty();
@@ -3756,54 +3790,53 @@ function _empty() {
 }
 
 //----------------------Function for get individual Data Start------------------
-function indchart(val, category, fname) {
+function indchart(val, category, fname) 
+{
     //graph title
     $("#cust_name").html(fname);
     $("#linec_name").html(fname);
-
     //empty graph
     $("#uniqueVisits").empty();
     $("#lineRevenueGraph").empty();
-
-
-    if (category == "Customer") {
-
+    if (category == "Customer") 
+    {
         var arrname = mainarr;
-
-    } else if (category == "Dispatcher") {
-
+    } 
+    else if (category == "Dispatcher") 
+    {
         var arrname = dispatchermain;
-
-    } else if (category == "Driver") {
-
+    } 
+    else if (category == "Driver") 
+    {
         var arrname = drivermain;
-
-    } else if (category == "Company") {
-
+    } 
+    else if (category == "Company") 
+    {
         var arrname = companymain;
-
-    } else if (category == "Carrier") {
-
+    } 
+    else if (category == "Carrier") 
+    {
         var arrname = carriermain;
-
-    } else if (category == "Equipment") {
-
+    } 
+    else if (category == "Equipment") 
+    {
         var arrname = equipmentmain;
-
     }
-
     var indcurrcustload = [];
     var indcurrcusamount = [];
-
     var indprecustload = [];
     var indprecusamount = [];
     
     var currmainarrsize = Object.keys(arrname.current).length;
-    for (var t = 0; t < currmainarrsize; t++) {
-        if (arrname.current[t] != undefined) {
-            if (arrname.current[t][val] != undefined) {
+    for (var t = 0; t < currmainarrsize; t++) 
+    {
+        if (arrname.current[t] != undefined) 
+        {
+            if (arrname.current[t][val] != undefined) 
+            {
                 var currsubarrsize = Object.keys(arrname.current[t][val]).length;
-                for (var p = 1; p <= currsubarrsize; p++) {
+                for (var p = 1; p <= currsubarrsize; p++) 
+                {
                     let clbamount = parseFloat(arrname.current[t][val][p].amount);
                     indcurrcustload.push(arrname.current[t][val][p].loads);
                     indcurrcusamount.push(clbamount);
@@ -3811,14 +3844,16 @@ function indchart(val, category, fname) {
             }
         }
     }
-
-
     var prevmainarrsize = Object.keys(arrname.prev).length;
-    for (var b = 0; b < prevmainarrsize; b++) {
-        if (arrname.prev[b] != undefined) {
-            if (arrname.prev[b][val] != undefined) {
+    for (var b = 0; b < prevmainarrsize; b++) 
+    {
+        if (arrname.prev[b] != undefined) 
+        {
+            if (arrname.prev[b][val] != undefined) 
+            {
                 var presubarrsize = Object.keys(arrname.prev[b][val]).length;
-                for (var e = 1; e <= presubarrsize; e++) {
+                for (var e = 1; e <= presubarrsize; e++) 
+                {
                     let plbamount = parseFloat(arrname.prev[b][val][e].amount);
                     indprecustload.push(arrname.prev[b][val][e].loads);
                     indprecusamount.push(plbamount);
@@ -3835,30 +3870,38 @@ function indchart(val, category, fname) {
 
 
 //-----------------------Bar Chart Function For Sales Representative Start -----------------
-function barchartSales(salescurrarr, salesprevarr, salrepind, salesname) {
+function barchartSales(salescurrarr, salesprevarr, salrepind, salesname) 
+{
 
     $("#salcurrpie").empty();
     $("#salprevpie").empty();
     $("#sales_name").html(salesname);
     $("#sales_name_prv").html(salesname);
 
-    if (isEmpty(salescurrarr)) {
+    if (isEmpty(salescurrarr)) 
+    {
         var salescurrarrsize = 0;
-    } else {
+    } 
+    else 
+    {
         var salescurrarrsize = Object.keys(salescurrarr[salrepind]).length;
     }
     var indcurrsalname = [];
     var indcurrsalamount = [];
 
-    for (var d = 0; d < salescurrarrsize; d++) {
+    for (var d = 0; d < salescurrarrsize; d++) 
+    {
         indcurrsalname.push([salescurrarr[salrepind][d].name, parseFloat(salescurrarr[salrepind][d].incentive)]);
         indcurrsalamount.push(salescurrarr[salrepind][d].incentive);
     }
 
 
-    if (isEmpty(salesprevarr)) {
+    if (isEmpty(salesprevarr)) 
+    {
         var salesprevarrsize = 0;
-    } else {
+    } 
+    else 
+    {
         var salesprevarrsize = salesprevarr[salrepind] == undefined ? 0 : Object.keys(salesprevarr[salrepind]).length;
     }
 
@@ -3866,7 +3909,8 @@ function barchartSales(salescurrarr, salesprevarr, salrepind, salesname) {
     var indprevsalname = [];
     var indprevsalamount = [];
 
-    for (var q = 0; q < salesprevarrsize; q++) {
+    for (var q = 0; q < salesprevarrsize; q++) 
+    {
         indprevsalname.push([salesprevarr[salrepind][q].name, parseFloat(salesprevarr[salrepind][q].incentive)]);
         indprevsalamount.push(salesprevarr[salrepind][q].incentive);
     }
@@ -3878,15 +3922,18 @@ function barchartSales(salescurrarr, salesprevarr, salrepind, salesname) {
     indprevsalamount = [];
 }
 //-----------------------Bar Chart Function For Sales Representative End -----------------
-function isEmpty(obj) {
-    for (var key in obj) {
+function isEmpty(obj) 
+{
+    for (var key in obj) 
+    {
         if (obj.hasOwnProperty(key))
             return false;
     }
     return true;
 }
 
-function salesRepGraphData(indcurrsalname, indcurrsalamount, indprevsalname, indprevsalamount) {
+function salesRepGraphData(indcurrsalname, indcurrsalamount, indprevsalname, indprevsalamount)
+{
 
     //-------------------Sales Rep Current Month Pie Chart Start-------------------
 
@@ -3961,86 +4008,88 @@ function salesRepGraphData(indcurrsalname, indcurrsalamount, indprevsalname, ind
 }
 
 //---------------------------Truck Graph Data-----------------------------------------------
-function truckGraphData() {
+function truckGraphData() 
+{
 
     //------------------Truck Map Start--------------------
     
-  var H = Highcharts,
-  map = H.maps['countries/us/us-all'],
-  chart;
+    var H = Highcharts,
+    map = H.maps['countries/us/us-all'],
+    chart;
 
-// Add series with state capital bubbles
-Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/us-capitals.json', function () {
-  var data = [];
-  var dataarr = [mapselectedstate['individualstate']];
-  var miletotal = [mapselectedstate['individual_state_milesum']];
-  var dsds = [  
-    {"abbrev":"AL","capital":"Alabama","lat":32.380120,"lon":-86.300629,"Miles":205764},
-    {"abbrev":"AK","capital":"Alaska","lat":58.299740,"lon":-134.406794,"Miles":31275},
-    {"abbrev":"AZ","capital":"Arizona","lat":33.448260,"lon":-112.075774,"Miles":1445632},
-    {"abbrev":"AR","capital":"Arkansas","lat":34.748655,"lon":-92.274494,"Miles":193524},
-    {"abbrev":"CA","capital":"California","lat":38.579065,"lon":-121.491014,"Miles":466488},
-    {"abbrev":"CO","capital":"Colorado","lat":39.740010,"lon":-104.992259,"Miles":600158},
-    {"abbrev":"CT","capital":"Connecticut","lat":41.763325,"lon":-72.674069,"Miles":124775},
-    {"abbrev":"DE","capital":"Delaware","lat":39.158035,"lon":-75.524734,"Miles":36047},
-    {"abbrev":"FL","capital":"Florida","lat":30.439775,"lon":-84.280649,"Miles":181376},
-    {"abbrev":"GA","capital":"Georgia","lat":33.748315,"lon":-84.391109,"Miles":420003},
-    {"abbrev":"HI","capital":"Hawaii","lat":21.304770,"lon":-157.857614,"Miles":337256},
-    {"abbrev":"ID","capital":"Idaho","lat":43.606980,"lon":-116.193409,"Miles":205671},
-    {"abbrev":"IL","capital":"Illinois","lat":39.801055,"lon":-89.643604,"Miles":116250},
-    {"abbrev":"IN","capital":"Indiana","lat":39.766910,"lon":-86.149964,"Miles":820445},
-    {"abbrev":"IA","capital":"Iowa","lat":41.589790,"lon":-93.615659,"Miles":203433},
-    {"abbrev":"KS","capital":"Kansas","lat":39.049285,"lon":-95.671184,"Miles":127473},
-    {"abbrev":"KY","capital":"Kentucky","lat":38.195070,"lon":-84.878694,"Miles":25527},
-    {"abbrev":"LA","capital":"Louisiana","lat":30.443345,"lon":-91.186994,"Miles":229493},
-    {"abbrev":"ME","capital":"Maine","lat":44.318036,"lon":-69.776218,"Miles":19136},
-    {"abbrev":"MD","capital":"Maryland","lat":38.976700,"lon":-76.489934,"Miles":38394},
-    {"abbrev":"MA","capital":"Massachusetts","lat":42.358635,"lon":-71.056699,"Miles":617594},
-    {"abbrev":"MI","capital":"Michigan","lat":42.731940,"lon":-84.552249,"Miles":114297},
-    {"abbrev":"MN","capital":"Minnesota","lat":44.943829,"lon":-93.093326,"Miles":285068},
-    {"abbrev":"MS","capital":"Mississippi","lat":32.298690,"lon":-90.180489,"Miles":173514},
-    {"abbrev":"MO","capital":"Missouri","lat":38.577515,"lon":-92.177839,"Miles":43079},
-    {"abbrev":"MT","capital":"Montana","lat":46.589760,"lon":-112.021202,"Miles":28190},
-    {"abbrev":"NE","capital":"Nebraska","lat":40.813620,"lon":-96.707739,"Miles":258379},
-    {"abbrev":"NV","capital":"Nevada","lat":39.164885,"lon":-119.766999,"Miles":55274},
-    {"abbrev":"NH","capital":"New Hampshire","lat":43.207250,"lon":-71.536604,"Miles":42695},
-    {"abbrev":"NJ","capital":"New Jersey","lat":40.217875,"lon":-74.759404,"Miles":84913},
-    {"abbrev":"NM","capital":"New Mexico","lat":35.691543,"lon":-105.937406,"Miles":67947},
-    {"abbrev":"NY","capital":"New York","lat":42.651445,"lon":-73.755254,"Miles":97856},
-    {"abbrev":"NC","capital":"North Carolina","lat":35.785510,"lon":-78.642669,"Miles":403892},
-    {"abbrev":"ND","capital":"North Dakota","lat":46.805372,"lon":-100.779334,"Miles":61272},
-    {"abbrev":"OH","capital":"Ohio","lat":39.961960,"lon":-83.002984,"Miles":787033},
-    {"abbrev":"OK","capital":"Oklahoma","lat":35.472015,"lon":-97.520354,"Miles":579999},
-    {"abbrev":"OR","capital":"Oregon","lat":44.933260,"lon":-123.043814,"Miles":154637},
-    {"abbrev":"PA","capital":"Pennsylvania","lat":40.259865,"lon":-76.882230,"Miles":49528},
-    {"abbrev":"RI","capital":"Rhode Island","lat":41.823875,"lon":-71.411994,"Miles":178042},
-    {"abbrev":"SC","capital":"South Carolina","lat":33.998550,"lon":-81.045249,"Miles":129272},
-    {"abbrev":"SD","capital":"South Dakota","lat":44.368924,"lon":-100.350158,"Miles":13646},
-    {"abbrev":"TN","capital":"Tennessee","lat":36.167783,"lon":-86.778365,"Miles":601222},
-    {"abbrev":"TX","capital":"Texas","lat":30.267605,"lon":-97.742984,"Miles":790390},
-    {"abbrev":"UT","capital":"Utah","lat":40.759505,"lon":-111.888229,"Miles":186440},
-    {"abbrev":"VT","capital":"Vermont","lat":44.260299,"lon":-72.576264,"Miles":7855},
-    {"abbrev":"VA","capital":"Virginia","lat":37.540700,"lon":-77.433654,"Miles":204214},
-    {"abbrev":"WA","capital":"Washington","lat":47.039231,"lon":-122.891366,"Miles":46478},
-    {"abbrev":"WV","capital":"West Virginia","lat":38.350195,"lon":-81.638989,"Miles":51400},
-    {"abbrev":"WI","capital":"Wisconsin","lat":43.072950,"lon":-89.386694,"Miles":233209},
-    {"abbrev":"WY","capital":"Wyoming","lat":41.134815,"lon":-104.821544,"Miles":59466}
-];
-        var arrmapsize = dsds.length;
-        for (var q = 0; q < arrmapsize; q++) {
-            dsds[q]['truck'] = dataarr[0][dsds[q]['capital']].replace(/,/g,'<sub>mi</sub><br>');
-            dsds[q]['Mile'] = miletotal[0][dsds[q]['capital']]+"<sub>mi</sub>";
-        }
+    // Add series with state capital bubbles
+    Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/us-capitals.json', function () {
+    var data = [];
+    var dataarr = [mapselectedstate['individualstate']];
+    var miletotal = [mapselectedstate['individual_state_milesum']];
+    var dsds = [  
+        {"abbrev":"AL","capital":"Alabama","lat":32.380120,"lon":-86.300629,"Miles":205764},
+        {"abbrev":"AK","capital":"Alaska","lat":58.299740,"lon":-134.406794,"Miles":31275},
+        {"abbrev":"AZ","capital":"Arizona","lat":33.448260,"lon":-112.075774,"Miles":1445632},
+        {"abbrev":"AR","capital":"Arkansas","lat":34.748655,"lon":-92.274494,"Miles":193524},
+        {"abbrev":"CA","capital":"California","lat":38.579065,"lon":-121.491014,"Miles":466488},
+        {"abbrev":"CO","capital":"Colorado","lat":39.740010,"lon":-104.992259,"Miles":600158},
+        {"abbrev":"CT","capital":"Connecticut","lat":41.763325,"lon":-72.674069,"Miles":124775},
+        {"abbrev":"DE","capital":"Delaware","lat":39.158035,"lon":-75.524734,"Miles":36047},
+        {"abbrev":"FL","capital":"Florida","lat":30.439775,"lon":-84.280649,"Miles":181376},
+        {"abbrev":"GA","capital":"Georgia","lat":33.748315,"lon":-84.391109,"Miles":420003},
+        {"abbrev":"HI","capital":"Hawaii","lat":21.304770,"lon":-157.857614,"Miles":337256},
+        {"abbrev":"ID","capital":"Idaho","lat":43.606980,"lon":-116.193409,"Miles":205671},
+        {"abbrev":"IL","capital":"Illinois","lat":39.801055,"lon":-89.643604,"Miles":116250},
+        {"abbrev":"IN","capital":"Indiana","lat":39.766910,"lon":-86.149964,"Miles":820445},
+        {"abbrev":"IA","capital":"Iowa","lat":41.589790,"lon":-93.615659,"Miles":203433},
+        {"abbrev":"KS","capital":"Kansas","lat":39.049285,"lon":-95.671184,"Miles":127473},
+        {"abbrev":"KY","capital":"Kentucky","lat":38.195070,"lon":-84.878694,"Miles":25527},
+        {"abbrev":"LA","capital":"Louisiana","lat":30.443345,"lon":-91.186994,"Miles":229493},
+        {"abbrev":"ME","capital":"Maine","lat":44.318036,"lon":-69.776218,"Miles":19136},
+        {"abbrev":"MD","capital":"Maryland","lat":38.976700,"lon":-76.489934,"Miles":38394},
+        {"abbrev":"MA","capital":"Massachusetts","lat":42.358635,"lon":-71.056699,"Miles":617594},
+        {"abbrev":"MI","capital":"Michigan","lat":42.731940,"lon":-84.552249,"Miles":114297},
+        {"abbrev":"MN","capital":"Minnesota","lat":44.943829,"lon":-93.093326,"Miles":285068},
+        {"abbrev":"MS","capital":"Mississippi","lat":32.298690,"lon":-90.180489,"Miles":173514},
+        {"abbrev":"MO","capital":"Missouri","lat":38.577515,"lon":-92.177839,"Miles":43079},
+        {"abbrev":"MT","capital":"Montana","lat":46.589760,"lon":-112.021202,"Miles":28190},
+        {"abbrev":"NE","capital":"Nebraska","lat":40.813620,"lon":-96.707739,"Miles":258379},
+        {"abbrev":"NV","capital":"Nevada","lat":39.164885,"lon":-119.766999,"Miles":55274},
+        {"abbrev":"NH","capital":"New Hampshire","lat":43.207250,"lon":-71.536604,"Miles":42695},
+        {"abbrev":"NJ","capital":"New Jersey","lat":40.217875,"lon":-74.759404,"Miles":84913},
+        {"abbrev":"NM","capital":"New Mexico","lat":35.691543,"lon":-105.937406,"Miles":67947},
+        {"abbrev":"NY","capital":"New York","lat":42.651445,"lon":-73.755254,"Miles":97856},
+        {"abbrev":"NC","capital":"North Carolina","lat":35.785510,"lon":-78.642669,"Miles":403892},
+        {"abbrev":"ND","capital":"North Dakota","lat":46.805372,"lon":-100.779334,"Miles":61272},
+        {"abbrev":"OH","capital":"Ohio","lat":39.961960,"lon":-83.002984,"Miles":787033},
+        {"abbrev":"OK","capital":"Oklahoma","lat":35.472015,"lon":-97.520354,"Miles":579999},
+        {"abbrev":"OR","capital":"Oregon","lat":44.933260,"lon":-123.043814,"Miles":154637},
+        {"abbrev":"PA","capital":"Pennsylvania","lat":40.259865,"lon":-76.882230,"Miles":49528},
+        {"abbrev":"RI","capital":"Rhode Island","lat":41.823875,"lon":-71.411994,"Miles":178042},
+        {"abbrev":"SC","capital":"South Carolina","lat":33.998550,"lon":-81.045249,"Miles":129272},
+        {"abbrev":"SD","capital":"South Dakota","lat":44.368924,"lon":-100.350158,"Miles":13646},
+        {"abbrev":"TN","capital":"Tennessee","lat":36.167783,"lon":-86.778365,"Miles":601222},
+        {"abbrev":"TX","capital":"Texas","lat":30.267605,"lon":-97.742984,"Miles":790390},
+        {"abbrev":"UT","capital":"Utah","lat":40.759505,"lon":-111.888229,"Miles":186440},
+        {"abbrev":"VT","capital":"Vermont","lat":44.260299,"lon":-72.576264,"Miles":7855},
+        {"abbrev":"VA","capital":"Virginia","lat":37.540700,"lon":-77.433654,"Miles":204214},
+        {"abbrev":"WA","capital":"Washington","lat":47.039231,"lon":-122.891366,"Miles":46478},
+        {"abbrev":"WV","capital":"West Virginia","lat":38.350195,"lon":-81.638989,"Miles":51400},
+        {"abbrev":"WI","capital":"Wisconsin","lat":43.072950,"lon":-89.386694,"Miles":233209},
+        {"abbrev":"WY","capital":"Wyoming","lat":41.134815,"lon":-104.821544,"Miles":59466}
+    ];
+    var arrmapsize = dsds.length;
+    for (var q = 0; q < arrmapsize; q++) 
+    {
+        dsds[q]['truck'] = dataarr[0][dsds[q]['capital']].replace(/,/g,'<sub>mi</sub><br>');
+        dsds[q]['Mile'] = miletotal[0][dsds[q]['capital']]+"<sub>mi</sub>";
+    }
         
-  dsds.forEach(function (p) {
-    p.z = p.Miles;
-    data.push(p);
-  });
+    dsds.forEach(function (p) {
+        p.z = p.Miles;
+        data.push(p);
+    });
 	
-  chart = Highcharts.mapChart('mapdiv', {
-    title: {
-      text: ' '
-    },
+    chart = Highcharts.mapChart('mapdiv', {
+        title: {
+        text: ' '
+        },
     chart : {
                 backgroundColor: daytheme,
     },
@@ -4084,47 +4133,48 @@ Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/sam
       enableMouseTracking: false,
       showInLegend: false
     }, {
-      type: 'mapbubble',
-      dataLabels: {
-        enabled: true,
-        format: '{point.capital}'
-      },
-      name: 'States',
-      data: data,
-      maxSize: '12%',
-      color: H.getOptions().colors[0]
-    }]
-  });
-});
-
-// Display custom label with lat/lon next to crosshairs
-document.getElementById('mapdiv').addEventListener('mousemove', function (e) {
-  var position;
-  if (chart) {
-    if (!chart.lab) {
-      chart.lab = chart.renderer.text('', 0, 0)
-        .attr({
-          zIndex: 5
-        })
-        .css({
-          color: '#505050'
-        })
-        .add();
-    }
-
-    e = chart.pointer.normalize(e);
-    position = chart.fromPointToLatLon({
-      x: chart.xAxis[0].toValue(e.chartX),
-      y: chart.yAxis[0].toValue(e.chartY)
+            type: 'mapbubble',
+            dataLabels: {
+                enabled: true,
+                format: '{point.capital}'
+            },
+            name: 'States',
+            data: data,
+            maxSize: '12%',
+            color: H.getOptions().colors[0]
+            }]
+        });
     });
 
-    chart.lab.attr({
-      x: e.chartX + 5,
-      y: e.chartY - 22,
-      text: ''
+    // Display custom label with lat/lon next to crosshairs
+    document.getElementById('mapdiv').addEventListener('mousemove', function (e){
+        var position;
+        if (chart) 
+        {
+            if (!chart.lab) 
+            {
+                chart.lab = chart.renderer.text('', 0, 0)
+                .attr({
+                zIndex: 5
+                })
+                .css({
+                color: '#505050'
+                })
+                .add();
+            }
+            e = chart.pointer.normalize(e);
+            position = chart.fromPointToLatLon({
+            x: chart.xAxis[0].toValue(e.chartX),
+            y: chart.yAxis[0].toValue(e.chartY)
+            });
+
+            chart.lab.attr({
+            x: e.chartX + 5,
+            y: e.chartY - 22,
+            text: ''
+            });
+        }
     });
-  }
-});
 
 document.getElementById('mapdiv').addEventListener('mouseout', function () {
   if (chart && chart.lab) {
@@ -4246,7 +4296,8 @@ document.getElementById('mapdiv').addEventListener('mouseout', function () {
 //-----------------function for estimated driver pay start----------
 var all_driver = '';
 
-function estimated_driverpay_statement(weekfirts, weeklast) {
+function estimated_driverpay_statement(weekfirts, weeklast) 
+{
 
     var driver_name_report = 'All';
     var filterby = 'deliver_date';
@@ -4263,7 +4314,8 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
 
             var estcountarr = Object.keys(estarr).length;
 
-            if (estcountarr >= 1) {
+            if (estcountarr >= 1) 
+            {
                 var lastindex = estcountarr - 1;
                 var alldrivertab = estarr[lastindex].alldrivertable.length;
 
@@ -4274,7 +4326,8 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
                 var recurradd = 0;
                 var oorecurrsub = 0;
                 var totalnetdrp = 0;
-                for (var b = 0; b < alldrivertab; b++) {
+                for (var b = 0; b < alldrivertab; b++) 
+                {
                     driverloadtotal += estarr[lastindex].alldrivertable[b].driverload;
                     driveradvancetotal += estarr[lastindex].alldrivertable[b].driveradvance;
                     final_drtotal += parseFloat(estarr[lastindex].alldrivertable[b].totalearning);
@@ -4282,22 +4335,28 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
                     var ooshrecurrsub = 0;
                     var shrecurradd = 0;
 
-                    for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) {
-                        if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) {
+                    for (var ew = 0; ew < estarr[lastindex].alldrivertable[b].recurrencesub.length; ew++) 
+                    {
+                        if (estarr[lastindex].alldrivertable[b].recurrencesub[ew].length > 0) 
+                        {
                             recurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
                             shrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].recurrencesub[ew][0].amount);
                         }
                     }
 
-                    for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) {
-                        if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) {
+                    for (var oew = 0; oew < estarr[lastindex].alldrivertable[b].ownerrecurr.length; oew++) 
+                    {
+                        if (estarr[lastindex].alldrivertable[b].ownerrecurr[oew].length > 0) 
+                        {
                             oorecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
                             ooshrecurrsub += parseFloat(estarr[lastindex].alldrivertable[b].ownerrecurr[oew][0].amount);
                         }
                     }
 
-                    for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) {
-                        if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) {
+                    for (var yw = 0; yw < estarr[lastindex].alldrivertable[b].recurrenceadd.length; yw++) 
+                    {
+                        if (estarr[lastindex].alldrivertable[b].recurrenceadd[yw].length > 0) 
+                        {
                             recurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
                             shrecurradd += parseFloat(estarr[lastindex].alldrivertable[b].recurrenceadd[yw][0].amount);
                         }
@@ -4319,7 +4378,8 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
 
             }
 
-            if (estcountarr < 1) {
+            if (estcountarr < 1) 
+            {
                 $("#toolestdrvpay").html("$0.00");
                 $("#estdrvpay").html("$0.00");
             }
@@ -4338,12 +4398,10 @@ function estimated_driverpay_statement(weekfirts, weeklast) {
 //-----------------function for estimated driver pay End----------
 
 
-function dashGraphBarLine(curloads, preloads, curramount, prevamount) {
+function dashGraphBarLine(curloads, preloads, curramount, prevamount) 
+{
 
-    
-
-
-//-------------------Bar Graph Start------------------
+    //-------------------Bar Graph Start------------------
     const chart = new Highcharts.Chart({
     chart: {
         renderTo: 'bar-chart',
@@ -4391,70 +4449,70 @@ function dashGraphBarLine(curloads, preloads, curramount, prevamount) {
 });
 
 function showValues() {
-    // document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
-    // document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
-    // document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
+    document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
+    document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
+    document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
 }
 
 // Activate the sliders
-// document.querySelectorAll('#sliders input').forEach(input => input.addEventListener('input', e => {
-//     chart.options.chart.options3d[e.target.id] = parseFloat(e.target.value);
-//     showValues();
-//     chart.redraw(false);
-// }));
+document.querySelectorAll('#sliders input').forEach(input => input.addEventListener('input', e => {
+    chart.options.chart.options3d[e.target.id] = parseFloat(e.target.value);
+    showValues();
+    chart.redraw(false);
+}));
 
-// showValues();
+showValues();
 //------------------------Bar Graph END------------------------
 
 
 
 
 //----------------------Line Graph Start------------------------
-    // Highcharts.chart('line-chart', {
-    // chart: {
-    //     type: 'spline',
-    //     backgroundColor: daytheme,
-    // },
-    // title: {
-    //     text: ''
-    // },
+    Highcharts.chart('line-chart', {
+    chart: {
+        type: 'spline',
+        backgroundColor: daytheme,
+    },
+    title: {
+        text: ''
+    },
     
-    // xAxis: {
-    //     title: {
-    //             text: 'Number Of Days'
-    //         },
-    //         categories: [1,2,3],
-    //         tickInterval: 1
-    // },
-    // yAxis: {
-    //     title: {
-    //         text: 'Load Pay'
-    //     },
-    // },
-    // tooltip: {
-    //     valueDecimals:2,
-    //     valuePrefix: '$',
-    //     crosshairs: true,
-    //     shared: true
-    // },
-    // plotOptions: {
-    //     spline: {
-    //         marker: {
-    //             radius: 4,
-    //             lineColor: '#666666',
-    //             lineWidth: 1
-    //         }
-    //     }
-    // },
-    // series: [{
-    //     name: 'Current Month',
-    //         data: curramount
-    // },{
-    //         name: 'Previous Month',
-    //         data: prevamount
-    //     }],
-    //     colors: ['#00B5FD', '#C0D64A'],
-// });
+    xAxis: {
+        title: {
+                text: 'Number Of Days'
+            },
+            categories: [1,2,3],
+            tickInterval: 1
+    },
+    yAxis: {
+        title: {
+            text: 'Load Pay'
+        },
+    },
+    tooltip: {
+        valueDecimals:2,
+        valuePrefix: '$',
+        crosshairs: true,
+        shared: true
+    },
+    plotOptions: {
+        spline: {
+            marker: {
+                radius: 4,
+                lineColor: '#666666',
+                lineWidth: 1
+            }
+        }
+    },
+    series: [{
+        name: 'Current Month',
+            data: curramount
+    },{
+            name: 'Previous Month',
+            data: prevamount
+        }],
+        colors: ['#00B5FD', '#C0D64A'],
+});
         
 //----------------------Line Graph End-----------------------------------------
 $(".highcharts-credits").empty();
@@ -4463,30 +4521,28 @@ $(".highcharts-credits").empty();
 
 
 //---------------------------Pandding Table Start----------------------------------
-function panddingAmount() {
+function panddingAmount() 
+{
             
-            var panddingarsize = pandingAmounArr.length;
-            var panddingTable = '';
-            var pdt = 1;
-            var totalPanddingAmount = 0;
-            for (var fd = 0; fd < panddingarsize; fd++) {
-
-                panddingTable += `<tr>
-                    <td class = "first-row">${pdt}</td>
-                    <td>${pandingAmounArr[fd].InvoiceNo}</td>
-                    <td>${pandingAmounArr[fd].customer}</td>
-                    <td>${convertTimeZone(pandingAmounArr[fd].invoicetime,'date')}</td>
-                    <td>$${numberWithCommas(parseFloat(pandingAmounArr[fd].rate).toFixed(2))}</td>
-                    <td>${pandingAmounArr[fd].note}</td>
-                </tr>`;
-                totalPanddingAmount += parseFloat(pandingAmounArr[fd].rate);
-
-                pdt++;
-
-            }
-
-            $('#penddingAmountdata').html(panddingTable);
-            $('#penddingAmountTotal').html('$' + numberWithCommas(parseFloat(totalPanddingAmount).toFixed(2)));
+    var panddingarsize = pandingAmounArr.length;
+    var panddingTable = '';
+    var pdt = 1;
+    var totalPanddingAmount = 0;
+    for (var fd = 0; fd < panddingarsize; fd++) 
+    {
+        panddingTable += `<tr>
+            <td class = "first-row">${pdt}</td>
+            <td>${pandingAmounArr[fd].InvoiceNo}</td>
+            <td>${pandingAmounArr[fd].customer}</td>
+            <td>${convertTimeZone(pandingAmounArr[fd].invoicetime,'date')}</td>
+            <td>$${numberWithCommas(parseFloat(pandingAmounArr[fd].rate).toFixed(2))}</td>
+            <td>${pandingAmounArr[fd].note}</td>
+            </tr>`;
+        totalPanddingAmount += parseFloat(pandingAmounArr[fd].rate);
+        pdt++;
+    }
+    $('#penddingAmountdata').html(panddingTable);
+    $('#penddingAmountTotal').html('$' + numberWithCommas(parseFloat(totalPanddingAmount).toFixed(2)));
 }
 //---------------------------Pandding Table End----------------------------------
 

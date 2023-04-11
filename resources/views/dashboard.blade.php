@@ -222,211 +222,186 @@
        </div>
 		</div>
 
-		<div class="row">
-		   <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
-		      <div class="tabContainer">
-             <div id="tab1" class="tabContent">
-		        <div class="row">
-                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
-                       <div class="row">
-                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
-                              <div class="card overflow-hidden">
-                                  <div class="card-header border-bottom card-padd">
-
-                                     <div class="card-body custom-card" style="padding:0rem">
-                                         <div class="wrapper__header">
-                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
-                                                  <div class="b_caption">
-                                                       <span id="ranking_table" style="float:left">CUSTOMER RANKING</span>
-                                                    </div>
-                                                    </div>
-                                                    <div class="wrapper__content" id="dashtable"></div>
-                                                   <div class="b_footer">
-                                                 <p></p>
-                                               </div>
-                                            </div>
-                                          </div>
-                        
-                                        </div>
-                                       </div>
-                
-                                     </div>
-                                   </div>
-
-                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
-                                   <div class="card">
-                                   <div class="card-header border-hide">
-				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Customer Revenue
-                                    </span><span class="float-right" id="linec_name"></span></h5>
-                                 </div>
-                                <div class="card-body">
-                                <div class="sales-stats d-flex">
-                               <div>
-                                <div class="text-muted fs-13">Total Sales
-                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
-                               </div>
-                               <h3 class="fw-semibold">$582,857.97</h3>
-                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3">
+        <div class="tabContainer">
+          <div id="tab1" class="tabContent">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                    <div class="card overflow-hidden">
+                      <div class="card-header border-bottom card-padd">
+                        <div class="card-body custom-card" style="padding:0rem">
+                          <div class="wrapper__header">
+                            <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                            <div class="b_caption">
+                              <span id="ranking_table" style="float:left">Customer Loads</span>
                             </div>
                           </div>
-                          <div id="chartD"></div>
-                     </div>
-
-                 </div>
-               </div>
-
+                        <div class="wrapper__content" id="dashtable"></div>
+                          <div class="b_footer">
+                            <p></p>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>                
+              </div>
             </div>
-
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+              <div class="card">
+                <div class="card-header border-hide">
+                  <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Customer Loads
+                  </span><span class="float-right" id="linec_name"></span></h5>
+                </div>
+                <div class="card-body">
+                  <div class="sales-stats d-flex">
+                    <div>
+                      <div class="text-muted fs-13">Total Sales
+                        <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                      </div>
+                      <h3 class="fw-semibold">$582,857.97</h3>
+                      <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                    </div>
+                  </div>
+                  <div id="chartD"></div>
+                </div>
+              </div>
+            </div>
+          </div>
           <canvas id="badCanvas2" width="400" height="100">Your browser does not support the canvas element.</canvas>
          <!-- ROW-3 -->
-
-        <div class="row">
-              <div class="col-xl-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span
-                         class="bartitle"></span>&nbsp;<span class="linetitledata">Customer Revenue
-                          </span><span class="float-right" id="linec_name"></span></h5>
-               
-               <!-- Row start -->
-                           <div class="row gutters align-items-center padd-top">
-                               <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
-                                <div class="monthly-avg cut-text">
-                                   <h5>Current Month</h5>
-                                 <div class="avg-block">
-                                    <h3 class="avg-total text-success" id="current_loadd">0</h3>
-                                     <h6 class="avg-label">Load</h6>
-                                     </div>
-                                      <div class="avg-block">
-                                     <div class="tooltip1">
-                           <span class="revenue">
-                            <h3 class="avg-total text-info" id="current_amountd">$0.00</h3>
-                          </span>
-                          <h4 class="toolrevenue" id="current_amountdtool"></h4>
+          <div class="row">
+            <div class="col-xl-12 col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span  class="bartitle"></span>&nbsp;<span class="linetitledata">Customer Revenue
+                  </span><span class="float-right" id="linec_name"></span></h5>               
+                  <!-- Row start -->
+                  <div class="row gutters align-items-center padd-top">
+                    <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+                      <div class="monthly-avg cut-text">
+                        <h5>Current Month</h5>
+                        <div class="avg-block">
+                          <h3 class="avg-total text-success" id="current_loadd">0</h3>
+                          <h6 class="avg-label">Load</h6>
                         </div>
-                      <h6 class="avg-label avg-label-2">Revenue</h6>
-
-                     </div>
-                   </div>
-                  </div>
-                 <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
-                <figure class="highcharts-figure">
-               <div id="line-chart"></div>
-            </figure>
-           </div>
-           <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
-               <div class="monthly-avg cut-text">
-                <h5>Previous Month</h5>
-                <div class="avg-block">
-                    <h3 class="avg-total text-success" id="previous_loadd">0</h3>
-                    <h6 class="avg-label">Load</h6>
-                </div>
-                <div class="avg-block">
-
-                    <div class="tooltip1">
-                        <span class="revenue">
-                            <h3 class="avg-total text-info" id="previous_amountd">$0.00</h3>
-                        </span>
-                        <h4 class="toolrevenue" id="previous_amountdtool"></h4>
+                        <div class="avg-block">
+                          <div class="tooltip1">
+                            <span class="revenue">
+                              <h3 class="avg-total text-info" id="current_amountd">$0.00</h3>
+                            </span>
+                            <h4 class="toolrevenue" id="current_amountdtool"></h4>
+                          </div>
+                          <h6 class="avg-label avg-label-2">Revenue</h6>
+                        </div>
+                      </div>
                     </div>
-                    <h6 class="avg-label avg-label-2">Revenue</h6>
+                    <div class="col-xl-8 col-lg-6 col-md-12 col-sm-12 col-12">
+                      <figure class="highcharts-figure">
+                        <div id="line-chart"></div>
+                      </figure>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-12">
+                      <div class="monthly-avg cut-text">
+                        <h5>Previous Month</h5>
+                        <div class="avg-block">
+                          <h3 class="avg-total text-success" id="previous_loadd">0</h3>
+                          <h6 class="avg-label">Load</h6>
+                        </div>
+                        <div class="avg-block">
+                          <div class="tooltip1">
+                            <span class="revenue">
+                              <h3 class="avg-total text-info" id="previous_amountd">$0.00</h3>
+                            </span>
+                            <h4 class="toolrevenue" id="previous_amountdtool"></h4>
+                          </div>
+                          <h6 class="avg-label avg-label-2">Revenue</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Row end -->
                 </div>
-            </div>
+              </div>
+            </div>							
+          </div>
         </div>
-       </div>
-    <!-- Row end -->
-      </div>
-     </div>
-     </div>							
-    </div>
-
-   </div>
-     
-   <div id="tab2" class="tabContent">
-		        <div class="row">
-                    <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
-                       <div class="row">
-                          <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
-                              <div class="card overflow-hidden">
-                                  <div class="card-header border-bottom card-padd">
-
-                                     <div class="card-body custom-card" style="padding:0rem">
-                                         <div class="wrapper__header">
-                                              <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
-                                                  <div class="b_caption">
-                                                       <span id="ranking_table" style="float:left">FUEL CARD</span>
-                                                    </div>
-                                                    </div>
-                                                    <div class="wrapper__content" id="dashtable"></div>
-                                                   <div class="b_footer">
-                                                 <p></p>
-                                               </div>
-                                            </div>
-                                          </div>
-                        
-                                        </div>
-                                       </div>
-                
-                                     </div>
-                                   </div>
-
-                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
-                                   <div class="card">
-                                   <div class="card-header border-hide">
-				                   <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Total Revenue
-                                    </span><span class="float-right" id="linec_name"></span></h5>
-                                 </div>
-                                <div class="card-body">
-                                <div class="sales-stats d-flex">
-                               <div>
-                                <div class="text-muted fs-13">Total Sales
-                                <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
-                               </div>
-                               <h3 class="fw-semibold">$582,857.97</h3>
-                            <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+        <div id="tab2" class="tabContent">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-xl-4 col-lg-6">
+              <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                    <div class="card overflow-hidden">
+                      <div class="card-header border-bottom card-padd">
+                        <div class="card-body custom-card" style="padding:0rem">
+                          <div class="wrapper__header">
+                            <div class=""><img src="{{URL::to('/')}}/assets/images/cup.png" height="45" width="45"></div>
+                              <div class="b_caption">
+                                <span id="ranking_table" style="float:left">FUEL CARD</span>
+                              </div>
+                            </div>
+                            <div class="wrapper__content" id="dashtable"></div>
+                            <div class="b_footer">
+                              <p></p>
                             </div>
                           </div>
-                          <div id="chartD"></div>
-                     </div>
-
-                 </div>
-               </div>
-
+                        </div>                        
+                      </div>
+                    </div>                
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8">
+                  <div class="card">
+                    <div class="card-header border-hide">
+                      <h5 class="custome-line"><span class="baricone"><i class="mdi mdi-coin"></i></span><span class="bartitle"></span>&nbsp;<span class="linetitledata">Total Revenue
+                      </span><span class="float-right" id="linec_name"></span></h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="sales-stats d-flex">
+                        <div>
+                          <div class="text-muted fs-13">Total Sales
+                            <span class="p-2 br-5 text-success"><i class="fe fe-arrow-up-right"></i></span>
+                          </div>
+                          <h3 class="fw-semibold">$582,857.97</h3>
+                          <div><span class="text-success fs-13 me-1">32%</span>Increase Since last Year</div>
+                        </div>
+                      </div>
+                      <div id="chartD"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+		            <div class="col-xs-12 col-lg-6">
+                  <div class="card-body add-truck">
+                    <div class="widget">
+					            <div class="widget-heading">
+					              <div class="">
+                          <h5 class="custome-line">Bank</h5>
+                        </div>
+                      </div>
+				            </div>
+		              </div>
+		            </div>
+		            <div class="col-xs-12 col-lg-6">
+                  <div class="card-body add-truck">
+                    <div class="widget">
+					            <div class="widget-heading">
+					              <div class="">
+                          <h5 class="custome-line">Truck Average</h5>
+                        </div>
+					            </div>
+				            </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-         
-          <div class="row">
-		        <div class="col-xs-12 col-lg-6">
-                   <div class="card-body add-truck">
-                     <div class="widget">
-					   <div class="widget-heading">
-					    <div class="">
-                                    <h5 class="custome-line">Bank</h5>
-                                </div>
-					</div>
-				</div>
-		     </div>
-
-		</div>
-		<div class="col-xs-12 col-lg-6">
-            <div class="card-body add-truck">
-                <div class="widget">
-					<div class="widget-heading">
-					<div class="">
-                                    <h5 class="custome-line">Truck Average</h5>
-                                </div>
-					</div>
-				</div>
-		     </div>
-
-		</div>
-	</div>
-
-    </div>
-    <!-- Row end -->
+            <!-- Row end -->
+          </div>
         </div>
-    </div>
-    </div>							
+      </div>							
 
     <div id="tab3" class="tabContent">
 		        <div class="row">

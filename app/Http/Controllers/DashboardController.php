@@ -38,6 +38,7 @@ use App\Models\dispatcherincentive;
 use App\Models\salesrepincentive;
 use App\Models\Ifta;
 use DB;
+
 class DashboardController extends Controller
 {
     
