@@ -769,6 +769,10 @@ function doSearch(dom, funname, val) {
             searchCustomer(dom, 'browserscustomer');
         } else if (func == 'browsersdispatcher') {
             searchUser(dom, 'browsersdispatcher');
+        }else if (func == 'customeDrowpuserlist') {
+            searchUser(dom, 'customeDrowpuserlist');
+        }else if (func == 'updatecustomeDrowpuserlist') {
+            searchUser(dom, 'updatecustomeDrowpuserlist');
         } else if (func == 'browsersloadtype') {
             searchLoadtype(dom, 'browsersloadtype');
         } else if (func == 'browsersequipment') {
@@ -787,6 +791,10 @@ function doSearch(dom, funname, val) {
             searchTruck(dom, 'browsers1truck');
         } else if (func == 'browserstrailer1') {
             searchTrailer(dom, 'browserstrailer1');
+        } else if (func == 'customerAddFac') {
+          searchFactring(dom, 'customerAddFac');
+        }  else if (func == 'updatecustomerAddFac') {
+          searchFactring(dom, 'updatecustomerAddFac');
         } 
     }, 600); 
 }
@@ -1128,7 +1136,8 @@ function getCustomer(value) {
 function searchUser(value, id) {
     if (!value.includes(")")) {
     var formData = new FormData();
-    formData.append('_token',$("#tokenLoadboard").val());
+    // formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('_token',$(".laravel_csrf_tokn").val());
     formData.append('main',"admin");
     formData.append('value',value);
         if (value.match(letters) || value == '') {

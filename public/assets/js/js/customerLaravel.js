@@ -11,28 +11,28 @@ var base_path = $("#url").val();
     // <!-- -------------------------------------------------------------------------Get customer ------------------------------------------------------------------------- -->  
     $('#customer_navbar').click(function(){
         //alert(); 
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/user",
-            async: false,
-            success: function(response) {
-                // console.log(response);
-                customerSalesRepresentative(response);
-                result = response;
-            }
-        });
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/getCustomerBFactoringCompany",
-            async: false,
-            //dataType:JSON,
-            success: function(customerBFactoringCompanyResult) {
-                //console.log(customerCurrencyResult);
-                createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
-                customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
-            }
-        });
-        var customerResponse = '';
+        // $.ajax({
+        //     type: "GET",
+        //     url: base_path+"/admin/user",
+        //     async: false,
+        //     success: function(response) {
+        //         // console.log(response);
+        //         customerSalesRepresentative(response);
+        //         result = response;
+        //     }
+        // });
+        // $.ajax({
+        //     type: "GET",
+        //     url: base_path+"/admin/getCustomerBFactoringCompany",
+        //     async: false,
+        //     //dataType:JSON,
+        //     success: function(customerBFactoringCompanyResult) {
+        //         //console.log(customerCurrencyResult);
+        //         createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
+        //         customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
+        //     }
+        // });
+        // var customerResponse = '';
         $.ajax({
             type: "GET",
             url: base_path+"/admin/customer",
@@ -164,9 +164,10 @@ var base_path = $("#url").val();
                     <a class=' button-23  customerDelete'  data-id='` + id + `' data-MasterId=" `+ masterID+ `"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a>`;
                     tr += '</td>';
                     tr += '</tr>';
+                    row = tr + row;
+                    $("#customerTable").html(row); 
                 }
-                row = tr + row;
-                $("#customerTable").html(row); 
+               
             }
              
 
@@ -805,7 +806,44 @@ var base_path = $("#url").val();
             }
         });
     });
-
+//factroring
+function searchFactring(value, id) {
+    if (!value.includes(")")) {
+    var formData = new FormData();
+    formData.append('_token',$("#tokenLoadboard").val());
+    formData.append('value',value);
+    formData.append('main',"admin");
+        if (value.match(letters) || value == '') {
+            $.ajax({
+              url: base_path+"/admin/getCustomerBFactoringCompany",
+              type: "get",
+              datatype:"JSON",
+              contentType: false,
+              processData: false,
+              data:formData,
+              cache: false,
+                success: function (response) {
+                  var result = JSON.parse(response);
+                  if (result.length == 0) 
+                  {
+                    document.getElementById(id).innerHTML = "<option value='No results Found ...'></option>";
+                  } 
+                  else 
+                  {
+                        var options = "";
+                        for (var i = 0; i < result.length; i++) 
+                        {
+                            options += `<option data-value = "${result[i].id}" value="${result[i].value}"></option>`;
+                        }
+                        document.getElementById(id).innerHTML = options;
+                    }
+                }
+            });
+        } else {
+          swal.fire('Please input alphanumeric characters only');
+        }
+    }
+}
     // <!-- -------------------------------------------------------------------------over add customer factoringCompany ------------------------------------------------------------------------- -->   
 
     // <!-- -------------------------------------------------------------------------add customer over ------------------------------------------------------------------------- -->  
@@ -1455,9 +1493,10 @@ var base_path = $("#url").val();
                      <td> ${custTelephone}</td>
                      <td> ${custEmail}</td>`;
                     tr += '</tr>';
+                    row = tr + row;
+                    $("#restoreCustomerTable").html(row); 
                 }
-                row = tr + row;
-                $("#restoreCustomerTable").html(row); 
+              
             }
              
 
@@ -1537,9 +1576,10 @@ var base_path = $("#url").val();
                         async: false,
                         // dataType:JSON,
                         success: function(customerResult) {
-                            //console.log(customerResult);
-                            createcustomerRows(customerResult);
-                            customerResponse = customerResult;
+                            var res = JSON.parse(customerResult);
+                            processCustomer(res[0]);
+                                    $("#cus_pagination").html(paginateList(res[1], "admin", "paginatecustomer", "processCustomer"));
+                                    renameTableSeq("customerTable", "page_active");
                         }
                     });
             }
@@ -1582,21 +1622,21 @@ var base_path = $("#url").val();
 
     function customerSalesRepresentative(result) {
         // console.log(result);
-        var customerCurrencyLength = 0;
-        if (result != null) {
-            customerCurrencyLength = result.length;
-        }
+        // var customerCurrencyLength = 0;
+        // if (result != null) {
+        //     customerCurrencyLength = result.length;
+        // }
 
-        if (customerCurrencyLength > 0) {
-            $(".customerRepresentativeSalseTerm").html('');
-            var customerPaymentTerm="<option selected>----select----</option>"
-            for (var i = 0; i < customerCurrencyLength; i++) {  
-                var username =result[i].userFirstName;
-                customerPaymentTerm+= "<option  value='"+ username +"'>"+ username +"</option>"
+        // if (customerCurrencyLength > 0) {
+        //     $(".customerRepresentativeSalseTerm").html('');
+        //     var customerPaymentTerm="<option selected>----select----</option>"
+        //     for (var i = 0; i < customerCurrencyLength; i++) {  
+        //         var username =result[i].userFirstName;
+        //         customerPaymentTerm+= "<option  value='"+ username +"'>"+ username +"</option>"
               
-            }
-            $(".customerRepresentativeSalseTerm").append(customerPaymentTerm);
-        }
+        //     }
+        //     $(".customerRepresentativeSalseTerm").append(customerPaymentTerm);
+        // }
         
     }
 

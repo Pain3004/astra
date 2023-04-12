@@ -13,6 +13,7 @@ use App\Models\Shipper;
 use App\Helpers\AppHelper;
 use App\Models\Consignee;
 use App\Models\User;
+use MongoDB\BSON\Regex;
 use App\Models\Factoring_company_add;
 use Illuminate\Database\Eloquent\Collection;
 use Auth;
@@ -216,9 +217,31 @@ class CustomerController extends Controller
     public function getCustomerBFactoringCompany(Request $request)
     {
         $companyIDForCustomer=(int)Auth::user()->companyID;;
-        $customerBFactoringCompany = Factoring_company_add::where('companyID',$companyIDForCustomer)->first();
-       // dd($customerCurr);
-        return response()->json($customerBFactoringCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        //     $customerBFactoringCompany = Factoring_company_add::where('companyID',$companyIDForCustomer)->first();
+        //    // dd($customerCurr);
+        //     return response()->json($customerBFactoringCompany, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+
+        $para = '^' . $request->value;
+        $datasearch = new Regex($para, 'i');
+        $show = Factoring_company_add::raw()->aggregate([
+            ['$match' => ["companyID" => (int)Auth::user()->companyID]],
+            ['$unwind' => '$factoring'],
+            ['$match' => ['factoring.factoringCompanyname' => $datasearch,"factoring.deleteStatus"=>"NO"]],
+            ['$project' => ['factoring._id' => 1, 'factoring.factoringCompanyname' => 1, 'companyID' => (int)Auth::user()->companyID]],
+            ['$limit' => 100]
+        ]);
+        $trailer = array();
+        $trailerList = array();
+        foreach ($show as $s) {
+            $z = 0;
+            $trailer[$z] = $s['factoring'];
+            $z++;
+            foreach ($trailer as $cr) {
+                $trailerList[] = array("id" => $cr['_id'], "value" => $cr['factoringCompanyname']);
+            }
+    }
+    echo json_encode($trailerList);
+
     }
     public function addCustomerfactoringCompany(Request $request)
     {
@@ -309,6 +332,7 @@ class CustomerController extends Controller
 
     public function addCustomerData(Request $request)
     {
+        // dd($request->customerSalesRepresentative);
         $maxLength = 6500;
         $companyId = (int)Auth::user()->companyID;
         $docAvailable = AppHelper::instance()->checkDoc(Customer::raw(),$companyId,$maxLength);

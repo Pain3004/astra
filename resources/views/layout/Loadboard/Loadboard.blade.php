@@ -299,7 +299,7 @@
   <!-- CONTAINER END -->
 </div>
 @include('layout.loadboard.addLoadboard')
-@include('layout.loadboard.addLoadboard_function')
+<!-- @include('layout.loadboard.addLoadboard_function') -->
 
 @include('layout.dashboard.footer')	
 

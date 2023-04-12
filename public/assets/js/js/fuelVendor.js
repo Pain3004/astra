@@ -573,7 +573,7 @@ $(document).ready(function() {
 				fuleVendorIds.push($(this).val());
                 companyIds.push($(this).attr("date-compID"));
 			});
-			// console.log(fuleVendorIds);
+			console.log(fuleVendorIds);
 			var TruckCheckedIds =JSON.stringify(fuleVendorIds);
 			$('#checked_fuelVendor_ids').val(TruckCheckedIds);
            

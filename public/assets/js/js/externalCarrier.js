@@ -4,16 +4,16 @@ var base_path = $("#url").val();
         $('#ExternalCarrierModal').modal('hide');
     });
     $('.ExternalCarrierModalBtn').click(function () {
-        $.ajax({
-            type: "GET",
-            url: base_path+"/admin/getCustomerBFactoringCompany",
-            async: false,
-            //dataType:JSON,
-            success: function(customerBFactoringCompanyResult) {
-                createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
-                customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
-            }
-        });
+        // $.ajax({
+        //     type: "GET",
+        //     url: base_path+"/admin/getCustomerBFactoringCompany",
+        //     async: false,
+        //     //dataType:JSON,
+        //     success: function(customerBFactoringCompanyResult) {
+        //         createCustomerBFactoringCompanyList(customerBFactoringCompanyResult);
+        //         customerBFactoringCompanyResponse = customerBFactoringCompanyResult;
+        //     }
+        // });
         $.ajax({
             type: "GET",
             url: base_path + "/admin/getExternalCarrier",

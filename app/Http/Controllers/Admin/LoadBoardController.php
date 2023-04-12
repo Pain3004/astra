@@ -247,6 +247,7 @@ class LoadBoardController extends Controller
 
     public function userList(Request $request){
         // 
+        // dd($request);
         $companyID = (int)Auth::user()->companyID;
         $para=explode(" ",$request->value);
         $para = '^'.$para[0];
@@ -256,7 +257,7 @@ class LoadBoardController extends Controller
             ['$project' => ['_id' => 1, 'userFirstName' => 1, 'userLastName' => 1]],
             ['$limit' => 100]
         ]);
-
+// dd($show);
       $user = array();
       foreach ($show as $s) {
         // dd($s);

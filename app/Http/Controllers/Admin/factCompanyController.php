@@ -6,10 +6,17 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Factoring_company_add;
+use App\Models\bank_debit_category;
+use App\Models\PaymentBank;
+use App\Models\Payment_terms;
+use App\Models\Currency_add;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
+use App\Helpers\AppHelper;
 use Auth;
+use App\Models\Company;
+use App\Models\Bank;
 use PDF;
 
 use Illuminate\Database\Eloquent\Collection;
@@ -18,17 +25,87 @@ class factCompanyController extends Controller
 {
     public function getFactCompany()
     {
-        $companyId=(int)Auth::user()->companyID;
-        $FactCompany = Factoring_company_add::where('companyID',$companyId)->first();
-
-        // $FactCompany = Factoring_company_add::where('companyID',$companyId)->where('factoring._id',1)->first();
-        // dd($FactCompany);
-
-        $FactCompany=collect($FactCompany->factoring);
-        $FactCompany = $FactCompany->chunk(10);
-        
-       $FactCompany= $FactCompany->toArray();
-       return response()->json(['FactCompany'=>$FactCompany,'companyId'=>$companyId], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $companyID=(int)Auth::user()->companyID;
+        $total_records = 0;
+        $cursor = Factoring_company_add::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['size' => ['$size' => ['$factoring']],
+            ]]
+        ]);
+        $totalarray = $cursor;
+        $docarray = array();
+        foreach ($cursor as $v) 
+        {
+            $docarray[] = array("size" => $v['size'], "id" => $v['_id']);
+            $total_records += (int)$v['size'];
+        }
+        $completedata = array();
+        $partialdata = array();
+        $paginate = AppHelper::instance()->paginate($docarray);
+        if (!empty($paginate[0][0][0]))
+        {
+            for ($i = 0; $i < sizeof($paginate[0][0][0]); $i++) 
+            {
+                if(!empty($request->arr))
+                {
+                    $docid=preg_replace('/\s+/',"", $pagina_data[0]);
+                    $start=preg_replace('/\s+/',"",$pagina_data[1]);
+                    $end=preg_replace('/\s+/',"",$pagina_data[2]);
+                    $docid=intval($docid);
+                    $start=intval($start);
+                    $end=intval($end);
+                }
+                else
+                {
+                    $docid= $paginate[0][0][0][$i]['doc'];
+                    $end=$paginate[0][0][0][$i]['end'];
+                    $start=$paginate[0][0][0][$i]['start'];
+                }
+                $collection = Currency_add::raw();
+                $card = $collection->find(["companyID" => $companyID]);
+                $currency = array();
+                foreach ($card as $dr) 
+                {
+                    $currency_array = $dr['currency'];
+                    foreach ($currency_array as $da) 
+                    {
+                        $card_id = $da['_id'];
+                        $currency[$card_id] = $da['currencyType'];
+                    }
+                }
+                $collection = Payment_terms::raw();
+                $card = $collection->find(["companyID" => $companyID]);
+                $payment = array();
+                foreach ($card as $dr) 
+                {
+                    $card_array = $dr['payment'];
+                    foreach ($card_array as $da) 
+                    {
+                        $card_id = $da['_id'];
+                        $payment[$card_id] = $da['paymentTerm'];
+                    }
+                }
+                $show1 = Factoring_company_add::raw()->aggregate([
+                    ['$match' => ["companyID" => $companyID, "_id" => $docid]],
+                    ['$project' => ["companyID" => $companyID, "factoring" => ['$slice' => ['$factoring', $end, $start - $end]]]],
+                ]);
+                $arrData1 = "";
+                foreach ($show1 as $row) 
+                {
+                    $mainID = $row;
+                }
+                $arrData1 = array(
+                    'mainID' => $mainID,
+                    'currencyType' => $currency,
+                    'paymentTerm' => $payment,
+                );
+                $partialdata[] = $arrData1;
+            }
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $paginate;
+        $completedata[] = $total_records;
+        echo json_encode($completedata);
        
     }
     public function editFactCompany(Request $request)

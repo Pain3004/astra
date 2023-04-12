@@ -228,6 +228,7 @@ Route::post('admin/storeConsignee', [ConsigneeController::class, 'storeConsignee
 Route::get('admin/editConsignee', [ConsigneeController::class, 'editConsignee']);
 Route::post('admin/updateConsignee', [ConsigneeController::class, 'updateConsignee']);
 Route::post('admin/deleteConsignee', [ConsigneeController::class, 'deleteConsignee']);
+Route::post('admin/restoreConsignee', [ConsigneeController::class, 'restoreConsignee']);
 
 //fuel vendor
 Route::get('admin/getFuelVendor', [FuelVendorController::class, 'getFuelVendor']);

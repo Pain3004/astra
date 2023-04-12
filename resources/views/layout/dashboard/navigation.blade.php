@@ -708,3 +708,4 @@
 			@include('layout.Load.Load')
 			@include('layout.User Privillege.userPrivillege')
 			@include('layout.consignee.consigneeTable')
+			@include('layout.loadboard.addLoadboard_function')

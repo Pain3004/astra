@@ -207,11 +207,12 @@ function processConsignee(res) {
                 <a class='button-23 deleteConsiShipperAndCongneeBtn'  data-ConsigneeId='${id}'  data-masterId='${masterID}'><i class='fe fe-trash'></i></a> 
                         </td></tr>`;
                 row = tr + row;
+                $("#consigneeTableData").html(row);
             }
            
         }
     }
-    $("#consigneeTableData").html(row);
+   
 }
 //================ end view consignee =====================================
 
@@ -463,11 +464,12 @@ function processRestoreConsignee(res) {
                 <td>${internalNotes}</td>
                 </tr>`;
                 row = tr + row;
+                $("#RestoreConsigneeTable").html(row);
             }
            
         }
     }
-    $("#RestoreConsigneeTable").html(row);
+    
 }
 $(document).on("change", ".ConsigneeChecked", function() 
 {
@@ -485,6 +487,9 @@ $(document).on("change", ".ConsigneeChecked", function()
             ConsigneeCheckboxRestore();
         });
     }
+});
+$('body').on('click','.checkConsignee_one',function(){
+    ConsigneeCheckboxRestore();
 });
 function ConsigneeCheckboxRestore()
 {
@@ -530,7 +535,7 @@ $('body').on('click','.restore_RestoreConsigneeModal_data',function(){
                     var res = JSON.parse(text);
                     if (res[0] != undefined && res[1] != undefined && res[2] != 0) {
                         processConsignee(res[0]);
-                        processRestoreConsignee(res[0]);
+                        // processRestoreConsignee(res[0]);
                     }
                 }
             });

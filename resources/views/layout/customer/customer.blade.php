@@ -196,14 +196,6 @@
                                 <br>
                                 <form>
                                     <div class="form-row">
-                                        <!-- <div class="form-group col-md-3">
-                                            <label for="customerCurrencySetting">Currency Setting</label>
-                                            <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusCurrency" style='color:blue !important'></i>
-                                            <div class="dropdown show">
-                                                    <input class="form-control customerCurrencySet" list="customerCurrencySet" name="currency" id="currency_customer">
-                                                    <datalist id="customerCurrencySet" class="customerCurrencySet"><option>Select Here</option></datalist>    
-                                            </div>
-                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="customerPaymentTerms">Payment Terms <span style="color: red">*</span></label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
@@ -221,19 +213,29 @@
                                             <input type="number" class="form-control" id="customerCreditLimit"placeholder="Enter Zip">
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label for="customerSalesRepresentative">Sales Representative </span></label>
+                                            <!-- <label for="customerSalesRepresentative">Sales Representative </span></label>
                                         <select class="form-control customerRepresentativeSalseTerm" id="customerSalesRepresentative"  >                                              <option>Select Here</option>
-                                            </select>
+                                            </select> -->
+                                            <label for="">Sales Representative   </label>
+                                            <div class="dropdown show">
+                                                <input list="customeDrowpuserlist" placeholder="Search here..."  class="form-control" id="customerSalesRepresentative"  name="" onkeyup="doSearch(this.value,'customeDrowpuserlist')" autocomplete="off">
+                                                <datalist id="customeDrowpuserlist"></datalist>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-3">
-                                            <label for="customerBFactoringCompany">Factoring Company</label>
+                                            <label for="customerBFactoringCompany">Factoring Company  </label>
+                                            <div class="dropdown show">
+                                                <input list="customerAddFac" placeholder="Search here..."  class="form-control" id="customerBFactoringCompanySet"  name="" onkeyup="doSearch(this.value,'customerAddFac')" autocomplete="off">
+                                                <datalist id="customerAddFac"></datalist>
+                                            </div>
+                                            <!-- <label for="customerBFactoringCompany">Factoring Company</label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusFactoringCompany" data-name="plusFactoringCompany" style='color:blue !important'></i>
                                             <div class="dropdown show">
                                                 <select class="form-control customerBFactoringCompanySet" id="customerBFactoringCompanySet"  >                                              <option>Select Here</option>
                                             </select>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerFederalID">Federal ID</label>
@@ -662,22 +664,27 @@
                                                         <input type="number" class="form-control" id="updateCustomerCreditLimit"placeholder="Enter Zip" name="creditLimit">
                                                     </div>
                                                     <div class="form-group col-md-3">
-                                                        <label for="customerSalesRepresentative">Sales Representative </span></label>
-                                                        <!-- <input type="text" class="form-control" id="updateCustomerSalesRepresentative" placeholder=" Enter Sales Representative" name="salesRep" > -->
-
-                                                        <select class="form-control customerRepresentativeSalseTerm" id="updateCustomerSalesRepresentative"  >                                                <option>Select Here</option>
-                                                        </select>
+                                                        <label for="">Sales Representative   </label>
+                                                        <div class="dropdown show">
+                                                            <input list="updatecustomeDrowpuserlist" placeholder="Search here..."  class="form-control" id="updateCustomerSalesRepresentative"  name="" onkeyup="doSearch(this.value,'updatecustomeDrowpuserlist')" autocomplete="off">
+                                                            <datalist id="updatecustomeDrowpuserlist"></datalist>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-3">
-                                                        <label for="customerBFactoringCompany">Factoring Company
-                                                        <!-- <span class="glyphicon glyphicon-plus-sign addFactoringCompanyCutomer " id="addFactoringCompanyCutomer" data-toggle="modal"  style="cursor:pointer;"></span> -->
+                                                        <!-- <label for="customerBFactoringCompany">Factoring Company
+                                                        
                                                         </label>
                                                         <div class="dropdown show">
                                                             <select class="form-control customerBFactoringCompanySet update_factroring_name" name="customerBFactoringCompany" id="customer_BFactoringCompany">
                                                                 <option>Select Here</option>
                                                             </select>
+                                                        </div> -->
+                                                        <label for="customerBFactoringCompany">Factoring Company  </label>
+                                                        <div class="dropdown show">
+                                                            <input list="updatecustomerAddFac" placeholder="Search here..."  class="form-control" id="customer_BFactoringCompany"  name="" onkeyup="doSearch(this.value,'updatecustomerAddFac')" autocomplete="off">
+                                                            <datalist id="updatecustomerAddFac"></datalist>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-3">
