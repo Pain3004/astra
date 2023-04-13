@@ -20,71 +20,25 @@
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
-
-                    <a href="#" class="button-57_alt" id="AddFactoringCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Factoring Company</span></a>
-
-                    <a href="#AddFacoringCompanymodal" class="button-57 addFactoringModel">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        <span>Add Facoring Company</span>
-                    </a>
-
+                    @if($insertUser== 1)
+                        <a href="#" class="button-57_alt" id="AddFactoringCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Factoring Company</span></a>
+                    @endif
+                    @if($deleteUser== 1)    
+                        <a href="#" class="button-57_alt restoreFactringComlData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    @endif 
                     <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
                     <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
-                    <!-- <a href="#contractCategoryModal" class="button-57_alt" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a> -->
-                    <!-- <div class="searchbar" style="float: right; margin-right: 15px;">
-                        <input type="text" placeholder="search" />
-                        <div class="symbol">
-                            
-                            <svg class="lens">
-                            <use xlink:href="#lens" />
-                            </svg>
-                        </div>
-                    </div> -->
 
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body" style="overflow-y: auto !important;">
-                    <!-- Row -->
-                    <div class="row">
-                        <div class="row row-sm">
-                            <div class="col-lg-12">
-
-                                        <div class="table-responsive export-table">
-                                            <table id="factoring_table_pagination" class="customtable">
-                                                <thead class="thead_th">
-                                                    <tr class="tr">
-                                                        <th>NO</th>
-                                                        <th>Factoring Company Name</th>
-                                                        <th>Address</th>
-                                                        <th>Location</th>
-                                                        <th>Postal/Zip</th>
-                                                        <th>Primary Contact</th>
-                                                        <th>Telephone</th>
-                                                        <th>Ext</th>
-                                                        <th>Fax</th>
-                                                        <th>Toll Free</th>
-                                                        <th>Contact Email</th>
-                                                        <th>Secondary Contact</th>
-                                                        <th>Telephone</th>
-                                                        <th>Ext</th>
-                                                        <th>Currency Setting</th>
-                                                        <th>Payment Terms</th>
-                                                        <th>Tax ID</th>
-                                                        <th>Internal Notes</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="factCompTable">
-
-                @if($insertUser== 1)
-                    <a href="#" class="button-57_alt" id="AddFactoringCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Factoring Company</span></a>
-                @endif
-                @if($deleteUser== 1)    
-                    <a href="#" class="button-57_alt restoreFactringComlData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
-                @endif 
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
-    
+                    <i class="mdi mdi-play-circle float-right tour-icon cus-tour" title="Take a Tour"></i>
+                    <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" data-name="fact_search" type="text"  id="fact_search" placeholder="search"style="margin-left: 5px;">
+                    <!-- <select style="margin-left: 3px;" data-name="cus_select"class="form-control col-md-2 col-sm-4 col-lg-2 float-right" name="factoryCOmpany_search" id="factoryCOmpany_search" >
+                        <option value="">---select---</option>
+                        <option value="custName">Customer Name</option>
+                        <option value="custLocation">Customer Location</option>
+                        <option value="custZip">Customer Zip</option>
+                        <option value="primaryContact">Primary Contact</option>
+                        <option value="custEmail">Customer Email</option>
+                    </select> -->
 	
                 </div>
                 <!-- Modal body -->
@@ -163,13 +117,19 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
                         @if($exportUser == 1)
                             <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                         @endif
-                    </form>
+                    </form> -->
                     <button type="button" class="button-29 FactoringCompanyModalClose" >Close</button>
+                    <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
+                    </nav> 
+                    <nav aria-label="..." data-name="factoring_pagination" class="float-right">
+                        <div class="pagination" id="factoring_pagination">
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -476,7 +436,7 @@
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="table-responsive export-table">
-                                    <table id="factoring_table_pagination" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                    <table id="factoring_table_pagination" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable" id="restore_factoringCompanyTable">
                                         <thead class="thead_th">
                                             <tr class="tr">
                                                 <th><input type="checkbox" name="all_factIds[]" class="checked_FactringIds"></th>

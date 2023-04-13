@@ -18,9 +18,13 @@ use File;
 class CompanyController extends Controller
 {
     public function getCompanyData(Request $request){
-        $company = Company::where('companyID',1)->get();
-        
+        $company = Company::where('companyID',Auth::user()->companyID)->get();
         return response()->json($company);  
+    }
+
+    public function getlbcompanyData(Request $request){
+        $company = Company::select('company.companyName','company._id','company.deleteStatus')->where('companyID',Auth::user()->companyID)->get();
+        return response()->json(['company'=>$company], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
     public function addCompanyData(Request $request){

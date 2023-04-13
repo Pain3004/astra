@@ -9,7 +9,9 @@ use App\Models\TrailerAdminAdd;
 use Illuminate\Http\Request;
 use MongoDB\BSON\ObjectId;
 use File;
+use App\Models\UserSubscription;
 use Image;
+use App\Helpers\AppHelper;
 use Auth;
 use PDF;
 
@@ -17,10 +19,69 @@ class TrailerAdminAddController extends Controller
 {
     public function getTrailer()
     {
-        $companyId=(int)Auth::user()->companyID;
-        $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$companyId)->first();
-        $traileradd = traileradd::where('companyID',$companyId)->first();
-        return response()->json(['trailer'=>$traileradd,'trailer_type'=>$TrailerAdminAdd], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $companyID=(int)Auth::user()->companyID;
+        $total_records = 0;
+        $cursor = TrailerAdminAdd::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['size' => ['$size' => ['$trailer']],
+            ]]
+        ]);
+        $totalarray = $cursor;
+        $docarray = array();
+        foreach ($cursor as $v) {
+            $docarray[] = array("size" => $v['size'], "id" => $v['_id']);
+            $total_records += (int)$v['size'];
+        }
+        $completedata = array();
+        $partialdata = array();
+        $paginate = AppHelper::instance()->paginate($docarray);
+        if (!empty($paginate[0][0][0]))
+        {
+            for($i = 0; $i < sizeof($paginate[0][0][0]); $i++)
+            {
+                if(!empty($request->arr))
+                {
+                    $docid=preg_replace('/\s+/',"", $pagina_data[0]);
+                    $start=preg_replace('/\s+/',"",$pagina_data[1]);
+                    $end=preg_replace('/\s+/',"",$pagina_data[2]);
+                    $docid=intval($docid);
+                    $start=intval($start);
+                    $end=intval($end);
+                }
+                else
+                {
+                    $docid= $paginate[0][0][0][$i]['doc'];
+                    $end=$paginate[0][0][0][$i]['end'];
+                    $start=$paginate[0][0][0][$i]['start'];
+                }
+                $collection_trailer = traileradd::raw();
+                $cltrailer = $collection_trailer->find(["companyID" => $companyID]);
+                foreach ($cltrailer as $tr) {
+                    $trailer_arr = $tr['trailer'];
+                    foreach ($trailer_arr as $trd) {
+                        $trailer_id = $trd['_id'];
+                        $trailerType[$trailer_id] = $trd['trailerType'];
+                    }
+                }
+                $show1 = TrailerAdminAdd::raw()->aggregate([
+                    ['$match' => ["companyID" => $companyID, "_id" => $docid]],
+                    ['$project' => ["companyID" => $companyID,"trailer" => ['$slice' => ['$trailer',$end,$start - $end]]]],
+                ]);
+                $arrData1 = "";
+                foreach ($show1 as $row) {
+                    $mainID = $row;
+                }
+                $arrData1 = array(
+                    'mainID' => $mainID,
+                    'trailerType' => $trailerType
+                );
+                $partialdata[] =  $arrData1;
+            }
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $paginate;
+        $completedata[] = $total_records;
+        echo json_encode($completedata);
         
     }
     public function addTrailerData(Request $request)

@@ -221,7 +221,7 @@
         <div class="modal-dialog custom_modal_small_6 modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Restore Branch Office</h4>
+                    <h4 class="modal-title">Restore Load Type</h4>
                     <button type="button" class="button-24 restoreLoadclose" data-dismiss="modal">&times;</button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">

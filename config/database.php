@@ -51,7 +51,7 @@ return [
 //mongoDB
 
     'connections' => [
-
+    
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => env('DB_URI', 'mongodb+srv://astraportal:astraportal@astra.7uwteaq.mongodb.net/'), //server

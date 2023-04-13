@@ -494,9 +494,10 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
   }
 
 
-  #addContractCategory, #contractCategoryModal, #addDriverModal, #addRecurrence, #substractRecurrence, #setupDriverModal, #addUserModal {
+  #addContractCategory, #contractCategoryModal,  #addDriverModal, #addRecurrence, #substractRecurrence, #setupDriverModal, #addUserModal {
     backdrop-filter: blur(1px) contrast(.1);
   }
+  
 
   .button-29 {
     align-items: center;

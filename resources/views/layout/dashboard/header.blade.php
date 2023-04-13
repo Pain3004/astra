@@ -18,6 +18,8 @@
     <title>Astra</title>
 
     <!-- BOOTSTRAP CSS -->
+    
+    <!-- <link id="style" href="{{URL::to('/')}}/assets/scss/bootstrap/_forms.scss" rel="stylesheet" /> -->
     <link id="style" href="{{URL::to('/')}}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <link href="{{URL::to('/')}}/static/checkbox.css" rel="stylesheet" />
@@ -32,6 +34,7 @@
     <link href="{{URL::to('/')}}/assets/css/style.css" rel="stylesheet" />
     <link href="{{URL::to('/')}}/assets/css/skin-modes.css" rel="stylesheet" />
     <link href="{{URL::to('/')}}/assets/css/customcss.css" rel="stylesheet" />
+    <link href="{{URL::to('/')}}/assets/css/customcss2.css" rel="stylesheet" />
 
     <!--- FONT-ICONS CSS -->
     <link href="{{URL::to('/')}}/assets/css/icons.css" rel="stylesheet" />
@@ -66,6 +69,8 @@
 "https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
 	</script>
       
+   
+
 
 <style type="text/css">
    .header-brand-img {
@@ -79,6 +84,9 @@
 
 
 </style>
+<script
+        src='https://maps.googleapis.com/maps/api/js?v=3&amp;libraries=places&key=AIzaSyCvWNB0WPacABJ0XWzHL_W9reg_YSbs8V4'>
+    </script>
 </head>
 
 <body class="ltr app sidebar-mini">

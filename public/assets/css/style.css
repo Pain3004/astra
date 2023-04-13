@@ -221,6 +221,13 @@ body {
     background-color: #f7f8f9;
 }
 
+.selectedpriviladge {
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    color: white;
+    border-radius: 20px;
+    width: 140px;
+}
+
 .number-font {
     font-weight: 600;
 }
@@ -18124,6 +18131,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     text-align: center;
 }
 
+
 ul {
     list-style-type: none;
     padding: 0px;
@@ -30764,7 +30772,7 @@ body.fixed-header .header {
     .horizontal .hor-header .container,
     .horizontal .horizontal-main .container,
     .horizontal .main-content.hor-content .container {
-        max-width: 85% !important;
+        max-width: 94% !important;
         padding: 0;
     }
 
@@ -112544,4 +112552,22 @@ textarea.form-control {
 .deleteAction{
     color:red;
 }
+
+a.active {
+    background-color: #5689ff;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+/* .nav-item-custom{
+    background-color: #ad5555;
+} */
+
+/* .invalid-feedback{
+    color: #d12c47;
+    display: none;
+    font-size: 87.5%;
+    margin-top: 0.25rem;
+    width: 100%;
+} */
 /* ----------------------------------------------------------------------------- */

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SubCreditCard;
 use App\Models\CreditCard;
+use App\Models\CreditCardAdmin;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
@@ -18,13 +19,49 @@ use Illuminate\Database\Eloquent\Collection;
 class SubCreditCardController extends Controller
 {
     public function getsubCreditCard(Request $request){
-        $companyId=1;
-        $SubCreditCard = SubCreditCard::where('companyID',$companyId)->get();  //only for company id one
-        $CreditCard = CreditCard::where('companyID',$companyId)->get();  //only for company id one
-        // $SubCreditCard = SubCreditCard::get();
-        // $CreditCard = CreditCard::get();
-       //dd($bankData);
-       return response()->json(['SubCreditCard'=>$SubCreditCard, 'CreditCard'=>$CreditCard], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $companyID=(int)Auth::user()->companyID;
+        $SubCreditCard=SubCreditCard::where("companyID",$companyID)->get();
+        $CreditCard=CreditCardAdmin::where("companyID",$companyID)->get();
+        return response()->json(['SubCreditCard'=>$SubCreditCard,'CreditCard'=>$CreditCard], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        // $total_records = 0;
+        // $cursor = SubCreditCard::raw()->aggregate([
+        //     ['$match' => ['companyID' => $companyID]],
+        //     ['$project' => ['size' => ['$size' => ['$sub_credit']],
+        //     ]]
+        // ]);
+        // foreach ($cursor as $v) {
+        //     $total_records += (int)$v['size'];
+        // }
+        // $completedata = array();
+        // $partialdata = array();
+        // if(!empty($total_records)){
+        //     $sub_one = CreditCardAdmin::raw()->aggregate([
+        //         ['$match' => ['companyID' => $companyID]],
+        //         ['$project' => ['admin_credit._id' => 1,'admin_credit.displayName'=>1]]
+        //     ]);
+        //     $cardHolder_Name = array();
+        //     foreach ($sub_one as $value_1) {
+        //         $bank = $value_1['admin_credit'];
+        //         foreach ($bank as $row9) {
+        //             $company_id = $row9['_id'];
+        //             $cardHolder_Name[$company_id] = $row9['displayName'];
+        //         }
+        //     }
+        //     $show1 =SubCreditCard::raw()->find(array('companyID' => $companyID));
+        //     $c = 0;
+        //     $arrData1 = "";
+        //     foreach ($show1 as $row) {
+        //         $mainID = $row;
+        //     }
+        //     $arrData1 = array(
+        //         'mainID' => $mainID,
+        //         'creditcard' => $cardHolder_Name,
+        //     );
+        //     $partialdata[]= $arrData1;
+        // }
+        // $total_records=(array)$total_records;
+        // $completedata= array_merge($total_records,$partialdata);
+        // echo json_encode($completedata);
     }
     public function storesubCreditCard(Request $request)
     {
@@ -33,7 +70,7 @@ class SubCreditCardController extends Controller
             'mainCard' => 'required',
             'cardHolderName' => 'required',
         ]);
-        $companyID=(int)1;
+        $companyID=(int)Auth::user()->companyID;
         $SubCreditCard = SubCreditCard::where('companyID',$companyID)->get();
         foreach( $SubCreditCard as  $SubCreditCard_data)
         {
@@ -238,8 +275,5 @@ class SubCreditCardController extends Controller
             }
         }
     }
-
-   
-
     
 }

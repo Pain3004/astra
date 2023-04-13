@@ -8,9 +8,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract; 
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
-
-
-class ArrivedConsignee extends Model 
+class ArrivedConsignee extends Model
 {
     use Notifiable, Authenticatable;
     use HasFactory;
@@ -22,20 +20,4 @@ class ArrivedConsignee extends Model
 
     protected $connection = 'mongodb';
     protected $collection = 'Arrived Consignee';
-
-  
-
-    protected $guarded = [];
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    // protected $hidden = [
-    //     'userPass',
-    // ];
-    // public function getAuthPassword()
-    // {
-    //     return $this->userPassword;
-    // }
 }

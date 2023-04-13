@@ -9,6 +9,7 @@ use App\Models\Carrier;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
+use App\Helpers\AppHelper;
 use Auth;
 use PDF;
 
@@ -18,14 +19,64 @@ class ExternalCarrierController extends Controller
 {
     public function getExternalCarrier(Request $request)
     {
-        // $companyId=(int)Auth::user()->companyID;
-        $companyId=(int)25;
-        $Carrier = Carrier::where('companyID',$companyId)->get();
-    //     $Carrier=collect($Carrier->carrier);
-    //     $Carrier = $Carrier->chunk(4);
-    //    $Carrier= $Carrier->toArray();
-    //    dd($Carrier);       
-        return response()->json($Carrier, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $companyID=(int)Auth::user()->companyID;
+        $total_records = 0;
+        $cursor = Carrier::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['size' => ['$size' => ['$carrier']],
+            ]]
+        ]);
+        $totalarray = $cursor;
+        $docarray = array();
+        foreach ($cursor as $v) {
+            $docarray[] = array("size" => $v['size'], "id" => $v['_id']);
+            $total_records += (int)$v['size'];
+        }
+        $completedata = array();
+        $partialdata = array();
+        $paginate =AppHelper::instance()->paginate($docarray);
+        if (!empty($paginate[0][0][0])) {
+            for ($i = 0; $i < sizeof($paginate[0][0][0]); $i++) {
+                $pagina_data= str_replace( array('"',":"," " ,"doc",'start',"end", ']','[','{','}' ), ' ', $request->arr);
+                $pagina_data=explode(",",$pagina_data);
+                if(!empty($request->arr))
+                {
+                    $docid=preg_replace('/\s+/',"", $pagina_data[0]);
+                    $start=preg_replace('/\s+/',"",$pagina_data[1]);
+                    $end=preg_replace('/\s+/',"",$pagina_data[2]);
+                    $docid=intval($docid);
+                    $start=intval($start);
+                    $end=intval($end);
+                }
+                else
+                {
+                    $docid= $paginate[0][0][0][$i]['doc'];
+                    $end=$paginate[0][0][0][$i]['end'];
+                    $start=$paginate[0][0][0][$i]['start'];
+                }
+                $show1 = Carrier::raw()->aggregate([
+                    ['$match' => ["companyID" => $companyID, "_id" => $docid]],
+                    ['$project' => ["companyID" => $companyID,"carrier" => ['$slice' => ['$carrier',(int)$end,(int)$start - (int)$end]]]],
+                    ['$project' => ["carrier._id" => 1,"carrier.counter" => 1,"carrier.name" => 1,"carrier.address" => 1, "carrier.location" =>  1, "carrier.zip" => 1,"carrier.contactName" => 1,"carrier.email" => 1,"carrier.taxID" => 1
+                        ,"carrier.mc" => 1,"carrier.telephone" => 1,"carrier.dot" => 1,"carrier.factoringCompany" => 1,"carrier.paymentTerms" => 1,"carrier.insertedUserId" => 1
+                        ,"carrier.insertedTime" => 1,"carrier.edit_by" => 1,"carrier.edit_time" => 1,"carrier.deleteUser" => 1,
+                        "carrier.deleteStatus" => 1,"carrier.deleteTime" => 1,"carrier.carrierDoc" => 1, "carrier.blacklisted" => 1]]
+                ]);
+                $c = 0;
+                $arrData1 = "";
+                foreach ($show1 as $arrData11) {
+                    $arrData1 = $arrData11;
+                }
+                $arrData2 = array(
+                    'arrData1' => $arrData1,
+                );
+                $partialdata[]= $arrData2;
+            }
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $paginate;
+        $completedata[] = $total_records;
+        echo json_encode($completedata);
     }
     public function storeExternalCarrier(Request $request)
     {
@@ -294,28 +345,39 @@ class ExternalCarrierController extends Controller
     {
         $id=$request->id;
         $companyId=(int)$request->comId;
-        $Carrier = Carrier::where('companyID',$companyId)->first();
-        // dd($Carrier);
-        $CarrierArray=$Carrier->carrier;
-        $cardLength=count($CarrierArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$cardLength; $i++)
+        // $Carrier = Carrier::where('companyID',$companyId)->first();
+        // // dd($Carrier);
+        // $CarrierArray=$Carrier->carrier;
+        // $cardLength=count($CarrierArray);
+        // $i=0;
+        // $v=0;
+        // for($i=0; $i<$cardLength; $i++)
+        // {
+        //     $ids=$Carrier->carrier[$i];
+        //     foreach($ids as $value)
+        //     {
+        //         if($value==$id)
+        //         {
+        //             $v=$i;
+        //         }
+        //     }
+        // }  
+        // $CarrierArray[$v]['deleteStatus']="YES";
+        // $Carrier->carrier=$CarrierArray;
+        // if($Carrier->save())
+        // {
+        //  $arr = array('status' => 'success', 'message' => 'External Carrier delete successfully.','statusCode' => 200); 
+        //  return json_encode($arr);
+        // } 
+
+        
+        $Bank=Carrier::raw()->updateOne(['companyID' => $companyId,'carrier._id' => $id], 
+        ['$set' => ['carrier.$.deleteStatus' => 'YES','carrier.$.deleteUser' => Auth::user()->userName,'carrier.$.deleteTime' => time()]]
+        );
+        // dd($Bank);
+         if($Bank==true)
         {
-            $ids=$Carrier->carrier[$i];
-            foreach($ids as $value)
-            {
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }  
-        $CarrierArray[$v]['deleteStatus']="YES";
-        $Carrier->carrier=$CarrierArray;
-        if($Carrier->save())
-        {
-         $arr = array('status' => 'success', 'message' => 'External Carrier delete successfully.','statusCode' => 200); 
+         $arr = array('status' => 'success', 'message' => 'External carrier Deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
         } 
     }

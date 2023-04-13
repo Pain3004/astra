@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('#EquipmentTypeModal').modal('hide');
     });
     $('.addEquipmentTypeClose').click(function(){
+        $("#addLoadBoardModal").css("z-index","100000000000");
         $('#addEquipmentTypeModal').modal('hide');
     });
     $('#addEquipmentType').click(function(){
@@ -99,6 +100,7 @@ $(document).ready(function() {
  // <!-- -------------------------------------------------------------------------over Get Equipment Type  ------------------------------------------------------------------------- -->  
  // <!-- -------------------------------------------------------------------------add Equipment Type   ------------------------------------------------------------------------- -->  
     $("#saveEquipmentType").click(function(){
+       
         var EquipmentType_name=$('#EquipmentType_name').val();
         if(EquipmentType_name=='')
         {
@@ -119,17 +121,17 @@ $(document).ready(function() {
             },
             cache: false,
             success: function(Result){
-                console.log(Result);
                 if(Result){
-                    swal.fire( "Equipment Type added successfully.");
-                    // alert("Equipment Type added successfully.");
+                    swal.fire({title: 'Equipment Type added successfully',text: 'Redirecting...',timer: 3000,buttons: false,})
+                    $("#addLoadBoardModal").css("z-index","100000000000");
                     $("#addEquipmentTypeModal").modal("hide");
+                    $("#addEquipmentTypeModal form").trigger("reset");
                     $.ajax({
                         type: "GET",
                         url: base_path+"/admin/getEquipmentType",
                         async: false,
                         success: function(text) {
-                            // console.log(text);
+                            createEquipmentTypeList(text);
                             createEquipmentTypeRows(text);
                           }
                     });
@@ -140,6 +142,29 @@ $(document).ready(function() {
             }
         });
     });
+    function createEquipmentTypeList(Result) { 
+        var Length = 0;    
+        
+        if (Result != null) {
+            Length = Result.EquipmentType.length;
+        }
+        $("#lb_EquipmentType").html('');
+        if (Length > 0) {
+            for (var i = Length-1; i >=0 ; i--) { 
+                var EquipmentTypeLength =Result.EquipmentType[i].equipment.length;
+                for (var j = EquipmentTypeLength-1; j >=0; j--) {  
+                  var equipmentType =Result.EquipmentType[i].equipment[j].equipmentType;
+                  var id =Result.EquipmentType[i].equipment[j]._id;
+                  var deleteStatus =Result.EquipmentType[i].equipment[j].deleteStatus;
+  
+                  if(deleteStatus=='NO' || deleteStatus=='No' || deleteStatus=='no'){
+                    var List = "<option id=''  value='"+id+"-"+ equipmentType +"'>" + equipmentType +"</option>"                  
+                    $("#lb_EquipmentType").append(List);
+                  }
+                }
+              }
+        }
+    }
 // <!-- -------------------------------------------------------------------------over add Equipment Type   ------------------------------------------------------------------------- --> 
    //-- -------------------------------------------------------------------------  start edit  -- -------------------------------------------------------------------------
    $("body").on('click','.editEquipmentType', function(){

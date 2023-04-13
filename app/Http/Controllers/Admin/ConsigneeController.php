@@ -6,6 +6,8 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Consignee;
+use App\Models\Shipper;
+use App\Helpers\AppHelper;
 use File;
 use Image;
 use MongoDB\BSON\ObjectId;
@@ -16,43 +18,74 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ConsigneeController extends Controller
 {
-    public function getConsignee(){
-        // $companyId=59;
-        $companyId=(int)1;
-        // dd($companyId);
-        $consignee = Consignee::where('companyID',$companyId)->first();
-        // dd($consignee);
-       return response()->json($consignee, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    public function getConsignee()
+    {
+        $companyID=(int)Auth::user()->companyID;
+        $total_records = 0;
+        $cursor = Consignee::raw()->aggregate([
+            ['$match' => ['companyID' => $companyID]],
+            ['$project' => ['size' => ['$size' => ['$consignee']],
+            ]]
+        ]);
+        $totalarray = $cursor;
+        $docarray = array();
+        foreach ($cursor as $v) 
+        {
+            $docarray[] = array("size" => $v['size'], "id" => $v['_id']);
+            $total_records += (int)$v['size'];
+        }
+        $completedata = array();
+        $partialdata = array();
+        $paginate = AppHelper::instance()->paginate($docarray);
+        if (!empty($paginate[0][0][0])) 
+        {
+            for ($i = 0; $i < sizeof($paginate[0][0][0]); $i++) 
+            {
+                $docid= $paginate[0][0][0][$i]['doc'];
+                $end=$paginate[0][0][0][$i]['end'];
+                $start=$paginate[0][0][0][$i]['start'];
+                $show1 = Consignee::raw()->aggregate([
+                    ['$match' => ["companyID" => $companyID, "_id" => $docid]],
+                    ['$project' => ["companyID" => $companyID,"consignee" => ['$slice' => ['$consignee',$end,$start - $end]]]]
+                ]);
+                $c = 0;
+                $arrData1 = "";
+                foreach ($show1 as $arrData11) 
+                {
+                    $arrData1 = $arrData11;
+                }
+                    $arrData2 = array(
+                'arrData1' => $arrData1,
+                );
+                $partialdata[]=$arrData2;
+                // $partialdata[] = $request->getData($db, $companyID, $paginate[0][0][0][$i]['doc'], $paginate[0][0][0][$i]['end'], $paginate[0][0][0][$i]['start']);
+            }
+        }
+        $completedata[] = $partialdata;
+        $completedata[] = $paginate;
+        $completedata[] = $total_records;
+
+        echo json_encode($completedata);
        
     }
     public function storeConsignee(Request $request)
     {
-        $companyID=(int)65;
-        // dd($request);
+       
+        $maxLength = 6500;
+        $companyID=(int)Auth::user()->companyID;
         if($request->addressType=="consignee")
         {
-            // dd($request);
-            $Consignee = Consignee::where('companyID',$companyID)->get();
-            foreach( $Consignee as  $Consignee_data)
-            {
-                if($Consignee_data)
-                {
-                    $ConsigneeArray=$Consignee_data->consignee;
-                    $ids=array();
-                    foreach( $ConsigneeArray as $key=> $getFuelCard_data)
-                    {
-                        $ids[]=$getFuelCard_data['_id'];
-                    }
-                    $ids=max($ids);
-                    $totalConsigneeArray=$ids+1;
-                }
-                else
-                {
-                    $totalConsigneeArray=0; 
-                }
-                $ConsigneeData[]=array(    
-                    '_id' => $totalConsigneeArray,
-                    'consigneeName' => $request->shipperName,
+            $docAvailable = AppHelper::instance()->checkDoc(Consignee::raw(),$companyID,$maxLength);
+            
+            if($docAvailable != "No"){
+            $info = (explode("^",$docAvailable));
+            $docId = $info[1];
+            $counter = $info[0];
+
+            $cons = array(
+                '_id' => AppHelper::instance()->getAdminDocumentSequence($companyID, Consignee::raw(),'consignee',$docId),
+                'counter' => 0,
+                'consigneeName' => $request->shipperName,
                     'consigneeAddress' => $request->shipperAddress,
                     'consigneeLocation' => $request->shipperLocation,
                     'consigneePostal' => $request->shipperPostal,
@@ -65,144 +98,92 @@ class ConsigneeController extends Controller
                     'consigneeReceiving' => $request->shipperShippingHours,
                     'consigneeAppointments' => $request->shipperAppointments,
                     'consigneeIntersaction' => $request->shipperIntersaction,
-                    'consigneeStatus' => $request->shipperstatus,
-                    'consigneeRecivingNote' => $request->shippingNotes,
-                    'consigneeInternalNote' => $request->internal_note,
-                    'counter' =>0,
-                    'created_by' => Auth::user()->userFirstName,
-                    'created_time' => date('d-m-y h:i:s'),
-                    'edit_by' =>Auth::user()->userName,
-                    'edit_time' =>time(),
-                    'deleteStatus' =>"NO",                    
-                ); 
+                    'consigneeStatus' => $request->shipperStatus,
+                    'consigneeInternalNote' => $request->shippingNotes,
+                    'internal_note' => $request->internalNotes,
+                    'insertedTime' => time(),
+                    'insertedUserId' =>Auth::user()->userName,
+                    'deleteStatus' => "NO",
+                    'deleteUser' => "",
+                    'deleteTime' => "",
+            );
+                Consignee::raw()->updateOne(['companyID' => $companyID,'_id' => (int)$docId], ['$push' => ['consignee' => $cons]]);
+                $cons['masterID'] = $docId;
+                echo json_encode($cons);
+            } else {
+                $id = AppHelper::instance()->getNextSequence("consignee", $db);
+                $cons = iterator_to_array($consignee);
+                Consignee::raw()->insertOne($cons);
+                $masterID = $cons['_id'];
+                $cons["consignee"][0]['masterID'] = $masterID;
+                echo json_encode($cons["consignee"][0]);
+            }
+        }
+        if($request->shipperASconsignee==1)
+        {
+            $docAvailable = AppHelper::instance()->checkDoc(Shipper::raw(),$companyID,$maxLength);
+            
+            if($docAvailable != "No")
+            {
+                $info = (explode("^",$docAvailable));
+                $docId = $info[1];
+                $counter = $info[0];
 
-                
-                if($Consignee_data)
-                {                
-                    Consignee::where(['companyID' =>$companyID])->update([
-                    'counter'=> $totalConsigneeArray+1,
-                    'consignee' =>array_merge($ConsigneeArray,$ConsigneeData) ,
-                    ]);
-                    if($request->shipperASconsignee==1)
-                    {
-                        $Shipper = Shipper::where('companyID',$companyID)->get();
-                        foreach( $Shipper as  $Shipper_data)
-                        {
-                            if($Shipper_data)
-                            {
-                                $ShipperArray=$Shipper_data->shipper;
-                                $ids=array();
-                                foreach( $ShipperArray as $key=> $getFuelCard_data)
-                                {
-                                    $ids[]=$getFuelCard_data['_id'];
-                                }
-                                $ids=max($ids);
-                                $totalShipperArray=$ids+1;
-                            }
-                            else
-                            {
-                                $totalShipperArray=0; 
-                            }
-                            $ShipperData[]=array(    
-                                '_id' => $totalShipperArray,
-                                'shipperName' => $request->shipperName,
-                                'shipperAddress' => $request->shipperAddress,
-                                'shipperLocation' => $request->shipperLocation,
-                                'shipperPostal' => $request->shipperPostal,
-                                'shipperContact' => $request->shipperContact,
-                                'shipperEmail' => $request->shipperEmail,
-                                'shipperTelephone' => $request->shipperTelephone,
-                                'shipperExt' => $request->shipperExt,
-                                'shipperTollFree' => $request->shipperTollFree,
-                                'shipperFax' => $request->shipperFax,
-                                'shipperShippingHours' => $request->shipperShippingHours,
-                                'shipperAppointments' => $request->shipperAppointments,
-                                'shipperIntersaction' => $request->shipperIntersaction,
-                                'shipperStatus' => $request->shipperstatus,
-                                'shippingNotes' => $request->shippingNotes,
-                                'internalNotes' => $request->internal_note,
-                                'counter' =>0,
-                                'created_by' => Auth::user()->userFirstName,
-                                'created_time' => date('d-m-y h:i:s'),
-                                'edit_by' =>Auth::user()->userName,
-                                'edit_time' =>time(),
-                                'deleteStatus' =>"NO",                    
-                            ); 
-                            if($Shipper_data)
-                            {                
-                                Shipper::where(['companyID' =>$companyID])->update([
-                                'counter'=> $totalShipperArray+1,
-                                'shipper' =>array_merge($ShipperArray,$ShipperData) ,
-                                ]);
-                                $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
-                                return json_encode($arrShipper);
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    if(Shipper::create([
-                                        '_id' => 1,
-                                        'companyID' => $companyID,
-                                        'counter' => 1,
-                                        'shipper' => $currencyData,
-                                    ])) 
-                                    {
-                                        $arrShipper = array('status' => 'success', 'message' => 'Shipper added successfully.'); 
-                                        return json_encode($arrShipper);
-                                    }
-                                }
-                                catch(\Exception $error)
-                                {
-                                    return $error->getMessage();
-                                }
-                            }
-                            
-                        } 
-                    }  
-
-
-
-                    $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
-                    return json_encode($arrConsignee);
-                }
-                else
-                {
-                    try
-                    {
-                        if(Consignee::create([
-                            '_id' => 1,
-                            'companyID' => $companyID,
-                            'counter' => 1,
-                            'consignee' => $currencyData,
-                        ])) 
-                        {
-                            $arrConsignee = array('status' => 'success', 'message' => 'Consignee added successfully.'); 
-                            return json_encode($arrConsignee);
-                        }
-                    }
-                    catch(\Exception $error)
-                    {
-                        return $error->getMessage();
-                    }
-                }
-            }  
-        } 
+                $cons = array(
+                    '_id' => AppHelper::instance()->getAdminDocumentSequence($companyID, Shipper::raw(),'shipper',(int)$docId),
+                    'counter' => 0,
+                    'shipperName' => $request->shipperName,
+                    'shipperAddress' => $request->shipperAddress,
+                    'shipperLocation' => $request->shipperLocation,
+                    'shipperPostal' => $request->shipperPostal,
+                    'shipperContact' => $request->shipperContact,
+                    'shipperEmail' => $request->shipperEmail,
+                    'shipperTelephone' => $request->shipperTelephone,
+                    'shipperExt' => $request->shipperExt,
+                    'shipperTollFree' => $request->shipperTollFree,
+                    'shipperFax' => $request->shipperFax,
+                    'shipperShippingHours' => $request->shipperShippingHours,
+                    'shipperAppointments' => $request->shipperAppointments,
+                    'shipperIntersaction' => $request->shipperIntersaction,
+                    'shipperStatus' => $request->shipperStatus,
+                    'shippingNotes' => $request->shippingNotes,
+                    'internalNotes' => $request->internal_note,
+                    'insertedTime' => time(),
+                    'insertedUserId' =>Auth::user()->userName,
+                    'deleteStatus' => "NO",
+                    'deleteUser' => "",
+                    'deleteTime' => "",
+                );
+                Shipper::raw()->updateOne(['companyID' => $companyID,'_id' => (int)$docId], ['$push' => ['shipper' => $cons]]);
+                $cons['masterID'] = $docId;
+                echo json_encode($cons);
+            } 
+            else 
+            {
+                $id = AppHelper::instance()->getNextSequence("shipper", $db);
+                $request->setId($id);
+                $cons = iterator_to_array($shipper);
+                Shipper::raw()->insertOne($cons);
+                $masterID = $cons['_id'];
+                $cons["shipper"][0]['masterID'] = $masterID;
+                echo json_encode($cons["shipper"][0]);
+            }
+        }
     }
 
     public function editConsignee(Request $request)
     {
-        $id=$request->id;
-        $companyID=(int)65;
-        $Consignee = Consignee::where('companyID',$companyID)->first();
-        // dd($Consignee );
-        $ConsigneeArray=$Consignee->consignee;
-        $ConsigneeLength=count($ConsigneeArray);
+        $id=(int)$request->id;
+        $companyID=(int)Auth::user()->companyID;
+        $masterId=(int)$request->comID;
+        $cursor = Consignee::raw()->findOne(['companyID' => $companyID,'_id'=>$masterId,'consignee._id' => $id]);
+        $consigneeArray=$cursor->consignee;
+        $consigneeLength=count($consigneeArray);
         $i=0;
         $v=0;
-        for($i=0; $i<$ConsigneeLength; $i++)
+        for($i=0; $i<$consigneeLength; $i++)
         {
-            $ids=$Consignee->consignee[$i]['_id'];
+            $ids=$cursor->consignee[$i]['_id'];
             $ids=(array)$ids;
             foreach($ids as $value)
             {
@@ -213,80 +194,54 @@ class ConsigneeController extends Controller
             }
         }
         $companyID=array(
-            "companyID"=>$companyID
+            "companyID"=>$masterId
         ) ;       
-        $Consignee=$Consignee->consignee[$v];
-        $Consignee=array_merge($companyID,$Consignee);
-         return response()->json($Consignee, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        $consignee=(array)$cursor->consignee[$v];
+        $consignee=array_merge($companyID,$consignee);
+         return response()->json($consignee, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
     public function updateConsignee(Request $request)
     {
-        $id=$request->fuel_id;
-        // dd($id);
-        $companyID=(int)65;
-        $Consignee = Consignee::where('companyID',$companyID)->first();
-        $ConsigneeArray=$Consignee->consignee;
-        $fuelLength=count($ConsigneeArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$fuelLength; $i++)
-        {
-            $ids=$Consignee->consignee[$i];
-            foreach($ids as $value)
-            {
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }  
-         $ConsigneeArray[$v]['consigneeName'] = $request->consigneeName;
-         $ConsigneeArray[$v]['consigneeAddress'] = $request->consigneeAddress;
-         $ConsigneeArray[$v]['consigneeLocation'] = $request->consigneeLocation;
-         $ConsigneeArray[$v]['consigneePostal'] = $request->consigneePostal;
-         $ConsigneeArray[$v]['consigneeContact'] = $request->consigneeContact;
-         $ConsigneeArray[$v]['consigneeEmail'] = $request->consigneeEmail;
-         $ConsigneeArray[$v]['consigneeTelephone'] = $request->consigneeTelephone;
-         $ConsigneeArray[$v]['consigneeExt'] = $request->consigneeExt;
-         $ConsigneeArray[$v]['consigneeTollFree'] = $request->consigneeTollFree;
-         $ConsigneeArray[$v]['consigneeFax'] = $request->consigneeFax;
-         $ConsigneeArray[$v]['consigneeReceiving'] = $request->consigneeShippingHours;
-         $ConsigneeArray[$v]['consigneeAppointments'] = $request->consigneeAppointments;
-         $ConsigneeArray[$v]['consigneeIntersaction'] = $request->consigneeIntersaction;
-         $ConsigneeArray[$v]['consigneeStatus'] = $request->consigneestatus;
-         $ConsigneeArray[$v]['consigneeRecivingNote'] = $request->shippingNotes;
-         $ConsigneeArray[$v]['consigneeInternalNote'] = $request->internal_note;
-     
-        $Consignee->consignee=$ConsigneeArray;
-        if($Consignee->save())
-        {
-         $arr = array('status' => 'success', 'message' => 'Consignee updated successfully.','statusCode' => 200); 
-         return json_encode($arr);
-        }
+        // dd($request);
+        $id=(int)$request->id;
+        $masterId=(int)$request->comID;
+        $companyID=(int)Auth::user()->companyID;
+        $Consignee=Consignee::raw()->updateOne(['companyID' => $companyID,'_id' => $masterId,'consignee._id' =>  $id], 
+         ['$set' => ['consignee.$.consigneeName' => $request->consigneeName,
+         'consignee.$.consigneeAddress' => $request->consigneeAddress,
+         'consignee.$.consigneeLocation' => $request->consigneeLocation,
+         'consignee.$.consigneePostal' => $request->consigneePostal,
+         'consignee.$.consigneeContact' => $request->consigneeContact,
+         'consignee.$.consigneeEmail' => $request->consigneeEmail,
+         'consignee.$.consigneeTelephone' => $request->consigneeTelephone,
+         'consignee.$.consigneeExt' => $request->consigneeExt,
+         'consignee.$.consigneeTollFree' => $request->consigneeTollFree,
+         'consignee.$.consigneeFax' => $request->consigneeFax,
+         'consignee.$.consigneeReceiving' => $request->consigneeShippingHours,
+         'consignee.$.consigneeAppointments' => $request->consigneeAppointments,
+         'consignee.$.consigneeIntersaction' => $request->consigneeIntersaction,
+         'consignee.$.consigneeStatus' => $request->consigneestatus,
+         'consignee.$.consigneeRecivingNote' => $request->shippingNotes,
+        //  'consignee.$.consigneeInternalNote' => $request->shippingNotes,
+         'consignee.$.consigneeInternalNote' => $request->internal_note,
+         'consignee.$.edit_by' => Auth::user()->userName,
+         'consignee.$.edite_time' => time()]]
+     );
+     if($Consignee==true)
+     {
+      $arr = array('status' => 'success', 'message' => 'consignee Updated successfully.','statusCode' => 200); 
+      return json_encode($arr);
+     }
     }
     public function deleteConsignee(Request $request)
     {
-        $id=$request->id;
-        $companyID=(int)65;
-        $Consignee = Consignee::where('companyID',$companyID)->first();
-        $ConsigneeArray=$Consignee->consignee;
-        $fuelLength=count($ConsigneeArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$fuelLength; $i++)
-        {
-            $ids=$Consignee->consignee[$i];
-            foreach($ids as $value)
-            {
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }
-         $ConsigneeArray[$v]['deleteStatus'] = "YES";   
-        $Consignee->consignee=$ConsigneeArray;
-        if($Consignee->save())
+        $id=(int)$request->id;
+        $companyID=(int)Auth::user()->companyID;
+        $masterId=(int)$request->comID;
+        $Consignee=Consignee::raw()->updateOne(['companyID' => $companyID,'_id' => $masterId,'consignee._id' =>  $id], 
+            ['$set' => ['consignee.$.deleteStatus' => 'YES','consignee.$.deleteUser' => Auth::user()->userName,'consignee.$.deleteTime' => time()]]
+        );
+        if($Consignee==true)
         {
          $arr = array('status' => 'success', 'message' => 'consignee deleted successfully.','statusCode' => 200); 
          return json_encode($arr);
@@ -294,57 +249,53 @@ class ConsigneeController extends Controller
     }
     public function restoreConsignee(Request $request)
     {
-        $consiId=$request->id;
-        dd($consiId);
-        $custID=(array)65;
+        $shipIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        $companyID=Auth::user()->companyID;
+        
         foreach($custID as $company_id)
         {
             $company_id=str_replace( array( '\'', '"',
             ',' , ' " " ', '[', ']' ), ' ', $company_id);
-            $company_id=(int)$company_id;
-            $Consignee = Consignee::where('companyID',$company_id )->first();
-            $ConsigneeArray=$Consignee->consignee;
-            $arrayLength=count($ConsigneeArray);         
-            $i=0;
-            $v=0;
-            $data=array();
-            for ($i=0; $i<$arrayLength; $i++){
-                $ids=$Consignee->consignee[$i]['_id'];
-                $ids=(array)$ids;
-                foreach ($ids as $value){
-                    // dd( $consiId);
-                    $consiId= str_replace( array('[', ']'), ' ', $consiId);
-                    // dd($consiId);
-                    if(is_string($consiId))
+            $masterId=(int)$company_id;
+            $shipIds= str_replace( array('[', ']'), ' ', $shipIds);
+            if(is_string($shipIds))
+            {
+                $shipIds=explode(",",$shipIds);
+            }
+            // echo $masterId;
+            foreach($shipIds as $ji)
+            {
+                $cursor = Consignee::raw()->findOne(['companyID' => $companyID,'_id'=>$masterId,'consignee._id' => (int)$ji]);
+                $ConsigneeArray=$cursor->consignee;
+                $ConsigneeLength=count($ConsigneeArray);
+                $i=0;
+                $v=0;
+                $data=array();
+                for($i=0; $i<$ConsigneeLength; $i++)
+                {
+                    $ids=$cursor->consignee[$i]['_id'];
+                    $ids=(array)$ids;
+                    foreach($ids as $value)
                     {
-                        $consiId=explode(",",$consiId);
-                    }
-                    foreach($consiId as $fue_v_id)
-                    {
-                        $fue_v_id= str_replace( array('"', ']' ), ' ', $fue_v_id);
-                        if($value==$fue_v_id)
-                        {                        
-                            $data[]=$i; 
+                    
+                        foreach($shipIds as $shiper_ids)
+                        {
+                            $shiper_ids= str_replace( array('"', ']' ), ' ', $shiper_ids);
+                            if($value==$shiper_ids)
+                            {                        
+                                // $data[]=$i;
+                                $Shipper=Shipper::raw()->updateOne(['companyID' =>$companyID,'_id' => $masterId,'consignee._id' => (int)$ji], 
+                                ['$set' => ['consignee.$.deleteStatus' => 'NO','consignee.$.deleteUser' => Auth::user()->userName,'consignee.$.deleteTime' => time()]]
+                            ); 
+                            }
                         }
                     }
                 }
             }
-            //
-            // dd($data);
-            foreach($data as $row)
-            {
-                $ConsigneeArray[$row]['deleteStatus'] = "NO";
-                $Consignee->consignee= $ConsigneeArray;
-                $save=$Consignee->save();
-            }
-            if (isset($save)) {
+            
                 $arr = array('status' => 'success', 'message' => 'Consignee Restored successfully.','statusCode' => 200); 
             return json_encode($arr);
             }
         }
-     
-    }
-
-
-
 }

@@ -30,13 +30,13 @@
                                                     <div class="form-group col-md-6">
                                                         <label>Loaded Miles <span class="required"></span></label>
                                                         <div>
-                                                            <input class="form-control" id="loadedmiles" placeholder="Loaded Mi" type="text">
+                                                            <input class="form-control" id="pay_loadedmiles" placeholder="Loaded Mi" type="text">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Empty Miles <span class="required"></span></label>
                                                         <div>
-                                                            <input class="form-control" id="emptymiles" placeholder="Empty Mi" type="text">
+                                                            <input class="form-control" id="pay_emptymiles" placeholder="Empty Mi" type="text">
                                                         </div>
                                                     </div>
                                                 </div>

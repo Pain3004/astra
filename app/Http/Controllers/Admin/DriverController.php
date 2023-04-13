@@ -32,8 +32,7 @@ class DriverController extends Controller
 
     public function updateOwnerOparator(Request $request){
       // dd($request->all());
-        $companyID=1;
-
+        $companyID=Auth::user()->companyID;
         $getOwner_operator_driver = Owner_operator_driver::where('companyID',$companyID)->first();
         $OwnerArray=$getOwner_operator_driver->ownerOperator;
         $arrayLength=count($OwnerArray);
@@ -125,7 +124,7 @@ class DriverController extends Controller
 
 
     public function getViewDriverApplication(Request $request){
-        $companyID=1;
+        $companyID=Auth::user()->companyID;
         $employement = Employement::where('companyID',$companyID)->first();
        
         //dd($employement);
@@ -133,7 +132,7 @@ class DriverController extends Controller
     }
 
     public function driver_getTruck(){
-        $companyID=1;
+        $companyID=Auth::user()->companyID;
         $truckadd = Truckadd::where('companyID',$companyID)->first();
        
         //dd($truckadd);
@@ -146,7 +145,7 @@ class DriverController extends Controller
         //     'truckNo' => 'required',
         // ]);
 
-        $companyID=1;
+        $companyID=Auth::user()->companyID;
         $getCompanyForDriver = Driver::where('companyID',$companyID)->first();
         // $result = Driver::where('companyID',$companyID )->first();
         $driverArray=$getCompanyForDriver->driver;
@@ -260,7 +259,7 @@ class DriverController extends Controller
 
     public function editDriverOwnerData(Request $request){  
         //dd($request);    
-        $companyID=(int)1;
+        $companyID=Auth::user()->companyID;
         $ownerOperatorID=(int)$request->id;
 
         $result = Owner_operator_driver::where('companyID',$companyID )->first();
@@ -307,14 +306,25 @@ class DriverController extends Controller
     }  
 
     public function getDriverData(Request $request){
-        $companyID=(int)1;
+        $companyID=Auth::user()->companyID;
         $driver = Driver::where('companyID',$companyID )->first();
         return response()->json($driver);  
     }
+    public function getDriver(Request $request){
+        $companyID=Auth::user()->companyID;
+        $driver = Driver::where('companyID',$companyID )->get();
+        return response()->json(['driver'=>$driver], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
+    public function getowner(Request $request){
+        $companyID=Auth::user()->companyID;
+        $Owner =\App\Models\Owner_operator_driver::where('companyID',$companyID )->get();
+        return response()->json(['Owner'=>$Owner], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
+    
     
 //add by Reena
     public function addDriverData(Request $request){
-
+//dd($request);
         request()->validate([
             'name' => 'required',
             'email' => 'required|unique:driver,driver.driverEmail',
@@ -331,35 +341,37 @@ class DriverController extends Controller
         ]);
         //add recurrence
         $unserializeData = [];
-            parse_str($request->data,$unserializeData);
-
-            if(isset($unserializeData['rec_PlusRecurrence'])){
-                foreach($unserializeData['rec_PlusRecurrence'] as $key => $val){
+        parse_str($request->data,$unserializeData1);
+        
+            if(isset($unserializeData1['rec_PlusRecurrence'])){
+                foreach($unserializeData1['rec_PlusRecurrence'] as $key => $val){
                 
-                    $i_cate=$unserializeData['rec_PlusRecurrence'][$key];
-                    $i_type=$unserializeData['rec_installmentType'][$key];
-                    $amount=$unserializeData['rec_amount'][$key];
-                    $installment=$unserializeData['rec_installment'][$key];
-                    $startNo=$unserializeData['rec_startNo'][$key];
-                    $startDate=$unserializeData['rec_startDate'][$key];
-                    $internalNote=$unserializeData['rec_internalNote'][$key]; 
+                    $i_cate_sub=$unserializeData1['rec_PlusRecurrence'][$key];
+                    $i_type_sub=$unserializeData1['rec_installmentType'][$key];
+                    $amount_sub=$unserializeData1['rec_amount'][$key];
+                    $installment_sub=$unserializeData1['rec_installment'][$key];
+                    $startNo_sub=$unserializeData1['rec_startNo'][$key];
+                    $startDate_sub=$unserializeData1['rec_startDate'][$key];
+                    $internalNote_sub=$unserializeData1['rec_internalNote'][$key]; 
         
                     $recurrenceAdd[]=((object)[
                         '_id'=>$key,
-                        'installmentCategoryStore'=>$i_cate,
-                        'installmentTypeStore'=>$i_type,
-                        'amountStore'=>$amount,
-                        'currentoStore'=>$startNo,
-                        'installmentStore'=>$installment,
-                        'startNoStore'=>$startNo,
-                        'startDateStore'=>strtotime($startDate),
+                        'installmentCategoryStore'=>$i_cate_sub,
+                        'installmentTypeStore'=>$i_type_sub,
+                        'amountStore'=>$amount_sub,
+                        'installmentStore'=>$installment_sub,
+                        'startNoStore'=>$startNo_sub,
+                        'currentNoStore'=>$startNo_sub,
+                        'startDateStore'=>strtotime($startDate_sub),
                         'currentDateStore'=>strtotime(date('Y-m-d H:i:s')),
-                        'internalNoteStore'=>$internalNote,
+                        'internalNoteStore'=>$internalNote_sub,
                     ]);        
                 }
             }else{
                 $recurrenceAdd=array();
             }
+            //dd($recurrenceAdd);
+           
         //subtract recurrence
         $unserializeData1 = [];
             parse_str($request->data1,$unserializeData1);
@@ -395,7 +407,7 @@ class DriverController extends Controller
         try{
 
             $driver=Driver::all();
-            $companyID=(int)1;
+            $companyID=Auth::user()->companyID;
            
             $getCompany = Driver::where('companyID',$companyID)->first();
             if($getCompany){
@@ -419,7 +431,7 @@ class DriverController extends Controller
             $driverData[]=array(    
                             '_id' => $new_id,
                             'counter' => 3,
-                            'ownerID' => '',
+                            'ownerID' => $new_id,
                             'driverName' => $request->name,
                             'driverUsername' => $request->username,
                             'driverAddress' => $request->address,
@@ -940,6 +952,72 @@ class DriverController extends Controller
                 }
        }
 
+       //add recurrence
+       $unserializeData = [];
+       parse_str($request->data,$unserializeData);
+
+       if(isset($unserializeData['up_rec_PlusRecurrence'])){
+           foreach($unserializeData['up_rec_PlusRecurrence'] as $key => $val){
+           
+               $i_cate=$unserializeData['up_rec_PlusRecurrence'][$key];
+               $i_type=$unserializeData['up_rec_installmentType'][$key];
+               $amount=$unserializeData['up_rec_amount'][$key];
+               $installment=$unserializeData['up_rec_installment'][$key];
+               $startNo=$unserializeData['up_rec_startNo'][$key];
+               $startDate=$unserializeData['up_rec_startDate'][$key];
+               $internalNote=$unserializeData['up_rec_internalNote'][$key]; 
+   
+               $recurrenceAdd[]=((object)[
+                   '_id'=>$key,
+                   'installmentCategoryStore'=>$i_cate,
+                   'installmentTypeStore'=>$i_type,
+                   'amountStore'=>$amount,
+                   'currentoStore'=>$startNo,
+                   'installmentStore'=>$installment,
+                   'startNoStore'=>$startNo,
+                   'startDateStore'=>strtotime($startDate),
+                   'currentDateStore'=>strtotime(date('Y-m-d H:i:s')),
+                   'internalNoteStore'=>$internalNote,
+               ]);        
+           }
+       }else{
+           $recurrenceAdd=array();
+       }
+       //dd($recurrenceAdd);
+       //subtract recurrence
+      // $unserializeData = [];
+       parse_str($request->data1,$unserializeData);
+
+       if(isset($unserializeData['up_rec_PlusRecurrence_sub'])){
+           foreach($unserializeData['up_rec_PlusRecurrence_sub'] as $key => $val){
+           
+               $i_cate=$unserializeData['up_rec_PlusRecurrence_sub'][$key];
+               $i_type=$unserializeData['up_rec_installmentType_sub'][$key];
+               $amount=$unserializeData['up_rec_amount_sub'][$key];
+               $installment=$unserializeData['up_rec_installment_sub'][$key];
+               $startNo=$unserializeData['up_rec_startNo_sub'][$key];
+               $startDate=$unserializeData['up_rec_startDate_sub'][$key];
+               $internalNote=$unserializeData['up_rec_internalNote_sub'][$key]; 
+   
+               $recurrenceSub[]=((object)[
+                   '_id'=>$key,
+                   'installmentCategoryStore'=>$i_cate,
+                   'installmentTypeStore'=>$i_type,
+                   'amountStore'=>$amount,
+                   'currentoStore'=>$startNo,
+                   'installmentStore'=>$installment,
+                   'startNoStore'=>$startNo,
+                   'startDateStore'=>strtotime($startDate),
+                   'currentDateStore'=>strtotime(date('Y-m-d H:i:s')),
+                   'internalNoteStore'=>$internalNote,
+               ]);        
+           }
+       }else{
+           $recurrenceSub=array();
+       }
+       //dd($recurrenceSub);
+       //
+       
        $driverArrayUp[$v]['driverName']=$request->updateDriverName;
        $driverArrayUp[$v]['driverUsername']=$request->updateDriverUsername;
        if(isset($request->updateDriverPassword)){
@@ -955,25 +1033,25 @@ class DriverController extends Controller
        $driverArrayUp[$v]['driverZip']=$request->updateDriverZip;
        $driverArrayUp[$v]['driverStatus']=$request->updateDriverStatus;
        $driverArrayUp[$v]['driverSocial']=$request->updateDriverSocial;
-       $driverArrayUp[$v]['dateOfbirth']=$request->updateDateOfbirth;
-       $driverArrayUp[$v]['dateOfhire']=$request->updateDateOfHire;
+       $driverArrayUp[$v]['dateOfbirth']=strtotime($request->updateDateOfbirth);
+       $driverArrayUp[$v]['dateOfhire']=strtotime($request->updateDateOfHire);
        $driverArrayUp[$v]['driverLicenseNo']=$request->updateDriverLicenseNo;
        $driverArrayUp[$v]['driverLicenseIssue']=$request->updateDriverLicenseIssue;
-       $driverArrayUp[$v]['driverLicenseExp']=$request->updateDriverLicenseExp;
-       $driverArrayUp[$v]['driverLastMedical']=$request->updateDriverLastMedical;
-       $driverArrayUp[$v]['driverNextMedical']=$request->updateDriverNextMedical;
-       $driverArrayUp[$v]['driverLastDrugTest']=$request->updateDriverLastDrugTest;
-       $driverArrayUp[$v]['driverNextDrugTest']=$request->updateDriverNextDrugTest;
-       $driverArrayUp[$v]['passportExpiry']=$request->updatePassportExpiry;
-       $driverArrayUp[$v]['fastCardExpiry']=$request->updateFastCardExpiry;
-       $driverArrayUp[$v]['hazmatExpiry']=$request->updateHazmatExpiry;
+       $driverArrayUp[$v]['driverLicenseExp']=strtotime($request->updateDriverLicenseExp);
+       $driverArrayUp[$v]['driverLastMedical']=strtotime($request->updateDriverLastMedical);
+       $driverArrayUp[$v]['driverNextMedical']=strtotime($request->updateDriverNextMedical);
+       $driverArrayUp[$v]['driverLastDrugTest']=strtotime($request->updateDriverLastDrugTest);
+       $driverArrayUp[$v]['driverNextDrugTest']=strtotime($request->updateDriverNextDrugTest);
+       $driverArrayUp[$v]['passportExpiry']=strtotime($request->updatePassportExpiry);
+       $driverArrayUp[$v]['fastCardExpiry']=strtotime($request->updateFastCardExpiry);
+       $driverArrayUp[$v]['hazmatExpiry']=strtotime($request->updateHazmatExpiry);
        $driverArrayUp[$v]['rate']=$request->updateRate;
        $driverArrayUp[$v]['currency']=$request->updateCurrency;
        $driverArrayUp[$v]['driverBalance']=$request->updateDriverBalance;
        $driverArrayUp[$v]['terminationDate']=$request->updateTerminationDate;
        $driverArrayUp[$v]['internalNote']=$request->updateInternalNotes;
-    //    $driverArrayUp[$v]['driverName']=$request->updateDriverName;
-    //    $driverArrayUp[$v]['driverName']=$request->updateDriverName;
+       $driverArrayUp[$v]['recurrenceAdd']=$recurrenceAdd;
+       $driverArrayUp[$v]['recurrenceSubtract']=$recurrenceSub;
       $driverArrayUp[$v]['driverLoadedMile'] = (int)$request->driverLoadedMile;
       $driverArrayUp[$v]['driverEmptyMile'] = (int)$request->driverEmptyMile;
       $driverArrayUp[$v]['pickupRate'] = (int)$request->pickupRate;
@@ -983,6 +1061,7 @@ class DriverController extends Controller
       $driverArrayUp[$v]['tarp'] = (int)$request->tarp;
       $driverArrayUp[$v]['percentage'] = (int)$request->percentage;
 
+      
        $resultUp->driver = $driverArrayUp;
        if($resultUp->save()){
             $arr = array('status' => 'success', 'message' => 'User edited successfully.','statusCode' => 200); 
@@ -1011,6 +1090,8 @@ class DriverController extends Controller
         }
    
        $driverArray[$v]['deleteStatus'] = "YES"; 
+       $driverArray[$v]['deleteUser'] = Auth::user()->userFirstName; 
+       $driverArray[$v]['deleteTime'] = strtotime(time()); 
        $result->driver = $driverArray;
 
        if ($result->save()) {
@@ -1030,7 +1111,7 @@ class DriverController extends Controller
     }  
 
     public function deleteViewDriverApp(Request $request){
-        $companyID=(int)1;
+        $companyID=Auth::user()->companyID;
         $driverId=$request->id;
         //dd($driverId);
         $result = Employement::where('companyID',$companyID )->first();
@@ -1069,7 +1150,7 @@ class DriverController extends Controller
     } 
     public function deleteDriverOwnerOperator(Request $request){
        // dd($request->all());
-        $companyID=(int)1;
+        $companyID=Auth::user()->companyID;
         $driverID=$request->id;
         
         $result = Driver::where('companyID',$companyID )->first();
@@ -1122,7 +1203,7 @@ class DriverController extends Controller
 
     public function restoreDriverOwnerOperator(Request $request){
         //dd($request->all());
-         $companyID=(int)1;
+         $companyID=Auth::user()->companyID;
          $driverID=$request->id;
          
          $result = Driver::where('companyID',$companyID )->first();
@@ -1334,6 +1415,56 @@ class DriverController extends Controller
     //         return $error->getMessage();
     //     }
     // }
+
+    public function restoreDriver(Request $request)
+    {
+        //dd($request);
+        $cardIds=$request->all_ids;
+        $custID=(array)$request->custID;
+        foreach($custID as $company_id)
+        {
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $company_id=(int)$company_id;
+            $Driver = Driver::where('companyID',$company_id )->first();
+            $DriverArray=$Driver->driver;
+            $arrayLength=count($DriverArray);         
+            $i=0;
+            $v=0;
+            $data=array();
+            for ($i=0; $i<$arrayLength; $i++){
+                $ids=$Driver->driver[$i]['_id'];
+                $ids=(array)$ids;
+                foreach ($ids as $value){
+                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+                    if(is_string($cardIds))
+                    {
+                        $cardIds=explode(",",$cardIds);
+                    }
+                    foreach($cardIds as $credit_card_id)
+                    {
+                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+                        if($value==$credit_card_id)
+                        {                        
+                            $data[]=$i; 
+                        }
+                    }
+                }
+            }
+            //
+            // dd($data);
+            foreach($data as $row)
+            {
+                $DriverArray[$row]['deleteStatus'] = "NO";
+                $Driver->driver= $DriverArray;
+                $save=$Driver->save();
+            }
+            if (isset($save)) {
+                $arr = array('status' => 'success', 'message' => 'Driver Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+            }
+        }
+    }
 
 }
 

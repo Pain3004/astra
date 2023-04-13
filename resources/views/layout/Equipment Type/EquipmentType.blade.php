@@ -40,7 +40,7 @@
  
  
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
+                <div class="modal-body" style="overflow-y: auto !important;">
 
                     <!-- Row -->
                     <div class="row">

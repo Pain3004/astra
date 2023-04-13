@@ -32,17 +32,19 @@
                         <a id="delete_Fuel_ReceiptData"  class="button-57_alt delete_Fuel_ReceiptData" disabled><i class="fa fa-trash" aria-hidden="true"></i><span>Delete </span></a>
 
                     @endif
-                    <!-- <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
-                    <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a>
-                    <div class="searchbar" style="float: right; margin-right: 15px;">
-                        <input type="text" placeholder="search" /> -->
-                        <!-- <div class="symbol">
-                            
-                            <svg class="lens">
-                            <use xlink:href="#lens" />
-                            </svg>
-                        </div> -->
+                    <!-- <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="searchText_Fuel" placeholder="search" style="margin-left: 5px;"
+                    data-name="fuel_receipt_search">
+                    <select style="margin-left: 3px;" class="form-control col-md-2 col-sm-4 col-lg-2 float-right"
+                        name="shipper_search" id="shipper_search" 
+                        data-name="fuel_receipt_select">
+                        <option value="">---select---</option>
+                        <option value="driverNumber">Driver Number</option>
+                        <option value="cardNo">Card No</option>
+                        <option value="locationName">Location Name</option>
+                        <option value="locationCity">Location City</option>
+                        <option value="locationState">Location State</option>
+                        <option value="invoiceNo">Invoice No</option>
+                    </select> -->
                     </div>
 
                 </div>
@@ -54,7 +56,7 @@
                             <div class="col-lg-12">
 
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                    <table id="fuelReceiptPagiTable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                         <tr >
                                            
@@ -124,13 +126,17 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                <form action="{{route('download-pdf')}}" method="post" target="__blank">
-                    @csrf
-                    @if($exportUser == 1)
-                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
+                <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    @csrf-->
+                    @if($exportUser == 1) 
+                        <button class="button-29" style="vertical-align:middle" id="exportFuelReceiptsDetails"><span>Export</span></button>
                     @endif
-                </form>
+                <!-- </form> -->
                     <button type="button" class="button-29 fuelReceiptClose">Close</button>
+                    <nav aria-label="..." class="float-right">
+                        <div class="pagination" id="paginate" data-name="fuel_receipt_pagination">
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -153,7 +159,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form   >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_addFuelReceipts" value="{{ csrf_token() }}" />
                                             <div class="form-row">
@@ -162,7 +168,7 @@
                                                     </label>
                                                     <div>
                                                     <input type="hidden" class="form-control driver_name_fuelReceipt" name="driverName"> 
-                                                       <select class="form-control addFuelReceiptDriver_name cardHolderName" name="driverName"> 
+                                                       <select class="form-control addFuelReceiptDriver_name cardHolderName cardHolderChangeCardtYPE" name="driverName"> 
                                                          <option>select one </option>
                                                        </select>
                                                     </div>
@@ -172,14 +178,14 @@
                                                     </label>
                                                     <div>
                                                        <select class="form-control paymentType apayment_type_fuel_re" name="payment_type"> 
-                                                         <!-- <option>select one </option> -->
+                                                         <option  value="unselected">---select----- </option>
                                                          <option value="Receipt">Receipt </option>
                                                          <option value="Cash Advance">Cash Advance</option>
                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2">
-                                                    <label>Driver No
+                                                    <label>Driver No<span style="color:#ff0000">*</span>
                                                     </label>
                                                         <div class="dropdown show">
                                                             <input class="form-control  add_fuelReceiptDriverNumber" type="text" 
@@ -187,17 +193,15 @@
                                                         </div>
                                                 </div>
                                                 <div class="form-group col-md-2 driver_nu_cashAd" >
-                                                    <label>Card Number</label>
+                                                    <label>Card Number <span style="color:#ff0000">*</span></label>
                                                     <div>
                                                         <!-- <input class="form-control addFuelReceiptCardNumber"  type="text"  name="cardNumber" readonly /> -->
                                                          <select class="form-control total_cards_fuel_re addFuelReceiptCardNumber" name="cardNumber"> 
-                                                         <!-- <option>select one </option> -->
                                                        </select>
-                                                       <!-- <input type='hidden' name='dat_vendor_id' class='dat_vendor_id' > -->
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-2 driver_nu_cashAd">
-                                                    <label>Fuel Vendor </label>
+                                                    <label>Fuel Vendor<span style="color:#ff0000">*</span> </label>
                                                     <div>
                                                         <input class="form-control  seleted_fuel_vend_type addFuelReceiptFuelVendor" type="text" name="fuelVendor" readonly />
                                                     </div>
@@ -211,7 +215,9 @@
                                                 <div class="form-group col-md-2">
                                                     <label>Truck Number<span style="color:#ff0000">*</span>
                                                         </label>
-                                                    <input type="text" class="form-control addFuelReceiptTruckNumber"  name="truckNumber" required>
+                                                    <input type="text" class="form-control addFuelReceiptTruckNumber"    list="truck_nummberFuelReceipt"name="truckNumber" required>
+                                                    <datalist id="truck_nummberFuelReceipt">
+                                                    </datalist>
                                                 </div>
                                             </div>
                                             <!-- row 3 -->
@@ -226,11 +232,11 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location Name <span style="color:#ff0000">*</span></label>
-                                                    <input type="text" class="form-control addFuelReceiptLocationName" name="locationName" required >
+                                                    <input type="text" class="form-control addFuelReceiptLocationName location_view" data-location="fuelAddLocationRecepit" id="fuelAddLocationRecepit" name="locationName" required >
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location City</label>
-                                                    <input class="form-control addFuelReceiptLocationCity" name="locationCity" type="text">
+                                                    <input class="form-control addFuelReceiptLocationCity location_view" data-location="fuel_receipt_dlocation" id="fuel_receipt_dlocation" name="locationCity" type="text">
                                                 </div>
                                                 <div class="form-group col-md-2 ">
                                                     <label >Location State <span style="color:#ff0000">*</span></label>
@@ -264,7 +270,7 @@
                                                 <div class="form-group col-md-4">
                                                     <label >Invoice No</label>
                                                     <select class="form-control addFuelReceiptinvoiceNo fuel_recepit_invoice_no_list" name="invoiceNo "> 
-                                                        <option>select one </option>
+                                                        <!-- <option>select one </option> -->
                                                     </select>
                                                 </div>
                                             </div> 
@@ -302,7 +308,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form id="" >
+                                        <form   >
                                             @csrf
                                             <input type="hidden" name="_token" id="_token_updateFuelReceipts" value="{{ csrf_token() }}" />
                                             <input type="hidden" name="fuel_recepit_id" class="fuel_recepit_id_edit" >
@@ -314,8 +320,7 @@
                                                     </label>
                                                     <div>
                                                     <input type="hidden" class="form-control driver_name_fuelReceipt_edit" name="driverName"> 
-                                                       <select class="form-control updateFuelReceipt_Driver_name cardHolderName" name="driverName"> 
-                                                         <option>select one </option>
+                                                       <select class="form-control updateFuelReceipt_Driver_name cardHolderName cardHolderChangeCardtYPE" name="driverName"> 
                                                        </select>
                                                     </div>
                                                 </div>
@@ -324,7 +329,7 @@
                                                     </label>
                                                     <div>
                                                        <select class="form-control paymentType updateapayment_type_fuel_re" name="payment_type"> 
-                                                         <option>select one </option>
+                                                         <option value='unselected'>----select-----</option>
                                                          <option value="Receipt">Receipt </option>
                                                          <option value="Cash Advance">Cash Advance</option>
                                                        </select>
@@ -341,8 +346,6 @@
                                                 <div class="form-group col-md-2 driver_nu_cashAd">
                                                     <label>Card Number</label>
                                                     <div>
-                                                        <!-- <input class="form-control updateFuelReceiptCardNumber"  type="text"
-                                                            name="cardNumber" readonly /> -->
                                                             <select class="form-control total_cards_fuel_re updateFuelReceiptCardNumber" name="cardNumber"> 
                                                        </select>
                                                     </div>
@@ -362,7 +365,9 @@
                                                 <div class="form-group col-md-2">
                                                     <label>Truck Number<span style="color:#ff0000">*</span>
                                                         </label>
-                                                    <input type="text" class="form-control updateFuelReceiptTruckNumber"  name="truckNumber" required>
+                                                    <input type="text" class="form-control updateFuelReceiptTruckNumber" list="truck_nummberFuelReceipt"  name="truckNumber" required>
+                                                    <datalist id="truck_nummberFuelReceipt">
+                                                    </datalist>
                                                 </div>
                                             </div>
                                             <!-- row 3 -->
@@ -377,7 +382,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location Name <span style="color:#ff0000">*</span></label>
-                                                    <input type="text" class="form-control updateFuelReceiptLocationName" name="locationName" required > 
+                                                    <input type="text" class="form-control updateFuelReceiptLocationName location_view" id="fuelUpdateLocationRecepit" data-location="fuelUpdateLocationRecepit" name="locationName" required > 
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label >Location City</label>
@@ -465,9 +470,9 @@
                             <div class="col-lg-12">
 
                                 <div class="table-responsive export-table">
-                                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-                                        <thead>
-                                            <tr>
+                                    <table id="RestorefuelReceiptPagiTable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
+                                        <thead class="thead_th">
+                                            <tr class="tr">
                                                 <th ><input type="checkbox" name="fuel_ids[]" class="fuel_recepit_ids"></th>
                                                 <th >Driver Name</th>
                                                 <th >Transaction Date </th>

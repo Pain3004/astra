@@ -11,13 +11,13 @@
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                     
-                    <button href="#" data-toggle="modal"  class="button-57_alt addCustomerButton" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Customer</span></button>
-                    <button class="button-57_alt restoreCustomerData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore Customer</span></button>
+                    <button href="#" data-toggle="modal"  class="button-57_alt button-58_alt addCustomerButton" >Add Customer</button>
+                    <button class="button-57_alt button-58_alt restoreCustomerData" >Restore Customer</button>
                 </div>
                 
                 <div class="modal-body" style="overflow-y: auto !important;">
 
-                    <table id="customer_table_pagination" class="table editable-table table-nowrap table-bordered table-edit wp-100">
+                    <table  class="table editable-table table-nowrap table-bordered table-edit wp-100">
                         <thead class="thead_th">
                             <tr class="tr">
                                 <th>No</th>
@@ -36,7 +36,13 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button-29 close_customerModal" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-57_alt button-58_alt exportCustomer" data-dismiss="modal">export</button>
+                    <button type="button" class="button-57_alt button-58_alt close_customerModal" data-dismiss="modal">Close</button>
+                    <nav aria-label="..." data-name="cus_pagination" class="float-right">
+                        <div class="pagination" id="cus_pagination">
+
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -52,15 +58,15 @@
         <div class="modal-dialog custom_modal_small modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add Customer</h5>
-                    <button type="button" class="button-24 closeaddCustomerModal" data-dismiss="modal">×</button>
+                    <h6 class="modal-title">Add Customer</h>
+                    <!-- <button type="button" class="button-24 closeaddCustomerModal" data-dismiss="modal">×</button> -->
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     
                     <div class="container">
                         <ul class="nav nav-tabs">
-                            <li><a class="button-29 add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
-                            <li  ><a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
+                            <li><a class="button-57_alt button-58_alt add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
+                            <li  ><a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-57_alt button-58_alt advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="addCustomerTab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab"  data-name="fillextdata">
@@ -81,7 +87,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerZip">Zip  <span style="color:#ff0000">*</span></label>
-                                            <input type="text" class="form-control" id="customerZip"placeholder="Enter Zip">
+                                            <input type="number" class="form-control" id="customerZip"placeholder="Enter Zip">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -125,7 +131,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerFax">Fax  </label>
-                                            <input type="text" class="form-control" id="customerFax"placeholder="Enter Fax">
+                                            <input type="text" class="form-control" id="customerFax" placeholder="(999) 999-9999" data-mask="(999) 999-9999" >
                                         </div>
                                     </div>
 
@@ -182,7 +188,7 @@
                                     </div>
                                 
                                     <div class="modal-footer">
-                                        <a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-29 advanceTabCustomer" style="align:right;" >Next</a>
+                                        <a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-57_alt button-58_alt advanceTabCustomer" style="align:right;" >Next</a>
                                     </div>
                                 </form>
                             </div>
@@ -190,19 +196,17 @@
                                 <br>
                                 <form>
                                     <div class="form-row">
-                                        <div class="form-group col-md-3">
+                                        <!-- <div class="form-group col-md-3">
                                             <label for="customerCurrencySetting">Currency Setting</label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusCurrency" style='color:blue !important'></i>
                                             <div class="dropdown show">
                                                     <input class="form-control customerCurrencySet" list="customerCurrencySet" name="currency" id="currency_customer">
                                                     <datalist id="customerCurrencySet" class="customerCurrencySet"><option>Select Here</option></datalist>    
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-3">
                                             <label for="customerPaymentTerms">Payment Terms <span style="color: red">*</span></label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
-
-                                            <!-- <span class="button-29" id="plusPaymentTerms" style="margin-left: 5px;"><i class="fa fa-plus"></i></span>  -->
                                             <div class="dropdown show">
                                                 
                                                     <input class="form-control customerPaymentTermSet" list="customerPaymentTermSet" name="PaymentTerms" id="CustomerPayment_Terms">
@@ -214,12 +218,11 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerCreditLimit">Credit Limit $ </label>
-                                            <input type="text" class="form-control" id="customerCreditLimit"placeholder="Enter Zip">
+                                            <input type="number" class="form-control" id="customerCreditLimit"placeholder="Enter Zip">
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label for="customerSalesRepresentative">Sales Representative </span></label>
-                                            <!-- <input type="text" class="form-control customerRepresentativeSalseTerm" id="customerSalesRepresentative" placeholder=" Enter Sales Representative" list='customerRepresentativeSalseTerm'> -->
-                                            <select class="form-control customerRepresentativeSalseTerm" id="customerSalesRepresentative"  >                                              <option>Select Here</option>
+                                        <select class="form-control customerRepresentativeSalseTerm" id="customerSalesRepresentative"  >                                              <option>Select Here</option>
                                             </select>
                                         </div>
                                     </div>
@@ -227,12 +230,7 @@
                                         <div class="form-group col-md-3">
                                             <label for="customerBFactoringCompany">Factoring Company</label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusFactoringCompany" data-name="plusFactoringCompany" style='color:blue !important'></i>
-                                            <!-- <span class="button-29" id="plusFactoringCompany" style="margin-left: 5px;"><i class="fa fa-plus"></i></span> -->
                                             <div class="dropdown show">
-                                                <!-- <input class="form-control customerBFactoringCompanySet" list="customerBFactoringCompanySet" name="customerBFactoringCompany" id="customerBFactoringCompany">
-                                                <datalist id="customerBFactoringCompanySet" class="customerBFactoringCompanySet">
-                                                    <option>Select Here</option>
-                                                </datalist> -->
                                                 <select class="form-control customerBFactoringCompanySet" id="customerBFactoringCompanySet"  >                                              <option>Select Here</option>
                                             </select>
                                             </div>
@@ -261,12 +259,8 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="customerInternalNotes">Internal Notes</label>
-                                            <input type="text" class="form-control" id="customerInternalNotes"placeholder="Enter Internal Notes">
+                                            <textarea type="text" class="form-control" id="customerInternalNotes"placeholder="Enter Internal Notes"></textarea>
                                         </div>
-                                        
-
-                                        
-                                        
                                     </div> 
                                 </form>
                             </div>
@@ -275,8 +269,8 @@
                 </div>
             
                 <div class="modal-footer w-100" style="align:right;">
-                    <button type="submit" class="button-29 customerDataSubmit">Save</button>
-                    <button type="button" class="button-29 closeaddCustomerModal" data-dismiss="modal">Close</button>
+                    <button type="submit" class="button-57_alt button-58_alt customerDataSubmit">Save</button>
+                    <button type="button" class="button-57_alt button-58_alt closeaddCustomerModal" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -325,8 +319,8 @@
         
         <!-- Modal footer -->
         <div class="modal-footer" >
-            <button type="submit" class="button-29 PaymentTermsDataSubmit">Save</button>
-            <button type="button" class="button-29 PaymentTermsModalCloseButton" data-dismiss="modal" id="closePaymentTermsModal">Close</button>
+            <button type="submit" class="button-57_alt button-58_alt PaymentTermsDataSubmit">Save</button>
+            <button type="button" class="button-57_alt button-58_alt PaymentTermsModalCloseButton" data-dismiss="modal" id="closePaymentTermsModal">Close</button>
         </div>
         
       </div>
@@ -364,8 +358,8 @@
         
         <!-- Modal footer -->
         <div class="modal-footer" >
-            <button type="submit" class="button-29 CurrencyrDataSubmit">Save</button>
-            <button type="button" class="button-29 plusCurrencyModalCloseButton" data-dismiss="modal" id="closeplusCurrencyModal">Close</button>
+            <button type="submit" class="button-57_alt button-58_alt CurrencyrDataSubmit">Save</button>
+            <button type="button" class="button-57_alt button-58_alt plusCurrencyModalCloseButton" data-dismiss="modal" id="closeplusCurrencyModal">Close</button>
         </div>
         
       </div>
@@ -403,7 +397,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="factoringCompanyZip">Postal / Zip   <span style="color:#ff0000">*</span></label>
-                                <input type="text" class="form-control" id="factoringCompanyZip" placeholder=" Enter Zip " >
+                                <input type="number" class="form-control" id="factoringCompanyZip" placeholder=" Enter Zip " >
                             </div>
                         </div>
                         <div class="form-row">
@@ -448,13 +442,13 @@
                                 <label for="factoringCompanyContactEmail">Contact Email</label>
                                 <input type="text" class="form-control" id="factoringCompanyContactEmail" placeholder=" Enter Contact Email" >
                             </div>
-                            <div class="form-group col-md-3">
+                            <!-- <div class="form-group col-md-3">
                                 <label for="customerCurrencySetting">Currency Setting <span class="glyphicon glyphicon-plus-sign" id="plusCurrency2" ></span> </label>
                                 <div class="dropdown show">
                                     <input class="form-control customerCurrencySet " list="customerCurrencySet" name="currency" id="currency1">
                                     <datalist id="customerCurrencySet" class="customerCurrencySet"></datalist>    
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group col-md-3">
                                     <label for="customerPaymentTerms">Payment Terms <span style="color: red">*</span></label>
                                             <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
@@ -481,8 +475,8 @@
             
                 <!-- Modal footer -->
                 <div class="modal-footer" >
-                    <button type="submit" class="button-29 factoringCompanyDataSubmit">Save</button>
-                    <button type="button" class="button-29 factoringCompanyModalCloseButton">Close</button>
+                    <button type="submit" class="button-57_alt button-58_alt factoringCompanyDataSubmit">Save</button>
+                    <button type="button" class="button-57_alt button-58_alt factoringCompanyModalCloseButton">Close</button>
                    
                 </div>
             </div>
@@ -509,7 +503,7 @@
 
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="updateCustomerModal" role="dialog">
-        <div class="modal-dialog custom_modal" role="document">
+        <div class="modal-dialog custom_modal_medium" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Update Customer</h4>
@@ -517,8 +511,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">                        
-                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-29 col-lg-2" >Update Customer</button> &nbsp; &nbsp; 
-                    <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-29 col-lg-2" >Update Advance</button>
+                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-57_alt button-58_alt col-lg-2" >Update Customer</button> &nbsp; &nbsp; 
+                    <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-57_alt button-58_alt col-lg-2" >Update Advance</button>
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -530,6 +524,7 @@
                                                 @csrf
                                                     <input type="hidden" name="_token" id="_tokenUpdateCustomer" value="{{ csrf_token() }}" />
                                                     <input type="hidden" name="cu_id" id="updateCustomer_id" />
+                                                    <input type="hidden" name="master_id" id="update_masterId" />
                                                     <div class="form-row">
                                                         <div class="form-group col-md-3">
                                                             <label for="customerName">Customer Name  <span style="color:#ff0000">*</span></label>
@@ -545,7 +540,7 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerZip">Zip  <span style="color:#ff0000">*</span></label>
-                                                            <input type="text" class="form-control" id="updateCustomerZip"placeholder="Enter Zip" name="custZip">
+                                                            <input type="number" class="form-control" id="updateCustomerZip"placeholder="Enter Zip" name="custZip">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
@@ -566,7 +561,7 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerBillingZip">Zip </label>
-                                                            <input type="text" class="form-control" id="updateCustomerBillingZip"placeholder="Enter Zip" name="billingZip">
+                                                            <input type="number" class="form-control" id="updateCustomerBillingZip"placeholder="Enter Zip" name="billingZip">
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="customerPrimaryContact">Primary Contact </span></label>
@@ -637,19 +632,19 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-row">
+                                                    <!-- <div class="form-row">
                                                         <div class="form-group col-md-12">
                                                             <label for="customerDuplicate">Duplicate :</span></label>
                                                             <input type="checkbox" id="updateCustomerDuplicateShipper" name="" value="off"> As a Shipper
                                                             <input type="checkbox" id="updateCstomerDuplicateConsignee" name="" value="off"> As a Consignee
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </form>
-                                                <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-29" >Next</button>
+                                                <button type="button"style="vertical-align:middle" class=" Previous_update_customer button-57_alt button-58_alt" >Next</button>
                                             </div>
                                             <div class="update_advance_first_tap">
                                                 <div class="form-row">
-                                                    <div class="form-group col-md-3">
+                                                    <!-- <div class="form-group col-md-3">
                                                   
                                                         <label for="customerCurrencySetting">Currency Setting
                                                         </label>
@@ -658,10 +653,10 @@
                                                             <input class="form-control customerCurrencySet" list="customerCurrencySet" name="currency" id="updatecurrency">
                                                             <datalist id="customerCurrencySet" class="customerCurrencySet"><option>Select Here</option></datalist> 
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="form-group col-md-3">
                                                         <label for="customerPaymentTerms">Payment Terms
-                                                        <!-- <span class="glyphicon glyphicon-plus-sign addUpPaymentTermsCustomer " id="addPaymentTermsCustomer" data-toggle="modal"  style="cursor:pointer;"></span> -->
+                                                        
                                                         <span style="color: red">*</span></label>
                                                         <i title="Add Currency" class="mdi mdi-plus-circle plus" id="plusPaymentTerms" data-name="plusPaymentTerms" style='color:blue !important'></i>
                                                         <div class="dropdown show">
@@ -677,7 +672,7 @@
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="customerCreditLimit">Credit Limit $ </label>
-                                                        <input type="text" class="form-control" id="updateCustomerCreditLimit"placeholder="Enter Zip" name="creditLimit">
+                                                        <input type="number" class="form-control" id="updateCustomerCreditLimit"placeholder="Enter Zip" name="creditLimit">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="customerSalesRepresentative">Sales Representative </span></label>
@@ -726,13 +721,13 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="customerInternalNotes">Internal Notes</label>
-                                                        <input type="text" class="form-control" id="updateCustomerInternalNotes"placeholder="Enter Internal Notes" name="internalNotes">
+                                                        <textarea type="text" class="form-control" id="updateCustomerInternalNotes"placeholder="Enter Internal Notes" name="internalNotes"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-29" >Previous</button>
-                                                    <button type="button" style="vertical-align:middle" class="button-29" id="updateCustomerData" >update</button>
-                                                    <button type="button"style="vertical-align:middle" class=" closeUpdateCustomerModel button-29" >Close</button>
+                                                    <button type="button"style="vertical-align:middle" class=" next_update_customer button-57_alt button-58_alt" >Previous</button>
+                                                    <button type="button" style="vertical-align:middle" class="button-57_alt button-58_alt" id="updateCustomerData" >update</button>
+                                                    <button type="button"style="vertical-align:middle" class=" closeUpdateCustomerModel button-57_alt button-58_alt" >Close</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -748,251 +743,9 @@
 </div>
 
 
-
-
-<!--    == end update customer   ===== -->
-
-<!--    ======create currency model   ====== -->
-<div class="modal fade" id="addCreateCurrencyCustomer"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" >Create Currency</h5>
-        <button type="button" class="close closeaddCreateCurrencyCustomer" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="addTrailerTypeForm">
-            @csrf
-            <input type="hidden" name="_token" id="_tokenTrailerType" value="{{ csrf_token() }}" />
-            <div class="form-group col-md-12">
-                <label>Name<span style="color:#ff0000">*</span></label>
-                <div>
-                    <input class="form-control" placeholder="Currency type" type="text" id="save_Currency_Type" name="currencyType" required />
-                </div>
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="button-29 closeaddCreateCurrencyCustomer" data-dismiss="modal">Close</button>
-        <button type="button" class="button-29 saveaddCreateCurrencycustomer " >Save </button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--   == end currency   = -->
-
- <!--   ===crete payment terms     === -->
- <div class="modal fade" id="addPaymentTermsCustom"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" >Create Payment Terms</h5>
-        <button type="button" class="close closeadPaymentTermsCustomer" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="addTrailerTypeForm">
-            @csrf
-            <input type="hidden" name="_token" id="_token_Payment_Terms" value="{{ csrf_token() }}" />
-            <div class="form-group col-md-12">
-                <label>Name<span style="color:#ff0000">*</span></label>
-                <div>
-                    <input class="form-control" placeholder="Enter Name" type="text" id="trailer_type_name" name="trailer_type_name" required />
-                </div>
-            </div>
-            <div class="form-group col-md-12">
-                <label>Net Days<span style="color:#ff0000">*</span></label>
-                <div>
-                    <select name="" class="form-control">
-                        <option>select one</option>
-                        <?php 
-                        $j=180;
-                        for($i=1; $j>=$i; $i++){
-                        ?>
-                        <option value="{{$i}}">{{$i}}</option>
-                        <?php }?>
-                    </select>
-                </div>
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="button-29 closeadPaymentTermsCustomer" data-dismiss="modal">Close</button>
-        <button type="button" class="button-29 savePaymentTermsCustomer " >Save </button>
-      </div>
-    </div>
-  </div>
-</div>
- <!--  ====== end payment terms model    = -->
-
- <!--   === add  Factoring Company     s-->
- <div class="container">
-    <div class="modal fade" data-backdrop="static" id="addFactoringModelCustomer" role="dialog">
-        <div class="modal-dialog custom_modal" role="document">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Factoring Company</h4>
-                    <button type="button" class="closeaddFactoringModelCustomer" >&times;</button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <!-- Row -->
-                    <div class="row">
-                        <div class="row row-sm">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <form >
-                                            @csrf
-                                            <input type="hidden" name="_token" id="_token_Add_Factoring" value="{{ csrf_token() }}" />
-                                            <div class="form-row">
-                                                <div class="form-group col-md-2">
-                                                    <label>Factoring Company Name<span style="color:#ff0000">*</span></label>
-                                                    <div>
-                                                        <input class="form-control v" placeholder="Factoring Company Name" type="text" id="" name="factoringCompanyname" required />
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="form-group col-md-2">
-                                                    <label>Address <span style="color:#ff0000">*</span></label>
-                                                    <div>
-                                                        <input class="form-control addFacAddress" placeholder="Address" type="text"  name="address" required />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Loction <span style="color:#ff0000">*</span></label>
-                                                    <div>
-                                                        <input class="form-control addFaclocation" placeholder="Enter Location" type="text" id="" name="location" required />
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Postal / Zip<span style="color:#ff0000">*</span> </label>
-                                                    <div>
-                                                        <input class="form-control addFacZip" placeholder="Postal / Zip" type="text" id="" name="zip" required>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Primary Contact </label>
-                                                    <div>
-                                                        <input class="form-control addFacPrimaryContact" placeholder="Primary Contact" type="text" id="" name="primaryContact">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Telephone </label>
-                                                    <div>
-                                                        <input class="form-control addFacTelephone" placeholder="(___) ___ - ____" type="text" id="" name="telephone">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Ext Factoring </label>
-                                                    <div>
-                                                        <input class="form-control addFacExtFactoring" placeholder="Ext" type="text" id="" name="extFactoring">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Fax </label>
-                                                    <div>
-                                                        <input class="form-control addFacFax" placeholder="(___) ___ - ____" type="text" id="" name="fax">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Toll Free </label>
-                                                    <div>
-                                                        <input class="form-control addFacTollFree" placeholder="(___) ___ - ____" type="text" id="" name="tollFree">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Contact Email </label>
-                                                    <div>
-                                                        <input class="form-control addFacEmail" placeholder="Contact Email" type="email" id="" name="email">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Secondary Contact </label>
-                                                    <div>
-                                                        <input class="form-control addFacSecondaryContact" placeholder="Secondary Contact " type="text" id="" name="secondaryContact">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Factoring Telephone </label>
-                                                    <div>
-                                                        <input class="form-control addFacFactoringtelephone" placeholder="(___) ___ - ____" type="text" id="" name="factoringtelephone">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2 ">
-                                                    <label>Ext </label>
-                                                    <div>
-                                                        <input class="form-control addFacExt" placeholder="Ext" type="text" id="" name="ext">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label >Currency Setting <span style="color:#ff0000">*</span>&nbsp; 
-                                                    <span class="glyphicon glyphicon-plus-sign addcurrencySetting "  data-toggle="modal"  style="cursor:pointer;"></span>
-                                                    </label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control customerCurrencySet" list="currencySetting_option" name="currencyType" id="customerCurrencySet">
-                                                            <datalist id="currencySetting_option" class="currencySetting_option">
-                                                                <option>Select Here</option>
-                                                              
-                                                            </datalist>
-                                                        </div>
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label>Payment Terms <span style="color:#ff0000">*</span>&nbsp; 
-                                                    <span class="glyphicon glyphicon-plus-sign addpaymentTerms " id="addpaymentTerms" data-toggle="modal"  style="cursor:pointer;"></span>
-                                                    </label>
-                                                        <div class="dropdown show">
-                                                            <input class="form-control addPaymentTermsCustom" list="addPaymentTermsCustom" name="paymentTerms" id="payment_Terms">
-                                                            <datalist id="addPaymentTermsCustom" class="addPaymentTermsCustom">
-                                                                <option>Select Here</option>
-                                                              
-                                                            </datalist>
-                                                        </div>
-                                                </div>
-                                            <div class="form-row">
-                                                
-                                            <div class="form-group col-md-4 ">
-                                                    <label>taxID </label>
-                                                    <div>
-                                                        <input class="form-control addFactaxID" placeholder="__-_______" type="text" id="" name="taxID">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label>Internal Notes</label>
-                                                    <div>
-                                                        <textarea rows="2" cols="30" class="form-control addFacInternalNote" type="textarea" id="" placeholder="Internal Note" name="internalNote"></textarea>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div> 
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Row -->                
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" style="vertical-align:middle" class="button-29 saveFactoringModelCustomer" >Save</button>
-                    <button type="button"style="vertical-align:middle" class=" closeaddFactoringModelCustomer button-29" >Close</button>
-                </div>          
-            </div>
-        </div>
-    </div>
-</div>
- <!--   === end add  Factoring Company     s-->
-
-
-
-  <!--   ===== resote customer start model    ===== -->
-   <div class="modal fade" data-backdrop="static" id="restoreCustomerData" role="dialog">
-        <div class="modal-dialog custom_modal modal-dialog-scrollable" role="document">
+<!--========================== resote customer start model ========================== -->
+<div class="modal fade" data-backdrop="static" id="restoreCustomerData" role="dialog">
+        <div class="modal-dialog custom_modal_medium modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> Restore Customer</h5>
@@ -1009,7 +762,7 @@
                     <!-- <button   class="button-57_alt " ><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore Customer</span></button> -->
                 </div>                
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100">
+                    <table  class="table editable-table table-nowrap table-bordered table-edit wp-100">
                         <thead class="thead_th">
                             <tr class="th">
                                 <th><input type="checkbox" name="all_ids[]" class="all_ids_cust"></th>
@@ -1022,13 +775,18 @@
                                 <!-- <th>Action</th> -->
                             </tr>
                         </thead>
-                        <tbody class="restoreCustomerTable">
+                        <tbody id="restoreCustomerTable">
 
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button-29 closeRestoreCustomer" data-dismiss="modal">Close</button>
+                    <button type="button" class="button-57_alt button-58_alt closeRestoreCustomer" data-dismiss="modal">Close</button>
+                    <nav aria-label="..." data-name="Restorecus_pagination" class="float-right">
+                        <div class="pagination" id="Restorecus_pagination">
+
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

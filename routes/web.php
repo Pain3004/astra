@@ -45,6 +45,9 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+// Route::get('/admin/addloadboard', function () {
+//     return view('layout.Loadboard.addLoadboard');
+// });
 
     Route::get('/table', function () {
         return view('table');
@@ -53,20 +56,55 @@ use App\Http\Controllers\Admin\ExternalCarrierController;
     Route::get('/admin/driverApplication2', function () {
         return view('layout.driver.driver_application_form2');
     });
+    
     Route::get('/admin/driverApplication', function () {
         return view('driver_application_form');
     });
-    Route::get('/admin/Loadboard', function () {
-        return view('layout.Loadboard.Loadboard');
-    })->name('admin_loadboard');
+    Route::get('/admin/externalLoadboard', function () {
+        return view('layout.Loadboard.ExternalLoadboard');
+    });
+    // Route::get('/admin/Loadboard', function () {
+    //     return view('layout.Loadboard.Loadboard');
+    // })->name('admin_loadboard');
+
+    Route::get('/admin/Loadboard', [LoadBoardController::class, 'index'])->name('admin_loadboard');
     // Route::get('profile', function () {
     //     return view('profile');
     // });
 
 Auth::routes();
+
+//dashboard
+Route::get('/dashboard-customerdata', [DashboardController::class, 'customerdata']);
+Route::get('/dashboard-dashpayable', [DashboardController::class, 'dashpayable']);
+Route::get('/dashboard-driverpayStatement', [DashboardController::class, 'driverpayStatement']);
+
 //Loadboard
 Route::get('admin/getLoadboardData', [LoadBoardController::class, 'getLoadboardData']);
 Route::post('admin/changeStatus', [LoadBoardController::class, 'changeStatus'])->name('changeStatus');;
+Route::post('admin/addLoadBoard', [LoadBoardController::class, 'addLoadBoard']);
+// Route::get('/admin/index', [LoadBoardController::class, 'index']);
+Route::post('/admin/carrierVerify', [LoadBoardController::class, 'getCarrier']);
+Route::post('/admin/driverVerify', [LoadBoardController::class, 'getDriver']);
+Route::post('/admin/ownerVerify', [LoadBoardController::class, 'getOwner']);
+Route::post('admin/ownerTruckVerify', [LoadBoardController::class, 'getTruck']);
+Route::post('admin/ownerTrailerVerify', [LoadBoardController::class, 'getTrailer']);
+Route::post('admin/shipperList', [LoadBoardController::class, 'shipperList']);
+Route::post('admin/consigneeList', [LoadBoardController::class, 'consigneeList']);
+Route::post('admin/LBconsignee', [LoadBoardController::class, 'getConsignee']);
+Route::post('admin/LBShipper', [LoadBoardController::class, 'getShipper']);
+Route::post('admin/compnayList', [LoadBoardController::class, 'compnayList']);
+Route::post('admin/customerlist', [LoadBoardController::class, 'customerlist']);
+Route::post('admin/customerhelper', [LoadBoardController::class, 'getCustomer']);
+Route::post('admin/userlist', [LoadBoardController::class, 'userlist']);
+Route::post('admin/loadtypelist', [LoadBoardController::class, 'loadtypelist']);
+Route::post('admin/enableunits', [LoadBoardController::class, 'enableUnit']);
+Route::post('admin/equipmenttypelist', [LoadBoardController::class, 'equipmenttypeList']);
+Route::post('admin/carrierlist', [LoadBoardController::class, 'carrierlist']);
+Route::post('admin/driverlist', [LoadBoardController::class, 'driverlist']);
+Route::post('admin/owneropretorlist', [LoadBoardController::class, 'owneropretorlist']);
+Route::post('admin/trucklist', [LoadBoardController::class, 'trucklist']);
+Route::post('admin/Trailerlist', [LoadBoardController::class, 'Trailerlist']);
 // User
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('admin/user', [UserController::class, 'getAllUser']);
@@ -96,6 +134,8 @@ Route::post('post-forgot-password', [AuthController::class, 'submitForgetPasswor
 
 // Driver
 Route::get('admin/driver', [DriverController::class, 'getDriverData']);
+Route::get('admin/owner', [DriverController::class, 'getowner']);
+Route::get('admin/getDriver', [DriverController::class, 'getDriver']);
 Route::post('admin/addDriver', [DriverController::class, 'addDriverData']);
 Route::post('admin/editDriver', [DriverController::class, 'editDriverData']);
 Route::post('admin/updateDriver', [DriverController::class, 'updateDriverData']);
@@ -113,9 +153,11 @@ Route::get('admin/driver_getTruck', [DriverController::class, 'driver_getTruck']
 Route::post('admin/deleteDriverOwnerOperator', [DriverController::class, 'deleteDriverOwnerOperator']);
 Route::post('admin/restoreDriverOwnerOperator', [DriverController::class, 'restoreDriverOwnerOperator']);
 Route::post('admin/deleteViewDriverApp', [DriverController::class, 'deleteViewDriverApp']);
+Route::post('admin/restoreDriver', [DriverController::class, 'restoreDriver']);
 
 //customer
 Route::get('admin/customer', [CustomerController::class, 'getCustomerData']);
+Route::get('admin/getLBCustomerData', [CustomerController::class, 'getLBCustomerData']);
 Route::post('admin/addCustomer', [CustomerController::class, 'addCustomerData']);
 Route::get('admin/edit_customer', [CustomerController::class, 'edit_customer']);
 Route::post('admin/update_customer', [CustomerController::class, 'update_customer']);
@@ -148,6 +190,7 @@ Route::post('admin/restoreFactCompany', [factCompanyController::class, 'restoreF
 
 //company
 Route::get('admin/company', [CompanyController::class, 'getCompanyData']);
+Route::get('admin/lbcompany', [CompanyController::class, 'getlbcompanyData']);
 Route::post('admin/addCompany', [CompanyController::class, 'addCompanyData']);
 Route::get('admin/editCompany', [CompanyController::class, 'editCompanyData']);
 Route::post('admin/updateCompany', [CompanyController::class, 'updateCompanyData']);
@@ -156,6 +199,7 @@ Route::post('admin/updateUserCompany', [CompanyController::class, 'updateUserCom
 
 //truck
 Route::get('admin/getTruck', [TruckController::class, 'getTruck']);
+Route::get('admin/Truck', [TruckController::class, 'Truck']);
 Route::get('admin/truck_getTrucktype', [TruckController::class, 'truck_getTrucktype']);
 Route::post('admin/addTruck', [TruckController::class, 'addTruckData']);
 Route::get('admin/edit_truck', [TruckController::class, 'edit_truck']);
@@ -166,6 +210,8 @@ Route::post('admin/create_truckType', [TruckController::class, 'create_truckType
 
 //Shipper
 Route::get('admin/getShipper', [ShipperController::class, 'getShipper']);
+
+Route::get('admin/Shipper', [ShipperController::class, 'Shipper']);
 Route::post('admin/storeShipper', [ShipperController::class, 'storeShipper']);
 Route::get('admin/editShipper', [ShipperController::class, 'editShipper']);
 Route::post('admin/updateShipper', [ShipperController::class, 'updateShipper']);
@@ -259,6 +305,7 @@ Route::post('admin/restoreBranchOffice', [BranchOfficeController::class, 'restor
 
 //Trailer
 Route::get('admin/getTrailer', [TrailerAdminAddController::class, 'getTrailer']);
+Route::get('admin/Trailer', [TrailerAdminAddController::class, 'Trailer']);
 Route::post('admin/addTrailer', [TrailerAdminAddController::class, 'addTrailerData']);
 Route::get('admin/trailer_getTrailertype', [TrailerAdminAddController::class, 'trailer_getTrailertype']);
 Route::post('admin/trailer_addTrailertype', [TrailerAdminAddController::class, 'trailer_addTrailertype']);
@@ -308,8 +355,12 @@ Route::post('admin/restoreLoad', [LoadController::class, 'restoreLoad']);
 
 //ExternalCarrierController
 Route::get('admin/getExternalCarrier', [ExternalCarrierController::class, 'getExternalCarrier']);
+Route::get('admin/getCarrier', [ExternalCarrierController::class, 'getCarrier']);
 Route::post('admin/storeExternalCarrier', [ExternalCarrierController::class, 'storeExternalCarrier']);
 Route::get('admin/editExternalCarrier', [ExternalCarrierController::class, 'editExternalCarrier']);
 Route::post('admin/updateExternalCarrier', [ExternalCarrierController::class, 'updateExternalCarrier']);
 Route::post('admin/deleteExternalCarrier', [ExternalCarrierController::class, 'deleteExternalCarrier']);
 Route::post('admin/restoreExternalCarrier', [ExternalCarrierController::class, 'restoreExternalCarrier']);
+
+
+Route::post('admin/export_fuelVendor', [FuelVendorController::class, 'export_fuelVendor']);

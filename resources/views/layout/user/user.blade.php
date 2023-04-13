@@ -37,11 +37,9 @@
                         @endif 
                     
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
+                <div class="modal-body" style="overflow-y: auto !important;">
 
- 
- 
-                    <table id="table_pagination" class="table">
+                    <table  class="table">
                         <thead class="thead_th">
                             <tr class="tr">
                                 <th>ID</th>
@@ -65,12 +63,12 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <form action="{{route('download-pdf')}}" method="post" target="__blank">
+                    <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
                         @if($exportUser == 1)
                             <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                         @endif
-                    </form>
+                    </form> -->
                     <button type="button" class="button-29 userModalClose">Close</button>
                 </div>
             </div>

@@ -439,8 +439,8 @@ let bodyhorizontal = $('body').hasClass('horizontal');
         $('body').addClass('horizontal');
         $(".main-content").addClass("hor-content");
         $(".main-content").removeClass("app-content");
-        $(".main-container").addClass("container");
-        $(".main-container").removeClass("container-fluid");
+        // $(".main-container").addClass("container");
+        // $(".main-container").removeClass("container-fluid");
         $(".app-header").addClass("hor-header");
         $(".hor-header").removeClass("app-header");
         $(".app-sidebar").addClass("horizontal-main")
@@ -494,8 +494,8 @@ let bodyhorizontal1 = $('body').hasClass('horizontal-hover');
         $('body').addClass('horizontal');
         $(".main-content").addClass("hor-content");
         $(".main-content").removeClass("app-content");
-        $(".main-container").addClass("container");
-        $(".main-container").removeClass("container-fluid");
+        // $(".main-container").addClass("container");
+        // $(".main-container").removeClass("container-fluid");
         $(".app-header").addClass("hor-header");
         $(".app-header").removeClass("app-header");
         $(".app-sidebar").addClass("horizontal-main")
@@ -637,3 +637,40 @@ $(document).ready(function() {
     });
 });
 
+//tab-dashbord-js
+$(".tabContent").hide(); 
+  $("ul.tabs li:first").addClass("active").show(); 
+  $(".tabContent:first").show(); 
+ 
+  $("ul.tabs li").click(function () {
+    $("ul.tabs li").removeClass("active"); 
+    $(this).addClass("active"); 
+    $(".tabContent").hide(); 
+    var activeTab = $(this).find("a").attr("href"); 
+    $(activeTab).fadeIn(); 
+    return false;
+  });
+
+  //dropDown 
+  $(document).ready(function(){
+    $('#dropDown').click(function(){
+      $('.drop-down').toggleClass('drop-down--active');
+    });
+  });
+
+  $(document).ready(function(){
+    //script to open search box  
+    $('button.search').click(function(){
+      $('.search-input').toggleClass('active');
+    });
+  });
+
+
+//  model-popup-add email
+  $('.btn-second-modal').on('click', function() {
+    if ($(this).hasClass('within-first-modal')) {
+      within_first_modal = true;
+      $('#first-modal').modal('hide');
+    }
+    $('#second-modal').modal('show');
+  });

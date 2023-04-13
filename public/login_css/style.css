@@ -112194,7 +112194,12 @@ textarea.form-control {
         width: 20% !important;
     }
 }
-
+.custom-wrap-text {
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
 
 
 /*# sourceMappingURL=style.css.map */

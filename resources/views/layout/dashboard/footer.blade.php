@@ -2,10 +2,7 @@
 <footer class="footer">
     <div class="container">
         <div class="row align-items-center flex-row-reverse">
-            <div class="col-md-12 col-sm-12 text-center">
-                Copyright © 2022 <a href="#">Noa</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a
-                    href="#"> Spruko </a> All rights reserved
-            </div>
+            
         </div>
     </div>
 </footer>
@@ -95,6 +92,10 @@
 <!-- INTERNAL DATATABLES JS -->
 <script src="{{URL::to('/')}}/assets/js/table-editable.js"></script>
 
+<!-- FORMVALIDATION JS -->
+<script src="{{URL::to('/')}}/assets/js/form-validation.js"></script>
+<!-- Select2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <!-- CUSTOM JS -->
 <script src="{{URL::to('/')}}/assets/js/custom.js"></script>
@@ -116,8 +117,14 @@
 <script src="{{URL::to('/')}}/assets/js/js/load.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/loadboard.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/externalCarrier.js"></script>
-
+<script src="{{URL::to('/')}}/assets/js/js/script.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/iftaForm.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/userLaravel.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/dashboardLaravel.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.js"></script>
+<!-- <script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js"></script>
+<script src="{{URL::to('/')}}/assets/plugins/gmaps/gmaps.min.js.map"></script> -->
+<!-- <script src="https://maps.google.com/maps/api/js?sensor=true"></script>     -->
 </body>
 
 </html>

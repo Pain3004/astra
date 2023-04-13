@@ -17,16 +17,95 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LoadController extends Controller
 {
-    public function getLoadType(Request $request){
-        $companyId=1;
-        $Load_type = Load_type::where('companyID',$companyId)->get();  //only for company id one
-    //    $Load_type = Load_type::get();
-       return response()->json(['Load_type'=>$Load_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-    }
+    // public function getLoadType(Request $request){
+    //     $companyId=Auth::user()->companyID;
+    //     $Load_type = Load_type::where('companyID',$companyId)->get();  //only for company id one
+    // //    $Load_type = Load_type::get();
+    //    return response()->json(['Load_type'=>$Load_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    // }
 
+    public function getLoadType(Request $request)
+    { 
+        $companyID=Auth::user()->companyID;
+        $search_value="";
+        $search_by="";
+        if(isset($request->searchValue)){
+            $search_value=$request->searchValue;
+        }
+        if(isset($request->search_by)){
+            $search_by=$request->search_by;
+        }
+
+        $companyID=(int)Auth::user()->companyID;
+        $total_records = 0;
+        if($search_value !="")
+        {
+            $datasearch = new Regex('^' . $search_value, 'i');
+            $search_data = ['$match' => ["loadType.loadName" => $datasearch]];
+            $cursor = Load_type::raw()->aggregate([
+                        ['$match' => ["companyID" => $companyID]],
+                        ['$unwind' => '$loadType'], $search_data,
+                        ['$limit' => 10]
+                    ]);  
+                    
+            $completedata = array();
+            $loadData = array();
+            $arrData1 = array();
+            
+                $arrData1 = [];
+                foreach ($cursor as $array) {
+                    $arrData1[] = $array;
+                }
+              
+                return $arrData1 = array(
+                    'Load_type' => $arrData1,
+                );
+          //dd($arrData1);
+            $completedata = (object)$arrData1;
+           // echo json_encode($completedata);
+           return response()->json($arrData1, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        }
+        else
+        {
+            $ID=2;
+            $cursor = Load_type::raw()->aggregate([
+                ['$match' => ['companyID' => $companyID],
+                    // ['_id' => $ID]
+                ],
+                ['$project' => ['size' => ['$size' => ['$loadType']],'_id' => $ID]]
+            ]);
+            // dd($cursor);
+        //    dd($cursor);
+            foreach ($cursor as $v) 
+            {
+                // dd('l');
+                $total_records += (int)$v['size'];
+            }
+        // dd($total_records);
+            $completedata = array();
+            $partialdata = array();
+            if(!empty($total_records)){
+                $show1 =  Load_type::raw()->find(array('companyID' => $companyID));
+                
+                $c = 0;
+                $arrData1 = [];
+                foreach ($show1 as $array) 
+                {
+                    $arrData1[]= $array;
+                
+                }
+                return $arrData1 = array(
+                    'Load_type' => $arrData1,
+                );
+            }
+          
+           return response()->json($arrData1, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        }
+
+    }
     public function addLoadType(Request $request){
 
-        $companyID=1;
+        $companyID=Auth::user()->companyID;
         $totalArray=0;
         $getCompany = Load_type::where('companyID',$companyID)->first();
         

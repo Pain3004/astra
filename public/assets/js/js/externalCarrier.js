@@ -1,5 +1,4 @@
 var base_path = $("#url").val();
-$(document).ready(function () {
     //========================== start view data ==========================================
     $('.closeExternalCarrierModal').click(function () {
         $('#ExternalCarrierModal').modal('hide');
@@ -20,9 +19,18 @@ $(document).ready(function () {
             url: base_path + "/admin/getExternalCarrier",
             async: false,
             success: function (text) {
-                console.log(text);
-                createExternalCarrier(text);
-                ExternalCarrierResult = text;
+                var res = JSON.parse(text);
+                if (res[0] != '') {
+                    processCarrierTable(res[0]);
+                    if (res[1] != undefined) {
+                        $("#carrier_pagination").html(paginateList(res[1], "admin", "paginatecarrier", "processCarrierTable"));
+                    }
+                    renameTableSeq("external_carrierTable", "page_active");
+                }
+                else {
+                    var tr = "<tr><td colspan='12' style='color : red;font-weight: bold'>NO RESULT FOUND..!!</td></tr>";
+                    $("#external_carrierTable").html(tr);
+                }
             }
         });
         $('#ExternalCarrierModal').modal('show');
@@ -43,149 +51,151 @@ $(document).ready(function () {
         }
         
     }
-    function createExternalCarrier(ExternalCarrierResult) {
-        var extCariLeng = 0;
-        if (ExternalCarrierResult != null) {
-            $("#external_carrierTable").html('');
-            var data=ExternalCarrierResult.length;
-            for(var g=0;g<data;g++)
-            {
-                extCariLeng = ExternalCarrierResult[g].carrier.length;
-                if(extCariLeng != null)
+
+
+    function processCarrierTable(res) {
+        $("#external_carrierTable").empty();
+        var row = ``;
+        for (var j = res.length - 1; j >= 0; j--) {
+            var masterID = res[j]["arrData1"]._id;
+            var data = res[j]["arrData1"].carrier;
+            for (var i = 0; i < data.length; i++) {
+    
+                var id = data[i]._id;
+                var counter = data[i].counter;
+                var name = data[i].name;
+                var address = data[i].address;
+                var zip = data[i].zip;
+                var locations = data[i].location;
+                var contactName = data[i].contactName;
+                var email = data[i].email;
+                var telephones = data[i].telephone;
+                var mc = data[i].mc;
+                var dot = data[i].dot;
+                var taxID = data[i].taxID;
+                var factoringCompany = data[i].factoringCompany;
+                var deleteStatus = data[i].deleteStatus;
+                var paymentTerm = data[i].paymentTerm;
+                if (factoringCompany == '') {
+                    var factoringCompany = 'NA';
+                }
+                if(name !="" && name !=null)
                 {
-                    var no=1;
-                    for(var i=extCariLeng-1;i >= 0; i--)
-                    {
-                        var id=ExternalCarrierResult[g].carrier[i]._id;
-                        // alert(id);
-                        var com_Id=ExternalCarrierResult[g].companyID;
-                        var name =ExternalCarrierResult[g].carrier[i].name;
-                        var address =ExternalCarrierResult[g].carrier[i].address;
-                        var location =ExternalCarrierResult[g].carrier[i].location;
-                        var zip =ExternalCarrierResult[g].carrier[i].zip;
-                        var contactName =ExternalCarrierResult[g].carrier[i].contactName;
-                        var email =ExternalCarrierResult[g].carrier[i].email;
-                        var taxID =ExternalCarrierResult[g].carrier[i].taxID;
-                        var telephone =ExternalCarrierResult[g].carrier[i].telephone;
-                        var mc =ExternalCarrierResult[g].carrier[i].mc;
-                        var dot =ExternalCarrierResult[g].carrier[i].dot;
-                        var deleteStatus =ExternalCarrierResult[g].carrier[i].deleteStatus;
-                        if(name != " " && name != null)
-                        {
-                            name=name;
-                        }
-                        else
-                        {
-                            name="-----";
-                        }
-                        if(address != " " && address != null)
-                        {
-                            address=address;
-                        }
-                        else
-                        {
-                            address="-----";
-                        }
-                        if(zip != " " && zip != null)
-                        {
-                            zip=zip;
-                        }
-                        else
-                        {
-                            zip="-----";
-                        }
-                        if(contactName != " " && contactName != null)
-                        {
-                            contactName=contactName;
-                        }
-                        else
-                        {
-                            contactName="-----";
-                        }
-                        if(email != " " && email != null)
-                        {
-                            email=email;
-                        }
-                        else
-                        {
-                            email="-----";
-                        }
-                        if(taxID != " " && taxID != null)
-                        {
-                            taxID=taxID;
-                        }
-                        else
-                        {
-                            taxID="-----";
-                        }
-                        if(telephone != " " && telephone != null)
-                        {
-                            telephone=telephone;
-                        }
-                        else
-                        {
-                            telephone="-----";
-                        }
-                        if(mc != " " && mc != null)
-                        {
-                            mc=mc;
-                        }
-                        else
-                        {
-                            mc="-----";
-                        }
-                        if(dot != " " && dot != null)
-                        {
-                            dot=dot;
-                        }
-                        else
-                        {
-                            dot="-----";
-                        }                       
-                        if (deleteStatus == "NO") 
-                        {
-                            var ExternalCarHtml = "<tr data-id=" + (i + 1) + ">" +
-                                "<td data-field='no'>" + no + "</td>" +
-                                "<td >" + name + "</td>" +
-                                "<td>" + address + "</td>" +
-                                "<td>" + location + "</td>" +
-                                "<td>" + zip + "</td>" +
-                                "<td>" + contactName + "</td>" +
-                                "<td>" + email + "</td>" +
-                                "<td>" + taxID + "</td>" +
-                                "<td>" + telephone + "</td>" +
-                                "<td>" + mc + "</td>" +
-                                "<td>" + dot + "</td>" +
-
-                                "<td><a class='mt-2 button-29 edit_externalCarrier_form fs-14 text-white '  title='Edit1' data-externalCarriId='" + id + "' data-com_Id='" + com_Id + "' ><i class='fe fe-edit'></i></a>&nbsp" +
-
-                                "<a class='mt-2 button-29 fs-14 text-white delete_externalCarrier_form'  title='Edit1' data-externalCarriId='" + id + "' data-com_Id='" + com_Id + "'  ><i class='fe fe-trash'></i></a>&nbsp" +
-                                "</td></tr>";
-
-                            $("#external_carrierTable").append(ExternalCarHtml);
-                            no++;
-                        }
-                    }
+                    name=name;
                 }
                 else
                 {
-                    var ExternalCarHtml = "<tr data-id=" + i + ">" +
-                    "<td align='center' colspan='4'>No record found.</td>" +
-                    "</tr>";
-                    $("#external_carrierTable").append(ExternalCarHtml);
-                }                  
+                    name="-------";
+                }
+                if(address !="" && address !=null)
+                {
+                    address=address;
+                }
+                else
+                {
+                    address="-------";
+                }
+                if(zip !="" && zip !=null)
+                {
+                    zip=zip;
+                }
+                else
+                {
+                    zip="-------";
+                }
+                if(locations !="" && locations !=null)
+                {
+                    locations=locations;
+                }
+                else
+                {
+                    locations="-------";
+                }
+                if(contactName !="" && contactName !=null)
+                {
+                    contactName=contactName;
+                }
+                else
+                {
+                    contactName="-------";
+                }
+
+                if(email !="" && email !=null)
+                {
+                    email=email;
+                }
+                else
+                {
+                    email="-------";
+                }
+                if(telephones !="" && telephones !=null)
+                {
+                    telephones=telephones;
+                }
+                else
+                {
+                    telephones="-------";
+                }
+                if(mc !="" && mc !=null)
+                {
+                    mc=mc;
+                }
+                else
+                {
+                    mc="-------";
+                }
+                if(dot !="" && dot !=null)
+                {
+                    dot=dot;
+                }
+                else
+                {
+                    dot="-------";
+                }
+                if(taxID !="" && taxID !=null)
+                {
+                    taxID=taxID;
+                }
+                else
+                {
+                    taxID="-------";
+                }
+                if(factoringCompany !="" && factoringCompany !=null)
+                {
+                    factoringCompany=factoringCompany;
+                }
+                else
+                {
+                    factoringCompany="-------";
+                }
+                if(deleteStatus=="NO")
+                {
+                    var tr = `<tr>
+                        <td data-id="${id}">${id}</td>
+                        <td>${name}</td>
+                        <td>${address}</td>
+                        <td>${locations}</td>
+                        <td>${zip}</td>
+                        <td>${contactName} </td>
+                        <td>${email}</td>
+                        <td>${taxID}</td>
+                        <td>${telephones} </td>
+                        <td>${mc}</td>
+                        <td>${dot}</td>`;
+                    tr += `<td>
+                        <a class='mt-2 button-29 edit_externalCarrier_form fs-14 text-white '  title='Edit1' data-externalCarriId='${id}' data-com_Id='${masterID}' ><i class='fe fe-edit'></i></a>
+
+                        <a class='mt-2 button-29 fs-14 text-white delete_externalCarrier_form'  title='Edit1' data-externalCarriId='${id}' data-com_Id='${masterID}'  ><i class='fe fe-trash'></i></a>
+                        </td></tr>`;
+    
+                    row = tr + row;
+                }
+                
             }
         }
-        else
-        {
-            var ExternalCarHtml = "<tr data-id=" + i + ">" +
-            "<td align='center' colspan='4'>No record found.</td>" +
-            "</tr>";
-            $("#external_carrierTable").append(ExternalCarHtml);
-        }
-
-           
+        $("#external_carrierTable").html(row);
     }
+    
     //============ end view external carrier ==================================================
 
     // open factoring modal  =====================================
@@ -355,6 +365,7 @@ $(document).ready(function () {
         $("#step-3").addClass("d-none");
         $("#step-4").addClass("d-none");
         $("#AddExternalCarrier").modal("hide");
+        $("#addLoadBoardModal").css("z-index","100000000000");
     });
     $('#carrierBlacklisted').click(function(){
         if($(this).prop("checked") == true){
@@ -1030,5 +1041,3 @@ $(document).ready(function () {
         });
     });
     //==============================end restore fuel card =====================================
-
-});

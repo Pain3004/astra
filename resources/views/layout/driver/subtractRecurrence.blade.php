@@ -37,13 +37,13 @@
                                         <input class="form-control" name="rec_installmentType_sub[]" list="instatype1" autocomplete="off" />
                                     </td>
                                     <td width="100">
-                                        <input name="rec_amount_sub[]" type="text" class="form-control" />
+                                        <input name="rec_amount_sub[]" type="number" class="form-control" />
                                     </td>
                                     <td width="100">
-                                        <input name="rec_installment_sub[]" type="text" class="form-control" />
+                                        <input name="rec_installment_sub[]" type="number" class="form-control" />
                                     </td>
                                     <td width="100">
-                                        <input name="rec_startNo_sub[]" type="text" class="form-control" />
+                                        <input name="rec_startNo_sub[]" type="number" class="form-control" />
                                     </td>
                                     <td width="10">
                                         <input name="rec_startDate_sub[]" type="date" class="form-control" />
@@ -122,33 +122,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="up_TextBoxContainer3">
-                                    <td width="150">
-                                        <!-- <input class="form-control driverPlusRecurrence_sub" list="driverPlusRecurrence_sub" name="rec_PlusRecurrence_sub[]" id="rec_PlusRecurrence_sub" autocomplete="off"> -->
-                                        <input class="form-control driverPlusRecurrence" list="driverPlusRecurrence" name="rec_PlusRecurrence_sub[]" id="rec_PlusRecurrence_sub" autocomplete="off">
-
-                                    </td>
-                                    <td width="150">
-                                        <input class="form-control" name="up_rec_installmentType_sub[]" list="instatype1" autocomplete="off" />
-                                    </td>
-                                    <td width="100">
-                                        <input name="up_rec_amount_sub[]" type="text" class="form-control" />
-                                    </td>
-                                    <td width="100">
-                                        <input name="up_rec_installment_sub[]" type="text" class="form-control" />
-                                    </td>
-                                    <td width="100">
-                                        <input name="up_rec_startNo_sub[]" type="text" class="form-control" />
-                                    </td>
-                                    <td width="10">
-                                        <input name="up_rec_startDate_sub[]" type="date" class="form-control" />
-                                    </td>
-                                    <td width="250">
-                                        <textarea rows="1" cols="20" class="form-control" type="textarea" name="rec_internalNote_sub[]"></textarea>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger"><span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </td>
+                               
                                 </tbody>
                                 <tfoot>
                                     <tr>
