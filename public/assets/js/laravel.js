@@ -1797,7 +1797,7 @@ $(".location_view").keyup(function(){
     $.getJSON("./place.json", function (json) {
     placeArray = json; // this will show the info it in firebug console
     });
-   var placetimeout='';;
+   var placetimeout='';
     clearTimeout(placetimeout);
     var location = document.getElementById(fieldID);
     var st = fieldID + "-list";

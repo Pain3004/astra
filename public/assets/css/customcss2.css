@@ -2353,16 +2353,17 @@ table.dataTable tbody td {
   padding: 10px 0px 10px;
   text-decoration: none;
   cursor: pointer;
-  background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%);
+  background: #1b71bc;
+  /* background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%); */
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   font-weight: 600;
-  width: 130px;
+  width: 115px;
 }
 
 .button-57_alt.button-58_alt:hover {
-  background: #1b71bc;
+  background: #3a8acf;
 }
 
 .button-57_alt.button-58_alt:after {
@@ -3002,3 +3003,21 @@ body.modal-open {
 #updateCustomerModal {
   backdrop-filter: blur(3px);
 }
+.customerEdit:hover {
+  background-color: green;
+  color: white;
+}
+
+.customerDelete:hover {
+  background-color: red;
+  color: white;
+}
+.fe-edit:hover{
+  color: white;
+}
+.fe-delete:hover{
+  color: white;
+}
+.tab-content{
+  background-color: #fff;
+} 
