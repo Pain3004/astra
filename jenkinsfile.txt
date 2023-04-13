@@ -1,15 +1,18 @@
 pipeline {
     agent any
+
     stages {
-        stage("Build") {
+        stage('Build') {
             steps {
-                bat 'php --version'
-                bat 'composer update'
+                git 'https://github.com/mehulparmar20/astra.git'
+                sh 'composer update'
+                sh 'cp .env.example .env'
+                sh 'php artisan key:generate'
             }
         }
-        stage("Unit test") {
+        stage('Test') {
             steps {
-                bat 'php artisan test'
+                sh './vendor/bin/phpunit'
             }
         }
     }
