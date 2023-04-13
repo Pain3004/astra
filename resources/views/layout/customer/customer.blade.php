@@ -485,20 +485,7 @@
 </div>
  
 <!------------------------------------------------------------------ over add Factoring Company  modal ------------------------------------------------------------------>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--    ==== start edit customer model     === -->
+<!-- ========================= start edit customer model =============================== -->
 
 
 <div class="container">
@@ -690,11 +677,7 @@
                                                         <div class="dropdown show">
                                                             <select class="form-control customerBFactoringCompanySet update_factroring_name" name="customerBFactoringCompany" id="customer_BFactoringCompany">
                                                                 <option>Select Here</option>
-                                                            </select> -->
-                                                            <input class="form-control customerBFactoringCompanySet update_factroring_name" list="customerBFactoringCompanySet" name="customerBFactoringCompany" id="customerBFactoringCompany">
-                                                            <datalist class="customerBFactoringCompanySet">
-                                                                <option>Select Here</option>
-                                                            </datalist>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -741,6 +724,7 @@
         </div>
     </div>
 </div>
+<!-- ========================= end edit customer model =============================== -->
 
 
 <!--========================== resote customer start model ========================== -->

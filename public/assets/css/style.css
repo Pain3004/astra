@@ -2240,7 +2240,7 @@ blockquote {
 }
 
 .blockquote-footer::before {
-    content: "— ";
+    content: "— ";
 }
 
 p,
@@ -52906,12 +52906,12 @@ footer .pull-center {
 }
 
 /*!
- *         =====
+ * =============================================================
  * dropify v0.2.2 - Override your input files with style.
  * https://github.com/JeremyFagis/dropify
  *
  * (c) 2017 - Jeremy FAGIS <jeremy@fagis.fr> (http://fagis.fr)
- *         =====
+ * =============================================================
  */
 @font-face {
     font-family: "dropify";
@@ -53519,7 +53519,7 @@ footer .pull-center {
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    /* Better Font Rendering  ==== */
+    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -54557,7 +54557,7 @@ a.fc-event:hover {
 }
 
 .fc .fc-timegrid-slot:empty:before {
-    content: " ";
+    content: " ";
     /* make sure there's at least an empty space to create height for height syncing */
 }
 
@@ -54751,7 +54751,7 @@ a.fc-event:hover {
 }
 
 .fc-timegrid-event-condensed .fc-event-time:after {
-    content: " - ";
+    content: " - ";
     /* dash surrounded by non-breaking spaces */
 }
 
@@ -55076,7 +55076,7 @@ a.fc-event:hover {
     font-variant: normal;
     text-transform: none;
     line-height: 1;
-    /* Better Font Rendering  ==== */
+    /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -56281,8 +56281,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 /* Ion.RangeSlider
 // css version 2.0.3
 // © 2013-2014 Denis Ineshin | IonDen.com
-//                 ===*/
-/*                 =====
+// ===================================================================================================================*/
+/* =====================================================================================================================
 // RangeSlider */
 .irs {
     position: relative;
@@ -56464,8 +56464,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 /* Ion.RangeSlider, Flat UI Skin
 // css version 2.0.3
 // Â© Denis Ineshin, 2014    https://github.com/IonDen
-//                 ===*/
-/*                 =====
+// ===================================================================================================================*/
+/* =====================================================================================================================
 // Skin details */
 .irs-line-mid,
 .irs-line-left,
@@ -112222,7 +112222,7 @@ textarea.form-control {
  /* transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; */
 }
 .glyphicon-plus-sign{
-    color:#579aff;
+    color:#8fbd56;
 }
 
 .resizeModal{

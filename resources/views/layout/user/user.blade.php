@@ -20,17 +20,7 @@
                     </button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
- 
- 
-                    <a href="#addUserModal" class="button-57" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
-                </div>
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
 
- 
-
- 
-
- 
                         @if($insertUser== 1)
                             <a href="#" class="button-57_alt" id="addUser"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
 

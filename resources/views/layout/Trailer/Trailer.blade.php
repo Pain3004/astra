@@ -86,7 +86,7 @@
 </div>
 
 
- <!--  ===== start addTrailerModal  == -->
+ <!-- ============ start addTrailerModal================ -->
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="addTrailerModal" role="dialog">
         <div class="modal-dialog custom_modal" role="document">
@@ -234,8 +234,8 @@
         </div>
     </div>
 </div>
-<!--  === end addTrailerModal  === -->
- <!--    == over add modal  ==== -->
+<!-- ========== end addTrailerModal ========== -->
+ <!--============================== over add modal =========== -->
 <datalist id="registered_state">
     <option value="AL">
     <option value="AK">
@@ -289,7 +289,7 @@
 </datalist>
 
 
-<!--  === strart addTrailer type Modal  === -->
+<!-- ========== strart addTrailer type Modal ========== -->
 <div class="modal fade" id="addTrailerTypeModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
@@ -319,9 +319,9 @@
   </div>
 </div>
 
-<!--   ====== end add trailer type model     -->
+<!-- ==================== end add trailer type model ===================== -->
 
-<!--   ===== start edit trailer model    === -->
+<!-- =================== start edit trailer model ======================== -->
 
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="editTrailerModal" role="dialog">
@@ -522,5 +522,4 @@
     </div>
 
 </div>
-
 

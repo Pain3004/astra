@@ -37,11 +37,7 @@
                                         @if($deleteUser== 1)    
                                             <a href="#" class="button-57_alt restore_truckData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore Truck</span></a>
 
-                                            <!-- <a href="#addTruckModal" class="btn btn-primary" data-toggle="modal" data-target="#addTruckModal">Add</a> -->
-                                            <button type="button" class="btn btn-primary btn-lg addtruckModal" >ADD</button>
-                                            <button class="button-57_alt restore_truckData" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore Truck</span></button>
-
-                                            <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100"  style="width:100%;height:500px">
+                                        @endif
 
                                             
 
@@ -386,7 +382,7 @@
 
 
 
-<!--     ===== edit truck modal start    === -->
+<!--======================================== edit truck modal start ======================== -->
 
 
 <div class="modal fade" data-backdrop="static" id="editTruckModal" role="dialog">
@@ -585,10 +581,10 @@
         </div>
     </div>
 </div>
- <!--    ===== end update truck    ====== -->
+ <!--================================= end update truck =========================== -->
 
 
- <!--    ===== start restore truck    ===== -->
+ <!--================================= start restore truck ========================== -->
  <div class="container">
     <!-- The Modal -->
     <div class="modal fade" id="restoretruckModal">
@@ -665,9 +661,9 @@
     </div>
 
 </div>
- <!--    ===== end restore truck    ===== -->
+ <!--================================= end restore truck ========================== -->
 
- <!--  === strart addTruck type Modal  === -->
+ <!-- ========== strart addTruck type Modal ========== -->
 <div class="modal fade" id="addTtruckTypeModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -696,5 +692,5 @@
     </div>
   </div>
 </div>
-@endif
-<!--   ====== end add truck type model     -->
+
+<!-- ==================== end add truck type model ===================== -->

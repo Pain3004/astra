@@ -1,6 +1,3 @@
- 
- 
- 
 <?php 
 	$userdata=Auth::user();
 	$insertUser=$userdata->privilege['insertUser'];
@@ -23,10 +20,6 @@
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
- 
- 
-                <a href="#" class="button-57" id="AddPaymentTerms"><i class="fa fa-plus" aria-hidden="true"></i><span>Add PaymentTerms</span></a>
- 
                 @if($insertUser== 1)
                     <a href="#" class="button-57_alt" id="AddPaymentTerms"><i class="fa fa-plus" aria-hidden="true"></i><span>Add PaymentTerms</span></a>
                 @endif 
@@ -69,13 +62,6 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
- 
- 
-                <form action="{{route('driver-pdf')}}" method="post" target="__blank">
-                        @csrf
-                        <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
-                    </form>
- 
                 <form action="{{route('download-pdf')}}" method="post" target="__blank">
                     @csrf
                     @if($exportUser == 1)

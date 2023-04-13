@@ -108,6 +108,16 @@
 <script src="{{URL::to('/')}}/assets/js/js/shipper.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/consignee.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/factoringCompany.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/fuelVendor.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/fuelCard.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/fuelReceipts.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/iftaToll.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/bank.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/creditCard.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/subCreditCard.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/accountManager.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/branchOffice.js"></script>
+<script src="{{URL::to('/')}}/assets/js/js/PaymentTerms.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/trailerLaravel.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/EquipmentType.js"></script>
 <script src="{{URL::to('/')}}/assets/js/js/status.js"></script>

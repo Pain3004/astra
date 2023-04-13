@@ -17,7 +17,6 @@
                     <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>Button 3</span></a> -->
                     <div class="searchbar" style="float: right; margin-right: 15px;">
                         <input type="text" placeholder="search" />
-
                     </div>
 
                 </div>
@@ -31,10 +30,6 @@
                                     <table id="bankDataTablePagi" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                         <tr class="tr">
-
-                                        <thead class="thead_th">
-                                        <tr class="tr">
-
 
                                             <th >No</th>
                                             <th >Name of Bank</th>

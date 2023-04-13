@@ -29,7 +29,7 @@
                                                     <div class="form-group col-md-6">
                                                         <label for="contractCategory">Contract Category<span
                                                                 style="color:#ff0000">*</span></label>
-                                                        <input type="text" class="form-control required" id="contract_Category" placeholder="Contract Category"/>
+                                                        <input type="text" class="form-control required" id="contractCategory" placeholder="Contract Category"/>
                                                     </div>
                                                 </div>
                                             </form>

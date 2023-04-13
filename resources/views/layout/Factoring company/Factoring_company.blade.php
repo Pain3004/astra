@@ -70,47 +70,6 @@
                         </thead>
                         <tbody id="factCompTable">
 
-                @if($insertUser== 1)
-                    <a href="#" class="button-57_alt" id="AddFactoringCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Factoring Company</span></a>
-                @endif
-                @if($deleteUser== 1)    
-                    <a href="#" class="button-57_alt" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
-                @endif 
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
-    
-	
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
-
-                    <table id="factoring_table_pagination" class="table">
-                        <thead class="thead_th">
-                            <tr class="tr">
-                                <th>NO</th>
-                                <th>Factoring Company Name</th>
-                                <th>Address</th>
-                                <th>Location</th>
-                                <th>Postal/Zip</th>
-                                <th>Primary Contact</th>
-                                <th>Telephone</th>
-                                <th>Ext</th>
-                                <th>Fax</th>
-                                <th>Toll Free</th>
-                                <th>Contact Email</th>
-                                <th>Secondary Contact</th>
-                                <th>Telephone</th>
-                                <th>Ext</th>
-                                <th>Currency Setting</th>
-                                <th>Payment Terms</th>
-                                <th>Tax ID</th>
-                                <th>Internal Notes</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="factCompTable">
-
-
                         </tbody>
                     </table>
                 </div>

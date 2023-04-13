@@ -77,7 +77,7 @@
     </div>
 
 </div>
-<!--  ===== start add fuelVendor   == -->
+<!-- ============ start add fuelVendor ================ -->
 <div class="modal fade" id="AddFuelVendor"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -118,9 +118,9 @@
         </div>
     </div>
 </div>
-<!--       == end add fuelVendor      -->
+<!-- ============================================ end add fuelVendor  ===================== -->
 
- <!--  ===== start update fuelVendor   == -->
+ <!-- ============ start update fuelVendor ================ -->
  <div class="modal fade" id="UpdateFuelVendor"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -163,7 +163,7 @@
         </div>
     </div>
 </div>
-<!--       == end Update fuelVendor      -->
+<!-- ============================================ end Update fuelVendor  ===================== -->
 
 <!-- restore fuel vendor  -->
 <div class="container">
