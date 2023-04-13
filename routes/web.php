@@ -80,6 +80,12 @@ use App\Http\Controllers\DashboardController;
 Route::get('/dashboard-customerdata', [DashboardController::class, 'customerdata']);
 Route::get('/dashboard-dashpayable', [DashboardController::class, 'dashpayable']);
 Route::get('/dashboard-driverpayStatement', [DashboardController::class, 'driverpayStatement']);
+Route::get('/dashboard-profitloss', [DashboardController::class, 'profitloss']);
+Route::get('/dashboard-driverdata', [DashboardController::class, 'driverdata']);
+Route::get('/dashboard-salesData', [DashboardController::class, 'salesData']);
+Route::get('/dashboard-getDispatcherInsdata', [DashboardController::class, 'getDispatcherInsdata']);
+Route::get('/dashboard-truckmap', [DashboardController::class, 'truckmap']);
+Route::get('/dashboard-companydataData', [DashboardController::class, 'companydataData']);
 
 //Loadboard
 Route::get('admin/getExtLoadboardData', [ExtLoadBoardController::class, 'getExtLoadboardData']);

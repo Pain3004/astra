@@ -181,7 +181,7 @@
 
 <!-------------------------------------------------------------------  modal ------------------------------------------------------------------->
 
-  <script src="{{URL::to('/')}}/assets/js/js/extloadboard.js"></script>
+  <!-- <script src="{{URL::to('/')}}/assets/js/js/extloadboard.js"></script> -->
   <script>
 
 </script>
