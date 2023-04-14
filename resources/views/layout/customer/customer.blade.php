@@ -30,13 +30,13 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="customerTable">
+                        <tbody id="customerTable"  >
 
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button-57_alt button-58_alt exportCustomer" data-dismiss="modal">export</button>
+                    <button type="button" class="button-57_alt button-58_alt exportCustomer" data-dismiss="modal">Export</button>
                     <button type="button" class="button-57_alt button-58_alt close_customerModal" data-dismiss="modal">Close</button>
                     <nav aria-label="..." data-name="cus_pagination" class="float-right">
                         <div class="pagination" id="cus_pagination">
@@ -189,6 +189,7 @@
                                 
                                     <div class="modal-footer">
                                         <a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-57_alt button-58_alt advanceTabCustomer" style="align:right;" >Next</a>
+                                        <button type="button" class="button-57_alt button-58_alt closeaddCustomerModal" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
                             </div>
@@ -262,16 +263,21 @@
                                             <textarea type="text" class="form-control" id="customerInternalNotes"placeholder="Enter Internal Notes"></textarea>
                                         </div>
                                     </div> 
+                                    
                                 </form>
+                                <div class="modal-footer">
+                                    <button type="submit" class="button-57_alt button-58_alt customerDataSubmit">Save</button>
+                                        <button type="button" class="button-57_alt button-58_alt closeaddCustomerModal" data-dismiss="modal">Close</button>
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>
             
-                <div class="modal-footer w-100" style="align:right;">
+                <!-- <div class="modal-footer w-100" style="align:right;">
                     <button type="submit" class="button-57_alt button-58_alt customerDataSubmit">Save</button>
                     <button type="button" class="button-57_alt button-58_alt closeaddCustomerModal" data-dismiss="modal">Close</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -710,7 +716,7 @@
                                                 <div class="modal-footer">
                                                     <button type="button"style="vertical-align:middle" class=" next_update_customer button-57_alt button-58_alt" >Previous</button>
                                                     <button type="button" style="vertical-align:middle" class="button-57_alt button-58_alt" id="updateCustomerData" >update</button>
-                                                    <button type="button"style="vertical-align:middle" class=" closeUpdateCustomerModel button-57_alt button-58_alt" >Close</button>
+                                                <button type="button"style="vertical-align:middle" class=" closeUpdateCustomerModel button-57_alt button-58_alt" >Close</button>
                                                 </div>
                                             </div>
                                         </form>
