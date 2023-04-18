@@ -25,14 +25,14 @@
 
                     @if($insertUser== 1)
                         <!-- <a href="#addDriverModal" class="button-57" data-toggle="modal" data-target="#addDriverModal"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Driver</span></a> -->
-                        <a href="#" class="button-57" id="addDriver"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Driver</span></a>
+                        <a href="#" class="button-29" id="addDriver"><span>Add Driver</span></a>
                     @endif 
                     
                     @if($deleteUser== 1)  
-                        <a href="#" class="button-57_alt" id="restoreDriver"><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore Customer</span></a>
+                        <a href="#" class="button-29" id="restoreDriver"></span><span>Restore Customer</span></a>
                     @endif
-                    <a href="#setupDriverModal" class="button-57" data-toggle="modal" data-target="#setupDriverModal"><i class="fa fa-sliders" aria-hidden="true"></i></span><span>Setup<br>Driver</span></a>
-                    <a href="#contractCategoryModal" class="button-57_alt contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"><i class="fa fa-id-card" aria-hidden="true"></i></span><span>View Driver Contract</span></a>
+                    <a href="#setupDriverModal" class="button-29" data-toggle="modal" data-target="#setupDriverModal"></span><span>Setup Driver</span></a>
+                    <a href="#contractCategoryModal" class="button-29 contract_categoryModal" data-toggle="modal" data-target="#contractCategoryModal"></span><span>View Driver Contract</span></a>
 
                 </div>
                 <!-- Modal body -->
@@ -1060,7 +1060,7 @@
                 <div style="margin-top: 15px; margin-left: 15px;">
                     <input type="hidden" name="checked_id" id="checked_Driver" value="">
                     <input type="hidden" name="company_id" id="checked_Driver_company_ids" value="">
-                    <button id="restore_DriverData"  class="button-57_alt restore_DriverData" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore </span></button>
+                    <button id="restore_DriverData"  class="button-29 restore_DriverData" disabled><span>Restore </span></button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     <!-- Row -->
