@@ -105,8 +105,8 @@ function createRows(response) {
             var tollfree = response[i].TollFree;
             var fax = response[i].userFax;
             var tr_str = "<tr class='tr' data-id=" + (i + 1) + ">" +
-                "<td data-field='id'>" + (i + 1) + "</td>" +
-                "<td data-field='email' id="+email+">" + email + "</td>" +
+                "<td  data-field='id' >" + (i + 1) + "</td>" +
+                "<td  data-field='email' id="+email+">" + email + "</td>" +
                 "<td data-field='username'>" + username + "</td>" +
                 "<td data-field='fistname'>" + firstname + "</td>" +
                 "<td data-field='lastname'>" + lastname + "</td>" +
@@ -318,7 +318,7 @@ $(document).ready(function() {
 
         var tr_length = $("#userModal").find("tr").length;
         var tr_str2 = "<tr data-id=" + tr_length + ">" +
-        "<td data-field='id'>" + tr_length + "</td>" +
+        "<td data-field='id'  >" + tr_length + "</td>" +
         "<td data-field='email' id="+email+">" + email + "</td>" +
         "<td data-field='username'>" + username + "</td>" +
         "<td data-field='fistname'>" + firstname + "</td>" +
@@ -751,19 +751,19 @@ $(document).ready(function() {
                             
                             if(ownerOperatorStatus == 'YES' || ownerOperatorStatus == 'Yes' || ownerOperatorStatus == 'yes'){
                                 var actionBtnOwnerOperator= "<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "&"+driverId + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId + " title='Delete'><i class='fe fe-trash'></i></a>&nbsp"+
                                     "<a class='removeDriverOwner button-23 '  title='Remove Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:red'><i class='fe fe-user-x'></i></a>"+
                                     "<a class='editDriverOwner button-23 '  title='Edit Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-edit'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-danger');
                             }
                             else if(ownerOperatorStatus == 'NO' && ownerOperatorDeleteStatus == 'NO'){
                                 var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email + "&"+driverId +"><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23  "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23  "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-trash'></i></a>&nbsp"+
                                     "<a class='addDriverOwner button-23'  title='Add As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:green'><i class='fe fe-user-plus'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-success');
                             }else if(ownerOperatorDeleteStatus == 'YES' || ownerOperatorDeleteStatus == 'Yes' || ownerOperatorDeleteStatus == 'yes'){
                                 var actionBtnOwnerOperator="<a class='editDriver button-23 edit "+editPrivilege+"'  title='Edit' data-id=" + comid+ "&"+email +"&"+driverId + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23 "+delPrivilege+"' data-id=" + comid+ "&"+email + "&"+driverId +" title='Delete'><i class='fe fe-trash'></i></a>&nbsp"+
                                     "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" style='color:orange'><i class='fe  fe-user-plus'></i></a>&nbsp";
 
                             }

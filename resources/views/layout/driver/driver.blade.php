@@ -36,8 +36,29 @@
 
                 </div>
                 <!-- Modal body -->
-                <div class="modal-body" style="overflow-y: auto !important;">
-                    <!-- Row -->
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                  <th>NO</th>
+                                                        <th style="">Name</th>
+                                                        <th>Email</th>
+                                                        <th>Location</th>
+                                                        <th>Social Security No</th>
+                                                        <th>Date of Birth</th>
+                                                        <th>Date of Hire</th>
+                                                        <th>License No</th>
+                                                        <th>LIS</th>
+                                                        <th>License Exp.Date</th>
+                                                        <th>Driver Balance</th>
+                                                        <th>Action</th>
+                            </tr>
+                  </thead>
+                  <tbody id="driverTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
+                    
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
@@ -46,14 +67,10 @@
                                         <div class="table-responsive export-table">
                                             <table id="driver_table_pagination" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
 
-                                                <!-- <button href="#addDriverModal" data-toggle="modal" data-target="#addDriverrModal"  class="add1button" style="vertical-align:middle"><span>Add </span></button>
-                                                        
-                                                        <table id="editable-file-datatable" style="margin-bottom : -360rem" class="table editable-table table-nowrap table-bordered table-edit wp-100"> -->
-
-                                                <!-- <table id="" class="table editable-table table-nowrap table-bordered table-edit wp-100"> -->
+                                              
                                                 <thead class="thead_th">
                                                     <tr class="tr">
-                                                        <!-- <th>counter</th> -->
+                                                      
                                                         <th>NO</th>
                                                         <th style="">Name</th>
                                                         <th>Email</th>
@@ -77,8 +94,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Row -->
-                </div>
+                   
+                </div> -->
 
                 <!-- Modal footer -->
                 <div class="modal-footer">

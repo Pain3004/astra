@@ -932,7 +932,7 @@ color: #ffffff;
 
 
 .tr:nth-child(even) td:not(:nth-child(1)):not(:nth-child(2)) {
-  background: #f8f6ff;
+  /* background: #f8f6ff; */
 }
 
 /* ---------------------------------------------------------------------------- modal 3 --------------------------------------------------- */

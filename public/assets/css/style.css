@@ -11969,6 +11969,7 @@ textarea.form-control.parsley-success {
     -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;
+    /* height:80vh; */
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
@@ -14300,7 +14301,7 @@ table {
 }
 
 .table> :not(caption)>*>* {
-    background: transparent;
+    /* background: transparent; */
     box-shadow: none;
     border-bottom-width: inherit;
 }

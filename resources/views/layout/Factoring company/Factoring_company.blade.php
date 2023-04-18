@@ -21,13 +21,13 @@
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                     @if($insertUser== 1)
-                        <a href="#" class="button-57_alt" id="AddFactoringCompany"><i class="fa fa-plus" aria-hidden="true"></i><span>Add Factoring Company</span></a>
+                        <a href="#" class="button-29" id="AddFactoringCompany"><span>Add </span></a>
                     @endif
                     @if($deleteUser== 1)    
-                        <a href="#" class="button-57_alt restoreFactringComlData" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                        <a href="#" class="button-29 restoreFactringComlData" ></span><span>Restore </span></a>
                     @endif 
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span><span>Export CSV</span></a>
-                    <a class="button-57" data-toggle="modal"><i class="fa fa-upload" aria-hidden="true"></i></span><span>Upload File</span></a>
+                    <a class="button-29" data-toggle="modal"></span><span style="color:white;">Export CSV</span></a>
+                    <a class="button-29" data-toggle="modal"></span><span style="color:white;">Upload File</span></a>
 
                     <i class="mdi mdi-play-circle float-right tour-icon cus-tour" title="Take a Tour"></i>
                     <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" data-name="fact_search" type="text"  id="fact_search" placeholder="search"style="margin-left: 5px;">
@@ -42,7 +42,35 @@
 	
                 </div>
                 <!-- Modal body -->
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                <th>NO</th>
+                                <th><p style="width :150px; margin-top:18px;">Factoring Company Name</p></th>
+                                <th>Address</th>
+                                <th>Location</th>
+                                <th>Postal/Zip</th>
+                                <th><p style="width :150px; margin-top:18px;">Primary Contact</p></th>
+                                <th>Telephone</th>
+                                <th>Ext</th>
+                                <th>Fax</th>
+                                <th><p style="width :150px; margin-top:18px;">Toll Free</p></th>
+                                <th><p style="width :150px; margin-top:18px;">Contact Email</p></th>
+                                <th><p style="width :150px; margin-top:18px;">Secondary Contact</p></th>
+                                <th>Telephone</th>
+                                <th>Ext</th>
+                                <th><p style="width :150px; margin-top:18px;">Currency Setting</p></th>
+                                <th><p style="width :150px; margin-top:18px;">Payment Terms</p></th>
+                                <th><p style="width :150px; margin-top:18px;">Tax ID</p></th>
+                                <th><p style="width :150px; margin-top:18px;">Internal Notes</p></th>
+                                <th>Action</th>
+                            </tr>
+                  </thead>
+                  <tbody id="factCompTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
 
                     <table id="factoring_table_pagination" class="table">
                         <thead class="thead_th">
@@ -72,7 +100,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div> -->
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
@@ -382,15 +410,42 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Restore Factoring Company</h4>
-                    <button type="button" class="button-24 RestoreFactoringCompanyModalClose" >&times;</button>
+                    <button type="button" class="button-29 RestoreFactoringCompanyModalClose" >&times;</button>
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                         <input type="hidden" name="checked_id" id="checked_FactringCom_ids" value="">
                         <input type="hidden" name="company_id" id="checked_FactringC_company_ids" value="">
-                        <button id="restorefactring_com_btn"  class="button-57_alt restorefactring_com_btn" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore fuel vendor</span></button>
+                        <button id="restorefactring_com_btn"  class=" restorefactring_com_btn" disabled><span>Restore fuel vendor</span></button>
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                                <th><input type="checkbox" name="all_factIds[]" class="checked_FactringIds"></th>
+                                                <th><p style="width :150px; margin-top:18px;">Factoring Company Name</p></th>
+                                                <th>Address</th>
+                                                <th>Location</th>
+                                                <th>Postal/Zip</th>
+                                                <th>Primary Contact</th>
+                                                <th>Telephone</th>
+                                                <th>Ext</th>
+                                                <th>Fax</th>
+                                                <th>Toll Free</th>
+                                                <th>Contact Email</th>
+                                                <th>Secondary Contact</th>
+                                                <th>Telephone</th>
+                                                <th>Ext</th>
+                                                <th>Currency Setting</th>
+                                                <th>Payment Terms</th>
+                                                <th>Tax ID</th>
+                                                <th>Internal Notes</th>
+                                            </tr>
+                  </thead>
+                  <tbody id="RestorefactCompTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
@@ -426,7 +481,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="modal-footer">
                     <button type="button" class="button-29 RestoreFactoringCompanyModalClose" >Close</button>
                 </div>

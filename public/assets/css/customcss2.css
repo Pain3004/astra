@@ -941,28 +941,7 @@ th:nth-child(n) {
 }
 
 
-/* MAKE LEFT COLUMN FIXEZ */
-.tr> :nth-child(1),
-.tr> :nth-child(1) {
-  position: -webkit-sticky;
-  position: sticky !important;
-  z-index: 9;
-  background: #d5dae2;
-  color: #000000;
-  left: 0;
-}
-
-/* MAKE LEFT COLUMN FIXEZ */
-.tr> :nth-child(2),
-.tr> :nth-child(2) {
-  position: -webkit-sticky;
-  position: sticky !important;
-  z-index: 9;
-  background: #d5dae2;
-  color: #000000;
-  left: 56px;
-}
-
+/* 
 /* don't do this */
 /* .tr > :nth-child(n) {
     box-shadow: inset 0px 1px black;
@@ -973,8 +952,8 @@ th:nth-child(n) {
     position: -webkit-sticky;
     position: sticky !important;
     z-index: 3;
-    background: #d5dae2;
-    color: #000000;
+    background:#444A5F ;
+    color: white;
     left: 0;
   }
   
@@ -984,12 +963,12 @@ th:nth-child(n) {
     position: -webkit-sticky;
     position: sticky !important;
     z-index: 3;
-    background: #d5dae2;
-    color: #000000;
+    background: #444A5F;
+    color: white;
     left: 60px;
   }
 .tr:nth-child(even) td:not(:nth-child(1)):not(:nth-child(2)) {
-  background: #f8f6ff;
+  /* background: #f8f6ff; */
 }
 
 /* ---------------------------------------------------------------------------- modal 3 --------------------------------------------------- */
@@ -2272,7 +2251,7 @@ div.tabContainer {
 
 table.dataTable thead th,
 table.dataTable thead td {
-  padding: 7px 7px !important;
+  padding: 0px 10px !important;
   border-bottom: 1px solid #111;
 }
 
@@ -2281,25 +2260,7 @@ table.dataTable thead th {
   letter-spacing: 0.2px;
 }
 
-.tr> :nth-child(1),
-.tr> :nth-child(1) {
-  position: -webkit-sticky;
-  position: sticky !important;
-  background: #444a5e !important;
-  color: #ffffff;
-  left: 0;
-  z-index: 2;
-}
 
-.tr> :nth-child(2),
-.tr> :nth-child(2) {
-  position: -webkit-sticky;
-  position: sticky !important;
-  z-index: 2;
-  background: #444a5e !important;
-  color: #ffffff;
-  left: 0;
-}
 
 .thead_th {
   position: -webkit-sticky;
@@ -2883,7 +2844,7 @@ body.modal-open {
   width: 100%;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
-  height: 550px;
+  height: 80vh;
 }
 
 .table>thead>tr>th {
@@ -2958,7 +2919,13 @@ body.modal-open {
 
 
 }
+.fe-trash:hover{
+  background-color: red;
 
+}
+.deleteDriver:hover{
+  background-color: red;
+}
 .modal-header
 {
   padding:5px !important;
@@ -2986,7 +2953,17 @@ body.modal-open {
   padding: 6px;
   width: min-content;
 }
+#external_carrierTable{
+  font-size: 12px;
+  padding: 6px;
+  width: min-content;
+}
 .deleteShipperAndCongneeBtn:hover{
+  background-color: red;
+}
+.delete1:hover{
+  background-color: red;}
+.delete_externalCarrier_form:hover{
   background-color: red;
 }
 .form-group label {

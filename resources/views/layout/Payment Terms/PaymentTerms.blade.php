@@ -21,10 +21,10 @@
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                 @if($insertUser== 1)
-                    <a href="#" class="button-57_alt" id="AddPaymentTerms"><i class="fa fa-plus" aria-hidden="true"></i><span>Add PaymentTerms</span></a>
+                    <a href="#" class="buttom-29" id="AddPaymentTerms"><i class="fa fa-plus" aria-hidden="true"></i><span>Add PaymentTerms</span></a>
                 @endif 
                 @if($deleteUser== 1)    
-                    <a href="#" class="button-57_alt" id="restorePaymentTerms"><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    <a href="#" class="buttom-29" id="restorePaymentTerms"><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
                 @endif
 
                 </div>

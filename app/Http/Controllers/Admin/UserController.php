@@ -539,7 +539,7 @@ class UserController extends Controller
                 <td data-field='ext'> $userExt </td>
                 <td data-field='tollfree'> $TollFree </td>
                 <td data-field='fax'> $userFax </td>
-                <td style='width: 100px'> <a class='button-23 edit1' id='editmodel' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23' data-id='$userEmail' title='Delete'><i class='fe fe-delete'></i></a></td>
+                <td style='width: 100px'> <a class='button-23 edit1' id='editmodel' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23' data-id='$userEmail' title='Delete'><i class='fe fe-trash'></i></a></td>
                 </tr>";     
         }
         $planres = UserSubscription::raw()->findOne(['companyID' => (int)$companyID]);

@@ -22,12 +22,34 @@
                 <div style="margin-top: 15px; margin-left: 15px;">
 
                         @if($insertUser== 1)
-                            <a href="#" class="button-57_alt" id="addUser"><i class="fa fa-plus" aria-hidden="true"></i><span>Add User</span></a>
+                            <a href="#" class="button-29" id="addUser"><span>Add User</span></a>
 
                         @endif 
                     
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Address</th>
+                                <th>Location</th>
+                                <th>Zip</th>
+                                <th>Telephone</th>
+                                <th>Ext</th>
+                                <th>Toll Free</th>
+                                <th>Tax</th>
+                                <th>Action</th>
+                            </tr>
+                  </thead>
+                  <tbody id="table1" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
 
                     <table  class="table">
                         <thead class="thead_th">
@@ -51,7 +73,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div> -->
                 <div class="modal-footer">
                     <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf

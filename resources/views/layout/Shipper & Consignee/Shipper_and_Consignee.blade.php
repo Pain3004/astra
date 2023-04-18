@@ -22,55 +22,45 @@
                                 </div>
                 <div>
                 <div class="panel-body tabs-menu-body">
-                <a href="#" class="button-57_alt createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
-                                                        <a href="#" class="button-57_alt restoreshipperAndConsigneeBtn" style="height:37px;"><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>
+                <a href="#" class="button-29  createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
+                                                        <a href="#" class="button-29  restoreshipperAndConsigneeBtn" style="height:37px;"><span>Restore </span></a>
 
 
                                                         <input type="file" class="form-control float-right" id="Shipperfiles" name="Shipperfiles[]" multiple="" accept=".png, .jpg, .jpeg, .pdf" style="width: auto;">
-                                                        <a href="#setupDriverModal" class="button-57_alt button-58_alt float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
+                                                        <a href="#setupDriverModal" class="button-29 button-58_alt float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
 
                 </div>
 </div>
-                <div class="modal-body" style="overflow-y: auto !important;">
-                    <div class="row1">
-                        <div class="row1 row-sm">
-                            <div class="col-lg-12">
-                                <div class="table-responsive export-table">
-                                <table  class="table editable-table table-nowrap table-bordered table-edit wp-100" >
-                            
-                            <thead class="thead_th" style="position: sticky !important; z-index: 9">
-                                <tr class="tr" >
-                                    <th ><p>No</p></th>
-                                    <th > <p style="width:100px;">Name</p></th>
-                                    <th><p style="width:100px;">Type</p></th>
-                                    <th ><p style="width:100px;">Address</p></th>
-                                    <th ><p style="width:100px;">Location</p></th>
-                                    <th ><p style="width:100px;">Postal / Zip</p></th>
-                                    <th ><p style="width:100px;">Contact Name</p></th>
-                                  <th ><p style="width:100px;">Contact Email</p></th>
-                                    <th ><p style="width:100px;">Telephone</p></th>
-                                    <th ><p style="width:100px;">Ext</p></th>
-                                    <th ><p style="width:100px;">Toll Free</p></th>
-                                    <th ><p style="width:100px;">Fax</p></th>
-                                    <th ><p style="width:100px;">Shipping Hours </p></th>
+<div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th">
+                  <tr class="tr" >
+                                    <th ><p style="margin-top:18px;">No</p></th>
+                                    <th > <p style="width:100px;  margin-top:18px;">Name</p></th>
+                                    <th><p style="width:100px; margin-top:18px;">Type</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Address</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Location</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Postal / Zip</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Contact Name</p></th>
+                                  <th ><p style="width:100px; margin-top:18px;">Contact Email</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Telephone</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Ext</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Toll Free</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Fax</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Shipping Hours </p></th>
                                     <th ><p >Appt</p></th>
-                                    <th ><p style="width:200px;">Major Instructions/Directions</p></th>
-                                    <th ><p style="width:100px;">Status</p></th>
-                                    <th ><p style="width:100px;">Shipping Notes</p></th>
-                                    <th ><p style="width:100px;">Internal Notes</p></th>
+                                    <th ><p style="width:200px; margin-top:18px;">Major Instructions/Directions</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Status</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Shipping Notes</p></th>
+                                    <th ><p style="width:100px; margin-top:18px;">Internal Notes</p></th>
                             
                                     <th>Action</th>
                                 </tr>
-                            </thead>
-                            <tbody id="shipperTable" class="tablecss">
-
-                            </tbody>
-                            </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-</div>             
+                  </thead>
+                  <tbody id="shipperTable" class="load-box"></tbody>
+                </table>
+              </div>
+               
                 <div class="modal-footer">
                 <form action="{{route('driver-pdf')}}" method="post" target="__blank">
                         @csrf
@@ -84,6 +74,8 @@
                         </div>
                     </nav>
                 </div>
+            </div>             
+                
             </div>
         </div>
     </div>
@@ -439,9 +431,36 @@
                     <input type="hidden" name="checked_id" id="checked_RestoreShipperModal_ids" value="">
                     <input type="hidden" name="company_id" id="checked_RestoreShipperModal_company_ids" value="">
                     <input type="hidden" name="company_id" id="checked_RestoreShipperModal_type" value="">
-                    <button id="restore_RestoreShipperModal_data"  class="button-57_alt restore_RestoreShipperModal_data" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore</span></button>
+                    <button id="restore_RestoreShipperModal_data"  class="button-29  restore_RestoreShipperModal_data" disabled><span>Restore</span></button>
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                                                    <th ><input type="checkbox" name="checkallIds[]" class="shipperAndConsigneeChecked"></th>
+                                                                    <th > Name</th>
+                                                                    <th>Type</th>
+                                                                    <th >Address</th>
+                                                                    <th >Location</th>
+                                                                    <th >Postal / Zip</th>
+                                                                    <th >Contact Name</th>
+                                                                    <th >Contact Email</th>
+                                                                    <th >Telephone</th>
+                                                                    <th >Ext</th>
+                                                                    <th >Toll Free</th>
+                                                                    <th >Fax</th>
+                                                                    <th >Shipping Hours </th>
+                                                                    <th >Appt</th>
+                                                                    <th >Major Instructions/Directions</th>
+                                                                    <th >Status</th>
+                                                                    <th >Shipping Notes</th>
+                                                                    <th >Internal Notes</th>
+                                                                </tr>
+                  </thead>
+                  <tbody id="RestoreshipperTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
                     <div class="row1">
                         <div class="col-md-12">
                             <div class="card">
@@ -495,7 +514,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="modal-footer">
                     <button type="button" class="button-29 closeRestoreShipperModal" >Close</button>
                 </div>

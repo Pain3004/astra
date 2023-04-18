@@ -184,8 +184,18 @@ function processConsignee(res) {
             if(deleteStatus=="NO")
             {
                 var tr = `<tr>
-                <td class="center-alignment ">${id}</td>
-                <td>${consigneeName}</td>
+                <td class="center-alignment " style="position: -webkit-sticky;
+                position: sticky !important;
+                background-color:#444A5F  !important;
+                color:white;
+                left: 0;
+                z-index: 2;">${id}</td>
+                <td style="position: -webkit-sticky;
+                position: sticky !important;
+                background-color: #444A5F !important;
+                color:white;
+                left: 85px !important;
+                z-index: 2;">${consigneeName}</td>
                 <td>Consignee</td>
                 <td>${consigneeAddress}</td>
                 <td>${consigneeLocation}</td>

@@ -383,7 +383,7 @@ $(document).ready(function() {
                     <td>${dot}</td>
                     <td>${activationDate}</td>
                     <td>${internalNotes}</td>
-                    <td style='width: 100px'><a class='button-23 edit_trailerModel "+editPrivilege+"'  title='Edit'  data-trailerId='${id}' data-masterId='${masterID}' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23 delete_trailer'  title='Delete' data-trailerId='${id}' data-masterId='${masterID}'><i class='fe fe-delete'></i></a></td> `;
+                    <td style='width: 100px'><a class='button-23 edit_trailerModel "+editPrivilege+"'  title='Edit'  data-trailerId='${id}' data-masterId='${masterID}' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23 delete_trailer'  title='Delete' data-trailerId='${id}' data-masterId='${masterID}'><i class='fe fe-trash'></i></a></td> `;
     
                 tr += `</tr>`;
                 row = tr + row;

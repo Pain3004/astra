@@ -190,8 +190,18 @@ var base_path = $("#url").val();
                 if(deleteStatus=="NO")
                 {
                     var tr = `<tr>
-                        <td>${id}</td>
-                        <td>${shipperName}</td>
+                        <td style="position: -webkit-sticky;
+                        position: sticky !important;
+                        background-color:#444A5F !important;
+                        color:white;
+                        left: 0;
+                        z-index: 2;">${id}</td>
+                        <td style="position: -webkit-sticky;
+                        position: sticky !important;
+                        background-color:#444A5F !important;
+                        color:white;
+                        
+                        z-index: 2; left: 85px !important;">${shipperName}</td>
                         <td>Shipper</td>
                         <td>${shipperAddress}</td>
                         <td> ${shipperLocation}</td>

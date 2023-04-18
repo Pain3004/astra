@@ -72,19 +72,19 @@ $.ajax({
                             
                             if(ownerOperatorStatus == 'YES'){
                                 var actionBtnOwnerOperator= "<a class='editDriver button-23 edit'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-trash'></i></a>&nbsp"+
                                     "<a class='removeDriverOwner button-23 '  title='Remove Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-user-x'></i></a>"+
                                     "<a class='editDriverOwner button-23 '  title='Edit Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-edit'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-danger');
                             }
                             else if(ownerOperatorStatus == 'NO' && ownerOperatorDeleteStatus == 'NO'){
                                 var actionBtnOwnerOperator="<a class='editDriver button-23 edit'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-trash'></i></a>&nbsp"+
                                     "<a class='addDriverOwner button-23'  title='Add As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe fe-user-plus'></i></a>&nbsp";
                                 // $('.addDriverOwner').addClass('btn-success');
                             }else if(ownerOperatorDeleteStatus == 'YES'){
                                 var actionBtnOwnerOperator="<a class='editDriver button-23 edit'  title='Edit' data-id=" + comid+ "&"+email + "><i class='fe fe-edit'></i></a>&nbsp"+
-                                    "<a class='deleteDriver button-23' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                    "<a class='deleteDriver button-23' data-id=" + comid+ "&"+email + " title='Delete'><i class='fe fe-trash'></i></a>&nbsp"+
                                     "<a class='restoreDriverOwner button-23'  title='Restore As Owner Operator' data-id="+ driverId+" data-name="+ btoa(name)+" ><i class='fe  fe-user-plus'></i></a>&nbsp";
 
                             }
@@ -614,7 +614,7 @@ $('body').on('click',function() {
                             "<td style='display: inline-flex'>"+
                             "<i class='btn btn-primary fe fe-edit edit' data-id=" + companyID + "&"+ email + "></i>"+
                                 // "<a class='editDriver mt-2 btn btn-primary fs-14 text-white edit' data-id=" + companyID + "&" + email + " title='Edit'><i class='fe fe-edit'></i></a>&nbsp"+
-                                "<a class='deleteDriver mt-2 btn btn-danger fs-14 text-white  data-id=" + companyID + "&" + email + " title='Delete'><i class='fe fe-delete'></i></a>&nbsp"+
+                                "<a class='deleteDriver mt-2 btn btn-danger fs-14 text-white  data-id=" + companyID + "&" + email + " title='Delete'><i class='fe fe-trash'></i></a>&nbsp"+
                                 
                             "</td></tr>";    
         $.ajax({

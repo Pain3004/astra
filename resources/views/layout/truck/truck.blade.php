@@ -17,13 +17,58 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Truck</h4>
-                    <button type="button" class="closeTruckModal" >&times;</button>
+                    <button type="button" class=" button-24 closeTruckModal" >&times;</button>
                 </div>
+<div style="display:flex; flex-direction:row;">
+@if($insertUser== 1)
+                                            <a href="#" style="margin:10px;"  class="button-29 addtruckModal" ><span>Add </span></a>
+                                        @endif 
+                                        
+                                        @if($deleteUser== 1)    
+                                            <a href="#" style="margin:10px;" class="button-29 restore_truckData" ></span><span>Restore Truck</span></a>
 
+                                        @endif
+
+</div>
                 <!-- Modal body -->
-                <div class="modal-body" style="overflow-y: auto !important;margin-left: -16px;">
-                    <!-- Row -->
-                    <div class="row">
+
+
+                <div >
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+
+<th>NO</th>
+<th>Truck</th>
+<th>Truck Type</th>
+<th>License Plate</th>
+<th>Plate Expiry</th>
+<th> Inspection Expiration</th>
+<th>Status</th>
+<th>Ownership</th>
+<th>Mileage</th>
+<th>Axles</th>
+<th> Year</th>
+<th> Fuel Type</th>
+<th>Start Date </th>
+<th>Deactivation Date </th>
+<th> IFTA Truck</th>
+<th> Registered State</th>
+<th> Insurance Policy</th>
+<th> Empty/Gross Weight</th>
+<th> VIN</th>
+<th>DOT Expiry Date</th>
+<th>Transponder></th>
+<th>Internal Notes </th>
+
+<th>Action</th>
+</tr>
+                  </thead>
+                  <tbody id="truckTable" class="load-box"></tbody>
+                </table>
+              </div>
+                    <!-- <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -45,7 +90,7 @@
 
                                                 <thead class="thead_th">
                                                     <tr class="tr">
-                                                        <!-- <th>counter</th> -->
+
                                                         <th>NO</th>
                                                         <th>Truck</th>
                                                         <th>Truck Type</th>
@@ -68,7 +113,7 @@
                                                         <th>DOT Expiry Date</th>
                                                         <th>Transponder></th>
                                                         <th>Internal Notes </th>
-                                                        <!-- <th><div><marquee width="100px" direction="left" height="17px" scrollamount="2"> Driver Balance</marquee></div></th> -->
+                                                      
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -81,7 +126,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- End Row -->
                 </div>
 
@@ -93,7 +138,7 @@
                         <button class="button-29" style="vertical-align:middle"><span>Export</span></button>
                     @endif
                 </form> -->
-                    <button type="button" class="btn btn-secondary closeTruckModal" >Close</button>
+                    <button type="button" class="button-29 closeTruckModal"  >Close</button>
                     <nav aria-label="..." data-name="truck_pagination" class="float-right">
                         <div class="pagination" id="truck_pagination">
                         </div>
@@ -594,12 +639,12 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Restore Truck</h4>
-                    <button type="button" class="closeRestoreTruck" >&times;</button>
+                    <button type="button" style="background-color:red;" class="closeRestoreTruck button-24" >&times;</button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
                         <input type="hidden" name="checked_id" id="checked_truck_ids" value="">
                         <input type="hidden" name="company_id" id="checked_truck_company_ids" value="">
-                        <button id="restore_truck_data"  class="button-57_alt restore_truck_data" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore Truck</span></button>
+                        <button id="restore_truck_data"  class="button-29 restore_truck_data" disabled><span>Restore Truck</span></button>
                 </div> 
                 <!-- Modal body -->
                 <div class="modal-body">

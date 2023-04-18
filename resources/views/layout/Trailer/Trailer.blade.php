@@ -27,17 +27,42 @@
                     </a> -->
 
                     @if($insertUser== 1)
-                        <a href="#addDriverModal" class="button-57_alt addTrailerModal"><i class="fa fa-plus " aria-hidden="true"></i> <span>Add trailer</span> </a>
+                        <a href="#addDriverModal" class="button-29 addTrailerModal"> <span>Add trailer</span> </a>
                     @endif 
                     
                     @if($deleteUser== 1)    
-                        <a href="#" class="button-57_alt restore_trailerBtn" ><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                        <a href="#" class="button-29 restore_trailerBtn" ></span><span>Restore </span></a>
 
                     @endif
 
                 </div>
                 <!-- Modal body -->
-                <div class="modal-body" style="overflow-y: auto !important;">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                    <th>NO</th>
+                                    <th>Trailer</th>
+                                    <th>Trailer Type</th>
+                                    <th>License Plate</th>
+                                    <th>Plate Expiry</th>
+                                    <th>Inspection Expiration</th>
+                                    <th>Status</th>
+                                    <th>Model</th>
+                                    <th>Year</th>
+                                    <th>Axles</th>
+                                    <th>Registered State</th>
+                                    <th>VIN</th>
+                                    <th>DOT Expiry Date	</th>
+                                    <th>Activation Date	</th>
+                                    <th>Internal Notes	</th>
+                                    <th>Action</th>
+                                </tr>
+                  </thead>
+                  <tbody id="trailer_tbl" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
                         <table  class="table">
                             <thead class="thead_th">
                                 <tr class="tr">
@@ -63,7 +88,7 @@
                                 
                             </tbody>
                         </table>
-                </div>
+                </div> -->
 
                 <!-- Modal footer -->
                 <div class="modal-footer">

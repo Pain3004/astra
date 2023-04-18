@@ -14293,7 +14293,7 @@ table {
 }
 
 .table> :not(caption)>*>* {
-    background: transparent;
+    /* background: transparent; */
     box-shadow: none;
     border-bottom-width: inherit;
 }

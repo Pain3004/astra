@@ -577,7 +577,7 @@ var base_path = $("#url").val();
                 <td>${dotexpiryDate}</td>
                 <td>${transponder} </td>
                 <td>${internalNotes}</td>
-                <td style='width: 100px'><a class='button-23 edit_truck_data "+editPrivilege+"'  title='Edit'  data-truckId='${id}' data-com_Id='${masterID}' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23 delete_truck_data' data-id='$userEmail' title='Delete' data-truckId='${id}' data-com_Id='${masterID}'><i class='fe fe-delete'></i></a></td>`
+                <td style='width: 100px'><a class='button-23 edit_truck_data "+editPrivilege+"'  title='Edit'  data-truckId='${id}' data-com_Id='${masterID}' title='Edit'><i class='fe fe-edit'></i></a><a class='delete1 button-23 delete_truck_data' data-id='$userEmail' title='Delete' data-truckId='${id}' data-com_Id='${masterID}'><i class='fe fe-trash'></i></a></td>`
                 tr += `</tr>`;
                 row = tr + row;
             }

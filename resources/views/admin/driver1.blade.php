@@ -15,8 +15,31 @@
                 </div>
                 
                 <!-- Modal body -->
-                <div class="modal-body">
-                  <!--  Row -->
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                  <th>NO</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Location</th>
+                                                    <th>Social Security No</th>
+                                                    <th>Date of Birth</th>
+                                                    <th>Date of Hire</th>
+                                                    <th>License No</th>
+                                                    <th>LIS</th>
+                                                    <th>License Exp.Date</th>
+                                                    <th>Driver Balance</th>
+                                                    <td >Male</td>
+                                                    <td>Male</td> 
+                                                    <th>Action</th>
+                            </tr>
+                  </thead>
+                  <tbody id="driverTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body">
+                
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
@@ -95,10 +118,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Row -->
-                               
-                <!-- CONTAINER CLOSED -->
-                </div>
+                    
+                </div> -->
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
