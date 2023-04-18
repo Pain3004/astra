@@ -162,8 +162,8 @@ select.form-control-lg:not([size]):not([multiple]) {
 	display: flex;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	margin-right: -5px;
-	margin-left: -5px;
+	// margin-right: -5px;
+	// margin-left: -5px;
 	> {
 		.col, [class*="col-"] {
 			padding-right: 5px;

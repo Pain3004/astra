@@ -3009,14 +3009,14 @@ fieldset:disabled a.btn {
 
 .btn-success {
     color: #fff !important;
-    background-color: #13bfa6 !important;
-    border-color: #13bfa6 !important;
+    /* background-color: #13bfa6 !important; */
+    /* border-color: #13bfa6 !important; */
 }
 
 .btn-success:hover {
     color: #fff;
-    background-color: rgba(19, 191, 166, 0.85) !important;
-    border-color: rgba(19, 191, 166, 0.85);
+    /* background-color: rgba(19, 191, 166, 0.85) !important; */
+    /* border-color: rgba(19, 191, 166, 0.85); */
 }
 
 .btn-success:focus,
@@ -10070,11 +10070,12 @@ select.form-control-lg:not([size]):not([multiple]) {
 
 .form-row {
     display: -ms-flexbox;
+    width: 95%;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-right: -5px;
-    margin-left: -5px;
+    /* margin-right: -5px;
+    margin-left: -5px; */
 }
 
 .form-row>.col,
@@ -13755,7 +13756,7 @@ progress {
 }
 
 .table th {
-    padding: 0.75rem;
+    padding: 0.25rem;
     vertical-align: top;
 }
 
@@ -13766,7 +13767,7 @@ progress {
 }
 
 .table td {
-    padding: 0.65rem;
+    padding: 0.25rem;
     vertical-align: middle;
     border-top: 0;
 }
@@ -13776,7 +13777,7 @@ progress {
     border-bottom: 1px solid #eaedf1;
     border-bottom-width: 1px;
     border-top: 0;
-    padding: 0.75rem;
+    padding: 0.25rem;
 }
 
 .text-wrap table thead th {

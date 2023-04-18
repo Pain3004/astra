@@ -12,14 +12,14 @@
                     <button class="button-57_alt restoreExternalCarrierBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <div class="row">
-                        <div class="row row-sm">
+                    <div class="row1">
+                        <div class="row1 row-sm">
                             <div class="col-lg-12">
                                 <div class="table-responsive export-table">
                                     <table id="editable-file-datatable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
                                         <thead class="thead_th">
                                             <tr class="tr">
-                                                <th>NO</th>
+                                                <th>No</th>
                                                 <th style="">Name</th>
                                                 <th>Address</th>
                                                 <th>Location</th>

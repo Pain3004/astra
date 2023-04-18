@@ -620,50 +620,37 @@ ul.ks-cboxtags li input[type="checkbox"]:focus+label {
   backdrop-filter: blur(1px) contrast(.1);
 }
 
+
 .button-29 {
-  align-items: center;
-  appearance: none;
-  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
-  border: 0;
-  border-radius: 6px;
-  box-shadow: rgb(45 35 66 / 40%) 0 2px 4px, rgb(45 35 66 / 30%) 0 7px 13px -3px, rgb(58 65 111 / 50%) 0 -3px 0 inset;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: "JetBrains Mono", monospace;
-  height: 33px;
-  justify-content: center;
-  line-height: 1;
-  list-style: none;
-  overflow: hidden;
-  padding-left: 5px;
-  padding-right: 5px;
   position: relative;
-  text-align: left;
+  overflow: hidden;
+  border: transparent;
+  color: #fff;
+  display: inline-block;
+  border-radius: 3px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 15px;
+  padding: 10px 0px 10px;
   text-decoration: none;
-  transition: box-shadow .15s, transform .15s;
+  cursor: pointer;
+  background: #1b71bc;
+  /* background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%); */
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  white-space: nowrap;
-  will-change: box-shadow, transform;
-  font-size: 12px;
+  font-weight: 600;
+  width: 115px;
 }
 
-.button-29:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-}
+
 
 .button-29:hover {
-  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-  transform: translateY(-2px);
-  color: #fff;
+  background: #3a8acf;
 }
 
-.button-29:active {
-  box-shadow: #3c4fe0 0 3px 7px inset;
-  transform: translateY(2px);
+.button-29:after {
+  display: none;
 }
 
 .button-25 {
@@ -959,7 +946,7 @@ th:nth-child(n) {
 .tr> :nth-child(1) {
   position: -webkit-sticky;
   position: sticky !important;
-  z-index: 3;
+  z-index: 9;
   background: #d5dae2;
   color: #000000;
   left: 0;
@@ -970,7 +957,7 @@ th:nth-child(n) {
 .tr> :nth-child(2) {
   position: -webkit-sticky;
   position: sticky !important;
-  z-index: 3;
+  z-index: 9;
   background: #d5dae2;
   color: #000000;
   left: 56px;
@@ -981,7 +968,26 @@ th:nth-child(n) {
     box-shadow: inset 0px 1px black;
   } */
 
-
+  .tr> :nth-child(1),
+  .tr> :nth-child(1) {
+    position: -webkit-sticky;
+    position: sticky !important;
+    z-index: 3;
+    background: #d5dae2;
+    color: #000000;
+    left: 0;
+  }
+  
+  /* MAKE LEFT COLUMN FIXEZ */
+  .tr> :nth-child(2),
+  .tr> :nth-child(2) {
+    position: -webkit-sticky;
+    position: sticky !important;
+    z-index: 3;
+    background: #d5dae2;
+    color: #000000;
+    left: 60px;
+  }
 .tr:nth-child(even) td:not(:nth-child(1)):not(:nth-child(2)) {
   background: #f8f6ff;
 }
@@ -2970,6 +2976,19 @@ body.modal-open {
   padding: 6px;
   width: min-content;
 }
+#consigneeTableData td{
+  font-size: 12px;
+  padding: 6px;
+  width: min-content;
+}
+#shipperTable td{
+   font-size: 12px;
+  padding: 6px;
+  width: min-content;
+}
+.deleteShipperAndCongneeBtn:hover{
+  background-color: red;
+}
 .form-group label {
   font-size: 13px;
 }
@@ -3003,7 +3022,7 @@ body.modal-open {
 #updateCustomerModal {
   backdrop-filter: blur(3px);
 }
-.customerEdit:hover {
+.customerEdit:hover . {
   background-color: green;
   color: white;
 }
@@ -3012,7 +3031,10 @@ body.modal-open {
   background-color: red;
   color: white;
 }
-.fe-edit:hover{
+.fe-edit:hover {
+  color: white;
+}
+.fe-trash:hover{
   color: white;
 }
 .fe-delete:hover{
@@ -3021,3 +3043,24 @@ body.modal-open {
 .tab-content{
   background-color: #fff;
 } 
+.modal-content,#addCustomerModal, #restoreCustomerData {
+  backdrop-filter: blur(1px) contrast(.1);
+}
+.row1{
+  display: flex;
+    
+    flex-wrap: wrap;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+}
+
+.deleteConsiShipperAndCongneeBtn:hover{
+  background-color: red;
+}
+
+.modal-body p:last-child {
+  margin-bottom: 0;
+}

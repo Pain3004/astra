@@ -184,7 +184,7 @@ function processConsignee(res) {
             if(deleteStatus=="NO")
             {
                 var tr = `<tr>
-                <td>${id}</td>
+                <td class="center-alignment ">${id}</td>
                 <td>${consigneeName}</td>
                 <td>Consignee</td>
                 <td>${consigneeAddress}</td>
@@ -202,7 +202,7 @@ function processConsignee(res) {
                 <td>${consigneeStatus}</td>
                 <td>${consigneeNotes}</td>
                 <td>${internalNotes}</td>`;
-                tr += `<td>
+                tr += `<td style="display:flex; flex-direction:row;">
                 <a class='button-23 editConsigShipperAndCongneeBtn'  title='Edit1' data-ConsigneeId='${id}' data-masterId='${masterID}'><i class='fe fe-edit'></i></a>
                 <a class='button-23 deleteConsiShipperAndCongneeBtn'  data-ConsigneeId='${id}'  data-masterId='${masterID}'><i class='fe fe-trash'></i></a> 
                         </td></tr>`;

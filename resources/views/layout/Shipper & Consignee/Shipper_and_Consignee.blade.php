@@ -1,85 +1,82 @@
 <!------------------------------------------------------------------- Shipper & Consignee modal ------------------------------------------------------------------->
+
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="Shipper_and_ConsigneeModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Shipper & Consignee</h4>
+                    <!-- <h4 class="modal-title">Consignee</h4> -->
+                    
                     <span class="model-statistics1" data-name="shipper_total" id="total_shipper"></span>
 
                     <button type="button" class="button-24 closeShipperModal">&times;</button>
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="tab-menu-heading border-bottom-0">
+                <div class="tab-menu-heading border-bottom-0">
                                     <div class="tabs-menu4 border-bottomo-sm">
                                         <nav class="nav d-sm-flex d-block">
                                             <input type="hidden" class="editAddressType">
-                                            <button class="button-23 shipperConsignee_navbar"  id=""> Shipper </button>
-                                            <button class="button-23 consignee_viewList" >Consignee</button>
+                                            <button class="button-29 shipperConsignee_navbar" href="#ShipperAndConsigneeTable" id=""> Shipper </button>
+                                            <button class="button-29 consignee_viewList" style="margin-left:6px;" >Consignee</button>
                                         </nav>
                                     </div>
                                 </div>
-                                <div class="card-body p-6">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-body tabs-menu-body">
-                                            <div >
-                                                    <div class="table-responsive export-table">
-                                                        <a href="#" class="button-57_alt createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
-                                                        <a href="#" class="button-57_alt restoreshipperAndConsigneeBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>
+                <div>
+                <div class="panel-body tabs-menu-body">
+                <a href="#" class="button-57_alt createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
+                                                        <a href="#" class="button-57_alt restoreshipperAndConsigneeBtn" style="height:37px;"><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></a>
 
 
                                                         <input type="file" class="form-control float-right" id="Shipperfiles" name="Shipperfiles[]" multiple="" accept=".png, .jpg, .jpeg, .pdf" style="width: auto;">
-                                                        <a href="#setupDriverModal" class="button-29 float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
+                                                        <a href="#setupDriverModal" class="button-57_alt button-58_alt float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
 
-                                                        <table id="ShipperAndConsigneeTable" class="table editable-table table-nowrap table-bordered table-edit wp-100" >
+                </div>
+</div>
+                <div class="modal-body" style="overflow-y: auto !important;">
+                    <div class="row1">
+                        <div class="row1 row-sm">
+                            <div class="col-lg-12">
+                                <div class="table-responsive export-table">
+                                <table  class="table editable-table table-nowrap table-bordered table-edit wp-100" >
+                            
+                            <thead class="thead_th" style="position: sticky !important; z-index: 9">
+                                <tr class="tr" >
+                                    <th ><p>No</p></th>
+                                    <th > <p style="width:100px;">Name</p></th>
+                                    <th><p style="width:100px;">Type</p></th>
+                                    <th ><p style="width:100px;">Address</p></th>
+                                    <th ><p style="width:100px;">Location</p></th>
+                                    <th ><p style="width:100px;">Postal / Zip</p></th>
+                                    <th ><p style="width:100px;">Contact Name</p></th>
+                                  <th ><p style="width:100px;">Contact Email</p></th>
+                                    <th ><p style="width:100px;">Telephone</p></th>
+                                    <th ><p style="width:100px;">Ext</p></th>
+                                    <th ><p style="width:100px;">Toll Free</p></th>
+                                    <th ><p style="width:100px;">Fax</p></th>
+                                    <th ><p style="width:100px;">Shipping Hours </p></th>
+                                    <th ><p >Appt</p></th>
+                                    <th ><p style="width:200px;">Major Instructions/Directions</p></th>
+                                    <th ><p style="width:100px;">Status</p></th>
+                                    <th ><p style="width:100px;">Shipping Notes</p></th>
+                                    <th ><p style="width:100px;">Internal Notes</p></th>
+                            
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="shipperTable" class="tablecss">
 
-                                                            <thead class="thead_th">
-                                                                <tr class="tr">
-                                                                    <th >NO</th>
-                                                                    <!-- <th >time</th> -->
-                                                                    <th > Name</th>
-                                                                    <th>Type</th>
-                                                                    <th >Address</th>
-                                                                    <th >Location</th>
-                                                                    <th >Postal / Zip</th>
-                                                                    <th >Contact Name</th>
-                                                                    <th >Contact Email</th>
-                                                                    <th >Telephone</th>
-                                                                    <th >Ext</th>
-                                                                    <th >Toll Free</th>
-                                                                    <th >Fax</th>
-                                                                    <th >Shipping Hours </th>
-                                                                    <th >Appt</th>
-                                                                    <th >Major Instructions/Directions</th>
-                                                                    <th >Status</th>
-                                                                    <th >Shipping Notes</th>
-                                                                    <th >Internal Notes</th>
-
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="shipperTable">
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>
                 </div>
+</div>             
                 <div class="modal-footer">
                 <form action="{{route('driver-pdf')}}" method="post" target="__blank">
                         @csrf
-                        <button class="button-29 btn btn-success" style="vertical-align:middle"><span>Export</span></button>
+                        <button class="button-29 btn btn-success button-29 " style=" background: #1b71bc; width: 115px; height:35px; font-size: 12px;"><span>Export</span></button>
                     </form>
-                    <button type="button" class="button-29 btn btn-secondary closeShipperModal" >Close</button>
+                    <button type="button" class="button-29  closeShipperModal" style=" background: #1b71bc; width: 115px; font-size: 12px;" >Close</button>
                     <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
                     <nav aria-label="..." data-name="shipper_pagination" class="float-right">
                         <div class="pagination" id="shipper_pagination">
@@ -100,11 +97,11 @@
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Shipper & Consignee</h4>
+                    <!-- <h4 class="modal-title">Add Shipper & Consignee</h4> -->
                     <button type="button" class="button-24 closeCreateShipperAndConsigneeModal">&times;</button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <div class="row">
+                    <div class="row1">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="tab-menu-heading border-bottom-0">
@@ -116,7 +113,7 @@
                                     <div class="panel panel-primary">
                                         <div class="panel-body tabs-menu-body">
                                             <div class="tab-content">
-                                                    <div class="table-responsive export-table">
+                                                    <div class="table-responsive export-table"style="width=100%">
                                                         <form>
                                                             @csrf
                                                             <input type="hidden" name="_token" id="_token_AddShipperAndConsignee" value="{{ csrf_token() }}" />
@@ -275,7 +272,7 @@
                     <button type="button" class="button-24 closeUpdateCreateShipperAndConsigneeModal">&times;</button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <div class="row">
+                    <div class="row1">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="tab-menu-heading border-bottom-0">
@@ -445,7 +442,7 @@
                     <button id="restore_RestoreShipperModal_data"  class="button-57_alt restore_RestoreShipperModal_data" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore</span></button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <div class="row">
+                    <div class="row1">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="tab-menu-heading border-bottom-0">
@@ -500,7 +497,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button-29 btn btn-secondary closeRestoreShipperModal" >Close</button>
+                    <button type="button" class="button-29 closeRestoreShipperModal" >Close</button>
                 </div>
             </div>
         </div>

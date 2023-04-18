@@ -167,7 +167,7 @@ var base_path = $("#url").val();
                     tr += '<td>';
                     tr += `<a class=' button-23  customerEdit' data-id='` + id + `' data-MasterId=" `+ masterID+ `"  title='Delete'><i class='fe fe-edit'></i></a>
                     
-                    <a class=' button-23  customerDelete'  data-id='` + id + `' data-MasterId=" `+ masterID+ `"  data-email="+custEmail +" title='Delete'><i class='fe fe-delete'></i></a>`;
+                    <a class=' button-23  customerDelete'  data-id='` + id + `' data-MasterId=" `+ masterID+ `"  data-email="+custEmail +" title='Delete'><i class="fe fe-trash"></i></a>`;
                     tr += '</td>';
                     tr += '</tr>';
                 }
