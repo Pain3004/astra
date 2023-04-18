@@ -14,8 +14,24 @@
                     <button href="#" data-toggle="modal"  class="button-57_alt button-58_alt addCustomerButton" >Add Customer</button>
                     <button class="button-57_alt button-58_alt restoreCustomerData" >Restore Customer</button>
                 </div>
-                
-                <div class="modal-body" style="overflow-y: auto !important;">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                <th>No</th>
+                                <th style="width:150px;">Customer Name</th>
+                                <th>Location</th>
+                                <th>Zip</th>
+                                <th>Primary Contacte</th>
+                                <th>Telephone</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                  </thead>
+                  <tbody id="customerTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
 
                     <table  class="table editable-table table-nowrap table-bordered table-edit wp-100">
                         <thead class="thead_th">
@@ -34,7 +50,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div> -->
                 <div class="modal-footer">
                     <button type="button" class="button-57_alt button-58_alt exportCustomer" data-dismiss="modal">Export</button>
                     <button type="button" class="button-57_alt button-58_alt close_customerModal" data-dismiss="modal">Close</button>
@@ -288,7 +304,7 @@
 
 <div class="container" >
   <!-- The Modal -->
-  <div class="modal fade" id="PaymentTermsModal" data-backdrop="static" style="z-index:10000000000;"> >
+  <div class="modal fade" id="PaymentTermsModal" data-backdrop="static" style="z-index:10000000000;"> 
     <div class="modal-dialog custom_modal_small_5 modal-dialog-scrollable" role="document">
       <div class="modal-content">
       
