@@ -43,7 +43,7 @@
                   <tr class="tr">
                                     <th>NO</th>
                                     <th>Trailer</th>
-                                    <th>Trailer Type</th>
+                                    <th>Trailer Type</th> 
                                     <th>License Plate</th>
                                     <th>Plate Expiry</th>
                                     <th>Inspection Expiration</th>
