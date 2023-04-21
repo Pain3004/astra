@@ -407,74 +407,92 @@ class TrailerAdminAddController extends Controller
     public function deleteTrailer(Request $request)
     {
         $companyID=(int)Auth::user()->companyID;
-        $id=$request->id;
-        $traileradd=TrailerAdminAdd::where('companyID',$companyID)->first();
-        $trailerArray=$traileradd->trailer;
-        $arrayLength=count($trailerArray);
-        // dd($arrayLength);
-        $i=0;
-        $v=0;
-       for ($i=0; $i<$arrayLength; $i++){
-            $ids=$traileradd->trailer[$i];
-                foreach ($ids as $value){
-                    if($value==$id){
-                        $v=$i;
-                     }
-                }
-       }
-    
-       $trailerArray[$v]['deleteStatus'] = "YES";
-        $traileradd->trailer= $trailerArray;
-        if ($traileradd->save()) {
-            $arr = array('status' => 'success', 'message' => 'Trailer deleted successfully.','statusCode' => 200); 
-        return json_encode($arr);
+        $id=(int)$request->id;
+        $masterId=(int)$request->masterId;
+        $trailer=TrailerAdminAdd::raw()->updateOne(['companyID' => $companyID,'_id' => $masterId,'trailer._id' =>  $id], 
+        ['$set' => ['trailer.$.deleteStatus' => 'YES','trailer.$.deleteUser' => Auth::user()->userName,'trailer.$.deleteTime' => time()]]
+        );
+        if($trailer==true)
+        {
+            $arr = array('status' => 'success', 'message' => 'trailer deleted successfully.','statusCode' => 200); 
+            return json_encode($arr);
         }
+    
     } 
 
     public function restoreTrailer(Request $request)
     {
         $cardIds=$request->all_ids;
-        $custID=(array)Auth::user()->companyID;
+        $custID=(array)$request->masterIds;
+        $companyID=(int)Auth::user()->companyID;
         foreach($custID as $company_id)
         {
             $company_id=str_replace( array( '\'', '"',
             ',' , ' " " ', '[', ']' ), ' ', $company_id);
-            $company_id=(int)$company_id;
-            $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$company_id )->first();
-            $TrailerAdminAddArray=$TrailerAdminAdd->trailer;
-            $arrayLength=count($TrailerAdminAddArray);         
-            $i=0;
-            $v=0;
-            $data=array();
-            for ($i=0; $i<$arrayLength; $i++){
-                $ids=$TrailerAdminAdd->trailer[$i]['_id'];
-                $ids=(array)$ids;
-                foreach ($ids as $value){
-                    $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
-                    if(is_string($cardIds))
-                    {
-                        $cardIds=explode(",",$cardIds);
-                    }
-                    foreach($cardIds as $credit_card_id)
-                    {
-                        $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
-                        if($value==$credit_card_id)
-                        {                        
-                            $data[]=$i; 
-                        }
-                    }
-                }
-            }
-            foreach($data as $row)
+            $masterId=(int)$company_id;
+            $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+            if(is_string($cardIds))
             {
-                $TrailerAdminAddArray[$row]['deleteStatus'] = "NO";
-                $TrailerAdminAdd->trailer= $TrailerAdminAddArray;
-                $save=$TrailerAdminAdd->save();
+                $cardIds=explode(",",$cardIds);
             }
-            if (isset($save)) {
-                $arr = array('status' => 'success', 'message' => 'Trailer Restored successfully.','statusCode' => 200); 
-            return json_encode($arr);
+            // dd((int)$cardIds);
+            foreach($cardIds as $r)
+            {
+                $r=str_replace( array( '\'', '"',
+                ',' , ' " " ', '[', ']' ), ' ', $r);
+                $r = preg_replace('/\s+/', ' ', $r);
+                $TrailerAdminAdd=TrailerAdminAdd::raw()->updateOne(['companyID' =>$companyID,'_id' => $masterId,'trailer._id' => (int)$r], 
+                ['$set' => ['trailer.$.deleteStatus' => 'NO','trailer.$.deleteUser' => Auth::user()->userName,'trailer.$.deleteTime' => time()]]
+                ); 
             }
+           
         }
+        if($TrailerAdminAdd==true)
+        {
+            $arr = array('status' => 'success', 'message' => 'Triler Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+        }
+       
+        // foreach($custID as $company_id)
+        // {
+        //     $company_id=str_replace( array( '\'', '"',
+        //     ',' , ' " " ', '[', ']' ), ' ', $company_id);
+        //     $company_id=(int)$company_id;
+        //     $TrailerAdminAdd = TrailerAdminAdd::where('companyID',$company_id )->first();
+        //     $TrailerAdminAddArray=$TrailerAdminAdd->trailer;
+        //     $arrayLength=count($TrailerAdminAddArray);         
+        //     $i=0;
+        //     $v=0;
+        //     $data=array();
+        //     for ($i=0; $i<$arrayLength; $i++){
+        //         $ids=$TrailerAdminAdd->trailer[$i]['_id'];
+        //         $ids=(array)$ids;
+        //         foreach ($ids as $value){
+        //             $cardIds= str_replace( array('[', ']'), ' ', $cardIds);
+        //             if(is_string($cardIds))
+        //             {
+        //                 $cardIds=explode(",",$cardIds);
+        //             }
+        //             foreach($cardIds as $credit_card_id)
+        //             {
+        //                 $credit_card_id= str_replace( array('"', ']' ), ' ', $credit_card_id);
+        //                 if($value==$credit_card_id)
+        //                 {                        
+        //                     $data[]=$i; 
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     foreach($data as $row)
+        //     {
+        //         $TrailerAdminAddArray[$row]['deleteStatus'] = "NO";
+        //         $TrailerAdminAdd->trailer= $TrailerAdminAddArray;
+        //         $save=$TrailerAdminAdd->save();
+        //     }
+        //     if (isset($save)) {
+        //         $arr = array('status' => 'success', 'message' => 'Trailer Restored successfully.','statusCode' => 200); 
+        //     return json_encode($arr);
+        //     }
+        // }
     }
 }

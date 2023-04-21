@@ -5,24 +5,23 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <!-- <h4 class="modal-title">Consignee</h4> -->
-                    
+                    <nav class="nav d-sm-flex d-block">
+                                            <input type="hidden" class="editAddressType">
+                                            <button class="button-29 shipperConsignee_navbar" href="#ShipperAndConsigneeTable" id=""> Shipper </button>
+                                            <button class="button-29 consignee_viewList" style="margin-left:6px; background-color:#3a8acf" >Consignee</button>
+                                        </nav>
                     <span class="model-statistics1" data-name="shipper_total" id="total_shipper"></span>
 
                     <button type="button" class="button-24 closeShipperModal">&times;</button>
                 </div>
-                <div class="tab-menu-heading border-bottom-0">
-                                    <div class="tabs-menu4 border-bottomo-sm">
-                                        <nav class="nav d-sm-flex d-block">
-                                            <input type="hidden" class="editAddressType">
-                                            <button class="button-29 shipperConsignee_navbar" href="#ShipperAndConsigneeTable" id=""> Shipper </button>
-                                            <button class="button-29 consignee_viewList" style="margin-left:6px;" >Consignee</button>
-                                        </nav>
-                                    </div>
-                                </div>
+               
                 <div style="margin-top: 15px; margin-left: 15px;">
                     
-                    <button class="button-29 AddExternalCarrierBtn" ><span>Add </span></button>
+                    <button class="button-29 createShipperModalBtn" ><span>Add </span></button>
                     <button class="button-29 restoreConsigneeBtn" ><span>Restore </span></button>
+                    <input type="file" class="form-control float-right" id="Shipperfiles" name="Shipperfiles[]" multiple="" accept=".png, .jpg, .jpeg, .pdf" style="width: auto;">
+                                                        <a href="#setupDriverModal" style="margin-right: 7px;" class="button-29 button-58_alt float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
+
                 </div>
                 <div class="table-responsive table-scroll">
                  <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
@@ -55,13 +54,14 @@
               </div>
                 
                 <div class="modal-footer">
+                <span class="mandatory_admin" style="color:red; font-size:15px;">Note: XLSX files must contain atmost 1000 rows at a time.</span>
+                  
                 <form action="{{route('driver-pdf')}}" method="post" target="__blank">
                         @csrf 
                         <button class="button-29 " style="vertical-align:middle"><span>Export</span></button>
                      </form>
                     <button type="button" class="button-29  closeShipperModal" >Close</button>
-                    <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
-                    <nav aria-label="..." data-name="consignee_pagination" class="float-right">
+                      <nav aria-label="..." data-name="consignee_pagination" class="float-right">
                         <div class="pagination" id="consignee_pagination">
 
                         </div>
@@ -87,7 +87,34 @@
                     <input type="hidden" name="company_id" id="checked_RestoreConsigneeModal_type" value="">
                     <button id="restore_RestoreConsigneeModal_data"  class="button-29 restore_RestoreConsigneeModal_data" disabled><span>Restore</span></button>
                 </div>
-                <div class="modal-body" style="overflow-y: auto !important;">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                                                    <th ><input type="checkbox" name="checkallIds[]" class="ConsigneeChecked"></th>
+                                                                    <th > Name</th>
+                                                                    <th>Type</th>
+                                                                    <th >Address</th>
+                                                                    <th >Location</th>
+                                                                    <th >Postal / Zip</th>
+                                                                    <th >Contact Name</th>
+                                                                    <th >Contact Email</th>
+                                                                    <th >Telephone</th>
+                                                                    <th >Ext</th>
+                                                                    <th >Toll Free</th>
+                                                                    <th >Fax</th>
+                                                                    <th >Shipping Hours </th>
+                                                                    <th >Appt</th>
+                                                                    <th >Major Instructions/Directions</th>
+                                                                    <th >Status</th>
+                                                                    <th >Shipping Notes</th>
+                                                                    <th >Internal Notes</th>
+                                                                </tr>
+                  </thead>
+                  <tbody id="RestoreConsigneeTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
                     <div class="row1">
                         <div class="col-md-12">
                             <div class="card">
@@ -141,7 +168,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="modal-footer">
                     <button type="button" class="button-29 closeRestoreConsigneeModal" >Close</button>
                 </div>

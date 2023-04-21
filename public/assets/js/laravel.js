@@ -89,8 +89,8 @@ $.ajax({
 
                             }
                         var tr_str1 = "<tr data-id=" + (j + 1) + ">" +
-                            "<td data-field='no'>" + no  + "</td>" +
-                            "<td data-field='name' >" + name + "</td>" +
+                            "<td data-field='no' style=' left: 0px;  z-index: 2; position: sticky; color:white;   background-color:#444A5F; '>" + no  + "</td>" +
+                            "<td data-field='name' style=' left: 65px;  z-index: 2; position: sticky; color:white;   background-color:#444A5F; ' >" + name + "</td>" +
                             "<td data-field='email'>" + email + "</td>" +
                             "<td data-field='location'>" + location + "</td>" +
                             "<td data-field='social_security_no'>" + social_security_no + "</td>" +

@@ -201,7 +201,7 @@ var base_path = $("#url").val();
                         background-color:#444A5F !important;
                         color:white;
                         
-                        z-index: 2; left: 85px !important;">${shipperName}</td>
+                        z-index: 2; left: 64px !important;">${shipperName}</td>
                         <td>Shipper</td>
                         <td>${shipperAddress}</td>
                         <td> ${shipperLocation}</td>
@@ -224,11 +224,12 @@ var base_path = $("#url").val();
                             </td>`;
                     tr += `</tr>`;
                     row = tr + row;
+                    $("#shipperTable").html(row);
                 }
                 
             }
         }
-        $("#shipperTable").html(row);
+       
     }
     // <!--========================-over function ========================- --> 
     //===============================start store shpper =======================================
@@ -1005,8 +1006,18 @@ var base_path = $("#url").val();
                 if(deleteStatus=="YES")
                 {
                     var tr = `<tr>
-                        <td><input type='checkbox' class='check_ShipperAndConsignee_one' name='allShipConIdCheck[]' data-consigneeShipid=" ${id}" date-compID="${masterID}" data-typeOf='shipper' value="${id}"></td>
-                        <td>${shipperName}</td>
+                        <td style="position: -webkit-sticky;
+                        position: sticky !important;
+                        background-color:#444A5F !important;
+                        color:white;
+                        
+                        z-index: 2; left: 0px !important;"><input type='checkbox'  class='check_ShipperAndConsignee_one' name='allShipConIdCheck[]' data-consigneeShipid=" ${id}" date-compID="${masterID}" data-typeOf='shipper' value="${id}"></td>
+                        <td style="position: -webkit-sticky;
+                        position: sticky !important;
+                        background-color:#444A5F !important;
+                        color:white;
+                        
+                        z-index: 2; left: 63px !important;">${shipperName}</td>
                         <td>Shipper</td>
                         <td>${shipperAddress}</td>
                         <td> ${shipperLocation}</td>
@@ -1025,12 +1036,13 @@ var base_path = $("#url").val();
                         <td>${internalNotes}</td>`;
                     tr += `</tr>`;
                     row = tr + row;
-                    // console.log(row);
+                    $(".RestoreshipperTable").append(row);
+                    console.log(row);
                 }
                 
             }
         }
-        $(".RestoreshipperTable").append(row);
+       
     }
     $(document).on("change", ".shipperAndConsigneeChecked", function() 
     {

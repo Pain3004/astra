@@ -823,8 +823,23 @@
 
                 <!-- Modal body -->
                 <div class="modal-body" style="overflow-y: auto !important;">
-                    <!-- Row -->
-                    <div class="row">
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" id="editable-file-datatable" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                  <th>NO</th>
+                                                        <th>Driver Name</th>
+                                                        <th>Application Date</th>
+                                                        <th>Email</th>
+                                                        <th>Contact</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                            </tr>
+                  </thead>
+                  <tbody id="viewDriverApplicationTable" class="load-box"></tbody>
+                </table>
+              </div>
+                    <!-- <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -838,7 +853,7 @@
 
                                                 <thead>
                                                     <tr>
-                                                        <!-- <th>counter</th> -->
+                                                        
                                                         <th>NO</th>
                                                         <th>Driver Name</th>
                                                         <th>Application Date</th>
@@ -857,8 +872,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Row -->
+                    </div> -->
+
                 </div>
 
                 <!-- Modal footer -->

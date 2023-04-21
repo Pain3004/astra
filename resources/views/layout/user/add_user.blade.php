@@ -102,8 +102,6 @@
                                                         <input type="text" class="form-control" name="inputExt"
                                                             id="inputExt" >
                                                     </div>
-                                                </div>
-                                                <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label for="inputTollFree">Toll Free</label>
                                                         <input type="tel" class="form-control" name="inputTollFree"
@@ -115,6 +113,7 @@
                                                             id="inputFax" placeholder="(999) 999-9999" data-mask="(999) 999-9999">
                                                     </div>
                                                 </div>
+                                               
                                                 <div class="form-row">
                                                     <div class="form-group col-md-2">
                                                         <label >Insert</label>

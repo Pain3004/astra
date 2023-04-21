@@ -13,6 +13,7 @@ use File;
 use Image;
 use MongoDB\BSON\ObjectId;
 use Auth;
+use MongoDB\BSON\Regex;
 use App\Helpers\AppHelper;
 use PDF;
 
@@ -77,7 +78,8 @@ class FuelCardController extends Controller
         echo json_encode($completedata);
     }
     public function createFuelCard(Request $request)
-    {       
+    {     
+        // dd($request->cardType);  
         $companyID=(int)Auth::user()->companyID;
         $masterhelper = new AppHelper();
         $collection = IftaCardCategory::raw();
@@ -92,7 +94,7 @@ class FuelCardController extends Controller
                 '_id'=>$masterhelper->getMasterDocumentSequence($companyID,IftaCardCategory::raw(),'ifta_card'),
                 'counter'=> 0,
                 'cardHolderName'=>$request->cardHolderName,
-                'employeeNo'=>$request->employeeNo,
+                'employeeNo'=>$request->cardHolderName,
                 'iftaCardNo'=>$request->iftaCardNo,
                 'cardType'=>$request->cardType,
                 'insertedTime' => time(),
@@ -133,60 +135,109 @@ class FuelCardController extends Controller
     }
     public function editFuelCard(Request $request)
     {
-        $id=$request->id;
-        $companyID=(int)$request->comId;
-        $FuelReceipt=IftaCardCategory::where("companyID",$companyID)->first();
-        $FuelReceiptArray=$FuelReceipt->ifta_card;
-        $FuelReceiptLenght=count($FuelReceiptArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$FuelReceiptLenght; $i++)
+        $id=(int)$request->id;
+        // dd($id);
+        $companyID=(int)Auth::user()->companyID;
+        $cursor = IftaCardCategory::raw()->findOne(['companyID' => $companyID,'ifta_card._id' => $id]);
+        $ifta_cardArray=$cursor->ifta_card;
+        $ifta_cardLength=count($ifta_cardArray);
+        $l=0;
+        $m=0;
+        for($l=0; $l<$ifta_cardLength; $l++)
         {
-            $ids=$FuelReceipt->ifta_card[$i]['_id'];
+            $ids=$cursor->ifta_card[$l]['_id'];
             $ids=(array)$ids;
             foreach($ids as $value)
             {
-                if($value == $id)
+                if($value==$id)
                 {
-                    $v= $i;
+                    $m=$l;
                 }
             }
-        }
-        $FuelReceipt->ifta_card= $FuelReceiptArray[$v];
-        return response()->json($FuelReceipt);  
+        }    
+        $fuelCardId="";
+        $fuelCardName="";
+        $driverName="";
+        $driverId="";
+        $driverId=(int)$cursor->ifta_card[$m]->cardHolderName;
+       $fuelVenderId=(int)$cursor->ifta_card[$m]->cardType;
+        //    dd($driverId);
+       if(!empty($driverId))
+       {
+            $driverData=Driver::raw()->findOne(['companyID' => $companyID,'driver._id' => $driverId]);
+            if($driverData !=null)
+            {
+                $driverArray=$driverData->driver;
+                $driverLength=count($driverArray);
+                $i=0;
+                $v=0;
+                $j=0;
+                $k=0;
+                for($j=0; $j<$driverLength; $j++)
+                {
+                    $ids=$driverData->driver[$j]['_id'];
+                    $ids=(array)$ids;
+                    foreach($ids as $value)
+                    {
+                        if($value==$driverId)
+                        {
+                            $k=$j;
+                        }
+                    }
+                }   
+             
+                $driverName=$driverData->driver[$k]->driverName;
+                $driverId=$driverData->driver[$k]->_id;
+            }
+            
+       }
+       
+
+       if(!empty($fuelVenderId))
+       {
+            $iftaType = FuelVendor::raw()->findOne(['companyID' => $companyID,'fuelCard._id' => $fuelVenderId]);
+            if($iftaType !=null)
+            {
+                $fuelCardArray=$iftaType->fuelCard;
+                $fuelCardLength=count($fuelCardArray);
+                $i=0;
+                $v=0;
+                for($i=0; $i<$fuelCardLength; $i++)
+                {
+                    $ids=$iftaType->fuelCard[$i]['_id'];
+                    $ids=(array)$ids;
+                    foreach($ids as $value)
+                    {
+                        if($value==$fuelVenderId)
+                        {
+                            $v=$i;
+                        }
+                    }
+                }    
+                $fuelCardName=$iftaType->fuelCard[$v]->fuelCardType;
+                $fuelCardId=$iftaType->fuelCard[$v]->_id;
+            }
+            
+            
+           
+       }
+       $data=array(
+        'fuel_type_id'=>$fuelCardId,
+        'fuel_type_name'=>$fuelCardName,
+        'driverName'=>$driverName,
+        'driverId'=>$driverId
+        );
+        $ifta_card=(array)$cursor->ifta_card[$m];
+        $ifta_card=array_merge($ifta_card,$data);
+        return response()->json($ifta_card, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+       
     }
     public function updateFuelCard(Request $request)
     {
+        // dd($request->cardType);
         $id=(int)$request->id;
-        $companyID=(int)$request->comId;
-    //     $FuelCard=IftaCardCategory::where('companyID',$companyID)->first();
-    //     $FuelCardArray=$FuelCard->ifta_card;
-    //     $arrayLength=count($FuelCardArray);
-    //     $i=0;
-    //     $v=0;
-    //    for ($i=0; $i<$arrayLength; $i++){
-    //         $ids=$FuelCard->ifta_card[$i]['_id'];
-    //         $ids=(array)$ids;
-    //         foreach ($ids as $value){
-    //             if($value==$id)
-    //             {
-    //                 $v=$i;
-    //             }
-    //         }
-    //     }
-    //     $FuelCardArray[$v]['counter' ]= 0;
-    //     $FuelCardArray[$v]['cardHolderName' ]= $request->cardHolderName;
-    //     $FuelCardArray[$v]['employeeNo' ]= $request->employeeNo;
-    //     $FuelCardArray[$v]['iftaCardNo' ]= $request->iftaCardNo;
-    //     $FuelCardArray[$v]['cardType' ]= $request->cardType;
-    //     $FuelCardArray[$v]['openingfuelBal']='';                       
-    //     $FuelCardArray[$v]['insertedTime' ]= '' ;
-    //     $FuelCardArray[$v]['insertedUserId' ]= '' ;
-    //     $FuelCardArray[$v]['deleteStatus' ]= 'NO' ;
-    //     $FuelCardArray[$v]['deleteUser' ]= '' ;
-    //     $FuelCardArray[$v]['deleteTime' ]= '' ;
-    //     $FuelCardArray[$v]['averagedays' ]='' ;
-    //     $FuelCard->ifta_card= $FuelCardArray;
+        // dd($id);
+        $companyID=(int)Auth::user()->companyID;
         $FuelCard=IftaCardCategory::raw()->updateOne(['companyID' => $companyID,'ifta_card._id' => $id], 
         ['$set' => ['ifta_card.$.cardHolderName' => $request->cardHolderName,
         'ifta_card.$.employeeNo' => $request->employeeNo,
@@ -204,8 +255,7 @@ class FuelCardController extends Controller
     public function deleteFuelCard(Request $request)
     {
         $id=(int)$request->id;
-        $companyID=(int)$request->comId;
-
+        $companyID=(int)Auth::user()->companyID;
         $FuelCard=IftaCardCategory::raw()->updateOne(['companyID' => $companyID,'ifta_card._id' => $id], 
         ['$set' => ['ifta_card.$.deleteStatus' => 'YES','ifta_card.$.deleteUser' => Auth::user()->userName,'ifta_card.$.deleteTime' => time()]]
         );
@@ -218,50 +268,43 @@ class FuelCardController extends Controller
     public function restoreFuelCard(Request $request)
     {
         $fuelReceIds=$request->all_ids;
-        $custID=(array)$request->custID;
-        foreach($custID as $fuel_re_id)
+        $companyID=(int)Auth::user()->companyID;
+        $fuelReceIds= str_replace( array('[', ']'), ' ', $fuelReceIds);
+        if(is_string($fuelReceIds))
         {
-            $fuel_re_id=str_replace( array( '\'', '"',
-            ',' , ' " " ', '[', ']' ), ' ', $fuel_re_id);
-            $fuel_re_id=(int)$fuel_re_id;
-            $FuelCard = IftaCardCategory::where('companyID',$fuel_re_id )->first();
-            $FuelCardArray=$FuelCard->ifta_card;
-            $arrayLength=count($FuelCardArray);            
-            $i=0;
-            $v=0;
-            $data=array();
-            for ($i=0; $i<$arrayLength; $i++){
-                $ids=$FuelCard->ifta_card[$i]['_id'];
-                $ids=(array)$ids;
-                foreach ($ids as $value){
-                    $fuelReceIds= str_replace( array('[', ']'), ' ', $fuelReceIds);
-                    if(is_string($fuelReceIds))
-                    {
-                        $fuelReceIds=explode(",",$fuelReceIds);
-                    }
-                    foreach($fuelReceIds as $fuelReId)
-                    {
-                        $fuelReId= str_replace( array('"', ']' ), ' ', $fuelReId);
-                        if($value==$fuelReId)
-                        {                        
-                            $data[]=$i; 
-                        }
-                    }
-                }
-            }
-            foreach($data as $row)
-            {
-                $FuelCardArray[$row]['deleteStatus'] = "NO";
-                $FuelCard->ifta_card= $FuelCardArray;
-                $save=$FuelCard->save();
-            }
-            if ($save) {
-                $arr = array('status' => 'success', 'message' => 'Fuel Card Restored successfully.','statusCode' => 200); 
-                return json_encode($arr);
+            $fuelReceIds=explode(",",$fuelReceIds);
+        }                   
+        foreach($fuelReceIds as $iftaId)
+        {
+            $iftaId= str_replace( array('"', ']' ), ' ', $iftaId);
+                $IftaCardCategory=IftaCardCategory::raw()->updateOne(['companyID' =>$companyID,'ifta_card._id' => (int)$iftaId], 
+                ['$set' => ['ifta_card.$.deleteStatus' => 'NO','ifta_card.$.deleteUser' => Auth::user()->userName,'ifta_card.$.deleteTime' => time()]]
+            );
+        } 
+        $arr = array('status' => 'success', 'message' => 'ifta card Restored successfully.','statusCode' => 200); 
+        return json_encode($arr);
+    }
+    public function searchFuelVendor(Request $request)
+    {
+        $para = '^' . $request->value;
+        $datasearch = new Regex($para, 'i');
+        $show = FuelVendor::raw()->aggregate([
+            ['$match' => ["companyID" => (int)Auth::user()->companyID]],
+            ['$unwind' => '$fuelCard'],
+            ['$match' => ['fuelCard.fuelCardType' => $datasearch,"fuelCard.deleteStatus"=>"NO"]],
+            ['$project' => ['fuelCard._id' => 1, 'fuelCard.fuelCardType' => 1, 'companyID' => 1]],
+            ['$limit' => 50]
+        ]);
+        $shipper = array();
+        $fuelCardList = array();
+        foreach ($show as $s) {
+            $k = 0;
+            $shipper[$k] = $s['fuelCard'];
+            $k++;
+            foreach ($shipper as $sr) {
+                $fuelCardList[] = array("id" => $sr['_id'], "value" => $sr['fuelCardType']);
             }
         }
+        echo json_encode($fuelCardList);
     }
-   
-
-    
 }

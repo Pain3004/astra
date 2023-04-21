@@ -104,6 +104,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                <span class="mandatory_admin" style="color:red; font-size:15px;">Note: XLSX files must contain atmost 1000 rows at a time.</span>
                     <!-- <form action="{{route('download-pdf')}}" method="post" target="__blank">
                         @csrf
                         @if($exportUser == 1)
@@ -111,7 +112,7 @@
                         @endif
                     </form> -->
                     <button type="button" class="button-29 FactoringCompanyModalClose" >Close</button>
-                    <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
+                  
                     </nav> 
                     <nav aria-label="..." data-name="factoring_pagination" class="float-right">
                         <div class="pagination" id="factoring_pagination">
@@ -130,7 +131,9 @@
 
     <div class="modal fade"  id="addFactoringCompanyModal"style="z-index:1000000000;">
         <div class="modal-dialog custom_modal_small2 modal-dialog-scrollable" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="
+    height: 550px;
+">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Factoring Company</h5>
                     <button type="button" class="button-24 addFactoringCompanyModalCloseButton">&times;</button>
@@ -262,10 +265,12 @@
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="update_FactoringCompanyModal" role="dialog">
         <div class="modal-dialog custom_modal" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="
+    height: 600px;
+">
                 <div class="modal-header">
                     <h4 class="modal-title">Update Factoring Company </h4>
-                    <button type="button" class="closeUpdateFactoringCompanyModal" >&times;</button>
+                    <button type="button" class="button-24 closeUpdateFactoringCompanyModal" >&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -410,13 +415,13 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Restore Factoring Company</h4>
-                    <button type="button" class="button-29 RestoreFactoringCompanyModalClose" >&times;</button>
+                    <button type="button" class="button-24 RestoreFactoringCompanyModalClose" >&times;</button>
                 </div>
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                         <input type="hidden" name="checked_id" id="checked_FactringCom_ids" value="">
                         <input type="hidden" name="company_id" id="checked_FactringC_company_ids" value="">
-                        <button id="restorefactring_com_btn"  class=" restorefactring_com_btn" disabled><span>Restore fuel vendor</span></button>
+                        <button id="restorefactring_com_btn"  class="button-29 restorefactring_com_btn" disabled><span>Restore fuel vendor</span></button>
                 </div>
                 <div class="table-responsive table-scroll">
                  <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 

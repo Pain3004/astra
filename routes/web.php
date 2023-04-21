@@ -242,6 +242,7 @@ Route::get('admin/editFuelCard', [FuelCardController::class, 'editFuelCard']);
 Route::post('admin/updateFuelCard', [FuelCardController::class, 'updateFuelCard']);
 Route::post('admin/deleteFuelCard', [FuelCardController::class, 'deleteFuelCard']);
 Route::post('admin/restoreFuelCard', [FuelCardController::class, 'restoreFuelCard']);
+Route::post('admin/searchFuelVendor', [FuelCardController::class, 'searchFuelVendor']);
 
 //Fuel Receipt
 Route::get('admin/getFuelReceipt', [FuelReceiptController::class, 'getFuelReceipt']);

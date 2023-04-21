@@ -6,28 +6,24 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <!-- <h4 class="modal-title">Consignee</h4> -->
-                    
+                    <nav class="nav d-sm-flex d-block">
+                                            <input type="hidden" class="editAddressType">
+                                            <button class="button-29 shipperConsignee_navbar" style="background-color:#3a8acf;" href="#ShipperAndConsigneeTable" id=""> Shipper </button>
+                                            <button class="button-29 consignee_viewList" style="margin-left:6px;" >Consignee</button>
+                                        </nav>
                     <span class="model-statistics1" data-name="shipper_total" id="total_shipper"></span>
 
                     <button type="button" class="button-24 closeShipperModal">&times;</button>
                 </div>
-                <div class="tab-menu-heading border-bottom-0">
-                                    <div class="tabs-menu4 border-bottomo-sm">
-                                        <nav class="nav d-sm-flex d-block">
-                                            <input type="hidden" class="editAddressType">
-                                            <button class="button-29 shipperConsignee_navbar" href="#ShipperAndConsigneeTable" id=""> Shipper </button>
-                                            <button class="button-29 consignee_viewList" style="margin-left:6px;" >Consignee</button>
-                                        </nav>
-                                    </div>
-                                </div>
+              
                 <div>
                 <div class="panel-body tabs-menu-body">
-                <a href="#" class="button-29  createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
+                <a href="#" style="height:37px;" class="button-29  createShipperModalBtn" data-toggle="modal" data-target="#">Add</a>
                                                         <a href="#" class="button-29  restoreshipperAndConsigneeBtn" style="height:37px;"><span>Restore </span></a>
 
 
                                                         <input type="file" class="form-control float-right" id="Shipperfiles" name="Shipperfiles[]" multiple="" accept=".png, .jpg, .jpeg, .pdf" style="width: auto;">
-                                                        <a href="#setupDriverModal" class="button-29 button-58_alt float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
+                                                        <a href="#setupDriverModal" style="margin-right: 7px;" class="button-29 button-58_alt float-right" data-toggle="modal" data-target="#viewDriverApplicationModal"> XLSX format</a> &nbsp;&nbsp;&nbsp;
 
                 </div>
 </div>
@@ -62,12 +58,13 @@
               </div>
                
                 <div class="modal-footer">
+                <span class="mandatory_admin" style="color:red; font-size:15px;">Note: XLSX files must contain atmost 1000 rows at a time.</span>
                 <form action="{{route('driver-pdf')}}" method="post" target="__blank">
                         @csrf
                         <button class="button-29 btn btn-success button-29 " style=" background: #1b71bc; width: 115px; height:35px; font-size: 12px;"><span>Export</span></button>
                     </form>
                     <button type="button" class="button-29  closeShipperModal" style=" background: #1b71bc; width: 115px; font-size: 12px;" >Close</button>
-                    <span class="mandatory_admin">Note: XLSX files must contain atmost 1000 rows at a time.</span>
+                   
                     <nav aria-label="..." data-name="shipper_pagination" class="float-right">
                         <div class="pagination" id="shipper_pagination">
 
@@ -87,24 +84,16 @@
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="AddShipper_and_ConsigneeModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
-            <div class="modal-content">
+            <div class="modal-content" style="height:550px;">
                 <div class="modal-header">
-                    <!-- <h4 class="modal-title">Add Shipper & Consignee</h4> -->
+                    <h4 class="modal-title">Add Shipper & Consignee</h4>
                     <button type="button" class="button-24 closeCreateShipperAndConsigneeModal">&times;</button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     <div class="row1">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="tab-menu-heading border-bottom-0">
-                                    <div class="tabs-menu4 border-bottomo-sm">
-                                        
-                                    </div>
-                                </div>
-                                <div class="card-body p-6">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-body tabs-menu-body">
-                                            <div class="tab-content">
+                              
                                                     <div class="table-responsive export-table"style="width=100%">
                                                         <form>
                                                             @csrf
@@ -235,10 +224,7 @@
                                                             </div>
                                                         </form>
                                                     </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                  
                             </div>
                         </div>
                     </div>
@@ -256,27 +242,19 @@
 
 <!-- ====================== update shipper & consignee ====================================-->
 <div class="container">
-    <div class="modal fade" data-backdrop="static" id="UpdateShipper_and_ConsigneeModal">
+    <div class="modal fade" style="    backdrop-filter: blur(1px) contrast(.1);" data-backdrop="static" id="UpdateShipper_and_ConsigneeModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
-            <div class="modal-content">
+            <div class="modal-content" style="height: 550px;">
                 <div class="modal-header">
-                    <h4 class="modal-title">Update Shipper & Consignee</h4>
+                    <h4 class="modal-title">Update Shipper </h4>
                     <button type="button" class="button-24 closeUpdateCreateShipperAndConsigneeModal">&times;</button>
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     <div class="row1">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="tab-menu-heading border-bottom-0">
-                                    <div class="tabs-menu4 border-bottomo-sm">
-                                        <nav class="nav d-sm-flex d-block">
-                                        </nav>
-                                    </div>
-                                </div>
-                                <div class="card-body p-6">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-body tabs-menu-body">
-                                            <div class="tab-content">
+                                
+                              
                                                     <div class="table-responsive export-table">
                                                         <form>
                                                             @csrf
@@ -398,10 +376,7 @@
                                                             </div>
                                                         </form>
                                                     </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        
                             </div>
                         </div>
                     </div>
@@ -457,7 +432,7 @@
                                                                     <th >Internal Notes</th>
                                                                 </tr>
                   </thead>
-                  <tbody id="RestoreshipperTable" class="load-box"></tbody>
+                  <tbody id="RestoreshipperTable" class="load-box RestoreshipperTable"></tbody>
                 </table>
               </div>
                 <!-- <div class="modal-body" style="overflow-y: auto !important;">

@@ -21,16 +21,66 @@
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                 @if($insertUser== 1)
-                    <a href="#" class="buttom-29" id="AddPaymentTerms"><i class="fa fa-plus" aria-hidden="true"></i><span>Add PaymentTerms</span></a>
+                    <a href="#" class="buttom-29" style="position: relative;
+    overflow: hidden;
+    border: transparent;
+    color: #fff;
+    display: inline-block;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+    padding: 10px 0px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #1b71bc;
+    /* background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%); */
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-weight: 600;
+    width: 115px;" id="AddPaymentTerms"><span>Add PaymentTerms</span></a>
                 @endif 
                 @if($deleteUser== 1)    
-                    <a href="#" class="buttom-29" id="restorePaymentTerms"><i class="fa fa-repeat" aria-hidden="true"></i></span><span>Restore </span></a>
+                    <a href="#" class="buttom-29" style="position: relative;
+    overflow: hidden;
+    border: transparent;
+    color: #fff;
+    display: inline-block;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+    padding: 10px 0px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #1b71bc;
+    /* background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%); */
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-weight: 600;
+    width: 115px;" id="restorePaymentTerms"></span><span>Restore </span></a>
                 @endif
 
                 </div>
                 <!-- Modal body -->
-                <div class="modal-body" style="overflow-y: auto !important;">
-                    <!-- Row -->
+                <div class="table-responsive table-scroll">
+                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
+                  <thead class="thead_th" style="height:40px;">
+                  <tr class="tr">
+                                                        <th>NO</th>
+                                                        <th style="display:none;">NO</th>
+                                                        <th>Name</th>
+                                                        <th>Net Days</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                  </thead>
+                  <tbody id="PaymentTermsTable" class="load-box"></tbody>
+                </table>
+              </div>
+                <!-- <div class="modal-body" style="overflow-y: auto !important;">
+
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
@@ -57,8 +107,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Row -->
-                </div>
+                    
+                </div> -->
 
                 <!-- Modal footer -->
                 <div class="modal-footer">

@@ -171,17 +171,17 @@ var base_path = $("#url").val();
                 if(deleteStatus=="NO")
                 {
                     var tr = `<tr>
-                        <td data-id="${id}"  style="position: -webkit-sticky;
+                        <td   style="position: -webkit-sticky;
                         position: sticky !important;
                         background-color: #444A5F !important;
                         color:white;
                         left: 0;
-                        z-index: 2;">${id}</td>
+                        z-index: 2;" data-id="${id}">${id}</td>
                         <td style="position: -webkit-sticky;
                         position: sticky !important;
                         background-color:#444A5F !important;
                         color:white;
-                        left: 65px !important;
+                        left: 55px !important;
                         z-index: 2;">${name}</td>
                         <td>${address}</td>
                         <td>${locations}</td>
@@ -192,10 +192,10 @@ var base_path = $("#url").val();
                         <td>${telephones} </td>
                         <td>${mc}</td>
                         <td>${dot}</td>`;
-                    tr += `<td  style="display:flex; flex-direction:row;">
-                        <a class='mt-2 button-23 edit_externalCarrier_form fs-14  '  title='Edit1' data-externalCarriId='${id}' data-com_Id='${masterID}' ><i class='fe fe-edit'></i></a>
+                    tr += `<td>
+                        <a class='mt-2 button-23 edit_externalCarrier_form fs-14 text-white '  title='Edit1' data-externalCarriId='${id}' data-com_Id='${masterID}' ><i class='fe fe-edit'></i></a>
 
-                        <a class='mt-2 button-23 fs-14  delete_externalCarrier_form'  title='Edit1' data-externalCarriId='${id}' data-com_Id='${masterID}'  ><i class='fe fe-trash'></i></a>
+                        <a class='mt-2 button-23 fs-14 text-white delete_externalCarrier_form'  title='Edit1' data-externalCarriId='${id}' data-com_Id='${masterID}'  ><i class='fe fe-trash'></i></a>
                         </td></tr>`;
     
                     row = tr + row;
@@ -215,9 +215,9 @@ var base_path = $("#url").val();
     $("#plusPaymentTerms3").click(function(){
         $("#PaymentTermsModal").modal("show");
     });
-    $(".plusPaymentTerms").click(function(){
-        $("#PaymentTermsModal").find().modal("show");
-    })
+    // $(".plusPaymentTerms").click(function(){
+    //     $("#PaymentTermsModal").find().modal("show");
+    // })
     // end ===============================================
 
 
@@ -664,9 +664,18 @@ var base_path = $("#url").val();
                         url: base_path + "/admin/getExternalCarrier",
                         async: false,
                         success: function (text) {
-                            // console.log(text);
-                            createExternalCarrier(text);
-                            ExternalCarrierResult = text;
+                            var res = JSON.parse(text);
+                            if (res[0] != '') {
+                                processCarrierTable(res[0]);
+                                if (res[1] != undefined) {
+                                    $("#carrier_pagination").html(paginateList(res[1], "admin", "paginatecarrier", "processCarrierTable"));
+                                }
+                                renameTableSeq("external_carrierTable", "page_active");
+                            }
+                            else {
+                                var tr = "<tr><td colspan='12' style='color : red;font-weight: bold'>NO RESULT FOUND..!!</td></tr>";
+                                $("#external_carrierTable").html(tr);
+                            }
                         }
                     });
                 }
@@ -706,9 +715,18 @@ var base_path = $("#url").val();
                         url: base_path + "/admin/getExternalCarrier",
                         async: false,
                         success: function (text) {
-                            console.log(text);
-                            createExternalCarrier(text);
-                            ExternalCarrierResult = text;
+                            var res = JSON.parse(text);
+                                if (res[0] != '') {
+                                    processCarrierTable(res[0]);
+                                    if (res[1] != undefined) {
+                                        $("#carrier_pagination").html(paginateList(res[1], "admin", "paginatecarrier", "processCarrierTable"));
+                                    }
+                                    renameTableSeq("external_carrierTable", "page_active");
+                                }
+                                else {
+                                    var tr = "<tr><td colspan='12' style='color : red;font-weight: bold'>NO RESULT FOUND..!!</td></tr>";
+                                    $("#external_carrierTable").html(tr);
+                                }
                         }
                     });
                 }
@@ -884,9 +902,18 @@ var base_path = $("#url").val();
                             url: base_path + "/admin/getExternalCarrier",
                             async: false,
                             success: function (text) {
-                                console.log(text);
-                                createExternalCarrier(text);
-                                ExternalCarrierResult = text;
+                                var res = JSON.parse(text);
+                                if (res[0] != '') {
+                                    processCarrierTable(res[0]);
+                                    if (res[1] != undefined) {
+                                        $("#carrier_pagination").html(paginateList(res[1], "admin", "paginatecarrier", "processCarrierTable"));
+                                    }
+                                    renameTableSeq("external_carrierTable", "page_active");
+                                }
+                                else {
+                                    var tr = "<tr><td colspan='12' style='color : red;font-weight: bold'>NO RESULT FOUND..!!</td></tr>";
+                                    $("#external_carrierTable").html(tr);
+                                }
                             }
                         });
                         $('#ExternalCarrierModal').modal('show');
@@ -908,9 +935,18 @@ var base_path = $("#url").val();
             url: base_path + "/admin/getExternalCarrier",
             async: false,
             success: function (text) {
-                console.log(text);
-                RestoreExternalCarrier(text);
-                ExternalCarrierResult = text;
+                var res = JSON.parse(text);
+                if (res[0] != '') {
+                    restoreProcessCarrierTable(res[0]);
+                    // if (res[1] != undefined) {
+                    //     $("#carrier_pagination").html(paginateList(res[1], "admin", "paginatecarrier", "processCarrierTable"));
+                    // }
+                    // renameTableSeq("Restoreexternal_carrierTable", "page_active");
+                }
+                else {
+                    var tr = "<tr><td colspan='12' style='color : red;font-weight: bold'>NO RESULT FOUND..!!</td></tr>";
+                    $("#Restoreexternal_carrierTable").html(tr);
+                }
             }
         });
         $('#RestoreExternalCarrierModal').modal('show');
@@ -919,70 +955,155 @@ var base_path = $("#url").val();
     $(".closeRestoreExternalCarrierModal").click(function(){
         $('#RestoreExternalCarrierModal').modal('hide');
     });
-    function RestoreExternalCarrier(ExternalCarrierResult)
-    {
-        var extCariLeng = 0;
-        if (ExternalCarrierResult != null) {
-            $("#Restoreexternal_carrierTable").html('');
-            var data=ExternalCarrierResult.length;
-            for(var g=0;g<data;g++)
-            {
-                extCariLeng = ExternalCarrierResult[g].carrier.length;
-                if(extCariLeng != null)
+    function restoreProcessCarrierTable (res) {
+        $("#Restoreexternal_carrierTable").empty();
+        var row = ``;
+        for (var j = res.length - 1; j >= 0; j--) {
+            var masterID = res[j]["arrData1"]._id;
+            var data = res[j]["arrData1"].carrier;
+            for (var i = 0; i < data.length; i++) {
+    
+                var id = data[i]._id;
+                var counter = data[i].counter;
+                var name = data[i].name;
+                var address = data[i].address;
+                var zip = data[i].zip;
+                var locations = data[i].location;
+                var contactName = data[i].contactName;
+                var email = data[i].email;
+                var telephones = data[i].telephone;
+                var mc = data[i].mc;
+                var dot = data[i].dot;
+                var taxID = data[i].taxID;
+                var factoringCompany = data[i].factoringCompany;
+                var deleteStatus = data[i].deleteStatus;
+                var paymentTerm = data[i].paymentTerm;
+                if (factoringCompany == '') {
+                    var factoringCompany = 'NA';
+                }
+                if(name !="" && name !=null)
                 {
-                    var no=1;
-                    for(var i=extCariLeng-1;i >= 0; i--)
-                    {
-                        var id=ExternalCarrierResult[g].carrier[i]._id;
-                        var com_Id=ExternalCarrierResult[g].companyID;
-                        var name =ExternalCarrierResult[g].carrier[i].name;
-                        var address =ExternalCarrierResult[g].carrier[i].address;
-                        var location =ExternalCarrierResult[g].carrier[i].location;
-                        var zip =ExternalCarrierResult[g].carrier[i].zip;
-                        var contactName =ExternalCarrierResult[g].carrier[i].contactName;
-                        var email =ExternalCarrierResult[g].carrier[i].email;
-                        var taxID =ExternalCarrierResult[g].carrier[i].taxID;
-                        var telephone =ExternalCarrierResult[g].carrier[i].telephone;
-                        var mc =ExternalCarrierResult[g].carrier[i].mc;
-                        var dot =ExternalCarrierResult[g].carrier[i].dot;
-                        var deleteStatus =ExternalCarrierResult[g].carrier[i].deleteStatus;
-                        if (deleteStatus == "YES") 
-                        {
-                            var ExternalCarHtml = "<tr data-id=" + (i + 1) + ">" +
-                                "<td data-field='no'><input type='checkbox' name='checkExternalCarOne[]' class='checkedIdsOneCarries' value='"+id+"' data-comId='"+com_Id+"' data-cariierId='"+id+"'></td>" +
-                                "<td >" + name + "</td>" +
-                                "<td>" + address + "</td>" +
-                                "<td>" + location + "</td>" +
-                                "<td>" + zip + "</td>" +
-                                "<td>" + contactName + "</td>" +
-                                "<td>" + email + "</td>" +
-                                "<td>" + taxID + "</td>" +
-                                "<td>" + telephone + "</td>" +
-                                "<td>" + mc + "</td>" +
-                                "<td>" + dot + "</td></tr>";
-
-                            $("#Restoreexternal_carrierTable").append(ExternalCarHtml);
-                            no++;
-                        }
-                    }
+                    name=name;
                 }
                 else
                 {
-                    var ExternalCarHtml = "<tr data-id=" + i + ">" +
-                    "<td align='center' colspan='4'>No record found.</td>" +
-                    "</tr>";
-                    $("#Restoreexternal_carrierTable").append(ExternalCarHtml);
-                }                  
+                    name="-------";
+                }
+                if(address !="" && address !=null)
+                {
+                    address=address;
+                }
+                else
+                {
+                    address="-------";
+                }
+                if(zip !="" && zip !=null)
+                {
+                    zip=zip;
+                }
+                else
+                {
+                    zip="-------";
+                }
+                if(locations !="" && locations !=null)
+                {
+                    locations=locations;
+                }
+                else
+                {
+                    locations="-------";
+                }
+                if(contactName !="" && contactName !=null)
+                {
+                    contactName=contactName;
+                }
+                else
+                {
+                    contactName="-------";
+                }
+
+                if(email !="" && email !=null)
+                {
+                    email=email;
+                }
+                else
+                {
+                    email="-------";
+                }
+                if(telephones !="" && telephones !=null)
+                {
+                    telephones=telephones;
+                }
+                else
+                {
+                    telephones="-------";
+                }
+                if(mc !="" && mc !=null)
+                {
+                    mc=mc;
+                }
+                else
+                {
+                    mc="-------";
+                }
+                if(dot !="" && dot !=null)
+                {
+                    dot=dot;
+                }
+                else
+                {
+                    dot="-------";
+                }
+                if(taxID !="" && taxID !=null)
+                {
+                    taxID=taxID;
+                }
+                else
+                {
+                    taxID="-------";
+                }
+                if(factoringCompany !="" && factoringCompany !=null)
+                {
+                    factoringCompany=factoringCompany;
+                }
+                else
+                {
+                    factoringCompany="-------";
+                }
+                if(deleteStatus=="YES")
+                {
+                    var tr = `<tr>
+                        <td style="position: -webkit-sticky;
+                        position: sticky !important;
+                        background-color:#444A5F !important;
+                        color:white;
+                        
+                        z-index: 2; left: 0px !important;"><input type='checkbox' name='checkExternalCarOne[]' class='checkedIdsOneCarries' value='${id}' data-comId='${masterID}' data-cariierId='${id}'></td>
+                        <td style="position: -webkit-sticky;
+                        position: sticky !important;
+                        background-color:#444A5F !important;
+                        color:white;
+                        
+                        z-index: 2; left: 85px !important;">${name}</td>
+                        <td>${address}</td>
+                        <td>${locations}</td>
+                        <td>${zip}</td>
+                        <td>${contactName} </td>
+                        <td>${email}</td>
+                        <td>${taxID}</td>
+                        <td>${telephones} </td>
+                        <td>${mc}</td>
+                        <td>${dot}</td></tr>`;
+    
+                    row = tr + row;
+                    $("#Restoreexternal_carrierTable").html(row);
+                }
+                
             }
         }
-        else
-        {
-            var ExternalCarHtml = "<tr data-id=" + i + ">" +
-            "<td align='center' colspan='4'>No record found.</td>" +
-            "</tr>";
-            $("#Restoreexternal_carrierTable").append(ExternalCarHtml);
-        }
+       
     }
+   
     $(document).on("change", ".externalCarrier_all_ids", function() 
     {
         if(this.checked) {
@@ -1042,9 +1163,18 @@ var base_path = $("#url").val();
                     url: base_path + "/admin/getExternalCarrier",
                     async: false,
                     success: function (text) {
-                        console.log(text);
-                        createExternalCarrier(text);
-                        ExternalCarrierResult = text;
+                        var res = JSON.parse(text);
+                        if (res[0] != '') {
+                            processCarrierTable(res[0]);
+                            if (res[1] != undefined) {
+                                $("#carrier_pagination").html(paginateList(res[1], "admin", "paginatecarrier", "processCarrierTable"));
+                            }
+                            renameTableSeq("external_carrierTable", "page_active");
+                        }
+                        else {
+                            var tr = "<tr><td colspan='12' style='color : red;font-weight: bold'>NO RESULT FOUND..!!</td></tr>";
+                            $("#external_carrierTable").html(tr);
+                        }
                     }
                 });
             }

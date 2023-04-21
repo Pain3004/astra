@@ -14,8 +14,8 @@
                     <button type="button" class="button-24 closeExternalCarrierModal" data-dismiss="modal">&times;</button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
-                    <button class="button-57_alt AddExternalCarrierBtn" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add </span></button>
-                    <button class="button-57_alt restoreExternalCarrierBtn" ><i class="fa fa-repeat " aria-hidden="true"></i><span>Restore </span></button>
+                    <button class="button-29 AddExternalCarrierBtn" ><span>Add </span></button>
+                    <button class="button-29 restoreExternalCarrierBtn" ><span>Restore </span></button>
                 </div>
                 <div class="table-responsive table-scroll">
                  <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
@@ -890,7 +890,7 @@
                 <div style="margin-top: 15px; margin-left: 15px;">
                     <input type="hidden" name="checked_id" id="checked_externalCarrier" value="">
                     <input type="hidden" name="company_id" id="checked_externalCarrier_company_ids" value="">
-                    <button id="restore_externalCarrierData"  class="button-57_alt restore_externalCarrierData" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore </span></button>
+                    <button id="restore_externalCarrierData"  class="button-29 restore_externalCarrierData" disabled><span>Restore </span></button>
                 </div>
                 <div class="table-responsive table-scroll">
                  <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 

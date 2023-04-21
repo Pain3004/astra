@@ -70,7 +70,7 @@ $(document).ready(function() {
                                         "<td data-field='paymentDays'>" + paymentDays + "</td>" +
                                         "<td style='text-align:center'>"+
                                             "<a class='editPayTerms button-23 "+editPrivilege+"'  title='Edit1' data-Id='"+payment_id+"' data-comID='"+com_Id+"' ><i class='fe fe-edit'></i></a>&nbsp"+
-                                            "</a> <a class='deletePayTerms button-23 "+delPrivilege+"' title='Delete' data-Id='"+payment_id+"' data-comID='"+com_Id+"'><i class='fe fe-delete'></i></a>"+
+                                            "</a> <a class='deletePayTerms button-23 "+delPrivilege+"' title='Delete' data-Id='"+payment_id+"' data-comID='"+com_Id+"'><i class='fe fe-trash'></i></a>"+
                                         "</td></tr>";
             
                                     $("#PaymentTermsTable").append(PaymentTermsStr);

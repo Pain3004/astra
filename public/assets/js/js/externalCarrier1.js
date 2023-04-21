@@ -171,18 +171,8 @@ var base_path = $("#url").val();
                 if(deleteStatus=="NO")
                 {
                     var tr = `<tr>
-                        <td   style="position: -webkit-sticky;
-                        position: sticky !important;
-                        background-color: #444A5F !important;
-                        color:white;
-                        left: 0;
-                        z-index: 2;" data-id="${id}">${id}</td>
-                        <td style="position: -webkit-sticky;
-                        position: sticky !important;
-                        background-color:#444A5F !important;
-                        color:white;
-                        left: 85px !important;
-                        z-index: 2;">${name}</td>
+                        <td data-id="${id}">${id}</td>
+                        <td>${name}</td>
                         <td>${address}</td>
                         <td>${locations}</td>
                         <td>${zip}</td>

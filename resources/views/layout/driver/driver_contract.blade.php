@@ -22,11 +22,11 @@
 								<div class="col-md-12">
 									<div class="card">
                                         <div class="card-body">
-                                            <a href="#addContractCategory" class="button-29" data-toggle="modal" data-target="#addContractCategory">Add Contract Category</a>
+                                            <a href="#addContractCategory" class="button-29" style="width:200px;" data-toggle="modal" data-target="#addContractCategory">Add Contract Category</a>
 										</div>
 										<div class="card-body">
                                                 
-                                                <div aria-multiselectable="true" class="accordion" id="accordion" role="tablist">
+                                                <div aria-multiselectable="true" class="accordion" style="width:60%;" id="accordion" role="tablist">
                                                     
                                                 </div>
 										</div>

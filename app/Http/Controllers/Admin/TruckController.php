@@ -21,11 +21,6 @@ class TruckController extends Controller
 {
     public function getTruck(Request $request)
     {
-    //     $companyId=1;
-    //     $truck = Truckadd::where('companyID',$companyId)->first();
-    //     $truck_type = Truck_type::where('companyID',$companyId)->first();
-    //    return response()->json(['truck'=>$truck,'truck_type'=>$truck_type], 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
-
         $companyID=(int)Auth::user()->companyID;
         $total_records = 0;
         $cursor = Truckadd::raw()->aggregate([
@@ -121,210 +116,191 @@ class TruckController extends Controller
     
     public function addTruckData(Request $request)
     {
-    //     request()->validate([
-    //         'truck_number' => 'required',
-    //         'trucktype' => 'required',
-    //         'license_plate' => 'required',
-    //         'plate_expiry' => 'required',
-    //         'ownership' => 'required',
-    //         'vin' => 'required',
-    //     ]);
-    //   $path = public_path().'/TruckFile';
-    //   if(!File::exists($path)) {
-    //     File::makeDirectory($path, $mode = 0777, true, true);
-    //     }
-    //     $privilege=Auth::user()->privilege;
-    //     try{
-    //         if ($files = $request->file('file')) {
-    //             foreach ($request->file('file') as $file) {
+        request()->validate([
+            'truck_number' => 'required',
+            'trucktype' => 'required',
+            'license_plate' => 'required',
+            'plate_expiry' => 'required',
+            'ownership' => 'required',
+            'vin' => 'required',
+        ]);
+      $path = public_path().'/TruckFile';
+      if(!File::exists($path)) {
+        File::makeDirectory($path, $mode = 0777, true, true);
+        }
+        $privilege=Auth::user()->privilege;
+        try{
+            if ($files = $request->file('file')) {
+                foreach ($request->file('file') as $file) {
                     
-    //                 $name =  time().rand(0,1000).$file->getClientOriginalName();
-    //                 $filePath=$file->move(public_path() . '/TruckFile/', $name);
-    //                 $data[] = $name;
-    //                 $size = File::size($filePath);
+                    $name =  time().rand(0,1000).$file->getClientOriginalName();
+                    $filePath=$file->move(public_path() . '/TruckFile/', $name);
+                    $data[] = $name;
+                    $size = File::size($filePath);
                     
-    //                 $truckfile[]=array(
-    //                     '_id' => 0,
-    //                     'mainid' =>'' ,
-    //                     'status' => 'truckadd',
-    //                     'filename' =>$name ,
-    //                     'originalname' => $file->getClientOriginalName(),
-    //                     'filesize' =>$size ,
-    //                     'targetfilepath' => "TruckFile/".$name,
-    //                     'index' =>0,
-    //                     'companyId' => 1,
-    //                     'privilege' => $privilege,
-    //                 );
-    //             }
-    //         }
-    //     }
-    //     catch(\Exception $error){
-    //         return $error->getMessage();
-    //     }       
-    //     try{
-    //         $companyID=(int)Auth::user()->companyID;
+                    $truckfile[]=array(
+                        '_id' => 0,
+                        'mainid' =>'' ,
+                        'status' => 'truckadd',
+                        'filename' =>$name ,
+                        'originalname' => $file->getClientOriginalName(),
+                        'filesize' =>$size ,
+                        'targetfilepath' => "TruckFile/".$name,
+                        'index' =>0,
+                        'companyId' => 1,
+                        'privilege' => $privilege,
+                    );
+                }
+            }
+        }
+        catch(\Exception $error){
+            return $error->getMessage();
+        }       
+        try{
+            $companyID=(int)Auth::user()->companyID;
 
-    //         $getTruck = Truckadd::where('companyID',$companyID)->first();
-    //         // dd($getTruck);
-    //             if($getTruck){
-    //                 $totalTruckArray=count($getTruck->truck);
-    //             //     $totalTruckArray=$getTruck->truck;
-    //             //     $ids=array();
-    //             // foreach( $totalTruckArray as $key=> $row)
-    //             // {
-    //             //     $ids[]=$row['_id'];
-    //             // }
-    //             // $ids=max($ids);
-    //             // dd($ids);
-    //             // $totalTruckArray=$ids+1;
+            $getTruck = Truckadd::where('companyID',$companyID)->first();
+            // dd($getTruck);
+                if($getTruck){
+                    $totalTruckArray=count($getTruck->truck);
+                //     $totalTruckArray=$getTruck->truck;
+                //     $ids=array();
+                // foreach( $totalTruckArray as $key=> $row)
+                // {
+                //     $ids[]=$row['_id'];
+                // }
+                // $ids=max($ids);
+                // dd($ids);
+                // $totalTruckArray=$ids+1;
 
-    //             }else{
-    //                 $totalTruckArray=0; 
-    //             }
-    //             if(isset($truckfile)){
-    //                 $truckDoc=array($truckfile);
-    //             }else{
-    //                 $truckDoc=array();
-    //             }
-    //             // dd($totalTruckArray);
-    //         $truckData[]=array(    
-    //                 '_id' => $totalTruckArray,
-    //                 'counter' => 0,
-    //                 'truckNumber' => $request->truck_number,
-    //                 'truckType' => $request->trucktype,
-    //                 'licensePlate' => $request->license_plate,
-    //                 'plateExpiry' => strtotime($request->plate_expiry),
-    //                 'inspectionExpiry' =>strtotime($request->inspection),
-    //                 'status' => $request->truck_status,
-    //                 'ownership' => $request->ownership,
-    //                 'mileage' => $request->mileage,
-    //                 'axies' => $request->axies,
-    //                 'year' => $request->year,
-    //                 'fuelType' => $request->fuel_type,
-    //                 'startDate' => strtotime($request->start_date),
-    //                 'deactivationDate' => strtotime($request->deactivation),
-    //                 'ifta' => $request->ifta,
-    //                 'registeredState' => $request->RegisteredState,
-    //                 'insurancePolicy' => $request->Insurance_Policy,
-    //                 'grossWeight' => $request->gross,
-    //                 'vin' => $request->vin,
-    //                 'dotexpiryDate' => strtotime($request->dot),
-    //                 'transponder' => $request->transponder,
-    //                 'internalNotes' => $request->internal_note,
-    //                 'trucDoc' => $truckDoc,
-    //                 'insertedTime' => time(),
-    //                 'insertedUserId' =>Auth::user()->_id,
-    //                 'edit_by' =>Auth::user()->userName,
-    //                 'edit_time' =>'',
-    //                 'deleteStatus' => "NO",
-    //                 'deleteUser' => "",
-    //                 'deleteTime' => "",
+                }else{
+                    $totalTruckArray=0; 
+                }
+                if(isset($truckfile)){
+                    $truckDoc=array($truckfile);
+                }else{
+                    $truckDoc=array();
+                }
+                // dd($request);
+            $truckData[]=array(    
+                    '_id' => $totalTruckArray,
+                    'counter' => 0,
+                    'truckNumber' => $request->truck_number,
+                    'truckType' => $request->trucktype,
+                    'licensePlate' => $request->license_plate,
+                    'plateExpiry' => strtotime($request->plate_expiry),
+                    'inspectionExpiry' =>strtotime($request->inspection),
+                    'status' => $request->status,
+                    'ownership' => $request->ownership,
+                    'mileage' => $request->mileage,
+                    'axies' => $request->axies,
+                    'year' => $request->year,
+                    'fuelType' => $request->fuel_type,
+                    'startDate' => strtotime($request->start_date),
+                    'deactivationDate' => strtotime($request->deactivation),
+                    'ifta' => $request->ifta,
+                    'registeredState' => $request->RegisteredState,
+                    'insurancePolicy' => $request->Insurance_Policy,
+                    'grossWeight' => $request->gross,
+                    'vin' => $request->vin,
+                    'dotexpiryDate' => strtotime($request->dot),
+                    'transponder' => $request->transponder,
+                    'internalNotes' => $request->internal_note,
+                    'trucDoc' => $truckDoc,
+                    'insertedTime' => time(),
+                    'insertedUserId' =>Auth::user()->_id,
+                    'edit_by' =>Auth::user()->userName,
+                    'edit_time' =>'',
+                    'deleteStatus' => "NO",
+                    'deleteUser' => "",
+                    'deleteTime' => "",
                         
-    //             );
-    //             if($getTruck){
-    //                 $truckArray=$getTruck->truck;
-    //                 Truckadd::where(['companyID' =>$companyID ])->update([
-    //                     'counter'=> $totalTruckArray+1,
-    //                     'truck' =>array_merge($truckArray,$truckData) ,
-    //                 ]);
+                );
+                if($getTruck){
+                    $truckArray=$getTruck->truck;
+                    Truckadd::where(['companyID' =>$companyID ])->update([
+                        'counter'=> $totalTruckArray+1,
+                        'truck' =>array_merge($truckArray,$truckData) ,
+                    ]);
 
-    //                 $data = [
-    //                     'success' => true,
-    //                     'message'=> 'Truck added successfully'
-    //                 ] ;
+                    $data = [
+                        'success' => true,
+                        'message'=> 'Truck added successfully'
+                    ] ;
                     
-    //                 return response()->json($data);
-    //             }else{
-    //                 if(Truckadd::create([
-    //                     '_id' => new ObjectId(),
-    //                     'companyID' => $companyID,
-    //                     'counter' => $totalTruckArray+1,
-    //                     'truck' => $truckData,
-    //                 ])) {
-    //                     $data = [
-    //                         'success' => true,
-    //                         'message'=> 'Truck added successfully'
-    //                         ] ;
-    //                         return response()->json($data);
-    //                 }
-    //             }
-    //     } 
-    //     catch(\Exception $error){
-    //         return $error->getMessage();
-    //     }
+                    return response()->json($data);
+                }else{
+                    if(Truckadd::create([
+                        '_id' => new ObjectId(),
+                        'companyID' => $companyID,
+                        'counter' => $totalTruckArray+1,
+                        'truck' => $truckData,
+                    ])) {
+                        $data = [
+                            'success' => true,
+                            'message'=> 'Truck added successfully'
+                            ] ;
+                            return response()->json($data);
+                    }
+                }
+        } 
+        catch(\Exception $error){
+            return $error->getMessage();
+        }
     
 
 
 
 
-
-    $collection = $db->truck_add;
-        $criteria = array(
-           'companyID' => (int)$_SESSION['companyId'],
-        );
-        $doc = $collection->findOne($criteria);
-        $masterID = $doc['_id'];
-            if (!empty($doc)) {
-                $cons = array(
-                    '_id' => $helper->getMasterDocumentSequence((int)$_SESSION['companyId'], $db->truck_add,'truck'),
-                    'truckType' => $this->truckType,
-                    'counter' => 0,
-                    'created_by' => $_SESSION['userName'],
-                    'created_time' => time(),
-                    'deleteStatus' => "NO",
-                    'deleteUser' => "",
-                    'deleteTime' => "",
-                );
-                $query = $db->truck_add->updateOne(['companyID' => (int)$_SESSION['companyId']], ['$push' => ['truck' => $cons]]);
-                if($query){
-                    $cons['masterID'] = $masterID;
-                     echo json_encode($cons);
-                }else{
-                    $msg = "error";
-                    echo json_encode($msg);
-                }
-            } else {
-                $id = $helper->getNextSequence("trucktypecount", $db);
-                $this->setId($id);
-                $truck = iterator_to_array($truck);
-                $query = $db->truck_add->insertOne($truck);
-                if($query){
-                    $masterID = $truck['_id'];
-                    $cons["truck"][0]['masterID'] = $masterID;
-                    $cons['status'] = array('message' => "Truck added successfully.","status" => "remaining");
-                    echo json_encode($cons["truck"][0]);
-                }else{
-                    $msg = "error";
-                    echo json_encode($msg);
-                }  
-            }
        
     }
 
     public function edit_truck(Request $request)
     {
-        $id=$request->id;
-        $companyID=(int)$request->companyID;
-        // dd($companyID);
-        $truckData=Truckadd::where("companyID",$companyID)->first();
-        $truckArray=$truckData->truck;
-        $truckLenght=count($truckArray);
-        $i=0;
-        $v=0;
-        for($i=0; $i<$truckLenght; $i++)
+        $id=(int)$request->id;
+        $companyID=(int)Auth::user()->companyID;
+        $cursor = Truckadd::raw()->findOne(['companyID' => $companyID,'truck._id' => $id]);
+        // dd($cursor);
+        $truckArray=$cursor->truck;
+        $truckLength=count($truckArray);
+        $l=0;
+        $m=0;
+        for($l=0; $l<$truckLength; $l++)
         {
-            $ids=$truckData->truck[$i]['_id'];
+            $ids=$cursor->truck[$l]['_id'];
             $ids=(array)$ids;
             foreach($ids as $value)
             {
-                if($value == $id)
+                if($value==$id)
                 {
-                    $v= $i;
+                    $m=$l;
                 }
             }
-        }
-        $truckData->truck= $truckArray[$v];
-        return response()->json($truckData); 
+        }   
+        $truck=(array)$cursor->truck[$m];
+        // dd($truck);
+        return response()->json($truck, 200, [], JSON_PARTIAL_OUTPUT_ON_ERROR);
+        // dd($id);
+        // $truckData=Truckadd::where("companyID",$companyID)->first();
+        // $truckArray=$truckData->truck;
+        // $truckLenght=count($truckArray);
+        // $i=0;
+        // $v=0;
+        // for($i=0; $i<$truckLenght; $i++)
+        // {
+        //     $ids=$truckData->truck[$i]['_id'];
+        //     $ids=(array)$ids;
+        //     foreach($ids as $value)
+        //     {
+        //         if($value == $id)
+        //         {
+        //             $v= $i;
+        //         }
+        //     }
+        // }
+        // $truckData= $truckData->$truckArray[$v];
+        // dd($truckData);
+        // return response()->json($truckData); 
     }
     public function update_truck(Request $request)
     {
@@ -362,7 +338,7 @@ class TruckController extends Controller
           catch(\Exception $error){
               return $error->getMessage();
           }  
-        $companyID=(int)$request->companyID;
+        $companyID=(int)Auth::user()->companyID;
         $id=$request->id;
         $truckData=Truckadd::where('companyID',$companyID)->first();
         $truckArray=$truckData->truck;
@@ -427,75 +403,52 @@ class TruckController extends Controller
     }
     public function delete_truck(Request $request)
     {
-        $id=$request->id;
-        $companyID=(int)$request->companyID;
-        $truckData=Truckadd::where('companyID',$companyID)->first();
-        $truckArray=$truckData->truck;
-        $arrayLength=count($truckArray);
-        $i=0;
-        $v=0;
-       for ($i=0; $i<$arrayLength; $i++){
-            $ids=$truckData->truck[$i];
-            foreach ($ids as $value){
-                if($value==$id)
-                {
-                    $v=$i;
-                }
-            }
-        }
-        $truckArray[$v]['deleteStatus'] = "YES";
-        $truckData->truck= $truckArray;
-        if($truckData->save())
+        $id=(int)$request->id;
+        $masterId=(int)$request->companyID;
+        $companyID=(int)Auth::user()->companyID;
+        $truck=Truckadd::raw()->updateOne(['companyID' => $companyID,'_id' => $masterId,'truck._id' =>  $id], 
+        ['$set' => ['truck.$.deleteStatus' => 'YES','truck.$.deleteUser' => Auth::user()->userName,'truck.$.deleteTime' => time()]]
+        );
+        if($truck==true)
         {
-         $arr = array('status' => 'success', 'message' => 'Truck Deleted successfully.','statusCode' => 200); 
-         return json_encode($arr);
+            $arr = array('status' => 'success', 'message' => 'truck deleted successfully.','statusCode' => 200); 
+            return json_encode($arr);
         }
+    
     }
     public function restore_truck(Request $request)
     {
         $truck_get_ids=$request->all_ids;
         $custID=(array)$request->custID;
-        foreach($custID as $truck_ids)
+        $companyID=(int)Auth::user()->companyID;
+        foreach($custID as $company_id)
         {
-            $truck_ids=str_replace( array( '\'', '"',
-            ',' , ' " " ', '[', ']' ), ' ', $truck_ids);
-            $truck_ids=(int)$truck_ids;
-            $truckData = Truckadd::where('companyID',$truck_ids )->first();
-            $truckArray=$truckData->truck;
-            $arrayLength=count($truckArray);            
-            $i=0;
-            $v=0;
-            $data=array();
-            for ($i=0; $i<$arrayLength; $i++){
-                $ids=$truckData->truck[$i]['_id'];
-                $ids=(array)$ids;
-                foreach ($ids as $value){
-                    $truck_get_ids= str_replace( array('[', ']'), ' ', $truck_get_ids);
-                    if(is_string($truck_get_ids))
-                    {
-                        $truck_get_ids=explode(",",$truck_get_ids);
-                    }
-                    foreach($truck_get_ids as $tr_ids_ch)
-                    {
-                        $tr_ids_ch= str_replace( array('"', ']' ), ' ', $tr_ids_ch);
-                        if($value==$tr_ids_ch)
-                        {                        
-                            $data[]=$i; 
-                        }
-                    }
-                }
-            }
-            foreach($data as $row)
+            $company_id=str_replace( array( '\'', '"',
+            ',' , ' " " ', '[', ']' ), ' ', $company_id);
+            $masterId=(int)$company_id;
+            $truck_get_ids= str_replace( array('[', ']'), ' ', $truck_get_ids);
+            if(is_string($truck_get_ids))
             {
-                $truckArray[$row]['deleteStatus'] = "NO";
-                $truckData->truck= $truckArray;
-                $save=$truckData->save();
+                $truck_get_ids=explode(",",$truck_get_ids);
             }
-            if ($save) {
-                $arr = array('status' => 'success', 'message' => 'Truck Restored successfully.','statusCode' => 200); 
-                return json_encode($arr);
+            // dd((int)$truck_get_ids);
+            foreach($truck_get_ids as $r)
+            {
+                $r=str_replace( array( '\'', '"',
+                ',' , ' " " ', '[', ']' ), ' ', $r);
+                $r = preg_replace('/\s+/', ' ', $r);
+                $Truckadd=Truckadd::raw()->updateOne(['companyID' =>$companyID,'_id' => $masterId,'truck._id' => (int)$r], 
+                ['$set' => ['truck.$.deleteStatus' => 'NO','truck.$.deleteUser' => Auth::user()->userName,'truck.$.deleteTime' => time()]]
+                ); 
             }
+           
         }
+        if($Truckadd==true)
+        {
+            $arr = array('status' => 'success', 'message' => 'Truck Restored successfully.','statusCode' => 200); 
+            return json_encode($arr);
+        }
+       
     }
     public function create_truckType(Request $request)
     {

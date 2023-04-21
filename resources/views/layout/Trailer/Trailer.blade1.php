@@ -12,7 +12,7 @@
     <!-- The Modal -->
     <div class="modal fade" data-backdrop="static" id="TrailerModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
-            <div class="modal-content" >
+            <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -110,17 +110,16 @@
 
 </div>
 
+
  <!-- ============ start addTrailerModal================ -->
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="addTrailerModal" role="dialog">
         <div class="modal-dialog custom_modal" role="document">
-            <div class="modal-content" style="
-    height: 500px;
-">
+            <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add Trailer</h4>
-                    <button type="button" class="closeAddTrailerModal button-24" >&times;</button>
+                    <button type="button"  class="closeAddTrailerModal button-24" >&times;</button>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -352,12 +351,10 @@
 <div class="container">
     <div class="modal fade" data-backdrop="static" id="editTrailerModal" role="dialog">
         <div class="modal-dialog custom_modal" role="document">
-            <div class="modal-content" style="
-    height: 500px;
-">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Edit Trailer</h4>
-                    <button type="button" class="closeEditTrailerModal button-24" >&times;</button>
+                    <button type="button" class="closeEditTrailerModal" >&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -502,10 +499,31 @@
 
                 <div style="margin-top: 15px; margin-left: 15px;">
                     <input type="hidden" name="trailer_id" id="checked_trailer__ids" value="">
-                    <input type="hidden" name="master_ids" id="trailer_restore_masterId" value="">
-                    <button id="restore_trailer_data"  class="button-29 restore_trailer_data" disabled><span>Restore</span></button>
+                    <button id="restore_trailer_data"  class=" restore_trailer_data buttom-29" style="position: relative;
+    overflow: hidden;
+    border: transparent;
+    color: #fff;
+    display: inline-block;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+    padding: 10px 0px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #1b71bc;
+    /* background: linear-gradient(272deg, #00b5fd 0%, #0047b1 100%); */
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-weight: 600;
+    width: 115px;
+}
+
+.button-29 {" disabled><span>Restore</span></button>
 
                 </div>
+                <div >
                 <div class="table-responsive table-scroll">
                  <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
                   <thead class="thead_th" style="height:40px;">
@@ -525,9 +543,9 @@
                                                         <th>DOT Expiry Date	</th>
                                                         <th>Activation Date	</th>
                                                         <th>Internal Notes	</th>
-                                                                </tr>
+</tr>
                   </thead>
-                  <tbody id="Restoretrailer_tbl" class="load-box RestoreshipperTable"></tbody>
+                  <tbody id="Restoretrailer_tbl" class="load-box"></tbody>
                 </table>
               </div>
                 <!-- <div class="modal-body" style="overflow-y: auto !important;">

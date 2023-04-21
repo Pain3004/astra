@@ -74,16 +74,21 @@
         <div class="modal-dialog custom_modal_small modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title">Add Customer</h>
+                    <h6 class="modal-title">Add Customer </h>
+                    <ul class="nav nav-tabs">
+                            <li><a style="
+    margin-top: 10px;
+"class="button-57_alt button-58_alt add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
+                            <li  ><a  style="
+    margin-top: 10px; margin-left: 10px;
+" data-toggle="tab" href="#addAdvanceCustomerTab" class="button-57_alt button-58_alt advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
+                        </ul>
                     <!-- <button type="button" class="button-24 closeaddCustomerModal" data-dismiss="modal">×</button> -->
                 </div>
                 <div class="modal-body" style="overflow-y: auto !important;">
                     
                     <div class="container">
-                        <ul class="nav nav-tabs">
-                            <li><a class="button-57_alt button-58_alt add_customer_btn" data-toggle="tab" href="#addCustomerTab" >Add Customer</a></li>
-                            <li  ><a data-toggle="tab" href="#addAdvanceCustomerTab" class="button-57_alt button-58_alt advanceTabCustomer" style="margin-left: 5px;">Add Advance</a></li>
-                        </ul>
+                        
                         <div class="tab-content">
                             <div id="addCustomerTab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab"  data-name="fillextdata">
                                 <form>
@@ -763,7 +768,7 @@
                         @csrf -->
                         <input type="hidden" name="checked_id" id="checked_customer_ids" value="">
                         <input type="hidden" name="company_id" id="checked_company_ids" value="">
-                        <button id="restore_customer_data"  class="button-57_alt restore_customer_data" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore Customer</span></button>
+                        <button id="restore_customer_data"  class="button-29 restore_customer_data" disabled><span>Restore Customer</span></button>
                     <!-- </form>  -->
                     <!-- <button   class="button-57_alt " ><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore Customer</span></button> -->
                 </div>                

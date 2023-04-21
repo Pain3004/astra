@@ -12,13 +12,11 @@
     <div class="modal fade" data-backdrop="static" id="FuelCardModal">
         <div class="modal-dialog modal-dialog-scrollable custom_modal">
             <div class="modal-content">
-
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Fuel Card</h4>
                     <button type="button" class="button-24 fuelCardClose" >&times;</button>
                 </div>
-
                 <div style="margin-top: 15px; margin-left: 15px;">
                     @if($insertUser== 1)
                         <a href="#" class="button-57_alt AddFuelCardFormModal" ><i class="fa fa-plus" aria-hidden="true"></i><span>Add Fuel Card </span></a>
@@ -98,23 +96,22 @@
                     @csrf
                     <input type="hidden" name="_token" id="_token_addFuelCards" value="{{ csrf_token() }}" />
                     <div class="form-group col-md-12">
-                        <label>Card Holder Name<span style="color:#ff0000">*</span></label>
-                        <div class="card_holder_js_select">
-                        <select  class='form-control fuel_drive_change cardHolderName addFuel_Card_holder_name single_selectFuelCard' name="cardHolderName" id='single'> 
-                        </select>
+                        <label for="">Card Holder Name  <span style="color:#ff0000">*</span> </label>
+                        <div class="dropdown show">
+                            <input list="card_Holder" placeholder="Search here..."  class="form-control  addFuel_Card_holder_name "  name="" onkeyup="doSearch(this.value,'card_Holder')" autocomplete="off">
+                            <datalist id="card_Holder"></datalist>
                         </div>
-                        <label>Employee No<span style="color:#ff0000">*</span></label>
                         <div>
-                            <input type= "text" class="form-control addFuelCard_employe "  name="employeeNo" readonly required />
+                            <input type= "hidden" class="form-control addFuelCard_employe "  name="employeeNo" readonly required />
                         </div>
                         <label>IFTA Card Number<span style="color:#ff0000">*</span></label>
                         <div>
                             <input  class="form-control add_IFTA_Card_Number " type="number" name="iftaCardNumber" required />
                         </div>
-                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_card_type_new "  data-toggle="modal"  style="cursor:pointer;color:blue;"></span> </label>
-                        <div>
-                            <select  class="selectpicker search_select form-control card_vendor_type single_selectFuelCard add_Fuel_Card_Type" id="card_vendar_addData" data-live-search="true" name="fuelCardType" required > 
-                            </select>
+                        <label for="">Card Type <span style="color:#ff0000">*</span></label>
+                        <div class="dropdown show">
+                            <input list="card_type" placeholder="Search here..."  class="form-control  add_Fuel_Card_Type " id="card_vendar_addData"  name="" onkeyup="doSearch(this.value,'card_type')" autocomplete="off">
+                            <datalist id="card_type"></datalist>
                         </div>
                     </div>
                 </form>
@@ -145,26 +142,20 @@
                     <input type="hidden" name="_token" id="_tokenEdit_fuel_card" value="{{ csrf_token() }}" />
                     <input type="hidden" name="fuel_card_id"  class="fuel_card_id_edit">
                     <input type="hidden" name="company_id" class="fuel_card_company_id">
-                    <div class="form-group col-md-12">
-                        <label>Card Holder Name<span style="color:#ff0000">*</span></label>
-                        <div class="card_holder_js_select">
-                        <select class='form-control fuel_drive_change  cardHolderName updateFuel_Card_holder_name updateSingleFuelCard' name="cardHolderName" > 
-                            <option> select  one</option>
-                        </select>
-                        </div>
-                        <label>Employee No<span style="color:#ff0000">*</span></label>
-                        <div>
-                            <input type= "text" class="form-control updateFuelCard_employe "  name="employeeNo" readonly required />
+                    <div class="form-group col-md-12">                         
+                        <label for="">Card Holder Name <span style="color:#ff0000">*</span>  </label>
+                        <div class="dropdown show">
+                            <input list="update_cardHolder" placeholder="Search here..."  class="form-control  updateFuel_Card_holder_name "  name="" onkeyup="doSearch(this.value,'update_cardHolder')" autocomplete="off">
+                            <datalist id="update_cardHolder"></datalist>
                         </div>
                         <label>IFTA Card Number<span style="color:#ff0000">*</span></label>
                         <div>
                             <input  class="form-control update_IFTA_Card_Number " type="number" name="iftaCardNumber" required />
                         </div>
-                        <label>Card Type<span style="color:#ff0000">*</span> <span class="glyphicon glyphicon-plus-sign create_fuel_card_type_new "  data-toggle="modal"  style="cursor:pointer; color:blue;"></span> </label>
-                        <div>
-                            <select  class="form-control card_vendor_type update_Fuel_Card_Type updateSingleFuelCard"  name="fuelCardType" required > 
-                                <option> Select one</option>
-                            </select>
+                        <label for="">Card Type <span style="color:#ff0000">*</span></label>
+                        <div class="dropdown show">
+                            <input list="update_card_type" placeholder="Search here..."  class="form-control  update_Fuel_Card_Type " id="card_vendar_addData"  name="" onkeyup="doSearch(this.value,'update_card_type')" autocomplete="off">
+                            <datalist id="update_card_type"></datalist>
                         </div>
                     </div>
                 </form>

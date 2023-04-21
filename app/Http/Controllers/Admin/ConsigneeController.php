@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ConsigneeController extends Controller
 {
-    public function getConsignee()
+    public function getConsignee(Request $request)
     {
         $companyID=(int)Auth::user()->companyID;
         $total_records = 0;
@@ -41,9 +41,25 @@ class ConsigneeController extends Controller
         {
             for ($i = 0; $i < sizeof($paginate[0][0][0]); $i++) 
             {
-                $docid= $paginate[0][0][0][$i]['doc'];
-                $end=$paginate[0][0][0][$i]['end'];
-                $start=$paginate[0][0][0][$i]['start'];
+                $pagina_data= str_replace( array('"',":"," " ,"doc",'start',"end", ']','[','{','}' ), ' ', $request->arr);
+                $pagina_data=explode(",",$pagina_data);
+                // dd($docarray);
+                
+                if(!empty($request->arr))
+                {
+                    $docid=preg_replace('/\s+/',"", $pagina_data[0]);
+                    $start=preg_replace('/\s+/',"",$pagina_data[1]);
+                    $end=preg_replace('/\s+/',"",$pagina_data[2]);
+                   $docid=intval($docid);
+                   $start=intval($start);
+                   $end=intval($end);
+                }
+                else
+                {
+                    $docid= $paginate[0][0][0][$i]['doc'];
+                    $end=$paginate[0][0][0][$i]['end'];
+                    $start=$paginate[0][0][0][$i]['start'];
+                }
                 $show1 = Consignee::raw()->aggregate([
                     ['$match' => ["companyID" => $companyID, "_id" => $docid]],
                     ['$project' => ["companyID" => $companyID,"consignee" => ['$slice' => ['$consignee',$end,$start - $end]]]]
@@ -251,8 +267,7 @@ class ConsigneeController extends Controller
     {
         $shipIds=$request->all_ids;
         $custID=(array)$request->custID;
-        $companyID=Auth::user()->companyID;
-        
+        $companyID=(int)Auth::user()->companyID;
         foreach($custID as $company_id)
         {
             $company_id=str_replace( array( '\'', '"',
@@ -263,39 +278,80 @@ class ConsigneeController extends Controller
             {
                 $shipIds=explode(",",$shipIds);
             }
-            // echo $masterId;
-            foreach($shipIds as $ji)
+            $cursor = Consignee::raw()->findOne(['companyID' => $companyID,'_id'=>$masterId,'consignee._id' => (int)$shipIds]);
+            $ShipperArray=$cursor->consignee;
+            $ShipperLength=count($ShipperArray);
+            $i=0;
+            $v=0;
+            $data=array();
+            for($i=0; $i<$ShipperLength; $i++)
             {
-                $cursor = Consignee::raw()->findOne(['companyID' => $companyID,'_id'=>$masterId,'consignee._id' => (int)$ji]);
-                $ConsigneeArray=$cursor->consignee;
-                $ConsigneeLength=count($ConsigneeArray);
-                $i=0;
-                $v=0;
-                $data=array();
-                for($i=0; $i<$ConsigneeLength; $i++)
+                $ids=$cursor->consignee[$i]['_id'];
+                $ids=(array)$ids;
+                foreach($ids as $value)
                 {
-                    $ids=$cursor->consignee[$i]['_id'];
-                    $ids=(array)$ids;
-                    foreach($ids as $value)
+                   
+                    foreach($shipIds as $shiper_ids)
                     {
-                    
-                        foreach($shipIds as $shiper_ids)
-                        {
-                            $shiper_ids= str_replace( array('"', ']' ), ' ', $shiper_ids);
-                            if($value==$shiper_ids)
-                            {                        
-                                // $data[]=$i;
-                                $Shipper=Shipper::raw()->updateOne(['companyID' =>$companyID,'_id' => $masterId,'consignee._id' => (int)$ji], 
-                                ['$set' => ['consignee.$.deleteStatus' => 'NO','consignee.$.deleteUser' => Auth::user()->userName,'consignee.$.deleteTime' => time()]]
-                            ); 
-                            }
+                        $shiper_ids= str_replace( array('"', ']' ), ' ', $shiper_ids);
+                        if($value==$shiper_ids)
+                        {                        
+                            // $data[]=$i;
+                            $Shipper=Consignee::raw()->updateOne(['companyID' =>$companyID,'_id' => $masterId,'consignee._id' => (int)$shiper_ids], 
+                            ['$set' => ['consignee.$.deleteStatus' => 'NO','consignee.$.deleteUser' => Auth::user()->userName,'consignee.$.deleteTime' => time()]]
+                        ); 
                         }
                     }
                 }
             }
             
-                $arr = array('status' => 'success', 'message' => 'Consignee Restored successfully.','statusCode' => 200); 
-            return json_encode($arr);
+                $arr = array('status' => 'success', 'message' => 'consignee Restored successfully.','statusCode' => 200); 
+                return json_encode($arr);
             }
+        // dd($shipIds);
+        // foreach($custID as $company_id)
+        // {
+        //     $company_id=str_replace( array( '\'', '"',
+        //     ',' , ' " " ', '[', ']' ), ' ', $company_id);
+        //     $masterId=(int)$company_id;
+        //     $shipIds= str_replace( array('[', ']'), ' ', $shipIds);
+        //     if(is_string($shipIds))
+        //     {
+        //         $shipIds=explode(",",$shipIds);
+        //     }
+        //     // echo $masterId;
+        //     foreach($shipIds as $ji)
+        //     {
+        //         $cursor = Consignee::raw()->findOne(['companyID' => $companyID,'_id'=>$masterId,'consignee._id' => (int)$ji]);
+        //         $ConsigneeArray=$cursor->consignee;
+        //         $ConsigneeLength=count($ConsigneeArray);
+        //         $i=0;
+        //         $v=0;
+        //         $data=array();
+        //         for($i=0; $i<$ConsigneeLength; $i++)
+        //         {
+        //             $ids=$cursor->consignee[$i]['_id'];
+        //             $ids=(array)$ids;
+        //             foreach($ids as $value)
+        //             {
+                    
+        //                 foreach($shipIds as $shiper_ids)
+        //                 {
+        //                     $shiper_ids= str_replace( array('"', ']' ), ' ', $shiper_ids);
+        //                     if($value==$shiper_ids)
+        //                     {                        
+        //                         // $data[]=$i;
+        //                         $Shipper=Shipper::raw()->updateOne(['companyID' =>$companyID,'_id' => $masterId,'consignee._id' => (int)$shiper_ids], 
+        //                         ['$set' => ['consignee.$.deleteStatus' => 'NO','consignee.$.deleteUser' => Auth::user()->userName,'consignee.$.deleteTime' => time()]]
+        //                     ); 
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+            
+        //         $arr = array('status' => 'success', 'message' => 'Consignee Restored successfully.','statusCode' => 200); 
+        //     return json_encode($arr);
+        //     }
         }
 }

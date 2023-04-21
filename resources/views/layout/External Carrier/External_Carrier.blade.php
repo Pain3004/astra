@@ -2,6 +2,23 @@
     .table td {
         padding: 0.1rem;
     }
+    .form-group {
+    margin-bottom: 0.1rem;
+}
+/* p {
+    margin-top: 0;
+    margin-bottom: 0.1rem;
+} */
+.label{
+    margin-top: 0.1rem;
+}
+.card-header{
+    height: 50px;
+}
+/* .card-body{
+    height: 125px;
+} */
+
     </style>
 
 <!---=========================== External Carrier modal =================================-->
@@ -86,9 +103,11 @@
 
 
 <div class="container">
-    <div class="modal fade" data-backdrop="static" id="AddExternalCarrier">
+    <div class="modal fade" data-backdrop="static" id="AddExternalCarrier" style="backdrop-filter: blur(1px) contrast(.1);">
         <div class="modal-dialog modal-dialog-scrollable custom_modal_small">
-            <div class="modal-content">
+            <div class="modal-content" style="
+    height: 700px;
+">
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Add External Carrier </h4>
@@ -259,12 +278,12 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <p style="font-weight: bold;">Blacklisted</p>
+                                        <p style="font-weight: bold; margin-bottom: 0px; ">Blacklisted</p>
                                         <input type="checkBox" name="carrierBlacklisted" id="carrierBlacklisted">
                                         <lable for="inputBlacklist">This Carrier is Blacklisted</lable>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <p style="font-weight: bold;">Corporation</p>
+                                        <p style="font-weight: bold; margin-bottom: 0px; ">Corporation</p>
                                         <input type="checkBox" name="carrierCorporation" id="carrierCorporation">
                                         <lable for="inputCorporation">This Carrier is a corporation</lable>
                                     </div>
@@ -342,7 +361,9 @@
                                                     placeholder="Enter Internal Notes"></textarea>
                                             </div>
                                         </div>
-                                        <div class="card-header">
+                                        <div class="card-header" style="
+    margin-top: 20px;
+" >
                                             Auto Mobile Insurer
                                             <div class="form-group col-md-3">
                                                 <label></label>
@@ -890,7 +911,7 @@
                 <div style="margin-top: 15px; margin-left: 15px;">
                     <input type="hidden" name="checked_id" id="checked_externalCarrier" value="">
                     <input type="hidden" name="company_id" id="checked_externalCarrier_company_ids" value="">
-                    <button id="restore_externalCarrierData"  class="button-57_alt restore_externalCarrierData" disabled><i class="fa fa-repeat" aria-hidden="true"></i><span>Restore </span></button>
+                    <button id="restore_externalCarrierData"  class="button-29 restore_externalCarrierData" disabled ><span>Restore </span></button>
                 </div>
                 <div class="table-responsive table-scroll">
                  <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 

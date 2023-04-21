@@ -12,7 +12,7 @@
     <!-- The Modal -->
     <div class="modal fade" id="truckModal">
         <div class="modal-dialog custom_modal">
-            <div class="modal-content" style="height:85vh;">
+            <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -150,7 +150,6 @@
 
 </div>
 
-
 <!------------------------------------------------------------------- over truck  modal ------------------------------------------------------------------->
 <!------------------------------------------------------------------  add driver modal ------------------------------------------------------------------>
 
@@ -159,10 +158,10 @@
 
     <div class="modal fade" data-backdrop="static" id="addTruckModal" role="dialog">
         <div class="modal-dialog custom_modal" role="document">
-            <div class="modal-content" style="height:600px">
+            <div class="modal-content">
                 <div class="modal-header">
                         <h4 class="modal-title">Add Truck</h4>
-                        <button type="button" class="button-24 closeAddTruckModal" >&times;</button>
+                        <button type="button" style=""background-color:red; class="closeAddTruckModal" >&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -431,12 +430,12 @@
 <!--======================================== edit truck modal start ======================== -->
 
 
-<div class="modal fade" data-backdrop="static" id="editTruckModal"  role="dialog">
+<div class="modal fade" data-backdrop="static" id="editTruckModal" role="dialog">
     <div class="modal-dialog custom_modal" role="document">
-        <div class="modal-content" style="height:600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Edit Truck</h4>
-                <button type="button" class="button-24 closeEditTruckModal" >&times;</button>
+                <button type="button" class="closeEditTruckModal" >&times;</button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -635,12 +634,12 @@
     <!-- The Modal -->
     <div class="modal fade" id="restoretruckModal">
         <div class="modal-dialog custom_modal">
-            <div class="modal-content" style="height:600px;">
+            <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Restore Truck</h4>
-                    <button type="button"  class="closeRestoreTruck button-24" >&times;</button>
+                    <button type="button" style="background-color:red;" class="closeRestoreTruck button-24" >&times;</button>
                 </div>
                 <div style="margin-top: 15px; margin-left: 15px;">
                         <input type="hidden" name="checked_id" id="checked_truck_ids" value="">
@@ -648,41 +647,8 @@
                         <button id="restore_truck_data"  class="button-29 restore_truck_data" disabled><span>Restore Truck</span></button>
                 </div> 
                 <!-- Modal body -->
-                <div class="table-responsive table-scroll">
-                 <table class="table dataTable no-footer" style="border-spacing: 3px;border-collapse: unset !important;"> 
-                  <thead class="thead_th" style="height:40px;">
-                  <tr class="tr">
-                  <th>  <input type="checkbox" name="all_truck_checked[]" class="all_truck_checkbox"> </th>
-                                                        
-                                                        <th>Truck</th>
-                                                        <th>Truck Type</th>
-                                                        <th>License Plate</th>
-                                                        <th>Plate Expiry</th>
-                                                        <th> Inspection Expiration</th>
-                                                        <th>Status</th>
-                                                        <th>Ownership</th>
-                                                        <th>Mileage</th>
-                                                        <th>Axles</th>
-                                                        <th> Year</th>
-                                                        <th> Fuel Type</th>
-                                                        <th>Start Date </th>
-                                                        <th>Deactivation Date </th>
-                                                        <th> IFTA Truck</th>
-                                                        <th> Registered State</th>
-                                                        <th> Insurance Policy</th>
-                                                        <th> Empty/Gross Weight</th>
-                                                        <th> VIN</th>
-                                                        <th>DOT Expiry Date</th>
-                                                        <th>Transponder></th>
-                                                        <th>Internal Notes </th>
-                                                       
-                            </tr>
-                  </thead>
-                  <tbody id="restoretruckTable" class="load-box"></tbody>
-                </table>
-              </div>
-                <!-- <div class="modal-body">
-                   
+                <div class="modal-body">
+                    <!-- Row -->
                     <div class="row">
                         <div class="row row-sm">
                             <div class="col-lg-12">
@@ -696,7 +662,7 @@
                                                 <thead  class="thead_th">
                                                     <tr class="th">
                                                         <th>  <input type="checkbox" name="all_truck_checked[]" class="all_truck_checkbox"> </th>
-                                                        
+                                                        <!-- <th>NO</th> -->
                                                         <th>Truck</th>
                                                         <th>Truck Type</th>
                                                         <th>License Plate</th>
@@ -718,7 +684,7 @@
                                                         <th>DOT Expiry Date</th>
                                                         <th>Transponder></th>
                                                         <th>Internal Notes </th>
-                                                       
+                                                        <!-- <th>Action</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody id="restoretruckTable">
@@ -731,7 +697,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="button-29 closeRestoreTruck" >Close</button>                    
                 </div>

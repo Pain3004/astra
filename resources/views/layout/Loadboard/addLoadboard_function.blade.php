@@ -821,6 +821,10 @@ function doSearch(dom, funname, val) {
             searchCustomer(dom, 'browserscustomer');
         } else if (func == 'browsersdispatcher') {
             searchUser(dom, 'browsersdispatcher');
+          }else if (func == 'customeDrowpuserlist') {
+            searchUser(dom, 'customeDrowpuserlist');
+        }else if (func == 'updatecustomeDrowpuserlist') {
+            searchUser(dom, 'updatecustomeDrowpuserlist');
         } else if (func == 'browsersloadtype') {
             searchLoadtype(dom, 'browsersloadtype');
         } else if (func == 'browsersequipment') {
@@ -839,7 +843,19 @@ function doSearch(dom, funname, val) {
             searchTruck(dom, 'browsers1truck');
         } else if (func == 'browserstrailer1') {
             searchTrailer(dom, 'browserstrailer1');
-        } 
+        } else if (func == 'customerAddFac') {
+          searchFactring(dom, 'customerAddFac');
+        }  else if (func == 'updatecustomerAddFac') {
+          searchFactring(dom, 'updatecustomerAddFac');
+        }else if (func == 'card_Holder') {
+            searchDriver(dom, 'card_Holder')
+        }else if (func == 'update_cardHolder') {
+            searchDriver(dom, 'update_cardHolder')
+        }else if (func == 'card_type') {
+            searchFuelVendor(dom, 'card_type')
+        }else if (func == 'update_card_type') {
+            searchFuelVendor(dom, 'update_card_type')
+        }
     }, 600); 
 }
 

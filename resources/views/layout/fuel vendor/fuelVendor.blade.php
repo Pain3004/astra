@@ -43,8 +43,8 @@
 
                                 <div class="table-responsive export-table">
                                     <table id="FuelVendorDataTable" class="table editable-table table-nowrap table-bordered table-edit wp-100 customtable">
-                                        <thead class="thead_th">
-                                            <tr class="tr">
+                                        <thead>
+                                            <tr>
                                                 <th>NO</th>
                                                 <th>Name</th>
                                                 <th>Opening Date</th>
